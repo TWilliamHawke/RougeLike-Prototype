@@ -1,0 +1,4 @@
+interface INeedInit
+{
+    void Init();
+}
