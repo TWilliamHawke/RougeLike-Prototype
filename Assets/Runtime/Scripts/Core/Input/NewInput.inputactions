@@ -1,0 +1,60 @@
+{
+    "name": "NewInput",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "80eeb649-f17f-4181-9b27-e0cecd859354",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "e1b7f3ed-a348-4a50-9e38-413a94b9fef5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5d9df1a6-2742-4a92-b458-44299c77b31d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "eed3c426-dde9-4260-8009-e2bd8b076bef",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "413e866a-ab0f-4bc2-870c-8aa731d34237",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "66771ce9-e08a-4163-a13a-064b25dbc529",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

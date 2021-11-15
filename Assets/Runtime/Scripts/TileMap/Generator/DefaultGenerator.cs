@@ -133,9 +133,21 @@ namespace Map.Generator
 
             CreateNeightbors(_startCell);
 
-            foreach (var cell in _grid)
+            for(int x = 0; x <= _grid.GetUpperBound(0); x++)
             {
-                CreatePolygon(cell);
+                for(int y = 0; y <= _grid.GetUpperBound(1); y++)
+                {
+                    var cell = _grid[x,y];
+                    if(cell == null) continue;
+
+                    if(!cell.hasChildren)
+                    {
+                        CreateHall(ref cell);
+                    }
+
+                    CreatePolygon(cell);
+
+                }
             }
 
         }
@@ -171,6 +183,9 @@ namespace Map.Generator
             _neightborsCount++;
 
             var cell = CreateCell(x, y, parentCell);
+            parentCell.hasChildren = true;
+
+
             if (_rng.Next(0, 99) < CHANCE_CREATE_HALL)
             {
                 CreateHall(ref cell);
@@ -181,8 +196,6 @@ namespace Map.Generator
             }
 
             return cell;
-
-            //CreateNeightbors(cell);
 
         }
 
@@ -268,6 +281,7 @@ namespace Map.Generator
             public int y2 { get; set; }
             public bool isHall;
             public CellInfo parent { get; set; }
+            public bool hasChildren { get; set; }
         }
     }
 }
