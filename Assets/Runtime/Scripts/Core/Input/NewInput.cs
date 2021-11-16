@@ -69,6 +69,33 @@ namespace Core
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Disabled"",
+            ""id"": ""71854b99-e8fd-4d39-806c-9ea4738b3d63"",
+            ""actions"": [
+                {
+                    ""name"": ""ShowMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""e14b0937-1f2d-4ece-9f96-167d3624c04b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4919e406-998d-4c3f-9457-f6dff84b9fd1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -79,6 +106,9 @@ namespace Core
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
+            // Disabled
+            m_Disabled = asset.FindActionMap("Disabled", throwIfNotFound: true);
+            m_Disabled_ShowMenu = m_Disabled.FindAction("ShowMenu", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -190,6 +220,39 @@ namespace Core
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Disabled
+        private readonly InputActionMap m_Disabled;
+        private IDisabledActions m_DisabledActionsCallbackInterface;
+        private readonly InputAction m_Disabled_ShowMenu;
+        public struct DisabledActions
+        {
+            private @NewInput m_Wrapper;
+            public DisabledActions(@NewInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ShowMenu => m_Wrapper.m_Disabled_ShowMenu;
+            public InputActionMap Get() { return m_Wrapper.m_Disabled; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DisabledActions set) { return set.Get(); }
+            public void SetCallbacks(IDisabledActions instance)
+            {
+                if (m_Wrapper.m_DisabledActionsCallbackInterface != null)
+                {
+                    @ShowMenu.started -= m_Wrapper.m_DisabledActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.performed -= m_Wrapper.m_DisabledActionsCallbackInterface.OnShowMenu;
+                    @ShowMenu.canceled -= m_Wrapper.m_DisabledActionsCallbackInterface.OnShowMenu;
+                }
+                m_Wrapper.m_DisabledActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ShowMenu.started += instance.OnShowMenu;
+                    @ShowMenu.performed += instance.OnShowMenu;
+                    @ShowMenu.canceled += instance.OnShowMenu;
+                }
+            }
+        }
+        public DisabledActions @Disabled => new DisabledActions(this);
         public interface IMainActions
         {
             void OnClick(InputAction.CallbackContext context);
@@ -197,6 +260,10 @@ namespace Core
         public interface IUIActions
         {
             void OnNewaction(InputAction.CallbackContext context);
+        }
+        public interface IDisabledActions
+        {
+            void OnShowMenu(InputAction.CallbackContext context);
         }
     }
 }

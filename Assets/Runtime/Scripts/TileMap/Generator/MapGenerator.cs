@@ -10,9 +10,12 @@ namespace Map.Generator
 	{
 		Tilemap _tileMap;
 		GeneratorConfig _config;
-		Vector3 _playerSpawnPos = Vector3.zero;
+		Vector3Int _playerSpawnPos = Vector3Int.zero;
+		int[,] _intMap;
 
-		public Vector3 playerSpawnPos => _playerSpawnPos;
+		public int[,] intMap => _intMap;
+
+		public Vector3Int playerSpawnPos => _playerSpawnPos;
 
         public MapGenerator(Tilemap tileMap, GeneratorConfig config)
         {
@@ -23,21 +26,19 @@ namespace Map.Generator
         public void StartGeneration()
 		{
 			var generator = new DefaultGenerator(_config);
-			var intMap = generator.Create2dArray();
+			_intMap = generator.Create2dArray();
 
 			_playerSpawnPos = generator.GetSpawnPoint();
 
-			for (int x = 0; x <= intMap.GetUpperBound(0); x++)
+			for (int x = 0; x <= _intMap.GetUpperBound(0); x++)
 			{
-				for(int y = 0; y <= intMap.GetUpperBound(1); y++)
+				for(int y = 0; y <= _intMap.GetUpperBound(1); y++)
 				{
 					var position = new Vector3Int(x,y,0);
-					_tileMap.SetTile(position, _config.tiles[intMap[x,y]]);
+					_tileMap.SetTile(position, _config.tiles[_intMap[x,y]]);
 				}
 			}
 
-
-			Debug.Log("array created");
 		}
 
 	}

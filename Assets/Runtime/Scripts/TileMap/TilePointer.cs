@@ -16,25 +16,18 @@ namespace Map
 
         public void Subscribe()
         {
-            _input.main.Click.started += ShowTile;
             _input.OnHoveredTileChange += ChangePosition;
             _sprite.color = _defaultColor;
         }
 
         void OnDestroy()
         {
-            _input.main.Click.started -= ShowTile;
             _input.OnHoveredTileChange -= ChangePosition;
         }
 
         void ChangePosition(Vector3Int position)
         {
             transform.position = transform.position.ChangeXYFrom(position);
-        }
-
-        void ShowTile(InputAction.CallbackContext context)
-        {
-            Debug.Log("Click;");
         }
 
     }

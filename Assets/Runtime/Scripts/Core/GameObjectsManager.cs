@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using PlayerScripts;
+using Entities.PlayerScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

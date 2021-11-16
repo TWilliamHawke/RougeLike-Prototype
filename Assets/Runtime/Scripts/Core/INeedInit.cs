@@ -1,4 +1,4 @@
 interface INeedInit
 {
-    void Init();
+    void StartUp();
 }

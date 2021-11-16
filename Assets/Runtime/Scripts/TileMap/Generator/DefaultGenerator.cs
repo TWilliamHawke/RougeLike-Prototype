@@ -43,12 +43,11 @@ namespace Map.Generator
             return _intMap;
         }
 
-        public Vector3 GetSpawnPoint()
+        public Vector3Int GetSpawnPoint()
         {
-            float x = FindMiddleLine(_startCell.gridX);
-            float y = FindMiddleLine(_startCell.gridY);
-            Debug.Log($"Get spawn point: ({x},{y})");
-            return new Vector3(x, y, 0);
+            int x = FindMiddleLine(_startCell.gridX);
+            int y = FindMiddleLine(_startCell.gridY);
+            return new Vector3Int(x, y, 0);
         }
 
         private void ClearWalls()
@@ -61,12 +60,12 @@ namespace Map.Generator
 
                     if (tileType != 2) continue; //wall check
 
-                    //left and right tiles are walkable
+                    //if left and right tiles are walkable
                     if (_intMap[x - 1, y] == 1 && _intMap[x + 1, y] == 1)
                     {
                         _intMap[x, y] = 1;
                     }
-                    //top and down tiles are walkable
+                    //if top and down tiles are walkable
                     if (_intMap[x, y - 1] == 1 && _intMap[x, y + 1] == 1)
                     {
                         _intMap[x, y] = 1;

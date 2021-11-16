@@ -54,6 +54,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Disabled",
+            "id": "71854b99-e8fd-4d39-806c-9ea4738b3d63",
+            "actions": [
+                {
+                    "name": "ShowMenu",
+                    "type": "Button",
+                    "id": "e14b0937-1f2d-4ece-9f96-167d3624c04b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4919e406-998d-4c3f-9457-f6dff84b9fd1",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

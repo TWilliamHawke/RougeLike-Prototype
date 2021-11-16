@@ -18,16 +18,14 @@ namespace Core
 
 		public UIActions ui => _newInput.UI;
 		public MainActions main => _newInput.Main;
+		public DisabledActions disabled => _newInput.Disabled;
 		public Vector3Int hoveredTilePos => _hoveredTilePos;
-
-		const string MAIN_ACTIONS_ID = "Main";
-		const string UI_ACTIONS_ID = "UI";
 
 		public void Init(PlayerInput playerInput)
 		{
 			_newInput = new NewInput();
 			_newInput.Main.Enable();
-			_currentActionMap = ActionMap.main;
+			_currentActionMap = ActionMap.Main;
 			_playerInput = playerInput;
 		}
 
@@ -39,12 +37,18 @@ namespace Core
 
 		public void SwitchToMainActionMap()
 		{
-			SwitchActionMap(MAIN_ACTIONS_ID, ActionMap.main);
+			SwitchActionMap(ActionMap.Main);
 		}
 
 		public void SwitchToUIActionMap()
 		{
-			SwitchActionMap(UI_ACTIONS_ID, ActionMap.ui);
+			SwitchActionMap(ActionMap.UI);
+		}
+
+		//disable all but escape
+		public void DisableControl()
+		{
+			SwitchActionMap(ActionMap.Disabled);
 		}
 
 		public void UpdatePointerPosition(Vector2 position)
@@ -58,18 +62,19 @@ namespace Core
 
         }
 
-        void SwitchActionMap(string stringID, ActionMap enumID)
+        void SwitchActionMap(ActionMap actionMap)
 		{
-			if(_currentActionMap == enumID) return;
-			_playerInput.SwitchCurrentActionMap(stringID);
-			_currentActionMap = enumID;
+			if(_currentActionMap == actionMap) return;
+			_playerInput.SwitchCurrentActionMap(actionMap.ToString());
+			_currentActionMap = actionMap;
 		}
 
 
 		enum ActionMap
 		{
-			main,
-			ui
+			Main,
+			UI,
+			Disabled,
 		}
 	}
 }
