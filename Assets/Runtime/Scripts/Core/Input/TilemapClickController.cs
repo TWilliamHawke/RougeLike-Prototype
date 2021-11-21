@@ -4,6 +4,7 @@ using Map;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Entities;
 
 namespace Core
 {
@@ -15,30 +16,37 @@ namespace Core
 
         public void StartUp()
         {
-            _inputController.main.Click.started += MovePlayer;
+            _inputController.main.Click.started += CheckTileObjects;
         }
 
         void OnDestroy()
         {
-            _inputController.main.Click.started -= MovePlayer;
+            _inputController.main.Click.started -= CheckTileObjects;
         }
 
-        void MovePlayer(InputAction.CallbackContext _)
+        void CheckTileObjects(InputAction.CallbackContext _)
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
             Vector3Int position = _inputController.hoveredTilePos;
+
+            var hits = Physics2D.RaycastAll(position.RemoveZ(), Vector2.zero);
+
+            foreach (var hit in hits)
+            {
+                if(hit.collider.TryGetComponent<IInteractive>(out var obj))
+                {
+                    _gameObjects.player.InteractWith(obj);
+                    return;
+                }
+            }
 
             if (_tilemapController.TryGetNode(position, out var node))
             {
                 if (node.isWalkable)
                 {
                     //_gameObjects.player.MoveTo(node);
-                    var path = _tilemapController.FindPath(node);
-                    if(path.Count > 0)
-                    {
-                        _gameObjects.player.SetPath(path);
-                    }
+                    _gameObjects.player.Goto(node);
                 }
                 else
                 {

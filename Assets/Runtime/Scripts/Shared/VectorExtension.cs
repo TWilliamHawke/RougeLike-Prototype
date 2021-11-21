@@ -29,6 +29,16 @@ public static class VectorExtension
         return new Vector3(vc.x, vc.y, z);
     }
 
+    public static Vector2 RemoveZ(this Vector3 vc)
+    {
+        return new Vector2(vc.x, vc.y);
+    }
+
+    public static Vector2Int RemoveZ(this Vector3Int vc)
+    {
+        return new Vector2Int(vc.x, vc.y);
+    }
+
     public static Vector3Int ToTilePos(this Vector3 vc)
     {
         int x = ToInt(vc.x);

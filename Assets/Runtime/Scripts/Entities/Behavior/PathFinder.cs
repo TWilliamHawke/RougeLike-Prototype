@@ -1,29 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map;
 using UnityEngine;
 
-namespace Map
+namespace Entities.Behavior
 {
 	public class PathFinder
 	{
+        ICanMove _entity;
 		TileNode _startNode;
         TileNode _targetNode;
-		TileGrid _grid;
+		TilemapController _mapController;
 
         List<TileNode> _sortedNodes = new List<TileNode>();
         List<TileNode> _unsortedNodes = new List<TileNode>();
 
-        public PathFinder(TileNode startNode, TileNode targetNode, TileGrid grid)
+        public PathFinder(ICanMove entity, TilemapController mapController)
         {
-            _startNode = startNode;
-            _targetNode = targetNode;
-
-            _grid = grid;
+            _entity = entity;
+            _mapController = mapController;
         }
 
-        public Stack<TileNode> GetPath()
+        public Stack<TileNode> FindPathTo(TileNode targetNode)
         {
             var path = new Stack<TileNode>();
+            _startNode = _entity.currentNode;
+            _targetNode = targetNode;
             _targetNode.parent = null;
 
             _unsortedNodes.Add(_startNode);
@@ -38,13 +40,16 @@ namespace Map
                     path.Push(pathPoint);
                     pathPoint = pathPoint.parent;
 
-                    if (path.Count > 80)
+                    if (path.Count > 300)
                     {
                         Debug.LogError("Something goes wrong!!! Path is too long!!");
                         break;
                     }
                 }
             }
+
+            _unsortedNodes.Clear();
+            _sortedNodes.Clear();
 
             return path;
         }
@@ -54,7 +59,7 @@ namespace Map
             while (_unsortedNodes.Count > 0)
             {
                 var nearestNode = FindNearestNodeFromUnsorted();
-                var neightborNodes = _grid.GetNeighbors(nearestNode);
+                var neightborNodes = _mapController.GetNeighbors(nearestNode);
 
                 foreach (var node in neightborNodes)
                 {
@@ -62,11 +67,9 @@ namespace Map
                     {
                         continue;
                     }
+                    
                     node.parent = nearestNode;
-                    if (node == _targetNode)
-                    {
-                        return;
-                    }
+                    if (node == _targetNode) return;
 
                     node.startDist = node.GetDistanceFrom(_startNode);
                     node.targetDist = node.GetDistanceFrom(_targetNode);

@@ -11,35 +11,41 @@ namespace Entities.Behavior
         ICanMove _entity;
         Stack<TileNode> _path;
         TileNode _targetNode;
+        PathFinder _pathFinder;
 
         Vector3 _currentNodePosition;
         Vector3 _targetNodePosition;
         float _progress = 0;
+        float _directionMult = 1;
+        bool _onPause = true;
 
-        public MovementController(ICanMove entity)
+        public int pathLength => _path?.Count ?? 0;
+
+        public MovementController(ICanMove entity, TilemapController mapController)
         {
             _entity = entity;
+            _pathFinder = new PathFinder(entity, mapController);
         }
 
-        public void SetPath(Stack<TileNode> path)
+        public void SetDestination(TileNode node)
         {
-            _path = path;
-
-            SetTarget(path.Pop());
+            if(!_onPause) return;
+            _path = _pathFinder.FindPathTo(node);
         }
 
-        public void SetTarget(TileNode node)
+        public void StartMovement()
         {
-            _targetNode = node;
-            _targetNodePosition = GetNodePosition(_targetNode);
-            _currentNodePosition = GetNodePosition(_entity.currentNode);
+            if (_path.Count <= 0) return;
+            SetTarget(_path.Pop());
+            _onPause = false;
         }
 
         public void UpdatePosition()
         {
             if (_targetNode == null) return;
+            if (_onPause) return;
 
-            _progress += Time.deltaTime * 2;
+            _progress += Time.deltaTime * 2 * _directionMult;
             var updatedPosition = Vector3.Lerp(_currentNodePosition, _targetNodePosition, _progress);
             _entity.TeleportTo(updatedPosition);
 
@@ -49,7 +55,21 @@ namespace Entities.Behavior
             }
         }
 
-        private void GotoNextNode()
+        public void SuspendMovement()
+        {
+            _onPause = true;
+        }
+
+        void SetTarget(TileNode node)
+        {
+            _targetNode = node;
+            _targetNodePosition = GetNodePosition(_targetNode);
+            _currentNodePosition = GetNodePosition(_entity.currentNode);
+            float distance = Vector3.Distance(_currentNodePosition, _targetNodePosition);
+            _directionMult = distance < Mathf.Epsilon ? 1 : 1 / distance;
+        }
+
+        void GotoNextNode()
         {
             _progress = 0;
             _entity.MoveTo(_targetNode);
@@ -63,6 +83,7 @@ namespace Entities.Behavior
             else
             {
                 _targetNode = null;
+                _onPause = true;
             }
         }
 

@@ -44,7 +44,10 @@ namespace Map
             }
         }
 
-
+        public override string ToString()
+        {
+            return $"Node at [{x}, {y}]";
+        }
 
     }
 }
