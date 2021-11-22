@@ -13,8 +13,8 @@ TagManager:
   - UI
   - MainTileMap
   - 
-  - 
-  - 
+  - FogOfWarMain
+  - FogOfWarSecondary
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: MapObjects
     uniqueID: 762080211
+    locked: 0
+  - name: FogOfWar
+    uniqueID: 2329873277
     locked: 0

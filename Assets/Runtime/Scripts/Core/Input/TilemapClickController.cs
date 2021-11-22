@@ -26,7 +26,7 @@ namespace Core
 
         void CheckTileObjects(InputAction.CallbackContext _)
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            //if (EventSystem.current.IsPointerOverGameObject()) return;
 
             Vector3Int position = _inputController.hoveredTilePos;
 

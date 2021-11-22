@@ -11,6 +11,7 @@ namespace Entities.PlayerScripts
     {
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] TilemapController _mapController;
+        [SerializeField] VisibilityController _visibilityController;        
 
         TileNode _currentNode;
         IInteractive _interactiveTarget;
@@ -26,6 +27,7 @@ namespace Entities.PlayerScripts
         public void Init()
         {
             _movementController = new MovementController(this, _mapController);
+            _visibilityController.ChangeViewingRange();
         }
 
         public void MoveTo(TileNode node)
@@ -40,12 +42,16 @@ namespace Entities.PlayerScripts
                 _interactiveTarget.Interact(this);
                 _interactiveTarget = null;
             }
+            else
+            {
+                _movementController.TakeAStep();
+            }
         }
 
         public void Goto(TileNode node)
         {
             _movementController.SetDestination(node);
-            _movementController.StartMovement();
+            _movementController.TakeAStep();
         }
 
         public void InteractWith(IInteractive obj)
@@ -62,7 +68,7 @@ namespace Entities.PlayerScripts
                 }
                 else
                 {
-                    _movementController.StartMovement();
+                    _movementController.TakeAStep();
                 }
 
             }

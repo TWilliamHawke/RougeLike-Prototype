@@ -18,6 +18,7 @@ namespace Entities.Behavior
         float _progress = 0;
         float _directionMult = 1;
         bool _onPause = true;
+        float _movementSpeed = 3;
 
         public int pathLength => _path?.Count ?? 0;
 
@@ -33,10 +34,14 @@ namespace Entities.Behavior
             _path = _pathFinder.FindPathTo(node);
         }
 
-        public void StartMovement()
+        public void TakeAStep()
         {
             if (_path.Count <= 0) return;
-            SetTarget(_path.Pop());
+            _targetNode = _path.Pop();
+            _targetNodePosition = GetNodePosition(_targetNode);
+            _currentNodePosition = GetNodePosition(_entity.currentNode);
+            float distance = Vector3.Distance(_currentNodePosition, _targetNodePosition);
+            _directionMult = distance < Mathf.Epsilon ? 1 : 1 / distance;
             _onPause = false;
         }
 
@@ -45,13 +50,16 @@ namespace Entities.Behavior
             if (_targetNode == null) return;
             if (_onPause) return;
 
-            _progress += Time.deltaTime * 2 * _directionMult;
+            _progress += Time.deltaTime * _movementSpeed * _directionMult;
             var updatedPosition = Vector3.Lerp(_currentNodePosition, _targetNodePosition, _progress);
             _entity.TeleportTo(updatedPosition);
 
             if (_progress >= 1)
             {
-                GotoNextNode();
+                _progress = 0;
+                var targetNode = _targetNode;
+                _targetNode = null;
+                _entity.MoveTo(targetNode);
             }
         }
 
@@ -60,32 +68,23 @@ namespace Entities.Behavior
             _onPause = true;
         }
 
-        void SetTarget(TileNode node)
-        {
-            _targetNode = node;
-            _targetNodePosition = GetNodePosition(_targetNode);
-            _currentNodePosition = GetNodePosition(_entity.currentNode);
-            float distance = Vector3.Distance(_currentNodePosition, _targetNodePosition);
-            _directionMult = distance < Mathf.Epsilon ? 1 : 1 / distance;
-        }
+        // void GotoNextNode()
+        // {
+        //     _progress = 0;
+        //     _entity.MoveTo(_targetNode);
+        //     _currentNodePosition = GetNodePosition(_entity.currentNode);
 
-        void GotoNextNode()
-        {
-            _progress = 0;
-            _entity.MoveTo(_targetNode);
-            _currentNodePosition = GetNodePosition(_entity.currentNode);
-
-            if (_path.Count > 0)
-            {
-                _targetNode = _path.Pop();
-                _targetNodePosition = GetNodePosition(_targetNode);
-            }
-            else
-            {
-                _targetNode = null;
-                _onPause = true;
-            }
-        }
+        //     if (_path.Count > 0)
+        //     {
+        //         _targetNode = _path.Pop();
+        //         _targetNodePosition = GetNodePosition(_targetNode);
+        //     }
+        //     else
+        //     {
+        //         _targetNode = null;
+        //         _onPause = true;
+        //     }
+        // }
 
         Vector3 GetNodePosition(TileNode node)
         {

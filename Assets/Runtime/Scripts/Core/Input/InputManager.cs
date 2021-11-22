@@ -36,7 +36,7 @@ namespace Core
 
         void UpdateHoveredTilePosition()
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
+            //if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var startPoint = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             var hit = Physics2D.Raycast(startPoint, Vector2.zero);
