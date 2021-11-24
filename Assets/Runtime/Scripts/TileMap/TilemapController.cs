@@ -9,6 +9,9 @@ namespace Map
     public class TilemapController : ScriptableObject
     {
         [SerializeField] GameObjects _gameObjects;
+        [SerializeField] AudioClip[] _stepSounds;
+
+        public AudioClip[] stepSounds => _stepSounds;
 
         TileGrid _grid;
 

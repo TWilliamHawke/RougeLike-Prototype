@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace Core
+namespace Core.Input
 {
     [RequireComponent(typeof(PlayerInput))]
     public class InputManager : MonoBehaviour

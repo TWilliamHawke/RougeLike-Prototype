@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Entities;
 
-namespace Core
+namespace Core.Input
 {
     public class TilemapClickController : MonoBehaviour
     {

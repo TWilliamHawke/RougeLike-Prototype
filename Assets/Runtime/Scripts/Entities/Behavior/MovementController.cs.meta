@@ -3,7 +3,11 @@ guid: 8dd4634dd411ab94cb23c0e12014d45d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _mapController: {fileID: 11400000, guid: 6ab4e86e01638a649b15de42afcd8f18, type: 2}
+  - _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
+  - _audioSource: {instanceID: 0}
+  - _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

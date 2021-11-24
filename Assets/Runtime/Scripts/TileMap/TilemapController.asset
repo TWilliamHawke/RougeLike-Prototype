@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: TilemapController
   m_EditorClassIdentifier: 
   _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
+  _stepSounds:
+  - {fileID: 8300000, guid: ca5b9427661fbf04d95ac067f893f0cc, type: 3}
+  - {fileID: 8300000, guid: 72974e67b378df14ab15472c56e7feec, type: 3}
+  - {fileID: 8300000, guid: 76f00d6183a6af340a16ba5d9c544b5c, type: 3}
+  - {fileID: 8300000, guid: c6330a90f66f1ab44bdf887b6287f872, type: 3}
+  - {fileID: 8300000, guid: 9f1c9f439021fb046ae5a40bb3afea3f, type: 3}
+  - {fileID: 8300000, guid: cebe7ad2e538332478ead0d7a89c475f, type: 3}

@@ -56,7 +56,7 @@ public static class VectorExtension
 
     static int ToInt(float num)
     {
-        return Mathf.FloorToInt(num);
+        return Mathf.RoundToInt(num);
     }
 
 }

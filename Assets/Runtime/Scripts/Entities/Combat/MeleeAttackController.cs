@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using Core.Settings;
+using UnityEngine;
+using Core.Input;
+using Rng = System.Random;
+
+namespace Entities.Combat
+{
+    public class MeleeAttackController : MonoBehaviour
+    {
+        [SerializeField] GlobalSettings _settings;
+        [SerializeField] InputController _inputController;
+        [SerializeField] AudioSource _audioSource;
+
+        ICanAttack _attacker;
+		IAttackTarget _target;
+        Rng _rng;
+
+		Vector3 _defaultPosition;
+        Vector3 _attackPosition;
+        AttackPhases _attackPhase = AttackPhases.none;
+        float _attackProgress;
+		float _directionMult = 1;
+
+        private void Update()
+        {
+            if (_attackPhase == AttackPhases.none) return;
+
+			_attackProgress += Time.deltaTime * (int)_attackPhase * _settings.animationSpeed * _directionMult;
+			transform.position = Vector3.Lerp(_defaultPosition, _attackPosition, _attackProgress);
+
+			if(_attackProgress >= 1 && _attackPhase == AttackPhases.moveTo)
+			{
+				_attackPhase = AttackPhases.moveAway;
+				Damage(_attacker.damageSource, _target);
+			}
+
+			if(_attackProgress <= 0 && _attackPhase == AttackPhases.moveAway)
+			{
+				_attackProgress = 0;
+				_attackPhase = AttackPhases.none;
+                _inputController.EnableLeftClick();
+			}
+        }
+
+
+
+        public void Init(ICanAttack attacker)
+        {
+            _attacker = attacker;
+            _rng = new Rng();
+			
+        }
+
+        public void StartAttack(IAttackTarget target)
+        {
+            _target = target;
+            _attackPosition = (transform.position + target.transform.position) * 0.5f;
+			_defaultPosition = transform.position;
+
+			var distance = Vector3.Distance(transform.position, _attackPosition);
+			_directionMult = 1 / distance;
+
+            int index = Random.Range(0, _attacker.damageSource.attackSounds.Length);
+            _audioSource.PlayOneShot(_attacker.damageSource.attackSounds[index]);
+
+			_attackPhase = AttackPhases.moveTo;
+            _inputController.DisableLeftClick();
+        }
+
+        void Damage(IDamageSource damageSource, IAttackTarget target)
+        {
+            int damage = DamagecalCulator.GetDamage(damageSource, target);
+            target.TakeDamage(damage);
+        }
+
+        enum AttackPhases
+        {
+            none = 0,
+            moveTo = 1,
+            moveAway = -1
+        }
+    }
+}

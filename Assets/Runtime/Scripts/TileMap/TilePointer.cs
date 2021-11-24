@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Core;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
+using Core.Input;
 
 namespace Map
 {

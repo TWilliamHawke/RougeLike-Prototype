@@ -1,13 +1,18 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using Core.Settings;
 using Map;
 using UnityEngine;
+using Core.Input;
 
 namespace Entities.Behavior
 {
-    public class MovementController
+    public class MovementController: MonoBehaviour
     {
+        [SerializeField] TilemapController _mapController;
+        [SerializeField] GlobalSettings _settings;
+        [SerializeField] InputController _inputController;
+        [SerializeField] AudioSource _audioSource;
+
         ICanMove _entity;
         Stack<TileNode> _path;
         TileNode _targetNode;
@@ -18,14 +23,13 @@ namespace Entities.Behavior
         float _progress = 0;
         float _directionMult = 1;
         bool _onPause = true;
-        float _movementSpeed = 3;
 
         public int pathLength => _path?.Count ?? 0;
 
-        public MovementController(ICanMove entity, TilemapController mapController)
+        public void Init(ICanMove entity)
         {
             _entity = entity;
-            _pathFinder = new PathFinder(entity, mapController);
+            _pathFinder = new PathFinder(entity, _mapController);
         }
 
         public void SetDestination(TileNode node)
@@ -37,20 +41,25 @@ namespace Entities.Behavior
         public void TakeAStep()
         {
             if (_path.Count <= 0) return;
+
+            PlayStepSound();
+            _inputController.DisableLeftClick();
+
             _targetNode = _path.Pop();
             _targetNodePosition = GetNodePosition(_targetNode);
             _currentNodePosition = GetNodePosition(_entity.currentNode);
+
             float distance = Vector3.Distance(_currentNodePosition, _targetNodePosition);
             _directionMult = distance < Mathf.Epsilon ? 1 : 1 / distance;
             _onPause = false;
         }
 
-        public void UpdatePosition()
+        void Update()
         {
             if (_targetNode == null) return;
             if (_onPause) return;
 
-            _progress += Time.deltaTime * _movementSpeed * _directionMult;
+            _progress += Time.deltaTime * _settings.animationSpeed;// * _directionMult;
             var updatedPosition = Vector3.Lerp(_currentNodePosition, _targetNodePosition, _progress);
             _entity.TeleportTo(updatedPosition);
 
@@ -59,6 +68,7 @@ namespace Entities.Behavior
                 _progress = 0;
                 var targetNode = _targetNode;
                 _targetNode = null;
+                _inputController.EnableLeftClick();
                 _entity.MoveTo(targetNode);
             }
         }
@@ -68,23 +78,11 @@ namespace Entities.Behavior
             _onPause = true;
         }
 
-        // void GotoNextNode()
-        // {
-        //     _progress = 0;
-        //     _entity.MoveTo(_targetNode);
-        //     _currentNodePosition = GetNodePosition(_entity.currentNode);
-
-        //     if (_path.Count > 0)
-        //     {
-        //         _targetNode = _path.Pop();
-        //         _targetNodePosition = GetNodePosition(_targetNode);
-        //     }
-        //     else
-        //     {
-        //         _targetNode = null;
-        //         _onPause = true;
-        //     }
-        // }
+        void PlayStepSound()
+        {
+            var index = Random.Range(0, _mapController.stepSounds.Length);
+            _audioSource.PlayOneShot(_mapController.stepSounds[index]);
+        }
 
         Vector3 GetNodePosition(TileNode node)
         {

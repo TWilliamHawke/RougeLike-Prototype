@@ -4,30 +4,38 @@ using Core;
 using Map;
 using UnityEngine;
 using Entities.Behavior;
+using Entities.Combat;
 
 namespace Entities.PlayerScripts
 {
-    public class Player : MonoBehaviour, ICanMove
+    public class Player : MonoBehaviour, ICanMove, IAttackTarget, ICanAttack
     {
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] TilemapController _mapController;
-        [SerializeField] VisibilityController _visibilityController;        
+        [SerializeField] VisibilityController _visibilityController;
+        [SerializeField] PlayerStats _stats;
+        [SerializeField] Inventory _inventory;        
+        [SerializeField] MovementController _movementController;
+        [SerializeField] MeleeAttackController _meleeAttackController;
 
         TileNode _currentNode;
         IInteractive _interactiveTarget;
-        MovementController _movementController;
 
         public TileNode currentNode => _currentNode;
-
-        private void Update() {
-            _movementController?.UpdatePosition();
-        }
+        public Dictionary<DamageType, int> resists => _stats.CalculateCurrentResists();
+        public IDamageSource damageSource => _stats.CalculateDamageData();
 
 
         public void Init()
         {
-            _movementController = new MovementController(this, _mapController);
             _visibilityController.ChangeViewingRange();
+            _movementController.Init(this);
+            _meleeAttackController.Init(this);
+        }
+
+        public void Attack(IAttackTarget target)
+        {
+            _meleeAttackController.StartAttack(target);
         }
 
         public void MoveTo(TileNode node)
@@ -90,5 +98,9 @@ namespace Entities.PlayerScripts
 
         }
 
+        public void TakeDamage(int damage)
+        {
+            Debug.Log($"Damage taken: {damage} hp");
+        }
     }
 }
