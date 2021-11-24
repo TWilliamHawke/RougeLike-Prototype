@@ -44,11 +44,11 @@ TagManager:
   - name: MainTileMap
     uniqueID: 976652487
     locked: 0
-  - name: Player
-    uniqueID: 3101832429
-    locked: 0
   - name: MapObjects
     uniqueID: 762080211
+    locked: 0
+  - name: Player
+    uniqueID: 3101832429
     locked: 0
   - name: FogOfWar
     uniqueID: 2329873277
