@@ -8,11 +8,12 @@ using Entities.Combat;
 
 namespace Entities.PlayerScripts
 {
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(VisibilityController))]
     public class Player : MonoBehaviour, ICanMove, IAttackTarget, ICanAttack
     {
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] TilemapController _mapController;
-        [SerializeField] VisibilityController _visibilityController;
         [SerializeField] PlayerStats _stats;
         [SerializeField] Inventory _inventory;        
         [SerializeField] MovementController _movementController;
@@ -28,9 +29,10 @@ namespace Entities.PlayerScripts
 
         public void Init()
         {
-            _visibilityController.ChangeViewingRange();
             _movementController.Init(this);
             _meleeAttackController.Init(this);
+            GetComponent<VisibilityController>().ChangeViewingRange();
+            GetComponent<Health>().Init();
         }
 
         public void Attack(IAttackTarget target)

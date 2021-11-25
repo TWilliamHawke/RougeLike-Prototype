@@ -16,7 +16,7 @@ namespace Core.UI
 			_inputController.OnHoveredTileChange -= UpdateText;
         }
 
-        public void StartUp()
+        public void Init()
         {
 			_inputController.OnHoveredTileChange += UpdateText;
 

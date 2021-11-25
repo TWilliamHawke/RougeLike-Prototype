@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace Entities
 {
+    [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, ICanAttack, IAttackTarget, IInteractive
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
+
+        Health _health;
 
         int _currentHealth;
         Dictionary<DamageType, int> _currentResists = new Dictionary<DamageType, int>(5);
@@ -19,8 +22,10 @@ namespace Entities
         public IDamageSource damageSource => _template;
         public Dictionary<DamageType, int> resists => _currentResists;
 
-        private void Awake()
+        public void Init()
         {
+            _health = GetComponent<Health>();
+            _health.Init();
             ApplyStartStats();
         }
 
@@ -39,6 +44,7 @@ namespace Entities
         {
             Debug.Log($"Damage taken: {damage} hp");
             _currentHealth -= damage;
+            _health.ChangeHealth(_currentHealth);
 			
             if (_currentHealth <= 0)
             {

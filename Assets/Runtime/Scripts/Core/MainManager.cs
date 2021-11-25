@@ -19,9 +19,12 @@ namespace Core
 	    void Awake()
 	    {
 			_gameObjectManager.SetSharedGameObjects();
+
+			//_healthbarCanvas should subscribe on events before player spawn
+			_UIManager.StartUp();
+			
 	        _tileMapManager.StartUp();
 			_inputManager.StartUp();
-			_UIManager.StartUp();
 			_entitiesManager.StartUp();
 	    }
 	
