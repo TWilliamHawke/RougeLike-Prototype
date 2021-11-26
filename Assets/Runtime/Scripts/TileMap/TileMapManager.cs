@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Map.Generator;
-using Entities.PlayerScripts;
+using Entities.Player;
 
 namespace Map
 {
@@ -11,7 +11,7 @@ namespace Map
 	{
 		[SerializeField] Tilemap _tileMap;
 		[SerializeField] GeneratorConfig _config;
-		[SerializeField] Player _player;
+		[SerializeField] PlayerCore _player;
 		[SerializeField] TilemapController _tilemapController;
 		
 		MapGenerator _generator;

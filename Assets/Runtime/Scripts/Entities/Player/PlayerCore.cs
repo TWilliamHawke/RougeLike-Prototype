@@ -5,12 +5,12 @@ using Map;
 using UnityEngine;
 using Entities.Behavior;
 using Entities.Combat;
+using UnityEngine.Events;
 
-namespace Entities.PlayerScripts
+namespace Entities.Player
 {
-    [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(VisibilityController))]
-    public class Player : MonoBehaviour, ICanMove, IAttackTarget, ICanAttack
+    public class PlayerCore : MonoBehaviour, ICanMove, IAttackTarget, ICanAttack
     {
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] TilemapController _mapController;
@@ -18,6 +18,9 @@ namespace Entities.PlayerScripts
         [SerializeField] Inventory _inventory;        
         [SerializeField] MovementController _movementController;
         [SerializeField] MeleeAttackController _meleeAttackController;
+        
+
+        public event UnityAction OnPlayerTurnEnd;
 
         TileNode _currentNode;
         IInteractive _interactiveTarget;
@@ -32,7 +35,8 @@ namespace Entities.PlayerScripts
             _movementController.Init(this);
             _meleeAttackController.Init(this);
             GetComponent<VisibilityController>().ChangeViewingRange();
-            GetComponent<Health>().Init();
+            _stats.player = this;
+            _meleeAttackController.OnAttackEnd += () => OnPlayerTurnEnd?.Invoke();
         }
 
         public void Attack(IAttackTarget target)
@@ -46,6 +50,8 @@ namespace Entities.PlayerScripts
             TeleportTo(position);
             _currentNode = node;
             _movementController.SuspendMovement();
+
+            OnPlayerTurnEnd?.Invoke();
 
             if(_interactiveTarget != null && _movementController.pathLength <= 1)
             {
@@ -102,7 +108,7 @@ namespace Entities.PlayerScripts
 
         public void TakeDamage(int damage)
         {
-            Debug.Log($"Damage taken: {damage} hp");
+            _stats.ChangeHealth(-damage); 
         }
     }
 }

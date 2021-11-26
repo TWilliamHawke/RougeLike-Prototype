@@ -8,16 +8,17 @@ namespace Entities
 	[CreateAssetMenu(fileName ="EnemyTemplate", menuName ="Entities/EnemyTemplate")]
 	public class EnemyTemplate : ScriptableObject, IDamageSource
 	{
-        public DamageType damageType => throw new System.NotImplementedException();
-        public int minDamage => throw new System.NotImplementedException();
-        public int maxDamage => throw new System.NotImplementedException();
+        public DamageType damageType => _damageType;
+        public int minDamage => _minDamage;
+        public int maxDamage => _maxDamage;
 		public int health => _health;
-        public AudioClip[] attackSounds => throw new System.NotImplementedException();
+        public AudioClip[] attackSounds => _attackSounds;
 
         [SerializeField] int _minDamage;
 		[SerializeField] int _maxDamage;
 		[SerializeField] DamageType _damageType;
 		[SerializeField] int _health;
+		[SerializeField] AudioClip[] _attackSounds;
 
 	}
 }

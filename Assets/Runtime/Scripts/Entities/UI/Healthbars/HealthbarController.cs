@@ -1,27 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities.Player;
 using UnityEngine;
 
 namespace Entities.UI
 {
-	public class HealthbarController : MonoBehaviour
-	{
-		[SerializeField] Healthbar _healthbarPrefab;
+    public class HealthbarController : MonoBehaviour
+    {
+        [SerializeField] Healthbar _healthbarPrefab;
+        [SerializeField] PlayerStats _playerStats;
+        [SerializeField] Color _playerHealthbarColor = Color.red;
+        [SerializeField] Color _enemyHealthbarColor = Color.red;
 
-		public void Init()
-		{
-			Health.OnEntityEnabled += CreateNewHealthbar;
-		}
+        Healthbar _playerHealthbar;
 
-		private void OnDestroy() {
-			Health.OnEntityEnabled -= CreateNewHealthbar;
-			
-		}
+        public void Init()
+        {
+            Health.OnHealthInit += CreateNewHealthbar;
+            CreatePlayerHealthbar();
+        }
 
-		void CreateNewHealthbar(Health entityHealth)
-		{
-			var healthbar = Instantiate(_healthbarPrefab, transform);
-			healthbar.SetEntity(entityHealth);
-		}
-	}
+        void OnDestroy()
+        {
+            Health.OnHealthInit -= CreateNewHealthbar;
+        }
+
+        void CreateNewHealthbar(Health entityHealth)
+        {
+            var healthbar = Instantiate(_healthbarPrefab, transform);
+            healthbar.SetHealth(entityHealth);
+            healthbar.SetColor(_enemyHealthbarColor);
+        }
+
+        void CreatePlayerHealthbar()
+        {
+            _playerHealthbar = Instantiate(_healthbarPrefab, transform);
+            _playerHealthbar.SetHealth(_playerStats);
+            _playerHealthbar.SetColor(_playerHealthbarColor);
+        }
+    }
 }

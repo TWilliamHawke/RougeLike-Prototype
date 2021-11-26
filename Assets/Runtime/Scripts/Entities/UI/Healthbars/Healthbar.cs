@@ -8,7 +8,7 @@ namespace Entities.UI
 {
     public class Healthbar : MonoBehaviour
     {
-        IHaveHealth _entity;
+        IHealthComponent _entity;
 
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] Image _fillImage;
@@ -16,16 +16,21 @@ namespace Entities.UI
         [Range(0, 0.1f)]
         [SerializeField] float _minVisibleHealth = 0.05f;
 
-        public void SetEntity(IHaveHealth entity)
+        public void SetHealth(IHealthComponent entity)
         {
             _entity = entity;
             _entity.OnHealthChange += UpdateHealthBar;
         }
 
-        void UpdateHealthBar(int _)
+        public void SetColor(Color color)
         {
-            Debug.Log($"Current health is {_entity.currentHealth}");
+            _fillImage.color = color;
+        }
 
+        
+
+        void UpdateHealthBar()
+        {
             float healthPct = (float)_entity.currentHealth / _entity.maxHealth;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
         }

@@ -4,6 +4,7 @@ using Core.Settings;
 using UnityEngine;
 using Core.Input;
 using Rng = System.Random;
+using UnityEngine.Events;
 
 namespace Entities.Combat
 {
@@ -12,6 +13,8 @@ namespace Entities.Combat
         [SerializeField] GlobalSettings _settings;
         [SerializeField] InputController _inputController;
         [SerializeField] AudioSource _audioSource;
+
+        public event UnityAction OnAttackEnd;
 
         ICanAttack _attacker;
 		IAttackTarget _target;
@@ -22,6 +25,8 @@ namespace Entities.Combat
         AttackPhases _attackPhase = AttackPhases.none;
         float _attackProgress;
 		float _directionMult = 1;
+
+        public bool isAttack => _attackPhase != AttackPhases.none;
 
         private void Update()
         {
@@ -41,6 +46,7 @@ namespace Entities.Combat
 				_attackProgress = 0;
 				_attackPhase = AttackPhases.none;
                 _inputController.EnableLeftClick();
+                OnAttackEnd?.Invoke();
 			}
         }
 

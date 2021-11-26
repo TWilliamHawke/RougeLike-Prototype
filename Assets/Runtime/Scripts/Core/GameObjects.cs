@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.PlayerScripts;
+using Entities.Player;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,7 +10,7 @@ namespace Core
 	public class GameObjects : ScriptableObject
 	{
 	    public CameraController mainCamera { get; set; }
-		public Player player { get; set; }
+		public PlayerCore player { get; set; }
 		public Tilemap tilemap { get; set; }
 	}
 }

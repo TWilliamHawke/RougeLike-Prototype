@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHaveHealth
+    public class Health : MonoBehaviour, IHealthComponent
     {
-        public static event UnityAction<Health> OnEntityEnabled;
+        public static event UnityAction<Health> OnHealthInit;
         public static event UnityAction<Health> OnEntitDisbled;
 
-        public event UnityAction<int> OnHealthChange;
+        public event UnityAction OnHealthChange;
 
         int _baseHealth = 100;
         int _currentHealth;
@@ -22,8 +22,10 @@ namespace Entities
         {
 			Debug.Log("Enabled");
             _currentHealth = _baseHealth;
-            OnEntityEnabled?.Invoke(this);
+            OnHealthInit?.Invoke(this);
         }
+
+        
 
         void OnDisable()
         {
@@ -33,7 +35,7 @@ namespace Entities
 		public void ChangeHealth(int health)
 		{
             _currentHealth = health;
-			OnHealthChange?.Invoke(_currentHealth);
+			OnHealthChange?.Invoke();
 		}
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entities.PlayerScripts
+namespace Entities.Player
 {
 	public class VisibilityController : MonoBehaviour
 	{

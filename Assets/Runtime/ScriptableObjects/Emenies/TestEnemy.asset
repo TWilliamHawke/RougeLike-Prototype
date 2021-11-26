@@ -16,3 +16,8 @@ MonoBehaviour:
   _maxDamage: 20
   _damageType: 0
   _health: 100
+  _attackSounds:
+  - {fileID: 8300000, guid: e73598c5297550640a28a0ed384b1976, type: 3}
+  - {fileID: 8300000, guid: f64aa102abfd3b34f9c640d2a1552437, type: 3}
+  - {fileID: 8300000, guid: 10efd5510e03d27408f4c316f2b928b7, type: 3}
+  - {fileID: 8300000, guid: b71d6b72824a9f54784f9db54608d0be, type: 3}

@@ -3,9 +3,9 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-	public interface IHaveHealth
+	public interface IHealthComponent
 	{
-		event UnityAction<int> OnHealthChange;
+		event UnityAction OnHealthChange;
 		Transform transform { get; }
 		int currentHealth { get; }
 		int maxHealth { get; }
