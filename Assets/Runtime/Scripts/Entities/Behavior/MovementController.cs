@@ -38,6 +38,14 @@ namespace Entities.Behavior
             _path = _pathFinder.FindPathTo(node);
         }
 
+        public void SetDestination(IInteractive target)
+        {
+            if(_mapController.TryGetNode(target.transform.position.ToInt(), out var node))
+            {
+                SetDestination(node);
+            }
+        }
+
         public void TakeAStep()
         {
             if (_path.Count <= 0) return;
@@ -54,14 +62,24 @@ namespace Entities.Behavior
             _onPause = false;
         }
 
+        public void SuspendMovement()
+        {
+            _onPause = true;
+        }
+
         void Update()
         {
             if (_targetNode == null) return;
             if (_onPause) return;
 
+            MoveEntity();
+        }
+
+        void MoveEntity()
+        {
             _progress += Time.deltaTime * _settings.animationSpeed;// * _directionMult;
             var updatedPosition = Vector3.Lerp(_currentNodePosition, _targetNodePosition, _progress);
-            _entity.TeleportTo(updatedPosition);
+            _entity.transform.position = updatedPosition;
 
             if (_progress >= 1)
             {
@@ -69,19 +87,14 @@ namespace Entities.Behavior
                 var targetNode = _targetNode;
                 _targetNode = null;
                 _inputController.EnableLeftClick();
-                _entity.MoveTo(targetNode);
+                _entity.ChangeNode(targetNode);
             }
-        }
-
-        public void SuspendMovement()
-        {
-            _onPause = true;
         }
 
         void PlayStepSound()
         {
-            var index = Random.Range(0, _mapController.stepSounds.Length);
-            _audioSource.PlayOneShot(_mapController.stepSounds[index]);
+            var clip = _mapController.stepSounds.GetRandom();
+            _audioSource.PlayOneShot(clip);
         }
 
         Vector3 GetNodePosition(TileNode node)

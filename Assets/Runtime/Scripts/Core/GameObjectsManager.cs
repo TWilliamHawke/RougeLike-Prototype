@@ -13,10 +13,17 @@ namespace Core
 		[SerializeField] GameObjects _gameObjects;
 		[SerializeField] Tilemap _tilemap;
 
-		public void SetSharedGameObjects()
+		public void StartUp()
+		{
+			_mainCamera.SetPlayer(_player);
+			SetSharedGameObjects();
+		}
+
+		void SetSharedGameObjects()
 		{
 			_gameObjects.player = _player;
-			_gameObjects.mainCamera = _mainCamera;
+			_gameObjects.mainCamera = _mainCamera.GetComponent<Camera>();
+			_gameObjects.cameraController = _mainCamera;
 			_gameObjects.tilemap = _tilemap;
 		}
 

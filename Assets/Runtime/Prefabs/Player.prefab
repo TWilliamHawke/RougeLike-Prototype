@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1257288472}
   - component: {fileID: 746439967}
   - component: {fileID: 746439970}
-  - component: {fileID: 18041858}
+  - component: {fileID: 2084189526720122616}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -445,15 +445,29 @@ MonoBehaviour:
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
   _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
   _audioSource: {fileID: 1261394877}
---- !u!114 &18041858
-MonoBehaviour:
+--- !u!61 &2084189526720122616
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7328594240612423254}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf8f46b19a121145bc7edfe4d4e244d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0

@@ -45,7 +45,7 @@ namespace Entities.Combat
 			{
 				_attackProgress = 0;
 				_attackPhase = AttackPhases.none;
-                _inputController.EnableLeftClick();
+                _inputController.EnableLeftClick(); //HACK this should be in entityController
                 OnAttackEnd?.Invoke();
 			}
         }
@@ -72,7 +72,7 @@ namespace Entities.Combat
             _audioSource.PlayOneShot(_attacker.damageSource.attackSounds[index]);
 
 			_attackPhase = AttackPhases.moveTo;
-            _inputController.DisableLeftClick();
+            _inputController.DisableLeftClick();  //HACK this should be in entityController
         }
 
         void Damage(IDamageSource damageSource, IAttackTarget target)

@@ -6,6 +6,7 @@ using Entities.Combat;
 using Entities.Player;
 using Map;
 using UnityEngine;
+using TMPro;
 
 namespace Entities
 {
@@ -15,8 +16,7 @@ namespace Entities
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
-        [SerializeField] MovementController _movementController;
-        [SerializeField] MeleeAttackController _meleeAttackController;
+        [SerializeField] TMP_Text _TMPSprite;
 
         Health _health;
 
@@ -33,11 +33,7 @@ namespace Entities
 
         public void Init()
         {
-            _health = GetComponent<Health>();
-            _health.Init();
-            _movementController.Init(this);
-            _meleeAttackController.Init(this);
-
+            InitComponents();
             ApplyStartStats();
         }
 
@@ -45,6 +41,8 @@ namespace Entities
         {
             _currentHealth = _template.health;
             _currentResists[DamageType.physical] = 0;
+            _TMPSprite.text = _template.bodyChar;
+            _TMPSprite.color = _template.bodyColor;
         }
 
         public void Interact(PlayerCore player)
@@ -54,21 +52,10 @@ namespace Entities
 
         public void TakeDamage(int damage)
         {
-            _currentHealth -= damage;
-            _health.ChangeHealth(_currentHealth);
-
-            if (_currentHealth <= 0)
-            {
-                Die();
-            }
+            _health.DecreaseHealth(damage);
         }
 
-        void Die()
-        {
-            Debug.Log("Die");
-        }
-
-        public void MoveTo(TileNode node)
+        public void ChangeNode(TileNode node)
         {
 
         }
@@ -77,5 +64,17 @@ namespace Entities
         {
             transform.position = position;
         }
+
+        private void InitComponents()
+        {
+            _health = GetComponent<Health>();
+            _health.Init(_template);
+            var meleeAttackController = GetComponent<MeleeAttackController>();
+            var movementController = GetComponent<MovementController>();
+            movementController.Init(this);
+            meleeAttackController.Init(this);
+        }
+
+
     }
 }

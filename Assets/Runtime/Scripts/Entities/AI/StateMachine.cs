@@ -6,38 +6,45 @@ using UnityEngine;
 
 namespace Entities.AI
 {
+	[RequireComponent(typeof(MovementController))]
+	[RequireComponent(typeof(MeleeAttackController))]
+	[RequireComponent(typeof(Health))]
 	public class StateMachine : MonoBehaviour
 	{
 		[SerializeField] GameObjects _gameObjects;
-		[SerializeField] MovementController _movementController;
-		[SerializeField] MeleeAttackController _meleeAttackController;
+		MovementController _movementController;
+		MeleeAttackController _meleeAttackController;
+		Health _health;
 
 		IState _defaultState;
 		IState _currentState;
 
-		List<Transition> _transitions = new List<Transition>();
+		List<IState> _states = new List<IState>();
 
 		public bool isDone => _currentState.isDone;
 
 		public void Init()
 		{
+			_meleeAttackController = GetComponent<MeleeAttackController>();
+			_movementController = GetComponent<MovementController>();
+			_health = GetComponent<Health>();
+			
 			_defaultState = new Wait();
-			var meleeAttack = new MeleeAttack(_meleeAttackController, _gameObjects.player);
+			_states.Add(new Death(_health));
+			_states.Add(new MeleeAttack(_meleeAttackController, _gameObjects.player, _movementController));
 
-			var canMeleeAttackTarget = new CanMeleeAttackTarget(_movementController, _gameObjects.player);
 
-			AddTransition(canMeleeAttackTarget, meleeAttack);
 			_currentState = _defaultState;
 		}
 
 	    public void StartTurn()
 		{
-			foreach (var transition in _transitions)
+			foreach (var state in _states)
             {
-                if (!transition.condition.IsMeet()) continue;
+                if (!state.Condition()) continue;
 
                 _currentState.EndTurn();
-                _currentState = transition.to;
+                _currentState = state;
                 _currentState.StartTurn();
                 break;
             }
@@ -49,21 +56,6 @@ namespace Entities.AI
 			_currentState = _defaultState;
 		}
 
-		void AddTransition(ICondition condition, IState state)
-		{
-			_transitions.Add(new Transition(condition, state));
-		}
-
-		class Transition
-		{
-            public Transition(ICondition condition, IState to)
-            {
-                this.condition = condition;
-                this.to = to;
-            }
-
-            public ICondition condition { get; }
-			public IState to { get; }
-		}
+		
 	}
 }

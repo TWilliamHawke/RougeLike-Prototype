@@ -15,11 +15,13 @@ namespace Core.Input
         PlayerInput _playerInput;
         Vector3Int _hoveredTilePos;
         ActionMap _currentActionMap;
+        RaycastHit2D[] _hoveredTileHits;
 
         public UIActions ui => _newInput.UI;
         public MainActions main => _newInput.Main;
         public DisabledActions disabled => _newInput.Disabled;
         public Vector3Int hoveredTilePos => _hoveredTilePos;
+        public RaycastHit2D[] hoveredTileHits => _hoveredTileHits;
 
         public void Init(PlayerInput playerInput)
         {
@@ -57,9 +59,9 @@ namespace Core.Input
 
             if (newTilePos == _hoveredTilePos) return;
 
+            _hoveredTileHits = Physics2D.RaycastAll(position.Toint(), Vector2.zero);
             _hoveredTilePos = newTilePos;
             OnHoveredTileChange?.Invoke(newTilePos);
-
         }
 
         public void DisableLeftClick()

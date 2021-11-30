@@ -3,7 +3,10 @@ guid: 881c545d632e3e544a4da0568ce3a6ef
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
+  - _movementController: {instanceID: 0}
+  - _meleeAttackController: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

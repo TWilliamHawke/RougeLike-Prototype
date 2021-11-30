@@ -37,7 +37,7 @@ namespace Entities.UI
 
         void LateUpdate()
         {
-            var entityPos = _gameObjects.mainCamera.c.WorldToScreenPoint(_entity.transform.position + _shift);
+            var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_entity.transform.position + _shift);
             transform.position = entityPos;
         }
     }

@@ -18,5 +18,9 @@ namespace Entities.AI
 
         }
 
+        public bool Condition()
+        {
+            return true;
+        }
     }
 }

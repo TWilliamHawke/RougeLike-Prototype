@@ -3,8 +3,7 @@ using UnityEngine;
 
 public interface ICanMove
 {
-    void MoveTo(TileNode node);
-    void TeleportTo(Vector3 position);
+    void ChangeNode(TileNode node);
     Transform transform { get; }
     TileNode currentNode { get; }
 }

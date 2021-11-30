@@ -12,11 +12,26 @@ namespace Core.Input
     {
         [SerializeField] InputController _inputController;
         [SerializeField] GameObjects _gameObjects;
-        [SerializeField] TilemapController _tilemapController;
+
+        List<IMouseClickState> _clickStates = new List<IMouseClickState>();
 
         public void StartUp()
         {
             _inputController.main.Click.started += CheckTileObjects;
+
+            //check ui click before tiles
+            _clickStates.Add(new ClickUI());
+            //check unwalkable before gameobjects
+            _clickStates.Add(new ClickUnwalkableTile(_gameObjects));
+
+            _clickStates.Add(new ClickPlayer(_gameObjects));
+
+
+            _clickStates.Add(new ClickRemoteObject(_gameObjects));
+            _clickStates.Add(new ClickNextTileObject(_gameObjects));
+
+            //tile hasn't any objects
+            _clickStates.Add(new ClickWalkableTile(_gameObjects));
         }
 
         void OnDestroy()
@@ -26,34 +41,13 @@ namespace Core.Input
 
         void CheckTileObjects(InputAction.CallbackContext _)
         {
-            //if (EventSystem.current.IsPointerOverGameObject()) return;
-
-            Vector3Int position = _inputController.hoveredTilePos;
-
-            var hits = Physics2D.RaycastAll(position.RemoveZ(), Vector2.zero);
-
-            foreach (var hit in hits)
+            foreach (var state in _clickStates)
             {
-                if(hit.collider.TryGetComponent<IInteractive>(out var obj))
-                {
-                    _gameObjects.player.InteractWith(obj);
-                    return;
-                }
-            }
+                if (!state.Condition()) continue;
 
-            if (_tilemapController.TryGetNode(position, out var node))
-            {
-                if (node.isWalkable)
-                {
-                    //_gameObjects.player.MoveTo(node);
-                    _gameObjects.player.Goto(node);
-                }
-                else
-                {
-                    Debug.Log("Unwalkable");
-                }
+                state.ProcessClick();
+                return;
             }
-
         }
     }
 }

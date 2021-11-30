@@ -9,6 +9,7 @@ namespace Entities
 		Transform transform { get; }
 		int currentHealth { get; }
 		int maxHealth { get; }
-		void ChangeHealth(int health);
+		void DecreaseHealth(int health);
+		void IncreaseHealth(int health);
 	}
 }
