@@ -3,20 +3,20 @@ using Core.Settings;
 using Map;
 using UnityEngine;
 using Core.Input;
+using Core;
 
 namespace Entities.Behavior
 {
-    public class MovementController: MonoBehaviour
+    public class MovementController : MonoBehaviour
     {
-        [SerializeField] TilemapController _mapController;
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] InputController _inputController;
-        [SerializeField] AudioSource _audioSource;
+        [SerializeField] GameObjects _gameObjects;
+        [SerializeField] AudioSource _body;
+        InputController _inputController;
+        TilemapController _mapController;
 
-        ICanMove _entity;
         Stack<TileNode> _path;
         TileNode _targetNode;
-        PathFinder _pathFinder;
 
         Vector3 _currentNodePosition;
         Vector3 _targetNodePosition;
@@ -24,23 +24,30 @@ namespace Entities.Behavior
         float _directionMult = 1;
         bool _onPause = true;
 
+        TileNode _currentNode;
         public int pathLength => _path?.Count ?? 0;
 
-        public void Init(ICanMove entity)
+        public void Init(TileNode spawnNode)
         {
-            _entity = entity;
-            _pathFinder = new PathFinder(entity, _mapController);
+            _currentNode = spawnNode;
+            _inputController = _gameObjects.inputController;
+            _mapController = _gameObjects.tilemapController;
+        }
+
+        public void ClearPath()
+        {
+            _path.Clear();
         }
 
         public void SetDestination(TileNode node)
         {
-            if(!_onPause) return;
-            _path = _pathFinder.FindPathTo(node);
+            if (!_onPause) return;
+            _path = PathFinder.FindPath(_currentNode, node);
         }
 
         public void SetDestination(IInteractive target)
         {
-            if(_mapController.TryGetNode(target.transform.position.ToInt(), out var node))
+            if (_mapController.TryGetNode(target.transform.position.ToInt(), out var node))
             {
                 SetDestination(node);
             }
@@ -55,16 +62,11 @@ namespace Entities.Behavior
 
             _targetNode = _path.Pop();
             _targetNodePosition = GetNodePosition(_targetNode);
-            _currentNodePosition = GetNodePosition(_entity.currentNode);
+            _currentNodePosition = GetNodePosition(_currentNode);
 
             float distance = Vector3.Distance(_currentNodePosition, _targetNodePosition);
             _directionMult = distance < Mathf.Epsilon ? 1 : 1 / distance;
             _onPause = false;
-        }
-
-        public void SuspendMovement()
-        {
-            _onPause = true;
         }
 
         void Update()
@@ -79,27 +81,28 @@ namespace Entities.Behavior
         {
             _progress += Time.deltaTime * _settings.animationSpeed;// * _directionMult;
             var updatedPosition = Vector3.Lerp(_currentNodePosition, _targetNodePosition, _progress);
-            _entity.transform.position = updatedPosition;
+            transform.position = updatedPosition;
 
             if (_progress >= 1)
             {
                 _progress = 0;
-                var targetNode = _targetNode;
+                _onPause = true;
+                transform.position = _targetNodePosition;
+                _currentNode = _targetNode;
                 _targetNode = null;
-                _inputController.EnableLeftClick();
-                _entity.ChangeNode(targetNode);
+                _gameObjects.StartNextEntityTurn();
             }
         }
 
         void PlayStepSound()
         {
             var clip = _mapController.stepSounds.GetRandom();
-            _audioSource.PlayOneShot(clip);
+            _body.PlayOneShot(clip);
         }
 
         Vector3 GetNodePosition(TileNode node)
         {
-            float z = _entity.transform.position.z;
+            float z = transform.position.z;
             return new Vector3(node.x, node.y, z);
         }
     }

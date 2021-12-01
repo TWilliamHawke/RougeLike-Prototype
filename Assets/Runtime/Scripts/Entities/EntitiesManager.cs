@@ -3,41 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entities.Player;
 using Entities.AI;
+using System;
+using Core.Input;
+using Core;
 
 namespace Entities
 {
-	public class EntitiesManager : MonoBehaviour
-	{
-	    [SerializeField] PlayerCore _player;
-		[SerializeField] Enemy _testEnemy;
+    public class EntitiesManager : MonoBehaviour
+    {
+        [SerializeField] PlayerCore _player;
+        [SerializeField] Enemy _testEnemy;
+        [SerializeField] InputController _inputController;
+        [SerializeField] GameObjects _gameObjects;
 
-		StateMachine _testStateMachine;
+        StateMachine _testStateMachine;
 
-		StateMachine _currentStateMachine;
+        StateMachine _currentStateMachine;
+        TurnStage _currentTurnStage = TurnStage.playerTurn;
 
-		public void StartUp()
-		{
-			_player.Init();
-			_testEnemy.Init();
-			_player.OnPlayerTurnEnd += StartEnemyTurn;
-			_testStateMachine = _testEnemy.stateMachine;
-			_testStateMachine.Init();
-		}
+        Stack<StateMachine> _activeEnemies = new Stack<StateMachine>();
 
-		void StartEnemyTurn()
-		{
-			_currentStateMachine = _testStateMachine;
-			_currentStateMachine.StartTurn();
-		}
+        public void StartUp()
+        {
+            _player.Init();
+            _testEnemy.Init();
+            _testStateMachine = _testEnemy.stateMachine;
+            _gameObjects.OnEntityTurnEnd += ChangeActiveEntity;
+            _testStateMachine.Init();
+        }
 
-		private void Update() {
-			if(_currentStateMachine == null) return;
+        void OnDestroy()
+        {
+            _gameObjects.OnEntityTurnEnd -= ChangeActiveEntity;
+        }
 
-			if(_currentStateMachine.isDone)
-			{
-				_currentStateMachine.EndTurn();
-				_currentStateMachine = null;
-			}
-		}
-	}
+        void ChangeActiveEntity()
+        {
+            if (_currentTurnStage == TurnStage.playerTurn)
+            {
+                _currentTurnStage = TurnStage.enemyTurn;
+                AddActiveEnemiesToStack();
+                StartNextEnenyTurn();
+            }
+            else
+            {
+                StartNextEnenyTurn();
+            }
+        }
+
+        void StartNextEnenyTurn()
+        {
+            _currentStateMachine?.EndTurn();
+
+            if (_activeEnemies.Count > 0)
+            {
+                _currentStateMachine = _activeEnemies.Pop();
+                _currentStateMachine.StartTurn();
+				Debug.Log(_activeEnemies.Count);
+            }
+            else
+            {
+                _currentStateMachine = null;
+                _currentTurnStage = TurnStage.playerTurn;
+                _inputController.EnableLeftClick();
+				_player.StartTurn();
+            }
+        }
+
+        void AddActiveEnemiesToStack()
+        {
+            _activeEnemies.Push(_testStateMachine);
+        }
+
+        enum TurnStage
+        {
+            playerTurn,
+            enemyTurn,
+        }
+    }
 }

@@ -5,27 +5,25 @@ using UnityEngine;
 
 namespace Entities.Behavior
 {
-	public class PathFinder
-	{
-        ICanMove _entity;
-		TileNode _startNode;
-        TileNode _targetNode;
-		TilemapController _mapController;
+    public static class PathFinder
+    {
+        static TileNode _startNode;
+        static TileNode _targetNode;
+        static TilemapController _mapController;
 
-        List<TileNode> _sortedNodes = new List<TileNode>();
-        List<TileNode> _unsortedNodes = new List<TileNode>();
+        static List<TileNode> _sortedNodes = new List<TileNode>();
+        static List<TileNode> _unsortedNodes = new List<TileNode>();
 
-        public PathFinder(ICanMove entity, TilemapController mapController)
+        public static void Init(TilemapController mapController)
         {
-            _entity = entity;
             _mapController = mapController;
         }
 
-        public Stack<TileNode> FindPathTo(TileNode targetNode)
+        public static Stack<TileNode> FindPath(TileNode from, TileNode to)
         {
             var path = new Stack<TileNode>();
-            _startNode = _entity.currentNode;
-            _targetNode = targetNode;
+            _startNode = from;
+            _targetNode = to;
             _targetNode.parent = null;
 
             _unsortedNodes.Add(_startNode);
@@ -54,7 +52,7 @@ namespace Entities.Behavior
             return path;
         }
 
-        void CheckNodes()
+        static void CheckNodes()
         {
             while (_unsortedNodes.Count > 0)
             {
@@ -67,7 +65,7 @@ namespace Entities.Behavior
                     {
                         continue;
                     }
-                    
+
                     node.parent = nearestNode;
                     if (node == _targetNode) return;
 
@@ -81,31 +79,30 @@ namespace Entities.Behavior
             }
         }
 
-        TileNode FindNearestNodeFromUnsorted()
+        static TileNode FindNearestNodeFromUnsorted()
         {
             TileNode nearestNode = _unsortedNodes[0];
 
             foreach (var node in _unsortedNodes)
             {
                 try
-				{
-					 if (IsnodeClose(nearestNode, node))
                 {
-                    nearestNode = node;
+                    if (IsnodeClose(nearestNode, node))
+                    {
+                        nearestNode = node;
+                    }
                 }
-				}
-				catch (System.Exception)
-				{
-					
-					Debug.Log(nearestNode?.position2d);
-					Debug.Log(node?.position2d);
-					
-				}
+                catch (System.Exception)
+                {
+
+                    Debug.Log(nearestNode?.position2d);
+                    Debug.Log(node?.position2d);
+                }
             }
             return nearestNode;
         }
 
-        bool IsnodeClose(TileNode selectedNode, TileNode candidate)
+        static bool IsnodeClose(TileNode selectedNode, TileNode candidate)
         {
             if (selectedNode.totalDist < candidate.totalDist)
             {
@@ -117,5 +114,5 @@ namespace Entities.Behavior
             }
             return true;
         }
-	}
+    }
 }

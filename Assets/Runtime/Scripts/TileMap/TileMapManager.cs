@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Map.Generator;
 using Entities.Player;
+using Entities.Behavior;
 
 namespace Map
 {
@@ -18,6 +19,7 @@ namespace Map
 
         public void StartUp()
         {
+			PathFinder.Init(_tilemapController);
             _generator = new MapGenerator(_tileMap, _config);
 			_generator.StartGeneration();
 

@@ -4,22 +4,32 @@ using Core.Input;
 using Entities.Player;
 using Map;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 namespace Core
 {
-	[CreateAssetMenu(fileName ="GameObjects", menuName ="map/GeneratorConfig")]
-	public class GameObjects : ScriptableObject
-	{
-		[SerializeField] TilemapController _tilemapController;
-		[SerializeField] InputController _inputController;
+    [CreateAssetMenu(fileName = "GameObjects", menuName = "map/GeneratorConfig")]
+    public class GameObjects : ScriptableObject
+    {
+        public event UnityAction OnEntityTurnEnd;
 
-	    public Camera mainCamera { get; set; }
-		public CameraController cameraController { get; set; }
-		public PlayerCore player { get; set; }
-		public Tilemap tilemap { get; set; }
+        [SerializeField] TilemapController _tilemapController;
+        [SerializeField] InputController _inputController;
 
-		public TilemapController tilemapController => _tilemapController;
-		public InputController inputController => _inputController;
-	}
+        public Camera mainCamera { get; set; }
+        public CameraController cameraController { get; set; }
+        public PlayerCore player { get; set; }
+        public Tilemap tilemap { get; set; }
+
+        public TilemapController tilemapController => _tilemapController;
+        public InputController inputController => _inputController;
+
+        public void StartNextEntityTurn()
+        {
+            OnEntityTurnEnd?.Invoke();
+        }
+
+
+    }
 }

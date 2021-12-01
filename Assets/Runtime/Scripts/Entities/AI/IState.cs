@@ -5,6 +5,6 @@ namespace Entities.AI
         void StartTurn();
         void EndTurn();
         bool Condition();
-        bool isDone { get; }
+        bool endTurnImmediantly { get; }
     }
 }

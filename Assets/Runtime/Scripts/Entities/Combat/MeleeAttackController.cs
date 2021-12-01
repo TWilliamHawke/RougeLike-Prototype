@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Core.Settings;
 using UnityEngine;
 using Core.Input;
-using Rng = System.Random;
-using UnityEngine.Events;
+using Core;
 
 namespace Entities.Combat
 {
@@ -12,19 +11,17 @@ namespace Entities.Combat
     {
         [SerializeField] GlobalSettings _settings;
         [SerializeField] InputController _inputController;
-        [SerializeField] AudioSource _audioSource;
-
-        public event UnityAction OnAttackEnd;
+        [SerializeField] GameObjects _gameObjects;
+        [SerializeField] AudioSource _body;
 
         ICanAttack _attacker;
-		IAttackTarget _target;
-        Rng _rng;
+        IAttackTarget _target;
 
-		Vector3 _defaultPosition;
+        Vector3 _defaultPosition;
         Vector3 _attackPosition;
         AttackPhases _attackPhase = AttackPhases.none;
         float _attackProgress;
-		float _directionMult = 1;
+        float _directionMult = 1;
 
         public bool isAttack => _attackPhase != AttackPhases.none;
 
@@ -32,46 +29,43 @@ namespace Entities.Combat
         {
             if (_attackPhase == AttackPhases.none) return;
 
-			_attackProgress += Time.deltaTime * (int)_attackPhase * _settings.animationSpeed * _directionMult;
-			transform.position = Vector3.Lerp(_defaultPosition, _attackPosition, _attackProgress);
+            _attackProgress += Time.deltaTime * (int)_attackPhase * _settings.animationSpeed * _directionMult;
+            _body.transform.position = Vector3.Lerp(_defaultPosition, _attackPosition, _attackProgress);
 
-			if(_attackProgress >= 1 && _attackPhase == AttackPhases.moveTo)
-			{
-				_attackPhase = AttackPhases.moveAway;
-				Damage(_attacker.damageSource, _target);
-			}
+            if (_attackProgress >= 1 && _attackPhase == AttackPhases.moveTo)
+            {
+                _attackPhase = AttackPhases.moveAway;
+                Damage(_attacker.damageSource, _target);
+            }
 
-			if(_attackProgress <= 0 && _attackPhase == AttackPhases.moveAway)
-			{
-				_attackProgress = 0;
-				_attackPhase = AttackPhases.none;
-                _inputController.EnableLeftClick(); //HACK this should be in entityController
-                OnAttackEnd?.Invoke();
-			}
+            if (_attackProgress <= 0 && _attackPhase == AttackPhases.moveAway)
+            {
+                _attackProgress = 0;
+                _body.transform.position = _defaultPosition;
+                _attackPhase = AttackPhases.none;
+                _gameObjects.StartNextEntityTurn();
+            }
         }
-
-
 
         public void Init(ICanAttack attacker)
         {
             _attacker = attacker;
-            _rng = new Rng();
-			
+
         }
 
         public void StartAttack(IAttackTarget target)
         {
             _target = target;
             _attackPosition = (transform.position + target.transform.position) * 0.5f;
-			_defaultPosition = transform.position;
+            _defaultPosition = transform.position;
 
-			var distance = Vector3.Distance(transform.position, _attackPosition);
-			_directionMult = 1 / distance;
+            var distance = Vector3.Distance(transform.position, _attackPosition);
+            _directionMult = 1 / distance;
 
             int index = Random.Range(0, _attacker.damageSource.attackSounds.Length);
-            _audioSource.PlayOneShot(_attacker.damageSource.attackSounds[index]);
+            _body.PlayOneShot(_attacker.damageSource.attackSounds[index]);
 
-			_attackPhase = AttackPhases.moveTo;
+            _attackPhase = AttackPhases.moveTo;
             _inputController.DisableLeftClick();  //HACK this should be in entityController
         }
 

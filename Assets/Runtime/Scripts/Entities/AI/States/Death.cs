@@ -8,7 +8,7 @@ namespace Entities.AI
     {
 		IHealthComponent _health;
 
-        public bool isDone => false;
+        public bool endTurnImmediantly => true;
 
         public Death(IHealthComponent health)
         {

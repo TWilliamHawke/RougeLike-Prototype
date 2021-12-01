@@ -23,7 +23,7 @@ namespace Entities.AI
             _movementController = movementController;
         }
 
-        public bool isDone => !_meleeAttackController.isAttack;
+        public bool endTurnImmediantly => false;
 
         public void StartTurn()
         {

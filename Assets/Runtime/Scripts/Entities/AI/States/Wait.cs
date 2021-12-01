@@ -6,7 +6,7 @@ namespace Entities.AI
 {
     public class Wait : IState
     {
-        public bool isDone => true;
+        public bool endTurnImmediantly => true;
 
         public void StartTurn()
         {

@@ -12,7 +12,7 @@ namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
-    public class Enemy : MonoBehaviour, ICanAttack, IAttackTarget, IInteractive, ICanMove
+    public class Enemy : MonoBehaviour, ICanAttack, IAttackTarget, IInteractive
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
@@ -55,23 +55,13 @@ namespace Entities
             _health.DecreaseHealth(damage);
         }
 
-        public void ChangeNode(TileNode node)
-        {
-
-        }
-
-        public void TeleportTo(Vector3 position)
-        {
-            transform.position = position;
-        }
-
         private void InitComponents()
         {
             _health = GetComponent<Health>();
             _health.Init(_template);
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();
-            movementController.Init(this);
+            movementController.Init(new TileNode(0, 1, true));
             meleeAttackController.Init(this);
         }
 

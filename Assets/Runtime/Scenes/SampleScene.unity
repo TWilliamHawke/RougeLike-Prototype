@@ -293,7 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
   _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
-  _tilemapController: {fileID: 11400000, guid: 6ab4e86e01638a649b15de42afcd8f18, type: 2}
 --- !u!1 &389726487
 GameObject:
   m_ObjectHideFlags: 0
@@ -100921,7 +100920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b23fa7f2257f54b87e782423454d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -101495,6 +101493,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 390164292}
   _testEnemy: {fileID: 1326299776}
+  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
+  _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
 --- !u!1 &1344156898
 GameObject:
   m_ObjectHideFlags: 0

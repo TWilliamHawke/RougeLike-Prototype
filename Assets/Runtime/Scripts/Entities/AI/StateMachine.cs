@@ -21,8 +21,6 @@ namespace Entities.AI
 
 		List<IState> _states = new List<IState>();
 
-		public bool isDone => _currentState.isDone;
-
 		public void Init()
 		{
 			_meleeAttackController = GetComponent<MeleeAttackController>();
@@ -39,15 +37,21 @@ namespace Entities.AI
 
 	    public void StartTurn()
 		{
+			_currentState.EndTurn();
 			foreach (var state in _states)
             {
                 if (!state.Condition()) continue;
 
-                _currentState.EndTurn();
                 _currentState = state;
-                _currentState.StartTurn();
-                break;
+				break;
             }
+
+			_currentState.StartTurn();
+
+			if(_currentState.endTurnImmediantly)
+			{
+				_gameObjects.StartNextEntityTurn();
+			}
         }
 
 		public void EndTurn()
