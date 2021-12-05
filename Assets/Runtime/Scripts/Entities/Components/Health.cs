@@ -14,6 +14,7 @@ namespace Entities
 
         [SerializeField] AudioSource _audioSource;
 
+        //hack it should go from unit template
         IHaveInjureSounds _template;
 
 
@@ -37,12 +38,12 @@ namespace Entities
             OnEntitDisbled?.Invoke(this);
         }
 
-        public void IncreaseHealth(int health)
+        public void RestoreHealth(int health)
         {
             ChangeHealth(health);
         }
 
-        public void DecreaseHealth(int health)
+        public void DamageHealth(int health)
         {
             ChangeHealth(-health);
         }

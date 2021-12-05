@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Core;
 using Map;
 using UnityEngine;
 using Entities.Behavior;
 using Entities.Combat;
+using UnityEngine.Events;
+using Effects;
 
 namespace Entities.Player
 {
     [RequireComponent(typeof(VisibilityController))]
-    public class PlayerCore : MonoBehaviour, IAttackTarget, ICanAttack
+    public class PlayerCore : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget
     {
-        [SerializeField] GameObjects _gameObjects;
+        public event UnityAction OnPlayerTurnEnd;
+
         [SerializeField] TilemapController _mapController;
         [SerializeField] PlayerStats _stats;
-        [SerializeField] Inventory _inventory;
         [SerializeField] MovementController _movementController;
         [SerializeField] MeleeAttackController _meleeAttackController;
 
@@ -29,6 +30,8 @@ namespace Entities.Player
         public void Init()
         {
             GetComponent<VisibilityController>().ChangeViewingRange();
+            _movementController.OnStepEnd += EndPlayerTurn;
+            _meleeAttackController.OnAttackEnd += EndPlayerTurn;
 
             //stats requires player.transform
             _stats.player = this;
@@ -78,7 +81,12 @@ namespace Entities.Player
 
         void IAttackTarget.TakeDamage(int damage)
         {
-            _stats.DecreaseHealth(damage);
+            _stats.DamageHealth(damage);
+        }
+
+        void EndPlayerTurn()
+        {
+            OnPlayerTurnEnd?.Invoke();
         }
 
     }

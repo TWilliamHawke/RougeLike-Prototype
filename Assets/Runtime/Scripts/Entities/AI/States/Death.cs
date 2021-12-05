@@ -8,8 +8,6 @@ namespace Entities.AI
     {
 		IHealthComponent _health;
 
-        public bool endTurnImmediantly => true;
-
         public Death(IHealthComponent health)
         {
             _health = health;

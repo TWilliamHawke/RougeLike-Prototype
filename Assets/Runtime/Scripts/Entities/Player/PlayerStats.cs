@@ -8,7 +8,6 @@ namespace Entities.Player
 {
     public class PlayerStats : ScriptableObject, IHealthComponent
     {
-        [SerializeField] Inventory _inventory;
         [SerializeField] AudioClip[] _weaponSounds;
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
@@ -43,19 +42,18 @@ namespace Entities.Player
             return _resists;
         }
 
-        public void IncreaseHealth(int health)
+        public void RestoreHealth(int health)
         {
             ChangeHealth(health);
         }
 
-        public void DecreaseHealth(int health)
+        public void DamageHealth(int health)
         {
             ChangeHealth(-health);
         }
 
         void ChangeHealth(int health)
         {
-            Debug.Log(_currentHealth);
             _currentHealth = Mathf.Clamp(_currentHealth + health, 0, _maxHealth);
             OnHealthChange?.Invoke();
 

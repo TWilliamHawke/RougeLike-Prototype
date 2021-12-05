@@ -4,11 +4,14 @@ using Map;
 using UnityEngine;
 using Core.Input;
 using Core;
+using UnityEngine.Events;
 
 namespace Entities.Behavior
 {
     public class MovementController : MonoBehaviour
     {
+        public event UnityAction OnStepEnd;
+
         [SerializeField] GlobalSettings _settings;
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] AudioSource _body;
@@ -90,7 +93,7 @@ namespace Entities.Behavior
                 transform.position = _targetNodePosition;
                 _currentNode = _targetNode;
                 _targetNode = null;
-                _gameObjects.StartNextEntityTurn();
+                OnStepEnd?.Invoke();
             }
         }
 

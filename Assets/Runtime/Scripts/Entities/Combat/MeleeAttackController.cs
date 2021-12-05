@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using Core.Settings;
 using UnityEngine;
 using Core.Input;
-using Core;
+using UnityEngine.Events;
 
 namespace Entities.Combat
 {
     public class MeleeAttackController : MonoBehaviour
     {
+        public event UnityAction OnAttackEnd;
+
         [SerializeField] GlobalSettings _settings;
         [SerializeField] InputController _inputController;
-        [SerializeField] GameObjects _gameObjects;
         [SerializeField] AudioSource _body;
 
         ICanAttack _attacker;
@@ -43,7 +44,7 @@ namespace Entities.Combat
                 _attackProgress = 0;
                 _body.transform.position = _defaultPosition;
                 _attackPhase = AttackPhases.none;
-                _gameObjects.StartNextEntityTurn();
+                OnAttackEnd?.Invoke();
             }
         }
 

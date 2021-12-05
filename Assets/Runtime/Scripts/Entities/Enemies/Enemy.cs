@@ -52,7 +52,7 @@ namespace Entities
 
         public void TakeDamage(int damage)
         {
-            _health.DecreaseHealth(damage);
+            _health.DamageHealth(damage);
         }
 
         private void InitComponents()

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entities.Player
+namespace Effects
 {
-	public class Inventory : ScriptableObject
+	public class TemporaryEffectData
 	{
 	    
 	}

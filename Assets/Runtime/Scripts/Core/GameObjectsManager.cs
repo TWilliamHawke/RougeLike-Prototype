@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities.Player;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Items;
 
 namespace Core
 {
@@ -12,11 +13,13 @@ namespace Core
 		[SerializeField] PlayerCore _player;
 		[SerializeField] GameObjects _gameObjects;
 		[SerializeField] Tilemap _tilemap;
+		[SerializeField] Inventory _inventory;
 
 		public void StartUp()
 		{
 			_mainCamera.SetPlayer(_player);
 			SetSharedGameObjects();
+			_inventory.Init();
 		}
 
 		void SetSharedGameObjects()

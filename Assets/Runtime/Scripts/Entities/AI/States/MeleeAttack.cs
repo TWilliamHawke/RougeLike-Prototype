@@ -9,35 +9,34 @@ namespace Entities.AI
     public class MeleeAttack : IState
     {
         MeleeAttackController _meleeAttackController;
-        MovementController _movementController;
 
         IAttackTarget _target;
+        StateMachine _stateMachine;
 
         const float _maxTargetDistance = 1.5f;
 
 
-        public MeleeAttack(MeleeAttackController meleeAttackController, IAttackTarget target, MovementController movementController)
+        public MeleeAttack(MeleeAttackController meleeAttackController, IAttackTarget target, StateMachine stateMachine)
         {
             _meleeAttackController = meleeAttackController;
             _target = target;
-            _movementController = movementController;
+            _stateMachine = stateMachine;
+            _meleeAttackController.OnAttackEnd += EndTurn;
         }
-
-        public bool endTurnImmediantly => false;
 
         public void StartTurn()
         {
             _meleeAttackController.StartAttack(_target);
         }
 
-        public void EndTurn()
+        void EndTurn()
         {
-
+            _stateMachine.EndTurn();
         }
 
         public bool Condition()
         {
-            var enetityPos = _movementController.transform.position;
+            var enetityPos = _meleeAttackController.transform.position;
             var targetPos = _target.transform.position;
 
             return Vector3.Distance(enetityPos, targetPos) < _maxTargetDistance;

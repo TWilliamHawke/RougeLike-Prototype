@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a0685c49b960a4882509011c76326b, type: 3}
-  m_Name: Inventory
+  m_Script: {fileID: 11500000, guid: 77b19fe71abef78468d1479f67839b4c, type: 3}
+  m_Name: RestoreHealth
   m_EditorClassIdentifier: 
+  _displayName: RestoreHealth
+  _description: RestoreHealth
+  _icon: {fileID: 21300000, guid: f33cdaec8684a134db47183f07703fb8, type: 3}

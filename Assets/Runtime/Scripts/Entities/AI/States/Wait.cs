@@ -6,11 +6,16 @@ namespace Entities.AI
 {
     public class Wait : IState
     {
-        public bool endTurnImmediantly => true;
+        StateMachine _stateMachine;
+
+        public Wait(StateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
 
         public void StartTurn()
         {
-
+            _stateMachine.EndTurn();
         }
         
         public void EndTurn()

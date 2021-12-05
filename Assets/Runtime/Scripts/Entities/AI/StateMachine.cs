@@ -3,6 +3,7 @@ using Core;
 using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Entities.AI
 {
@@ -11,7 +12,10 @@ namespace Entities.AI
 	[RequireComponent(typeof(Health))]
 	public class StateMachine : MonoBehaviour
 	{
+		public event UnityAction OnTurnEnd;
+
 		[SerializeField] GameObjects _gameObjects;
+
 		MovementController _movementController;
 		MeleeAttackController _meleeAttackController;
 		Health _health;
@@ -27,9 +31,9 @@ namespace Entities.AI
 			_movementController = GetComponent<MovementController>();
 			_health = GetComponent<Health>();
 			
-			_defaultState = new Wait();
+			_defaultState = new Wait(this);
 			_states.Add(new Death(_health));
-			_states.Add(new MeleeAttack(_meleeAttackController, _gameObjects.player, _movementController));
+			_states.Add(new MeleeAttack(_meleeAttackController, _gameObjects.player, this));
 
 
 			_currentState = _defaultState;
@@ -37,7 +41,6 @@ namespace Entities.AI
 
 	    public void StartTurn()
 		{
-			_currentState.EndTurn();
 			foreach (var state in _states)
             {
                 if (!state.Condition()) continue;
@@ -48,16 +51,12 @@ namespace Entities.AI
 
 			_currentState.StartTurn();
 
-			if(_currentState.endTurnImmediantly)
-			{
-				_gameObjects.StartNextEntityTurn();
-			}
         }
 
 		public void EndTurn()
 		{
-			_currentState.EndTurn();
 			_currentState = _defaultState;
+			OnTurnEnd?.Invoke();
 		}
 
 		
