@@ -5,21 +5,21 @@ using UnityEngine;
 namespace Items
 {
 	[System.Serializable]
-	public class ItemSlotData<T> where T : Item
+	public class ItemSlotData
 	{
-		T _item;
+		Item _item;
 		int _count;
 
-        public T item => _item;
+        public Item item => _item;
 		public int count => _count;
 
-        public ItemSlotData(T item)
+        public ItemSlotData(Item item)
         {
             _item = item;
             _count = 1;
         }
 
-        public ItemSlotData(T item, int count)
+        public ItemSlotData(Item item, int count)
         {
             _item = item;
             _count = count;
@@ -49,7 +49,7 @@ namespace Items
 
 		public void FillToMaxSize()
 		{
-			_count = _item.maxStackSize;
+			_count = _item.maxStackCount;
 		}
     }
 }

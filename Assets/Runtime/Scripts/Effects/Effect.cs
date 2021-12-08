@@ -6,9 +6,11 @@ namespace Effects
 {
 	public class Effect : ScriptableObject
 	{
+		[UseFileName]
 	    [SerializeField] string _displayName;
 		[Multiline(4)]
 		[SerializeField] string _description;
+		[SpritePreview]
 		[SerializeField] Sprite _icon;
 	}
 }

@@ -8,21 +8,28 @@ namespace Items
 	{
 		[SerializeField] Item _testItem;
 		
-	    InventorySection<Potion> _potionsBag;
-		InventorySection<Item> _main;
-		InventorySection<Item> _storage;
+	    ItemSection<Potion> _potionsBag;
+		ItemSection<MagicScroll> _scrollsBag;
+		ItemSection<Item> _main;
+		ItemSection<Item> _storage;
 
-		List<IInventorySection> _sections;
+		public IItemSection potionsBag => _potionsBag;
+		public IItemSection scrollsBag => _scrollsBag;
+		public IItemSection main => _main;
+
+		List<IItemSection> _sections;
 
 
 		public void Init()
 		{
-			_potionsBag = new InventorySection<Potion>(3);
-			_main = new InventorySection<Item>(12);
-			_storage = new InventorySection<Item>(-1);
-			_sections = new List<IInventorySection>(3);
+			_potionsBag = new ItemSection<Potion>(3);
+			_scrollsBag = new ItemSection<MagicScroll>(5);
+			_main = new ItemSection<Item>(12);
+			_storage = new ItemSection<Item>(-1);
+			_sections = new List<IItemSection>(3);
 
 			_sections.Add(_potionsBag);
+			_sections.Add(_scrollsBag);
 			//if special sections is full - add to main
 			_sections.Add(_main);
 			//if main is full - add to storage

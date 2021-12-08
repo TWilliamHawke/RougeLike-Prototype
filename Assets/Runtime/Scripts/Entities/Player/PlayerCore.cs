@@ -16,25 +16,22 @@ namespace Entities.Player
 
         [SerializeField] TilemapController _mapController;
         [SerializeField] PlayerStats _stats;
+        [SerializeField] Body _body;
         [SerializeField] MovementController _movementController;
         [SerializeField] MeleeAttackController _meleeAttackController;
 
-        TileNode _currentNode;
         IInteractive _target;
 
-        public TileNode currentNode => _currentNode;
         public Dictionary<DamageType, int> resists => _stats.CalculateCurrentResists();
         public IDamageSource damageSource => _stats.CalculateDamageData();
-
+        public Body body => _body;
 
         public void Init()
         {
             GetComponent<VisibilityController>().ChangeViewingRange();
             _movementController.OnStepEnd += EndPlayerTurn;
             _meleeAttackController.OnAttackEnd += EndPlayerTurn;
-
-            //stats requires player.transform
-            _stats.player = this;
+            _body.Init(_stats);
             
             _meleeAttackController.Init(this);
         }
@@ -75,7 +72,6 @@ namespace Entities.Player
         {
             Vector3 position = node.position2d.AddZ(0);
             transform.position = position;
-            _currentNode = node;
             _movementController.Init(node);
         }
 

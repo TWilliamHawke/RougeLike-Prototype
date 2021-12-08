@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Healing Potion
   _icon: {fileID: 21300000, guid: c3f3d9ed187252d4e99ac810a5eb734f, type: 3}
-  _maxStackSize: 1
-  _value: 0
+  _maxStackSize: 2
+  _value: 25
+  _effects:
+  - _effect: {fileID: 11400000, guid: b7b0eb9394087bd489770e5b6cd8d261, type: 2}
+    _power: 25
+    _duration: -1

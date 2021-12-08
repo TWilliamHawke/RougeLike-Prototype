@@ -14,14 +14,11 @@ namespace Entities.Player
 
         int _currentHealth = 100;
         int _maxHealth = 100;
-        public PlayerCore player { set; private get; }
 
         public event UnityAction OnHealthChange;
 
         public int currentHealth => _currentHealth;
         public int maxHealth => _maxHealth;
-
-        Transform IHealthComponent.transform => player.transform;
 
         private void OnEnable()
         {

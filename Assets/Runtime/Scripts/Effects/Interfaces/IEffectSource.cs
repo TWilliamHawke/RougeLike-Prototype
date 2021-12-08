@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Effects
 {
-	public class IEffectSource
+	public interface IEffectSource
 	{
-	    
+	    void AplyEffects(IEffectTarget target);
 	}
 }

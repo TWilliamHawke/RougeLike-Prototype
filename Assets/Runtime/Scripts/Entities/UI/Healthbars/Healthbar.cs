@@ -8,7 +8,7 @@ namespace Entities.UI
 {
     public class Healthbar : MonoBehaviour
     {
-        IHealthComponent _entity;
+        IHealthbarData _healthbarData;
 
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] Image _fillImage;
@@ -16,10 +16,10 @@ namespace Entities.UI
         [Range(0, 0.1f)]
         [SerializeField] float _minVisibleHealth = 0.05f;
 
-        public void SetHealth(IHealthComponent entity)
+        public void SetHealth(IHealthbarData entity)
         {
-            _entity = entity;
-            _entity.OnHealthChange += UpdateHealthBar;
+            _healthbarData = entity;
+            _healthbarData.OnHealthChange += UpdateHealthBar;
         }
 
         public void SetColor(Color color)
@@ -27,17 +27,15 @@ namespace Entities.UI
             _fillImage.color = color;
         }
 
-        
-
         void UpdateHealthBar()
         {
-            float healthPct = (float)_entity.currentHealth / _entity.maxHealth;
+            float healthPct = (float)_healthbarData.currentHealth / _healthbarData.maxHealth;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
         }
 
         void LateUpdate()
         {
-            var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_entity.transform.position + _shift);
+            var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
             transform.position = entityPos;
         }
     }

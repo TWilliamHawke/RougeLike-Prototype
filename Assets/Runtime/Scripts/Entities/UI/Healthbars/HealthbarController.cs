@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Player;
+using Core;
 using UnityEngine;
 
 namespace Entities.UI
@@ -8,7 +8,7 @@ namespace Entities.UI
     public class HealthbarController : MonoBehaviour
     {
         [SerializeField] Healthbar _healthbarPrefab;
-        [SerializeField] PlayerStats _playerStats;
+        [SerializeField] GameObjects _gameObjects;
         [SerializeField] Color _playerHealthbarColor = Color.red;
         [SerializeField] Color _enemyHealthbarColor = Color.red;
 
@@ -25,7 +25,7 @@ namespace Entities.UI
             Health.OnHealthInit -= CreateNewHealthbar;
         }
 
-        void CreateNewHealthbar(Health entityHealth)
+        void CreateNewHealthbar(IHealthbarData entityHealth)
         {
             var healthbar = Instantiate(_healthbarPrefab, transform);
             healthbar.SetHealth(entityHealth);
@@ -35,7 +35,7 @@ namespace Entities.UI
         void CreatePlayerHealthbar()
         {
             _playerHealthbar = Instantiate(_healthbarPrefab, transform);
-            _playerHealthbar.SetHealth(_playerStats);
+            _playerHealthbar.SetHealth(_gameObjects.player.body);
             _playerHealthbar.SetColor(_playerHealthbarColor);
         }
     }

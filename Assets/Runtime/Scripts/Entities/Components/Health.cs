@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHealthComponent
+    public class Health : MonoBehaviour, IHealthComponent, IHealthbarData
     {
-        public static event UnityAction<Health> OnHealthInit;
-        public static event UnityAction<Health> OnEntitDisbled;
+        public static event UnityAction<IHealthbarData> OnHealthInit;
+        public static event UnityAction<IHealthbarData> OnEntitDisbled;
 
         public event UnityAction OnHealthChange;
 
-        [SerializeField] AudioSource _audioSource;
+        [SerializeField] Body _body;
 
         //hack it should go from unit template
         IHaveInjureSounds _template;
@@ -28,14 +28,15 @@ namespace Entities
         {
             _template = template;
             _currentHealth = _baseHealth;
-            OnHealthInit?.Invoke(this);
+            _body.Init(this);
+            OnHealthInit?.Invoke(_body);
         }
 
 
 
         void OnDisable()
         {
-            OnEntitDisbled?.Invoke(this);
+            OnEntitDisbled?.Invoke(_body);
         }
 
         public void RestoreHealth(int health)
@@ -56,7 +57,7 @@ namespace Entities
             if(_currentHealth == 0)
             {
                 var sound = _template.deathSounds.GetRandom();
-                _audioSource.PlayOneShot(sound);
+                _body.PlaySound(sound);
             }
         }
     }

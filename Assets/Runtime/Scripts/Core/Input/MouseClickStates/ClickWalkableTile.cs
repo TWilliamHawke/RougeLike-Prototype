@@ -23,7 +23,6 @@ namespace Core.Input
 
         void IMouseClickState.ProcessClick()
         {
-            Debug.Log("move");
             _player.GotoNode(_targetNode);
         }
 

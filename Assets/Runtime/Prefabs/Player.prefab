@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 7328594240466791306}
   - component: {fileID: 7328594240466791305}
   - component: {fileID: 1261394877}
+  - component: {fileID: 1921085457}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -343,6 +344,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1921085457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328594240466791304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c3e1f2e974ff543bcaaf10dabe0fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1261394877}
 --- !u!1 &7328594240612423254
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapController: {fileID: 11400000, guid: 6ab4e86e01638a649b15de42afcd8f18, type: 2}
   _stats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _body: {fileID: 1921085457}
   _movementController: {fileID: 746439967}
   _meleeAttackController: {fileID: 746439970}
 --- !u!114 &1257288472

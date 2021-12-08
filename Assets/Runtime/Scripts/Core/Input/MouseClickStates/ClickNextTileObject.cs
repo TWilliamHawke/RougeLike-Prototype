@@ -21,7 +21,6 @@ namespace Core.Input
 
         void IMouseClickState.ProcessClick()
         {
-            Debug.Log("interact");
             _target?.Interact(_player);
         }
 

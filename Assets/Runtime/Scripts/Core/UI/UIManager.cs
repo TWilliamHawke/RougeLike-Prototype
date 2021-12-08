@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core.UI;
 using Entities.UI;
+using Items.UI;
 
 namespace Core
 {
@@ -10,6 +11,7 @@ namespace Core
 	{
 		[SerializeField] TileInfoPanel _tileInfoPanel;
 		[SerializeField] HealthbarController _healthbarCanvas;
+		[SerializeField] InventoryScreen _inventoryScreen;
 
 	    public void StartUp()
 		{
@@ -18,6 +20,8 @@ namespace Core
 			
 			//subscribe on playerCreation events
 			_healthbarCanvas.Init();
+			//subscribe on inventory sections events
+			_inventoryScreen.Init();
 		}
 	}
 }
