@@ -19,10 +19,11 @@ namespace Entities.Player
         [SerializeField] Body _body;
         [SerializeField] MovementController _movementController;
         [SerializeField] MeleeAttackController _meleeAttackController;
+        [SerializeField] ResistSet _testResists;
 
         IInteractive _target;
 
-        public Dictionary<DamageType, int> resists => _stats.CalculateCurrentResists();
+        public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
 
@@ -31,6 +32,7 @@ namespace Entities.Player
             GetComponent<VisibilityController>().ChangeViewingRange();
             _movementController.OnStepEnd += EndPlayerTurn;
             _meleeAttackController.OnAttackEnd += EndPlayerTurn;
+            GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
             _body.Init(_stats);
             
             _meleeAttackController.Init(this);

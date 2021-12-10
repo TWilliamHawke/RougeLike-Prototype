@@ -12,7 +12,7 @@ namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
-    public class Enemy : MonoBehaviour, ICanAttack, IAttackTarget, IInteractive
+    public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, IInteractive
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
@@ -21,12 +21,11 @@ namespace Entities
         Health _health;
 
         int _currentHealth;
-        Dictionary<DamageType, int> _currentResists = new Dictionary<DamageType, int>(5);
 
         public int maxHealth => _template.health;
         public int currentHealth => _currentHealth;
         public IDamageSource damageSource => _template;
-        public Dictionary<DamageType, int> resists => _currentResists;
+        public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
 
         public TileNode currentNode => throw new System.NotImplementedException();
@@ -40,7 +39,6 @@ namespace Entities
         public void ApplyStartStats()
         {
             _currentHealth = _template.health;
-            _currentResists[DamageType.physical] = 0;
             _TMPSprite.text = _template.bodyChar;
             _TMPSprite.color = _template.bodyColor;
         }
@@ -58,7 +56,7 @@ namespace Entities
         private void InitComponents()
         {
             _health = GetComponent<Health>();
-            _health.Init(_template);
+            _health.Init(_template.sounds);
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();
             movementController.Init(new TileNode(0, 1, true));

@@ -7,10 +7,12 @@ namespace Entities.AI
     public class Death : IState
     {
 		IHealthComponent _health;
+        StateMachine _stateMachine;
 
-        public Death(IHealthComponent health)
+        public Death(IHealthComponent health, StateMachine stateMachine)
         {
             _health = health;
+            _stateMachine = stateMachine;
         }
 
         public bool Condition()
@@ -25,7 +27,7 @@ namespace Entities.AI
 
         public void StartTurn()
         {
-            
+            _stateMachine.EndTurn();
         }
     }
 }

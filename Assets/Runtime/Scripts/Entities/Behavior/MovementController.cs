@@ -18,7 +18,7 @@ namespace Entities.Behavior
         InputController _inputController;
         TilemapController _mapController;
 
-        Stack<TileNode> _path;
+        Stack<TileNode> _path = new Stack<TileNode>();
         TileNode _targetNode;
 
         Vector3 _currentNodePosition;

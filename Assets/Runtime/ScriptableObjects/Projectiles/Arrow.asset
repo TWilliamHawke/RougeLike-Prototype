@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0b2eb2566f3ec45b791713d125f82c, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: 
+  _char: _
+  _color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+  _speedMult: 2
+  _damageType: 0
+  _minDamage: 5
+  _maxDamage: 10
+  _fireSounds:
+  - {fileID: 8300000, guid: c652ff312840b0c4d8f1f63c5c14ecad, type: 3}
+  - {fileID: 8300000, guid: 6fafd689ce549c446a62d4e96cb47d3b, type: 3}
+  - {fileID: 8300000, guid: 837148419bf42be41ae1055e6ed219ff, type: 3}
+  _impactSounds:
+  - {fileID: 8300000, guid: bf10aaa178d03ee4b9efd7435c3d1eea, type: 3}
+  - {fileID: 8300000, guid: e9d3a14063c16bc419104a187692120b, type: 3}
+  - {fileID: 8300000, guid: 40db4ae2a832e0d4091c376369848601, type: 3}
+  - {fileID: 8300000, guid: e004a875d2f06ec4a86926d1aff61c82, type: 3}

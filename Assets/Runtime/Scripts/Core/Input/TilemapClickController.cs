@@ -26,7 +26,7 @@ namespace Core.Input
 
             _clickStates.Add(new ClickPlayer(_gameObjects));
 
-
+            _clickStates.Add(new ClickRangeAttackTarget(_gameObjects));
             _clickStates.Add(new ClickRemoteObject(_gameObjects));
             _clickStates.Add(new ClickNextTileObject(_gameObjects));
 

@@ -32,7 +32,7 @@ namespace Entities.AI
 			_health = GetComponent<Health>();
 			
 			_defaultState = new Wait(this);
-			_states.Add(new Death(_health));
+			_states.Add(new Death(_health, this));
 			_states.Add(new MeleeAttack(_meleeAttackController, _gameObjects.player, this));
 
 

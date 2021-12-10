@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 namespace Core.Input
 {
@@ -18,24 +19,16 @@ namespace Core.Input
 
         bool IMouseClickState.Condition()
         {
-            var hits = new List<RaycastResult>();
-            var eventData = new PointerEventData(EventSystem.current);
-            eventData.position = Mouse.current.position.ReadValue();
-            EventSystem.current.RaycastAll(eventData, hits);
+            var hits = Raycasts.UI();
 
-			foreach (var hit in hits)
+			if(hits.Any(hit => hit.gameObject.tag != IGNORE_RAYCAST_TAG))
 			{
-				if(hit.gameObject.tag == IGNORE_RAYCAST_TAG)
-				{
-					continue;
-				}
-				else
-				{
-					return true;
-				}
+				return true;
 			}
-
-			return false;
+			else
+			{
+				return false;
+			}
 
         }
 

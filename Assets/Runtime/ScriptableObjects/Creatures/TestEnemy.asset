@@ -18,10 +18,5 @@ MonoBehaviour:
   _maxDamage: 20
   _damageType: 0
   _health: 100
-  _attackSounds:
-  - {fileID: 8300000, guid: 426418edf0ddfda4b9025b52345dcbc2, type: 3}
-  - {fileID: 8300000, guid: 8b1376396afeb8d42b3e0b10b76cacdc, type: 3}
-  - {fileID: 8300000, guid: 3b6d9245f55a6344cb174699de050d86, type: 3}
-  _deathSounds:
-  - {fileID: 8300000, guid: 3953178cd3414504dbe70c777bc3d668, type: 3}
-  - {fileID: 8300000, guid: b4183cf40449edc4cbe5ad7eb0dafd4a, type: 3}
+  _resists: {fileID: 11400000, guid: 38ae83a959d36a1439f026d8ea73c3a1, type: 2}
+  _sounds: {fileID: 11400000, guid: a1b2620a9d2a935469a0391a72ec4ded, type: 2}
