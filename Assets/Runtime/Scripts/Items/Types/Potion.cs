@@ -6,16 +6,17 @@ using Effects;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IEffectSource
+	public class Potion : Item, IAbilitySource
 	{
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
 
-        public void AplyEffects(IEffectTarget target)
+
+        public void UseAbility(AbilityController controller)
         {
-            foreach (var effect in _effects)
+            foreach (var effectData in _effects)
 			{
-				effect.ApplyEffect(target);
+				controller.ApplyToSelf(effectData);
 			}
         }
     }

@@ -50,9 +50,11 @@ public class SpritePreviewDrawer : PropertyDrawer
 
     static bool PropertyHasSprite(SerializedProperty property, out Sprite sprite)
     {
-        sprite = property.objectReferenceValue as Sprite ??
-            (property.objectReferenceValue as ISpriteGetter).sprite ??
-            (property.objectReferenceValue as ISpriteProperty).sprite;
+        var value = property?.objectReferenceValue;
+        sprite = value as Sprite ??
+            (value as ISpriteGetter)?.sprite ??
+            (value as ISpriteProperty)?.sprite;
+            
         return sprite != null;
     }
 

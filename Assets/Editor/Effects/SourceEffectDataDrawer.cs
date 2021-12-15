@@ -15,8 +15,7 @@ public class SourceEffectDataDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        Debug.Log("work");
-        var singleLine = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        var singleLine = EditorHelpers.RectToSingleLine(position);
 
         EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_effect"));
         singleLine.y += _lineHeight;

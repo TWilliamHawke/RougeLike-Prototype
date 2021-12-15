@@ -10,6 +10,7 @@ using Effects;
 namespace Entities.Player
 {
     [RequireComponent(typeof(VisibilityController))]
+    [RequireComponent(typeof(ProjectileController))]
     public class PlayerCore : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget
     {
         public event UnityAction OnPlayerTurnEnd;

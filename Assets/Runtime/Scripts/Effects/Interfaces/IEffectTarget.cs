@@ -7,5 +7,6 @@ namespace Effects
 	public interface IEffectTarget
 	{
 		T GetComponent<T>();
+		Transform transform { get; }
 	}
 }
