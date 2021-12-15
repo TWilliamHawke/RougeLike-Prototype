@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425b3cfc9c5b58a4d8192a71d1d7b51a, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  _displayName: Fireball
+  _icon: {fileID: 0}
+  _startLevel: 1
+  _levels:
+  - spellEffect: {fileID: 11400000, guid: 9484d58bf67a233449651983b436aeb7, type: 2}
+    manaCost: 5
+  - spellEffect: {fileID: 11400000, guid: df96f4830b6dde74eb0c39835e92fb48, type: 2}
+    manaCost: 10
+  - spellEffect: {fileID: 11400000, guid: 963f1ab0a2c1ca746b4a69340106791b, type: 2}
+    manaCost: 15
+  - spellEffect: {fileID: 11400000, guid: 850ba5aa988373c4b90f81abd78902e5, type: 2}
+    manaCost: 20
+  - spellEffect: {fileID: 11400000, guid: a260df89082e9ea44a96f996d3e45c4c, type: 2}
+    manaCost: 25

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entities.Combat;
-using Entities.Behavior;
 
 namespace Entities.AI
 {
@@ -16,9 +15,9 @@ namespace Entities.AI
         const float _maxTargetDistance = 1.5f;
 
 
-        public MeleeAttack(MeleeAttackController meleeAttackController, IAttackTarget target, StateMachine stateMachine)
+        public MeleeAttack(IAttackTarget target, StateMachine stateMachine)
         {
-            _meleeAttackController = meleeAttackController;
+            _meleeAttackController = stateMachine.GetComponent<MeleeAttackController>();
             _target = target;
             _stateMachine = stateMachine;
             _meleeAttackController.OnAttackEnd += EndTurn;

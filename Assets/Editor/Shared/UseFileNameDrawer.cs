@@ -10,7 +10,7 @@ public class UseFileNameDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        if (PropertyIsString(property, out var str))
+        if (property.type == "string")
         {
 			var propertyRect = new Rect(position.x, position.y, position.width - btnWidth, position.height);
             EditorGUI.PropertyField(propertyRect, property, label);
@@ -31,9 +31,4 @@ public class UseFileNameDrawer : PropertyDrawer
 
     }
 
-    bool PropertyIsString(SerializedProperty property, out string str)
-    {
-        str = property.stringValue;
-        return str.Length > 0;
-    }
 }

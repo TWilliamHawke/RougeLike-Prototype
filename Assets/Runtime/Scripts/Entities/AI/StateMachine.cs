@@ -16,7 +16,6 @@ namespace Entities.AI
 
 		[SerializeField] GameObjects _gameObjects;
 
-		MovementController _movementController;
 		MeleeAttackController _meleeAttackController;
 		Health _health;
 
@@ -27,13 +26,11 @@ namespace Entities.AI
 
 		public void Init()
 		{
-			_meleeAttackController = GetComponent<MeleeAttackController>();
-			_movementController = GetComponent<MovementController>();
 			_health = GetComponent<Health>();
 			
 			_defaultState = new Wait(this);
 			_states.Add(new Death(_health, this));
-			_states.Add(new MeleeAttack(_meleeAttackController, _gameObjects.player, this));
+			_states.Add(new MeleeAttack(_gameObjects.player, this));
 
 
 			_currentState = _defaultState;
