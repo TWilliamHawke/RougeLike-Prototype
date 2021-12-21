@@ -12,10 +12,12 @@ namespace Items
 		ItemSection<MagicScroll> _scrollsBag;
 		ItemSection<Item> _main;
 		ItemSection<Item> _storage;
+		ItemSection<SpellString> _spellStrings;
 
 		public IItemSection potionsBag => _potionsBag;
 		public IItemSection scrollsBag => _scrollsBag;
 		public IItemSection main => _main;
+		public IItemSection magicCards => _spellStrings;
 
 		List<IItemSection> _sections;
 
@@ -23,13 +25,15 @@ namespace Items
 		public void Init()
 		{
 			_potionsBag = new ItemSection<Potion>(3);
+			_spellStrings = new ItemSection<SpellString>(-1);
 			_scrollsBag = new ItemSection<MagicScroll>(5);
 			_main = new ItemSection<Item>(12);
 			_storage = new ItemSection<Item>(-1);
-			_sections = new List<IItemSection>(3);
+			_sections = new List<IItemSection>(5);
 
 			_sections.Add(_potionsBag);
 			_sections.Add(_scrollsBag);
+			_sections.Add(_spellStrings);
 			//if special sections is full - add to main
 			_sections.Add(_main);
 			//if main is full - add to storage

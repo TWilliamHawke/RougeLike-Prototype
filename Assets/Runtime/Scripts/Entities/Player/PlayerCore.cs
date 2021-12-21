@@ -28,6 +28,8 @@ namespace Entities.Player
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
 
+        public AudioClip[] attackSounds => _stats.attackSounds;
+
         public void Init()
         {
             GetComponent<VisibilityController>().ChangeViewingRange();

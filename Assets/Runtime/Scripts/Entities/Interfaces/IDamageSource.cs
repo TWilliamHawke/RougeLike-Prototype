@@ -7,6 +7,5 @@ namespace Entities.Combat
 		int minDamage { get; }
 		int maxDamage { get; }
 	    DamageType damageType { get; }
-		AudioClip[] attackSounds { get; }
 	}
 }

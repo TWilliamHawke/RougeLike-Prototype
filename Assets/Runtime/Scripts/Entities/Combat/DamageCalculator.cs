@@ -2,11 +2,11 @@ using System;
 
 namespace Entities.Combat
 {
-    public static class DamagecalCulator
+    public static class DamageCalulator
     {
 		static Random _rng;
 
-		static DamagecalCulator()
+		static DamageCalulator()
 		{
 			_rng = new Random();
 		}

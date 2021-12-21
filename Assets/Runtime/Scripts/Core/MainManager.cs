@@ -19,12 +19,14 @@ namespace Core
 	    void Awake()
 	    {
 			_gameObjectManager.StartUp();
+			
+			//other objects will subscribe on input events
+			_inputManager.StartUp();
 
 			//_healthbarCanvas should subscribe on events before player spawn
 			_UIManager.StartUp();
 			
 	        _tileMapManager.StartUp();
-			_inputManager.StartUp();
 			_entitiesManager.StartUp();
 	    }
 	

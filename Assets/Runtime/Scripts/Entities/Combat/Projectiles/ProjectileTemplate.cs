@@ -27,6 +27,5 @@ namespace Entities.Combat
         int IDamageSource.minDamage => _minDamage;
         int IDamageSource.maxDamage => _maxDamage;
         DamageType IDamageSource.damageType => _damageType;
-        AudioClip[] IDamageSource.attackSounds => _impactSounds;
     }
 }

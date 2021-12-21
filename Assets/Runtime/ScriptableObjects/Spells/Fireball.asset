@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   _displayName: Fireball
-  _icon: {fileID: 0}
-  _startLevel: 1
+  _icon: {fileID: 21300000, guid: 3d075a9741cd6c845be338c56ffbf0cd, type: 3}
+  _startRank: 1
   _levels:
   - spellEffect: {fileID: 11400000, guid: 9484d58bf67a233449651983b436aeb7, type: 2}
     manaCost: 5
