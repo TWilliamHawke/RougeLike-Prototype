@@ -6,7 +6,7 @@ using Core.Input;
 
 namespace Core.UI
 {
-    public class TileInfoPanel : MonoBehaviour
+    public class TileInfoPanel : MonoBehaviour, IUIScreen
     {
         [SerializeField] InputController _inputController;
 		[SerializeField] Text _infoText;

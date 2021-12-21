@@ -27,6 +27,22 @@ namespace Core.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Spellbook"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6916c92-398c-4ddb-92ff-a28a88aa7cce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6d41680-ba18-4e48-9b41-ad3b717e7218"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +54,28 @@ namespace Core.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0356332d-05b2-41fa-9a7f-9c693cda36be"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spellbook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a39e2190-fa35-4606-b859-2f71083d7ec8"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -103,6 +141,8 @@ namespace Core.Input
             // Main
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
             m_Main_Click = m_Main.FindAction("Click", throwIfNotFound: true);
+            m_Main_Spellbook = m_Main.FindAction("Spellbook", throwIfNotFound: true);
+            m_Main_Inventory = m_Main.FindAction("Inventory", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -159,11 +199,15 @@ namespace Core.Input
         private readonly InputActionMap m_Main;
         private IMainActions m_MainActionsCallbackInterface;
         private readonly InputAction m_Main_Click;
+        private readonly InputAction m_Main_Spellbook;
+        private readonly InputAction m_Main_Inventory;
         public struct MainActions
         {
             private @NewInput m_Wrapper;
             public MainActions(@NewInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_Main_Click;
+            public InputAction @Spellbook => m_Wrapper.m_Main_Spellbook;
+            public InputAction @Inventory => m_Wrapper.m_Main_Inventory;
             public InputActionMap Get() { return m_Wrapper.m_Main; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -176,6 +220,12 @@ namespace Core.Input
                     @Click.started -= m_Wrapper.m_MainActionsCallbackInterface.OnClick;
                     @Click.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnClick;
                     @Click.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnClick;
+                    @Spellbook.started -= m_Wrapper.m_MainActionsCallbackInterface.OnSpellbook;
+                    @Spellbook.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnSpellbook;
+                    @Spellbook.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnSpellbook;
+                    @Inventory.started -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
+                    @Inventory.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
+                    @Inventory.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
                 }
                 m_Wrapper.m_MainActionsCallbackInterface = instance;
                 if (instance != null)
@@ -183,6 +233,12 @@ namespace Core.Input
                     @Click.started += instance.OnClick;
                     @Click.performed += instance.OnClick;
                     @Click.canceled += instance.OnClick;
+                    @Spellbook.started += instance.OnSpellbook;
+                    @Spellbook.performed += instance.OnSpellbook;
+                    @Spellbook.canceled += instance.OnSpellbook;
+                    @Inventory.started += instance.OnInventory;
+                    @Inventory.performed += instance.OnInventory;
+                    @Inventory.canceled += instance.OnInventory;
                 }
             }
         }
@@ -256,6 +312,8 @@ namespace Core.Input
         public interface IMainActions
         {
             void OnClick(InputAction.CallbackContext context);
+            void OnSpellbook(InputAction.CallbackContext context);
+            void OnInventory(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

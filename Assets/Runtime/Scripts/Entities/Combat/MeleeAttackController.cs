@@ -63,8 +63,8 @@ namespace Entities.Combat
             var distance = Vector3.Distance(transform.position, _attackPosition);
             _directionMult = 1 / distance;
 
-            int index = Random.Range(0, _attacker.damageSource.attackSounds.Length);
-            _body.PlayOneShot(_attacker.damageSource.attackSounds[index]);
+            int index = Random.Range(0, _attacker.attackSounds.Length);
+            _body.PlayOneShot(_attacker.attackSounds[index]);
 
             _attackPhase = AttackPhases.moveTo;
             _inputController.DisableLeftClick();  //HACK this should be in entityController
@@ -72,7 +72,7 @@ namespace Entities.Combat
 
         void Damage(IDamageSource damageSource, IAttackTarget target)
         {
-            int damage = DamagecalCulator.GetDamage(damageSource, target);
+            int damage = DamageCalulator.GetDamage(damageSource, target);
             target.TakeDamage(damage);
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items.UI
 {
-	public class InventoryScreen : MonoBehaviour
+	public class InventoryScreen : MonoBehaviour, IUIScreen
 	{
 		[SerializeField] Inventory _inventory;
 	    [SerializeField] InventorySection _potionsBag;

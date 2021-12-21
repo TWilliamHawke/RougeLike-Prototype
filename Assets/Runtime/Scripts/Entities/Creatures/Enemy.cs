@@ -20,15 +20,14 @@ namespace Entities
 
         Health _health;
 
-        int _currentHealth;
 
-        public int maxHealth => _template.health;
-        public int currentHealth => _currentHealth;
         public IDamageSource damageSource => _template;
         public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
 
         public TileNode currentNode => throw new System.NotImplementedException();
+
+        public AudioClip[] attackSounds => _template.attackSounds;
 
         public void Init()
         {
@@ -38,7 +37,6 @@ namespace Entities
 
         public void ApplyStartStats()
         {
-            _currentHealth = _template.health;
             _TMPSprite.text = _template.bodyChar;
             _TMPSprite.color = _template.bodyColor;
         }

@@ -15,6 +15,7 @@ namespace Items.UI
 		List<ItemSlot> _itemSlots;
 
 		private void OnEnable() {
+			CreateEmptySlots();
 			FillSection();
 		}
 
@@ -23,8 +24,6 @@ namespace Items.UI
             _section = section;
 			_itemSlots = new List<ItemSlot>(_section.maxCount);
 			_section.OnItemAdd += FillSection;
-			CreateEmptySlots();
-
         }
 
         void FillSection()
@@ -51,6 +50,7 @@ namespace Items.UI
         {
             var slot = Instantiate(_slotPrefab);
             slot.transform.SetParent(_layout.transform);
+            slot.gameObject.transform.localScale = transform.localScale;
 			_itemSlots.Add(slot);
         }
 

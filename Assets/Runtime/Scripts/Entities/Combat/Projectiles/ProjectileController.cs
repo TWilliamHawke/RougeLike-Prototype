@@ -41,7 +41,7 @@ namespace Entities.Combat
         private void Damage()
         {
             _progress = 0;
-            var damage = DamagecalCulator.GetDamage(_testTemplate, _target);
+            var damage = DamageCalulator.GetDamage(_testTemplate, _target);
             _target.TakeDamage(damage);
             _launchedProjectile.PlaySound(_testTemplate.impactSounds.GetRandom());
             _launchedProjectile.Hide();

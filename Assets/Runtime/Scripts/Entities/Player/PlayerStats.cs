@@ -19,6 +19,7 @@ namespace Entities.Player
 
         public int currentHealth => _currentHealth;
         public int maxHealth => _maxHealth;
+        public AudioClip[] attackSounds => _weaponSounds;
 
         private void OnEnable()
         {
@@ -28,7 +29,7 @@ namespace Entities.Player
         public IDamageSource CalculateDamageData()
         {
             //HACK this code should return weapon or skill stats
-            return new DamageSource(10, 20, DamageType.physical, _weaponSounds);
+            return new DamageSource(10, 20, DamageType.physical);
         }
 
         public Dictionary<DamageType, int> CalculateCurrentResists()
