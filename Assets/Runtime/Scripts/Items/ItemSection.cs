@@ -99,7 +99,15 @@ namespace Items
             _itemsList.Add(itemSlotData);
         }
 
+        public IEnumerator<ItemSlotData> GetEnumerator()
+        {
+            return _itemsList.GetEnumerator();
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _itemsList.GetEnumerator();
+        }
     }
 
 }

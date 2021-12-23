@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Items
 {
-    public interface IItemSection
+    public interface IItemSection : IEnumerable<ItemSlotData>
     {
         event UnityAction OnItemAdd;
         void AddItem(Item item);
@@ -15,5 +15,6 @@ namespace Items
         int maxCount { get; }
         int count { get; }
         ItemSlotData this[int idx] { get; }
+        
     }
 }

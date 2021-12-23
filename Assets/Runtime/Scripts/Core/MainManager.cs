@@ -4,6 +4,7 @@ using Map;
 using UnityEngine;
 using Entities;
 using Core.Input;
+using Entities.Player;
 
 namespace Core
 {
@@ -15,6 +16,7 @@ namespace Core
 		[SerializeField] InputManager _inputManager;
 		[SerializeField] UIManager _UIManager;
 		[SerializeField] EntitiesManager _entitiesManager;
+		[SerializeField] PlayerDataManager _playerDataManager;
 
 	    void Awake()
 	    {
@@ -28,6 +30,7 @@ namespace Core
 			
 	        _tileMapManager.StartUp();
 			_entitiesManager.StartUp();
+			_playerDataManager.StartUp();
 	    }
 	
 

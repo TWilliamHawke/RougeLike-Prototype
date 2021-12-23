@@ -8,7 +8,7 @@ public abstract class UIPanelWithGrid<T> : MonoBehaviour
     [SerializeField] UIDataElement<T> _layoutElementPrefab;
     [SerializeField] LayoutGroup _layout;
 
-    protected abstract List<T> _layoutElementsData { get; }
+    protected abstract IEnumerable<T> _layoutElementsData { get; }
     protected LayoutGroup layout => _layout;
     //protected UIDataElement<T> prefab => _layoutElementPrefab;
 

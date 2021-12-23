@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Items;
+using UnityEngine.UI;
 
 namespace Magic.UI
 {
@@ -10,12 +11,17 @@ namespace Magic.UI
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
         [SerializeField] Spell[] _testSpells;
+        [Header("UI Elements")]
+        [SerializeField] SpellPage _spellPage;
+        [SerializeField] GridLayoutGroup _spellGrid;
 
-        protected override List<KnownSpellData> _layoutElementsData => _spellBook.knownSpells;
+        protected override IEnumerable<KnownSpellData> _layoutElementsData => _spellBook.knownSpells;
 
         public void Init()
         {
             _spellBook.OnSpellPageOpen += OpenSpellPage;
+            _spellPage.Init();
+
             foreach (var spell in _testSpells)
             {
                 _spellBook.AddSpell(spell);
@@ -24,21 +30,32 @@ namespace Magic.UI
             }
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
-            _spellBook.Clear();
+            _spellBook.Clear(); //only for tests
             _spellBook.OnSpellPageOpen -= OpenSpellPage;
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
+            CloseSpellPage();
             UpdateLayout();
+        }
+
+        //use as button listener
+        public void CloseSpellPage()
+        {
+            _spellGrid.gameObject.SetActive(true);
+            _spellPage.gameObject.SetActive(false);
         }
 
         void OpenSpellPage(KnownSpellData data)
         {
-            Debug.Log("open page");
+            _spellGrid.gameObject.SetActive(false);
+            _spellPage.Open(data);
         }
+
+
 
 
     }

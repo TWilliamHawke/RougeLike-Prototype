@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Entities.Player;
 
 namespace Magic
 {
@@ -10,9 +11,13 @@ namespace Magic
         public event UnityAction OnSpellAdded;
         public event UnityAction<KnownSpellData> OnSpellPageOpen;
 
+        [SerializeField] StoredResources _resources;
+        [SerializeField] int _increaseRankCost = 500;
+
         List<KnownSpellData> _knownSpells;
 
         public List<KnownSpellData> knownSpells => _knownSpells;
+        public int maxSpellRank => 6;
 
         public void AddSpell(Spell spell)
         {
@@ -25,9 +30,17 @@ namespace Magic
             _knownSpells.Clear();
         }
 
-        public void OpenSpellPage(KnownSpellData data)
+        public void OpenSpellPage(KnownSpellData spell)
         {
-            OnSpellPageOpen?.Invoke(data);
+            OnSpellPageOpen?.Invoke(spell);
+        }
+
+        public void IncreaseSpellRank(KnownSpellData spell)
+        {
+            if(_resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
+            {
+                spell.IncreaseRank();
+            }
         }
     }
 }
