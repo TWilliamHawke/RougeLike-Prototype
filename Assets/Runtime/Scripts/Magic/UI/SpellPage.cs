@@ -1,16 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
 
 namespace Magic.UI
 {
-	public class SpellPage : MonoBehaviour
-	{
-		KnownSpellData _knownSpell;
+    public class SpellPage : MonoBehaviour
+    {
+        [Header("UI Elements")]
+        [SerializeField] ResourcesPage resourcesPage;
+        [SerializeField] Image _spellIcon;
+        [SerializeField] TextMeshProUGUI _spellName;
+        [SerializeField] TextMeshProUGUI _spellRank;
+        [SerializeField] TextMeshProUGUI _spellCost;
+        [SerializeField] TextMeshProUGUI _spellDescription;
+        [SerializeField] IncreaseRankButton _rankUpButton;
+        [SerializeField] ActiveStringSlot[] _spellStringSlots;
 
-	    public void Open(KnownSpellData knownSpell)
-		{
-			_knownSpell = knownSpell;
-		}
-	}
+        KnownSpellData _spellData;
+
+        public void Init()
+        {
+            KnownSpellData.OnChangeData += UpdateData;
+            _rankUpButton.Init();
+        }
+
+        void OnDestroy()
+        {
+            KnownSpellData.OnChangeData -= UpdateData;
+        }
+
+
+        public void Open(KnownSpellData spellData)
+        {
+            _spellData = spellData;
+            SetUIData();
+            gameObject.SetActive(true);
+            _rankUpButton.UpdateState(spellData);
+        }
+
+        void SetUIData()
+        {
+            _spellIcon.sprite = _spellData.icon;
+            _spellName.text = _spellData.displayName;
+            _spellRank.text = "Rank " + _spellData.rank;
+            _spellCost.text = _spellData.manaCost.ToString();
+            UpdateActiveSlots();
+        }
+
+        void UpdateActiveSlots()
+        {
+            for (int i = 0; i < _spellStringSlots.Length; i++)
+            {
+                var slot = _spellStringSlots[i];
+                if (i >= _spellData.rank || i >= _spellData.activeStrings.Length)
+                {
+                    slot.gameObject.SetActive(false);
+                    continue;
+                }
+
+                slot.gameObject.SetActive(true);
+                slot.SetData(_spellData.activeStrings[i]);
+
+            }
+        }
+
+        void UpdateData(KnownSpellData data)
+        {
+            if (data != _spellData) return;
+
+            SetUIData();
+        }
+
+    }
 }

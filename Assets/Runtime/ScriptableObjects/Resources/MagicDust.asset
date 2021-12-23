@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08fe3892a71b844785dadef470463ae, type: 3}
-  m_Name: Spellbook
+  m_Script: {fileID: 11500000, guid: 2dda7c9d89d4c8f4283b4647e70ea534, type: 3}
+  m_Name: MagicDust
   m_EditorClassIdentifier: 
-  _resources: {fileID: 11400000, guid: da46f1dc0e53b5e42bcd00a0e9aa067c, type: 2}
-  _increaseRankCost: 500
+  _displayName: Magic Dust
+  _icon: {fileID: 21300000, guid: e8fded53aed15b04b85b9565cc2cddc4, type: 3}
+  _maxCount: 9999
+  _resourceType: 1

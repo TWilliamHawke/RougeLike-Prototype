@@ -9,11 +9,8 @@ using UnityEngine.Tilemaps;
 
 namespace Core
 {
-    [CreateAssetMenu(fileName = "GameObjects", menuName = "map/GeneratorConfig")]
     public class GameObjects : ScriptableObject
     {
-        public event UnityAction OnEntityTurnEnd;
-
         [SerializeField] TilemapController _tilemapController;
         [SerializeField] InputController _inputController;
 
@@ -24,11 +21,6 @@ namespace Core
 
         public TilemapController tilemapController => _tilemapController;
         public InputController inputController => _inputController;
-
-        public void StartNextEntityTurn()
-        {
-            OnEntityTurnEnd?.Invoke();
-        }
 
 
     }

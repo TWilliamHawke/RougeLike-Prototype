@@ -26,6 +26,7 @@ namespace Magic
         private SpellLevelData GetLevelData(int idx)
         {
             int index = Mathf.Clamp(idx, _startRank, 6) - _startRank;
+			index = Mathf.Min(index, _levels.Length - 1);
 			return _levels[index];
         }
     }

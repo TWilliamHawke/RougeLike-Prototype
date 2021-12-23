@@ -47,7 +47,7 @@ namespace Magic.UI
             _knownSpell = data;
             _frame.color = _defaultColor;
             _spellIcon.sprite = data.icon;
-			
+
             _spellName.text = data.displayName;
             _spellRank.text = "Rank: " + data.rank.ToString();
             _spellCost.text = data.manaCost.ToString();
@@ -55,6 +55,7 @@ namespace Magic.UI
 
         void OpenSpellPage()
         {
+            _frame.color = _defaultColor;
             _spellBook.OpenSpellPage(_knownSpell);
         }
 
