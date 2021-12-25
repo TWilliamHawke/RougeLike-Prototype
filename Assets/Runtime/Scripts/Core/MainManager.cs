@@ -25,12 +25,13 @@ namespace Core
 			//other objects will subscribe on input events
 			_inputManager.StartUp();
 
+			//inventory should init before ui
+			_playerDataManager.StartUp();
 			//_healthbarCanvas should subscribe on events before player spawn
 			_UIManager.StartUp();
 			
 	        _tileMapManager.StartUp();
 			_entitiesManager.StartUp();
-			_playerDataManager.StartUp();
 	    }
 	
 

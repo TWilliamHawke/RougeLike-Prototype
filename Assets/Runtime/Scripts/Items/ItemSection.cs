@@ -8,12 +8,14 @@ namespace Items
     [System.Serializable]
     public class ItemSection<T> : IItemSection where T : Item
     {
+
         List<ItemSlotData> _itemsList;
         Dictionary<Item, ItemSlotData> _items;
 
         int _maxSlotsCount;
 
         public event UnityAction OnItemAdd;
+        public event UnityAction OnItemRemove;
 
         ItemSlotData IItemSection.this[int idx] => _itemsList[idx];
         public int maxCount => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
@@ -24,6 +26,22 @@ namespace Items
             _maxSlotsCount = maxSlotsCount;
             _items = new Dictionary<Item, ItemSlotData>(maxCount);
             _itemsList = new List<ItemSlotData>(maxCount);
+        }
+
+        public void RemoveItemFromSlot(ItemSlotData itemSlotData)
+        {
+            if(!_itemsList.Contains(itemSlotData)) return;
+
+            if(itemSlotData.count == 1)
+            {
+                _itemsList.Remove(itemSlotData);
+            }
+            else
+            {
+                itemSlotData.DecreaseCountBy(1);
+            }
+
+            OnItemRemove?.Invoke();
         }
 
 
@@ -51,9 +69,15 @@ namespace Items
             return false;
         }
 
-        void IItemSection.AddItem(Item someItem)
+        public void AddItem(Item someItem)
         {
             AddItems(someItem, 1);
+        }
+
+        public void InvokeEvent()
+        {
+            Debug.Log("invoke");
+            OnItemRemove?.Invoke();
         }
 
         void IItemSection.AddItems(Item item, int count)

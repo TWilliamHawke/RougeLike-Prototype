@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4a1909a556c7649b08998613f50f65, type: 3}
   m_Name: SpellPowerCard
   m_EditorClassIdentifier: 
-  _displayName: SpellPowerCard
-  _icon: {fileID: 21300000, guid: c7af4325556d97245a400559b404b13f, type: 3}
+  _displayName: Spell Power Card
+  _icon: {fileID: 21300000, guid: cb5797b328a93c748a1ebbb2bfa7222e, type: 3}
   _maxStackSize: 999
   _value: 150
   _previewColor: {r: 0.90196085, g: 0.4784314, b: 0.20000002, a: 1}

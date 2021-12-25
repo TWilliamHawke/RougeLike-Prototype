@@ -18,6 +18,7 @@ namespace Magic
 
         public List<KnownSpellData> knownSpells => _knownSpells;
         public int maxSpellRank => 6;
+        public int increaseRankCost => _increaseRankCost;
 
         public void AddSpell(Spell spell)
         {

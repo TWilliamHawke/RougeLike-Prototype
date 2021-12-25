@@ -4,43 +4,51 @@ using UnityEngine;
 
 namespace Items
 {
-	public class Inventory : ScriptableObject
-	{
-		[SerializeField] Item _testItem;
-		[SerializeField] int _startGold;
-		[SerializeField] int _startDust;
-
-		
-	    ItemSection<Potion> _potionsBag;
-		ItemSection<MagicScroll> _scrollsBag;
-		ItemSection<Item> _main;
-		ItemSection<Item> _storage;
-		ItemSection<SpellString> _spellStrings;
-
-		public IItemSection potionsBag => _potionsBag;
-		public IItemSection scrollsBag => _scrollsBag;
-		public IItemSection main => _main;
-		public IItemSection spellStrings => _spellStrings;
-
-		List<IItemSection> _sections;
+    public class Inventory : ScriptableObject
+    {
+        [SerializeField] Item[] _testItems;
 
 
-		public void Init()
+        ItemSection<Potion> _potionsBag;
+        ItemSection<MagicScroll> _scrollsBag;
+        ItemSection<Item> _main;
+        ItemSection<Item> _storage;
+        ItemSection<SpellString> _spellStrings;
+
+        public IItemSection potionsBag => _potionsBag;
+        public IItemSection scrollsBag => _scrollsBag;
+        public IItemSection main => _main;
+        public ItemSection<SpellString>  spellStrings => _spellStrings;
+
+        List<IItemSection> _sections;
+
+
+        public void Init()
         {
             CreateSections();
+
+            foreach (var item in _testItems)
+            {
+                AddItem(item);
+                AddItem(item);
+                AddItem(item);
+                AddItem(item);
+                AddItem(item);
+            }
+
         }
 
         public void AddItem(Item item)
-		{
-			foreach (var section in _sections)
-			{
-				if(section.ItemMeet(item))
-				{
-					section.AddItem(item);
-					break;
-				}
-			}
-		}
+        {
+            foreach (var section in _sections)
+            {
+                if (section.ItemMeet(item))
+                {
+                    section.AddItem(item);
+                    break;
+                }
+            }
+        }
 
 
         private void CreateSections()
@@ -61,19 +69,14 @@ namespace Items
             _sections.Add(_storage);
         }
 
-		[ContextMenu("Add TestItem")]
-		void AddTestItem()
-		{
-			AddItem(_testItem);
-		}
 
-		[ContextMenu("Clear")]
-		void Clear()
-		{
-			foreach (var section in _sections)
-			{
-				section.Clear();
-			}
-		}
-	}
+        [ContextMenu("Clear")]
+        void Clear()
+        {
+            foreach (var section in _sections)
+            {
+                section.Clear();
+            }
+        }
+    }
 }

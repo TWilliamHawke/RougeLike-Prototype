@@ -16,4 +16,4 @@ MonoBehaviour:
   - resource: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
     count: 5000
   - resource: {fileID: 11400000, guid: aa0aa8d6eb6aac346b1f3062ef689e54, type: 2}
-    count: 5000
+    count: 1500
