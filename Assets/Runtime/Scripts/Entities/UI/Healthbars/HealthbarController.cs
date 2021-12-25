@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Entities.UI
 {
-    public class HealthbarController : MonoBehaviour, IUIScreen
+    public class HealthbarController : MonoBehaviour
     {
         [SerializeField] Healthbar _healthbarPrefab;
         [SerializeField] GameObjects _gameObjects;

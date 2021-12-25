@@ -20,21 +20,33 @@ namespace Magic.UI
 
         public void Init()
         {
-			_resources.OnResourceChange += UpdateDustCount;
+            _resources.OnResourceChange += UpdateDustCount;
+            _inventory.spellStrings.OnItemAdd += UpdateLayout;
+            _inventory.spellStrings.OnItemRemove += UpdateLayout;
+
         }
 
         void OnDestroy()
         {
-			_resources.OnResourceChange -= UpdateDustCount;
+            _resources.OnResourceChange -= UpdateDustCount;
+            _inventory.spellStrings.OnItemAdd -= UpdateLayout;
+            _inventory.spellStrings.OnItemRemove -= UpdateLayout;
 
         }
 
-		void UpdateDustCount(ResourceType type)
-		{
-			if(type != ResourceType.magicDust) return;
+        void OnEnable()
+        {
+            UpdateLayout();
+            _magicDustCount.text = _resources[ResourceType.magicDust].ToString();
+            
+        }
 
-			_magicDustCount.text = _resources[ResourceType.magicDust].ToString();
-		}
+        void UpdateDustCount(ResourceType type)
+        {
+            if (type != ResourceType.magicDust) return;
+
+            _magicDustCount.text = _resources[ResourceType.magicDust].ToString();
+        }
 
 
     }

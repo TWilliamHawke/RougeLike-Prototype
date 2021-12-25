@@ -9,9 +9,14 @@ public static class Raycasts
     //raycast for ui elements
     static public List<RaycastResult> UI()
     {
+        return UI(Mouse.current.position.ReadValue());
+    }
+
+    static public List<RaycastResult> UI(Vector2 position)
+    {
         var hits = new List<RaycastResult>();
         var eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Mouse.current.position.ReadValue();
+        eventData.position = position;
         EventSystem.current.RaycastAll(eventData, hits);
         return hits;
     }

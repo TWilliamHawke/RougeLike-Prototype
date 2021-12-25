@@ -6,6 +6,7 @@ using Entities.UI;
 using Items.UI;
 using Magic.UI;
 using Core.Input;
+using UI.DragAndDrop;
 using X = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace Core
@@ -13,9 +14,10 @@ namespace Core
     public class UIManager : MonoBehaviour
     {
         [SerializeField] InputController _inputController;
+        [SerializeField] HealthbarController _healthbarCanvas;
+        [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [Header("UI Screens")]
         [SerializeField] TileInfoPanel _tileInfoPanel;
-        [SerializeField] HealthbarController _healthbarCanvas;
         [SerializeField] InventoryScreen _inventoryScreen;
         [SerializeField] SpellbookScreen _spellbookScreen;
 
@@ -23,8 +25,11 @@ namespace Core
 
         public void StartUp()
         {
+            _healthbarCanvas.Init();
+            _dragElementsCanvas.Init();
+
+
             _screens.Add(_tileInfoPanel);
-            _screens.Add(_healthbarCanvas);
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);
 

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4a1909a556c7649b08998613f50f65, type: 3}
   m_Name: SpellCostCard
   m_EditorClassIdentifier: 
-  _displayName: SpellCostCard
-  _icon: {fileID: 21300000, guid: 4d2f75102d321a946ad7b8aa49eae352, type: 3}
+  _displayName: Spell Cost Card
+  _icon: {fileID: 21300000, guid: cb5797b328a93c748a1ebbb2bfa7222e, type: 3}
   _maxStackSize: 999
   _value: 150
   _previewColor: {r: 0.10196079, g: 0.5568628, b: 0.80392164, a: 1}

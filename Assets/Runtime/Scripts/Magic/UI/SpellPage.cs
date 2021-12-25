@@ -4,13 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Entities.Player;
 
 namespace Magic.UI
 {
     public class SpellPage : MonoBehaviour
     {
         [Header("UI Elements")]
-        [SerializeField] ResourcesPage resourcesPage;
+        [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] Image _spellIcon;
         [SerializeField] TextMeshProUGUI _spellName;
         [SerializeField] TextMeshProUGUI _spellRank;
@@ -25,6 +26,7 @@ namespace Magic.UI
         {
             KnownSpellData.OnChangeData += UpdateData;
             _rankUpButton.Init();
+            _resourcesPage.Init();
         }
 
         void OnDestroy()

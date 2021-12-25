@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4a1909a556c7649b08998613f50f65, type: 3}
   m_Name: SpellDurationCard
   m_EditorClassIdentifier: 
-  _displayName: SpellDurationCard
-  _icon: {fileID: 21300000, guid: 4d2f75102d321a946ad7b8aa49eae352, type: 3}
+  _displayName: Spell Duration Card
+  _icon: {fileID: 21300000, guid: cb5797b328a93c748a1ebbb2bfa7222e, type: 3}
   _maxStackSize: 1
   _value: 150
   _previewColor: {r: 0.7372549, g: 0, b: 0.6228326, a: 1}

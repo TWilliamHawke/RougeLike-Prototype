@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 5ce1d12f5f0516b4182f2c532e0bcca0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
