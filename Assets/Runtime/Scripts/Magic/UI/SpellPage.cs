@@ -27,6 +27,11 @@ namespace Magic.UI
             KnownSpellData.OnChangeData += UpdateData;
             _rankUpButton.Init();
             _resourcesPage.Init();
+
+            foreach (var slot in _spellStringSlots)
+            {
+                slot.Init();
+            }
         }
 
         void OnDestroy()

@@ -11,7 +11,7 @@ namespace UI.DragAndDrop
     {
 		static Canvas _canvas;
 
-		public event UnityAction OnBeginDrag;
+		public event UnityAction<object> OnBeginDrag;
 		public event UnityAction OnEndDrag;
 
 		public Canvas canvas
@@ -20,9 +20,9 @@ namespace UI.DragAndDrop
 			set => _canvas = value;
 		}
 
-		public void BeginDrag()
+		public void BeginDrag(object data)
 		{
-			OnBeginDrag?.Invoke();
+			OnBeginDrag?.Invoke(data);
 		}
 
 

@@ -8,26 +8,29 @@ using UnityEngine.UI;
 namespace UI.DragAndDrop
 {
 
-    public abstract class DragHandler<T> : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragHandler<T>
     {
 
-        [SerializeField] DragController _dragController;
+        DragController _dragController;
 
         IDragDataSource<T> _dataSource;
-        DragableUIElement<T> _dragableElement;
 
-        private void Awake()
+        public DragHandler(IDragDataSource<T> dataSource)
         {
-            _dataSource = GetComponent<IDragDataSource<T>>();
+            _dataSource = dataSource;
+            _dragController = _dataSource.dragController;
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        DragableUIElement<T> _dragableElement;
+
+
+        public void OnBeginDrag()
         {
-            _dragableElement = Instantiate(_dataSource.dragableElementPrefab);
+            _dragableElement = Object.Instantiate(_dataSource.dragableElementPrefab);
             _dragableElement.transform.SetParent(_dragController.canvas.transform);
             _dragableElement.SetData(_dataSource.dragData);
             _dragableElement.SetDefaultPosition();
-            //_dragableElement.UpdatePosition(Mouse.current.position.ReadValue());
+            _dragController.BeginDrag(_dataSource.dragData);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -36,11 +39,11 @@ namespace UI.DragAndDrop
 
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public void OnEndDrag()
         {
             _dragableElement.TryFindDropTarget();
-            
-            Destroy(_dragableElement.gameObject);
+            _dragableElement.DestroySelf();
+            _dragController.EndDrag();
         }
     }
 }
