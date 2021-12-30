@@ -29,6 +29,11 @@ namespace UI.DragAndDrop
             _transform.anchoredPosition += position;
         }
 
+        public void DestroySelf()
+        {
+            Destroy(gameObject);
+        }
+
         public void SetDefaultPosition()
         {
             _transform = GetComponent<RectTransform>();

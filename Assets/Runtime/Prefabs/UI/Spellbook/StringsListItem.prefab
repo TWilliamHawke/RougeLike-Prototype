@@ -506,7 +506,6 @@ GameObject:
   - component: {fileID: 2009939220805020640}
   - component: {fileID: 1806855205393697507}
   - component: {fileID: 4329100679991989751}
-  - component: {fileID: -4983606357071752819}
   m_Layer: 0
   m_Name: StringsListItem
   m_TagString: Untagged
@@ -577,18 +576,6 @@ MonoBehaviour:
   _icon: {fileID: 41267317449419409}
   _title: {fileID: 8223979329729474359}
   _count: {fileID: 2511220649976863064}
---- !u!114 &-4983606357071752819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6091174921398727642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0226dd74aff3fa048978c20b8902092c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
 --- !u!1 &7616375923414536323
 GameObject:
