@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHealthComponent, IHealthbarData
+    public class Health : MonoBehaviour, IHealthComponent
     {
         public static event UnityAction<IHealthbarData> OnHealthInit;
         public static event UnityAction<IHealthbarData> OnEntitDisbled;
@@ -13,23 +13,29 @@ namespace Entities
         public event UnityAction OnHealthChange;
 
         [SerializeField] Body _body;
+        [SerializeField] Color _healthbarColor = Color.red;
 
         //hack it should go from unit template
         IHaveInjureSounds _template;
-
+        bool _turnOffSounds = false;
 
         int _baseHealth = 100;
         int _currentHealth;
 
         public int currentHealth => _currentHealth;
         public int maxHealth => _baseHealth;
+        public Color healthbarColor => _healthbarColor;
 
         public void Init(IHaveInjureSounds template)
         {
             _template = template;
-            _currentHealth = _baseHealth;
-            _body.Init(this);
-            OnHealthInit?.Invoke(_body);
+            Init();
+        }
+
+        public void InitWithoutSound()
+        {
+            _turnOffSounds = true;
+            Init();
         }
 
 
@@ -49,12 +55,19 @@ namespace Entities
             ChangeHealth(-health);
         }
 
+        void Init()
+        {
+            _body.Init(this);
+            _currentHealth = _baseHealth;
+            OnHealthInit?.Invoke(_body);
+        }
+
         void ChangeHealth(int health)
         {
             _currentHealth = Mathf.Clamp(_currentHealth + health, 0, maxHealth);
             OnHealthChange?.Invoke();
 
-            if(_currentHealth == 0)
+            if(_currentHealth == 0 && !_turnOffSounds)
             {
                 var sound = _template.deathSounds.GetRandom();
                 _body.PlaySound(sound);

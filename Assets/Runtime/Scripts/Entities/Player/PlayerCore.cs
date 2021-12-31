@@ -20,13 +20,17 @@ namespace Entities.Player
         [SerializeField] Body _body;
         [SerializeField] MovementController _movementController;
         [SerializeField] MeleeAttackController _meleeAttackController;
+        [SerializeField] Health _health;
         [SerializeField] ResistSet _testResists;
+        [SerializeField] ActiveAbilities _activeAbilities;
 
         IInteractive _target;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
+
+
 
         public AudioClip[] attackSounds => _stats.attackSounds;
 
@@ -36,9 +40,16 @@ namespace Entities.Player
             _movementController.OnStepEnd += EndPlayerTurn;
             _meleeAttackController.OnAttackEnd += EndPlayerTurn;
             GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
-            _body.Init(_stats);
+
+            _health.InitWithoutSound();
+            _body.Init(_health);
+            _stats.SubscribeOnHealthComponent(_health);
             
             _meleeAttackController.Init(this);
+            _activeAbilities.Init(GetComponent<AbilityController>());
+
+            GetComponent<AbilityController>().Init();
+
         }
 
         public void StartTurn()
@@ -82,7 +93,7 @@ namespace Entities.Player
 
         void IAttackTarget.TakeDamage(int damage)
         {
-            _stats.DamageHealth(damage);
+            _health.DamageHealth(damage);
         }
 
         void EndPlayerTurn()

@@ -7,5 +7,6 @@ namespace Effects
 	public interface IAbilitySource
 	{
 	    void UseAbility(AbilityController controller);
+		Sprite abilityIcon { get; }
 	}
 }

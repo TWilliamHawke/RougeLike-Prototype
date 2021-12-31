@@ -1,8 +1,8 @@
 namespace UI.DragAndDrop
 {
-    public interface IDropTarget<T>
+    public interface IDropTarget<in T>
     {
-        void SetDragableData(T data);
+        void DropData(T data);
         bool DataIsMeet(T data);
     }
 }

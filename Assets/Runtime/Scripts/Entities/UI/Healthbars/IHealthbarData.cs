@@ -11,5 +11,6 @@ namespace Entities
 		int maxHealth { get; }
 		int currentHealth { get; }
 		event UnityAction OnHealthChange;
+		Color healthbarColor { get; }
 	}
 }

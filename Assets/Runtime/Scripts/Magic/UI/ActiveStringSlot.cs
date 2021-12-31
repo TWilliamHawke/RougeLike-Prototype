@@ -42,7 +42,7 @@ namespace Magic.UI
             _icon.sprite = data?.icon ?? _defaultIcon;
         }
 
-        public void SetDragableData(ItemSlotData data)
+        public void DropData(ItemSlotData data)
         {
             _icon.sprite = data.item.icon;
             _activeString = data.item as SpellString;

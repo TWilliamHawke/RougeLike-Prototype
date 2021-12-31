@@ -21,6 +21,7 @@ namespace Core
 
         public TilemapController tilemapController => _tilemapController;
         public InputController inputController => _inputController;
+        public IAudioSource mainAudioSource => player.body;
 
 
     }

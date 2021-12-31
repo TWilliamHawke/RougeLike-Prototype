@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Entities.Player
 {
-    public class PlayerStats : ScriptableObject, IHealthComponent
+    public class PlayerStats : ScriptableObject
     {
         [SerializeField] AudioClip[] _weaponSounds;
 
@@ -15,11 +15,12 @@ namespace Entities.Player
         int _currentHealth = 100;
         int _maxHealth = 100;
 
-        public event UnityAction OnHealthChange;
-
-        public int currentHealth => _currentHealth;
-        public int maxHealth => _maxHealth;
         public AudioClip[] attackSounds => _weaponSounds;
+
+        public void SubscribeOnHealthComponent(Health health)
+        {
+
+        }
 
         private void OnEnable()
         {
@@ -40,25 +41,5 @@ namespace Entities.Player
             return _resists;
         }
 
-        public void RestoreHealth(int health)
-        {
-            ChangeHealth(health);
-        }
-
-        public void DamageHealth(int health)
-        {
-            ChangeHealth(-health);
-        }
-
-        void ChangeHealth(int health)
-        {
-            _currentHealth = Mathf.Clamp(_currentHealth + health, 0, _maxHealth);
-            OnHealthChange?.Invoke();
-
-            if (_currentHealth == 0)
-            {
-                Debug.Log("YOU ARE DEAD");
-            }
-        }
     }
 }

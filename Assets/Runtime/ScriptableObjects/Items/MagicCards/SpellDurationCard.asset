@@ -16,6 +16,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: cb5797b328a93c748a1ebbb2bfa7222e, type: 3}
   _maxStackSize: 1
   _value: 150
+  _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
   _previewColor: {r: 0.7372549, g: 0, b: 0.6228326, a: 1}
   _spellPowerMod: 0
   _manaCostMod: 0

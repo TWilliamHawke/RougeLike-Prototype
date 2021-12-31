@@ -1,26 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Effects
 {
-	public class AbilityController : MonoBehaviour
-	{
-		IEffectTarget _self;
+    public class AbilityController : MonoBehaviour
+    {
+		public Body _body;
+		public event UnityAction<AbilityController> OnTargetSelectionStart;
 
-		public void Init()
+        IEffectTarget _self;
+
+        public void Init()
+        {
+            var success = TryGetComponent<IEffectTarget>(out _self);
+			if(success) return;
+			Debug.LogError("Object hasn't any components with IEffectTarget interface");
+        }
+
+        public void ApplyToSelf(SourceEffectData effect)
+        {
+            effect.ApplyEffect(_self);
+        }
+
+        public void StartTargetSelection(IAbilityWithTarget ability)
+        {
+			OnTargetSelectionStart?.Invoke(this);
+        }
+
+        public void SelectTarget(IEffectTarget target)
+        {
+
+        }
+
+		public bool TrySpendMana(int count)
 		{
-			TryGetComponent<IEffectTarget>(out _self);
+			return true;
 		}
 
-		public void ApplyToSelf(SourceEffectData effect)
+		public void PlaySound(AudioClip sound)
 		{
-			effect.ApplyEffect(_self);
+			_body.PlaySound(sound);
 		}
-
-		public void StartTargetSelection(IAbilityWithTarget ability)
-		{
-			
-		}
-	}
+    }
 }

@@ -13,7 +13,7 @@ namespace Effects
 
 		public void ApplyEffect(IEffectTarget target)
 		{
-
+			(_effect as IInstantEffect)?.Apply(target, _power);
 		}
 
 		public string EffectDescription()

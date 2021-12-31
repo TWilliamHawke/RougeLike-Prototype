@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 746439970}
   - component: {fileID: 8320816147634027436}
   - component: {fileID: 9206173401267896131}
+  - component: {fileID: 6603279187782306258}
   - component: {fileID: 2084189526720122616}
   m_Layer: 0
   m_Name: Player
@@ -414,7 +415,9 @@ MonoBehaviour:
   _body: {fileID: 1921085457}
   _movementController: {fileID: 746439967}
   _meleeAttackController: {fileID: 746439970}
+  _health: {fileID: 6603279187782306258}
   _testResists: {fileID: 11400000, guid: 8cf33a657405d484494447d5578ff8aa, type: 2}
+  _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
 --- !u!114 &1257288472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +489,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63d806fe4d88d4689ba14af7ce8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _body: {fileID: 1921085457}
+--- !u!114 &6603279187782306258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328594240612423254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf8f46b19a121145bc7edfe4d4e244d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _body: {fileID: 1921085457}
+  _healthbarColor: {r: 0.078431375, g: 0.69803923, b: 0.011764706, a: 1}
 --- !u!61 &2084189526720122616
 BoxCollider2D:
   m_ObjectHideFlags: 0

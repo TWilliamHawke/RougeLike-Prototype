@@ -4,17 +4,26 @@ using UnityEngine;
 
 namespace Effects
 {
-	public class TargetEffectAbility : MonoBehaviour
-	{
-	    void Awake()
-	    {
-	        
-	    }
-	
+    public class TargetEffectAbility : Ability, IAbilityWithTarget
+    {
+        [SerializeField] List<SourceEffectData> _effects;
 
-	    void Update()
-	    {
-	        
-	    }
-	}
+        public bool TargetIsValid(IEffectTarget target)
+        {
+            return true;
+        }
+
+        public override void Use(AbilityController controller)
+        {
+            controller.StartTargetSelection(this);
+        }
+
+        public void UseOnTarget(AbilityController _, IEffectTarget target)
+        {
+			foreach (var effect in _effects)
+			{
+				effect.ApplyEffect(target);
+			}
+        }
+    }
 }
