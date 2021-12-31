@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace Entities
 {
     [RequireComponent(typeof(AudioSource))]
-    public class Body : MonoBehaviour, IHealthbarData
+    public class Body : MonoBehaviour, IHealthbarData, IAudioSource
     {
         [SerializeField] AudioSource _audioSource;
 
@@ -15,6 +15,7 @@ namespace Entities
         Transform IHealthbarData.transform => transform;
         int IHealthbarData.maxHealth => _health.maxHealth;
         int IHealthbarData.currentHealth => _health.currentHealth;
+        Color IHealthbarData.healthbarColor => _health.healthbarColor;
 
         public event UnityAction OnHealthChange;
 

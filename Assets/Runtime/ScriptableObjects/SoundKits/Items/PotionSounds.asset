@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ad18a7025105d4a9c653a253feb2ea, type: 3}
+  m_Name: PotionSounds
+  m_EditorClassIdentifier: 
+  _useSounds:
+  - {fileID: 8300000, guid: 031b7077e128d894092f282bd6317612, type: 3}
+  - {fileID: 8300000, guid: c6fd14253cb6e2742862ff1c9a7b9d45, type: 3}
+  _dragSounds:
+  - {fileID: 8300000, guid: 692a66b8a81148745bae433a9cbf2f5f, type: 3}
+  - {fileID: 8300000, guid: 692a66b8a81148745bae433a9cbf2f5f, type: 3}

@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 1875642537}
+  _healthbarColor: {r: 0.69803923, g: 0.019607844, b: 0.011764706, a: 1}
 --- !u!114 &9091438730925311529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b63d806fe4d88d4689ba14af7ce8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _body: {fileID: 1875642537}
 --- !u!1 &5691333116864966479
 GameObject:
   m_ObjectHideFlags: 0

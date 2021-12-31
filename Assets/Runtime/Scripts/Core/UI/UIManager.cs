@@ -17,7 +17,7 @@ namespace Core
         [SerializeField] HealthbarController _healthbarCanvas;
         [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [Header("UI Screens")]
-        [SerializeField] TileInfoPanel _tileInfoPanel;
+        [SerializeField] MainCanvas _mainCanvas;
         [SerializeField] InventoryScreen _inventoryScreen;
         [SerializeField] SpellbookScreen _spellbookScreen;
 
@@ -27,9 +27,9 @@ namespace Core
         {
             _healthbarCanvas.Init();
             _dragElementsCanvas.Init();
+            _mainCanvas.Init();
 
 
-            _screens.Add(_tileInfoPanel);
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);
 

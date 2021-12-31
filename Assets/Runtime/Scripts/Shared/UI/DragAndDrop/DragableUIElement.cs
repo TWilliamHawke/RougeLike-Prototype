@@ -54,7 +54,7 @@ namespace UI.DragAndDrop
                 {
                     if(target.DataIsMeet(_data))
                     {
-                        target.SetDragableData(_data);
+                        target.DropData(_data);
                     }
                     return;
                 }
