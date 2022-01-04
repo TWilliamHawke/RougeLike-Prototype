@@ -134,6 +134,63 @@ namespace Core.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TargetSelection"",
+            ""id"": ""861b450a-30da-40e7-b2f9-27e7c8019faf"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb24aeeb-0062-4657-94d4-de3448744448"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""b088e9aa-361c-4e9e-bfaf-2984999a6a93"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f5ac7e84-a02d-495d-95d4-1716dde97b2b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""727fb806-c6fc-4ca6-8812-d823f528c5b0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27456fe3-7e86-4241-a44e-630d775edd6b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -149,6 +206,10 @@ namespace Core.Input
             // Disabled
             m_Disabled = asset.FindActionMap("Disabled", throwIfNotFound: true);
             m_Disabled_ShowMenu = m_Disabled.FindAction("ShowMenu", throwIfNotFound: true);
+            // TargetSelection
+            m_TargetSelection = asset.FindActionMap("TargetSelection", throwIfNotFound: true);
+            m_TargetSelection_Select = m_TargetSelection.FindAction("Select", throwIfNotFound: true);
+            m_TargetSelection_Return = m_TargetSelection.FindAction("Return", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -309,6 +370,47 @@ namespace Core.Input
             }
         }
         public DisabledActions @Disabled => new DisabledActions(this);
+
+        // TargetSelection
+        private readonly InputActionMap m_TargetSelection;
+        private ITargetSelectionActions m_TargetSelectionActionsCallbackInterface;
+        private readonly InputAction m_TargetSelection_Select;
+        private readonly InputAction m_TargetSelection_Return;
+        public struct TargetSelectionActions
+        {
+            private @NewInput m_Wrapper;
+            public TargetSelectionActions(@NewInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Select => m_Wrapper.m_TargetSelection_Select;
+            public InputAction @Return => m_Wrapper.m_TargetSelection_Return;
+            public InputActionMap Get() { return m_Wrapper.m_TargetSelection; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(TargetSelectionActions set) { return set.Get(); }
+            public void SetCallbacks(ITargetSelectionActions instance)
+            {
+                if (m_Wrapper.m_TargetSelectionActionsCallbackInterface != null)
+                {
+                    @Select.started -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnSelect;
+                    @Select.performed -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnSelect;
+                    @Select.canceled -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnSelect;
+                    @Return.started -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnReturn;
+                    @Return.performed -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnReturn;
+                    @Return.canceled -= m_Wrapper.m_TargetSelectionActionsCallbackInterface.OnReturn;
+                }
+                m_Wrapper.m_TargetSelectionActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Select.started += instance.OnSelect;
+                    @Select.performed += instance.OnSelect;
+                    @Select.canceled += instance.OnSelect;
+                    @Return.started += instance.OnReturn;
+                    @Return.performed += instance.OnReturn;
+                    @Return.canceled += instance.OnReturn;
+                }
+            }
+        }
+        public TargetSelectionActions @TargetSelection => new TargetSelectionActions(this);
         public interface IMainActions
         {
             void OnClick(InputAction.CallbackContext context);
@@ -322,6 +424,11 @@ namespace Core.Input
         public interface IDisabledActions
         {
             void OnShowMenu(InputAction.CallbackContext context);
+        }
+        public interface ITargetSelectionActions
+        {
+            void OnSelect(InputAction.CallbackContext context);
+            void OnReturn(InputAction.CallbackContext context);
         }
     }
 }

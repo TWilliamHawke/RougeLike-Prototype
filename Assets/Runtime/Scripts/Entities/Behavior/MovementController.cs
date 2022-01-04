@@ -74,7 +74,7 @@ namespace Entities.Behavior
 
         void Update()
         {
-            if (_targetNode == null) return;
+            if (_targetNode is null) return;
             if (_onPause) return;
 
             MoveEntity();

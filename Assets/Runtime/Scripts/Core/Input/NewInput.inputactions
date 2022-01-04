@@ -119,6 +119,63 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TargetSelection",
+            "id": "861b450a-30da-40e7-b2f9-27e7c8019faf",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "eb24aeeb-0062-4657-94d4-de3448744448",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "b088e9aa-361c-4e9e-bfaf-2984999a6a93",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f5ac7e84-a02d-495d-95d4-1716dde97b2b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "727fb806-c6fc-4ca6-8812-d823f528c5b0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27456fe3-7e86-4241-a44e-630d775edd6b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

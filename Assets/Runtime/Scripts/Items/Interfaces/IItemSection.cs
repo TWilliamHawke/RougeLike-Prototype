@@ -17,6 +17,6 @@ namespace Items
         int maxCount { get; }
         int count { get; }
         ItemSlotData this[int idx] { get; }
-        
+        int FindItemCount(Item item);
     }
 }

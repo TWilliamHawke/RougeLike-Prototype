@@ -83,7 +83,7 @@ namespace Map.Generator
             //         //if(_rng.Next(1, 99) > 80) continue;
 
             //         var cell = _grid[x, y];
-            //         if (cell == null) continue;
+            //         if (cell is null) continue;
 
             //         var topCell = _grid[x, y + 1];
             //         if (topCell != null)
@@ -101,7 +101,7 @@ namespace Map.Generator
 
             foreach (var cell in _grid)
             {
-                if (cell?.parent == null) continue;
+                if (cell?.parent is null) continue;
                 CreateBridgeBetweenCells(cell, cell.parent);
             }
         }
@@ -137,7 +137,7 @@ namespace Map.Generator
                 for(int y = 0; y <= _grid.GetUpperBound(1); y++)
                 {
                     var cell = _grid[x,y];
-                    if(cell == null) continue;
+                    if(cell is null) continue;
 
                     if(!cell.hasChildren)
                     {
@@ -153,7 +153,7 @@ namespace Map.Generator
 
         private void CreateNeightbors(CellInfo cell)
         {
-            if (cell == null) return;
+            if (cell is null) return;
             var cell1 = TryCreateNeightbor(cell.gridX, cell.gridY + 1, cell);
             var cell2 = TryCreateNeightbor(cell.gridX, cell.gridY - 1, cell);
             var cell3 = TryCreateNeightbor(cell.gridX + 1, cell.gridY, cell);
@@ -242,7 +242,7 @@ namespace Map.Generator
 
         void CreatePolygon(CellInfo cell)
         {
-            if (cell == null) return;
+            if (cell is null) return;
             CreatePolygonFromTo(cell.x1, cell.x2, cell.y1, cell.y2);
         }
 

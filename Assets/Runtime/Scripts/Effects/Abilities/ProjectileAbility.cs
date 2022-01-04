@@ -19,7 +19,7 @@ namespace Effects
             return target.GetComponent<Health>() != null;
         }
 
-        public override void Use(AbilityController controller)
+        public override void SelectControllerUsage(AbilityController controller)
         {
             controller.StartTargetSelection(this);
         }
@@ -28,7 +28,7 @@ namespace Effects
         {
             if (target is IRangeAttackTarget)
             {
-                controller.GetComponent<ProjectileController>()?.ThrowProjectile(target as IRangeAttackTarget);
+                controller.GetComponent<ProjectileController>()?.ThrowProjectile(target as IRangeAttackTarget, _projectile);
             }
         }
     }

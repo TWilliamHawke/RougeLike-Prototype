@@ -10,6 +10,7 @@ namespace Magic
     {
         public event UnityAction OnSpellAdded;
         public event UnityAction<KnownSpellData> OnSpellPageOpen;
+        public event UnityAction<KnownSpellData> OnSpellSelect;
 
         [SerializeField] StoredResources _resources;
         [SerializeField] int _increaseRankCost = 500;
@@ -19,6 +20,7 @@ namespace Magic
         public List<KnownSpellData> knownSpells => _knownSpells;
         public int maxSpellRank => 6;
         public int increaseRankCost => _increaseRankCost;
+
 
         public void AddSpell(Spell spell)
         {
@@ -36,9 +38,14 @@ namespace Magic
             OnSpellPageOpen?.Invoke(spell);
         }
 
+        public void SelectSpell(KnownSpellData spell)
+        {
+            OnSpellSelect?.Invoke(spell);
+        }
+
         public void IncreaseSpellRank(KnownSpellData spell)
         {
-            if(_resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
+            if (_resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
             {
                 spell.IncreaseRank();
             }

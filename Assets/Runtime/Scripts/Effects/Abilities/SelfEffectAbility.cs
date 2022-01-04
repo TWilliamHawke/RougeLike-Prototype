@@ -10,7 +10,7 @@ namespace Effects
 		[SerializeField] List<SourceEffectData> _effects;
 
 
-        public override void Use(AbilityController controller)
+        public override void SelectControllerUsage(AbilityController controller)
         {
             foreach (var effectData in _effects)
 			{

@@ -9,7 +9,10 @@ namespace Effects
     public class AbilityController : MonoBehaviour
     {
 		public Body _body;
-		public event UnityAction<AbilityController> OnTargetSelectionStart;
+		public event UnityAction<IAbilityWithTarget> OnTargetSelectionStart;
+        public event UnityAction OnAbilityUse;
+
+        IAbilityWithTarget _performedAbility;
 
         IEffectTarget _self;
 
@@ -23,22 +26,20 @@ namespace Effects
         public void ApplyToSelf(SourceEffectData effect)
         {
             effect.ApplyEffect(_self);
+            OnAbilityUse?.Invoke();
         }
 
         public void StartTargetSelection(IAbilityWithTarget ability)
         {
-			OnTargetSelectionStart?.Invoke(this);
+            _performedAbility = ability;
+			OnTargetSelectionStart?.Invoke(ability);
         }
 
         public void SelectTarget(IEffectTarget target)
         {
-
+            _performedAbility.UseOnTarget(this, target);
+            OnAbilityUse?.Invoke();
         }
-
-		public bool TrySpendMana(int count)
-		{
-			return true;
-		}
 
 		public void PlaySound(AudioClip sound)
 		{

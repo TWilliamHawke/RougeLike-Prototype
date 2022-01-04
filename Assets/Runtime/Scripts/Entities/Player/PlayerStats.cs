@@ -6,25 +6,22 @@ using UnityEngine.Events;
 
 namespace Entities.Player
 {
-    public class PlayerStats : ScriptableObject
+    public class PlayerStats : ScriptableObject, IManaComponent
     {
         [SerializeField] AudioClip[] _weaponSounds;
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
 
-        int _currentHealth = 100;
-        int _maxHealth = 100;
+        int _maxMana = 100;
+        int _currentMana = 100;
 
         public AudioClip[] attackSounds => _weaponSounds;
+        public int maxMana => _maxMana;
+        public int curentMana => _currentMana;
 
-        public void SubscribeOnHealthComponent(Health health)
+        public void SubscribeOnHealthEvents(Health health)
         {
-
-        }
-
-        private void OnEnable()
-        {
-            _currentHealth = _maxHealth;
+            
         }
 
         public IDamageSource CalculateDamageData()
@@ -41,5 +38,15 @@ namespace Entities.Player
             return _resists;
         }
 
+        public bool TrySpendMana(int count)
+        {
+            if(count >= _currentMana)
+            {
+                _currentMana -= count;
+                return true;
+            }
+
+            return false;
+        }
     }
 }

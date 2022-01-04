@@ -34,7 +34,7 @@ namespace Magic.UI
 
         public bool DataIsMeet(ItemSlotData data)
         {
-            return data != null && data.item as SpellString && _activeString == null;
+            return data != null && data.item is SpellString && _activeString is null;
         }
 
         public void SetData(SpellString data)
@@ -64,7 +64,7 @@ namespace Magic.UI
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button != MouseButton.Right || _activeString == null) return;
+            if (eventData.button != MouseButton.Right || _activeString is null) return;
 
             _inventory.spellStrings.AddItem(_activeString);
             _icon.sprite = _defaultIcon;

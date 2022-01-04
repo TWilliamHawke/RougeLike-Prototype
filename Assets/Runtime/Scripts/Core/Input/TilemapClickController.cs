@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Entities;
 
 namespace Core.Input
 {
@@ -49,5 +46,7 @@ namespace Core.Input
                 return;
             }
         }
+
+
     }
 }

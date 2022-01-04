@@ -13,7 +13,7 @@ namespace Effects
             return true;
         }
 
-        public override void Use(AbilityController controller)
+        public override void SelectControllerUsage(AbilityController controller)
         {
             controller.StartTargetSelection(this);
         }

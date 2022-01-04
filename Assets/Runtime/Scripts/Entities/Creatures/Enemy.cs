@@ -7,12 +7,14 @@ using Entities.Player;
 using Map;
 using UnityEngine;
 using TMPro;
+using Effects;
 
 namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
-    public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, IInteractive
+    public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
+        IInteractive, IEffectTarget
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;

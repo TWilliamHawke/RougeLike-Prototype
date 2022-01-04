@@ -19,7 +19,7 @@ namespace Core.UI
         [SerializeField] Image _actionIcon;
 
         int _slotIndex;
-		IAbilitySource _abilityInSlot;
+		IAbilityInstruction _abilityInSlot;
 
         public void SetSlotNumber(int slotIndex)
         {
@@ -36,16 +36,21 @@ namespace Core.UI
 
         public void DropData(ItemSlotData data)
         {
-			_abilityInSlot = data.item as IAbilitySource;
-			if(_abilityInSlot == null) return;
+			_abilityInSlot = (data.item as IAbilitySource)?.CreateAbilityInstruction();
+			if(_abilityInSlot is null) return;
 
-            _activeAbilities[_slotIndex] = data.item as IAbilitySource;
+            _activeAbilities[_slotIndex] = _abilityInSlot;
 			UpdateSlotGraphic();
+        }
+
+        public void UpdateState()
+        {
+            //updata cooldown, active on/off
         }
 
 		void UpdateSlotGraphic()
 		{
-			if(_abilityInSlot == null)
+			if(_abilityInSlot is null)
 			{
 				_actionIcon.gameObject.SetActive(false);
 			}
@@ -56,15 +61,17 @@ namespace Core.UI
 			}
 		}
 
-		void UseAbility()
-		{
-			if(_abilityInSlot == null) return;
-			_activeAbilities.UseAbility(_slotIndex);
-		}
-
         public void OnPointerClick(PointerEventData eventData)
         {
             UseAbility();
         }
+
+		void UseAbility()
+		{
+			if(_abilityInSlot is null) return;
+            
+			_activeAbilities.UseAbility(_slotIndex);
+		}
+
     }
 }

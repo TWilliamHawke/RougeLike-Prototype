@@ -35,7 +35,7 @@ namespace Magic.UI
         //used in button click handler
         public void IncreaseSpellRank()
         {
-            if (_spellData == null) return;
+            if (_spellData is null) return;
             _spellbook.IncreaseSpellRank(_spellData);
         }
 

@@ -27,7 +27,7 @@ namespace Core.Input
         public void StartUp()
         {
             var playerInput = GetComponent<PlayerInput>();
-            _inputController.Init(playerInput);
+            _inputController.Init();
 
             // requires InputController
             _tileSelector.Subscribe();
