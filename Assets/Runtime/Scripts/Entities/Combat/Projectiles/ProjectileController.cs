@@ -51,7 +51,7 @@ namespace Entities.Combat
             OnAttackEnd?.Invoke();
         }
 
-        public void ThrowProjectile(IRangeAttackTarget target)
+        public void ThrowProjectile(IRangeAttackTarget target, ProjectileTemplate template)
         {
             _target = target;
             _targetPosition = target.transform.position;
@@ -59,8 +59,14 @@ namespace Entities.Combat
 
             _launchedProjectile = Instantiate(_projectilePrefab, transform);
             _launchedProjectile.transform.right = target.transform.position - transform.position;
-            _launchedProjectile.SetTemplate(_testTemplate);
-            _launchedProjectile.PlaySound(_testTemplate.fireSounds.GetRandom());
+            _launchedProjectile.SetTemplate(template);
+            _launchedProjectile.PlaySound(template.fireSounds.GetRandom());
+
+        }
+
+        public void ThrowProjectile(IRangeAttackTarget target)
+        {
+            ThrowProjectile(target, _testTemplate);
         }
     }
 }

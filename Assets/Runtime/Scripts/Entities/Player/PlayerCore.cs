@@ -18,39 +18,27 @@ namespace Entities.Player
         [SerializeField] TilemapController _mapController;
         [SerializeField] PlayerStats _stats;
         [SerializeField] Body _body;
-        [SerializeField] MovementController _movementController;
-        [SerializeField] MeleeAttackController _meleeAttackController;
-        [SerializeField] Health _health;
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
 
+        MovementController _movementController;
+        MeleeAttackController _meleeAttackController;
+        Health _health;
         IInteractive _target;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
-        public Body body => _body;
-
-
+        public IAudioSource body => _body;
 
         public AudioClip[] attackSounds => _stats.attackSounds;
 
         public void Init()
         {
-            GetComponent<VisibilityController>().ChangeViewingRange();
-            _movementController.OnStepEnd += EndPlayerTurn;
-            _meleeAttackController.OnAttackEnd += EndPlayerTurn;
-            GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
-
-            _health.InitWithoutSound();
-            _body.Init(_health);
-            _stats.SubscribeOnHealthComponent(_health);
-            
-            _meleeAttackController.Init(this);
-            _activeAbilities.Init(GetComponent<AbilityController>());
-
-            GetComponent<AbilityController>().Init();
-
+            InitComponents();
+            _stats.SubscribeOnHealthEvents(_health);
+            _activeAbilities.SetController(GetComponent<AbilityController>());
         }
+
 
         public void StartTurn()
         {
@@ -86,6 +74,7 @@ namespace Entities.Player
 
         public void SpawnAt(TileNode node)
         {
+            _movementController = GetComponent<MovementController>();
             Vector3 position = node.position2d.AddZ(0);
             transform.position = position;
             _movementController.Init(node);
@@ -94,6 +83,24 @@ namespace Entities.Player
         void IAttackTarget.TakeDamage(int damage)
         {
             _health.DamageHealth(damage);
+        }
+
+        void InitComponents()
+        {
+            _meleeAttackController = GetComponent<MeleeAttackController>();
+            _meleeAttackController.OnAttackEnd += EndPlayerTurn;
+            _meleeAttackController.Init(this);
+
+            _movementController = GetComponent<MovementController>();
+            _movementController.OnStepEnd += EndPlayerTurn;
+
+            _health = GetComponent<Health>();
+            _health.InitWithoutSound();
+            _body.Init(_health);
+
+            GetComponent<VisibilityController>().ChangeViewingRange();
+            GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
+            GetComponent<AbilityController>().Init();
         }
 
         void EndPlayerTurn()

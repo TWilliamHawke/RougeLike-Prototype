@@ -4,17 +4,8 @@ using UnityEngine;
 
 namespace Effects
 {
-	public class IStaticEffect : MonoBehaviour
+	public interface IStaticEffect
 	{
-	    void Awake()
-	    {
-	        
-	    }
-	
-
-	    void Update()
-	    {
-	        
-	    }
+	    
 	}
 }

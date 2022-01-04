@@ -11,7 +11,6 @@ namespace Magic.UI
     public class SpellPage : MonoBehaviour
     {
         [Header("UI Elements")]
-        [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] Image _spellIcon;
         [SerializeField] TextMeshProUGUI _spellName;
         [SerializeField] TextMeshProUGUI _spellRank;
@@ -26,7 +25,6 @@ namespace Magic.UI
         {
             KnownSpellData.OnChangeData += UpdateData;
             _rankUpButton.Init();
-            _resourcesPage.Init();
 
             foreach (var slot in _spellStringSlots)
             {

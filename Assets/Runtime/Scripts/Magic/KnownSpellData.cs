@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 using UnityEngine.Events;
+using Effects;
 
 namespace Magic
 {
@@ -21,6 +22,7 @@ namespace Magic
 		public int manaCost => _spell[_rank].manaCost;
 		public string displayName => _spell.displayName;
 		public Sprite icon => _spell.icon;
+		public Ability spell => _spell[rank].spellEffect;
 
         public KnownSpellData(Spell spell)
         {

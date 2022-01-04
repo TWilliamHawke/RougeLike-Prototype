@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Items
 {
@@ -48,6 +49,19 @@ namespace Items
                     break;
                 }
             }
+        }
+
+        public int FindItemCount(Item item)
+        {
+            var count = 0;
+
+            foreach (var section in _sections)
+            {
+                if(section == _storage) continue;
+                count += section.FindItemCount(item);
+            }
+
+            return count;
         }
 
 

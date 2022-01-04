@@ -4,17 +4,8 @@ using UnityEngine;
 
 namespace Effects
 {
-	public class ICyclicEffect : MonoBehaviour
+	public interface ICyclicEffect
 	{
-	    void Awake()
-	    {
-	        
-	    }
-	
-
-	    void Update()
-	    {
-	        
-	    }
+	    
 	}
 }

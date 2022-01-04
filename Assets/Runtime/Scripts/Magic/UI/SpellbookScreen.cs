@@ -13,6 +13,7 @@ namespace Magic.UI
         [SerializeField] Spell[] _testSpells;
         [Header("UI Elements")]
         [SerializeField] SpellPage _spellPage;
+        [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] GridLayoutGroup _spellGrid;
 
         protected override IEnumerable<KnownSpellData> _layoutElementsData => _spellBook.knownSpells;
@@ -20,8 +21,11 @@ namespace Magic.UI
         public void Init()
         {
             _spellBook.OnSpellPageOpen += OpenSpellPage;
+            _spellBook.OnSpellSelect += Close;
             _spellPage.Init();
+            _resourcesPage.Init();
 
+            _spellBook.Clear(); //only for tests
             foreach (var spell in _testSpells)
             {
                 _spellBook.AddSpell(spell);
@@ -32,7 +36,6 @@ namespace Magic.UI
 
         void OnDestroy()
         {
-            _spellBook.Clear(); //only for tests
             _spellBook.OnSpellPageOpen -= OpenSpellPage;
         }
 
@@ -53,6 +56,11 @@ namespace Magic.UI
         {
             _spellGrid.gameObject.SetActive(false);
             _spellPage.Open(data);
+        }
+
+        void Close(KnownSpellData _)
+        {
+            gameObject.SetActive(false);
         }
 
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 namespace Items
 {
@@ -50,7 +51,7 @@ namespace Items
             T item = someItem as T;
 
             //item doesnt fit a section
-            if (item == null) return false;
+            if (item is null) return false;
 
             //inventory section has unlimited slots
             if (_maxSlotsCount < 1) return true;
@@ -131,6 +132,11 @@ namespace Items
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _itemsList.GetEnumerator();
+        }
+
+        public int FindItemCount(Item item)
+        {
+            return _itemsList.Where(slot => slot.item == item).Sum(slot => slot.count);
         }
     }
 

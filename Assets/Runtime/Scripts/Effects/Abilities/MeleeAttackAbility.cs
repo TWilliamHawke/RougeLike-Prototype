@@ -7,7 +7,7 @@ namespace Effects
 {
     public class MeleeAttackAbility : Ability
     {
-        public override void Use(AbilityController controller)
+        public override void SelectControllerUsage(AbilityController controller)
         {
             throw new System.NotImplementedException();
         }

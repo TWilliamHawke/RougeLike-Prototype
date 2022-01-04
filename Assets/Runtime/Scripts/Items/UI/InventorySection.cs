@@ -28,7 +28,7 @@ namespace Items.UI
 
         void FillSection()
         {
-			if(_section == null) return;
+			if(_section is null) return;
 			
             for (int i = 0; i < _section.count; i++)
 			{

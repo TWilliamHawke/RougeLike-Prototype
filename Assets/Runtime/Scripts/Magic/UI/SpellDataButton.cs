@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Entities.Player;
 
 namespace Magic.UI
 {
@@ -12,6 +13,7 @@ namespace Magic.UI
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
         [SerializeField] Spellbook _spellBook;
+        [SerializeField] ActiveAbilities _activeAbilities;
         [Header("UI Elements")]
         [SerializeField] Image _frame;
         [SerializeField] Image _spellIcon;
@@ -29,7 +31,8 @@ namespace Magic.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Select spell");
+            _spellBook.SelectSpell(_knownSpell);
+            _activeAbilities.UseAbility(_knownSpell.spell);
         }
 
         public void OnPointerEnter(PointerEventData _)

@@ -10,30 +10,40 @@ namespace Core.Input
     public class InputController : ScriptableObject
     {
         public event UnityAction<Vector3Int> OnHoveredTileChange;
+        public event UnityAction<ActionMap> OnActionMapChange;
 
         NewInput _newInput;
-        PlayerInput _playerInput;
         Vector3Int _hoveredTilePos;
-        ActionMap _currentActionMap;
+        ActionMap _currentActionMap = ActionMap.Disabled;
         RaycastHit2D[] _hoveredTileHits;
 
+        //action maps
         public UIActions ui => _newInput.UI;
         public MainActions main => _newInput.Main;
         public DisabledActions disabled => _newInput.Disabled;
+        public TargetSelectionActions targetSelection => _newInput.TargetSelection;
+
         public Vector3Int hoveredTilePos => _hoveredTilePos;
         public RaycastHit2D[] hoveredTileHits => _hoveredTileHits;
 
-        public void Init(PlayerInput playerInput)
+        List<InputActionMap> _actionMaps = new List<InputActionMap>();
+
+        public void Init()
         {
             _newInput = new NewInput();
+            _actionMaps.Clear();
+
+            _actionMaps.Add(_newInput.Main.Get());
+            _actionMaps.Add(_newInput.UI.Get());
+            _actionMaps.Add(_newInput.Disabled.Get());
+            _actionMaps.Add(_newInput.TargetSelection.Get());
+
             _newInput.Main.Enable();
             _currentActionMap = ActionMap.Main;
-            _playerInput = playerInput;
         }
 
         public void Clear()
         {
-            _playerInput = null;
             OnHoveredTileChange = null;
         }
 
@@ -45,6 +55,11 @@ namespace Core.Input
         public void SwitchToUIActionMap()
         {
             SwitchActionMap(ActionMap.UI);
+        }
+
+        public void SwitchToTargetSelection()
+        {
+            SwitchActionMap(ActionMap.TargetSelection);
         }
 
         //disable all but escape
@@ -74,19 +89,31 @@ namespace Core.Input
             _newInput.Main.Click.Enable();
         }
 
-        void SwitchActionMap(ActionMap actionMap)
+        void SwitchActionMap(ActionMap newActionMap)
         {
-            if (_currentActionMap == actionMap) return;
-            _playerInput.SwitchCurrentActionMap(actionMap.ToString());
-            _currentActionMap = actionMap;
+            if (_currentActionMap == newActionMap) return;
+
+            foreach (var actionMap in _actionMaps)
+            {
+                if (actionMap.name == newActionMap.ToString())
+                {
+                    actionMap.Enable();
+                    _currentActionMap = newActionMap;
+                    OnActionMapChange?.Invoke(newActionMap);
+                    continue;
+                } //else
+                actionMap.Disable();
+            }
         }
 
 
-        enum ActionMap
-        {
-            Main,
-            UI,
-            Disabled,
-        }
+    }
+
+    public enum ActionMap
+    {
+        Disabled,
+        Main,
+        UI,
+        TargetSelection
     }
 }

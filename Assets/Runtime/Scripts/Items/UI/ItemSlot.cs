@@ -62,7 +62,7 @@ namespace Items
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_slotData == null) return;
+            if (_slotData is null) return;
             _outline.gameObject.SetActive(true);
         }
 
@@ -73,19 +73,19 @@ namespace Items
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if(_slotData == null) return;
+            if(_slotData is null) return;
 			_draghandler.OnBeginDrag();
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            if(_slotData == null) return;
+            if(_slotData is null) return;
 			_draghandler.OnDrag(eventData);
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            if(_slotData == null) return;
+            if(_slotData is null) return;
 			_draghandler.OnEndDrag();
         }
     }
