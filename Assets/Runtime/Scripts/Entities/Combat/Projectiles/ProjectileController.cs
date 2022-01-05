@@ -28,7 +28,7 @@ namespace Entities.Combat
 
             if (_progress < _targetProgress)
             {
-                _progress += Time.deltaTime * _baseSpeed * _testTemplate.speedMult;
+                _progress += Time.deltaTime * _baseSpeed * _launchedProjectile.speed;
                 var newPos = Vector3.Lerp(transform.position, _targetPosition, _progress / _targetProgress);
                 _launchedProjectile.transform.position = newPos;
             }
@@ -41,9 +41,9 @@ namespace Entities.Combat
         private void Damage()
         {
             _progress = 0;
-            var damage = DamageCalulator.GetDamage(_testTemplate, _target);
+            var damage = DamageCalulator.GetDamage(_launchedProjectile.template, _target);
             _target.TakeDamage(damage);
-            _launchedProjectile.PlaySound(_testTemplate.impactSounds.GetRandom());
+            _launchedProjectile.PlayImpactSound();
             _launchedProjectile.Hide();
 
             Destroy(_launchedProjectile.gameObject, 5f);

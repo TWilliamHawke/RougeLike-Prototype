@@ -10,12 +10,9 @@ namespace Items.UI
 	{
 		[SerializeField] Image _itemIcon;
 
-		ItemSlotData _itemSlotData;
-
         protected override void ApplyData(ItemSlotData data)
         {
             _itemIcon.sprite = data.item.icon;
-			_itemSlotData = data;
         }
 
 	}
