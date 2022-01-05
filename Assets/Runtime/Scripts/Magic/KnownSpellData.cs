@@ -8,7 +8,7 @@ using Effects;
 namespace Magic
 {
 	[System.Serializable]
-	public class KnownSpellData
+	public class KnownSpellData : IAbilitySource
 	{
 		public static event UnityAction<KnownSpellData> OnChangeData;
 
@@ -38,5 +38,10 @@ namespace Magic
 			_rank++;
 			OnChangeData?.Invoke(this);
 		}
+
+        public IAbilityInstruction CreateAbilityInstruction()
+        {
+            return new SpellContainer(this);
+        }
     }
 }

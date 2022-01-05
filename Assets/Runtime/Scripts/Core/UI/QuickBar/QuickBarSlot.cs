@@ -8,10 +8,11 @@ using Effects;
 using UI.DragAndDrop;
 using Entities.Player;
 using UnityEngine.EventSystems;
+using Magic;
 
 namespace Core.UI
 {
-    public class QuickBarSlot : MonoBehaviour, IDropTarget<ItemSlotData>, IPointerClickHandler
+    public class QuickBarSlot : MonoBehaviour, IDropTarget<ItemSlotData>, IDropTarget<KnownSpellData>, IPointerClickHandler
     {
 		[SerializeField] ActiveAbilities _activeAbilities;
         [Header("UI Elements")]
@@ -36,11 +37,7 @@ namespace Core.UI
 
         public void DropData(ItemSlotData data)
         {
-			_abilityInSlot = (data.item as IAbilitySource)?.CreateAbilityInstruction();
-			if(_abilityInSlot is null) return;
-
-            _activeAbilities[_slotIndex] = _abilityInSlot;
-			UpdateSlotGraphic();
+			FillSlot(data.item as IAbilitySource);
         }
 
         public void UpdateState()
@@ -66,6 +63,15 @@ namespace Core.UI
             UseAbility();
         }
 
+        void FillSlot(IAbilitySource abilitySource)
+        {
+            if(abilitySource is null) return;
+            _abilityInSlot = abilitySource.CreateAbilityInstruction();
+
+            _activeAbilities[_slotIndex] = _abilityInSlot;
+			UpdateSlotGraphic();
+        }
+
 		void UseAbility()
 		{
 			if(_abilityInSlot is null) return;
@@ -73,5 +79,14 @@ namespace Core.UI
 			_activeAbilities.UseAbility(_slotIndex);
 		}
 
+        void IDropTarget<KnownSpellData>.DropData(KnownSpellData data)
+        {
+            FillSlot(data as IAbilitySource);
+        }
+
+        bool IDropTarget<KnownSpellData>.DataIsMeet(KnownSpellData data)
+        {
+            return true;
+        }
     }
 }

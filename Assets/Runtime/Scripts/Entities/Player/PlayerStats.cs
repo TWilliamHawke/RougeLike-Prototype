@@ -10,6 +10,10 @@ namespace Entities.Player
     {
         [SerializeField] AudioClip[] _weaponSounds;
 
+        //public event UnityAction OnHealthChange;
+        public event UnityAction OnManaChange;
+
+
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
 
         int _maxMana = 100;
@@ -40,9 +44,10 @@ namespace Entities.Player
 
         public bool TrySpendMana(int count)
         {
-            if(count >= _currentMana)
+            if(count <= _currentMana)
             {
                 _currentMana -= count;
+                OnManaChange?.Invoke();
                 return true;
             }
 

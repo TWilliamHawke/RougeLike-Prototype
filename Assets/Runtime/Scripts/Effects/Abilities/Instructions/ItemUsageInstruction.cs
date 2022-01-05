@@ -13,6 +13,7 @@ namespace Effects
         public Sprite abilityIcon => _item.icon;
 
         Item _item;
+        
 
         public static void SetInventory(Inventory inventory)
         {
@@ -31,6 +32,7 @@ namespace Effects
 
         public void UseAbility(AbilityController controller)
         {
+            (_item as IItemWithAbility)?.UseAbility(controller);
             controller.PlaySound(_item.useSound);
         }
     }

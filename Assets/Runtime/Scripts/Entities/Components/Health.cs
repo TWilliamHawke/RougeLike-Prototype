@@ -60,6 +60,7 @@ namespace Entities
             _body.Init(this);
             _currentHealth = _baseHealth;
             OnHealthInit?.Invoke(_body);
+            OnHealthChange?.Invoke();
         }
 
         void ChangeHealth(int health)

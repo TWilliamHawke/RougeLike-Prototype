@@ -9,11 +9,13 @@ namespace Core
 	{
 	    [SerializeField] QuickBar _quickBar;
 		[SerializeField] TileInfoPanel _tileInfoPanel;
+		[SerializeField] StatPanel _statPanel;
 
 		public void Init()
 		{
 			_quickBar.Init();
 			_tileInfoPanel.Init();
+			_statPanel.Init();
 		}
 	}
 }

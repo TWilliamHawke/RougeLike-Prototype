@@ -11,6 +11,9 @@ namespace Entities.Combat
         [SerializeField] TMP_Text _TMPSprite;
         [SerializeField] AudioSource _audioSource;
 
+        public ProjectileTemplate template => _template;
+        public float speed => _template.speedMult;
+
         public void SetTemplate(ProjectileTemplate template)
         {
             _template = template;
@@ -18,6 +21,11 @@ namespace Entities.Combat
             _TMPSprite.color = template.color;
             _TMPSprite.enabled = true;
 
+        }
+
+        public void PlayImpactSound()
+        {
+            PlaySound(_template.impactSounds.GetRandom());
         }
 
         public void PlaySound(AudioClip sound)

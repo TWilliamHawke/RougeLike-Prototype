@@ -1638,6 +1638,8 @@ MonoBehaviour:
   _hoveredColor: {r: 1, g: 0.80166054, b: 0, a: 0.5803922}
   _spellBook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
   _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
+  _draggedSpellPrefab: {fileID: 6674437339021031832, guid: d96aa58c452cfb84d8214d3975a09484, type: 3}
+  _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _frame: {fileID: 7578599437005814571}
   _spellIcon: {fileID: 6100198704502638988}
   _spellName: {fileID: 8522159695227966775}

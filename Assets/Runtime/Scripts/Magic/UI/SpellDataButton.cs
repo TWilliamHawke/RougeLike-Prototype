@@ -5,15 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using Entities.Player;
+using UI.DragAndDrop;
 
 namespace Magic.UI
 {
-    public class SpellDataButton : UIDataElement<KnownSpellData>, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class SpellDataButton : UIDataElement<KnownSpellData>, IPointerEnterHandler,
+        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
         [SerializeField] Spellbook _spellBook;
         [SerializeField] ActiveAbilities _activeAbilities;
+        [SerializeField] DraggedSpell _draggedSpellPrefab;
+        [SerializeField] DragController _dragController;
         [Header("UI Elements")]
         [SerializeField] Image _frame;
         [SerializeField] Image _spellIcon;
@@ -23,10 +27,16 @@ namespace Magic.UI
         [SerializeField] Button _spellUpgradeButton;
 
         KnownSpellData _knownSpell;
+        DragHandler<KnownSpellData> _draghandler;
+
+        public KnownSpellData dragData => _knownSpell;
+        public DragableUIElement<KnownSpellData> dragableElementPrefab => _draggedSpellPrefab;
+        public DragController dragController => _dragController;
 
         void Awake()
         {
             _spellUpgradeButton.onClick.AddListener(OpenSpellPage);
+            _draghandler = new DragHandler<KnownSpellData>(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -62,7 +72,19 @@ namespace Magic.UI
             _spellBook.OpenSpellPage(_knownSpell);
         }
 
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            _draghandler.OnBeginDrag();
+        }
 
+        public void OnDrag(PointerEventData eventData)
+        {
+            _draghandler.OnDrag(eventData);
+        }
 
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _draghandler.OnEndDrag();
+        }
     }
 }
