@@ -21,6 +21,7 @@ namespace Entities
         [SerializeField] TMP_Text _TMPSprite;
 
         Health _health;
+        EffectStorage _effectStorage;
 
 
         public IDamageSource damageSource => _template;
@@ -31,10 +32,13 @@ namespace Entities
 
         public AudioClip[] attackSounds => _template.attackSounds;
 
+        public EffectStorage effectStorage => _effectStorage;
+
         public void Init()
         {
             InitComponents();
             ApplyStartStats();
+            _effectStorage = new EffectStorage(this);
         }
 
         public void ApplyStartStats()

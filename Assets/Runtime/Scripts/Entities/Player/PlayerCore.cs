@@ -32,10 +32,12 @@ namespace Entities.Player
 
         public AudioClip[] attackSounds => _stats.attackSounds;
 
+        public EffectStorage effectStorage => _stats.effectStorage;
+
         public void Init()
         {
             InitComponents();
-            _stats.SubscribeOnHealthEvents(_health);
+            _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
         }
 

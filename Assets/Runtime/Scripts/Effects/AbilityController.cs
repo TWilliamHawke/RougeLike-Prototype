@@ -23,10 +23,15 @@ namespace Effects
 			Debug.LogError("Object hasn't any components with IEffectTarget interface");
         }
 
-        public void ApplyToSelf(SourceEffectData effect)
+        public void ApplyToSelf(SourceEffectData effect, IEffectSource effectSource)
         {
-            effect.ApplyEffect(_self);
+            effect.ApplyEffect(_self, effectSource);
             OnAbilityUse?.Invoke();
+        }
+
+        public void AddToEffectStorage(IEffectSource effectSource)
+        {
+
         }
 
         public void StartTargetSelection(IAbilityWithTarget ability)

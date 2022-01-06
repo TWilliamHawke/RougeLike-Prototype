@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 using UnityEngine.UI;
+using UI.DragAndDrop;
 
 namespace Magic.UI
 {
@@ -10,11 +11,13 @@ namespace Magic.UI
     {
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
-        [SerializeField] Spell[] _testSpells;
+        [SerializeField] DragController _dragController;
         [Header("UI Elements")]
+        [SerializeField] Image _background;
         [SerializeField] SpellPage _spellPage;
         [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] GridLayoutGroup _spellGrid;
+        [SerializeField] Spell[] _testSpells;
 
         protected override IEnumerable<KnownSpellData> _layoutElementsData => _spellBook.knownSpells;
 
@@ -22,6 +25,9 @@ namespace Magic.UI
         {
             _spellBook.OnSpellPageOpen += OpenSpellPage;
             _spellBook.OnSpellSelect += Close;
+            _dragController.OnBeginDrag += HideBackGround;
+            _dragController.OnEndDrag += ShowBackGround;
+
             _spellPage.Init();
             _resourcesPage.Init();
 
@@ -37,6 +43,9 @@ namespace Magic.UI
         void OnDestroy()
         {
             _spellBook.OnSpellPageOpen -= OpenSpellPage;
+            _spellBook.OnSpellSelect -= Close;
+            _dragController.OnBeginDrag -= HideBackGround;
+            _dragController.OnEndDrag -= ShowBackGround;
         }
 
         void OnEnable()
@@ -61,6 +70,16 @@ namespace Magic.UI
         void Close(KnownSpellData _)
         {
             gameObject.SetActive(false);
+        }
+
+        void ShowBackGround()
+        {
+            _background.gameObject.SetActive(true);
+        }
+
+        void HideBackGround(object _)
+        {
+            _background.gameObject.SetActive(false);
         }
 
 

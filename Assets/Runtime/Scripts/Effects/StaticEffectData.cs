@@ -8,6 +8,6 @@ namespace Effects
 	{
 	    public Effect effect;
 		public int power;
-		public Ability source;
+		public IEffectSource source;
 	}
 }

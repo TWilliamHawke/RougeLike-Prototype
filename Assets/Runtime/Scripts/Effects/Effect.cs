@@ -12,5 +12,7 @@ namespace Effects
 		[SerializeField] string _description;
 		[SpritePreview]
 		[SerializeField] Sprite _icon;
+
+		public Sprite icon => _icon;
 	}
 }
