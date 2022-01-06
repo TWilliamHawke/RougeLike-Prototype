@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Effects
 {
     [CreateAssetMenu(fileName ="Ability", menuName ="Abilities/Effect On Self")]
-    public class SelfEffectAbility : Ability
+    public class SelfEffectAbility : Ability, IEffectSource
     {
 		[SerializeField] List<SourceEffectData> _effects;
 
@@ -14,7 +14,7 @@ namespace Effects
         {
             foreach (var effectData in _effects)
 			{
-				controller.ApplyToSelf(effectData);
+				controller.ApplyToSelf(effectData, this);
 			}
         }
     }

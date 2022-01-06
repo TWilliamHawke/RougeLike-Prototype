@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using Entities.Combat;
 using UnityEngine;
 using UnityEngine.Events;
+using Effects;
+using Core;
 
 namespace Entities.Player
 {
     public class PlayerStats : ScriptableObject, IManaComponent
     {
         [SerializeField] AudioClip[] _weaponSounds;
+        [SerializeField] GameObjects _gameObjects;
 
         //public event UnityAction OnHealthChange;
         public event UnityAction OnManaChange;
 
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
+        EffectStorage _effectStorage = new EffectStorage();
 
         int _maxMana = 100;
         int _currentMana = 100;
@@ -22,10 +26,11 @@ namespace Entities.Player
         public AudioClip[] attackSounds => _weaponSounds;
         public int maxMana => _maxMana;
         public int curentMana => _currentMana;
+        public EffectStorage effectStorage => _effectStorage;
 
-        public void SubscribeOnHealthEvents(Health health)
+        public void SubscribeOnHealthEvents(PlayerCore player)
         {
-            
+            _effectStorage.SetEffectTarget(player);
         }
 
         public IDamageSource CalculateDamageData()

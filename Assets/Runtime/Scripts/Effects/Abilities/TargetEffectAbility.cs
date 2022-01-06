@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Effects
 {
-    public class TargetEffectAbility : Ability, IAbilityWithTarget
+    public class TargetEffectAbility : Ability, IAbilityWithTarget, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;
 
@@ -22,7 +22,7 @@ namespace Effects
         {
 			foreach (var effect in _effects)
 			{
-				effect.ApplyEffect(target);
+				effect.ApplyEffect(target, this);
 			}
         }
     }
