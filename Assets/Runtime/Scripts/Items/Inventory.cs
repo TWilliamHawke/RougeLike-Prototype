@@ -16,12 +16,15 @@ namespace Items
         ItemSection<Item> _storage;
         ItemSection<SpellString> _spellStrings;
 
-        public IItemSection potionsBag => _potionsBag;
-        public IItemSection scrollsBag => _scrollsBag;
-        public IItemSection main => _main;
+        public ItemSection<Potion> potionsBag => _potionsBag;
+        public ItemSection<MagicScroll> scrollsBag => _scrollsBag;
+        public ItemSection<Item> main => _main;
         public ItemSection<SpellString>  spellStrings => _spellStrings;
+        public IEnumerable<Item> equipment => _equipment;
 
         List<IItemSection> _sections;
+
+        List<Item> _equipment;
 
 
         public void Init()
@@ -30,13 +33,8 @@ namespace Items
 
             foreach (var item in _testItems)
             {
-                AddItem(item);
-                AddItem(item);
-                AddItem(item);
-                AddItem(item);
-                AddItem(item);
+                AddItems(item, item.maxStackCount);
             }
-
         }
 
         public void AddItem(Item item)
@@ -46,6 +44,28 @@ namespace Items
                 if (section.ItemMeet(item))
                 {
                     section.AddItem(item);
+                    break;
+                }
+            }
+        }
+
+        public Item GetEquipment(EquipmentTypes type)
+        {
+            return _equipment[(int)type];
+        }
+
+        public void AddEquipment(EquipmentTypes type, Item item)
+        {
+            _equipment[(int)type] = item;
+        }
+
+        public void AddItems(Item item, int count)
+        {
+            foreach (var section in _sections)
+            {
+                if (section.ItemMeet(item))
+                {
+                    section.AddItems(item, count);
                     break;
                 }
             }
@@ -67,12 +87,13 @@ namespace Items
 
         private void CreateSections()
         {
+            _sections = new List<IItemSection>(5);
+
             _potionsBag = new ItemSection<Potion>(3);
             _spellStrings = new ItemSection<SpellString>(-1);
             _scrollsBag = new ItemSection<MagicScroll>(5);
             _main = new ItemSection<Item>(12);
             _storage = new ItemSection<Item>(-1);
-            _sections = new List<IItemSection>(5);
 
             _sections.Add(_potionsBag);
             _sections.Add(_scrollsBag);

@@ -10,7 +10,7 @@ namespace Items.UI
         [SerializeField] LayoutGroup _layout;
         [SerializeField] ItemSlot _slotPrefab;
 
-        IItemSection _section;
+        IInventorySectionData _section;
 
 		List<ItemSlot> _itemSlots;
 
@@ -19,7 +19,7 @@ namespace Items.UI
 			FillSection();
 		}
 
-        public void SetSectionData(IItemSection section)
+        public void SetSectionData(IInventorySectionData section)
         {
             _section = section;
 			_itemSlots = new List<ItemSlot>(_section.maxCount);

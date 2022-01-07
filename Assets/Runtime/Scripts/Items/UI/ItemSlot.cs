@@ -15,8 +15,6 @@ namespace Items
 		[SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
-        [SerializeField] Image _frame;
-        [SerializeField] Image _background;
         [SerializeField] Image _outline;
         [SerializeField] TextMeshProUGUI _count;
 
@@ -37,8 +35,6 @@ namespace Items
         public void SetSlotData(ItemSlotData slotData)
         {
             _icon.gameObject.SetActive(true);
-            _frame.gameObject.SetActive(false);
-            _background.gameObject.SetActive(true);
 
             _slotData = slotData;
 
@@ -55,9 +51,7 @@ namespace Items
         {
             _slotData = null;
             _icon.gameObject.SetActive(false);
-            _background.gameObject.SetActive(false);
             _count.gameObject.SetActive(false);
-            _frame.gameObject.SetActive(true);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

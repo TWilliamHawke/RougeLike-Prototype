@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items
 {
-	public interface IUsable
+    public interface IUsable
 	{
 	    void Use();
 		AudioClip useSound { get; }

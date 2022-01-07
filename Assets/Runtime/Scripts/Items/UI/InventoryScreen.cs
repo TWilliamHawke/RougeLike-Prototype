@@ -32,7 +32,6 @@ namespace Items.UI
         {
             _dragController.OnBeginDrag -= HideBackGround;
             _dragController.OnEndDrag -= ShowBackGround;
-
         }
 
         void ShowBackGround()
