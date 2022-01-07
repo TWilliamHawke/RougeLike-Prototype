@@ -23,7 +23,6 @@ namespace Magic.UI
             _resources.OnResourceChange += UpdateDustCount;
             _inventory.spellStrings.OnItemAdd += UpdateLayout;
             _inventory.spellStrings.OnItemRemove += UpdateLayout;
-
         }
 
         void OnDestroy()

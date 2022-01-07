@@ -7,7 +7,7 @@ using System.Linq;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection<T> : IItemSection where T : Item
+    public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData, IItemSection where T : Item
     {
 
         List<ItemSlotData> _itemsList;
@@ -18,9 +18,9 @@ namespace Items
         public event UnityAction OnItemAdd;
         public event UnityAction OnItemRemove;
 
-        ItemSlotData IItemSection.this[int idx] => _itemsList[idx];
+        ItemSlotData IInventorySectionData.this[int idx] => _itemsList[idx];
         public int maxCount => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
-        int IItemSection.count => _itemsList.Count;
+        int IInventorySectionData.count => _itemsList.Count;
 
         public ItemSection(int maxSlotsCount)
         {

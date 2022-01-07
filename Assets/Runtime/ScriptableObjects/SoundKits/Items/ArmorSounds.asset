@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ad18a7025105d4a9c653a253feb2ea, type: 3}
+  m_Name: ArmorSounds
+  m_EditorClassIdentifier: 
+  _useSounds:
+  - {fileID: 8300000, guid: 1a9334609933fa94ab61f807e017c8e4, type: 3}
+  - {fileID: 8300000, guid: 8b819b5f62bed4445ab1f29ffe78b4cd, type: 3}
+  _dragSounds:
+  - {fileID: 8300000, guid: df4acc7ebab342745a0c6040f0b4648b, type: 3}
+  - {fileID: 8300000, guid: f4be536160d93044f9c950470e3524b9, type: 3}
