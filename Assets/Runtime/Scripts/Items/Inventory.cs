@@ -33,7 +33,7 @@ namespace Items
 
             foreach (var item in _testItems)
             {
-                AddItems(item, item.maxStackCount);
+                AddItems(item, item.maxStackSize);
             }
         }
 

@@ -64,7 +64,7 @@ namespace Items
             if (!_items.ContainsKey(item)) return false;
 
             //slot with item is exist - check empty space
-            if (_items[item].count < item.maxStackCount) return true;
+            if (_items[item].count < item.maxStackSize) return true;
 
             //no empty space in section
             return false;
@@ -81,12 +81,7 @@ namespace Items
             OnItemRemove?.Invoke();
         }
 
-        void IItemSection.AddItems(Item item, int count)
-        {
-            AddItems(item, count);
-        }
-
-        void IItemSection.Clear()
+        public void Clear()
         {
             _itemsList.Clear();
             _items.Clear();
@@ -94,11 +89,11 @@ namespace Items
 
         //UNDONE this code can create slots over _maxSlotsCount!!!
         //should return int
-        void AddItems(Item item, int count)
+        public void AddItems(Item item, int count)
         {
             if (_items.ContainsKey(item))
             {
-                int freeSpace = item.maxStackCount - _items[item].count;
+                int freeSpace = item.maxStackSize - _items[item].count;
                 if (freeSpace < count)
                 {
                     count -= freeSpace;

@@ -7,8 +7,8 @@ namespace Items
 	[System.Serializable]
 	public class ItemSlotData
 	{
-		Item _item;
-		int _count;
+		[SerializeField] Item _item;
+		[SerializeField] int _count;
 
         public Item item => _item;
 		public int count => _count;
@@ -49,7 +49,7 @@ namespace Items
 
 		public void FillToMaxSize()
 		{
-			_count = _item.maxStackCount;
+			_count = _item.maxStackSize;
 		}
     }
 }

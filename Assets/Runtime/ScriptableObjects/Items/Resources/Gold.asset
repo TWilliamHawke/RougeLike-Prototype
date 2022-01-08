@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Gold
   _icon: {fileID: 21300000, guid: 9e2f62818167e944f8b64f6991f1d77d, type: 3}
-  _maxCount: 999999999
-  _resourceType: 0
+  _maxStackSize: 99999999
+  _value: 0
+  _soundKit: {fileID: 0}
+  _resourceType: 1

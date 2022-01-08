@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Entities.Player;
+using Items;
 
 namespace Magic
 {
