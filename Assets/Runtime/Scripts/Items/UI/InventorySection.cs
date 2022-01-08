@@ -33,7 +33,7 @@ namespace Items.UI
             for (int i = 0; i < _section.count; i++)
 			{
 				if(i >= _itemSlots.Count) return;
-				_itemSlots[i].SetSlotData(_section[i]);
+				_itemSlots[i].UpdateData(_section[i]);
 			}
         }
 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
+  m_Name: LT02-Potions100
+  m_EditorClassIdentifier: 
+  _getOnlyOneElenemt: 1
+  _chanceOfNone: 0
+  _childLootTables:
+  - {fileID: 11400000, guid: 7d841d71cb98c4a4bb98103f5bcf029c, type: 2}
+  - {fileID: 11400000, guid: 47c0f7307dbb3e546bbc4ca93a29adb7, type: 2}
+  _lootItems: []

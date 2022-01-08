@@ -16,7 +16,7 @@ namespace Items
 
 	    public string displayName => _displayName;
 		public Sprite icon => _icon;
-		public int maxStackCount => _maxStackSize;
+		public int maxStackSize => _maxStackSize;
 		public int value => _value;
 		public AudioClip useSound => _soundKit.useSound;
 		public AudioClip dragSound => _soundKit.dragSound;

@@ -8,7 +8,7 @@ using UI.DragAndDrop;
 
 namespace Items
 {
-    public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragDataSource<ItemSlotData>
+    public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler, IDragDataSource<ItemSlotData>
     {
         [SerializeField] Sprite _emptyFrame;
         [SerializeField] DragController _dragController;
@@ -32,7 +32,7 @@ namespace Items
             _draghandler = new DragHandler<ItemSlotData>(this);
         }
 
-        public void SetSlotData(ItemSlotData slotData)
+        public override void UpdateData(ItemSlotData slotData)
         {
             _icon.gameObject.SetActive(true);
 
@@ -40,7 +40,7 @@ namespace Items
 
             _icon.sprite = slotData.item.icon;
 
-            if (slotData.item.maxStackCount > 1)
+            if (slotData.item.maxStackSize > 1)
             {
                 _count.gameObject.SetActive(true);
                 _count.text = slotData.count.ToString();

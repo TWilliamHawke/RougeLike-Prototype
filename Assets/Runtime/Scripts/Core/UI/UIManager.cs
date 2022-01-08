@@ -20,6 +20,7 @@ namespace Core
         [SerializeField] MainCanvas _mainCanvas;
         [SerializeField] InventoryScreen _inventoryScreen;
         [SerializeField] SpellbookScreen _spellbookScreen;
+        [SerializeField] LootPanel _lootPanel;
 
         List<IUIScreen> _screens = new List<IUIScreen>();
 
@@ -32,9 +33,11 @@ namespace Core
 
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);
+            _screens.Add(_lootPanel);
 
             foreach (var screen in _screens)
             {
+                screen.gameObject.SetActive(false);
                 screen.Init();
             }
 
