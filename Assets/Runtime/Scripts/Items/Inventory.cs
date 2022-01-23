@@ -8,8 +8,9 @@ namespace Items
     public class Inventory : ScriptableObject
     {
         [SerializeField] Item[] _testItems;
+        [SerializeField] Resource[] _startResources;
 
-
+        StoredResources _resources;
         ItemSection<Potion> _potionsBag;
         ItemSection<MagicScroll> _scrollsBag;
         ItemSection<Item> _main;
@@ -21,6 +22,7 @@ namespace Items
         public ItemSection<Item> main => _main;
         public ItemSection<SpellString>  spellStrings => _spellStrings;
         public IEnumerable<Item> equipment => _equipment;
+        public StoredResources resources => _resources;
 
         List<IItemSection> _sections;
 
@@ -89,12 +91,14 @@ namespace Items
         {
             _sections = new List<IItemSection>(5);
 
+            _resources = new StoredResources(_startResources);
             _potionsBag = new ItemSection<Potion>(3);
             _spellStrings = new ItemSection<SpellString>(-1);
             _scrollsBag = new ItemSection<MagicScroll>(5);
             _main = new ItemSection<Item>(12);
             _storage = new ItemSection<Item>(-1);
 
+            _sections.Add(_resources);
             _sections.Add(_potionsBag);
             _sections.Add(_scrollsBag);
             _sections.Add(_spellStrings);

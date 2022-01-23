@@ -14,8 +14,24 @@ public class ItemSlotDataDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         var singleLine = EditorHelpers.RectToSingleLine(position);
+        singleLine.x += 26;
+        singleLine.width -= 26;
+        var item = property.FindPropertyRelative("_item");
 
-        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_item"));
+        var icon = (item.objectReferenceValue as Item)?.icon;
+
+        var iconRect = new Rect(position.x - 8, position.y, 32, 32);
+        if (icon != null)
+        {
+            EditorGUI.LabelField(iconRect, new GUIContent(icon.texture));
+        }
+        else
+        {
+            EditorGUI.LabelField(iconRect, "", GUI.skin.box);
+        }
+
+
+        EditorGUI.PropertyField(singleLine, item);
         singleLine.y += EditorHelpers.lineHeight;
         singleLine.width -= _buttonWidth * 2;
         EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_count"));

@@ -11,7 +11,7 @@ namespace Magic.UI
     public class IncreaseRankButton : MonoBehaviour
     {
         [SerializeField] Spellbook _spellbook;
-        [SerializeField] StoredResources _resources;
+        [SerializeField] Inventory _inventory;
 
         KnownSpellData _spellData;
 
@@ -50,7 +50,7 @@ namespace Magic.UI
 
             gameObject.SetActive(true);
 
-            if (_resources[ResourceType.magicDust] < _spellbook.increaseRankCost)
+            if (_inventory.resources[ResourceType.magicDust] < _spellbook.increaseRankCost)
             {
                 GetComponent<Button>().interactable = false;
             }

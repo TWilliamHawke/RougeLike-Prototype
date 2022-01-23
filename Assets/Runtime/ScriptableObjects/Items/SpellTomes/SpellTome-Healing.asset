@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9d007afa8126243857fcd58b03dc8d, type: 3}
+  m_Name: SpellTome-Healing
+  m_EditorClassIdentifier: 
+  _displayName: Spell Tome - Healing
+  _icon: {fileID: 21300000, guid: 1a20e8fe145316b43ac480425fe38547, type: 3}
+  _maxStackSize: 99
+  _value: 100
+  _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
+  _spell: {fileID: 11400000, guid: 7c7b75c1e4acaad4d85217c10af899aa, type: 2}

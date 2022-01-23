@@ -91,6 +91,8 @@ namespace Items
         //should return int
         public void AddItems(Item item, int count)
         {
+            if(item is null) return;
+            
             if (_items.ContainsKey(item))
             {
                 int freeSpace = item.maxStackSize - _items[item].count;

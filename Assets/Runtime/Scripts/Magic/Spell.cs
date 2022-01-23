@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Magic
 {
 	[CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
-	public class Spell : ScriptableObject
+	public class Spell : ScriptableObject, ISpriteGetter
 	{
 		[UseFileName]
 		[SerializeField] string _displayName;
@@ -20,8 +20,9 @@ namespace Magic
 		public int startRank => _startRank;
 		public Sprite icon => _icon;
 		public string displayName => _displayName;
+        public Sprite sprite => _icon;
 
-		public SpellLevelData this[int idx] => GetLevelData(idx);
+        public SpellLevelData this[int idx] => GetLevelData(idx);
 
         private SpellLevelData GetLevelData(int idx)
         {

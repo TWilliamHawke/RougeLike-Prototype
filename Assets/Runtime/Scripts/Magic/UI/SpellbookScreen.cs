@@ -59,12 +59,14 @@ namespace Magic.UI
         {
             _spellGrid.gameObject.SetActive(true);
             _spellPage.gameObject.SetActive(false);
+            _resourcesPage.gameObject.SetActive(false);
         }
 
         void OpenSpellPage(KnownSpellData data)
         {
             _spellGrid.gameObject.SetActive(false);
             _spellPage.Open(data);
+            _resourcesPage.gameObject.SetActive(true);
         }
 
         void Close(KnownSpellData _)

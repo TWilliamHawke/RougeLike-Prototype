@@ -8,6 +8,7 @@ namespace Items
 	public class LootTableData
 	{
 	    public LootTable lootTable;
-		public int count;
+		[Range(0,1)]
+		public float chanceOfNone;
 	}
 }

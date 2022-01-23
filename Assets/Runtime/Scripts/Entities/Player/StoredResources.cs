@@ -5,22 +5,19 @@ using UnityEngine.Events;
 
 namespace Items
 {
-    [CreateAssetMenu(fileName = "StoredResourses", menuName = "Musc/StoredResourses")]
-    public class StoredResources : ScriptableObject, IItemSection
+    public class StoredResources : IItemSection
     {
-        [SerializeField] ResourceData[] _startResources;
-
-		Dictionary<ResourceType, int> _resources = new Dictionary<ResourceType, int>();
-		Dictionary<ResourceType, Resource> _types = new Dictionary<ResourceType, Resource>();
+        Dictionary<ResourceType, int> _resources = new Dictionary<ResourceType, int>();
+        Dictionary<ResourceType, Resource> _types = new Dictionary<ResourceType, Resource>();
 
         public event UnityAction<ResourceType> OnResourceChange;
 
         public int this[ResourceType type] => _resources[type];
         public int gold => _resources[ResourceType.gold];
 
-        public void Init()
+        public StoredResources(Resource[] resources)
         {
-            SetStartResources();
+            SetStartResources(resources);
         }
 
         public void AddGold(int count)
@@ -33,39 +30,41 @@ namespace Items
             SpendResource(ResourceType.gold, count);
         }
 
-		public void AddResource(ResourceType type, int count)
-		{
-			int maxCount = _types[type].maxStackSize;
-			_resources[type] = Mathf.Min(_resources[type] + count, maxCount);
-			OnResourceChange?.Invoke(type);
-		}
+        public void AddResource(ResourceType type, int count)
+        {
+            if (type == ResourceType.none) return;
+
+            int maxCount = _types[type].maxStackSize;
+            _resources[type] = Mathf.Min(_resources[type] + count, maxCount);
+            OnResourceChange?.Invoke(type);
+        }
 
         public void SpendResource(ResourceType type, int count)
         {
-			_resources[type] = Mathf.Max(_resources[type] - count, 0);
-			OnResourceChange?.Invoke(type);
-		}
+            _resources[type] = Mathf.Max(_resources[type] - count, 0);
+            OnResourceChange?.Invoke(type);
+        }
 
         public bool TrySpendResource(ResourceType type, int count)
         {
-			if(_resources[type] < count) return false;
+            if (_resources[type] < count) return false;
 
             SpendResource(type, count);
             return true;
         }
 
-		public int GetResource(ResourceType type)
-		{
-			return _resources[type];
-		}
-
-        private void SetStartResources()
+        public int GetResource(ResourceType type)
         {
-            foreach (var data in _startResources)
+            return _resources[type];
+        }
+
+        private void SetStartResources(Resource[] resources)
+        {
+            foreach (var resource in resources)
             {
-                var type = data.resource.type;
-                _resources[type] = data.count;
-                _types[type] = data.resource;
+                var type = resource.type;
+                _resources[type] = resource.startCount;
+                _types[type] = resource;
             }
         }
 
