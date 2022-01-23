@@ -18,18 +18,18 @@ public class LootTableDataDrawer : PropertyDrawer
         EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("lootTable"));
         singleLine.y += EditorHelpers.lineHeight;
         singleLine.width -= _buttonWidth * 2;
-        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("count"));
+        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("chanceOfNone"));
 
         var buttonRect = new Rect(singleLine.x + singleLine.width, singleLine.y, _buttonWidth, _fieldHeight);
         if (GUI.Button(buttonRect, "-"))
         {
-            property.FindPropertyRelative("count").intValue--;
+            property.FindPropertyRelative("chanceOfNone").floatValue -= 0.1f;
         }
         buttonRect.x += _buttonWidth;
 
         if (GUI.Button(buttonRect, "+"))
         {
-            property.FindPropertyRelative("count").intValue++;
+            property.FindPropertyRelative("chanceOfNone").floatValue += 0.1f;
         }
 
 

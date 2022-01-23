@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08fe3892a71b844785dadef470463ae, type: 3}
   m_Name: Spellbook
   m_EditorClassIdentifier: 
-  _resources: {fileID: 11400000, guid: da46f1dc0e53b5e42bcd00a0e9aa067c, type: 2}
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _increaseRankCost: 500

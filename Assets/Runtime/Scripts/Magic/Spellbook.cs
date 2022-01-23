@@ -13,7 +13,7 @@ namespace Magic
         public event UnityAction<KnownSpellData> OnSpellPageOpen;
         public event UnityAction<KnownSpellData> OnSpellSelect;
 
-        [SerializeField] StoredResources _resources;
+        [SerializeField] Inventory _inventory;
         [SerializeField] int _increaseRankCost = 500;
 
         List<KnownSpellData> _knownSpells;
@@ -46,7 +46,7 @@ namespace Magic
 
         public void IncreaseSpellRank(KnownSpellData spell)
         {
-            if (_resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
+            if (_inventory.resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
             {
                 spell.IncreaseRank();
             }

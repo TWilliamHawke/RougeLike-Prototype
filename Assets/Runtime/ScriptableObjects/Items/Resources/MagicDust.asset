@@ -18,3 +18,4 @@ MonoBehaviour:
   _value: 0
   _soundKit: {fileID: 0}
   _resourceType: 2
+  _startCount: 5000

@@ -9,7 +9,6 @@ namespace Magic.UI
 {
     public class ResourcesPage : UIPanelWithGrid<ItemSlotData>
     {
-        [SerializeField] StoredResources _resources;
         [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _magicDustCount;
@@ -20,14 +19,14 @@ namespace Magic.UI
 
         public void Init()
         {
-            _resources.OnResourceChange += UpdateDustCount;
+            _inventory.resources.OnResourceChange += UpdateDustCount;
             _inventory.spellStrings.OnItemAdd += UpdateLayout;
             _inventory.spellStrings.OnItemRemove += UpdateLayout;
         }
 
         void OnDestroy()
         {
-            _resources.OnResourceChange -= UpdateDustCount;
+            _inventory.resources.OnResourceChange -= UpdateDustCount;
             _inventory.spellStrings.OnItemAdd -= UpdateLayout;
             _inventory.spellStrings.OnItemRemove -= UpdateLayout;
 
@@ -36,7 +35,7 @@ namespace Magic.UI
         void OnEnable()
         {
             UpdateLayout();
-            _magicDustCount.text = _resources[ResourceType.magicDust].ToString();
+            _magicDustCount.text = _inventory.resources[ResourceType.magicDust].ToString();
             
         }
 
@@ -44,7 +43,7 @@ namespace Magic.UI
         {
             if (type != ResourceType.magicDust) return;
 
-            _magicDustCount.text = _resources[ResourceType.magicDust].ToString();
+            _magicDustCount.text = _inventory.resources[ResourceType.magicDust].ToString();
         }
 
 

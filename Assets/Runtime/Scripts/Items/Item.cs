@@ -14,10 +14,10 @@ namespace Items
 		[SerializeField] int _value;
 		[SerializeField] ItemSoundKit _soundKit;
 
-	    public string displayName => _displayName;
+	    public virtual string displayName => _displayName;
 		public Sprite icon => _icon;
 		public int maxStackSize => _maxStackSize;
-		public int value => _value;
+		public virtual int value => _value;
 		public AudioClip useSound => _soundKit.useSound;
 		public AudioClip dragSound => _soundKit.dragSound;
 

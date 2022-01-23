@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
-  m_Name: LT03-chestItem
+  m_Name: LT01-SpellTomes
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 0
+  _getOnlyOneElenemt: 1
   _chanceOfNone: 0
-  _childLootTables:
-  - {fileID: 11400000, guid: 009684fe00fef1b4ba998797b8cbf10f, type: 2}
-  - {fileID: 11400000, guid: e2e692acb4b664a4f810259254074ec5, type: 2}
-  - {fileID: 11400000, guid: 533f0dd4e3e5a594aba1b7cb489561a5, type: 2}
-  - {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}
-  _lootItems: []
+  _childLootTables: []
+  _lootItems:
+  - _item: {fileID: 11400000, guid: d8acbafcfa2c70c4aa2ec3b939761217, type: 2}
+    _count: 1
+  - _item: {fileID: 11400000, guid: 3334bfffedbec604ca7fd404be6b49df, type: 2}
+    _count: 1

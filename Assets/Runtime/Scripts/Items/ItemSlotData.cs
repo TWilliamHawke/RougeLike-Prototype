@@ -8,7 +8,7 @@ namespace Items
 	public class ItemSlotData
 	{
 		[SerializeField] Item _item;
-		[SerializeField] int _count;
+		[SerializeField] int _count = 1;
 
         public Item item => _item;
 		public int count => _count;
@@ -16,7 +16,6 @@ namespace Items
         public ItemSlotData(Item item)
         {
             _item = item;
-            _count = 1;
         }
 
         public ItemSlotData(Item item, int count)

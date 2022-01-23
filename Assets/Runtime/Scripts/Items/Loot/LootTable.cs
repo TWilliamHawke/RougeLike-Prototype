@@ -15,6 +15,8 @@ namespace Items
         [SerializeField] LootTable[] _childLootTables;
         [SerializeField] ItemSlotData[] _lootItems;
 
+        //[SerializeField] LootTableData[] _tables;
+
         public void GetLoot(ref ItemSection<Item> loot)
         {
             if (Random.Range(0f, 1f) < _chanceOfNone) return;

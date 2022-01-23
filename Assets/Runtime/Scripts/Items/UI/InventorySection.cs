@@ -56,6 +56,7 @@ namespace Items.UI
 
         void ClearLayout()
         {
+            _itemSlots.Clear();
             foreach (Transform children in _layout.transform)
             {
                 Destroy(children.gameObject);

@@ -8,9 +8,11 @@ namespace Items
 	public class Resource : Item
 	{
 		[SerializeField] ResourceType _resourceType;
+		[SerializeField] int _startCount;
 
 
 		public ResourceType type => _resourceType;
+		public int startCount => _startCount;
 	}
 
 }

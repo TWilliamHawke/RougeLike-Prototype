@@ -1,4 +1,4 @@
-﻿{
+{
     "files.exclude":
     {
         "**/.DS_Store":true,
@@ -52,5 +52,19 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
+    },
+    "editor.tokenColorCustomizations": {
+        "[Oceanic Next (dimmed bg)]": {
+            
+            "textMateRules": [
+                {
+                    "name": "storage.type.cs",
+                    "scope": "entity.name.type.class",
+                    "settings": {
+                      "foreground": "#c594c5"
+                    }
+                },
+            ]
+        }
     }
 }
