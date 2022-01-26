@@ -3225,13 +3225,14 @@ GameObject:
   - component: {fileID: 350926865}
   - component: {fileID: 350926863}
   - component: {fileID: 350926866}
+  - component: {fileID: 350926864}
   m_Layer: 0
   m_Name: ItemContextMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &350926862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3267,6 +3268,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 1
+--- !u!114 &350926864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350926861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17eb10f74edd6c74b9891a6d611318be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionButtonPrefab: {fileID: 6987724777105027782, guid: 1ce8a21eb0592304daa21cfafe18070d, type: 3}
+  _actionsLayout: {fileID: 723212525}
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
 --- !u!222 &350926865
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -109433,7 +109449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -112893,6 +112909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
+  _contextMenu: {fileID: 350926864}
   _potionsBag: {fileID: 205385513}
   _scrollsBag: {fileID: 79181045}
   _main: {fileID: 175688829}

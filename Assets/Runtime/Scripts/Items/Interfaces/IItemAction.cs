@@ -6,7 +6,8 @@ namespace Items
 {
 	public interface IItemAction
 	{
-		string menuName { get; }
-	    void DoIt();
+		string actionTitle { get; }
+	    void DoAction(ItemSlotData itemSlotData);
+		bool SlotIsValid(IItemSlot itemSlot);
 	}
 }

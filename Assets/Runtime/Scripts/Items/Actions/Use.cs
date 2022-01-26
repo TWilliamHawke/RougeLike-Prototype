@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Scripts
+namespace Items.Actions
 {
-	public class Use : MonoBehaviour
-	{
-	    void Awake()
-	    {
-	        
-	    }
-	
+    public class Use : IItemAction
+    {
+        public string actionTitle => "Use";
 
-	    void Update()
-	    {
-	        
-	    }
-	}
+        public void DoAction(ItemSlotData itemSlotData)
+        {
+
+        }
+
+        public bool SlotIsValid(IItemSlot itemSlot)
+        {
+            return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
+                itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
+                itemSlot.itemSlotData.item is IUsable;
+        }
+    }
 }

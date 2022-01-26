@@ -55,7 +55,6 @@
     },
     "editor.tokenColorCustomizations": {
         "[Oceanic Next (dimmed bg)]": {
-            
             "textMateRules": [
                 {
                     "name": "storage.type.cs",
@@ -63,6 +62,14 @@
                     "settings": {
                       "foreground": "#c594c5"
                     }
+                },
+                {
+                    "name": "storage.type1.cs",
+                    "scope": "constant",
+                    "settings": {
+                      "foreground": "#dddddd"
+                    },
+                    
                 },
             ]
         }

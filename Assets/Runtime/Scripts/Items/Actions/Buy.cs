@@ -1,8 +1,8 @@
 namespace Items.Actions
 {
-    public class MoveToStorage : IItemAction
+    public class Buy : IItemAction
     {
-        public string actionTitle => "MoveToStorage";
+        public string actionTitle => "Buy";
 
         public void DoAction(ItemSlotData itemSlotData)
         {
@@ -11,7 +11,7 @@ namespace Items.Actions
 
         public bool SlotIsValid(IItemSlot itemSlot)
         {
-            return itemSlot.itemSlotContainer == ItemSlotContainers.inventory;
+            return itemSlot.itemSlotContainer == ItemSlotContainers.trader;
         }
     }
 }

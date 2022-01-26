@@ -11,6 +11,7 @@ namespace Items.UI
         [SerializeField] Inventory _inventory;
         [SerializeField] DragController _dragController;
         [Header("UI Elements")]
+        [SerializeField] ContextMenu _contextMenu;
         [SerializeField] InventorySection _potionsBag;
         [SerializeField] InventorySection _scrollsBag;
         [SerializeField] InventorySection _main;
@@ -26,6 +27,11 @@ namespace Items.UI
 
             _dragController.OnBeginDrag += HideBackGround;
             _dragController.OnEndDrag += ShowBackGround;
+        }
+
+        void OnEnable()
+        {
+            _contextMenu.TryInit();
         }
 
         void OnDestroy()

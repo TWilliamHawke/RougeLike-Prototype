@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Scripts
+namespace Items.Actions
 {
-	public class Equip : MonoBehaviour
-	{
-	    void Awake()
-	    {
-	        
-	    }
-	
+    public class Equip : IItemAction
+    {
+        public string actionTitle => "Equip";
 
-	    void Update()
-	    {
-	        
-	    }
-	}
+        public void DoAction(ItemSlotData itemSlotData)
+        {
+
+        }
+
+        public bool SlotIsValid(IItemSlot itemSlot)
+        {
+            return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
+                itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
+                itemSlot.itemSlotData.item is IEquipment;
+        }
+    }
 }
