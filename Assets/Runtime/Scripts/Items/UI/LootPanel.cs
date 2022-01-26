@@ -27,8 +27,8 @@ namespace Items.UI
         void Open(ItemSection<Item> loot)
         {
             _loot = loot;
-            UpdateLayout();
             gameObject.SetActive(true);
+            UpdateLayout();
         }
 
         //used as click handler in editor

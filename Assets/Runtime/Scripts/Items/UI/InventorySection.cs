@@ -51,6 +51,7 @@ namespace Items.UI
             var slot = Instantiate(_slotPrefab);
             slot.transform.SetParent(_layout.transform);
             slot.gameObject.transform.localScale = transform.localScale;
+            slot.SetSlotContainer(ItemSlotContainers.inventory);
 			_itemSlots.Add(slot);
         }
 

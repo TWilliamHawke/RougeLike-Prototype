@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items
 {
-	[System.Serializable]
+    [System.Serializable]
 	public class ItemSlotData
 	{
 		[SerializeField] Item _item;
@@ -49,6 +49,7 @@ namespace Items
 		public void FillToMaxSize()
 		{
 			_count = _item.maxStackSize;
+			
 		}
     }
 }

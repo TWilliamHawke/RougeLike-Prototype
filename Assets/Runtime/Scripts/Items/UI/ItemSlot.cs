@@ -5,11 +5,16 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UI.DragAndDrop;
+using UnityEngine.Events;
+using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
 
 namespace Items
 {
-    public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler, IDragDataSource<ItemSlotData>
+    public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler,
+     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot
     {
+        public static event UnityAction<IItemSlot> OnRightClick;
+
         [SerializeField] Sprite _emptyFrame;
         [SerializeField] DragController _dragController;
 		[SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
@@ -20,12 +25,15 @@ namespace Items
 
         ItemSlotData _slotData;
         DragHandler<ItemSlotData> _draghandler;
+        ItemSlotContainers _slotContainer;
 
         ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
-
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
-
         DragController IDragDataSource<ItemSlotData>.dragController => _dragController;
+
+        ItemSlotContainers IItemSlot.itemSlotContainer => _slotContainer;
+
+        ItemSlotData IItemSlot.itemSlotData => _slotData;
 
         void Awake()
         {
@@ -52,6 +60,11 @@ namespace Items
             _slotData = null;
             _icon.gameObject.SetActive(false);
             _count.gameObject.SetActive(false);
+        }
+
+        public void SetSlotContainer(ItemSlotContainers slotContainer)
+        {
+            _slotContainer = slotContainer;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -81,6 +94,14 @@ namespace Items
         {
             if(_slotData is null) return;
 			_draghandler.OnEndDrag();
+        }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        {
+            if(eventData.button == MouseButton.Right)
+            {
+                OnRightClick?.Invoke(this);
+            }
         }
     }
 }

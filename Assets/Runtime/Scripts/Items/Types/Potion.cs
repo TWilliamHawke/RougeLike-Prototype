@@ -6,7 +6,7 @@ using Effects;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource
+	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsable
 	{
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
@@ -16,6 +16,11 @@ namespace Items
         public IAbilityInstruction CreateAbilityInstruction()
         {
             return new ItemContainer(this);
+        }
+
+        public void UseItem(AbilityController controller)
+        {
+            UseAbility(controller);
         }
 
         public void UseAbility(AbilityController controller)
