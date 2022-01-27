@@ -25,5 +25,10 @@ namespace Effects
 				effect.ApplyEffect(target, this);
 			}
         }
+
+        public override string GetDescription(AbilityModifiers abilityModifiers)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

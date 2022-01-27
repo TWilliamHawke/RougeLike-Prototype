@@ -19,4 +19,4 @@ MonoBehaviour:
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
   _previewColor: {r: 0.90196085, g: 0.4784314, b: 0.20000002, a: 1}
   _spellPowerMod: 25
-  _manaCostMod: 50
+  _manaCostMod: 30

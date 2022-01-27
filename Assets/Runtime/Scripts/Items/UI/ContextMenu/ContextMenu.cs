@@ -65,9 +65,6 @@ namespace Items.UI
                 actionButton.transform.SetParent(_actionsLayout.transform);
                 _actionButtons.Add(actionButton);
             }
-
-
-
         }
 
         void ShowContextMenu(IItemSlot itemSlot)
@@ -79,24 +76,12 @@ namespace Items.UI
                 actionButton.CheckItemSlot(itemSlot);
             }
 
-
             //LayoutRebuilder.ForceRebuildLayoutImmediate(_actionsLayout.GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
-            SetMenuPosition();
+            _rectTransform.position = UIHelpers.NormalizePosition(_rectTransformLayout);
 
             gameObject.SetActive(true);
 
-        }
-
-        void SetMenuPosition()
-        {
-            Vector2 menuSize = _rectTransformLayout.sizeDelta;
-            var mousePos = Mouse.current.position.ReadValue().AddZ(0);
-
-            float offsetX = mousePos.x + menuSize.x > Screen.width ? -menuSize.x / 2 : menuSize.x / 2;
-            float offsetY = mousePos.y + menuSize.y > Screen.height ? -menuSize.y / 2 : menuSize.y / 2;
-
-            _rectTransform.position = mousePos + new Vector3(offsetX, offsetY, 0);
         }
 
         void Close()

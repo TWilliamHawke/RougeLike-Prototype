@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UI.DragAndDrop;
+using UI.Tooltips;
 using UnityEngine.Events;
 using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
 
 namespace Items
 {
     public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler,
-     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot
+     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip
     {
         public static event UnityAction<IItemSlot> OnRightClick;
 
@@ -34,6 +35,8 @@ namespace Items
         ItemSlotContainers IItemSlot.itemSlotContainer => _slotContainer;
 
         ItemSlotData IItemSlot.itemSlotData => _slotData;
+
+        bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
         void Awake()
         {
@@ -102,6 +105,11 @@ namespace Items
             {
                 OnRightClick?.Invoke(this);
             }
+        }
+
+        ItemTooltipData IHaveItemTooltip.GetTooltipData()
+        {
+            return _slotData.item.GetTooltipData();
         }
     }
 }

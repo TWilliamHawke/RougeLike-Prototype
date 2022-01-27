@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Fireball
   _projectile: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
-  _minDamage: 15
-  _maxDamage: 25
-  _damageType: 1
+  _minDamage: 20
+  _maxDamage: 30
+  _damageType: 2
+  _description: Magic projectile that causes from %m1 to %m2 fire damage

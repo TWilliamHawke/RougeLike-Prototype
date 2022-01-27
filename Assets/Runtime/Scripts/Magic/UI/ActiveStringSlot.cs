@@ -19,11 +19,14 @@ namespace Magic.UI
         [SerializeField] Image _dragMask;
 
         SpellString _activeString;
+        int _slotIndex = 0;
+        KnownSpellData _spellData;
 
-        public void Init()
+        public void Init(int slotIndex)
         {
             _dragController.OnBeginDrag += TryEnableDragMask;
             _dragController.OnEndDrag += DisableDragMask;
+            _slotIndex = slotIndex;
         }
 
         void OnDestroy()
@@ -37,9 +40,11 @@ namespace Magic.UI
             return data != null && data.item is SpellString && _activeString is null;
         }
 
-        public void SetData(SpellString data)
+        public void SetData(KnownSpellData data)
         {
-            _icon.sprite = data?.icon ?? _defaultIcon;
+            _spellData = data;
+            _activeString = data.activeStrings[_slotIndex];
+            _icon.sprite = _activeString?.icon ?? _defaultIcon;
         }
 
         public void DropData(ItemSlotData data)
@@ -47,6 +52,7 @@ namespace Magic.UI
             _icon.sprite = data.item.icon;
             _activeString = data.item as SpellString;
             _inventory.spellStrings.RemoveItemFromSlot(data);
+            _spellData.SetActiveString(_slotIndex, _activeString);
         }
 
         void TryEnableDragMask(object data)
@@ -66,9 +72,14 @@ namespace Magic.UI
         {
             if (eventData.button != MouseButton.Right || _activeString is null) return;
 
-            _inventory.spellStrings.AddItem(_activeString);
-            _icon.sprite = _defaultIcon;
-            _activeString = null;
+            if(_inventory.resources.TrySpendResource(ResourceType.magicDust, 100))
+            {
+                _inventory.spellStrings.AddItem(_activeString);
+                _icon.sprite = _defaultIcon;
+                _activeString = null;
+                _spellData.SetActiveString(_slotIndex, _activeString);
+            }
+
         }
     }
 }

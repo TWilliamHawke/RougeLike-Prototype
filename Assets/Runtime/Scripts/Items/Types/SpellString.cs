@@ -12,6 +12,17 @@ namespace Items
 		[SerializeField] int _spellPowerMod;
 		[SerializeField] int _manaCostMod;
 
-		
+		public int spellPowerMod => _spellPowerMod;
+		public int manaCostMod => _manaCostMod;
+
+        public override string GetDescription()
+        {
+            return $"Spell power: {_spellPowerMod}%\nSpell cost: {_manaCostMod}%";
+        }
+
+        public override string GetItemType()
+        {
+            return "SpellString";
+        }
     }
 }

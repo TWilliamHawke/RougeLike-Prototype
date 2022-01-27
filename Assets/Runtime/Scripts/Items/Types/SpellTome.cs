@@ -17,5 +17,15 @@ namespace Items
         {
             inventory.resources.AddResource(ResourceType.magicDust, _spell.startRank * 50);
         }
+
+        public override string GetDescription()
+        {
+            return _spell.displayName;
+        }
+
+        public override string GetItemType()
+        {
+            return "SpellTome";
+        }
     }
 }

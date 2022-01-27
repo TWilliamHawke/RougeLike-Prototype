@@ -8,8 +8,10 @@ namespace Effects
 	{
 		[UseFileName]
 		[SerializeField] string _displayName;
-	    public abstract void SelectControllerUsage(AbilityController controller);
 
 		public string displayName => _displayName;
+
+	    public abstract void SelectControllerUsage(AbilityController controller);
+		public abstract string GetDescription(AbilityModifiers abilityModifiers);
 	}
 }

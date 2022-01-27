@@ -10,5 +10,15 @@ namespace Items
 		[SerializeField] EquipmentTypes _equipmentType;
 
         public EquipmentTypes equipmentType => _equipmentType;
+
+        public override string GetDescription()
+        {
+            return "Description";
+        }
+
+        public override string GetItemType()
+        {
+            return "Jevelry";
+        }
     }
 }

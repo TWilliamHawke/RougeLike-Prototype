@@ -26,3 +26,4 @@ MonoBehaviour:
     manaCost: 20
   - spellEffect: {fileID: 11400000, guid: f9b66b08fa103964bbd62db675f40bc1, type: 2}
     manaCost: 20
+  _description: Restore %m health for caster
