@@ -26,9 +26,10 @@ namespace Magic.UI
             KnownSpellData.OnChangeData += UpdateData;
             _rankUpButton.Init();
 
-            foreach (var slot in _spellStringSlots)
+            for (int i = 0; i < _spellStringSlots.Length; i++)
             {
-                slot.Init();
+                _spellStringSlots[i].Init(i);
+                
             }
         }
 
@@ -52,6 +53,7 @@ namespace Magic.UI
             _spellName.text = _spellData.displayName;
             _spellRank.text = "Rank " + _spellData.rank;
             _spellCost.text = _spellData.manaCost.ToString();
+            _spellDescription.text = _spellData.ConstructDescription();
             UpdateActiveSlots();
         }
 
@@ -67,7 +69,7 @@ namespace Magic.UI
                 }
 
                 slot.gameObject.SetActive(true);
-                slot.SetData(_spellData.activeStrings[i]);
+                slot.SetData(_spellData);
 
             }
         }

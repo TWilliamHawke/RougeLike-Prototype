@@ -15,5 +15,14 @@ namespace Items
 
         public EquipmentTypes equipmentType => EquipmentTypes.weapon;
 
-	}
+        public override string GetDescription()
+        {
+            return $"Min admage: {_minDamage}\nMax Damage: {_maxDamage}\nAccuracy: {_accuracy}";
+        }
+
+        public override string GetItemType()
+        {
+            return "Weapon";
+        }
+    }
 }

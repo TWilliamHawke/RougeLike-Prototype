@@ -22,6 +22,7 @@ public class UseFileNameDrawer : PropertyDrawer
             if (GUI.Button(buttonRect, new GUIContent("fn", "Replace text with filename")))
             {
                 string fileName = property.serializedObject.targetObject.name;
+                //split camelcase into separate words
                 string pattern = @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])";
                 Regex regex = new Regex(pattern);
 

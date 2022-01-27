@@ -8,6 +8,7 @@ using Magic.UI;
 using Core.Input;
 using UI.DragAndDrop;
 using X = UnityEngine.InputSystem.InputAction.CallbackContext;
+using UI.Tooltips;
 
 namespace Core
 {
@@ -16,6 +17,7 @@ namespace Core
         [SerializeField] InputController _inputController;
         [SerializeField] HealthbarController _healthbarCanvas;
         [SerializeField] DragElementsCanvas _dragElementsCanvas;
+        [SerializeField] TooltipCanvas _tooltipCanvas;
         [Header("UI Screens")]
         [SerializeField] MainCanvas _mainCanvas;
         [SerializeField] InventoryScreen _inventoryScreen;
@@ -29,6 +31,7 @@ namespace Core
             _healthbarCanvas.Init();
             _dragElementsCanvas.Init();
             _mainCanvas.Init();
+            _tooltipCanvas.Init();
 
 
             _screens.Add(_inventoryScreen);

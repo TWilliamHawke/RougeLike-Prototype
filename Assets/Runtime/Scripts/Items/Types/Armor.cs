@@ -11,5 +11,15 @@ namespace Items
 		[SerializeField] int _physicalResist;
 
         EquipmentTypes IEquipment.equipmentType => _equipmentType;
+
+        public override string GetDescription()
+        {
+            return $"Physical resistance: {_physicalResist}";
+        }
+
+        public override string GetItemType()
+        {
+            return "Armor";
+        }
     }
 }

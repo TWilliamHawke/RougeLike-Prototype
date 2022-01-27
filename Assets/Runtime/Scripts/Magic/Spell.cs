@@ -16,11 +16,15 @@ namespace Magic
 		[SerializeField] int _startRank = 1;
 		[Space(10)]
 		[SerializeField] SpellLevelData[] _levels;
+		[TextArea(5,10)]
+		[Tooltip("Use %m for spell magnitude and %d for spell duration")]
+		[SerializeField] string _description;
 
 		public int startRank => _startRank;
 		public Sprite icon => _icon;
 		public string displayName => _displayName;
         public Sprite sprite => _icon;
+		public string description => _description;
 
         public SpellLevelData this[int idx] => GetLevelData(idx);
 

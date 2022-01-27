@@ -4,8 +4,16 @@ using UnityEngine;
 
 namespace Items
 {
-	public class MagicScroll : Item
-	{
+    public class MagicScroll : Item
+    {
+        public override string GetDescription()
+        {
+            throw new System.NotImplementedException();
+        }
 
-	}
+        public override string GetItemType()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

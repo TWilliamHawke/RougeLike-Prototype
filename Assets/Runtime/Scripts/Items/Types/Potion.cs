@@ -31,6 +31,14 @@ namespace Items
 			}
         }
 
+        public override string GetDescription()
+        {
+            return "";
+        }
 
+        public override string GetItemType()
+        {
+            return "Potion";
+        }
     }
 }

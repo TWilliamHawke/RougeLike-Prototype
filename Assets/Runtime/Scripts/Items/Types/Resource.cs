@@ -10,9 +10,21 @@ namespace Items
 		[SerializeField] ResourceType _resourceType;
 		[SerializeField] int _startCount;
 
+		[SerializeField] string _description;
+
 
 		public ResourceType type => _resourceType;
 		public int startCount => _startCount;
-	}
+
+        public override string GetDescription()
+        {
+            return _description;
+        }
+
+        public override string GetItemType()
+        {
+            return "Resource";
+        }
+    }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI.Tooltips;
 
 namespace Items
 {
@@ -21,7 +22,19 @@ namespace Items
 		public AudioClip useSound => _soundKit.useSound;
 		public AudioClip dragSound => _soundKit.dragSound;
 
-		
+		public abstract string GetDescription();
+		public abstract string GetItemType();
+
+		public ItemTooltipData GetTooltipData()
+		{
+			var tooltipData = new ItemTooltipData();
+			tooltipData.icon = _icon;
+			tooltipData.title = _displayName;
+			tooltipData.itemType = GetItemType();
+			tooltipData.description = GetDescription();
+
+			return tooltipData;
+		}
 
 	}
 }
