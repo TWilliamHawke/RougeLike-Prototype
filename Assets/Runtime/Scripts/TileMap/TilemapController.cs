@@ -15,9 +15,9 @@ namespace Map
 
         TileGrid _grid;
 
-        public void CreateGrid(GeneratorConfig config, int[,] intMap)
+        public void CreateGrid(MapSize mapSize, int[,] intMap)
         {
-            _grid = new TileGrid(config, intMap);
+            _grid = new TileGrid(mapSize, intMap);
         }
 
         public bool TryGetNode(int x, int y, out TileNode node)

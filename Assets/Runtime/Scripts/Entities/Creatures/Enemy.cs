@@ -34,6 +34,13 @@ namespace Entities
 
         public EffectStorage effectStorage => _effectStorage;
 
+        public void Init(EnemyTemplate template)
+        {
+            _template = template;
+            Init();
+            
+        }
+
         public void Init()
         {
             InitComponents();
