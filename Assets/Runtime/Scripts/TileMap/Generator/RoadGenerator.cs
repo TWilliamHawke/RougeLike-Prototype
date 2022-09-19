@@ -47,7 +47,6 @@ namespace Map.Generator
                 SetBorderTile(_config.voidWidth + 1, y);
                 SetBorderTile(_mapSize.width - _config.voidWidth - 1, y);
                 SetBorderTile(_mapSize.width - _config.voidWidth - 2, y);
-
             }
 
             CreateRoad();

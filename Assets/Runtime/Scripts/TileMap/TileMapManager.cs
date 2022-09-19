@@ -46,8 +46,8 @@ namespace Map
                 return; // MissingRefException if managed in the editor - uses the overloaded Unity == operator.
             }
 
-            _generator = new RoadGenerator(_pathConfig, _tileMap);
-            _generator.StartGeneration();
+            // _generator = new RoadGenerator(_pathConfig, _tileMap);
+            // _generator.StartGeneration();
 
         }
 
