@@ -9,31 +9,31 @@ using Entities.Player;
 namespace Core
 {
     public class MainManager : MonoBehaviour
-	{
+    {
 
-		[SerializeField] TileMapManager _tileMapManager;
-		[SerializeField] GameObjectsManager _gameObjectManager;
-		[SerializeField] InputManager _inputManager;
-		[SerializeField] UIManager _UIManager;
-		[SerializeField] EntitiesManager _entitiesManager;
-		[SerializeField] PlayerDataManager _playerDataManager;
+        [SerializeField] TileMapManager _tileMapManager;
+        [SerializeField] GameObjectsManager _gameObjectManager;
+        [SerializeField] InputManager _inputManager;
+        [SerializeField] UIManager _UIManager;
+        [SerializeField] EntitiesManager _entitiesManager;
+        [SerializeField] PlayerDataManager _playerDataManager;
 
-	    void Awake()
-	    {
-			_gameObjectManager.StartUp();
-			
-			//other objects will subscribe on input events
-			_inputManager.StartUp();
+        void Awake()
+        {
+            _gameObjectManager.StartUp();
 
-			//inventory should init before ui
-			_playerDataManager.StartUp();
-			//_healthbarCanvas should subscribe on events before player spawn
-			_UIManager.StartUp();
-			
-	        _tileMapManager.StartUp();
-			_entitiesManager.StartUp();
-	    }
-	
+            //other objects will subscribe on input events
+            _inputManager.StartUp();
 
-	}
+            //inventory should init before ui
+            _playerDataManager.StartUp();
+            //_healthbarCanvas should subscribe on events before player spawn
+            _UIManager.StartUp();
+
+            _tileMapManager.StartUp();
+            _entitiesManager.StartUp();
+        }
+
+
+    }
 }

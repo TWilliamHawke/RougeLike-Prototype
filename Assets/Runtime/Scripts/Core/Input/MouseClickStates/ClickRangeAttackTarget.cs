@@ -11,10 +11,10 @@ namespace Core.Input
         InputController _inputController;
         IRangeAttackTarget _target;
 
-        public ClickRangeAttackTarget(GameObjects gameObjects)
-		{
-			_player = gameObjects.player.GetComponent<ProjectileController>();
-            _inputController = gameObjects.inputController;
+        public ClickRangeAttackTarget(IClickStateSource stateSource)
+        {
+            _player = stateSource.player.GetComponent<ProjectileController>();
+            _inputController = stateSource.inputController;
 		}
 
         bool IMouseClickState.Condition()

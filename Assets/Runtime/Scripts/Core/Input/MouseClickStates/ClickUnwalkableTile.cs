@@ -10,10 +10,10 @@ namespace Core.Input
         TilemapController _tilemapController;
         InputController _inputController;
 
-        public ClickUnwalkableTile(GameObjects gameobjects)
+        public ClickUnwalkableTile(IClickStateSource stateSource)
         {
-            _tilemapController = gameobjects.tilemapController;
-            _inputController = gameobjects.inputController;
+            _tilemapController = stateSource.tilemapController;
+            _inputController = stateSource.inputController;
         }
 
         void IMouseClickState.ProcessClick()

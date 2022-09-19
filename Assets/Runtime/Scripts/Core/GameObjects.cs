@@ -12,7 +12,6 @@ namespace Core
     public class GameObjects : ScriptableObject
     {
         [SerializeField] TilemapController _tilemapController;
-        [SerializeField] InputController _inputController;
 
         public Camera mainCamera { get; set; }
         public CameraController cameraController { get; set; }
@@ -20,7 +19,6 @@ namespace Core
         public Tilemap tilemap { get; set; }
 
         public TilemapController tilemapController => _tilemapController;
-        public InputController inputController => _inputController;
         public IAudioSource mainAudioSource => player.body;
 
 

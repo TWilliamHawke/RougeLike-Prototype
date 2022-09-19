@@ -9,15 +9,23 @@ using UnityEngine.InputSystem;
 namespace Entities.Player
 {
     [CreateAssetMenu(fileName = "ActiveAbilities", menuName = "Musc/ActiveAbilities")]
-    public class ActiveAbilities : ScriptableObject
+    public class ActiveAbilities : ScriptableObject, IInjectionTarget
     {
-        [SerializeField] InputController _inputController;
+        [InjectField] InputController _inputController;
+
+        [SerializeField] Injector _inputControllerInjector;
 
         IAbilityInstruction[] _activeAbilities = new IAbilityInstruction[10];
 
         AbilityController _playerController;
 
         IAbilityWithTarget _selectedAbility;
+
+        bool IInjectionTarget.waitForAllDependencies => false;
+
+        private void OnEnable() {
+            _inputControllerInjector.AddInjectionTarget(this);
+        }
 
         public IAbilityInstruction this[int index]
         {
@@ -75,7 +83,8 @@ namespace Entities.Player
             _inputController.SwitchToMainActionMap();
         }
 
-
-
+        public void FinalizeInjection()
+        {
+        }
     }
 }

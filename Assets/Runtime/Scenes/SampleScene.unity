@@ -1406,6 +1406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 166398774}
   - component: {fileID: 166398775}
+  - component: {fileID: 166398776}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: Untagged
@@ -1445,6 +1446,18 @@ MonoBehaviour:
   _UIManager: {fileID: 416730919}
   _entitiesManager: {fileID: 1329410027}
   _playerDataManager: {fileID: 1747095741}
+--- !u!114 &166398776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166398773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395f3346b66ed5245ab9d751f023d0d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &173599252
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,51 +3556,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320841217}
   m_CullTransparentMesh: 1
---- !u!1 &322880231
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 322880232}
-  - component: {fileID: 322880233}
-  m_Layer: 0
-  m_Name: TilemapClickController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &322880232
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322880231}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1866764015}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &322880233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322880231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7389962c5ed7c6e49b7f61da8bda2902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
-  _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
 --- !u!1 &322930906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4463,7 +4431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e5961915f5f18408d46fb033dc0793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _healthbarCanvas: {fileID: 1709729481}
   _dragElementsCanvas: {fileID: 1784957723}
   _tooltipCanvas: {fileID: 1027287483}
@@ -60945,7 +60913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f461441f350a1429680ce214e5762a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _input: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _defaultColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _enemyColor: {r: 1, g: 0, b: 0, a: 1}
   _sprite: {fileID: 1986284382}
@@ -62578,7 +62546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 390164292}
   _testEnemy: {fileID: 1326299776}
-  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
 --- !u!1 &1335670539
 GameObject:
   m_ObjectHideFlags: 0
@@ -63222,7 +63190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa9a094d02244044a08c9b457b31618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _infoText: {fileID: 1344156900}
 --- !u!1 &1446389415
 GameObject:
@@ -67242,8 +67210,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 322880232}
+  m_Children: []
   m_Father: {fileID: 389726488}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -67259,9 +67226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebed3577105cf8948913eb91fb4482f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputController: {fileID: 11400000, guid: 7d1fc425f7a3f164aa304474fc702c3c, type: 2}
-  _tileSelector: {fileID: 1225828431}
-  _clickController: {fileID: 322880233}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
+  _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
 --- !u!114 &1866764017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67609,7 +67575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986284380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61, y: -35.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1225828430}
@@ -69241,6 +69207,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 746439967, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
+      propertyPath: _inputControllerInjector
+      value: 
+      objectReference: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
+    - target: {fileID: 746439970, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
+      propertyPath: _inputControllerInjector
+      value: 
+      objectReference: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
     - target: {fileID: 7328594240612423254, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
       propertyPath: m_Name
       value: Player
