@@ -38,6 +38,6 @@ public class LootTableDataDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return EditorHelpers.lineHeight * 2 + 5;
+        return EditorHelpers.lineHeight * 2 + 10;
     }
 }

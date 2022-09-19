@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91d7558c50813946adfe35056029dc0, type: 3}
+  m_Name: FieldRoad
+  m_EditorClassIdentifier: 
+  _seed: 15
+  _minLength: 100
+  _maxLength: 150
+  _roadWidth: 5
+  _emptyWidth: 5
+  _siteWidth: 10
+  _borderWidth: 2
+  _voidWidth: 2
+  _obstacleChance: 0.1
+  _randomTileChance: 0.1
+  _minDistanceBetweenSites: 10
+  _maxDistanceBetweenSites: 15
+  _roadCurvesCount: 12
+  _defaultTile: {fileID: 11400000, guid: b886d45f524daa54bb02413b284cda0f, type: 2}
+  _borderTile: {fileID: 11400000, guid: ec084e42230a3e34ca1eb597a204e924, type: 2}
+  _roadTile: {fileID: 11400000, guid: 27851c538f3abc24489dae8fd21a8801, type: 2}
+  _randomTiles: []
+  _randomObstacles: []
+  _sitePrefab: {fileID: 2905629595467949136, guid: caa7db27b9e5f9a4e89d8e571ad01f72, type: 3}
+  _siteTemplates:
+  - {fileID: 11400000, guid: 0565c3f09c044614e8a5b762448a3c3d, type: 2}

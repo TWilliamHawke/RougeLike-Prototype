@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 namespace Map.Generator
 {
-	public class MapGenerator
+	public class MapGenerator: IMapGenerator
 	{
 		Tilemap _tileMap;
 		GeneratorConfig _config;
@@ -17,10 +17,14 @@ namespace Map.Generator
 
 		public Vector3Int playerSpawnPos => _playerSpawnPos;
 
+        public MapSize mapSize => _mapSize;
+		MapSize _mapSize;
+
         public MapGenerator(Tilemap tileMap, GeneratorConfig config)
         {
             _tileMap = tileMap;
             _config = config;
+			_mapSize = new MapSize(config.maxWidth, config.maxHeight);
         }
 
         public void StartGeneration()

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b7bed822b764c44b08bd38b022b206, type: 3}
+  m_Name: WolfSounds
+  m_EditorClassIdentifier: 
+  _attackSounds:
+  - {fileID: 8300000, guid: 7f6d0c8e98e52ae4a867f9d1c57e8343, type: 3}
+  - {fileID: 8300000, guid: 5ef75a9151050564ea0b8dddaddebf78, type: 3}
+  - {fileID: 8300000, guid: 63c680643f4809e49b365d94d974fe5f, type: 3}
+  - {fileID: 8300000, guid: 0c5b4f620fa03ee46af3a887c3ce79c9, type: 3}
+  - {fileID: 8300000, guid: 9495e630f7b34d64d8d67df19e656486, type: 3}
+  _deathSounds:
+  - {fileID: 8300000, guid: e4c37a63a3ebcb04984eef7c0c50559e, type: 3}
+  - {fileID: 8300000, guid: ee59831c36ba2a44abbcc5e5823f29dd, type: 3}
+  - {fileID: 8300000, guid: d0fe3b149a1dfe0409af34b5d4e59368, type: 3}
+  - {fileID: 8300000, guid: 33cb1cc4c84eb3948bd161f309094121, type: 3}
+  - {fileID: 8300000, guid: b2e73c89a0e18d84999a3988b9b2441e, type: 3}

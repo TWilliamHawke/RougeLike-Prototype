@@ -7,13 +7,11 @@ namespace Map
 {
     public class TileGrid
     {
-        GeneratorConfig _config;
         TileNode[,] _grid;
 
-        public TileGrid(GeneratorConfig config, int[,] intMap)
+        public TileGrid(MapSize mapSize, int[,] intMap)
         {
-            _config = config;
-            _grid = new TileNode[_config.maxWidth, _config.maxHeight];
+            _grid = new TileNode[mapSize.width, mapSize.height];
             FillGrid(intMap);
         }
 
