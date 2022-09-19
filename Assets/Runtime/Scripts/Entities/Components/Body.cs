@@ -32,6 +32,7 @@ namespace Entities
 
         void OnDestroy()
         {
+            if(_health is null) return;
             _health.OnHealthChange -= InvokeEvent;
         }
 

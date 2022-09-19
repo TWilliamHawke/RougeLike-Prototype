@@ -11,7 +11,6 @@ namespace Core.Input
     public class InputManager : MonoBehaviour
     {
         [SerializeField] InputController _inputController;
-        [SerializeField] TilePointer _tileSelector;
         [SerializeField] TilemapClickController _clickController;
 
         void Update()
@@ -30,7 +29,6 @@ namespace Core.Input
             _inputController.Init();
 
             // requires InputController
-            _tileSelector.Subscribe();
             _clickController.StartUp();
         }
 

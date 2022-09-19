@@ -35,8 +35,15 @@ namespace Entities.UI
 
         void LateUpdate()
         {
-            var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
-            transform.position = entityPos;
+            if (_healthbarData is null)
+            {
+                DestroyImmediate(this);
+            }
+            else
+            {
+                var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
+                transform.position = entityPos;
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Map
         [SerializeField] Color _enemyColor = Color.red;
         [SerializeField] SpriteRenderer _sprite;
 
-        public void Subscribe()
+        void Awake()
         {
             _input.OnHoveredTileChange += ChangePosition;
             _sprite.color = _defaultColor;
