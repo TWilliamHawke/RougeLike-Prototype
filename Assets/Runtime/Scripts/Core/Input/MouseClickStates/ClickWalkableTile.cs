@@ -13,11 +13,11 @@ namespace Core.Input
         PlayerCore _player;
         TileNode _targetNode;
 
-        public ClickWalkableTile(GameObjects gameobjects)
+        public ClickWalkableTile(IClickStateSource stateSource)
         {
-            _tilemapController = gameobjects.tilemapController;
-            _inputController = gameobjects.inputController;
-            _player = gameobjects.player;
+            _tilemapController = stateSource.tilemapController;
+            _inputController = stateSource.inputController;
+            _player = stateSource.player;
         }
 
 

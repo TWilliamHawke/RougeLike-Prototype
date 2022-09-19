@@ -12,9 +12,11 @@ using UI.Tooltips;
 
 namespace Core
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoBehaviour, IInjectionTarget
     {
-        [SerializeField] InputController _inputController;
+        [InjectField] InputController _inputController;
+        
+        [SerializeField] Injector _inputControllerInjector;
         [SerializeField] HealthbarController _healthbarCanvas;
         [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [SerializeField] TooltipCanvas _tooltipCanvas;
@@ -25,6 +27,8 @@ namespace Core
         [SerializeField] LootPanel _lootPanel;
 
         List<IUIScreen> _screens = new List<IUIScreen>();
+
+        bool IInjectionTarget.waitForAllDependencies => false;
 
         public void StartUp()
         {
@@ -44,16 +48,23 @@ namespace Core
                 screen.Init();
             }
 
-            _inputController.main.Spellbook.performed += ToggleSpellbook;
-            _inputController.main.Inventory.performed += ToggleInventory;
+            _inputControllerInjector.AddInjectionTarget(this);
+
         }
 
         private void OnDestroy()
         {
+            if(_inputController is null) return;
             _inputController.main.Spellbook.performed -= ToggleSpellbook;
             _inputController.main.Inventory.performed -= ToggleInventory;
-
         }
+
+        public void FinalizeInjection()
+        {
+            _inputController.main.Spellbook.performed += ToggleSpellbook;
+            _inputController.main.Inventory.performed += ToggleInventory;
+        }
+
 
         void ToggleScreen(IUIScreen targetScreen)
         {
@@ -74,5 +85,6 @@ namespace Core
 
         void ToggleSpellbook(X _) => ToggleScreen(_spellbookScreen);
         void ToggleInventory(X _) => ToggleScreen(_inventoryScreen);
+
     }
 }

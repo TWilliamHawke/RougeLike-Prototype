@@ -7,13 +7,15 @@ using UnityEngine.Events;
 
 namespace Entities.Combat
 {
-    public class MeleeAttackController : MonoBehaviour
+    public class MeleeAttackController : MonoBehaviour, IInjectionTarget
     {
         public event UnityAction OnAttackEnd;
 
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] InputController _inputController;
+        [SerializeField] Injector _inputControllerInjector;
         [SerializeField] AudioSource _body;
+
+        [InjectField] InputController _inputController;
 
         ICanAttack _attacker;
         IAttackTarget _target;
@@ -25,6 +27,13 @@ namespace Entities.Combat
         float _directionMult = 1;
 
         public bool isAttack => _attackPhase != AttackPhases.none;
+
+        bool IInjectionTarget.waitForAllDependencies => false;
+
+        void Awake()
+        {
+            _inputControllerInjector.AddInjectionTarget(this);
+        }
 
         private void Update()
         {
@@ -51,7 +60,6 @@ namespace Entities.Combat
         public void Init(ICanAttack attacker)
         {
             _attacker = attacker;
-
         }
 
         public void StartAttack(IAttackTarget target)
@@ -74,6 +82,11 @@ namespace Entities.Combat
         {
             int damage = DamageCalulator.GetDamage(damageSource, target);
             target.TakeDamage(damage);
+        }
+
+        public void FinalizeInjection()
+        {
+            
         }
 
         enum AttackPhases

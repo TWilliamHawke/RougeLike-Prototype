@@ -9,16 +9,20 @@ using Core;
 
 namespace Entities
 {
-    public class EntitiesManager : MonoBehaviour
+    public class EntitiesManager : MonoBehaviour, IInjectionTarget
     {
         [SerializeField] PlayerCore _player;
         [SerializeField] Enemy _testEnemy;
-        [SerializeField] InputController _inputController;
+        [SerializeField] Injector _inputControllerInjector;
+
+        [InjectField] InputController _inputController;
 
 
         StateMachine _currentStateMachine;
 
         Stack<StateMachine> _activeEnemies = new Stack<StateMachine>();
+
+        bool IInjectionTarget.waitForAllDependencies => false;
 
         public void StartUp()
         {
@@ -27,6 +31,7 @@ namespace Entities
             _testEnemy.stateMachine.Init();
             _testEnemy.stateMachine.OnTurnEnd += StartNextEnemyTurn;
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
+            _inputControllerInjector.AddInjectionTarget(this);
         }
 
 
@@ -56,5 +61,9 @@ namespace Entities
             _activeEnemies.Push(_testEnemy.stateMachine);
         }
 
+        public void FinalizeInjection()
+        {
+            
+        }
     }
 }

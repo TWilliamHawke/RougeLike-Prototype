@@ -10,8 +10,10 @@ namespace Core.Input
     [RequireComponent(typeof(PlayerInput))]
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] InputController _inputController;
-        [SerializeField] TilemapClickController _clickController;
+        InputController _inputController;
+        ClickStateMachine _clickStateMachine;
+        [SerializeField] Injector _inputControllerInjector;
+        [SerializeField] GameObjects _gameObjects;
 
         void Update()
         {
@@ -25,11 +27,10 @@ namespace Core.Input
 
         public void StartUp()
         {
-            var playerInput = GetComponent<PlayerInput>();
-            _inputController.Init();
-
-            // requires InputController
-            _clickController.StartUp();
+            _inputController = new InputController();
+            _clickStateMachine = new ClickStateMachine(_gameObjects);
+            _inputControllerInjector.AddDependency(_inputController);
+            _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
         }
 
         void UpdateHoveredTilePosition()

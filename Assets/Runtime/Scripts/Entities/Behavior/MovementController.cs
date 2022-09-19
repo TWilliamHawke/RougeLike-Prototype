@@ -8,14 +8,17 @@ using UnityEngine.Events;
 
 namespace Entities.Behavior
 {
-    public class MovementController : MonoBehaviour
+    public class MovementController : MonoBehaviour, IInjectionTarget
     {
         public event UnityAction OnStepEnd;
 
         [SerializeField] GlobalSettings _settings;
         [SerializeField] GameObjects _gameObjects;
         [SerializeField] AudioSource _body;
-        InputController _inputController;
+        [SerializeField] Injector _inputControllerInjector;
+
+        [InjectField] InputController _inputController;
+
         TilemapController _mapController;
 
         Stack<TileNode> _path = new Stack<TileNode>();
@@ -30,10 +33,12 @@ namespace Entities.Behavior
         TileNode _currentNode;
         public int pathLength => _path?.Count ?? 0;
 
+        bool IInjectionTarget.waitForAllDependencies => false;
+
         public void Init(TileNode spawnNode)
         {
             _currentNode = spawnNode;
-            _inputController = _gameObjects.inputController;
+            _inputControllerInjector.AddInjectionTarget(this);
             _mapController = _gameObjects.tilemapController;
         }
 
@@ -58,6 +63,7 @@ namespace Entities.Behavior
 
         public void TakeAStep()
         {
+            if(_inputController is null) return;
             if (_path.Count <= 0) return;
 
             PlayStepSound();
@@ -107,6 +113,11 @@ namespace Entities.Behavior
         {
             float z = transform.position.z;
             return new Vector3(node.x, node.y, z);
+        }
+
+        void IInjectionTarget.FinalizeInjection()
+        {
+            
         }
     }
 }

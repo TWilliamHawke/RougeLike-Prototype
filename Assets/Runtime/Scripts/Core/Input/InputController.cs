@@ -7,13 +7,10 @@ using static Core.Input.NewInput;
 
 namespace Core.Input
 {
-    public class InputController : ScriptableObject, IDependency
+    public class InputController
     {
         public event UnityAction<Vector3Int> OnHoveredTileChange;
         public event UnityAction<ActionMap> OnActionMapChange;
-        public event UnityAction OnReadyForUse;
-
-        [SerializeField] Injector _inputControllerInjector;
 
         NewInput _newInput;
         Vector3Int _hoveredTilePos;
@@ -29,11 +26,9 @@ namespace Core.Input
         public Vector3Int hoveredTilePos => _hoveredTilePos;
         public RaycastHit2D[] hoveredTileHits => _hoveredTileHits;
 
-        public bool isReadyForUse => true;
-
         List<InputActionMap> _actionMaps = new List<InputActionMap>();
 
-        public void Init()
+        public InputController()
         {
             _newInput = new NewInput();
 
@@ -44,9 +39,6 @@ namespace Core.Input
 
             _newInput.Main.Enable();
             _currentActionMap = ActionMap.Main;
-
-            _inputControllerInjector.AddDependency(this);
-            OnReadyForUse?.Invoke();
         }
 
         public void Clear()

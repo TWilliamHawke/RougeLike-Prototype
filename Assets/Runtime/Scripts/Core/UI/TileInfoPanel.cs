@@ -6,10 +6,14 @@ using Core.Input;
 
 namespace Core.UI
 {
-    public class TileInfoPanel : MonoBehaviour, IUIScreen
+    public class TileInfoPanel : MonoBehaviour, IUIScreen, IInjectionTarget
     {
-        [SerializeField] InputController _inputController;
+        [InjectField] InputController _inputController;
+        
+        [SerializeField] Injector _inputControllerInjector;
 		[SerializeField] Text _infoText;
+
+        bool IInjectionTarget.waitForAllDependencies => false;
 
         void OnDestroy()
         {
@@ -18,8 +22,7 @@ namespace Core.UI
 
         public void Init()
         {
-			_inputController.OnHoveredTileChange += UpdateText;
-
+            _inputControllerInjector.AddInjectionTarget(this);
         }
 
 		void UpdateText(Vector3Int tilePosition)
@@ -27,6 +30,9 @@ namespace Core.UI
 			_infoText.text = $"[x:{tilePosition.x}, y:{tilePosition.y}]";
 		}
 
-
+        public void FinalizeInjection()
+        {
+			_inputController.OnHoveredTileChange += UpdateText;
+        }
     }
 }

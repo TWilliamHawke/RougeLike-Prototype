@@ -6,27 +6,41 @@ using System.Reflection;
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
 {
-    IDependency _dependency;
+    [SerializeField] bool _destroyOnLoad = false;
+    IDependency _dependencyWithState;
+    System.Object _dependency;
+
+    bool _dependencyIsReady => _dependencyWithState?.isReadyForUse ?? true;
 
     List<IInjectionTarget> _targetsWaitingForInjection = new List<IInjectionTarget>();
     List<IInjectionTarget> _targetsWaitingForFinalization = new List<IInjectionTarget>();
 
-    public void AddDependency(IDependency dependency)
+    public void TryDestroyDependency()
+    {
+        if (_destroyOnLoad)
+        {
+            _dependencyWithState = null;
+        }
+    }
+
+    public void AddDependency(System.Object dependency)
+    {
+        if (_dependency != null) return;
+        _dependency = dependency;
+        InjectForAll();
+    }
+
+    public void AddDependencyWithState(IDependency dependency)
     {
         //SingleTone like
         if (_dependency != null) return;
-        _dependency = dependency;
+        _dependency = _dependencyWithState = dependency;
+        InjectForAll();
 
         if (!dependency.isReadyForUse)
         {
-            _dependency.OnReadyForUse += FinalizeTargets;
+            dependency.OnReadyForUse += FinalizeAllTargets;
         }
-
-        foreach (var target in _targetsWaitingForInjection)
-        {
-            Inject(target);
-        }
-        _targetsWaitingForInjection.Clear();
     }
 
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
@@ -41,27 +55,29 @@ public class Injector : ScriptableObject
         }
     }
 
+    private void InjectForAll()
+    {
+        foreach (var target in _targetsWaitingForInjection)
+        {
+            Inject(target);
+        }
+        _targetsWaitingForInjection.Clear();
+    }
+
 
     void Inject(IInjectionTarget injectionTarget)
     {
-        Type type = injectionTarget.GetType();
-        while (type != null)
-        {
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic
-                | BindingFlags.DeclaredOnly | BindingFlags.Instance);
-            foreach (var field in fields)
-            {
-                if (field.GetCustomAttribute<InjectFieldAttribute>(false) is null
-                    || !field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
+        var fields = FindAllFieldsWithAttribute(injectionTarget);
 
-                field.SetValue(injectionTarget, _dependency);
-            }
-            type = type.BaseType;
+        foreach(var field in fields)
+        {
+            if (!field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
+            field.SetValue(injectionTarget, _dependency);
         }
 
-        if (_dependency.isReadyForUse)
+        if (_dependencyIsReady)
         {
-            injectionTarget.FinalizeInjection();
+            Finalize(injectionTarget);
         }
         else
         {
@@ -69,19 +85,60 @@ public class Injector : ScriptableObject
         }
     }
 
-    void FinalizeTargets()
+    void FinalizeAllTargets()
     {
-        if (!_dependency.isReadyForUse)
+        if (!_dependencyIsReady)
         {
             Debug.LogError("OnReadyForUse called before object is ready!");
         }
 
         foreach (var target in _targetsWaitingForFinalization)
         {
-            target.FinalizeInjection();
+            Finalize(target);
         }
         _targetsWaitingForFinalization.Clear();
-        _dependency.OnReadyForUse -= FinalizeTargets;
+        _dependencyWithState.OnReadyForUse -= FinalizeAllTargets;
+    }
+
+    //FinalizeInjection will call only if all injections is done
+    //(fields with InjectFieldAttribute not null)
+    void Finalize(IInjectionTarget injectionTarget)
+    {
+        if(!injectionTarget.waitForAllDependencies)
+        {
+            injectionTarget.FinalizeInjection();
+            return;
+        }
+        
+        var fields = FindAllFieldsWithAttribute(injectionTarget);
+
+        foreach(var field in fields)
+        {
+            if (field.GetValue(injectionTarget) is null) return;
+        }
+
+        injectionTarget.FinalizeInjection();
+    }
+
+    List<FieldInfo> FindAllFieldsWithAttribute(IInjectionTarget injectionTarget)
+    {
+        var fieldsWithAttribute = new List<FieldInfo>();
+
+        Type type = injectionTarget.GetType();
+        while (type != null)
+        {
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic
+                | BindingFlags.DeclaredOnly | BindingFlags.Instance);
+
+            foreach (var field in fields)
+            {
+                if (field.GetCustomAttribute<InjectFieldAttribute>(false) is null) continue;
+                fieldsWithAttribute.Add(field);
+            }
+            type = type.BaseType;
+        }
+
+        return fieldsWithAttribute;
     }
 }
 
