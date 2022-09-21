@@ -26,7 +26,7 @@ namespace Map
             _generator = new RoadGenerator(_pathConfig, _tileMap);
             _generator.StartGeneration();
 
-            _tilemapController.CreateGrid(_generator.mapSize, _generator.intMap);
+            _tilemapController.CreateGrid(_generator.mapSize, _generator.walkabilityMap);
 
             if (_tilemapController.TryGetNode(_generator.playerSpawnPos.x, _generator.playerSpawnPos.y, out var node))
             {
@@ -58,7 +58,7 @@ namespace Map
     public interface IMapGenerator
     {
         void StartGeneration();
-        int[,] intMap { get; }
+        int[,] walkabilityMap { get; }
         Vector3Int playerSpawnPos { get; }
         MapSize mapSize { get; }
     }

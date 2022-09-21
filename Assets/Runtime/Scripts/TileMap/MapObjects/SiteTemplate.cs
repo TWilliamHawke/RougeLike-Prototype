@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 namespace Map.Objects
 {
-	[CreateAssetMenu(fileName ="SiteTemplate", menuName ="Musc/Site Template")]
+	[CreateAssetMenu(fileName ="SiteTemplate", menuName ="Map/Templates/Site Template")]
 	public class SiteTemplate : MapObjectTemplate
 	{
 	    [SerializeField] int _width = 5;

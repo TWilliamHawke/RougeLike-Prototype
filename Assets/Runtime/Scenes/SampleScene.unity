@@ -57788,7 +57788,7 @@ GameObject:
   - component: {fileID: 861110856}
   - component: {fileID: 861110855}
   m_Layer: 5
-  m_Name: LocationState
+  m_Name: LocationTask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
