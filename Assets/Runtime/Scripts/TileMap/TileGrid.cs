@@ -9,10 +9,10 @@ namespace Map
     {
         TileNode[,] _grid;
 
-        public TileGrid(MapSize mapSize, int[,] intMap)
+        public TileGrid(LocationMapData mapData)
         {
-            _grid = new TileNode[mapSize.width, mapSize.height];
-            FillGrid(intMap);
+            _grid = new TileNode[mapData.width, mapData.height];
+            FillGrid(mapData.walkabilityMap);
         }
 
         void FillGrid(int[,] intMap)

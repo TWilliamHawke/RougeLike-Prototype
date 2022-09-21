@@ -15,9 +15,9 @@ namespace Map
 
         TileGrid _grid;
 
-        public void CreateGrid(MapSize mapSize, int[,] intMap)
+        public void CreateGrid(LocationMapData mapData)
         {
-            _grid = new TileGrid(mapSize, intMap);
+            _grid = new TileGrid(mapData);
         }
 
         public bool TryGetNode(int x, int y, out TileNode node)

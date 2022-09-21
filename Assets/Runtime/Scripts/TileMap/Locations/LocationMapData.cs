@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Map
 {
-    public class LocationMapData : MonoBehaviour
+    public struct LocationMapData
     {
-        int[,] walkabilityMap { get; }
-        Vector3Int playerSpawnPos { get; }
+        public int[,] walkabilityMap;
+        public Vector3Int playerSpawnPos;
         public int width;
         public int height;
     }
