@@ -10,7 +10,7 @@ namespace Map.Locations
 	    [UseFileName] [SerializeField] string _displayName;
 		[SpritePreview] [SerializeField] Sprite _icon;
 
-		public abstract void Create(Tilemap tilemap);
+		public abstract LocationMapData Create(Tilemap tilemap);
 	}
 }
 

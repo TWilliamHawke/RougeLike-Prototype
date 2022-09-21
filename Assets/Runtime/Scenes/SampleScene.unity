@@ -60364,10 +60364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileMap: {fileID: 499363882}
-  _config: {fileID: 11400000, guid: 5706cc4579380f44188ff20bf1ce70aa, type: 2}
   _player: {fileID: 390164292}
   _tilemapController: {fileID: 11400000, guid: 6ab4e86e01638a649b15de42afcd8f18, type: 2}
-  _pathConfig: {fileID: 11400000, guid: 139bfd199c7aa0948b246c8cde1bde53, type: 2}
+  location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
 --- !u!4 &1081761064
 Transform:
   m_ObjectHideFlags: 0

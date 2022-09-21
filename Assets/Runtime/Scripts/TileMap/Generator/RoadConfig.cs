@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Map.Objects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Rng = System.Random;
 
 namespace Map.Generator
 {
 	[CreateAssetMenu(fileName ="RoadConfig", menuName="Musc/Road Config")]
-	public class RoadConfig : ScriptableObject
+	public partial class RoadGenerator : MapGenerator
 	{
 		[SerializeField] int _seed = 15;
 		[Header("Size")]
@@ -36,28 +37,11 @@ namespace Map.Generator
 		[SerializeField] Site _sitePrefab;
 		[SerializeField] List<SiteTemplate> _siteTemplates;
 
-        public int minLength => _minLength;
-        public int maxLength => _maxLength;
-        public int roadWidth => _roadWidth;
-        public int emptyWidth => _emptyWidth;
-        public int siteWidth => _siteWidth;
-        public int borderWidth => _borderWidth;
-        public int voidWidth => _voidWidth;
+		Tilemap _tileMap;
+        Rng _rng;
+		LocationMapData _mapData;
 
-        public int totalWidth => (emptyWidth + siteWidth + borderWidth + voidWidth) * 2 + roadWidth;
 
-        public int seed => _seed;
-        public TileBase defaultTile => _defaultTile;
-        public TileBase borderTile => _borderTile;
-        public TileBase roadTile => _roadTile;
-        public int roadCurvesCount => _roadCurvesCount;
-
-        public Site sitePrefab => _sitePrefab;
-        public List<SiteTemplate> siteTemplates => _siteTemplates;
-        public int minDistanceBetweenSites => _minDistanceBetweenSites;
-        public int maxDistanceBetweenSites => _maxDistanceBetweenSites;
-        public float ObstacleChance => _obstacleChance;
-        public float RandomTileChance => _randomTileChance;
     }
 }
 

@@ -5,30 +5,28 @@ using UnityEngine.Tilemaps;
 using Map.Generator;
 using Entities.Player;
 using Entities.Behavior;
+using Map.Locations;
 
 namespace Map
 {
     public class TileMapManager : MonoBehaviour, INeedInit
     {
         [SerializeField] Tilemap _tileMap;
-        [SerializeField] GeneratorConfig _config;
         [SerializeField] PlayerCore _player;
         [SerializeField] TilemapController _tilemapController;
-        [SerializeField] RoadConfig _pathConfig;
 
-        IMapGenerator _generator;
+        [SerializeField] Location location;
 
         public void StartUp()
         {
             PathFinder.Init(_tilemapController);
             // _generator = new MapGenerator(_tileMap, _config);
             // _generator.StartGeneration();
-            _generator = new RoadGenerator(_pathConfig, _tileMap);
-            _generator.StartGeneration();
+            var mapData = location.Create(_tileMap);
 
-            _tilemapController.CreateGrid(_generator.mapSize, _generator.walkabilityMap);
+            _tilemapController.CreateGrid(mapData);
 
-            if (_tilemapController.TryGetNode(_generator.playerSpawnPos.x, _generator.playerSpawnPos.y, out var node))
+            if (_tilemapController.TryGetNode(mapData.playerSpawnPos.x, mapData.playerSpawnPos.y, out var node))
             {
                 _player.SpawnAt(node);
             }

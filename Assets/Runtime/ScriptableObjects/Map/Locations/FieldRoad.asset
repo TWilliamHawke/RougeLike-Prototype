@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab2e5e79f4f8a5479a2d857b0d8ac40, type: 3}
+  m_Name: FieldRoad
+  m_EditorClassIdentifier: 
+  _displayName: Field Road
+  _icon: {fileID: 21300000, guid: a91b26d2a8f6bf84c93597240f410020, type: 3}
+  _generator: {fileID: 11400000, guid: 139bfd199c7aa0948b246c8cde1bde53, type: 2}

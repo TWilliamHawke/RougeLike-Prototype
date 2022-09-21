@@ -8,72 +8,60 @@ using Rng = System.Random;
 
 namespace Map.Generator
 {
-    public class RoadGenerator : IMapGenerator
+    public partial class RoadGenerator : MapGenerator
     {
-        int[,] IMapGenerator.walkabilityMap => _intMap;
-        Tilemap _tileMap;
-        Vector3Int IMapGenerator.playerSpawnPos => _playerSpawnPos;
 
-        MapSize IMapGenerator.mapSize => _mapSize;
-
-        RoadConfig _config;
-        Rng _rng;
-        int[,] _intMap;
-
-        Vector3Int _playerSpawnPos;
-        MapSize _mapSize;
-
-        public RoadGenerator(RoadConfig pathConfig, Tilemap tileMap)
+        public override LocationMapData StartGeneration(Tilemap tilemap)
         {
-            _config = pathConfig;
-            _tileMap = tileMap;
-
-            _rng = new Rng(_config.seed);
-            int pathLength = _rng.Next(_config.minLength, _config.maxLength);
-
-            _mapSize = new MapSize(_config.totalWidth, pathLength);
-            _playerSpawnPos = new Vector3Int(_mapSize.width / 2, 0, 0);
-        }
-
-        void IMapGenerator.StartGeneration()
-        {
+            _tileMap = tilemap;
             _tileMap.ClearAllTiles();
-            _intMap = new int[_mapSize.width, _mapSize.height];
+            _rng = new Rng(_seed);
+            int totalWidth = (_emptyWidth + _siteWidth + _borderWidth + _voidWidth) * 2 + _roadWidth;
+            int pathLength = _rng.Next(_minLength, _maxLength);
 
-            for (int y = 0; y < _mapSize.height; y++)
+            _mapData = new LocationMapData();
+            _mapData.width = totalWidth;
+            _mapData.height = pathLength;
+            _mapData.walkabilityMap = new int[totalWidth, pathLength];
+            _mapData.playerSpawnPos = new Vector3Int(totalWidth / 2, 0, 0);
+
+
+            for (int y = 0; y < _mapData.height; y++)
             {
                 FillWithDefaultTile(y);
-                SetBorderTile(_config.voidWidth, y);
-                SetBorderTile(_config.voidWidth + 1, y);
-                SetBorderTile(_mapSize.width - _config.voidWidth - 1, y);
-                SetBorderTile(_mapSize.width - _config.voidWidth - 2, y);
+                SetBorderTile(_voidWidth, y);
+                SetBorderTile(_voidWidth + 1, y);
+                SetBorderTile(_mapData.width - _voidWidth - 1, y);
+                SetBorderTile(_mapData.width - _voidWidth - 2, y);
             }
 
             CreateRoad();
             CreateSites();
+
+            return _mapData;
         }
 
         private void FillWithDefaultTile(int y)
         {
-            for (int x = 0; x < _mapSize.width; x++)
+            for (int x = 0; x < _mapData.width; x++)
             {
-                if (x < _config.voidWidth + _config.borderWidth) continue;
-                if (x > _mapSize.width - _config.voidWidth - _config.borderWidth) continue;
-                _intMap[x, y] = 1;
+                if (x < _voidWidth + _borderWidth) continue;
+                if (x > _mapData.width - _voidWidth - _borderWidth) continue;
+                _mapData.walkabilityMap[x, y] = 1;
                 var position = new Vector3Int(x, y, 0);
-                _tileMap.SetTile(position, _config.defaultTile);
+                _tileMap.SetTile(position, _defaultTile);
             }
         }
 
         private void CreateSites()
         {
-            int posX = _config.voidWidth + _config.siteWidth / 2;
-            int posY = _rng.Next(_config.minDistanceBetweenSites, _config.maxDistanceBetweenSites);
-            SiteTemplate template = _config.siteTemplates.GetRandom();
+            int posX = _voidWidth + _siteWidth / 2;
+            int posY = _rng.Next(_minDistanceBetweenSites, _maxDistanceBetweenSites);
+            SiteTemplate template = _siteTemplates.GetRandom();
 
             _tileMap.DestroyChildren();
 
-            var site = _tileMap.CreateChild(_config.sitePrefab, new Vector3(posX, posY, 0));
+            var site = _tileMap.CreateChild(_sitePrefab, new Vector3(posX, posY, 0));
             site.SetTemplate(template, _rng);
 
             if (!template.siteTile) return;
@@ -95,16 +83,16 @@ namespace Map.Generator
 
         private void SetBorderTile(int x, int y)
         {
-            _intMap[x, y] = 0;
+            _mapData.walkabilityMap[x, y] = 0;
             var position = new Vector3Int(x, y, 0);
-            _tileMap.SetTile(position, _config.borderTile);
+            _tileMap.SetTile(position, _borderTile);
         }
 
         void CreateRoad()
         {
-            var roadPosition = new int[_mapSize.height];
-            int minRoadPosition = _config.siteWidth + _config.voidWidth + _config.borderWidth + _config.emptyWidth;
-            int maxRoadPosition = minRoadPosition + _config.roadWidth;
+            var roadPosition = new int[_mapData.height];
+            int minRoadPosition = _siteWidth + _voidWidth + _borderWidth + _emptyWidth;
+            int maxRoadPosition = minRoadPosition + _roadWidth;
             int curveDirection = 1;
 
             for (int i = 0; i < roadPosition.Length; i++)
@@ -112,10 +100,10 @@ namespace Map.Generator
                 roadPosition[i] = (minRoadPosition + maxRoadPosition) / 2;
             }
 
-            for (int j = 0; j < _config.roadCurvesCount; j++)
+            for (int j = 0; j < _roadCurvesCount; j++)
             {
-                int startCurve = _rng.Next(_mapSize.height);
-                int endCurve = _rng.Next(startCurve, _mapSize.height);
+                int startCurve = _rng.Next(_mapData.height);
+                int endCurve = _rng.Next(startCurve, _mapData.height);
 
                 for (int k = startCurve; k <= endCurve; k++)
                 {
@@ -129,7 +117,7 @@ namespace Map.Generator
             for (int y = 0; y < roadPosition.Length; y++)
             {
                 int currentPosition = roadPosition[y];
-                _tileMap.SetTile(new Vector3Int(currentPosition, y, 0), _config.roadTile);
+                _tileMap.SetTile(new Vector3Int(currentPosition, y, 0), _roadTile);
 
                 if (currentPosition != prevPosition)
                 {
@@ -144,9 +132,9 @@ namespace Map.Generator
                     {
                         int x = prevPosition;
 
-                        while (x != currentPosition && x > 0 && x < _mapSize.width)
+                        while (x != currentPosition && x > 0 && x < _mapData.width)
                         {
-                            _tileMap.SetTile(new Vector3Int(x, y, 0), _config.roadTile);
+                            _tileMap.SetTile(new Vector3Int(x, y, 0), _roadTile);
                             x += direction;
                         }
                     }
@@ -156,6 +144,7 @@ namespace Map.Generator
 
             }
         }
+
     }
 }
 
