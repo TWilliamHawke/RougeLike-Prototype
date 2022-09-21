@@ -15,7 +15,7 @@ MonoBehaviour:
   _char: '*'
   _color: {r: 1, g: 0, b: 0, a: 1}
   _speedMult: 1
-  _damageType: 1
+  _damageType: 2
   _minDamage: 10
   _maxDamage: 20
   _fireSounds:

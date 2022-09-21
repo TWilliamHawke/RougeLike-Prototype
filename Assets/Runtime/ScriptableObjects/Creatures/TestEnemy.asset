@@ -16,7 +16,7 @@ MonoBehaviour:
   _bodyColor: {r: 1, g: 1, b: 1, a: 1}
   _minDamage: 10
   _maxDamage: 20
-  _damageType: 0
+  _damageType: 1
   _health: 100
   _resists: {fileID: 11400000, guid: 38ae83a959d36a1439f026d8ea73c3a1, type: 2}
   _sounds: {fileID: 11400000, guid: a1b2620a9d2a935469a0391a72ec4ded, type: 2}

@@ -62511,6 +62511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329410026}
   - component: {fileID: 1329410027}
+  - component: {fileID: 1329410028}
   m_Layer: 0
   m_Name: EntitiesManager
   m_TagString: Untagged
@@ -62547,6 +62548,22 @@ MonoBehaviour:
   _player: {fileID: 390164292}
   _testEnemy: {fileID: 1326299776}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
+  _selfInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+--- !u!114 &1329410028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329410025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2415df3798c4b439bb3dc0eed37ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyPrefab: {fileID: 9046568738903527777, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
+  _entitiesManagerInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _selfInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
 --- !u!1 &1335670539
 GameObject:
   m_ObjectHideFlags: 0
