@@ -13,7 +13,7 @@ namespace Map.Generator
 		Vector3Int _playerSpawnPos = Vector3Int.zero;
 		int[,] _intMap;
 
-		public int[,] intMap => _intMap;
+		public int[,] walkabilityMap => _intMap;
 
 		public Vector3Int playerSpawnPos => _playerSpawnPos;
 

@@ -10,7 +10,7 @@ namespace Map.Generator
 {
     public class RoadGenerator : IMapGenerator
     {
-        int[,] IMapGenerator.intMap => _intMap;
+        int[,] IMapGenerator.walkabilityMap => _intMap;
         Tilemap _tileMap;
         Vector3Int IMapGenerator.playerSpawnPos => _playerSpawnPos;
 

@@ -4,16 +4,21 @@ using UnityEngine;
 
 namespace Map.Objects
 {
-    public abstract class MapObjectTemplate : ScriptableObject
+    public abstract class MapObjectAction : ScriptableObject
     {
         [UseFileName]
         [SerializeField] string _displayName;
         [SpritePreview]
         [SerializeField] Sprite _icon;
-		[TextArea(3,5)]
-		[SerializeField] string _interactionDescription;
-        [SerializeField] MapObjectAction[] _possibleActions;
+
+        public abstract void DoAction();
+		public abstract IMapActionLogic actionLogic { get; }
+    }
+
+    public interface IMapActionLogic
+    {
 
     }
+
 }
 
