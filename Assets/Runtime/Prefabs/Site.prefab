@@ -72,3 +72,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 9046568738903527777, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
   _collider: {fileID: 2905629595467949151}
+  _enemySpawnerInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}

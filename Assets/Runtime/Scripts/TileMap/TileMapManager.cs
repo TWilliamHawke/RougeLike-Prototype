@@ -21,7 +21,9 @@ namespace Map
         public void StartUp()
         {
             PathFinder.Init(_tilemapController);
-            _generator = new MapGenerator(_tileMap, _config);
+            // _generator = new MapGenerator(_tileMap, _config);
+            // _generator.StartGeneration();
+            _generator = new RoadGenerator(_pathConfig, _tileMap);
             _generator.StartGeneration();
 
             _tilemapController.CreateGrid(_generator.mapSize, _generator.intMap);

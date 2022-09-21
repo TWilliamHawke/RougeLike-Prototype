@@ -6,18 +6,18 @@ using System.Reflection;
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
 {
-    [SerializeField] bool _destroyOnLoad = false;
+    [SerializeField] bool _clearOnLoad = true;
     IDependency _dependencyWithState;
     System.Object _dependency;
 
     bool _dependencyIsReady => _dependencyWithState?.isReadyForUse ?? true;
 
-    List<IInjectionTarget> _targetsWaitingForInjection = new List<IInjectionTarget>();
-    List<IInjectionTarget> _targetsWaitingForFinalization = new List<IInjectionTarget>();
+    HashSet<IInjectionTarget> _targetsWaitingForInjection = new HashSet<IInjectionTarget>();
+    HashSet<IInjectionTarget> _targetsWaitingForFinalization = new HashSet<IInjectionTarget>();
 
     public void TryDestroyDependency()
     {
-        if (_destroyOnLoad)
+        if (_clearOnLoad)
         {
             _dependencyWithState = null;
         }

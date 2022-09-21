@@ -15,7 +15,6 @@ namespace Entities.Player
     {
         public event UnityAction OnPlayerTurnEnd;
 
-        [SerializeField] TilemapController _mapController;
         [SerializeField] PlayerStats _stats;
         [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;

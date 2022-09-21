@@ -34,7 +34,7 @@ namespace Core.Input
                     var playerPos = _player.transform.position;
                     _target = target;
 
-                    return Vector3.Distance(targetPos, playerPos) < 1.5;
+                    return Vector3.SqrMagnitude(targetPos - playerPos) < 2.1;
                 }
             }
 

@@ -14,7 +14,7 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
-        IInteractive, IEffectTarget
+        IInteractive, IEffectTarget, IEntityWithAI
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;

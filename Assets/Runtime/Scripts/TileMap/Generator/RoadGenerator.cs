@@ -74,8 +74,7 @@ namespace Map.Generator
             _tileMap.DestroyChildren();
 
             var site = _tileMap.CreateChild(_config.sitePrefab, new Vector3(posX, posY, 0));
-            site.SetTemplate(template);
-            site.SpawnEnemies(_rng);
+            site.SetTemplate(template, _rng);
 
             if (!template.siteTile) return;
 

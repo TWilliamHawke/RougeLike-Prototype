@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entities.Player;
 using Entities.AI;
-using System;
 using Core.Input;
-using Core;
+using UnityEngine.Events;
 
 namespace Entities
 {
-    public class EntitiesManager : MonoBehaviour, IInjectionTarget
+    public class EntitiesManager : MonoBehaviour, IInjectionTarget, IDependency
     {
         [SerializeField] PlayerCore _player;
         [SerializeField] Enemy _testEnemy;
         [SerializeField] Injector _inputControllerInjector;
+        [SerializeField] Injector _selfInjector;
 
         [InjectField] InputController _inputController;
 
@@ -21,17 +21,30 @@ namespace Entities
         StateMachine _currentStateMachine;
 
         Stack<StateMachine> _activeEnemies = new Stack<StateMachine>();
+        List<StateMachine> _allEntities = new List<StateMachine>();
+
+        public event UnityAction OnReadyForUse;
 
         bool IInjectionTarget.waitForAllDependencies => false;
+
+        public bool isReadyForUse => _isReadyForUse;
+        bool _isReadyForUse = false;
 
         public void StartUp()
         {
             _player.Init();
             _testEnemy.Init();
-            _testEnemy.stateMachine.Init();
-            _testEnemy.stateMachine.OnTurnEnd += StartNextEnemyTurn;
+            AddEntityToObserve(_testEnemy);
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
             _inputControllerInjector.AddInjectionTarget(this);
+            _selfInjector.AddDependencyWithState(this);
+        }
+
+        public void AddEntityToObserve(IEntityWithAI entity)
+        {
+            entity.stateMachine.Init();
+            entity.stateMachine.OnTurnEnd += StartNextEnemyTurn;
+            _allEntities.Add(entity.stateMachine);
         }
 
 
@@ -58,12 +71,16 @@ namespace Entities
 
         void AddActiveEnemiesToStack()
         {
-            _activeEnemies.Push(_testEnemy.stateMachine);
+            foreach (var stateMachine in _allEntities)
+            {
+                _activeEnemies.Push(stateMachine);
+            }
         }
 
-        public void FinalizeInjection()
+        void IInjectionTarget.FinalizeInjection()
         {
-            
+            _isReadyForUse = true;
+            OnReadyForUse?.Invoke();
         }
     }
 }
