@@ -14,6 +14,9 @@ namespace Map.Objects
 		[SerializeField] string _interactionDescription;
         [SerializeField] MapObjectAction[] _possibleActions;
 
+        public string displayName => _displayName;
+        public Sprite icon => _icon;
+
     }
 }
 

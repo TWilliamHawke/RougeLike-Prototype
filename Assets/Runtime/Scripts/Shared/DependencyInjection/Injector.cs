@@ -27,20 +27,12 @@ public class Injector : ScriptableObject
     {
         if (_dependency != null) return;
         _dependency = dependency;
-        InjectForAll();
-    }
-
-    public void AddDependencyWithState(IDependency dependency)
-    {
-        //SingleTone like
-        if (_dependency != null) return;
-        _dependency = _dependencyWithState = dependency;
-        InjectForAll();
-
-        if (!dependency.isReadyForUse)
+        if (dependency is IDependency)
         {
-            dependency.OnReadyForUse += FinalizeAllTargets;
+            AddDependencyWithState(dependency as IDependency);
+            return;
         }
+        InjectForAll();
     }
 
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
@@ -55,6 +47,18 @@ public class Injector : ScriptableObject
         }
     }
 
+    private void AddDependencyWithState(IDependency dependency)
+    {
+        _dependencyWithState = dependency;
+        //should set _dependencyWithState before inject
+        InjectForAll();
+
+        if (!dependency.isReadyForUse)
+        {
+            dependency.OnReadyForUse += FinalizeAllTargets;
+        }
+    }
+
     private void InjectForAll()
     {
         foreach (var target in _targetsWaitingForInjection)
@@ -65,11 +69,11 @@ public class Injector : ScriptableObject
     }
 
 
-    void Inject(IInjectionTarget injectionTarget)
+    private void Inject(IInjectionTarget injectionTarget)
     {
         var fields = FindAllFieldsWithAttribute(injectionTarget);
 
-        foreach(var field in fields)
+        foreach (var field in fields)
         {
             if (!field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
             field.SetValue(injectionTarget, _dependency);
@@ -85,7 +89,7 @@ public class Injector : ScriptableObject
         }
     }
 
-    void FinalizeAllTargets()
+    private void FinalizeAllTargets()
     {
         if (!_dependencyIsReady)
         {
@@ -102,17 +106,17 @@ public class Injector : ScriptableObject
 
     //FinalizeInjection will call only if all injections is done
     //(fields with InjectFieldAttribute not null)
-    void Finalize(IInjectionTarget injectionTarget)
+    private void Finalize(IInjectionTarget injectionTarget)
     {
-        if(!injectionTarget.waitForAllDependencies)
+        if (!injectionTarget.waitForAllDependencies)
         {
             injectionTarget.FinalizeInjection();
             return;
         }
-        
+
         var fields = FindAllFieldsWithAttribute(injectionTarget);
 
-        foreach(var field in fields)
+        foreach (var field in fields)
         {
             if (field.GetValue(injectionTarget) is null) return;
         }
@@ -120,7 +124,7 @@ public class Injector : ScriptableObject
         injectionTarget.FinalizeInjection();
     }
 
-    List<FieldInfo> FindAllFieldsWithAttribute(IInjectionTarget injectionTarget)
+    private List<FieldInfo> FindAllFieldsWithAttribute(IInjectionTarget injectionTarget)
     {
         var fieldsWithAttribute = new List<FieldInfo>();
 

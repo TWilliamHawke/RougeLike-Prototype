@@ -9,6 +9,7 @@ using Core.Input;
 using UI.DragAndDrop;
 using X = UnityEngine.InputSystem.InputAction.CallbackContext;
 using UI.Tooltips;
+using Map.Objects.UI;
 
 namespace Core
 {
@@ -25,6 +26,7 @@ namespace Core
         [SerializeField] InventoryScreen _inventoryScreen;
         [SerializeField] SpellbookScreen _spellbookScreen;
         [SerializeField] LootPanel _lootPanel;
+        [SerializeField] ActionsScreen _actionsScreen;
 
         List<IUIScreen> _screens = new List<IUIScreen>();
 
@@ -36,11 +38,11 @@ namespace Core
             _dragElementsCanvas.Init();
             _mainCanvas.Init();
             _tooltipCanvas.Init();
-
+            _actionsScreen.Init();
 
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);
-            _screens.Add(_lootPanel);
+            //_screens.Add(_lootPanel);
 
             foreach (var screen in _screens)
             {

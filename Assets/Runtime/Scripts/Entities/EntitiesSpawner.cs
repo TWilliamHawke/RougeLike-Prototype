@@ -22,7 +22,7 @@ namespace Entities
 
         private void Awake()
         {
-			_selfInjector.AddDependencyWithState(this);
+			_selfInjector.AddDependency(this);
 			_entitiesManagerInjector.AddInjectionTarget(this);
         }
 

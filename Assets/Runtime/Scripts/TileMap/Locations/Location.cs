@@ -11,6 +11,9 @@ namespace Map.Locations
 		[SpritePreview] [SerializeField] Sprite _icon;
 
 		public abstract LocationMapData Create(Tilemap tilemap);
+
+		public string displayName => _displayName;
+		public Sprite icon => _icon;
 	}
 }
 

@@ -7,7 +7,7 @@ using Rng = System.Random;
 
 namespace Map.Objects
 {
-    public class Site : MonoBehaviour, IInjectionTarget
+    public class Site : MapObject, IInjectionTarget
     {
         SiteTemplate _template;
         int _currentEnemiesCount;
@@ -23,6 +23,8 @@ namespace Map.Objects
         Rng _rng;
 
         public bool waitForAllDependencies => true;
+
+        public override MapObjectTemplate template => _template;
 
         public void FinalizeInjection()
         {

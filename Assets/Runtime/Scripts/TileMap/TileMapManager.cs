@@ -6,6 +6,7 @@ using Map.Generator;
 using Entities.Player;
 using Entities.Behavior;
 using Map.Locations;
+using Map.Objects;
 
 namespace Map
 {
@@ -14,12 +15,14 @@ namespace Map
         [SerializeField] Tilemap _tileMap;
         [SerializeField] PlayerCore _player;
         [SerializeField] TilemapController _tilemapController;
+        [SerializeField] MapObjectsManager _mapObjectsManager;
 
         [SerializeField] Location location;
 
         public void StartUp()
         {
             PathFinder.Init(_tilemapController);
+            _mapObjectsManager.SetLocation(location);
             // _generator = new MapGenerator(_tileMap, _config);
             // _generator.StartGeneration();
             var mapData = location.Create(_tileMap);
@@ -33,31 +36,5 @@ namespace Map
 
         }
 
-        private void OnValidate()
-        {
-            UnityEditor.EditorApplication.delayCall += OnValidateCallback;
-        }
-
-        private void OnValidateCallback()
-        {
-            if (this is null)
-            {
-                UnityEditor.EditorApplication.delayCall -= OnValidateCallback;
-                return; // MissingRefException if managed in the editor - uses the overloaded Unity == operator.
-            }
-
-            // _generator = new RoadGenerator(_pathConfig, _tileMap);
-            // _generator.StartGeneration();
-
-        }
-
-    }
-
-    public interface IMapGenerator
-    {
-        void StartGeneration();
-        int[,] walkabilityMap { get; }
-        Vector3Int playerSpawnPos { get; }
-        MapSize mapSize { get; }
     }
 }
