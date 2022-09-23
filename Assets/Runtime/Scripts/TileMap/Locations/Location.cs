@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map.Objects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +15,8 @@ namespace Map.Locations
 
 		public string displayName => _displayName;
 		public Sprite icon => _icon;
+
+		public abstract MapObjectTask task { get; }
 	}
 }
 

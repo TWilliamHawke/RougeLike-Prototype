@@ -38,9 +38,17 @@ namespace Map.Objects.UI
 			_locationName.text = text;
 		}
 
-		public void SetTask(string text)
+		public void SetTask(MapObjectTask task)
 		{
-			_locationTask.text = text;
+			_locationTask.text = task.taskText;
+			if(task.objectIsLocked)
+			{
+				SetInactive();
+			}
+			else
+			{
+				SetActive();
+			}
 		}
 
         public void OnPointerClick(PointerEventData eventData)
@@ -49,13 +57,13 @@ namespace Map.Objects.UI
             OnClick?.Invoke();
         }
 
-		public void SetActive()
+		void SetActive()
 		{
 			_isActive = true;
 			_background.sprite = _activeBg;
 		}
 
-		public void SetInactive()
+		void SetInactive()
 		{
 			_isActive = false;
 			_background.sprite = _inactiveBg;

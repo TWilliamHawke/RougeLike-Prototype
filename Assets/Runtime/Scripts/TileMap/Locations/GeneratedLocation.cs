@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Map.Generator;
+using Map.Objects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,6 +11,10 @@ namespace Map.Locations
     public class GeneratedLocation : Location
     {
 		[SerializeField] MapGenerator _generator;
+
+        public override MapObjectTask task => _task;
+
+        MapObjectTask _task = new MapObjectTask("Explore the location", true);
 
         public override LocationMapData Create(Tilemap tilemap)
         {

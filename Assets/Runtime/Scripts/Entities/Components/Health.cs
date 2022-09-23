@@ -19,7 +19,7 @@ namespace Entities
         IHaveInjureSounds _template;
         bool _turnOffSounds = false;
 
-        int _baseHealth = 100;
+        int _baseHealth = 5;
         int _currentHealth;
 
         public int currentHealth => _currentHealth;

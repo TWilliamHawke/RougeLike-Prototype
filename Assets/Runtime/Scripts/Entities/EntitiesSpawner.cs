@@ -37,11 +37,12 @@ namespace Entities
 			SpawnEnemyAsChild(template, position, this);
 		}
 
-		public void SpawnEnemyAsChild(EnemyTemplate template, Vector3 position, Component parent)
+		public Enemy SpawnEnemyAsChild(EnemyTemplate template, Vector3 position, Component parent)
 		{
 			var enemy = parent.CreateChild(_enemyPrefab, position);
 			enemy.Init(template);
 			_entitiesManager.AddEntityToObserve(enemy);
+            return enemy;
 		}
     }
 }
