@@ -20,6 +20,7 @@ namespace Map.Objects
 
         [SerializeField] BoxCollider2D _collider;
         [SerializeField] Injector _enemySpawnerInjector;
+        [SerializeField] LootBodies _lootBodiesAction;
 
         [InjectField] EntitiesSpawner _spawner;
 
@@ -27,9 +28,13 @@ namespace Map.Objects
         public override MapObjectTemplate template => _template;
         public override MapObjectTask task => _task;
 
+        public override List<IMapActionLogic> actions => _actions;
+        List<IMapActionLogic> _actions = new List<IMapActionLogic>();
+
         public void FinalizeInjection()
         {
             SpawnEnemies();
+            FillActionsList();
         }
 
         public void SetTemplate(SiteTemplate template, Rng rng)
@@ -40,6 +45,18 @@ namespace Map.Objects
             _posX = (int)transform.position.x;
             _posY = (int)transform.position.y;
             _enemySpawnerInjector.AddInjectionTarget(this);
+        }
+
+        private void FillActionsList()
+        {
+            var lootBodiesLogic = _lootBodiesAction.actionLogic;
+            lootBodiesLogic.CreateLoot(_enemiesFromSite);
+            _actions.Add(lootBodiesLogic);
+
+            foreach(var action in _template.possibleActions)
+            {
+                _actions.Add(action.actionLogic);
+            }
         }
 
         private void SpawnEnemies()

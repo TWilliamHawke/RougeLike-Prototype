@@ -39,6 +39,7 @@ namespace Core
             _mainCanvas.Init();
             _tooltipCanvas.Init();
             _actionsScreen.Init();
+            _lootPanel.Init();
 
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);

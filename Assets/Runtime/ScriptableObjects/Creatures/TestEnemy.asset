@@ -20,3 +20,4 @@ MonoBehaviour:
   _health: 100
   _resists: {fileID: 11400000, guid: 38ae83a959d36a1439f026d8ea73c3a1, type: 2}
   _sounds: {fileID: 11400000, guid: a1b2620a9d2a935469a0391a72ec4ded, type: 2}
+  _lootTable: {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}

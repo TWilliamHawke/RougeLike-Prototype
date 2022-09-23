@@ -16,7 +16,7 @@ namespace Map.Objects
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
-
+        public IEnumerable<MapObjectAction> possibleActions => _possibleActions;
     }
 }
 

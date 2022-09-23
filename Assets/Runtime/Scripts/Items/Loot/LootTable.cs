@@ -17,6 +17,13 @@ namespace Items
 
         //[SerializeField] LootTableData[] _tables;
 
+        public ItemSection<Item> GetLoot()
+        {
+            var section = new ItemSection<Item>(-1);
+            GetLoot(ref section);
+            return section;
+        }
+
         public void GetLoot(ref ItemSection<Item> loot)
         {
             if (Random.Range(0f, 1f) < _chanceOfNone) return;

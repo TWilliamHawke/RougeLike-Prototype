@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.Combat;
+using Items;
 using UnityEngine;
 
 namespace Entities
 {
 	[CreateAssetMenu(fileName ="EnemyTemplate", menuName ="Entities/EnemyTemplate")]
-	public class EnemyTemplate : ScriptableObject, IDamageSource
+	public class EnemyTemplate : ScriptableObject, IDamageSource, IHaveLoot
 	{
 		[SerializeField] string _bodyChar = "-";
 		[SerializeField] Color _bodyColor = Color.white;
@@ -16,6 +17,7 @@ namespace Entities
 		[SerializeField] int _health;
 		[SerializeField] ResistSet _resists;
 		[SerializeField] CreatureSoundKit _sounds;
+		[SerializeField] LootTable _lootTable;
 		
         public DamageType damageType => _damageType;
         public int minDamage => _minDamage;
@@ -27,5 +29,6 @@ namespace Entities
 
         public AudioClip[] attackSounds => _sounds.attackSounds;
 		public CreatureSoundKit sounds => _sounds;
+        public LootTable lootTable => _lootTable;
     }
 }
