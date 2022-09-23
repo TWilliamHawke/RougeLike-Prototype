@@ -8,7 +8,7 @@ using Rng = System.Random;
 
 namespace Map.Generator
 {
-    public partial class RoadGenerator : MapGenerator
+    public partial class RoadGenerator : MapGenerator, IInjectionTarget
     {
 
         public override LocationMapData StartGeneration(Tilemap tilemap)
@@ -41,6 +41,22 @@ namespace Map.Generator
             return _mapData;
         }
 
+        void IInjectionTarget.FinalizeInjection()
+        {
+            int posX = _voidWidth + _siteWidth / 2;
+            int posY = _rng.Next(_minDistanceBetweenSites, _maxDistanceBetweenSites);
+            SiteTemplate template = _siteTemplates.GetRandom();
+
+            _tileMap.DestroyChildren();
+
+            var site = _mapObjectsManager.CreateSite(new Vector3(posX, posY, 0));
+            site.SetTemplate(template, _rng);
+
+            if (!template.siteTile) return;
+
+            ChangeCenterTiles(posX, posY, template);
+        }
+
         private void FillWithDefaultTile(int y)
         {
             for (int x = 0; x < _mapData.width; x++)
@@ -55,19 +71,7 @@ namespace Map.Generator
 
         private void CreateSites()
         {
-            int posX = _voidWidth + _siteWidth / 2;
-            int posY = _rng.Next(_minDistanceBetweenSites, _maxDistanceBetweenSites);
-            SiteTemplate template = _siteTemplates.GetRandom();
-
-            _tileMap.DestroyChildren();
-
-            var site = _tileMap.CreateChild(_sitePrefab, new Vector3(posX, posY, 0));
-            site.SetTemplate(template, _rng);
-
-            if (!template.siteTile) return;
-
-            ChangeCenterTiles(posX, posY, template);
-
+            _objectsManagerInjector.AddInjectionTarget(this);
         }
 
         private void ChangeCenterTiles(int centerX, int centerY, SiteTemplate template)
@@ -113,35 +117,38 @@ namespace Map.Generator
                 curveDirection *= -1;
             }
 
+            //Fix diagonal roads
+            //=====***** => ======****
+            //*****=====    *****=====
             int prevPosition = roadPosition[0];
             for (int y = 0; y < roadPosition.Length; y++)
             {
                 int currentPosition = roadPosition[y];
                 _tileMap.SetTile(new Vector3Int(currentPosition, y, 0), _roadTile);
 
-                if (currentPosition != prevPosition)
+                if (currentPosition == prevPosition)continue;
+
+                //prevent 1 tile length curve
+                if (y + 1 == roadPosition.Length || roadPosition[y + 1] == prevPosition)
                 {
-                    if (y + 1 == roadPosition.Length || roadPosition[y + 1] == prevPosition)
-                    {
-                        roadPosition[y] = prevPosition;
-                    }
-
-                    int direction = (int)Mathf.Sign(currentPosition - prevPosition);
-
-                    if (direction != 0)
-                    {
-                        int x = prevPosition;
-
-                        while (x != currentPosition && x > 0 && x < _mapData.width)
-                        {
-                            _tileMap.SetTile(new Vector3Int(x, y, 0), _roadTile);
-                            x += direction;
-                        }
-                    }
-
-                    prevPosition = currentPosition;
+                    roadPosition[y] = prevPosition;
                 }
 
+                int direction = (int)Mathf.Sign(currentPosition - prevPosition);
+
+                //fill empty space with road tiles
+                if (direction != 0)
+                {
+                    int x = prevPosition;
+
+                    while (x != currentPosition && x > 0 && x < _mapData.width)
+                    {
+                        _tileMap.SetTile(new Vector3Int(x, y, 0), _roadTile);
+                        x += direction;
+                    }
+                }
+
+                prevPosition = currentPosition;
             }
         }
 

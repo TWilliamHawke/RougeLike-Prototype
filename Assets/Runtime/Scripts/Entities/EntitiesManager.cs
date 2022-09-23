@@ -37,7 +37,7 @@ namespace Entities
             AddEntityToObserve(_testEnemy);
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
             _inputControllerInjector.AddInjectionTarget(this);
-            _selfInjector.AddDependencyWithState(this);
+            _selfInjector.AddDependency(this);
         }
 
         public void AddEntityToObserve(IEntityWithAI entity)

@@ -8,8 +8,9 @@ using Rng = System.Random;
 namespace Map.Generator
 {
 	[CreateAssetMenu(fileName ="RoadConfig", menuName="Musc/Road Config")]
-	public partial class RoadGenerator : MapGenerator
+	public partial class RoadGenerator : MapGenerator, IInjectionTarget
 	{
+		[SerializeField] Injector _objectsManagerInjector;
 		[SerializeField] int _seed = 15;
 		[Header("Size")]
 	    [SerializeField] int _minLength = 100;
@@ -20,10 +21,8 @@ namespace Map.Generator
 		[SerializeField] int _borderWidth = 2;
 		[SerializeField] int _voidWidth = 2;
 		[Header("Generation")]
-		[Range(0,1)]
-		[SerializeField] float _obstacleChance = .1f;
-		[Range(0,1)]
-		[SerializeField] float _randomTileChance = .1f;
+		// [Range(0,1)] [SerializeField] float _obstacleChance = .1f;
+		// [Range(0,1)] [SerializeField] float _randomTileChance = .1f;
 		[SerializeField] int _minDistanceBetweenSites = 10;
 		[SerializeField] int _maxDistanceBetweenSites = 15;
 		[SerializeField] int _roadCurvesCount = 6;
@@ -34,14 +33,14 @@ namespace Map.Generator
 		[SerializeField] TileBase[] _randomTiles;
 		[SerializeField] TileBase[] _randomObstacles;
 		[Header("Objects")]
-		[SerializeField] Site _sitePrefab;
 		[SerializeField] List<SiteTemplate> _siteTemplates;
 
 		Tilemap _tileMap;
         Rng _rng;
 		LocationMapData _mapData;
+		[InjectField] MapObjectsManager _mapObjectsManager;
 
-
+        public bool waitForAllDependencies => false;
     }
 }
 
