@@ -8,6 +8,7 @@ using Map;
 using UnityEngine;
 using TMPro;
 using Effects;
+using UnityEngine.Events;
 
 namespace Entities
 {
@@ -23,22 +24,20 @@ namespace Entities
         Health _health;
         EffectStorage _effectStorage;
 
+        public event UnityAction<Enemy> OnDeath;
+
 
         public IDamageSource damageSource => _template;
         public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
-
         public TileNode currentNode => throw new System.NotImplementedException();
-
         public AudioClip[] attackSounds => _template.attackSounds;
-
         public EffectStorage effectStorage => _effectStorage;
 
         public void Init(EnemyTemplate template)
         {
             _template = template;
             Init();
-            
         }
 
         public void Init()
@@ -68,10 +67,18 @@ namespace Entities
         {
             _health = GetComponent<Health>();
             _health.Init(_template.sounds);
+            _health.OnHealthChange += CheckHealth;
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();
             movementController.Init(new TileNode(0, 1, true));
             meleeAttackController.Init(this);
+        }
+
+        private void CheckHealth()
+        {
+            if(_health.currentHealth > 0) return;
+            OnDeath?.Invoke(this);
+            OnDeath = null;
         }
 
 

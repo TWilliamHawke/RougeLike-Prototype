@@ -10,7 +10,15 @@ namespace Map.Objects
     {
 		public event UnityAction<MapObject> OnPlayerEnter;
 		public event UnityAction<MapObject> OnPlayerExit;
+        public event UnityAction<MapObjectTask> OnTaskChange;
+
         public abstract MapObjectTemplate template { get; }
+        public abstract MapObjectTask task { get; }
+
+        protected void InvokeTaskEvent()
+        {
+            OnTaskChange?.Invoke(task);
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

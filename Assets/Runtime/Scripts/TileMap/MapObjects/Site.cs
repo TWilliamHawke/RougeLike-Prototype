@@ -9,9 +9,11 @@ namespace Map.Objects
 {
     public class Site : MapObject, IInjectionTarget
     {
-        SiteTemplate _template;
-        int _currentEnemiesCount;
+        MapObjectTask _task = new MapObjectTask("Kill All wolves", true);
+        HashSet<Enemy> _enemiesFromSite;
         TileStorage _tileStorage;
+        SiteTemplate _template;
+        Rng _rng;
 
         int _posX;
         int _posY;
@@ -20,11 +22,10 @@ namespace Map.Objects
         [SerializeField] Injector _enemySpawnerInjector;
 
         [InjectField] EntitiesSpawner _spawner;
-        Rng _rng;
 
         public bool waitForAllDependencies => true;
-
         public override MapObjectTemplate template => _template;
+        public override MapObjectTask task => _task;
 
         public void FinalizeInjection()
         {
@@ -41,7 +42,7 @@ namespace Map.Objects
             _enemySpawnerInjector.AddInjectionTarget(this);
         }
 
-        void SpawnEnemies()
+        private void SpawnEnemies()
         {
             if (_tileStorage is null)
             {
@@ -51,18 +52,27 @@ namespace Map.Objects
             if (_tileStorage.isEmpty) return;
 
             int enemiesCount = _rng.Next(_template.minEnimiesCount, _template.maxEnimiesCount);
+            _enemiesFromSite = new HashSet<Enemy>();
+            _task.taskText = ConstructKillString(enemiesCount);
 
             for (int i = 0; i < enemiesCount; i++)
             {
                 if (_tileStorage.Pull(_rng, out var position))
                 {
-                    _spawner.SpawnEnemyAsChild(_template.enemies, position, this);
+                    var enemy = _spawner.SpawnEnemyAsChild(_template.enemies, position, this);
+                    _enemiesFromSite.Add(enemy);
+                    enemy.OnDeath += RemoveDeathEnemy;
                 }
             }
         }
 
+        private string ConstructKillString(int enemiesCount)
+        {
+            return $"Kill all wolves ({enemiesCount} remains)";
+        }
 
-        void FillStorageWithWalkableTile()
+
+        private void FillStorageWithWalkableTile()
         {
             int tilesCount = _template.width * _template.height;
             if (!_template.tilesIsWalkable)
@@ -82,7 +92,7 @@ namespace Map.Objects
             }
         }
 
-        bool TileIsWalkable(int x, int y)
+        private bool TileIsWalkable(int x, int y)
         {
             if (_template.tilesIsWalkable) return true;
 
@@ -90,6 +100,23 @@ namespace Map.Objects
             if (y < _posY - _template.tilesHeight / 2 || y >= _posY + 1 + _template.tilesHeight / 2) return true;
 
             return false;
+        }
+
+        private void RemoveDeathEnemy(Enemy enemy)
+        {
+            if(!_enemiesFromSite.Contains(enemy)) return;
+            _enemiesFromSite.Remove(enemy);
+            
+            if(_enemiesFromSite.Count > 0)
+            {
+                _task.taskText = ConstructKillString(_enemiesFromSite.Count);
+            }
+            else
+            {
+                _task = new MapObjectTask("Click to loot", false);
+            }
+
+            InvokeTaskEvent();
         }
     }
 }

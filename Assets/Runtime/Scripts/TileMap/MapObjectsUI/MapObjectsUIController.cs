@@ -32,14 +32,14 @@ namespace Map.Objects.UI
         {
             SetCurrentLocationData();
             _topInfoPanel.OnClick += OpenActionPanel;
-            _topInfoPanel.SetActive();
+            //_topInfoPanel.SetActive();
         }
 
         private void SetCurrentLocationData()
         {
             _topInfoPanel.SetLocationIcon(_currentLocation.icon);
             _topInfoPanel.SetLocationName(_currentLocation.name);
-            _topInfoPanel.SetTask("Explore the location");
+            _topInfoPanel.SetTask(_currentLocation.task);
         }
 
         private void EnterToLocation(MapObject mapObject)
@@ -50,14 +50,16 @@ namespace Map.Objects.UI
 
         private void SetCurrentMapObject(MapObject mapObject)
         {
+            mapObject.OnTaskChange += UpdateTaskText;
             _currentMapObject = mapObject;
             _topInfoPanel.SetLocationIcon(mapObject.template.icon);
             _topInfoPanel.SetLocationName(mapObject.template.displayName);
-            _topInfoPanel.SetTask("Kill All wolves");
+            _topInfoPanel.SetTask(mapObject.task);
         }
 
         private void ExitFromLocation(MapObject mapObject)
         {
+            mapObject.OnTaskChange -= UpdateTaskText;
             if (_visitedMapObjects.Contains(mapObject))
             {
                 _visitedMapObjects.Remove(mapObject);
@@ -71,7 +73,11 @@ namespace Map.Objects.UI
             {
                 SetCurrentLocationData();
             }
+        }
 
+        private void UpdateTaskText(MapObjectTask task)
+        {
+            _topInfoPanel.SetTask(task);
         }
 
         private void OpenActionPanel()
