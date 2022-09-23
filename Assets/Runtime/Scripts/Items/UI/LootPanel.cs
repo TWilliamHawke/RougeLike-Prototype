@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Entities.InteractiveObjects;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Items.UI
 {
@@ -10,11 +9,15 @@ namespace Items.UI
     {
         [SerializeField] Inventory _inventory;
 
+        [SerializeField] Injector _selfInjector;
+
         protected override IEnumerable<ItemSlotData> _layoutElementsData => _loot;
         ItemSection<Item> _loot;
 
         public void Init()
         {
+            _selfInjector.AddDependency(this);
+            Debug.Log("addLoot");
             Container.OnContainerOpen += Open;
         }
 
@@ -23,8 +26,7 @@ namespace Items.UI
             Container.OnContainerOpen -= Open;
         }
 
-
-        void Open(ItemSection<Item> loot)
+        public void Open(ItemSection<Item> loot)
         {
             _loot = loot;
             gameObject.SetActive(true);

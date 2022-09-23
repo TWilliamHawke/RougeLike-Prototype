@@ -15,6 +15,8 @@ namespace Map.Objects
         public abstract MapObjectTemplate template { get; }
         public abstract MapObjectTask task { get; }
 
+        public abstract List<IMapActionLogic> actions { get; }
+
         protected void InvokeTaskEvent()
         {
             OnTaskChange?.Invoke(task);

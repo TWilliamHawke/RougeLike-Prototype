@@ -15,7 +15,8 @@ MonoBehaviour:
   _displayName: Wolf Lair
   _icon: {fileID: 21300000, guid: 8d53c923c3176734f96470e153c50bd6, type: 3}
   _interactionDescription: 
-  _possibleActions: []
+  _possibleActions:
+  - {fileID: 11400000, guid: e764b70b79a3f394692d5efb567510d7, type: 2}
   _width: 5
   _height: 5
   _enemies: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}

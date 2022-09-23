@@ -85,6 +85,7 @@ namespace Map.Objects.UI
             if (!_currentMapObject) return;
             _actionsScreen.SetTitle(_currentMapObject.template.displayName);
             _actionsScreen.SetIcon(_currentMapObject.template.icon);
+            _actionsScreen.SetActions(_currentMapObject.actions);
             _actionsScreen.Open();
         }
     }

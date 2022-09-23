@@ -4,23 +4,33 @@ using UnityEngine;
 
 namespace Map.Objects
 {
-	[CreateAssetMenu(menuName ="Map/Actions/Attack", fileName ="Attack")]
+    [CreateAssetMenu(menuName = "Map/Actions/Attack", fileName = "Attack")]
     public class Attack : MapObjectAction
     {
         public override IMapActionLogic actionLogic => new AttackLogic(this);
 
-        public override void DoAction()
+        class AttackLogic : IMapActionLogic
         {
-            throw new System.NotImplementedException();
-        }
+            Attack _action;
+            public bool isEnable { get; set; }
 
-		class AttackLogic: IMapActionLogic
-		{
-			Attack _action;
+            public IActionData template => _action;
 
             public AttackLogic(Attack action)
             {
                 _action = action;
+            }
+
+            public void DoAction()
+            {
+                throw new System.NotImplementedException();
+            }
+
+
+
+            public void AddActionDependencies(IActionDependenciesProvider provider)
+            {
+                throw new System.NotImplementedException();
             }
         }
     }

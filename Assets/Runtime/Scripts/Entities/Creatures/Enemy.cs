@@ -9,13 +9,14 @@ using UnityEngine;
 using TMPro;
 using Effects;
 using UnityEngine.Events;
+using Items;
 
 namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
-        IInteractive, IEffectTarget, IEntityWithAI
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
@@ -33,6 +34,8 @@ namespace Entities
         public TileNode currentNode => throw new System.NotImplementedException();
         public AudioClip[] attackSounds => _template.attackSounds;
         public EffectStorage effectStorage => _effectStorage;
+
+        public LootTable lootTable => _template.lootTable;
 
         public void Init(EnemyTemplate template)
         {
