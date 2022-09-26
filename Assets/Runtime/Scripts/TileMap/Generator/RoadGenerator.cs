@@ -49,7 +49,7 @@ namespace Map.Generator
 
             _tileMap.DestroyChildren();
 
-            var site = _mapObjectsManager.CreateSite(new Vector3(posX, posY, 0));
+            var site = _mapObjectsManager.CreateSite(new Vector3(_mapData.width / 2, 10, 0));
             site.SetTemplate(template, _rng);
 
             if (!template.siteTile) return;

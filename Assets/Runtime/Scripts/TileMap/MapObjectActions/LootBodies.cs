@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Items;
 using Items.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Map.Objects
 {
-	[CreateAssetMenu(menuName ="Map/Actions/LootBodies", fileName ="LootBodies")]
-    public class LootBodies: ScriptableObject, IActionData
+    [CreateAssetMenu(menuName = "Map/Actions/LootBodies", fileName = "LootBodies")]
+    public class LootBodies : ScriptableObject, IActionData
     {
         [UseFileName]
         [SerializeField] string _displayName;
@@ -19,12 +20,15 @@ namespace Map.Objects
         public string displayName => _displayName;
         public Sprite icon => _icon;
 
-        public class LootBodiesLogic: IMapActionLogic
-		{
-			LootBodies _action;
-            public bool isEnable { get; set; }
+        public class LootBodiesLogic : IMapActionLogic
+        {
+            LootBodies _action;
+            public bool isEnable { get; set; } = true;
             LootPanel _lootPanel;
             ItemSection<Item> _loot;
+
+            public event UnityAction<IMapActionLogic> OnCompletion;
+
             public IActionData template => _action;
 
             public LootBodiesLogic(LootBodies action)
@@ -34,14 +38,13 @@ namespace Map.Objects
 
             public void AddActionDependencies(IActionDependenciesProvider provider)
             {
-                Debug.Log("Add");
                 _lootPanel = provider.lootPanel;
             }
 
             public void CreateLoot(IEnumerable<IHaveLoot> enemies)
             {
                 _loot = new ItemSection<Item>(-1);
-                foreach(var enemy in enemies)
+                foreach (var enemy in enemies)
                 {
                     enemy.lootTable.GetLoot(ref _loot);
                 }
@@ -50,6 +53,21 @@ namespace Map.Objects
             public void DoAction()
             {
                 _lootPanel.Open(_loot);
+                _lootPanel.OnTakeAll += InvokeEvent;
+                _lootPanel.OnClose += ClearEvents;
+            }
+
+            void InvokeEvent()
+            {
+                _loot.Clear();
+                OnCompletion?.Invoke(this);
+                ClearEvents();
+            }
+
+            void ClearEvents()
+            {
+                _lootPanel.OnTakeAll -= InvokeEvent;
+                _lootPanel.OnClose -= ClearEvents;
             }
         }
 

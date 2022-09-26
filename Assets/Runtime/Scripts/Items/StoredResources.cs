@@ -34,7 +34,6 @@ namespace Items
         {
             if (type == ResourceType.none) return;
 
-            Debug.Log(count);
             int maxCount = _types[type].maxStackSize;
             _resources[type] = Mathf.Min(_resources[type] + count, maxCount);
             OnResourceChange?.Invoke(type);

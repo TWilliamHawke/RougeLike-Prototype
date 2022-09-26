@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Map.Objects
 {
@@ -12,7 +13,10 @@ namespace Map.Objects
         class TalkLogic : IMapActionLogic
         {
             Talk _action;
-            public bool isEnable { get; set; }
+
+            public event UnityAction<IMapActionLogic> OnCompletion;
+
+            public bool isEnable { get; set; } = true;
             public IActionData template => _action;
 
             public TalkLogic(Talk action)
@@ -22,6 +26,7 @@ namespace Map.Objects
 
             public void DoAction()
             {
+                OnCompletion?.Invoke(this);
                 throw new System.NotImplementedException();
             }
 

@@ -52,7 +52,7 @@ namespace Map.Objects.UI
 			_objectIcon2.sprite = icon;
 		}
 
-		public void SetActions(List<IMapActionLogic> actionLogics)
+		public void SetActions(IMapActionsController actionLogics)
 		{
 			foreach(var action in actionLogics)
 			{
@@ -68,7 +68,6 @@ namespace Map.Objects.UI
 
         public void FinalizeInjection()
         {
-			Debug.Log("LootPanel");
             OnReadyForUse?.Invoke();
         }
     }
