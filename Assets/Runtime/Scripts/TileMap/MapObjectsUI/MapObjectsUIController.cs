@@ -51,6 +51,7 @@ namespace Map.Objects.UI
         private void SetCurrentMapObject(MapObject mapObject)
         {
             mapObject.OnTaskChange += UpdateTaskText;
+            mapObject.actionsController.OnActionStateChange += SetActions;
             _currentMapObject = mapObject;
             _topInfoPanel.SetLocationIcon(mapObject.template.icon);
             _topInfoPanel.SetLocationName(mapObject.template.displayName);
@@ -60,6 +61,8 @@ namespace Map.Objects.UI
         private void ExitFromLocation(MapObject mapObject)
         {
             mapObject.OnTaskChange -= UpdateTaskText;
+            mapObject.actionsController.OnActionStateChange -= SetActions;
+
             if (_visitedMapObjects.Contains(mapObject))
             {
                 _visitedMapObjects.Remove(mapObject);
@@ -85,8 +88,13 @@ namespace Map.Objects.UI
             if (!_currentMapObject) return;
             _actionsScreen.SetTitle(_currentMapObject.template.displayName);
             _actionsScreen.SetIcon(_currentMapObject.template.icon);
-            _actionsScreen.SetActions(_currentMapObject.actions);
+            SetActions();
             _actionsScreen.Open();
+        }
+
+        private void SetActions()
+        {
+            _actionsScreen.SetActions(_currentMapObject.actionsController);
         }
     }
 }

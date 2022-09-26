@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Entities.InteractiveObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items.UI
 {
@@ -14,10 +15,13 @@ namespace Items.UI
         protected override IEnumerable<ItemSlotData> _layoutElementsData => _loot;
         ItemSection<Item> _loot;
 
+        public event UnityAction OnTakeAll;
+        public event UnityAction OnClose;
+
+
         public void Init()
         {
             _selfInjector.AddDependency(this);
-            Debug.Log("addLoot");
             Container.OnContainerOpen += Open;
         }
 
@@ -37,6 +41,7 @@ namespace Items.UI
         public void Close()
         {
             gameObject.SetActive(false);
+            OnClose?.Invoke();
         }
 
         //used as click handler in editor
@@ -47,8 +52,8 @@ namespace Items.UI
                 inventory.AddItems(slotData.item, slotData.count);
             }
             //_loot.Clear();
-            Close();
+            gameObject.SetActive(false);
+            OnTakeAll?.Invoke();
         }
-
     }
 }

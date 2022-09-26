@@ -1,4 +1,5 @@
 using Map.Objects;
+using UnityEngine.Events;
 
 namespace Map
 {
@@ -8,6 +9,7 @@ namespace Map
         void AddActionDependencies(IActionDependenciesProvider provider);
         void DoAction();
         IActionData template { get; }
+        event UnityAction<IMapActionLogic> OnCompletion;
     }
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 using Items.UI;
+using UnityEngine.Events;
 
 namespace Map.Objects
 {
@@ -16,8 +17,11 @@ namespace Map.Objects
         class LootLogic : IMapActionLogic
         {
             Loot _action;
-            public bool isEnable { get; set; }
+            public bool isEnable { get; set; } = true;
             LootPanel _lootPanel;
+
+            public event UnityAction<IMapActionLogic> OnCompletion;
+
             public IActionData template => _action;
 
             public LootLogic(Loot action)
@@ -28,11 +32,25 @@ namespace Map.Objects
             public void DoAction()
             {
                 _lootPanel.Open(_action._lootTable.GetLoot());
+                _lootPanel.OnTakeAll += InvokeEvent;
+                _lootPanel.OnClose += ClearEvents;
             }
 
             public void AddActionDependencies(IActionDependenciesProvider provider)
             {
                 _lootPanel = provider.lootPanel;
+            }
+
+            void InvokeEvent()
+            {
+                OnCompletion?.Invoke(this);
+                ClearEvents();
+            }
+
+            void ClearEvents()
+            {
+                _lootPanel.OnTakeAll -= InvokeEvent;
+                _lootPanel.OnClose -= ClearEvents;
             }
         }
     }

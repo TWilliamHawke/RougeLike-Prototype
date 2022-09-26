@@ -28,8 +28,8 @@ namespace Map.Objects
         public override MapObjectTemplate template => _template;
         public override MapObjectTask task => _task;
 
-        public override List<IMapActionLogic> actions => _actions;
-        List<IMapActionLogic> _actions = new List<IMapActionLogic>();
+        public override IMapActionsController actionsController => _actionsController;
+        DefaultMapActionsController _actionsController = new DefaultMapActionsController();
 
         public void FinalizeInjection()
         {
@@ -51,11 +51,11 @@ namespace Map.Objects
         {
             var lootBodiesLogic = _lootBodiesAction.actionLogic;
             lootBodiesLogic.CreateLoot(_enemiesFromSite);
-            _actions.Add(lootBodiesLogic);
+            _actionsController.AddLogic(lootBodiesLogic);
 
             foreach(var action in _template.possibleActions)
             {
-                _actions.Add(action.actionLogic);
+                _actionsController.AddLogic(action.actionLogic);
             }
         }
 
