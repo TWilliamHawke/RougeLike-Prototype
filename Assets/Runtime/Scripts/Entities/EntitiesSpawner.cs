@@ -41,7 +41,7 @@ namespace Entities
 		{
 			var enemy = parent.CreateChild(_enemyPrefab, position);
 			enemy.Init(template);
-			_entitiesManager.AddEntityToObserve(enemy);
+			_entitiesManager.AddEnemy(enemy);
             return enemy;
 		}
     }

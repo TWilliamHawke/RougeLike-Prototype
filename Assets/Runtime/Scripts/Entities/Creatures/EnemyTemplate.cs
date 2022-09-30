@@ -18,6 +18,7 @@ namespace Entities
 		[SerializeField] ResistSet _resists;
 		[SerializeField] CreatureSoundKit _sounds;
 		[SerializeField] LootTable _lootTable;
+		[SerializeField] int _expForKill;
 		
         public DamageType damageType => _damageType;
         public int minDamage => _minDamage;
@@ -30,5 +31,6 @@ namespace Entities
         public AudioClip[] attackSounds => _sounds.attackSounds;
 		public CreatureSoundKit sounds => _sounds;
         public LootTable lootTable => _lootTable;
+		public int expForKill => _expForKill;
     }
 }

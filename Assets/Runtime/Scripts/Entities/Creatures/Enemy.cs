@@ -27,13 +27,13 @@ namespace Entities
 
         public event UnityAction<Enemy> OnDeath;
 
-
         public IDamageSource damageSource => _template;
         public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
         public TileNode currentNode => throw new System.NotImplementedException();
         public AudioClip[] attackSounds => _template.attackSounds;
         public EffectStorage effectStorage => _effectStorage;
+        public int expForKill => _template.expForKill;
 
         public LootTable lootTable => _template.lootTable;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core.UI;
+using Leveling;
 
 namespace Core
 {
@@ -11,6 +12,10 @@ namespace Core
 		[SerializeField] TileInfoPanel _tileInfoPanel;
 		[SerializeField] StatPanel _statPanel;
 		[SerializeField] ActiveEffectsPanel _activeEffectsPanel;
+		[SerializeField] ExperienceBar _experienceBar;
+		[SerializeField] ExperienceStorage _experienceStorage;
+
+		ExperienceBarController _expBarController;
 
 		public void Init()
 		{
@@ -18,6 +23,7 @@ namespace Core
 			_tileInfoPanel.Init();
 			_statPanel.Init();
 			_activeEffectsPanel.Init();
+			_expBarController = new ExperienceBarController(_experienceBar, _experienceStorage);
 		}
 	}
 }
