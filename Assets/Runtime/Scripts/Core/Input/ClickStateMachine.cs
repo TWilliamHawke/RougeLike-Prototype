@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.Combat;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +13,7 @@ namespace Core.Input
         [InjectField] InputController _inputController;
 
         TilemapController _tilemapController;
-        PlayerCore _player;
+        Player _player;
 
         public ClickStateMachine(GameObjects gameObjects)
         {
@@ -25,7 +25,7 @@ namespace Core.Input
 
         InputController IClickStateSource.inputController => _inputController;
         TilemapController IClickStateSource.tilemapController => _tilemapController;
-        PlayerCore IClickStateSource.player => _player;
+        Player IClickStateSource.player => _player;
 
         bool IInjectionTarget.waitForAllDependencies => true;
 
@@ -76,6 +76,6 @@ namespace Core.Input
     {
         InputController inputController { get; }
         TilemapController tilemapController { get; }
-        PlayerCore player { get; }
+        Player player { get; }
     }
 }

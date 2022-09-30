@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Map;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Core.Input
 {
@@ -10,7 +10,7 @@ namespace Core.Input
 	{
 		InputController _inputController;
 		TilemapController _tilemapController;
-        PlayerCore _player;
+        Player _player;
         TileNode _targetNode;
 
         public ClickWalkableTile(IClickStateSource stateSource)

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,13 +24,13 @@ namespace Map.Objects
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-			if(!other.GetComponent<PlayerCore>()) return;
+			if(!other.GetComponent<Player>()) return;
 			OnPlayerEnter?.Invoke(this);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-			if(!other.GetComponent<PlayerCore>()) return;
+			if(!other.GetComponent<Player>()) return;
 			OnPlayerExit?.Invoke(this);
         }
 

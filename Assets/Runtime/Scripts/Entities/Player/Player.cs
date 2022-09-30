@@ -7,11 +7,11 @@ using Entities.Combat;
 using UnityEngine.Events;
 using Effects;
 
-namespace Entities.Player
+namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
-    public class PlayerCore : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget
     {
         public event UnityAction OnPlayerTurnEnd;
 

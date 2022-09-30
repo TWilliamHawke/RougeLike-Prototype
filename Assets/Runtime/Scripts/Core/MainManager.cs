@@ -4,7 +4,7 @@ using Map;
 using UnityEngine;
 using Entities;
 using Core.Input;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Core
 {

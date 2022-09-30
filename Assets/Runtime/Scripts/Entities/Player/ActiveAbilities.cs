@@ -6,7 +6,7 @@ using Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Entities.Player
+namespace Entities.PlayerScripts
 {
     [CreateAssetMenu(fileName = "ActiveAbilities", menuName = "Musc/ActiveAbilities")]
     public class ActiveAbilities : ScriptableObject, IInjectionTarget

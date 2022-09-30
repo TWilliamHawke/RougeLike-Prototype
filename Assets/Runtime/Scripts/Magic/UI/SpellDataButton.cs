@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UI.DragAndDrop;
 
 namespace Magic.UI

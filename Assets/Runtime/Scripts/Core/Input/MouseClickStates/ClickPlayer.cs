@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Core.Input
 {
@@ -24,7 +24,7 @@ namespace Core.Input
 
         bool IMouseClickState.Condition()
         {
-            return _inputController.hoveredTileHits.Any(hit => hit.collider.GetComponent<PlayerCore>());
+            return _inputController.hoveredTileHits.Any(hit => hit.collider.GetComponent<Player>());
         }
 
 	}

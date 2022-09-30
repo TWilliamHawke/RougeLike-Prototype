@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Items;
 using Effects;
 using UI.DragAndDrop;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UnityEngine.EventSystems;
 using Magic;
 

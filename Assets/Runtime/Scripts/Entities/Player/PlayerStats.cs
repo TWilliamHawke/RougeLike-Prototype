@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using Effects;
 using Core;
 
-namespace Entities.Player
+namespace Entities.PlayerScripts
 {
     public class PlayerStats : ScriptableObject, IManaComponent
     {
@@ -28,7 +28,7 @@ namespace Entities.Player
         public int curentMana => _currentMana;
         public EffectStorage effectStorage => _effectStorage;
 
-        public void SubscribeOnHealthEvents(PlayerCore player)
+        public void SubscribeOnHealthEvents(Player player)
         {
             _effectStorage.SetEffectTarget(player);
         }

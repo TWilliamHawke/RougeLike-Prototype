@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entities;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Core.Input
 {
     public class ClickRemoteObject : IMouseClickState
     {
         InputController _inputController;
-        PlayerCore _player;
+        Player _player;
 
         IInteractive _target;
 

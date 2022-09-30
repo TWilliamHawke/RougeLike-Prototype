@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Map.Generator;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Entities.Behavior;
 using Map.Locations;
 using Map.Objects;
@@ -13,7 +13,7 @@ namespace Map
     public class TileMapManager : MonoBehaviour, INeedInit
     {
         [SerializeField] Tilemap _tileMap;
-        [SerializeField] PlayerCore _player;
+        [SerializeField] Player _player;
         [SerializeField] TilemapController _tilemapController;
         [SerializeField] MapObjectsManager _mapObjectsManager;
 

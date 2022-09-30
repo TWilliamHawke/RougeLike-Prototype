@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UnityEngine;
 using TMPro;
 using Items;

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Core
@@ -8,14 +8,14 @@ namespace Core
     [RequireComponent(typeof(Camera))]
     public class CameraController : MonoBehaviour
     {
-        PlayerCore _player;
+        Player _player;
 
         void LateUpdate()
         {
 			transform.position = transform.position.ChangeXYFrom(_player.transform.position);
         }
 
-        public void SetPlayer(PlayerCore player)
+        public void SetPlayer(Player player)
         {
             _player = player;
         }
