@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Magic.UI
 {

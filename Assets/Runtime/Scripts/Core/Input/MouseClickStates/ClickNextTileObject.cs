@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
-using Entities.Player;
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Core.Input
@@ -9,7 +9,7 @@ namespace Core.Input
 	public class ClickNextTileObject : IMouseClickState
 	{
         InputController _inputController;
-        PlayerCore _player;
+        Player _player;
         
 		IInteractive _target;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Items;
 
 namespace Magic

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core.Input;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,7 +15,7 @@ namespace Core
 
         public Camera mainCamera { get; set; }
         public CameraController cameraController { get; set; }
-        public PlayerCore player { get; set; }
+        public Player player { get; set; }
         public Tilemap tilemap { get; set; }
 
         public TilemapController tilemapController => _tilemapController;

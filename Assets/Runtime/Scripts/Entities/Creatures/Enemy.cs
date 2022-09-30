@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entities.AI;
 using Entities.Behavior;
 using Entities.Combat;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
 using TMPro;
@@ -56,7 +56,7 @@ namespace Entities
             _TMPSprite.color = _template.bodyColor;
         }
 
-        public void Interact(PlayerCore player)
+        public void Interact(Player player)
         {
             player.Attack(this);
         }

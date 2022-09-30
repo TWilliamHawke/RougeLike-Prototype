@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Entities;
 using UnityEngine;
 

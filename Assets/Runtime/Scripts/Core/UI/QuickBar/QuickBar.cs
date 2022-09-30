@@ -4,7 +4,7 @@ using UnityEngine;
 using UI.DragAndDrop;
 using Items;
 using Effects;
-using Entities.Player;
+using Entities.PlayerScripts;
 
 namespace Core.UI
 {

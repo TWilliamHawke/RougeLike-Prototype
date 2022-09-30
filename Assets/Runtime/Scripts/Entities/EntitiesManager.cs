@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Entities.Player;
+using Entities.PlayerScripts;
 using Entities.AI;
 using Core.Input;
 using UnityEngine.Events;
@@ -10,7 +10,7 @@ namespace Entities
 {
     public class EntitiesManager : MonoBehaviour, IInjectionTarget, IDependency
     {
-        [SerializeField] PlayerCore _player;
+        [SerializeField] Player _player;
         [SerializeField] Enemy _testEnemy;
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _selfInjector;

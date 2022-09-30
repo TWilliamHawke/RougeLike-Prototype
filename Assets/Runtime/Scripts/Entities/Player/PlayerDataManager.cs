@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
-namespace Entities.Player
+namespace Entities.PlayerScripts
 {
 	public class PlayerDataManager : MonoBehaviour
 	{
