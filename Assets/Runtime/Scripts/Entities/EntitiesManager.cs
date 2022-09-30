@@ -5,6 +5,7 @@ using Entities.PlayerScripts;
 using Entities.AI;
 using Core.Input;
 using UnityEngine.Events;
+using Leveling;
 
 namespace Entities
 {
@@ -14,9 +15,11 @@ namespace Entities
         [SerializeField] Enemy _testEnemy;
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _selfInjector;
+        [SerializeField] ExperienceStorage _experienceStorage;
 
         [InjectField] InputController _inputController;
 
+        ExpForKillsController _enemyKillsObserver;
 
         StateMachine _currentStateMachine;
 
@@ -32,6 +35,7 @@ namespace Entities
 
         public void StartUp()
         {
+            _enemyKillsObserver = new ExpForKillsController(_experienceStorage);
             _player.Init();
             _testEnemy.Init();
             AddEntityToObserve(_testEnemy);
@@ -40,7 +44,14 @@ namespace Entities
             _selfInjector.AddDependency(this);
         }
 
-        public void AddEntityToObserve(IEntityWithAI entity)
+        public void AddEnemy(Enemy enemy)
+        {
+            AddEntityToObserve(enemy);
+            _enemyKillsObserver.AddEnemyToObserve(enemy);
+
+        }
+
+        void AddEntityToObserve(IEntityWithAI entity)
         {
             entity.stateMachine.Init();
             entity.stateMachine.OnTurnEnd += StartNextEnemyTurn;
