@@ -30,7 +30,7 @@ namespace Map.Objects
             _loot = new ItemSection<Item>(-1);
             foreach (var enemy in enemies)
             {
-                enemy.lootTable.FillDataList(ref _loot);
+                enemy.lootTable.FillItemSection(ref _loot);
             }
         }
 

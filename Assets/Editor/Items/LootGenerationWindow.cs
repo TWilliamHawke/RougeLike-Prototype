@@ -40,7 +40,7 @@ public class LootGenerationWindow : EditorWindow
         {
             _selectedLootTable.CheckErrors();
             _loot.Clear();
-            _selectedLootTable.FillDataList(ref _loot);
+            _selectedLootTable.FillItemSection(ref _loot);
         }
         if (GUILayout.Button("Check Errors"))
         {
