@@ -15,7 +15,7 @@ namespace Entities.InteractiveObjects
         public void Interact(Player player)
         {
             var loot = new ItemSection<Item>(-1);
-            _lootTable.GetLoot(ref loot);
+            _lootTable.FillItemSection(ref loot);
 
             OnContainerOpen?.Invoke(loot);
 

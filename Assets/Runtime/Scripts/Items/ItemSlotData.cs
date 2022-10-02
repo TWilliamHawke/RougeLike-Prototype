@@ -5,13 +5,10 @@ using UnityEngine;
 namespace Items
 {
     [System.Serializable]
-	public class ItemSlotData
-	{
-		[SerializeField] Item _item;
-		[SerializeField] int _count = 1;
-
-        public Item item => _item;
-		public int count => _count;
+    public class ItemSlotData : IDataCount<Item>
+    {
+        [SerializeField] Item _item;
+        [SerializeField] int _count = 1;
 
         public ItemSlotData(Item item)
         {
@@ -24,32 +21,35 @@ namespace Items
             _count = count;
         }
 
+        public Item item => _item;
+        public int count => _count;
 
-		public void AddToStack()
-		{
-			_count++;
-		}
+        public void AddToStack()
+        {
+            _count++;
+        }
 
-		public void RemoveFromStack()
+        public void RemoveFromStack()
         {
             if (count == 0) return;
             _count--;
         }
 
-		public void IncreaseCountBy(int num)
-		{
-			_count += num;
-		}
+        public void IncreaseCountBy(int num)
+        {
+            _count += num;
+        }
 
-		public void DecreaseCountBy(int num)
-		{
-			_count = Mathf.Max(0, _count - num);
-		}
+        public void DecreaseCountBy(int num)
+        {
+            _count = Mathf.Max(0, _count - num);
+        }
 
-		public void FillToMaxSize()
-		{
-			_count = _item.maxStackSize;
-			
-		}
+        public void FillToMaxSize()
+        {
+            _count = item.maxStackSize;
+        }
+
+
     }
 }
