@@ -5,39 +5,56 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "LootTable", menuName = "Items/Loot Table")]
-    public class LootTable : DataListGenerator<Item>
+    public class LootTable : ScriptableObject, IDataListSource<Item>
     {
-		[ContextMenuItem("CheckChildren", "CheckChildren")]
+        [SerializeField] bool _getOnlyOneElenemt;
+        [Range(0, 1)]
+        [SerializeField] float _chanceOfNone;
+
+        [ContextMenuItem("CheckChildren", "CheckChildren")]
         [SerializeField] LootTable[] _childLootTables;
         [SerializeField] ItemSlotData[] _lootItems;
 
-        protected override DataListGenerator<Item>[] childTables => _childLootTables;
+        IDataListSource<Item>[] IDataListSource<Item>.childTables => _childLootTables;
+        IDataCount<Item>[] IDataListSource<Item>.dataItems => _lootItems;
+        bool IDataListSource<Item>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListSource<Item>.chanceOfNone => _chanceOfNone;
+        DataListGenerator<Item> IDataListSource<Item>.dataListGenerator => _dataListGenerator;
 
-        protected override DataCount<Item>[] dataItems => _lootItems;
+        DataListGenerator<Item> _dataListGenerator;
 
-        //[SerializeField] LootTableData[] _tables;
+        private void OnEnable()
+        {
+            _dataListGenerator = new DataListGenerator<Item>(this);
+        }
+
+        public void FillItemSection(ref ItemSection<Item> loot)
+        {
+            _dataListGenerator.FillDataList(ref loot);
+        }
 
         public ItemSection<Item> GetLoot()
         {
             var section = new ItemSection<Item>(-1);
-            FillDataList(ref section);
+            FillItemSection(ref section);
             return section;
         }
 
-
-        [ContextMenu("Check Generation")]
-        protected override void Generate()
+        [ContextMenu("CheckChildren")]
+        public void CheckErrors()
         {
-			var section = new ItemSection<Item>(-1);
-			FillDataList(ref section);
-
-			foreach (var itemSlot in section)
-			{
-				Debug.Log($"{itemSlot.item.displayName}: {itemSlot.count}");
-			}
+            _dataListGenerator.CheckErrors();
         }
 
+        [ContextMenu("Check Generation")]
+        void Generate()
+        {
+            var loot = GetLoot();
 
-
+            foreach (var itemSlot in loot)
+            {
+                Debug.Log($"{itemSlot.item.displayName}: {itemSlot.count}");
+            }
+        }
     }
 }

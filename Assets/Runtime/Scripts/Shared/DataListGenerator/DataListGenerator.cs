@@ -1,43 +1,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DataListGenerator<T> : ScriptableObject
+public class DataListGenerator<T>
 {
-    [SerializeField] bool _getOnlyOneElenemt;
-    [Range(0, 1)]
-    [SerializeField] float _chanceOfNone;
+    IDataListSource<T> dataListSource;
 
-    protected abstract DataListGenerator<T>[] childTables { get; }
-    protected abstract DataCount<T>[] dataItems { get; }
-
-    //public abstract IDataList<T> GetLoot();
-
-    public void FillDataList<U>(ref U loot) where U : IDataList<T>
+    public DataListGenerator(IDataListSource<T> dataListSource)
     {
-        if (Random.Range(0f, 1f) < _chanceOfNone) return;
+        this.dataListSource = dataListSource;
+    }
 
-        if (_getOnlyOneElenemt)
+    public void FillDataList<U>(ref U dataList) where U : IDataList<T>
+    {
+        if (Random.Range(0f, 1f) < dataListSource.chanceOfNone) return;
+
+        if (dataListSource.getOnlyOneElenemt)
         {
-            GetRandomItems(ref loot);
+            GetRandomItems(ref dataList);
         }
         else
         {
-            GetAllItems(ref loot);
+            GetAllItems(ref dataList);
         }
     }
 
-    [ContextMenu("Check Generation")]
-    protected abstract void Generate();
-
-    [ContextMenu("CheckChildren")]
     public void CheckErrors()
     {
         var set = new HashSet<DataListGenerator<T>>();
-
         CheckTableInSet(ref set);
     }
 
-    void CheckTableInSet(ref HashSet<DataListGenerator<T>> set)
+    private void CheckTableInSet(ref HashSet<DataListGenerator<T>> set)
     {
         if (set.Contains(this))
         {
@@ -46,43 +39,42 @@ public abstract class DataListGenerator<T> : ScriptableObject
         else
         {
             set.Add(this);
-            foreach (var lootTable in childTables)
+            foreach (var lootTable in dataListSource.childTables)
             {
-                lootTable.CheckTableInSet(ref set);
+                lootTable.dataListGenerator.CheckTableInSet(ref set);
             }
             set.Remove(this);
         }
     }
 
-    private void GetRandomItems<U>(ref U loot) where U : IDataList<T>
+    private void GetRandomItems<U>(ref U dataList) where U : IDataList<T>
     {
-        int variantsCount = childTables.Length + dataItems.Length;
+        int variantsCount = dataListSource.childTables.Length + dataListSource.dataItems.Length;
         if (variantsCount == 0) return;
 
-        int index = Random.Range(0, childTables.Length + dataItems.Length);
+        int index = Random.Range(0, dataListSource.childTables.Length + dataListSource.dataItems.Length);
 
-        if (childTables.Length > 0 && index < childTables.Length)
+        if (dataListSource.childTables.Length > 0 && index < dataListSource.childTables.Length)
         {
-            childTables[index].FillDataList(ref loot);
+            dataListSource.childTables[index].dataListGenerator.FillDataList(ref dataList);
         }
         else
         {
-            var itemSlot = dataItems[index];
-            loot.AddItems(itemSlot.item, itemSlot.count);
+            var itemSlot = dataListSource.dataItems[index];
+            dataList.AddItems(itemSlot.item, itemSlot.count);
         }
-
     }
 
-    private void GetAllItems<U>(ref U loot) where U : IDataList<T>
+    private void GetAllItems<U>(ref U dataList) where U : IDataList<T>
     {
-        foreach (var lootTable in childTables)
+        foreach (var lootTable in dataListSource.childTables)
         {
-            lootTable.FillDataList(ref loot);
+            lootTable.dataListGenerator.FillDataList(ref dataList);
         }
 
-        foreach (var itemSlot in dataItems)
+        foreach (var itemSlot in dataListSource.dataItems)
         {
-            loot.AddItems(itemSlot.item, itemSlot.count);
+            dataList.AddItems(itemSlot.item, itemSlot.count);
         }
     }
 }
