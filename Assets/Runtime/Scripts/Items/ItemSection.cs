@@ -7,7 +7,7 @@ using System.Linq;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData, IItemSection where T : Item
+    public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData, IDataList<Item>, IItemSection where T : Item
     {
 
         List<ItemSlotData> _itemsList;
