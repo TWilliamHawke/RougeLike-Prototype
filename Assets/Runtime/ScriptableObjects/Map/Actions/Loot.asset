@@ -9,9 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7241308c51cb5849872e0ca5d2e81ea, type: 3}
+  m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: Loot
   m_EditorClassIdentifier: 
-  _displayName: Loot Bones
+  _displayName: Loot
   _icon: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
-  _lootTable: {fileID: 11400000, guid: ccca15f3f4dd3954eb733aa5d2177c5c, type: 2}
+  _actionLogicCreator:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: Map.Objects.MapObjectAction, Project
+        m_MethodName: CreateLootLogic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ccca15f3f4dd3954eb733aa5d2177c5c, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Items.LootTable, Project
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _dependencyInjectors:
+  - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}

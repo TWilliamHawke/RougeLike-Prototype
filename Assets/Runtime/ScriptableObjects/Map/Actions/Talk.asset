@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca0d9300df36e8409d18204d4cdf694, type: 3}
+  m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: Talk
   m_EditorClassIdentifier: 
   _displayName: Talk
   _icon: {fileID: 21300000, guid: abb8372e40fcede4589e948ed8d5e992, type: 3}
+  _actionLogicCreator:
+    m_PersistentCalls:
+      m_Calls: []
+  _dependencyInjectors: []

@@ -5,35 +5,30 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    [CreateAssetMenu(menuName = "Map/Actions/Talk", fileName = "Talk")]
-    public class Talk : MapObjectAction
+    class Talk : IMapActionLogic
     {
-        public override IMapActionLogic actionLogic => new TalkLogic(this);
+        IIconData _action;
 
-        class TalkLogic : IMapActionLogic
+        public event UnityAction<IMapActionLogic> OnCompletion;
+
+        public bool isEnable { get; set; } = true;
+        public IIconData template => _action;
+
+        public bool waitForAllDependencies => false;
+
+        public Talk(IIconData action)
         {
-            Talk _action;
+            _action = action;
+        }
 
-            public event UnityAction<IMapActionLogic> OnCompletion;
+        public void DoAction()
+        {
+            OnCompletion?.Invoke(this);
+        }
 
-            public bool isEnable { get; set; } = true;
-            public IActionData template => _action;
+        public void FinalizeInjection()
+        {
 
-            public TalkLogic(Talk action)
-            {
-                _action = action;
-            }
-
-            public void DoAction()
-            {
-                OnCompletion?.Invoke(this);
-                throw new System.NotImplementedException();
-            }
-
-            public void AddActionDependencies(IActionDependenciesProvider provider)
-            {
-                throw new System.NotImplementedException();
-            }
         }
     }
 }

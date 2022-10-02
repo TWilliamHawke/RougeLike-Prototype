@@ -19,7 +19,9 @@ public class Injector : ScriptableObject
     {
         if (_clearOnLoad)
         {
-            _dependencyWithState = null;
+            _targetsWaitingForInjection.Clear();
+            _targetsWaitingForFinalization.Clear();
+            _dependency = _dependencyWithState = null;
         }
     }
 
@@ -37,13 +39,21 @@ public class Injector : ScriptableObject
 
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
     {
+        var fields = FindAllFieldsWithAttribute(injectionTarget);
+        
+        if(fields.Count <= 0)
+        {
+            Debug.LogError("Wrong target for injection");
+            return;
+        }
+
         if (_dependency is null)
         {
             _targetsWaitingForInjection.Add(injectionTarget);
         }
         else
         {
-            Inject(injectionTarget);
+            Inject(injectionTarget, fields);
         }
     }
 
@@ -68,11 +78,14 @@ public class Injector : ScriptableObject
         _targetsWaitingForInjection.Clear();
     }
 
-
     private void Inject(IInjectionTarget injectionTarget)
     {
         var fields = FindAllFieldsWithAttribute(injectionTarget);
+        Inject(injectionTarget, fields);
+    }
 
+    private void Inject(IInjectionTarget injectionTarget, IEnumerable<FieldInfo> fields)
+    {
         foreach (var field in fields)
         {
             if (!field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
