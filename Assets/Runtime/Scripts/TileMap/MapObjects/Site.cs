@@ -20,7 +20,8 @@ namespace Map.Objects
 
         [SerializeField] BoxCollider2D _collider;
         [SerializeField] Injector _enemySpawnerInjector;
-        [SerializeField] LootBodies _lootBodiesAction;
+        [SerializeField] Injector _lootPanelInjector;
+        [SerializeField] MapObjectAction _lootBodiesAction;
 
         [InjectField] EntitiesSpawner _spawner;
 
@@ -49,13 +50,14 @@ namespace Map.Objects
 
         private void FillActionsList()
         {
-            var lootBodiesLogic = _lootBodiesAction.actionLogic;
+            var lootBodiesLogic = new LootBodies(_lootBodiesAction);
+            _lootPanelInjector.AddInjectionTarget(lootBodiesLogic);
             lootBodiesLogic.CreateLoot(_enemiesFromSite);
             _actionsController.AddLogic(lootBodiesLogic);
 
             foreach(var action in _template.possibleActions)
             {
-                _actionsController.AddLogic(action.actionLogic);
+                _actionsController.AddLogic(action.CreateActionLogic());
             }
         }
 

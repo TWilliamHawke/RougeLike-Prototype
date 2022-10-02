@@ -5,36 +5,29 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    [CreateAssetMenu(menuName = "Map/Actions/Attack", fileName = "Attack")]
-    public class Attack : MapObjectAction
+    class Attack : IMapActionLogic
     {
-        public override IMapActionLogic actionLogic => new AttackLogic(this);
+        IIconData _action;
+        public event UnityAction<IMapActionLogic> OnCompletion;
+        public bool isEnable { get; set; } = true;
 
-        class AttackLogic : IMapActionLogic
+        public IIconData template => _action;
+
+        public bool waitForAllDependencies => false;
+
+        public Attack(IIconData action)
         {
-            Attack _action;
-            public event UnityAction<IMapActionLogic> OnCompletion;
-            public bool isEnable { get; set; } = true;
+            _action = action;
+        }
 
-            public IActionData template => _action;
+        public void DoAction()
+        {
+            OnCompletion?.Invoke(this);
+        }
 
-            public AttackLogic(Attack action)
-            {
-                _action = action;
-            }
+        public void FinalizeInjection()
+        {
 
-            public void DoAction()
-            {
-                OnCompletion?.Invoke(this);
-                throw new System.NotImplementedException();
-            }
-
-
-
-            public void AddActionDependencies(IActionDependenciesProvider provider)
-            {
-                throw new System.NotImplementedException();
-            }
         }
     }
 }

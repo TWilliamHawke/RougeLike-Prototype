@@ -3,12 +3,11 @@ using UnityEngine.Events;
 
 namespace Map
 {
-    public interface IMapActionLogic
+    public interface IMapActionLogic: IInjectionTarget
     {
         bool isEnable { get; set; }
-        void AddActionDependencies(IActionDependenciesProvider provider);
         void DoAction();
-        IActionData template { get; }
+        IIconData template { get; }
         event UnityAction<IMapActionLogic> OnCompletion;
     }
 

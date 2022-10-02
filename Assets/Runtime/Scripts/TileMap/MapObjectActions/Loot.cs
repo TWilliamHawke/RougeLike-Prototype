@@ -7,51 +7,47 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    [CreateAssetMenu(menuName = "Map/Actions/Loot", fileName = "Loot")]
-    public class Loot : MapObjectAction
+    class Loot : IMapActionLogic
     {
-        [SerializeField] LootTable _lootTable;
+        IIconData _action;
+        [InjectField] LootPanel _lootPanel;
+        LootTable _lootTable;
 
-        public override IMapActionLogic actionLogic => new LootLogic(this);
+        public bool isEnable { get; set; } = true;
 
-        class LootLogic : IMapActionLogic
+        public event UnityAction<IMapActionLogic> OnCompletion;
+
+        public IIconData template => _action;
+        public bool waitForAllDependencies => false;
+
+        public Loot(IIconData action, LootTable lootTable)
         {
-            Loot _action;
-            public bool isEnable { get; set; } = true;
-            LootPanel _lootPanel;
+            _action = action;
+            _lootTable = lootTable;
+        }
 
-            public event UnityAction<IMapActionLogic> OnCompletion;
+        public void DoAction()
+        {
+            _lootPanel.Open(_lootTable.GetLoot());
+            _lootPanel.OnTakeAll += InvokeEvent;
+            _lootPanel.OnClose += ClearEvents;
+        }
 
-            public IActionData template => _action;
+        void InvokeEvent()
+        {
+            OnCompletion?.Invoke(this);
+            ClearEvents();
+        }
 
-            public LootLogic(Loot action)
-            {
-                _action = action;
-            }
+        void ClearEvents()
+        {
+            _lootPanel.OnTakeAll -= InvokeEvent;
+            _lootPanel.OnClose -= ClearEvents;
+        }
 
-            public void DoAction()
-            {
-                _lootPanel.Open(_action._lootTable.GetLoot());
-                _lootPanel.OnTakeAll += InvokeEvent;
-                _lootPanel.OnClose += ClearEvents;
-            }
-
-            public void AddActionDependencies(IActionDependenciesProvider provider)
-            {
-                _lootPanel = provider.lootPanel;
-            }
-
-            void InvokeEvent()
-            {
-                OnCompletion?.Invoke(this);
-                ClearEvents();
-            }
-
-            void ClearEvents()
-            {
-                _lootPanel.OnTakeAll -= InvokeEvent;
-                _lootPanel.OnClose -= ClearEvents;
-            }
+        public void FinalizeInjection()
+        {
+            
         }
     }
 }

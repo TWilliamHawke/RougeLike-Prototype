@@ -8,8 +8,7 @@ using Items.UI;
 
 namespace Map.Objects.UI
 {
-    public class ActionsScreen : MonoBehaviour, IUIScreen, IInjectionTarget, IDependency,
-		IActionDependenciesProvider
+    public class ActionsScreen : MonoBehaviour, IUIScreen, IDependency
     {
 		[SerializeField] Injector _actionsScreenInjector;
 		[SerializeField] Injector _lootScreenInjector;
@@ -20,20 +19,15 @@ namespace Map.Objects.UI
 		[SerializeField] Button _closeButton;
 		[SerializeField] ActionButtonsPanel _actionButtonsPanel;
 
-		[InjectField] LootPanel _lootPanel;
-
         public event UnityAction OnReadyForUse;
 
-        public bool waitForAllDependencies => true;
-
-        public bool isReadyForUse => _lootPanel != null;
-        public LootPanel lootPanel => _lootPanel;
+        public bool isReadyForUse => true;
 
         public void Init()
         {
             _closeButton.onClick.AddListener(Close);
+			OnReadyForUse?.Invoke();
 			_actionsScreenInjector.AddDependency(this);
-			_lootScreenInjector.AddInjectionTarget(this);
         }
 
 		public void Open()
@@ -54,10 +48,6 @@ namespace Map.Objects.UI
 
 		public void SetActions(IMapActionsController actionLogics)
 		{
-			foreach(var action in actionLogics)
-			{
-				action.AddActionDependencies(this);
-			}
 			_actionButtonsPanel.SetActions(actionLogics);
 		}
 
@@ -65,11 +55,6 @@ namespace Map.Objects.UI
 		{
 			gameObject.SetActive(false);
 		}
-
-        public void FinalizeInjection()
-        {
-            OnReadyForUse?.Invoke();
-        }
     }
 }
 
