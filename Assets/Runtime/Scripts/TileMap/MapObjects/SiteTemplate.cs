@@ -12,9 +12,7 @@ namespace Map.Objects
 	    [SerializeField] int _width = 5;
 		[SerializeField] int _height = 5;
 		[Header("Population")]
-		[SerializeField] EnemyTemplate _enemies;
-		[SerializeField] int _minEnimiesCount = 2;
-		[SerializeField] int _maxEnimiesCount = 3;
+		[SerializeField] CreaturesTable _enemies;
 
 		[Header("Tiles")]
 		[SerializeField] int _tilesWidth = 3;
@@ -24,9 +22,7 @@ namespace Map.Objects
 
         public int width => _width; 
         public int height => _height; 
-        public EnemyTemplate enemies => _enemies; 
-        public int minEnimiesCount => _minEnimiesCount; 
-        public int maxEnimiesCount => _maxEnimiesCount; 
+        public CreaturesTable enemies => _enemies; 
         public int tilesWidth => _tilesWidth; 
         public int tilesHeight => _tilesHeight; 
         public TileBase siteTile => _siteTile; 

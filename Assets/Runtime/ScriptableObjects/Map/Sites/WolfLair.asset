@@ -19,9 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e764b70b79a3f394692d5efb567510d7, type: 2}
   _width: 5
   _height: 5
-  _enemies: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-  _minEnimiesCount: 2
-  _maxEnimiesCount: 3
+  _enemies: {fileID: 11400000, guid: c3b38d8dc1961a84ab39946fcfb08516, type: 2}
   _tilesWidth: 3
   _tilesHeight: 3
   _siteTile: {fileID: 11400000, guid: e5a8620a740db7742b1f75f38f3b1006, type: 2}
