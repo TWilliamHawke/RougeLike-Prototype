@@ -10,7 +10,7 @@ namespace Map.Objects
     public class Site : MapObject, IInjectionTarget
     {
         MapObjectTask _task = new MapObjectTask("Kill All wolves", true);
-        HashSet<Enemy> _enemiesFromSite;
+        List<Enemy> _enemiesFromSite;
         TileStorage _tileStorage;
         SiteTemplate _template;
         Rng _rng;
@@ -70,19 +70,20 @@ namespace Map.Objects
 
             if (_tileStorage.isEmpty) return;
 
-            int enemiesCount = _rng.Next(_template.minEnimiesCount, _template.maxEnimiesCount);
-            _enemiesFromSite = new HashSet<Enemy>();
-            _task.taskText = ConstructKillString(enemiesCount);
+            _enemiesFromSite = new List<Enemy>();
+            var enemies = _template.enemies.GetCreatures(_rng);
 
-            for (int i = 0; i < enemiesCount; i++)
+            foreach (var enemyTemplate in enemies)
             {
                 if (_tileStorage.Pull(_rng, out var position))
                 {
-                    var enemy = _spawner.SpawnEnemyAsChild(_template.enemies, position, this);
+                    var enemy = _spawner.SpawnEnemyAsChild(enemyTemplate, position, this);
                     _enemiesFromSite.Add(enemy);
                     enemy.OnDeath += RemoveDeathEnemy;
                 }
             }
+
+            _task.taskText = ConstructKillString(_enemiesFromSite.Count);
         }
 
         private string ConstructKillString(int enemiesCount)
