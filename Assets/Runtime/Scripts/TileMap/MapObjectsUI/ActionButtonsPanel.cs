@@ -8,7 +8,7 @@ namespace Map.Objects.UI
 	{
 		[SerializeField] ActionButton[] _actionButtons;
 
-	    public void SetActions(IMapActionsController actionLogics)
+	    public void SetActions(IMapActionList actionLogics)
 		{
 			for (int i = 0; i < _actionButtons.Length; i++)
 			{

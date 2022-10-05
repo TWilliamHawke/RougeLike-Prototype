@@ -14,6 +14,11 @@ namespace Map.Objects
         public IMapActionLogic this[int idx] => _actionsLogic[idx];
         public int count => _actionsLogic.Count;
 
+        public void AddLogic(IActionLogicCreator actionLogicCreator)
+        {
+            AddLogic(actionLogicCreator.CreateActionLogic());
+        }
+
         public void AddLogic(IMapActionLogic actionLogic)
 		{
 			_actionsLogic.Add(actionLogic);
@@ -25,16 +30,6 @@ namespace Map.Objects
 			actionLogic.isEnable = false;
 			OnActionStateChange?.Invoke();
 		}
-
-        public IEnumerator<IMapActionLogic> GetEnumerator()
-        {
-            return _actionsLogic.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _actionsLogic.GetEnumerator();
-        }
     }
 }
 

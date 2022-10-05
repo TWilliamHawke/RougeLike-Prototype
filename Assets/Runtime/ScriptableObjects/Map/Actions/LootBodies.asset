@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Loot Bodies
   _icon: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
-  _actionLogicCreator:
-    m_PersistentCalls:
-      m_Calls: []
   _dependencyInjectors: []
+  _actionLogicCreator:
+    _target: {fileID: 11400000}
+    _methodName: CreateLootLogic
+    _args:
+    - boolValue: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      objectValue: {fileID: 11400000, guid: d62a5ed306e2da94daf247473cf3a771, type: 2}
+      argType: 5
+      _typeName: Items.LootTable, Project, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _dynamic: 0
+    _typeName: Map.Objects.MapObjectAction+ActionCreator, Project, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    dirty: 0

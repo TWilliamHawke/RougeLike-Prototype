@@ -7,41 +7,46 @@ using UnityEngine.Events;
 namespace Map.Objects
 {
     [CreateAssetMenu(menuName = "Map/Action", fileName = "MapObjectAction")]
-    public class MapObjectAction : ScriptableObject, IIconData
+    public class MapObjectAction : ScriptableObject, IIconData, IActionLogicCreator
     {
         [UseFileName]
         [SerializeField] string _displayName;
         [SpritePreview]
         [SerializeField] Sprite _icon;
 
-        [SerializeField] UnityEvent _actionLogicCreator;
         [SerializeField] List<Injector> _dependencyInjectors;
+        [Space()]
+        [SerializeField] ActionCreator _actionLogicCreator;
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
 
-        IMapActionLogic _mapActionLogic;
-
-        public IMapActionLogic CreateActionLogic()
+        IMapActionLogic IActionLogicCreator.CreateActionLogic()
         {
-            _actionLogicCreator?.Invoke();
-            if(_mapActionLogic is null)
+            var actionLogic = _actionLogicCreator?.Invoke();
+            if(actionLogic is null)
             {
-                _mapActionLogic = new EmptyActionLogic(this);
+                actionLogic = new EmptyActionLogic(this);
                 Debug.LogError("Action logic cannot be created");
             }
 
             foreach(var injector in _dependencyInjectors)
             {
-                injector.AddInjectionTarget(_mapActionLogic);
+                injector.AddInjectionTarget(actionLogic);
             }
 
-            return _mapActionLogic;
+            return actionLogic;
         }
 
-        public void CreateLootLogic(LootTable lootTable)
+        //requires LootPanel injector
+        public IMapActionLogic CreateLootLogic(LootTable lootTable)
         {
-            _mapActionLogic = new Loot(this, lootTable);
+            return new Loot(this, lootTable);
+        }
+
+        [System.Serializable]
+        public class ActionCreator: SerializableCallback<IMapActionLogic>
+        {
         }
     }
 }
