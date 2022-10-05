@@ -5,11 +5,21 @@ using UnityEngine.Events;
 
 namespace Map
 {
-	public interface IMapActionsController: IEnumerable<IMapActionLogic>
+	public interface IMapActionsController: IMapActionList, IActionLogicConsumer
+	{
+		event UnityAction OnActionStateChange;
+	}
+
+	public interface IMapActionList
 	{
 	    IMapActionLogic this[int idx] { get; }
 		int count { get; }
-		event UnityAction OnActionStateChange;
+	}
+
+	public interface IActionLogicConsumer
+	{
+		void AddLogic(IActionLogicCreator actionLogicCreator);
+		void AddLogic(IMapActionLogic actionLogic);
 	}
 }
 

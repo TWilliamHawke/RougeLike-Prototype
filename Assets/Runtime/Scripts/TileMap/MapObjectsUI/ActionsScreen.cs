@@ -46,7 +46,7 @@ namespace Map.Objects.UI
 			_objectIcon2.sprite = icon;
 		}
 
-		public void SetActions(IMapActionsController actionLogics)
+		public void SetActions(IMapActionList actionLogics)
 		{
 			_actionButtonsPanel.SetActions(actionLogics);
 		}

@@ -30,7 +30,7 @@ namespace Map.Objects
         public override MapObjectTask task => _task;
 
         public override IMapActionsController actionsController => _actionsController;
-        DefaultMapActionsController _actionsController = new DefaultMapActionsController();
+        IMapActionsController _actionsController = new DefaultMapActionsController();
 
         public void FinalizeInjection()
         {
@@ -57,7 +57,7 @@ namespace Map.Objects
 
             foreach(var action in _template.possibleActions)
             {
-                _actionsController.AddLogic(action.CreateActionLogic());
+                _actionsController.AddLogic(action);
             }
         }
 

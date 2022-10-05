@@ -2,7 +2,8 @@
     "name": "EditorScripts",
     "rootNamespace": "",
     "references": [
-        "GUID:ec80adbefa696ed4699850fd92fae39a"
+        "GUID:ec80adbefa696ed4699850fd92fae39a",
+        "GUID:a49fd1d25e23fd14e85d1cbf342bb06f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
