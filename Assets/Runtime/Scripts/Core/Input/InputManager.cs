@@ -13,6 +13,7 @@ namespace Core.Input
         InputController _inputController;
         ClickStateMachine _clickStateMachine;
         [SerializeField] Injector _inputControllerInjector;
+        [SerializeField] Injector _infoButtonInjector;
         [SerializeField] GameObjects _gameObjects;
 
         void Update()
@@ -31,6 +32,7 @@ namespace Core.Input
             _clickStateMachine = new ClickStateMachine(_gameObjects);
             _inputControllerInjector.AddDependency(_inputController);
             _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
+            _infoButtonInjector.AddInjectionTarget(_clickStateMachine);
         }
 
         void UpdateHoveredTilePosition()

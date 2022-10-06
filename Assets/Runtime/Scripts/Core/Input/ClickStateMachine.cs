@@ -8,12 +8,16 @@ using UnityEngine.InputSystem;
 
 namespace Core.Input
 {
-    public class ClickStateMachine : IInjectionTarget, IClickStateSource
+    public class ClickStateMachine : IInjectionTarget, IClickStateSource, IInfoModeState
     {
         [InjectField] InputController _inputController;
+        [InjectField] InfoButton _infoButton;
 
         TilemapController _tilemapController;
         Player _player;
+
+        bool _infoMode = false;
+        public bool infoMode => _infoMode;
 
         public ClickStateMachine(GameObjects gameObjects)
         {
@@ -29,12 +33,25 @@ namespace Core.Input
 
         bool IInjectionTarget.waitForAllDependencies => true;
 
-        void StartUp()
+        void OnDestroy()
+        {
+            if (_inputController is null) return;
+            _inputController.main.Click.started -= CheckTileObjects;
+        }
+
+        void IInjectionTarget.FinalizeInjection()
         {
             _inputController.main.Click.started += CheckTileObjects;
+            _infoButton.OnClick += ToggleInfoMode;
 
+            FillStateMachine();
+        }
+
+        private void FillStateMachine()
+        {
             //check ui click before tiles
             _clickStates.Add(new ClickUI());
+            _clickStates.Add(new ClickObjectInfo(this, _inputController));
             //check unwalkable before gameobjects
             _clickStates.Add(new ClickUnwalkableTile(this));
 
@@ -48,15 +65,10 @@ namespace Core.Input
             _clickStates.Add(new ClickWalkableTile(this));
         }
 
-        void OnDestroy()
+        private void ToggleInfoMode()
         {
-            if (_inputController is null) return;
-            _inputController.main.Click.started -= CheckTileObjects;
-        }
-
-        void IInjectionTarget.FinalizeInjection()
-        {
-            StartUp();
+            _infoMode = !_infoMode;
+            _infoButton.ToggleButton(infoMode);
         }
 
         void CheckTileObjects(InputAction.CallbackContext _)
@@ -77,5 +89,10 @@ namespace Core.Input
         InputController inputController { get; }
         TilemapController tilemapController { get; }
         Player player { get; }
+    }
+
+    public interface IInfoModeState
+    {
+        bool infoMode { get; }
     }
 }
