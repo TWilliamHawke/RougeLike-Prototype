@@ -26,4 +26,4 @@ MonoBehaviour:
     manaCost: 20
   - spellEffect: {fileID: 11400000, guid: a260df89082e9ea44a96f996d3e45c4c, type: 2}
     manaCost: 25
-  _description: Magip projectile that causes %m fire damage
+  _description: Magic projectile that causes %m fire damage

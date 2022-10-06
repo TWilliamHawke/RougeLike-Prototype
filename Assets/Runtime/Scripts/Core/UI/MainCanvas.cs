@@ -14,6 +14,8 @@ namespace Core
 		[SerializeField] ActiveEffectsPanel _activeEffectsPanel;
 		[SerializeField] ExperienceBar _experienceBar;
 		[SerializeField] ExperienceStorage _experienceStorage;
+		[SerializeField] InfoButton _infoButton;
+		[SerializeField] Injector _infoButtonInjector;
 
 		ExperienceBarController _expBarController;
 
@@ -24,6 +26,7 @@ namespace Core
 			_statPanel.Init();
 			_activeEffectsPanel.Init();
 			_expBarController = new ExperienceBarController(_experienceBar, _experienceStorage);
+			_infoButtonInjector.AddDependency(_infoButton);
 		}
 	}
 }
