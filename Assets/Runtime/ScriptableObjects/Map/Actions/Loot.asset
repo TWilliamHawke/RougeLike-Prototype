@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Loot
   _icon: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
-  _dependencyInjectors:
-  - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+  _dependencyInjectors: {fileID: 11400000, guid: ae8a0ac54c62313409fc5978b50d0716, type: 2}
   _actionLogicCreator:
     _target: {fileID: 11400000}
     _methodName: CreateLootLogic

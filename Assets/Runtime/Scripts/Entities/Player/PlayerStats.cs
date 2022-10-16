@@ -11,7 +11,6 @@ namespace Entities.PlayerScripts
     public class PlayerStats : ScriptableObject, IManaComponent
     {
         [SerializeField] AudioClip[] _weaponSounds;
-        [SerializeField] GameObjects _gameObjects;
 
         //public event UnityAction OnHealthChange;
         public event UnityAction OnManaChange;

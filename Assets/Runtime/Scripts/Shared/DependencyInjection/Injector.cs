@@ -6,7 +6,6 @@ using System.Reflection;
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
 {
-    [SerializeField] bool _clearOnLoad = true;
     IDependency _dependencyWithState;
     System.Object _dependency;
 
@@ -15,14 +14,32 @@ public class Injector : ScriptableObject
     HashSet<IInjectionTarget> _targetsWaitingForInjection = new HashSet<IInjectionTarget>();
     HashSet<IInjectionTarget> _targetsWaitingForFinalization = new HashSet<IInjectionTarget>();
 
-    public void TryDestroyDependency()
+    public void ClearDependency()
     {
-        if (_clearOnLoad)
+        _targetsWaitingForInjection.Clear();
+        _targetsWaitingForFinalization.Clear();
+
+        if (_dependency is IPermanentDependency)
         {
-            _targetsWaitingForInjection.Clear();
-            _targetsWaitingForFinalization.Clear();
+            (_dependency as IPermanentDependency).ClearState();
+        }
+        else
+        {
+            if (_dependencyWithState is not null)
+            {
+                _dependencyWithState.OnReadyForUse -= FinalizeAllTargets;
+            }
             _dependency = _dependencyWithState = null;
         }
+    }
+
+    public void AddDependency<T>(ref T dependency) where T : class, IPermanentDependency
+    {
+        if (_dependency is null)
+        {
+            AddDependency(dependency);
+        }
+        dependency = _dependency as T ?? dependency;
     }
 
     public void AddDependency(System.Object dependency)
@@ -40,8 +57,8 @@ public class Injector : ScriptableObject
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
     {
         var fields = FindAllFieldsWithAttribute(injectionTarget);
-        
-        if(fields.Count <= 0)
+
+        if (fields.Count <= 0)
         {
             Debug.LogError("Wrong target for injection");
             return;
@@ -59,13 +76,13 @@ public class Injector : ScriptableObject
 
     private void AddDependencyWithState(IDependency dependency)
     {
-        _dependencyWithState = dependency;
         //should set _dependencyWithState before inject
+        _dependencyWithState = dependency;
         InjectForAll();
 
         if (!dependency.isReadyForUse)
         {
-            dependency.OnReadyForUse += FinalizeAllTargets;
+            _dependencyWithState.OnReadyForUse += FinalizeAllTargets;
         }
     }
 
@@ -158,4 +175,3 @@ public class Injector : ScriptableObject
         return fieldsWithAttribute;
     }
 }
-

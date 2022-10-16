@@ -15,9 +15,9 @@ namespace Entities
         [SerializeField] Enemy _testEnemy;
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _selfInjector;
-        [SerializeField] ExperienceStorage _experienceStorage;
 
         [InjectField] InputController _inputController;
+		[SerializeField] Injector _experienceStorageInjector;
 
         ExpForKillsController _enemyKillsObserver;
 
@@ -35,7 +35,8 @@ namespace Entities
 
         public void StartUp()
         {
-            _enemyKillsObserver = new ExpForKillsController(_experienceStorage);
+            _enemyKillsObserver = new ExpForKillsController();
+            _experienceStorageInjector.AddInjectionTarget(_enemyKillsObserver);
             _player.Init();
             _testEnemy.Init();
             AddEntityToObserve(_testEnemy);

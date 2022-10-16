@@ -14,7 +14,7 @@ namespace Map.Objects
         [SpritePreview]
         [SerializeField] Sprite _icon;
 
-        [SerializeField] List<Injector> _dependencyInjectors;
+        [SerializeField] ActionDependencyInjectors _dependencyInjectors;
         [Space()]
         [SerializeField] ActionCreator _actionLogicCreator;
 
@@ -30,18 +30,15 @@ namespace Map.Objects
                 Debug.LogError("Action logic cannot be created");
             }
 
-            foreach(var injector in _dependencyInjectors)
-            {
-                injector.AddInjectionTarget(actionLogic);
-            }
-
             return actionLogic;
         }
 
         //requires LootPanel injector
         public IMapActionLogic CreateLootLogic(LootTable lootTable)
         {
-            return new Loot(this, lootTable);
+            var lootLogic = new Loot(this, lootTable);
+            _dependencyInjectors.lootScreen.AddInjectionTarget(lootLogic);
+            return lootLogic;
         }
 
         [System.Serializable]

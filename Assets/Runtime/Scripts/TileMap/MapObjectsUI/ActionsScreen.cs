@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Events;
-using Items.UI;
 
 namespace Map.Objects.UI
 {
-    public class ActionsScreen : MonoBehaviour, IUIScreen, IDependency
+    public class ActionsScreen : MonoBehaviour, IUIScreen
     {
 		[SerializeField] Injector _actionsScreenInjector;
 		[SerializeField] Injector _lootScreenInjector;
@@ -19,14 +17,9 @@ namespace Map.Objects.UI
 		[SerializeField] Button _closeButton;
 		[SerializeField] ActionButtonsPanel _actionButtonsPanel;
 
-        public event UnityAction OnReadyForUse;
-
-        public bool isReadyForUse => true;
-
         public void Init()
         {
             _closeButton.onClick.AddListener(Close);
-			OnReadyForUse?.Invoke();
 			_actionsScreenInjector.AddDependency(this);
         }
 

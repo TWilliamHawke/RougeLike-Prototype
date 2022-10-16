@@ -962,6 +962,51 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4884713195302840770, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}
   m_PrefabInstance: {fileID: 1714938107}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &106419237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 106419238}
+  - component: {fileID: 106419239}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &106419238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106419237}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389726488}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &106419239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106419237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b649eab88789041a85cd9d0a7c3e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataStorageInjector: {fileID: 11400000, guid: 87c484463d9f68d4fb197116bd805781, type: 2}
 --- !u!224 &117569522 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8001032242689432034, guid: 0e3d4c6aaaf256b418ed882a608abd54, type: 3}
@@ -4611,6 +4656,7 @@ Transform:
   - {fileID: 416730918}
   - {fileID: 1329410026}
   - {fileID: 1747095740}
+  - {fileID: 106419238}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58850,9 +58896,9 @@ MonoBehaviour:
   _statPanel: {fileID: 1627645177}
   _activeEffectsPanel: {fileID: 1819180731}
   _experienceBar: {fileID: 1075676615}
-  _experienceStorage: {fileID: 11400000, guid: 6f338f76eb3232e4e9df4fb451b6156f, type: 2}
   _infoButton: {fileID: 829673892}
   _infoButtonInjector: {fileID: 11400000, guid: b2956307e2ceb504e95b6d218805d5a0, type: 2}
+  _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
 --- !u!114 &884898004 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6942892278566082666, guid: 3c7436a8440157048a01c3bc275cbd91, type: 3}
@@ -63773,7 +63819,7 @@ MonoBehaviour:
   _testEnemy: {fileID: 1326299776}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _selfInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
-  _experienceStorage: {fileID: 11400000, guid: 6f338f76eb3232e4e9df4fb451b6156f, type: 2}
+  _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
 --- !u!114 &1329410028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67416,6 +67462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _saveDataInjector: {fileID: 11400000, guid: 87c484463d9f68d4fb197116bd805781, type: 2}
+  _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
 --- !u!1 &1758819857
 GameObject:
   m_ObjectHideFlags: 0
