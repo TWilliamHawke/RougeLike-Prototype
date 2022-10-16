@@ -12,7 +12,7 @@ namespace Core
             {
                 var path = AssetDatabase.GUIDToAssetPath(assetName);
                 var injector = AssetDatabase.LoadAssetAtPath<Injector>(path);
-                injector?.TryDestroyDependency();
+                injector?.ClearDependency();
             }
         }
     }

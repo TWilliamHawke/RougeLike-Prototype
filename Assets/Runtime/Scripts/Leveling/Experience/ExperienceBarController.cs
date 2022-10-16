@@ -5,27 +5,33 @@ using Core.UI;
 
 namespace Leveling
 {
-	public class ExperienceBarController
+	public class ExperienceBarController: IInjectionTarget
 	{
 	    ExperienceBar _experienceBar;
-		ExperienceStorage _experienceStorage;
+		[InjectField] ExperienceStorage _experienceStorage;
 
-        public ExperienceBarController(ExperienceBar experienceBar, ExperienceStorage experienceStorage)
+        public ExperienceBarController(ExperienceBar experienceBar)
         {
             _experienceBar = experienceBar;
-            _experienceStorage = experienceStorage;
+        }
+
+        public bool waitForAllDependencies => false;
+
+        public void FinalizeInjection()
+        {
 			_experienceStorage.OnGettingExp += UpdateBar;
 			UpdateBar();
         }
 
-		private void UpdateBar()
+        private void UpdateBar()
 		{
 			float totalExp = _experienceStorage.playerExp;
 			int currentLevel = _experienceStorage.playerLevel;
 			float expToNextLevel = _experienceStorage.GetExpToNextLevel();
-			float expToCurrentLevel = _experienceStorage.GetTotalExpToReachLevel(currentLevel);
+			float totalExpToCurrentLevel = _experienceStorage.GetTotalExpToReachLevel(currentLevel);
 
-			float expToNextLevelPct = (totalExp - expToCurrentLevel) / expToNextLevel;
+			float expToNextLevelPct = (totalExp - totalExpToCurrentLevel) / expToNextLevel;
+
 			expToNextLevelPct = Mathf.Clamp01(expToNextLevelPct);
 			_experienceBar.SetExpPct(expToNextLevelPct);
 		}

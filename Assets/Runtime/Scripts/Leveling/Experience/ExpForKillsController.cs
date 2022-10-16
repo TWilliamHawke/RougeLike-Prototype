@@ -4,21 +4,22 @@ using Entities;
 
 namespace Leveling
 {
-	public class ExpForKillsController
+	public class ExpForKillsController: IInjectionTarget
 	{
-	    ExperienceStorage _storage;
+	    [InjectField] ExperienceStorage _storage;
 
-        public ExpForKillsController(ExperienceStorage storage)
-        {
-            _storage = storage;
-        }
+        public bool waitForAllDependencies => false;
 
         public void AddEnemyToObserve(Enemy enemy)
 		{
 			enemy.OnDeath += AddExpOnKill;
 		}
 
-		void AddExpOnKill(Enemy enemy)
+        public void FinalizeInjection()
+        {
+        }
+
+        void AddExpOnKill(Enemy enemy)
 		{
 			_storage.AddExp(enemy.expForKill);
 		}
