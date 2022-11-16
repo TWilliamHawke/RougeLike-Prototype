@@ -18,6 +18,8 @@ MonoBehaviour:
   _damageType: 2
   _minDamage: 10
   _maxDamage: 20
+  _AOERadius: 1
+  _AOEDamageMult: 1
   _fireSounds:
   - {fileID: 8300000, guid: 51506053f71f4854ea6d8c377b133b18, type: 3}
   _impactSounds:
