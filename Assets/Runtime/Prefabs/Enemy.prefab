@@ -30,6 +30,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5691333115397552404}
   m_RootOrder: 1
@@ -50,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -166,12 +168,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1347058717}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1347058717}
+  m_maskType: 0
 --- !u!82 &1805417028
 AudioSource:
   m_ObjectHideFlags: 0
@@ -315,6 +317,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 81, y: 36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5691333116864966464}
   - {fileID: 1347058715}
@@ -434,6 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _testTemplate: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
   _projectilePrefab: {fileID: 7438640203685943960, guid: 90ded333721082a4c8bc55f1858121b7, type: 3}
+  _aoeEffectPrefab: {fileID: 3569503078734526102, guid: 56d5cdc068a54384683838ee6863aa96, type: 3}
 --- !u!114 &839446209235367924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +478,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5691333115397552404}
   m_RootOrder: 0
@@ -489,6 +494,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _char: _
   _color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
-  _speedMult: 2
+  _speedMult: 1
   _damageType: 1
   _minDamage: 5
   _maxDamage: 10
+  _AOERadius: 0
+  _AOEDamageMult: 1
   _fireSounds:
   - {fileID: 8300000, guid: c652ff312840b0c4d8f1f63c5c14ecad, type: 3}
   - {fileID: 8300000, guid: 6fafd689ce549c446a62d4e96cb47d3b, type: 3}

@@ -30,7 +30,7 @@ namespace Entities.Combat
 
         public void PlaySound(AudioClip sound)
         {
-			_audioSource.Stop();
+            _audioSource.Stop();
             _audioSource.PlayOneShot(sound);
         }
 

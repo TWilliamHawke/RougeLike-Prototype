@@ -14,6 +14,8 @@ namespace Entities.Combat
 		[SerializeField] DamageType _damageType;
 		[SerializeField] int _minDamage;
 		[SerializeField] int _maxDamage;
+		[SerializeField] int _AOERadius = 0;
+		[SerializeField] float _AOEDamageMult = 1f;
 		[Space(10)]
 		[SerializeField] AudioClip[] _fireSounds;
 		[SerializeField] AudioClip[] _impactSounds;
@@ -23,6 +25,9 @@ namespace Entities.Combat
 		public AudioClip[] fireSounds => _fireSounds;
 		public AudioClip[] impactSounds => _impactSounds;
 		public Color color => _color;
+
+        public int radius => _AOERadius;
+        public float aoeDamageMult => _AOEDamageMult;
 
         int IDamageSource.minDamage => _minDamage;
         int IDamageSource.maxDamage => _maxDamage;
