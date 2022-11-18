@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities;
 using UnityEngine;
 
 namespace Map
 {
     public class TileNode
     {
-        protected Vector2Int _position;
-        public bool _isWalkable;
+        public bool isWalkable { get; init; }
 
         public TileNode parent { get; set; }
         public float targetDist { get; set; }
         public float startDist { get; set; }
-
+        public Vector2Int position { get; init; }
+        public IObstacleEntity entityInthisNode { get; set; }
 
 
         //getters
-        public bool isWalkable => _isWalkable;
+        public bool isWalkableOrOccupied => isWalkable && entityInthisNode is null;
         public float totalDist => targetDist + startDist;
-        public int x => _position.x;
-        public int y => _position.y;
-        public Vector2Int position2d => _position;
+        public int x => position.x;
+        public int y => position.y;
 		
-        public TileNode(int x, int y, bool isWalkable)
+        public TileNode(int x, int y, bool isWalkableTile)
         {
-            _position = new Vector2Int(x, y);
-            _isWalkable = isWalkable;
+            position = new Vector2Int(x, y);
+            this.isWalkable = isWalkableTile;
         }
 
 
@@ -42,6 +42,11 @@ namespace Map
             {
                 return deltaX * 14 + (deltaY - deltaX) * 10;
             }
+        }
+
+        public void RemoveEntity()
+        {
+            entityInthisNode = null;
         }
 
         public override string ToString()

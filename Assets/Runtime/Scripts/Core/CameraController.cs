@@ -12,7 +12,7 @@ namespace Core
 
         void LateUpdate()
         {
-			transform.position = transform.position.ChangeXYFrom(_player.transform.position);
+			transform.position = transform.position.ReplaceXYFrom(_player.transform.position);
         }
 
         public void SetPlayer(Player player)
@@ -22,12 +22,12 @@ namespace Core
 
         public void CenterAt(Vector3 pos)
         {
-            transform.position = transform.position.ChangeXYFrom(pos);
+            transform.position = transform.position.ReplaceXYFrom(pos);
         }
 
         public void CenterAt(Vector2 pos)
         {
-            transform.position = transform.position.ChangeXYFrom(pos);
+            transform.position = transform.position.ReplaceXYFrom(pos);
         }
     }
 }

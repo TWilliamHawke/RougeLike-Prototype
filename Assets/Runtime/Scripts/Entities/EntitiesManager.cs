@@ -6,6 +6,7 @@ using Entities.AI;
 using Core.Input;
 using UnityEngine.Events;
 using Leveling;
+using Map;
 
 namespace Entities
 {
@@ -13,11 +14,15 @@ namespace Entities
     {
         [SerializeField] Player _player;
         [SerializeField] Enemy _testEnemy;
+
+        [Header("Injectors")]
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _selfInjector;
+        [SerializeField] Injector _experienceStorageInjector;
+        [SerializeField] Injector _tilesGridInjector;
 
         [InjectField] InputController _inputController;
-		[SerializeField] Injector _experienceStorageInjector;
+        [InjectField] TilesGrid _tilesGrid;
 
         ExpForKillsController _enemyKillsObserver;
 
@@ -28,7 +33,7 @@ namespace Entities
 
         public event UnityAction OnReadyForUse;
 
-        bool IInjectionTarget.waitForAllDependencies => false;
+        bool IInjectionTarget.waitForAllDependencies => true;
 
         public bool isReadyForUse => _isReadyForUse;
         bool _isReadyForUse = false;
@@ -39,17 +44,17 @@ namespace Entities
             _experienceStorageInjector.AddInjectionTarget(_enemyKillsObserver);
             _player.Init();
             _testEnemy.Init();
-            AddEntityToObserve(_testEnemy);
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
             _inputControllerInjector.AddInjectionTarget(this);
             _selfInjector.AddDependency(this);
+            _tilesGridInjector.AddInjectionTarget(this);
         }
 
         public void AddEnemy(Enemy enemy)
         {
             AddEntityToObserve(enemy);
+            _tilesGrid.TryAddEntityToTile(enemy);
             _enemyKillsObserver.AddEnemyToObserve(enemy);
-
         }
 
         void AddEntityToObserve(IEntityWithAI entity)
@@ -91,6 +96,7 @@ namespace Entities
 
         void IInjectionTarget.FinalizeInjection()
         {
+            AddEnemy(_testEnemy);
             _isReadyForUse = true;
             OnReadyForUse?.Invoke();
         }

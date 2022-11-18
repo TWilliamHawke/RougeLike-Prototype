@@ -4665,7 +4665,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7328594240612423248, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
   m_PrefabInstance: {fileID: 7328594240264222996}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794024099}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79e56e6aea8096a449d72e5b0ed345d5, type: 3}
@@ -57139,32 +57139,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793173817}
   m_CullTransparentMesh: 1
---- !u!1 &794024099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7328594240612423254, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-  m_PrefabInstance: {fileID: 7328594240264222996}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &794024100
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794024099}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!224 &799902781 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8001032242689432034, guid: 0e3d4c6aaaf256b418ed882a608abd54, type: 3}
@@ -61264,9 +61238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileMap: {fileID: 499363882}
   _player: {fileID: 390164292}
-  _tilemapController: {fileID: 11400000, guid: 6ab4e86e01638a649b15de42afcd8f18, type: 2}
   _mapObjectsManager: {fileID: 1081761065}
   location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
+  _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
 --- !u!4 &1081761064
 Transform:
   m_ObjectHideFlags: 0
@@ -63820,6 +63794,7 @@ MonoBehaviour:
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _selfInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
   _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
+  _tilesGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
 --- !u!114 &1329410028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68988,6 +68963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _infoButtonInjector: {fileID: 11400000, guid: b2956307e2ceb504e95b6d218805d5a0, type: 2}
+  _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
   _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
 --- !u!114 &1866764017
 MonoBehaviour:
@@ -71386,14 +71362,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 746439967, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _inputControllerInjector
-      value: 
-      objectReference: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
-    - target: {fileID: 746439970, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _inputControllerInjector
-      value: 
-      objectReference: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
     - target: {fileID: 7328594240612423254, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
       propertyPath: m_Name
       value: Player
@@ -71442,14 +71410,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8320816147634027436, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _testTemplate
-      value: 
-      objectReference: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
-    - target: {fileID: 8320816147634027436, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _aoeEffectPrefab
-      value: 
-      objectReference: {fileID: 3569503078734526102, guid: 56d5cdc068a54384683838ee6863aa96, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
 --- !u!1001 &7457828118326294515

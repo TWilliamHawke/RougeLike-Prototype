@@ -8,12 +8,12 @@ using UnityEngine.InputSystem;
 
 namespace Core.Input
 {
-    public class ClickStateMachine : IInjectionTarget, IClickStateSource, IInfoModeState
+    public class ClickStateMachine : IInjectionTarget, IInfoModeState
     {
         [InjectField] InputController _inputController;
         [InjectField] InfoButton _infoButton;
+        [InjectField] TilesGrid _tileGrid;
 
-        TilemapController _tilemapController;
         Player _player;
 
         bool _infoMode = false;
@@ -21,15 +21,11 @@ namespace Core.Input
 
         public ClickStateMachine(GameObjects gameObjects)
         {
-            _tilemapController = gameObjects.tilemapController;
             _player = gameObjects.player;
         }
 
         List<IMouseClickState> _clickStates = new List<IMouseClickState>();
 
-        InputController IClickStateSource.inputController => _inputController;
-        TilemapController IClickStateSource.tilemapController => _tilemapController;
-        Player IClickStateSource.player => _player;
 
         bool IInjectionTarget.waitForAllDependencies => true;
 
@@ -53,16 +49,23 @@ namespace Core.Input
             _clickStates.Add(new ClickUI());
             _clickStates.Add(new ClickObjectInfo(this, _inputController));
             //check unwalkable before gameobjects
-            _clickStates.Add(new ClickUnwalkableTile(this));
+            _clickStates.Add(new ClickUnwalkableTile(
+                inputController: _inputController,
+                tilemapController: _tileGrid));
 
-            _clickStates.Add(new ClickPlayer(this));
+            _clickStates.Add(new ClickPlayer(_inputController));
 
-            _clickStates.Add(new ClickRangeAttackTarget(this));
-            _clickStates.Add(new ClickRemoteObject(this));
-            _clickStates.Add(new ClickNextTileObject(this));
+            _clickStates.Add(new ClickRangeAttackTarget(
+                inputController: _inputController,
+                player: _player.GetComponent<ProjectileController>()));
+            _clickStates.Add(new ClickRemoteObject(_inputController, _player));
+            _clickStates.Add(new ClickNextTileObject(_inputController, _player));
 
             //tile hasn't any objects
-            _clickStates.Add(new ClickWalkableTile(this));
+            _clickStates.Add(new ClickWalkableTile(
+                inputController: _inputController,
+                tileGrid: _tileGrid,
+                player: _player));
         }
 
         private void ToggleInfoMode()
@@ -82,13 +85,6 @@ namespace Core.Input
             }
         }
 
-    }
-
-    public interface IClickStateSource
-    {
-        InputController inputController { get; }
-        TilemapController tilemapController { get; }
-        Player player { get; }
     }
 
     public interface IInfoModeState

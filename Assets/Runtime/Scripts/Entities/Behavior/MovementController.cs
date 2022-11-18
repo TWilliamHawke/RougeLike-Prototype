@@ -13,13 +13,13 @@ namespace Entities.Behavior
         public event UnityAction OnStepEnd;
 
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] GameObjects _gameObjects;
-        [SerializeField] AudioSource _body;
+        [SerializeField] Body _body;
         [SerializeField] Injector _inputControllerInjector;
+        [SerializeField] Injector _tileGridInjector;
+        [SerializeField] StepSoundKit _stepSounds;
 
         [InjectField] InputController _inputController;
-
-        TilemapController _mapController;
+        [InjectField] TilesGrid _tileGrid;
 
         Stack<TileNode> _path = new Stack<TileNode>();
         TileNode _targetNode;
@@ -39,7 +39,7 @@ namespace Entities.Behavior
         {
             _currentNode = spawnNode;
             _inputControllerInjector.AddInjectionTarget(this);
-            _mapController = _gameObjects.tilemapController;
+            _tileGridInjector.AddInjectionTarget(this);
         }
 
         public void ClearPath()
@@ -50,12 +50,12 @@ namespace Entities.Behavior
         public void SetDestination(TileNode node)
         {
             if (!_onPause) return;
-            _path = PathFinder.FindPath(_currentNode, node);
+            _path = _tileGrid.FindPath(_currentNode, node);
         }
 
         public void SetDestination(IInteractive target)
         {
-            if (_mapController.TryGetNode(target.transform.position.ToInt(), out var node))
+            if (_tileGrid.TryGetNode(target.transform.position.ToInt(), out var node))
             {
                 SetDestination(node);
             }
@@ -105,8 +105,8 @@ namespace Entities.Behavior
 
         void PlayStepSound()
         {
-            var clip = _mapController.stepSounds.GetRandom();
-            _body.PlayOneShot(clip);
+            var clip = _stepSounds.GetRandom();
+            _body.PlaySound(clip);
         }
 
         Vector3 GetNodePosition(TileNode node)

@@ -69,7 +69,6 @@ namespace Entities.Combat
             _progress = 0;
             var damage = DamageCalulator.GetDamage(_launchedProjectile.template, _target);
             _target.TakeDamage(damage);
-            _target = null;
             _launchedProjectile.PlayImpactSound();
             _launchedProjectile.Hide();
             _projectileCoroutine = StartCoroutine(ReleaseAfter5Sec());
@@ -82,9 +81,13 @@ namespace Entities.Combat
             {
                 TryReleaseAOE();
                 _startedAoeEffect = _aoeEffects.Get();
+                _startedAoeEffect.transform.position = _target.transform.position;
                 _startedAoeEffect.SetTemplate(_launchedProjectile.template);
                 _startedAoeEffect.OnAnimationEnd += FinalizeAOE;
             }
+
+            _target = null;
+
         }
 
         public void ThrowProjectile(IRangeAttackTarget target, ProjectileTemplate template)

@@ -30,7 +30,7 @@ namespace Map
 
         void ChangePosition(Vector3Int position)
         {
-            transform.position = transform.position.ChangeXYFrom(position);
+            transform.position = transform.position.ReplaceXYFrom(position);
         }
 
         public void FinalizeInjection()

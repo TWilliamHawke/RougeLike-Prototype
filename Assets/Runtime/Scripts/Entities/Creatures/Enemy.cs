@@ -16,11 +16,11 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] EnemyTemplate _template;
-        [SerializeField] TMP_Text _TMPSprite;
+        [SerializeField] Body _body;
 
         Health _health;
         EffectStorage _effectStorage;
@@ -31,7 +31,6 @@ namespace Entities
         public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
         public TileNode currentNode => throw new System.NotImplementedException();
-        public AudioClip[] attackSounds => _template.attackSounds;
         public EffectStorage effectStorage => _effectStorage;
         public int expForKill => _template.expForKill;
 
@@ -52,8 +51,7 @@ namespace Entities
 
         public void ApplyStartStats()
         {
-            _TMPSprite.text = _template.bodyChar;
-            _TMPSprite.color = _template.bodyColor;
+            _body.UpdateSkin(_template.bodyChar, _template.bodyColor);
         }
 
         public void Interact(Player player)
@@ -64,6 +62,11 @@ namespace Entities
         public void TakeDamage(int damage)
         {
             _health.DamageHealth(damage);
+        }
+
+        public void PlayAttackSound()
+        {
+            _body.PlaySound(_template.attackSounds.GetRandom());
         }
 
         private void InitComponents()
@@ -83,7 +86,6 @@ namespace Entities
             OnDeath?.Invoke(this);
             OnDeath = null;
         }
-
 
     }
 }

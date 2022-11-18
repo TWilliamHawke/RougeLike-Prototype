@@ -11,7 +11,7 @@ namespace Map.Objects
     {
         MapObjectTask _task = new MapObjectTask("Kill All wolves", true);
         List<Enemy> _enemiesFromSite;
-        TileStorage _tileStorage;
+        RandomStack<Vector3Int> _tileStorage;
         SiteTemplate _template;
         Rng _rng;
 
@@ -75,11 +75,11 @@ namespace Map.Objects
 
             foreach (var enemyTemplate in enemies)
             {
-                if (_tileStorage.Pull(_rng, out var position))
+                if (_tileStorage.TryPull(_rng, out var position))
                 {
                     var enemy = _spawner.SpawnEnemyAsChild(enemyTemplate, position, this);
                     _enemiesFromSite.Add(enemy);
-                    enemy.OnDeath += RemoveDeathEnemy;
+                    enemy.OnDeath += RemoveDeadEnemy;
                 }
             }
 
@@ -100,14 +100,14 @@ namespace Map.Objects
                 tilesCount -= _template.tilesWidth * _template.tilesHeight;
             }
 
-            _tileStorage = new TileStorage(tilesCount);
+            _tileStorage = new RandomStack<Vector3Int>(tilesCount);
 
             for (int x = _posX - _template.width / 2; x <= _posX + _template.width / 2; x++)
             {
                 for (int y = _posY - _template.height / 2; y <= _posY + _template.height / 2; y++)
                 {
                     if (!TileIsWalkable(x, y)) continue;
-                    _tileStorage.Push(new Vector3(x, y, 0));
+                    _tileStorage.Push(new Vector3Int(x, y, 0));
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace Map.Objects
             return false;
         }
 
-        private void RemoveDeathEnemy(Enemy enemy)
+        private void RemoveDeadEnemy(Enemy enemy)
         {
             if(!_enemiesFromSite.Contains(enemy)) return;
             _enemiesFromSite.Remove(enemy);

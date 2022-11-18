@@ -45,7 +45,7 @@ namespace Entities.Combat
             if (_attackProgress >= 1 && _attackPhase == AttackPhases.moveTo)
             {
                 _attackPhase = AttackPhases.moveAway;
-                Damage(_attacker.damageSource, _target);
+                DoDamage(_attacker.damageSource, _target);
             }
 
             if (_attackProgress <= 0 && _attackPhase == AttackPhases.moveAway)
@@ -69,16 +69,15 @@ namespace Entities.Combat
             _defaultPosition = transform.position;
 
             var distance = Vector3.Distance(transform.position, _attackPosition);
-            _directionMult = 1 / distance;
+            _directionMult = 1 / distance; //diagonal 1.4 times faster
 
-            int index = Random.Range(0, _attacker.attackSounds.Length);
-            _body.PlayOneShot(_attacker.attackSounds[index]);
+            _attacker.PlayAttackSound();
 
             _attackPhase = AttackPhases.moveTo;
             _inputController.DisableLeftClick();  //HACK this should be in entityController
         }
 
-        void Damage(IDamageSource damageSource, IAttackTarget target)
+        void DoDamage(IDamageSource damageSource, IAttackTarget target)
         {
             int damage = DamageCalulator.GetDamage(damageSource, target);
             target.TakeDamage(damage);
