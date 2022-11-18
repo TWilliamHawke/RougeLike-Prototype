@@ -11,9 +11,9 @@ namespace Core.Input
 
         InputController _inputController;
 
-        public ClickPlayer(IClickStateSource stateSource)
+        public ClickPlayer(InputController inputController)
         {
-            _inputController = stateSource.inputController;
+            _inputController = inputController;
         }
 
         void IMouseClickState.ProcessClick()

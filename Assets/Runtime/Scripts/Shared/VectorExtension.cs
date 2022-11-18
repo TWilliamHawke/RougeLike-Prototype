@@ -47,7 +47,7 @@ public static class VectorExtension
         return new Vector3Int(x, y, 0);
     }
 
-    public static Vector3 ChangeXYFrom(this Vector3 current, Vector3 other)
+    public static Vector3 ReplaceXYFrom(this Vector3 current, Vector3 other)
     {
         float z = current.z;
         return new Vector3(other.x, other.y, z);

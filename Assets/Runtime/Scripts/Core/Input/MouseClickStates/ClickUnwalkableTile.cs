@@ -7,13 +7,13 @@ namespace Core.Input
 {
     public class ClickUnwalkableTile : IMouseClickState
     {
-        TilemapController _tilemapController;
+        TilesGrid _tilemapController;
         InputController _inputController;
 
-        public ClickUnwalkableTile(IClickStateSource stateSource)
+        public ClickUnwalkableTile(TilesGrid tilemapController, InputController inputController)
         {
-            _tilemapController = stateSource.tilemapController;
-            _inputController = stateSource.inputController;
+            _tilemapController = tilemapController;
+            _inputController = inputController;
         }
 
         void IMouseClickState.ProcessClick()

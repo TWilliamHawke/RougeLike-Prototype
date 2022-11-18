@@ -13,11 +13,11 @@ namespace Core.Input
         
 		IInteractive _target;
 
-		public ClickNextTileObject(IClickStateSource stateSource)
-		{
-			_inputController = stateSource.inputController;
-			_player = stateSource.player;
-		}
+        public ClickNextTileObject(InputController inputController, Player player)
+        {
+            _inputController = inputController;
+            _player = player;
+        }
 
         void IMouseClickState.ProcessClick()
         {

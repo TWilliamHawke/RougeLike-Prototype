@@ -11,7 +11,7 @@ namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity
     {
         public event UnityAction OnPlayerTurnEnd;
 
@@ -28,8 +28,6 @@ namespace Entities.PlayerScripts
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public IAudioSource body => _body;
-
-        public AudioClip[] attackSounds => _stats.attackSounds;
 
         public EffectStorage effectStorage => _stats.effectStorage;
 
@@ -76,9 +74,14 @@ namespace Entities.PlayerScripts
         public void SpawnAt(TileNode node)
         {
             _movementController = GetComponent<MovementController>();
-            Vector3 position = node.position2d.AddZ(0);
+            Vector3 position = node.position.AddZ(0);
             transform.position = position;
             _movementController.Init(node);
+        }
+
+        public void PlayAttackSound()
+        {
+            _body.PlaySound(_stats.attackSounds.GetRandom());
         }
 
         void IAttackTarget.TakeDamage(int damage)

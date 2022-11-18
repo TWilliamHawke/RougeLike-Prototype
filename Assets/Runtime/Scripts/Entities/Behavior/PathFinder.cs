@@ -5,21 +5,21 @@ using UnityEngine;
 
 namespace Entities.Behavior
 {
-    public static class PathFinder
+    public class PathFinder
     {
         static TileNode _startNode;
         static TileNode _targetNode;
-        static TilemapController _mapController;
+        static TilesGrid _mapController;
 
         static List<TileNode> _sortedNodes = new List<TileNode>();
         static List<TileNode> _unsortedNodes = new List<TileNode>();
 
-        public static void Init(TilemapController mapController)
+        public PathFinder(TilesGrid mapController)
         {
             _mapController = mapController;
         }
 
-        public static Stack<TileNode> FindPath(TileNode from, TileNode to)
+        public Stack<TileNode> FindPath(TileNode from, TileNode to)
         {
             var path = new Stack<TileNode>();
             _startNode = from;
@@ -52,12 +52,12 @@ namespace Entities.Behavior
             return path;
         }
 
-        static void CheckNodes()
+        void CheckNodes()
         {
             while (_unsortedNodes.Count > 0)
             {
                 var nearestNode = FindNearestNodeFromUnsorted();
-                var neightborNodes = _mapController.GetNeighbors(nearestNode);
+                var neightborNodes = _mapController.GetEmptyNeighbors(nearestNode);
 
                 foreach (var node in neightborNodes)
                 {
@@ -79,7 +79,7 @@ namespace Entities.Behavior
             }
         }
 
-        static TileNode FindNearestNodeFromUnsorted()
+        TileNode FindNearestNodeFromUnsorted()
         {
             TileNode nearestNode = _unsortedNodes[0];
 
@@ -95,14 +95,14 @@ namespace Entities.Behavior
                 catch (System.Exception)
                 {
 
-                    Debug.Log(nearestNode?.position2d);
-                    Debug.Log(node?.position2d);
+                    Debug.Log(nearestNode?.position);
+                    Debug.Log(node?.position);
                 }
             }
             return nearestNode;
         }
 
-        static bool IsnodeClose(TileNode selectedNode, TileNode candidate)
+        bool IsnodeClose(TileNode selectedNode, TileNode candidate)
         {
             if (selectedNode.totalDist < candidate.totalDist)
             {

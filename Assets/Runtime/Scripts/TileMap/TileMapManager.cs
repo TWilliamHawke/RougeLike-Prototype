@@ -14,22 +14,26 @@ namespace Map
     {
         [SerializeField] Tilemap _tileMap;
         [SerializeField] Player _player;
-        [SerializeField] TilemapController _tilemapController;
         [SerializeField] MapObjectsManager _mapObjectsManager;
 
         [SerializeField] Location location;
 
+        [SerializeField] Injector _tileGridInjector;
+
+        TilesGrid _grid;
+
         public void StartUp()
         {
-            PathFinder.Init(_tilemapController);
             _mapObjectsManager.SetLocation(location);
             // _generator = new MapGenerator(_tileMap, _config);
             // _generator.StartGeneration();
             var mapData = location.Create(_tileMap);
 
-            _tilemapController.CreateGrid(mapData);
+            _grid = new TilesGrid(mapData);
+            _tileGridInjector.AddDependency(_grid);
 
-            if (_tilemapController.TryGetNode(mapData.playerSpawnPos.x, mapData.playerSpawnPos.y, out var node))
+
+            if (_grid.TryGetNodeAt(mapData.playerSpawnPos.x, mapData.playerSpawnPos.y, out var node))
             {
                 _player.SpawnAt(node);
             }

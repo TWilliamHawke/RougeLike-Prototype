@@ -14,6 +14,7 @@ namespace Core.Input
         ClickStateMachine _clickStateMachine;
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _infoButtonInjector;
+        [SerializeField] Injector _tileGridInjector;
         [SerializeField] GameObjects _gameObjects;
 
         void Update()
@@ -32,6 +33,7 @@ namespace Core.Input
             _clickStateMachine = new ClickStateMachine(_gameObjects);
             _inputControllerInjector.AddDependency(_inputController);
             _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
+            _tileGridInjector.AddInjectionTarget(_clickStateMachine);
             _infoButtonInjector.AddInjectionTarget(_clickStateMachine);
         }
 

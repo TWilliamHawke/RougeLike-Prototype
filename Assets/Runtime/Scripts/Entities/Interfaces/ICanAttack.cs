@@ -7,6 +7,6 @@ namespace Entities.Combat
 	public interface ICanAttack
 	{
 	    IDamageSource damageSource { get; }
-		AudioClip[] attackSounds { get; }
+		void PlayAttackSound();
 	}
 }

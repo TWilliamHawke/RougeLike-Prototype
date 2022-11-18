@@ -9,6 +9,7 @@ namespace Entities
     {
         [SerializeField] AudioClip[] _attackSounds;
         [SerializeField] AudioClip[] _deathSounds;
+        [SerializeField] AudioClip[] _stepSounds;
 
         public AudioClip[] attackSounds => _attackSounds;
         public AudioClip[] deathSounds => _deathSounds;

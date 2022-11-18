@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,7 @@ namespace Entities
         [SerializeField] Enemy _enemyPrefab;
         [SerializeField] Injector _entitiesManagerInjector;
         [SerializeField] Injector _selfInjector;
+
 
         public bool waitForAllDependencies => true;
 
@@ -32,12 +34,12 @@ namespace Entities
             OnReadyForUse?.Invoke();
         }
 
-		public void SpawnEnemy(EnemyTemplate template, Vector3 position)
-		{
-			SpawnEnemyAsChild(template, position, this);
-		}
+		// public void SpawnEnemy(EnemyTemplate template, Vector3 position)
+		// {
+		// 	SpawnEnemyAsChild(template, position, this);
+		// }
 
-		public Enemy SpawnEnemyAsChild(EnemyTemplate template, Vector3 position, Component parent)
+		public Enemy SpawnEnemyAsChild(EnemyTemplate template, Vector3Int position, Component parent)
 		{
 			var enemy = parent.CreateChild(_enemyPrefab, position);
 			enemy.Init(template);

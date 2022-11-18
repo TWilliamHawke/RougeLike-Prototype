@@ -13,10 +13,10 @@ namespace Core.Input
 
         IInteractive _target;
 
-        public ClickRemoteObject(IClickStateSource stateSource)
+        public ClickRemoteObject(InputController inputController, Player player)
         {
-            _inputController = stateSource.inputController;
-            _player = stateSource.player;
+            _inputController = inputController;
+            _player = player;
         }
 
         void IMouseClickState.ProcessClick()

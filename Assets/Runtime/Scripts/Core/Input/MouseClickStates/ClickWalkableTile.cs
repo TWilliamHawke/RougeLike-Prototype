@@ -9,17 +9,16 @@ namespace Core.Input
 	public class ClickWalkableTile : IMouseClickState
 	{
 		InputController _inputController;
-		TilemapController _tilemapController;
+		TilesGrid _tileGrid;
         Player _player;
         TileNode _targetNode;
 
-        public ClickWalkableTile(IClickStateSource stateSource)
+        public ClickWalkableTile(InputController inputController, TilesGrid tileGrid, Player player)
         {
-            _tilemapController = stateSource.tilemapController;
-            _inputController = stateSource.inputController;
-            _player = stateSource.player;
+            _inputController = inputController;
+            _tileGrid = tileGrid;
+            _player = player;
         }
-
 
         void IMouseClickState.ProcessClick()
         {
@@ -29,7 +28,7 @@ namespace Core.Input
         bool IMouseClickState.Condition()
         {
         	Vector3Int position = _inputController.hoveredTilePos;
-            if (_tilemapController.TryGetNode(position, out var node))
+            if (_tileGrid.TryGetNode(position, out var node))
             {
                 if (node.isWalkable)
                 {
