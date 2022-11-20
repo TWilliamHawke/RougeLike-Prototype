@@ -12,7 +12,7 @@ namespace Map
         public TileNode parent { get; set; }
         public float targetDist { get; set; }
         public float startDist { get; set; }
-        public Vector2Int position { get; init; }
+        public Vector3Int position { get; init; }
         public IObstacleEntity entityInthisNode { get; set; }
 
 
@@ -24,7 +24,7 @@ namespace Map
 		
         public TileNode(int x, int y, bool isWalkableTile)
         {
-            position = new Vector2Int(x, y);
+            position = new Vector3Int(x, y, 0);
             this.isWalkable = isWalkableTile;
         }
 

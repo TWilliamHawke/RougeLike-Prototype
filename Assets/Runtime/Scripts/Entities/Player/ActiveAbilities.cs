@@ -23,7 +23,8 @@ namespace Entities.PlayerScripts
 
         bool IInjectionTarget.waitForAllDependencies => false;
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             _inputControllerInjector.AddInjectionTarget(this);
         }
 
@@ -38,8 +39,6 @@ namespace Entities.PlayerScripts
             if (abilityController is null) Debug.Log("Error");
             _playerController = abilityController;
             _playerController.OnTargetSelectionStart += SelectAbility;
-            _inputController.targetSelection.Select.started += SelectTarget;
-            _inputController.targetSelection.Return.started += CancelSelection;
         }
 
         public void UseAbility(int index)
@@ -85,6 +84,8 @@ namespace Entities.PlayerScripts
 
         public void FinalizeInjection()
         {
+            _inputController.targetSelection.Select.started += SelectTarget;
+            _inputController.targetSelection.Return.started += CancelSelection;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Map
         public bool TryAddEntityToTile(IObstacleEntity entity)
         {
             var tilePos = entity.transform.position.ToTilePos();
-            if(PositionInsideGrid(tilePos.x, tilePos.y))
+            if (PositionInsideGrid(tilePos.x, tilePos.y))
             {
                 var node = _grid[tilePos.x, tilePos.y];
                 if (node.entityInthisNode is not null) return false;
@@ -75,6 +75,26 @@ namespace Map
 
             return neightBors;
         }
+
+        public List<TileNode> GetNonEmptyNeighbors(Vector3Int position, int radius = 1)
+        {
+            var neightBors = new List<TileNode>();
+
+            for (int x = position.x - radius; x <= position.x + radius; x++)
+            {
+                for (int y = position.y - radius; y <= position.y + radius; y++)
+                {
+                    if (!PositionInsideGrid(x, y)) continue;
+                    var neighborNode = _grid[x, y];
+                    if (neighborNode.position == position) continue;
+                    if (neighborNode.entityInthisNode is null) continue;
+                    neightBors.Add(neighborNode);
+                }
+            }
+
+            return neightBors;
+        }
+
 
         void FillGrid(int[,] intMap)
         {

@@ -19,6 +19,7 @@ namespace Entities.PlayerScripts
         [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
+        [SerializeField] Injector _selfInjector;
 
         MovementController _movementController;
         MeleeAttackController _meleeAttackController;
@@ -36,6 +37,7 @@ namespace Entities.PlayerScripts
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
+            _selfInjector.AddDependency(this);
         }
 
 
@@ -74,7 +76,7 @@ namespace Entities.PlayerScripts
         public void SpawnAt(TileNode node)
         {
             _movementController = GetComponent<MovementController>();
-            Vector3 position = node.position.AddZ(0);
+            Vector3 position = node.position;
             transform.position = position;
             _movementController.Init(node);
         }

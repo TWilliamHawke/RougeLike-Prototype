@@ -6,15 +6,24 @@ using UnityEngine.UI;
 
 namespace Entities.UI
 {
-    public class Healthbar : MonoBehaviour
+    public class Healthbar : MonoBehaviour, IInjectionTarget
     {
         IHealthbarData _healthbarData;
 
-        [SerializeField] GameObjects _gameObjects;
+        [SerializeField] Injector _mainCameraInjector;
         [SerializeField] Image _fillImage;
         [SerializeField] Vector3 _shift;
         [Range(0, 0.1f)]
         [SerializeField] float _minVisibleHealth = 0.05f;
+
+        [InjectField] Camera _mainCamera;
+
+        public bool waitForAllDependencies => false;
+
+        private void Awake()
+        {
+            _mainCameraInjector.AddInjectionTarget(this);
+        }
 
         public void SetHealth(IHealthbarData entity)
         {
@@ -35,15 +44,20 @@ namespace Entities.UI
 
         void LateUpdate()
         {
+            if (_mainCamera is null) return;
             if (_healthbarData is null)
             {
                 DestroyImmediate(this);
             }
             else
             {
-                var entityPos = _gameObjects.mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
+                var entityPos = _mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
                 transform.position = entityPos;
             }
+        }
+
+        public void FinalizeInjection()
+        {
         }
     }
 }

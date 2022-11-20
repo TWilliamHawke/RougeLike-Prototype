@@ -10,7 +10,7 @@ using Map.Objects;
 
 namespace Map
 {
-    public class TileMapManager : MonoBehaviour, INeedInit
+    public class TileMapManager : MonoBehaviour
     {
         [SerializeField] Tilemap _tileMap;
         [SerializeField] Player _player;

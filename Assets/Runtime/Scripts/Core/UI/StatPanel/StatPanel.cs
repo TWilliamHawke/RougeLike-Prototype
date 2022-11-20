@@ -6,23 +6,32 @@ using UnityEngine;
 
 namespace Core.UI
 {
-    public class StatPanel : MonoBehaviour
+    public class StatPanel : MonoBehaviour, IInjectionTarget
     {
         [SerializeField] PlayerStats _playerStats;
-        [SerializeField] GameObjects _gameObjects;
+        [SerializeField] Injector _playerInjector;
         [SerializeField] StatBar _healthbar;
         [SerializeField] StatBar _manabar;
 
+        [InjectField] Player _player;
+
         Health _playerHealth;
+
+        public bool waitForAllDependencies => false;
+
+        public void FinalizeInjection()
+        {
+            _playerHealth = _player.GetComponent<Health>();
+            _playerHealth.OnHealthChange += UpdateHealthbar;
+			UpdateHealthbar();
+        }
 
         public void Init()
         {
-            _playerHealth = _gameObjects.player.GetComponent<Health>();
-            _playerHealth.OnHealthChange += UpdateHealthbar;
             _playerStats.OnManaChange += UpdateManabar;
+            _playerInjector.AddInjectionTarget(this);
 
 			UpdateManabar();
-			UpdateHealthbar();
         }
 
         void OnDestroy()
