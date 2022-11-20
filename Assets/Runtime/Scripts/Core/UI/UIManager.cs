@@ -16,9 +16,9 @@ namespace Core
     public class UIManager : MonoBehaviour, IInjectionTarget
     {
         [InjectField] InputController _inputController;
-        
+
         [SerializeField] Injector _inputControllerInjector;
-        [SerializeField] HealthbarController _healthbarCanvas;
+        [SerializeField] HealthbarCanvas _healthbarCanvas;
         [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [SerializeField] TooltipCanvas _tooltipCanvas;
         [Header("UI Screens")]
@@ -27,14 +27,15 @@ namespace Core
         [SerializeField] SpellbookScreen _spellbookScreen;
         [SerializeField] LootPanel _lootPanel;
         [SerializeField] ActionsScreen _actionsScreen;
+        [Header("Injectors")]
+        [SerializeField] Injector _healthbarCanvasInjector;
 
         List<IUIScreen> _screens = new List<IUIScreen>();
 
         bool IInjectionTarget.waitForAllDependencies => false;
 
-        public void StartUp()
+        void Awake()
         {
-            _healthbarCanvas.Init();
             _dragElementsCanvas.Init();
             _mainCanvas.Init();
             _tooltipCanvas.Init();
@@ -52,12 +53,12 @@ namespace Core
             }
 
             _inputControllerInjector.AddInjectionTarget(this);
-
+            _healthbarCanvasInjector.AddDependency(_healthbarCanvas);
         }
 
         private void OnDestroy()
         {
-            if(_inputController is null) return;
+            if (_inputController is null) return;
             _inputController.main.Spellbook.performed -= ToggleSpellbook;
             _inputController.main.Inventory.performed -= ToggleInventory;
         }

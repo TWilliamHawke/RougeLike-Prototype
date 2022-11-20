@@ -72,7 +72,7 @@ namespace Entities
         private void InitComponents()
         {
             _health = GetComponent<Health>();
-            _health.Init(_template.sounds);
+            _health.SetInjureSounds(_template.sounds);
             _health.OnHealthChange += CheckHealth;
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();

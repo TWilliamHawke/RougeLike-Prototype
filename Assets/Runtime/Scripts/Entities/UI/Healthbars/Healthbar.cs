@@ -29,11 +29,8 @@ namespace Entities.UI
         {
             _healthbarData = entity;
             _healthbarData.OnHealthChange += UpdateHealthBar;
-        }
+            _fillImage.color = entity.healthbarColor;
 
-        public void SetColor(Color color)
-        {
-            _fillImage.color = color;
         }
 
         void UpdateHealthBar()
@@ -51,7 +48,7 @@ namespace Entities.UI
             }
             else
             {
-                var entityPos = _mainCamera.WorldToScreenPoint(_healthbarData.transform.position + _shift);
+                var entityPos = _mainCamera.WorldToScreenPoint(_healthbarData.bodyPosition + _shift);
                 transform.position = entityPos;
             }
         }

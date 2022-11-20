@@ -4881,6 +4881,7 @@ MonoBehaviour:
   _spellbookScreen: {fileID: 1411236377}
   _lootPanel: {fileID: 801670869}
   _actionsScreen: {fileID: 1315345898}
+  _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
 --- !u!224 &433595845 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4884713195302840770, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}

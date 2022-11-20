@@ -101,8 +101,6 @@ namespace Entities.PlayerScripts
             _movementController.OnStepEnd += EndPlayerTurn;
 
             _health = GetComponent<Health>();
-            _health.InitWithoutSound();
-            _body.Init(_health);
 
             GetComponent<VisibilityController>().ChangeViewingRange();
             GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;

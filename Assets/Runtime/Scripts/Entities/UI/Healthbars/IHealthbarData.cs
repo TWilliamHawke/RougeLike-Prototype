@@ -7,7 +7,7 @@ namespace Entities
 {
 	public interface IHealthbarData
 	{
-	    Transform transform { get; }
+	    Vector3 bodyPosition { get; }
 		int maxHealth { get; }
 		int currentHealth { get; }
 		event UnityAction OnHealthChange;
