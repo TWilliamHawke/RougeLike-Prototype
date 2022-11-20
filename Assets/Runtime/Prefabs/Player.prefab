@@ -423,6 +423,7 @@ MonoBehaviour:
   _body: {fileID: 1921085457}
   _testResists: {fileID: 11400000, guid: 8cf33a657405d484494447d5578ff8aa, type: 2}
   _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
+  _selfInjector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
 --- !u!114 &1257288472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +452,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _gameObjects: {fileID: 11400000, guid: f47475430b33dc3498465d5551ed4b50, type: 2}
   _body: {fileID: 1921085457}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
@@ -486,6 +486,7 @@ MonoBehaviour:
   _testTemplate: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
   _projectilePrefab: {fileID: 7438640203685943960, guid: 90ded333721082a4c8bc55f1858121b7, type: 3}
   _aoeEffectPrefab: {fileID: 3569503078734526102, guid: 56d5cdc068a54384683838ee6863aa96, type: 3}
+  _tilesGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
 --- !u!114 &9206173401267896131
 MonoBehaviour:
   m_ObjectHideFlags: 0

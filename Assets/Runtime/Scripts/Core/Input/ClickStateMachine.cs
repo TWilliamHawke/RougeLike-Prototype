@@ -13,25 +13,15 @@ namespace Core.Input
         [InjectField] InputController _inputController;
         [InjectField] InfoButton _infoButton;
         [InjectField] TilesGrid _tileGrid;
-
-        Player _player;
+        [InjectField] Player _player;
 
         bool _infoMode = false;
         public bool infoMode => _infoMode;
-
-        public ClickStateMachine(GameObjects gameObjects)
-        {
-            _player = gameObjects.player;
-        }
-
+        bool IInjectionTarget.waitForAllDependencies => true;
         List<IMouseClickState> _clickStates = new List<IMouseClickState>();
 
-
-        bool IInjectionTarget.waitForAllDependencies => true;
-
-        void OnDestroy()
+        public void Unsubscribe()
         {
-            if (_inputController is null) return;
             _inputController.main.Click.started -= CheckTileObjects;
         }
 

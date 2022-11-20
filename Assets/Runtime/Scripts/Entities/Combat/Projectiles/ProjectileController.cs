@@ -4,18 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Events;
+using Map;
 
 namespace Entities.Combat
 {
-    public class ProjectileController : MonoBehaviour
+    public class ProjectileController : MonoBehaviour, IInjectionTarget
     {
         static ObjectPool<Projectile> _projectiles;
-        static ObjectPool<AOEEffect> _aoeEffects;
+        static ObjectPool<AoeAnimation> _aoeEffects;
 
         public event UnityAction OnAttackEnd;
         [SerializeField] ProjectileTemplate _testTemplate;
         [SerializeField] Projectile _projectilePrefab;
-        [SerializeField] AOEEffect _aoeEffectPrefab;
+        [SerializeField] AoeAnimation _aoeEffectPrefab;
+        [SerializeField] Injector _tilesGridInjector;
+
+        [InjectField] TilesGrid _tilesGrid;
 
         const float BASE_SPEED = 5;
 
@@ -25,11 +29,15 @@ namespace Entities.Combat
         float _progress;
 
         Projectile _launchedProjectile;
-        AOEEffect _startedAoeEffect;
+        AoeAnimation _startedAoeEffect;
         Coroutine _projectileCoroutine;
+
+        public bool waitForAllDependencies => false;
 
         private void Awake()
         {
+            _tilesGridInjector.AddInjectionTarget(this);
+
             if (_projectiles is not null) return;
 
             _projectiles = new ObjectPool<Projectile>(
@@ -37,7 +45,7 @@ namespace Entities.Combat
                 actionOnGet: proj => proj.SetParent(this)
             );
 
-            _aoeEffects = new ObjectPool<AOEEffect>(
+            _aoeEffects = new ObjectPool<AoeAnimation>(
                 createFunc: () => Instantiate(_aoeEffectPrefab),
                 actionOnGet: aoe =>
                 {
@@ -61,41 +69,13 @@ namespace Entities.Combat
             else
             {
                 DoDamage();
+                _target = null;
             }
-        }
-
-        private void DoDamage()
-        {
-            _progress = 0;
-            var damage = DamageCalulator.GetDamage(_launchedProjectile.template, _target);
-            _target.TakeDamage(damage);
-            _launchedProjectile.PlayImpactSound();
-            _launchedProjectile.Hide();
-            _projectileCoroutine = StartCoroutine(ReleaseAfter5Sec());
-
-            if (_launchedProjectile.template.radius < 1)
-            {
-                OnAttackEnd?.Invoke();
-            }
-            else
-            {
-                TryReleaseAOE();
-                _startedAoeEffect = _aoeEffects.Get();
-                _startedAoeEffect.transform.position = _target.transform.position;
-                _startedAoeEffect.SetTemplate(_launchedProjectile.template);
-                _startedAoeEffect.OnAnimationEnd += FinalizeAOE;
-            }
-
-            _target = null;
-
         }
 
         public void ThrowProjectile(IRangeAttackTarget target, ProjectileTemplate template)
         {
-            if (_projectileCoroutine is not null)
-            {
-                StopCoroutine(_projectileCoroutine);
-            }
+            this.TryStopCoroutine(_projectileCoroutine);
             TryReleaseProjectile();
             _target = target;
             _targetPosition = target.transform.position;
@@ -105,7 +85,7 @@ namespace Entities.Combat
             _launchedProjectile.transform.position = transform.position;
             _launchedProjectile.transform.right = target.transform.position - transform.position;
             _launchedProjectile.SetTemplate(template);
-            _launchedProjectile.PlaySound(template.fireSounds.GetRandom());
+            _launchedProjectile.PlayFireSound();
         }
 
         public void ThrowProjectile(IRangeAttackTarget target)
@@ -113,31 +93,79 @@ namespace Entities.Combat
             ThrowProjectile(target, _testTemplate);
         }
 
-        IEnumerator ReleaseAfter5Sec()
+        private void DoDamage()
+        {
+            _progress = 0;
+            var damage = DamageCalulator.GetDamage(_launchedProjectile.template, _target);
+            _target.TakeDamage(damage);
+            _launchedProjectile.PlayImpactSound();
+            _launchedProjectile.HideSprite();
+            _projectileCoroutine = StartCoroutine(ReleaseAfter5Sec());
+
+            if (_launchedProjectile.template.radius < 1)
+            {
+                OnAttackEnd?.Invoke();
+            }
+            else
+            {
+                StartAoeAnimation();
+            }
+        }
+
+        private void StartAoeAnimation()
+        {
+            TryReleaseAOE();
+            _startedAoeEffect = _aoeEffects.Get();
+            _startedAoeEffect.transform.position = _target.transform.position;
+            _startedAoeEffect.SetTemplate(_launchedProjectile.template);
+            _startedAoeEffect.OnAnimationEnd += FinalizeAOE;
+            _startedAoeEffect.OnDamageFrame += DoAoeDamage;
+        }
+
+        private void DoAoeDamage(int radius)
+        {
+            if (_startedAoeEffect is null) return;
+            var neightBorNodes = _tilesGrid.GetNonEmptyNeighbors(_startedAoeEffect.tilepos);
+
+            foreach (var node in neightBorNodes)
+            {
+                var target = node.entityInthisNode as IRangeAttackTarget;
+                if (target is null) return;
+                var damage = DamageCalulator.GetDamage(_startedAoeEffect.template, target);
+                target.TakeDamage(damage);
+            }
+        }
+
+        private void FinalizeAOE()
+        {
+            _startedAoeEffect.OnAnimationEnd -= FinalizeAOE;
+            _startedAoeEffect.OnDamageFrame -= DoAoeDamage;
+            OnAttackEnd?.Invoke();
+            TryReleaseAOE();
+        }
+
+        private IEnumerator ReleaseAfter5Sec()
         {
             yield return new WaitForSeconds(5f);
             TryReleaseProjectile();
         }
 
-        void TryReleaseProjectile()
+        private void TryReleaseProjectile()
         {
             if (_launchedProjectile is null) return;
             _projectiles.Release(_launchedProjectile);
             _launchedProjectile = null;
         }
 
-        void TryReleaseAOE()
+        private void TryReleaseAOE()
         {
             if (_startedAoeEffect is null) return;
             _aoeEffects.Release(_startedAoeEffect);
             _startedAoeEffect = null;
         }
 
-        void FinalizeAOE()
+        void IInjectionTarget.FinalizeInjection()
         {
-            _startedAoeEffect.OnAnimationEnd -= FinalizeAOE;
-            OnAttackEnd?.Invoke();
-            TryReleaseAOE();
         }
     }
 }

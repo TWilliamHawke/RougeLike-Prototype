@@ -21,5 +21,12 @@ public static class MonoBehaviourExtension
 
 		return obj;
 	}
+
+	public static bool TryStopCoroutine(this MonoBehaviour mono, Coroutine coroutine)
+	{
+		if(coroutine is null) return false;
+		mono.StopCoroutine(coroutine);
+		return true;
+	}
 }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Core;
 using Entities.Behavior;
 using Entities.Combat;
+using Entities.PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,11 +11,13 @@ namespace Entities.AI
 	[RequireComponent(typeof(MovementController))]
 	[RequireComponent(typeof(MeleeAttackController))]
 	[RequireComponent(typeof(Health))]
-	public class StateMachine : MonoBehaviour
+	public class StateMachine : MonoBehaviour, IInjectionTarget
 	{
 		public event UnityAction OnTurnEnd;
 
-		[SerializeField] GameObjects _gameObjects;
+		[SerializeField] Injector _playerInjector;
+
+		[InjectField] Player _player;
 
 		MeleeAttackController _meleeAttackController;
 		Health _health;
@@ -24,14 +27,15 @@ namespace Entities.AI
 
 		List<IState> _states = new List<IState>();
 
-		public void Init()
+        public bool waitForAllDependencies => false;
+
+        public void Init()
 		{
 			_health = GetComponent<Health>();
 			
 			_defaultState = new Wait(this);
 			_states.Add(new Death(_health, this));
-			_states.Add(new MeleeAttack(_gameObjects.player, this));
-
+			_playerInjector.AddInjectionTarget(this);
 
 			_currentState = _defaultState;
 		}
@@ -56,6 +60,9 @@ namespace Entities.AI
 			OnTurnEnd?.Invoke();
 		}
 
-		
-	}
+        public void FinalizeInjection()
+        {
+            _states.Add(new MeleeAttack(_player, this));
+        }
+    }
 }

@@ -12,7 +12,6 @@ namespace Core
     {
 
         [SerializeField] TileMapManager _tileMapManager;
-        [SerializeField] GameObjectsManager _gameObjectManager;
         [SerializeField] InputManager _inputManager;
         [SerializeField] UIManager _UIManager;
         [SerializeField] EntitiesManager _entitiesManager;
@@ -20,11 +19,6 @@ namespace Core
 
         void Awake()
         {
-            _gameObjectManager.StartUp();
-
-            //other objects will subscribe on input events
-            _inputManager.StartUp();
-
             //inventory should init before ui
             _playerDataManager.StartUp();
             //_healthbarCanvas should subscribe on events before player spawn

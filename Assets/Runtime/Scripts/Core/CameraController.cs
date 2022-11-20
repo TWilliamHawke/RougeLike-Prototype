@@ -6,18 +6,26 @@ using UnityEngine;
 namespace Core
 {
     [RequireComponent(typeof(Camera))]
-    public class CameraController : MonoBehaviour
+    public class CameraController : MonoBehaviour, IInjectionTarget
     {
-        Player _player;
+        [InjectField] Player _player;
+
+        [Header("Injectors")]
+        [SerializeField] Injector _playerInjector;
+        [SerializeField] Injector _mainCameraInjector;
+
+        public bool waitForAllDependencies => false;
+
+        private void Awake()
+        {
+            _playerInjector.AddInjectionTarget(this);
+            _mainCameraInjector.AddDependency(GetComponent<Camera>());
+        }
 
         void LateUpdate()
         {
-			transform.position = transform.position.ReplaceXYFrom(_player.transform.position);
-        }
-
-        public void SetPlayer(Player player)
-        {
-            _player = player;
+            if(_player is null) return;
+            transform.position = transform.position.ReplaceXYFrom(_player.transform.position);
         }
 
         public void CenterAt(Vector3 pos)
@@ -28,6 +36,11 @@ namespace Core
         public void CenterAt(Vector2 pos)
         {
             transform.position = transform.position.ReplaceXYFrom(pos);
+        }
+
+        public void FinalizeInjection()
+        {
+            
         }
     }
 }

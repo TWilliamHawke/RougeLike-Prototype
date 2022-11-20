@@ -9,7 +9,6 @@ namespace Items.UI
 {
 	public class EquipmentSlot : MonoBehaviour, IDropTarget<ItemSlotData>
 	{
-		[SerializeField] GameObjects _gameObjects;
 		[SerializeField] EquipmentTypes _inventorySlot;
 		[SerializeField] EquipmentTypes _allowedType;
 		[Header("UI Elements")]
@@ -30,7 +29,6 @@ namespace Items.UI
 			data.RemoveFromStack();
             _itemInSlot = data.item;
 			UpdateSlotUI();
-			_gameObjects.mainAudioSource.PlaySound(_itemInSlot.dragSound);
         }
 
 		void UpdateSlotUI()

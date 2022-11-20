@@ -28,15 +28,20 @@ namespace Entities.Combat
             PlaySound(_template.impactSounds.GetRandom());
         }
 
-        public void PlaySound(AudioClip sound)
+        public void PlayFireSound()
+        {
+            PlaySound(_template.fireSounds.GetRandom());
+        }
+
+        public void HideSprite() //but still play sound
+        {
+            _TMPSprite.enabled = false;
+        }
+
+        void PlaySound(AudioClip sound)
         {
             _audioSource.Stop();
             _audioSource.PlayOneShot(sound);
-        }
-
-        public void Hide()
-        {
-            _TMPSprite.enabled = false;
         }
 
     }
