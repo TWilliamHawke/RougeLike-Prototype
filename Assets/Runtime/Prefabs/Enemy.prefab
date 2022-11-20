@@ -412,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _body: {fileID: 1875642537}
   _healthbarColor: {r: 0.69803923, g: 0.019607844, b: 0.011764706, a: 1}
+  _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
 --- !u!114 &9091438730925311529
 MonoBehaviour:
   m_ObjectHideFlags: 0

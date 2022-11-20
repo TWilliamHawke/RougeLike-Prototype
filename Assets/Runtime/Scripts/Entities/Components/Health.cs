@@ -1,48 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHealthComponent
+    public class Health : MonoBehaviour, IHealthComponent, IHealthbarData, IInjectionTarget
     {
-        public static event UnityAction<IHealthbarData> OnHealthInit;
-        public static event UnityAction<IHealthbarData> OnEntitDisbled;
-
         public event UnityAction OnHealthChange;
 
         [SerializeField] Body _body;
         [SerializeField] Color _healthbarColor = Color.red;
+        [SerializeField] Injector _healthbarCanvasInjector;
+
+        [InjectField] HealthbarCanvas _healthbarCanvas;
 
         //hack it should go from unit template
         IHaveInjureSounds _template;
-        bool _turnOffSounds = false;
+        bool _enableInjureSounds = false;
 
-        int _baseHealth = 5;
+        int _baseHealth = 25;
         int _currentHealth;
 
         public int currentHealth => _currentHealth;
         public int maxHealth => _baseHealth;
         public Color healthbarColor => _healthbarColor;
+        public Vector3 bodyPosition => _body.transform.position;
 
-        public void Init(IHaveInjureSounds template)
+        public bool waitForAllDependencies => false;
+
+        void Awake()
+        {
+            _currentHealth = _baseHealth;
+            _healthbarCanvasInjector.AddInjectionTarget(this);
+        }
+
+        public void SetInjureSounds(IHaveInjureSounds template)
         {
             _template = template;
-            Init();
-        }
-
-        public void InitWithoutSound()
-        {
-            _turnOffSounds = true;
-            Init();
-        }
-
-
-
-        void OnDisable()
-        {
-            OnEntitDisbled?.Invoke(_body);
+            _enableInjureSounds = true;
         }
 
         public void RestoreHealth(int health)
@@ -55,24 +52,22 @@ namespace Entities
             ChangeHealth(-health);
         }
 
-        void Init()
-        {
-            _body.Init(this);
-            _currentHealth = _baseHealth;
-            OnHealthInit?.Invoke(_body);
-            OnHealthChange?.Invoke();
-        }
-
         void ChangeHealth(int health)
         {
             _currentHealth = Mathf.Clamp(_currentHealth + health, 0, maxHealth);
             OnHealthChange?.Invoke();
 
-            if(_currentHealth == 0 && !_turnOffSounds)
+            if (_currentHealth == 0 && _enableInjureSounds)
             {
                 var sound = _template.deathSounds.GetRandom();
                 _body.PlaySound(sound);
             }
+        }
+
+        public void FinalizeInjection()
+        {
+            _healthbarCanvas.CreateNewHealthbar(this);
+            OnHealthChange?.Invoke();
         }
     }
 }

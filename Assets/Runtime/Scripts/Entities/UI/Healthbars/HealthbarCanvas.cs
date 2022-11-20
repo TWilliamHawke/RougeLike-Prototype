@@ -4,27 +4,14 @@ using UnityEngine;
 
 namespace Entities.UI
 {
-    public class HealthbarController : MonoBehaviour
+    public class HealthbarCanvas : MonoBehaviour
     {
         [SerializeField] Healthbar _healthbarPrefab;
 
-        Healthbar _playerHealthbar;
-
-        public void Init()
-        {
-            Health.OnHealthInit += CreateNewHealthbar;
-        }
-
-        void OnDestroy()
-        {
-            Health.OnHealthInit -= CreateNewHealthbar;
-        }
-
-        void CreateNewHealthbar(IHealthbarData entityHealth)
+        public void CreateNewHealthbar(IHealthbarData entityHealth)
         {
             var healthbar = Instantiate(_healthbarPrefab, transform);
             healthbar.SetHealth(entityHealth);
-            healthbar.SetColor(entityHealth.healthbarColor);
         }
 
         // void CreatePlayerHealthbar()

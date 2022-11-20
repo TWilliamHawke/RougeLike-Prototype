@@ -13,7 +13,6 @@ namespace Core
 
         [SerializeField] TileMapManager _tileMapManager;
         [SerializeField] InputManager _inputManager;
-        [SerializeField] UIManager _UIManager;
         [SerializeField] EntitiesManager _entitiesManager;
         [SerializeField] PlayerDataManager _playerDataManager;
 
@@ -21,8 +20,6 @@ namespace Core
         {
             //inventory should init before ui
             _playerDataManager.StartUp();
-            //_healthbarCanvas should subscribe on events before player spawn
-            _UIManager.StartUp();
 
             _tileMapManager.StartUp();
             _entitiesManager.StartUp();

@@ -514,6 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _body: {fileID: 1921085457}
   _healthbarColor: {r: 0.078431375, g: 0.69803923, b: 0.011764706, a: 1}
+  _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
 --- !u!61 &2084189526720122616
 BoxCollider2D:
   m_ObjectHideFlags: 0
