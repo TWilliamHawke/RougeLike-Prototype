@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class EntitiesSpawner : MonoBehaviour, IInjectionTarget, IDependency
+    public class EntitiesSpawner : MonoBehaviour, IInjectionTarget
     {
         [InjectField] EntitiesManager _entitiesManager;
 
@@ -14,13 +14,7 @@ namespace Entities
         [SerializeField] Injector _entitiesManagerInjector;
         [SerializeField] Injector _selfInjector;
 
-
         public bool waitForAllDependencies => true;
-
-        public bool isReadyForUse => _isReadyForUse;
-        bool _isReadyForUse = false;
-
-        public event UnityAction OnReadyForUse;
 
         private void Awake()
         {
@@ -30,8 +24,6 @@ namespace Entities
 
         public void FinalizeInjection()
         {
-            _isReadyForUse = true;
-            OnReadyForUse?.Invoke();
         }
 
 		// public void SpawnEnemy(EnemyTemplate template, Vector3 position)

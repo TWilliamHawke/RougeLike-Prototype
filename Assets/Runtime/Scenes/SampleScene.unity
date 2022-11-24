@@ -1571,7 +1571,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileMapManager: {fileID: 1081761063}
   _inputManager: {fileID: 1866764016}
-  _UIManager: {fileID: 416730919}
   _entitiesManager: {fileID: 1329410027}
   _playerDataManager: {fileID: 1747095741}
 --- !u!114 &166398776
@@ -61192,7 +61191,7 @@ MonoBehaviour:
   _tileMap: {fileID: 499363882}
   _player: {fileID: 390164292}
   _mapObjectsManager: {fileID: 1081761065}
-  location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
+  _location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
 --- !u!4 &1081761064
 Transform:
@@ -61226,6 +61225,7 @@ MonoBehaviour:
   _objectsManagerInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
   _topLocationPanelInjector: {fileID: 11400000, guid: a02b1b089ec24114eb8c788ed1fe0f18, type: 2}
   _actionsScreenInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
+  tileMapManager: {fileID: 1081761063}
 --- !u!1 &1112199530
 GameObject:
   m_ObjectHideFlags: 0

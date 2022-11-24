@@ -10,7 +10,7 @@ using Map;
 
 namespace Entities
 {
-    public class EntitiesManager : MonoBehaviour, IInjectionTarget, IDependency
+    public class EntitiesManager : MonoBehaviour, IInjectionTarget
     {
         [SerializeField] Player _player;
         [SerializeField] Enemy _testEnemy;
@@ -31,12 +31,7 @@ namespace Entities
         Stack<StateMachine> _activeEnemies = new Stack<StateMachine>();
         List<StateMachine> _allEntities = new List<StateMachine>();
 
-        public event UnityAction OnReadyForUse;
-
         bool IInjectionTarget.waitForAllDependencies => true;
-
-        public bool isReadyForUse => _isReadyForUse;
-        bool _isReadyForUse = false;
 
         public void StartUp()
         {
@@ -97,8 +92,6 @@ namespace Entities
         void IInjectionTarget.FinalizeInjection()
         {
             AddEnemy(_testEnemy);
-            _isReadyForUse = true;
-            OnReadyForUse?.Invoke();
         }
     }
 }

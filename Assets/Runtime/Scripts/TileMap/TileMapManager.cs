@@ -16,26 +16,28 @@ namespace Map
         [SerializeField] Player _player;
         [SerializeField] MapObjectsManager _mapObjectsManager;
 
-        [SerializeField] Location location;
+        [SerializeField] Location _location;
 
         [SerializeField] Injector _tileGridInjector;
 
+        public Location location => _location;
         TilesGrid _grid;
 
-        public void StartUp()
+        private void Awake()
         {
-            _mapObjectsManager.SetLocation(location);
-            // _generator = new MapGenerator(_tileMap, _config);
-            // _generator.StartGeneration();
-            var mapData = location.Create(_tileMap);
+            var rawMapData = _location.Create(_tileMap);
 
-            _grid = new TilesGrid(mapData);
+            _grid = new TilesGrid(rawMapData);
             _tileGridInjector.AddDependency(_grid);
 
 
-            if (_grid.TryGetNodeAt(mapData.playerSpawnPos.x, mapData.playerSpawnPos.y, out var node))
+            if (_grid.TryGetNodeAt(rawMapData.playerSpawnPos.x, rawMapData.playerSpawnPos.y, out var node))
             {
                 _player.SpawnAt(node);
+            }
+            else
+            {
+                throw new System.Exception("node for player spawn not found");
             }
 
         }

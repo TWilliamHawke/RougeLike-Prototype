@@ -8,7 +8,7 @@ using Map.Locations;
 
 namespace Map.Objects
 {
-	public class MapObjectsManager : MonoBehaviour, IMapObjectsCreator, IDependency
+	public class MapObjectsManager : MonoBehaviour, IMapObjectsCreator
 	{
 	    [SerializeField] Site _sitePrefab;
 		[SerializeField] Tilemap _tileMap;
@@ -16,24 +16,17 @@ namespace Map.Objects
 		[SerializeField] Injector _topLocationPanelInjector;
 		[SerializeField] Injector _actionsScreenInjector;
 
+		[SerializeField] TileMapManager tileMapManager;
+
 		MapObjectsUIController _uIController;
-
-        public bool isReadyForUse => _uIController != null;
-
-        public event UnityAction OnReadyForUse;
 
 		private void Awake()
 		{
-			_objectsManagerInjector.AddDependency(this);
-		}
-
-		public void SetLocation(Location location)
-		{
-			_uIController = new MapObjectsUIController(location);
+			_uIController = new MapObjectsUIController(tileMapManager.location);
 			_topLocationPanelInjector.AddInjectionTarget(_uIController);
 			_actionsScreenInjector.AddInjectionTarget(_uIController);
-			OnReadyForUse?.Invoke();
-		}	
+			_objectsManagerInjector.AddDependency(this);
+		}
 
         public Site CreateSite(Vector3 position)
         {

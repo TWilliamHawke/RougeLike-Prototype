@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Leveling
 {
-    public class ExperienceStorage : IInjectionTarget, IHaveSaveState, IDependency, IPermanentDependency
+    public class ExperienceStorage : IInjectionTarget, IHaveSaveState, IPermanentDependency
     {
         int _expPerLevelMult = 500;
         int _levelCap = 99;
@@ -15,7 +15,6 @@ namespace Leveling
 
         public event UnityAction OnGettingExp;
         public event UnityAction OnLevelUp;
-        public event UnityAction OnReadyForUse;
 
         long _playerExp;
         int _playerLevel = 1;
@@ -25,8 +24,6 @@ namespace Leveling
         public int playerLevel => _playerLevel;
         public long playerExp => _playerExp;
         public bool waitForAllDependencies => false;
-
-        public bool isReadyForUse => _savedDataStorage != null;
 
         private void OnEnable()
         {
@@ -68,7 +65,6 @@ namespace Leveling
         public void FinalizeInjection()
         {
             _savedDataStorage.Register(this);
-            OnReadyForUse?.Invoke();
         }
 
         void IHaveSaveState.Save(ISaveManager saveManager)
