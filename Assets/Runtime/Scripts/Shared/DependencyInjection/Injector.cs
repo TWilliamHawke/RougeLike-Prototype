@@ -1,15 +1,17 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 using System.Reflection;
+using System.Linq;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
 {
-    IDependency _dependencyWithState;
+    static event UnityAction<IInjectionTarget> OnInjectionFinalize;
     System.Object _dependency;
 
-    bool _dependencyIsReady => _dependencyWithState?.isReadyForUse ?? true;
+    bool _dependencyIsReady = true;
 
     HashSet<IInjectionTarget> _targetsWaitingForInjection = new HashSet<IInjectionTarget>();
     HashSet<IInjectionTarget> _targetsWaitingForFinalization = new HashSet<IInjectionTarget>();
@@ -18,6 +20,7 @@ public class Injector : ScriptableObject
     {
         _targetsWaitingForInjection.Clear();
         _targetsWaitingForFinalization.Clear();
+        OnInjectionFinalize -= FinalizeTargetsIfDependencyIsReady;
 
         if (_dependency is IPermanentDependency)
         {
@@ -25,11 +28,7 @@ public class Injector : ScriptableObject
         }
         else
         {
-            if (_dependencyWithState is not null)
-            {
-                _dependencyWithState.OnReadyForUse -= FinalizeAllTargets;
-            }
-            _dependency = _dependencyWithState = null;
+            _dependency = null;
         }
     }
 
@@ -44,19 +43,21 @@ public class Injector : ScriptableObject
 
     public void AddDependency(System.Object dependency)
     {
-        if (_dependency != null) return;
+        if (_dependency is not null) return;
         _dependency = dependency;
-        if (dependency is IDependency)
+
+        if (dependency is IInjectionTarget && AnyInjectFieldIsNull(dependency))
         {
-            AddDependencyWithState(dependency as IDependency);
-            return;
+            _dependencyIsReady = false;
+            OnInjectionFinalize += FinalizeTargetsIfDependencyIsReady;
         }
-        InjectForAll();
+
+        InjectForWaitingTargets();
     }
 
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
     {
-        var fields = FindAllFieldsWithAttribute(injectionTarget);
+        var fields = FindAllInjectFields(injectionTarget);
 
         if (fields.Count <= 0)
         {
@@ -74,19 +75,22 @@ public class Injector : ScriptableObject
         }
     }
 
-    private void AddDependencyWithState(IDependency dependency)
+    private void FinalizeTargetsIfDependencyIsReady(IInjectionTarget possibleDependency)
     {
-        //should set _dependencyWithState before inject
-        _dependencyWithState = dependency;
-        InjectForAll();
+        if (possibleDependency != _dependency) return;
+        if (AnyInjectFieldIsNull(_dependency)) return;
+        _dependencyIsReady = true;
 
-        if (!dependency.isReadyForUse)
+        foreach (var target in _targetsWaitingForFinalization)
         {
-            _dependencyWithState.OnReadyForUse += FinalizeAllTargets;
+            Finalize(target);
         }
+
+        _targetsWaitingForFinalization.Clear();
+        OnInjectionFinalize -= FinalizeTargetsIfDependencyIsReady;
     }
 
-    private void InjectForAll()
+    private void InjectForWaitingTargets()
     {
         foreach (var target in _targetsWaitingForInjection)
         {
@@ -97,7 +101,7 @@ public class Injector : ScriptableObject
 
     private void Inject(IInjectionTarget injectionTarget)
     {
-        var fields = FindAllFieldsWithAttribute(injectionTarget);
+        var fields = FindAllInjectFields(injectionTarget);
         Inject(injectionTarget, fields);
     }
 
@@ -119,42 +123,24 @@ public class Injector : ScriptableObject
         }
     }
 
-    private void FinalizeAllTargets()
-    {
-        if (!_dependencyIsReady)
-        {
-            Debug.LogError("OnReadyForUse called before object is ready!");
-        }
-
-        foreach (var target in _targetsWaitingForFinalization)
-        {
-            Finalize(target);
-        }
-        _targetsWaitingForFinalization.Clear();
-        _dependencyWithState.OnReadyForUse -= FinalizeAllTargets;
-    }
-
     //FinalizeInjection will call only if all injections is done
     //(fields with InjectFieldAttribute not null)
     private void Finalize(IInjectionTarget injectionTarget)
     {
-        if (!injectionTarget.waitForAllDependencies)
-        {
-            injectionTarget.FinalizeInjection();
-            return;
-        }
-
-        var fields = FindAllFieldsWithAttribute(injectionTarget);
-
-        foreach (var field in fields)
-        {
-            if (field.GetValue(injectionTarget) is null) return;
-        }
+        if (injectionTarget.waitForAllDependencies
+            && AnyInjectFieldIsNull(injectionTarget)) return;
 
         injectionTarget.FinalizeInjection();
+        OnInjectionFinalize?.Invoke(injectionTarget);
     }
 
-    private List<FieldInfo> FindAllFieldsWithAttribute(IInjectionTarget injectionTarget)
+    private bool AnyInjectFieldIsNull(System.Object injectionTarget)
+    {
+        var fields = FindAllInjectFields(injectionTarget);
+        return fields.Any(field => field.GetValue(injectionTarget) is null);
+    }
+
+    private List<FieldInfo> FindAllInjectFields(System.Object injectionTarget)
     {
         var fieldsWithAttribute = new List<FieldInfo>();
 
