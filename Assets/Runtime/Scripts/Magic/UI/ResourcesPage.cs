@@ -19,6 +19,18 @@ namespace Magic.UI
 
         public void Init()
         {
+            if (_inventory.isInit)
+            {
+                Subscribe();
+            }
+            else
+            {
+                _inventory.OnInit += Subscribe;
+            }
+        }
+
+        void Subscribe()
+        {
             _inventory.resources.OnResourceChange += UpdateDustCount;
             _inventory.spellStrings.OnItemAdd += UpdateLayout;
             _inventory.spellStrings.OnItemRemove += UpdateLayout;
@@ -29,14 +41,14 @@ namespace Magic.UI
             _inventory.resources.OnResourceChange -= UpdateDustCount;
             _inventory.spellStrings.OnItemAdd -= UpdateLayout;
             _inventory.spellStrings.OnItemRemove -= UpdateLayout;
-
+            _inventory.OnInit -= Subscribe;
         }
 
         void OnEnable()
         {
             UpdateLayout();
             _magicDustCount.text = _inventory.resources[ResourceType.magicDust].ToString();
-            
+
         }
 
         void UpdateDustCount(ResourceType type)

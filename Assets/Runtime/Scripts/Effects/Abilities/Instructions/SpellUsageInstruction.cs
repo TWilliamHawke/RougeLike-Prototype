@@ -6,7 +6,7 @@ using Entities;
 
 namespace Effects
 {
-	public class SpellContainer : IAbilityInstruction
+	public class SpellUsageInstruction : IAbilityInstruction
 	{
         static IManaComponent _manaComponent;
 
@@ -19,7 +19,7 @@ namespace Effects
             _manaComponent = manaComponent;
         }
 
-        public SpellContainer(KnownSpellData spellData)
+        public SpellUsageInstruction(KnownSpellData spellData)
         {
 			_spellData = spellData;
         }

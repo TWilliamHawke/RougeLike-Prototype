@@ -10,59 +10,30 @@ namespace Items.UI
         [SerializeField] LayoutGroup _layout;
         [SerializeField] ItemSlot _slotPrefab;
 
-        IInventorySectionData _section;
+        List<ItemSlot> _itemSlots = new(5);
 
-		List<ItemSlot> _itemSlots;
-
-		private void OnEnable() {
-			CreateEmptySlots();
-			FillSection();
-		}
-
-        public void SetSectionData(IInventorySectionData section)
+        public void FillSection(IInventorySectionData section)
         {
-            _section = section;
-			_itemSlots = new List<ItemSlot>(_section.maxCount);
-			_section.OnItemAdd += FillSection;
+            for (int i = 0; i < section.count; i++)
+            {
+                if (i >= _itemSlots.Count) return;
+                _itemSlots[i].UpdateData(section[i]);
+            }
         }
 
-        void FillSection()
-        {
-			if(_section is null) return;
-			
-            for (int i = 0; i < _section.count; i++)
-			{
-				if(i >= _itemSlots.Count) return;
-				_itemSlots[i].UpdateData(_section[i]);
-			}
-        }
-
-		void CreateEmptySlots()
-		{
-			ClearLayout();
-			for (int i = 0; i < _section.maxCount; i++)
-			{
-				CreateSlot();
-			}
-		}
-
-        void CreateSlot()
+        public void CreateSlot()
         {
             var slot = Instantiate(_slotPrefab);
             slot.transform.SetParent(_layout.transform);
             slot.gameObject.transform.localScale = transform.localScale;
             slot.SetSlotContainer(ItemSlotContainers.inventory);
-			_itemSlots.Add(slot);
+            _itemSlots.Add(slot);
         }
 
-        void ClearLayout()
+        public void ClearLayout()
         {
             _itemSlots.Clear();
-            foreach (Transform children in _layout.transform)
-            {
-                Destroy(children.gameObject);
-            }
-
+            _layout.DestroyChildren();
         }
     }
 }

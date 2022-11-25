@@ -1569,8 +1569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03920a5de3159ed4283920938eb34686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileMapManager: {fileID: 1081761063}
-  _inputManager: {fileID: 1866764016}
   _entitiesManager: {fileID: 1329410027}
   _playerDataManager: {fileID: 1747095741}
 --- !u!114 &166398776
@@ -4871,7 +4869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e5961915f5f18408d46fb033dc0793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _healthbarCanvas: {fileID: 1709729481}
   _dragElementsCanvas: {fileID: 1784957723}
   _tooltipCanvas: {fileID: 1027287483}
@@ -4881,6 +4878,8 @@ MonoBehaviour:
   _lootPanel: {fileID: 801670869}
   _actionsScreen: {fileID: 1315345898}
   _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
+  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
 --- !u!224 &433595845 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4884713195302840770, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}
@@ -64334,6 +64333,7 @@ MonoBehaviour:
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _background: {fileID: 1880405996}
+  _spellList: {fileID: 1609689038}
   _spellPage: {fileID: 274755475}
   _resourcesPage: {fileID: 2131908725}
   _spellGrid: {fileID: 1609689037}
@@ -64945,7 +64945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de57132e54f87548851201fff718df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _contextMenu: {fileID: 350926864}
   _potionsBag: {fileID: 205385513}
@@ -65705,8 +65704,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1609689036}
   - component: {fileID: 1609689037}
+  - component: {fileID: 1609689038}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: SpellList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65757,6 +65757,21 @@ MonoBehaviour:
   m_Spacing: {x: 45.03, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1609689038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609689035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dddfa5e377df854183fb0fe9997c67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layoutElementPrefab: {fileID: 1277243765521226379, guid: a4601654e821a1a4889b05628ef753f5, type: 3}
+  _layout: {fileID: 1609689037}
+  _spellBook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
 --- !u!224 &1618026442 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8001032242689432034, guid: 0e3d4c6aaaf256b418ed882a608abd54, type: 3}
@@ -67389,7 +67404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bead19d0c8ab28a41a82252219734422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _saveDataInjector: {fileID: 11400000, guid: 87c484463d9f68d4fb197116bd805781, type: 2}
   _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
 --- !u!1 &1758819857

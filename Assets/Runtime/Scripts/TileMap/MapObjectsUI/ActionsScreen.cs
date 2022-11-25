@@ -44,7 +44,7 @@ namespace Map.Objects.UI
 			_actionButtonsPanel.SetActions(actionLogics);
 		}
 
-		void Close()
+		public void Close()
 		{
 			gameObject.SetActive(false);
 		}

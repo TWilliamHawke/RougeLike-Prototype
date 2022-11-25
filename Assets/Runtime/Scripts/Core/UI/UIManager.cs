@@ -10,6 +10,7 @@ using UI.DragAndDrop;
 using X = UnityEngine.InputSystem.InputAction.CallbackContext;
 using UI.Tooltips;
 using Map.Objects.UI;
+using Items;
 
 namespace Core
 {
@@ -17,7 +18,6 @@ namespace Core
     {
         [InjectField] InputController _inputController;
 
-        [SerializeField] Injector _inputControllerInjector;
         [SerializeField] HealthbarCanvas _healthbarCanvas;
         [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [SerializeField] TooltipCanvas _tooltipCanvas;
@@ -29,13 +29,19 @@ namespace Core
         [SerializeField] ActionsScreen _actionsScreen;
         [Header("Injectors")]
         [SerializeField] Injector _healthbarCanvasInjector;
+        [SerializeField] Injector _inputControllerInjector;
+        [Header("Data Objects")]
+        [SerializeField] Inventory _inventory;
 
         List<IUIScreen> _screens = new List<IUIScreen>();
+
+        InventoryScreenController _inventoryScreenController;
 
         bool IInjectionTarget.waitForAllDependencies => false;
 
         void Awake()
         {
+            CreateControllers();
             _dragElementsCanvas.Init();
             _mainCanvas.Init();
             _tooltipCanvas.Init();
@@ -46,14 +52,18 @@ namespace Core
             _screens.Add(_spellbookScreen);
             //_screens.Add(_lootPanel);
 
-            foreach (var screen in _screens)
-            {
-                screen.gameObject.SetActive(false);
-                screen.Init();
-            }
+            _spellbookScreen.Init();
 
             _inputControllerInjector.AddInjectionTarget(this);
             _healthbarCanvasInjector.AddDependency(_healthbarCanvas);
+        }
+
+        private void CreateControllers()
+        {
+            _inventoryScreenController = new InventoryScreenController(
+                inventory: _inventory,
+                inventoryScreen: _inventoryScreen
+            );
         }
 
         private void OnDestroy()
@@ -80,8 +90,7 @@ namespace Core
                 }
                 else
                 {
-                    bool state = screen.gameObject.activeSelf;
-                    screen.gameObject.SetActive(!state);
+                    screen.Toggle();
                 }
             }
 

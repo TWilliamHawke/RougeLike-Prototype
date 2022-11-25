@@ -15,7 +15,7 @@ namespace Items
 
         public IAbilityInstruction CreateAbilityInstruction()
         {
-            return new ItemContainer(this);
+            return new ItemUsageInstruction(this);
         }
 
         public void UseItem(AbilityController controller)

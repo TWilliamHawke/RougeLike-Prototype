@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 namespace Items
 {
@@ -9,6 +10,8 @@ namespace Items
     {
         [SerializeField] Item[] _testItems;
         [SerializeField] Resource[] _startResources;
+
+        public event UnityAction OnInit;
 
         StoredResources _resources;
         ItemSection<Potion> _potionsBag;
@@ -28,15 +31,22 @@ namespace Items
 
         List<Item> _equipment;
 
+        bool _isInit = false;
+        public bool isInit => _isInit;
+
 
         public void Init()
         {
+            //if(_isInit) return; //UNDONE this causes a bug in spellbook resource page
             CreateSections();
 
             foreach (var item in _testItems)
             {
                 AddItems(item, item.maxStackSize);
             }
+            
+            _isInit = true;
+            OnInit?.Invoke();
         }
 
         public void AddItem(Item item)
@@ -93,10 +103,10 @@ namespace Items
 
             _resources = new StoredResources(_startResources);
             _potionsBag = new ItemSection<Potion>(3);
-            _spellStrings = new ItemSection<SpellString>(-1);
+            _spellStrings = new ItemSection<SpellString>();
             _scrollsBag = new ItemSection<MagicScroll>(5);
             _main = new ItemSection<Item>(12);
-            _storage = new ItemSection<Item>(-1);
+            _storage = new ItemSection<Item>();
 
             _sections.Add(_resources);
             _sections.Add(_potionsBag);

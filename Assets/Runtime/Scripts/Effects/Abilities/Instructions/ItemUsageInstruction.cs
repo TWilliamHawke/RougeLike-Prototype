@@ -5,7 +5,7 @@ using Items;
 
 namespace Effects
 {
-	public class ItemContainer : IAbilityInstruction
+	public class ItemUsageInstruction : IAbilityInstruction
 	{
 		static Inventory _inventory;
 
@@ -22,7 +22,7 @@ namespace Effects
         }
 
 
-        public ItemContainer(Item item)
+        public ItemUsageInstruction(Item item)
         {
             _item = item;
         }

@@ -51,7 +51,7 @@ namespace Magic
 
         public IAbilityInstruction CreateAbilityInstruction()
         {
-            return new SpellContainer(this);
+            return new SpellUsageInstruction(this);
         }
 
         public string ConstructDescription()

@@ -12,6 +12,16 @@ public abstract class UIPanelWithGrid<T> : MonoBehaviour
     protected LayoutGroup layout => _layout;
     //protected UIDataElement<T> prefab => _layoutElementPrefab;
 
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
     protected virtual void UpdateLayout()
     {
         ClearLayout();

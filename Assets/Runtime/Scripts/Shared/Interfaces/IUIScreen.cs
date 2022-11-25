@@ -2,8 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-	public interface IUIScreen
+public interface IUIScreen
+{
+    GameObject gameObject { get; }
+    void Open()
 	{
-	    GameObject gameObject { get; }
-		void Init();
+		gameObject.SetActive(true);
 	}
+
+    void Close()
+	{
+		gameObject.SetActive(false);
+	}
+
+    void Toggle()
+    {
+		//dont use gameObject.SetActive(!gameObject.activeSelf)
+		//Open/Close can have another implementation
+        if (gameObject.activeSelf)
+        {
+            Close();
+        }
+        else
+        {
+            Open();
+        }
+    }
+}
