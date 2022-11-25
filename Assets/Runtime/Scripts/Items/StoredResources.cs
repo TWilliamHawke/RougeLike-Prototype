@@ -106,8 +106,8 @@ namespace Items
 
     public enum ResourceType
     {
-        none,
-        gold,
-        magicDust
+        none = 0,
+        gold = 1,
+        magicDust = 2
     }
 }

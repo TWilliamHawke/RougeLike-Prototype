@@ -47,6 +47,11 @@ namespace Magic.UI
             _rankUpButton.UpdateState(spellData);
         }
 
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
         void SetUIData()
         {
             _spellIcon.sprite = _spellData.icon;

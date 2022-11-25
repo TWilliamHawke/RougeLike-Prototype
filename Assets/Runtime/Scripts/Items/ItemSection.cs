@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
 
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData, IDataList<Item>, IItemSection where T : Item
+    public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData,
+            IDataList<Item>, IItemSection where T : Item
     {
 
         List<ItemSlotData> _itemsList;
-        Dictionary<Item, ItemSlotData> _items;
+        Dictionary<Item, ItemSlotData> _activeSlotForItems;
 
         int _maxSlotsCount;
 
@@ -22,10 +22,14 @@ namespace Items
         public int maxCount => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
         int IInventorySectionData.count => _itemsList.Count;
 
+        public ItemSection(): this(-1)
+        {
+        }
+
         public ItemSection(int maxSlotsCount)
         {
             _maxSlotsCount = maxSlotsCount;
-            _items = new Dictionary<Item, ItemSlotData>(maxCount);
+            _activeSlotForItems = new Dictionary<Item, ItemSlotData>(maxCount);
             _itemsList = new List<ItemSlotData>(maxCount);
         }
 
@@ -61,10 +65,10 @@ namespace Items
 
             //no empty slots - check exist slots
             //slot with item doesnt exist
-            if (!_items.ContainsKey(item)) return false;
+            if (!_activeSlotForItems.ContainsKey(item)) return false;
 
             //slot with item is exist - check empty space
-            if (_items[item].count < item.maxStackSize) return true;
+            if (_activeSlotForItems[item].count < item.maxStackSize) return true;
 
             //no empty space in section
             return false;
@@ -84,7 +88,7 @@ namespace Items
         public void Clear()
         {
             _itemsList.Clear();
-            _items.Clear();
+            _activeSlotForItems.Clear();
         }
 
         //UNDONE this code can create slots over _maxSlotsCount!!!
@@ -93,17 +97,18 @@ namespace Items
         {
             if(item is null) return;
             
-            if (_items.ContainsKey(item))
+            if (_activeSlotForItems.TryGetValue(item, out var itemSlot))
             {
-                int freeSpace = item.maxStackSize - _items[item].count;
+                int freeSpace = item.maxStackSize - itemSlot.count;
                 if (freeSpace < count)
                 {
                     count -= freeSpace;
+                    itemSlot.FillToMaxSize();
                     CreateNewItemSlot(item, count);
                 }
                 else
                 {
-                    _items[item].IncreaseCountBy(count);
+                    itemSlot.IncreaseCountBy(count);
                 }
             }
             else
@@ -117,7 +122,7 @@ namespace Items
         void CreateNewItemSlot(Item item, int count)
         {
             var itemSlotData = new ItemSlotData(item, count);
-            _items[item] = itemSlotData;
+            _activeSlotForItems[item] = itemSlotData;
             _itemsList.Add(itemSlotData);
         }
 
@@ -133,7 +138,14 @@ namespace Items
 
         public int FindItemCount(Item item)
         {
-            return _itemsList.Where(slot => slot.item == item).Sum(slot => slot.count);
+            int itemsCount = 0;
+            foreach (var slot in _itemsList)
+            {
+                if(slot.item != item) continue;
+                itemsCount += slot.count;
+            }
+
+            return itemsCount;
         }
     }
 

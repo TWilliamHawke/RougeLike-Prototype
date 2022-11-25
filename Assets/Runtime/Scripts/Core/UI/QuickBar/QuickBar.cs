@@ -17,8 +17,8 @@ namespace Core.UI
 
         public void Init()
         {
-			ItemContainer.SetInventory(_inventory);
-			SpellContainer.SetManaComponent(_playerStats);
+			ItemUsageInstruction.SetInventory(_inventory);
+			SpellUsageInstruction.SetManaComponent(_playerStats);
             SetUpSlotNumbers();
         }
 

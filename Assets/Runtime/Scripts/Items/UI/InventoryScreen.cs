@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.DragAndDrop;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Items.UI
 {
     public class InventoryScreen : MonoBehaviour, IUIScreen
     {
-        [SerializeField] Inventory _inventory;
         [SerializeField] DragController _dragController;
         [Header("UI Elements")]
         [SerializeField] ContextMenu _contextMenu;
@@ -18,11 +18,20 @@ namespace Items.UI
         [SerializeField] StorageButton _storageButton;
         [SerializeField] Image _background;
 
+        public InventorySection potionsBag => _potionsBag;
+        public InventorySection scrollsBag => _scrollsBag;
+        public InventorySection mainSection => _main;
+
+        public event UnityAction OnScreenOpen;
+
+        public void Open()
+        {
+            gameObject.SetActive(true);
+            OnScreenOpen?.Invoke();
+        }
+
         public void Init()
         {
-            _potionsBag.SetSectionData(_inventory.potionsBag);
-            _scrollsBag.SetSectionData(_inventory.scrollsBag);
-            _main.SetSectionData(_inventory.main);
             _storageButton.Init();
 
             _dragController.OnBeginDrag += HideBackGround;

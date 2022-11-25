@@ -6,7 +6,7 @@ public static class MonoBehaviourExtension
 	{
 		foreach(Transform children in mono.transform)
 		{
-			GameObject.DestroyImmediate(children.gameObject);
+			GameObject.Destroy(children.gameObject);
 		}
 	}
 
