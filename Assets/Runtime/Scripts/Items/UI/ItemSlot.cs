@@ -12,34 +12,43 @@ using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
 namespace Items
 {
     public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler,
-     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip
+     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip, IInjectionTarget
     {
         public static event UnityAction<IItemSlot> OnRightClick;
 
         [SerializeField] Sprite _emptyFrame;
-        [SerializeField] DragController _dragController;
-		[SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
+        [SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
         [SerializeField] Image _outline;
         [SerializeField] TextMeshProUGUI _count;
+        [Header("Injectors")]
+        [SerializeField] Injector _dragCanvasInjector;
+        [Header("Events")]
+        [SerializeField] CustomEvent _onItemDragStart;
+        [SerializeField] CustomEvent _onItemDragEnd;
 
+        [InjectField] Canvas _dragCanvas;
+
+        //data
         ItemSlotData _slotData;
-        DragHandler<ItemSlotData> _draghandler;
         ItemSlotContainers _slotContainer;
-
-        ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
-        public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
-        DragController IDragDataSource<ItemSlotData>.dragController => _dragController;
-
         ItemSlotContainers IItemSlot.itemSlotContainer => _slotContainer;
-
         ItemSlotData IItemSlot.itemSlotData => _slotData;
 
+        //drag item
+        DragHandler<ItemSlotData> _draghandler;
+        ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
+        public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
+        public Canvas dragCanvas => _dragCanvas;
+        //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
+
+        public bool waitForAllDependencies => false;
 
         void Awake()
         {
+            _dragCanvasInjector.AddInjectionTarget(this);
             _draghandler = new DragHandler<ItemSlotData>(this);
         }
 
@@ -70,38 +79,40 @@ namespace Items
             _slotContainer = slotContainer;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (_slotData is null) return;
             _outline.gameObject.SetActive(true);
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             _outline.gameObject.SetActive(false);
         }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if(_slotData is null) return;
-			_draghandler.OnBeginDrag();
+            if (_slotData is null) return;
+            _draghandler.OnBeginDrag();
+            _onItemDragStart?.Invoke();
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            if(_slotData is null) return;
-			_draghandler.OnDrag(eventData);
+            if (_slotData is null) return;
+            _draghandler.OnDrag(eventData);
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            if(_slotData is null) return;
-			_draghandler.OnEndDrag();
+            if (_slotData is null) return;
+            _draghandler.OnEndDrag();
+            _onItemDragEnd?.Invoke();
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if(eventData.button == MouseButton.Right)
+            if (eventData.button == MouseButton.Right)
             {
                 OnRightClick?.Invoke(this);
             }
@@ -110,6 +121,10 @@ namespace Items
         ItemTooltipData IHaveItemTooltip.GetTooltipData()
         {
             return _slotData.item.GetTooltipData();
+        }
+
+        void IInjectionTarget.FinalizeInjection()
+        {
         }
     }
 }

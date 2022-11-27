@@ -4869,15 +4869,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e5961915f5f18408d46fb033dc0793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarCanvas: {fileID: 1709729481}
-  _dragElementsCanvas: {fileID: 1784957723}
   _tooltipCanvas: {fileID: 1027287483}
   _mainCanvas: {fileID: 875341155}
   _inventoryScreen: {fileID: 1500834477}
   _spellbookScreen: {fileID: 1411236377}
   _lootPanel: {fileID: 801670869}
   _actionsScreen: {fileID: 1315345898}
-  _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
 --- !u!224 &433595845 stripped
@@ -59712,6 +59709,8 @@ GameObject:
   - component: {fileID: 999724914}
   - component: {fileID: 999724913}
   - component: {fileID: 999724912}
+  - component: {fileID: 999724918}
+  - component: {fileID: 999724917}
   m_Layer: 0
   m_Name: Storage
   m_TagString: Untagged
@@ -59753,7 +59752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-  _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _buttonText: {fileID: 1008031885}
 --- !u!114 &999724913
 MonoBehaviour:
@@ -59857,6 +59855,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999724910}
   m_CullTransparentMesh: 1
+--- !u!114 &999724917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999724910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 999724912}
+        m_TargetAssemblyTypeName: Items.UI.StorageButton, Project
+        m_MethodName: SetDefaultText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &999724918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999724910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 999724912}
+        m_TargetAssemblyTypeName: Items.UI.StorageButton, Project
+        m_MethodName: SetWelcomeText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1003568344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64225,6 +64279,8 @@ GameObject:
   - component: {fileID: 1411236375}
   - component: {fileID: 1411236374}
   - component: {fileID: 1411236377}
+  - component: {fileID: 1411236379}
+  - component: {fileID: 1411236378}
   m_Layer: 0
   m_Name: SpellBook
   m_TagString: Untagged
@@ -64327,11 +64383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab74d1e97eeb0e40acb944f51ff1192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layoutElementPrefab: {fileID: 1277243765521226379, guid: a4601654e821a1a4889b05628ef753f5, type: 3}
-  _layout: {fileID: 1609689037}
   _spellBook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-  _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _background: {fileID: 1880405996}
   _spellList: {fileID: 1609689038}
   _spellPage: {fileID: 274755475}
@@ -64340,6 +64393,62 @@ MonoBehaviour:
   _testSpells:
   - {fileID: 11400000, guid: 7c7b75c1e4acaad4d85217c10af899aa, type: 2}
   - {fileID: 11400000, guid: caf14fbe3a565b847b783c833c280892, type: 2}
+--- !u!114 &1411236378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411236372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 80363ed9cc3378e40aa8d73c1e10f110, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1411236377}
+        m_TargetAssemblyTypeName: Magic.UI.SpellbookScreen, Project
+        m_MethodName: ShowBackGround
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1411236379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411236372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 7b1f4806793bff34494956aac5fdc8dd, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1411236377}
+        m_TargetAssemblyTypeName: Magic.UI.SpellbookScreen, Project
+        m_MethodName: HideBackGround
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1430797226
 GameObject:
   m_ObjectHideFlags: 0
@@ -64842,6 +64951,8 @@ GameObject:
   - component: {fileID: 1500834475}
   - component: {fileID: 1500834474}
   - component: {fileID: 1500834477}
+  - component: {fileID: 1500834479}
+  - component: {fileID: 1500834478}
   m_Layer: 0
   m_Name: InventoryScreen
   m_TagString: Untagged
@@ -64945,13 +65056,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de57132e54f87548851201fff718df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
   _contextMenu: {fileID: 350926864}
   _potionsBag: {fileID: 205385513}
   _scrollsBag: {fileID: 79181045}
   _main: {fileID: 175688829}
   _storageButton: {fileID: 999724912}
   _background: {fileID: 158697645}
+--- !u!114 &1500834478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500834472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1500834477}
+        m_TargetAssemblyTypeName: Items.UI.InventoryScreen, Project
+        m_MethodName: ShowBackGround
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1500834479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500834472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1500834477}
+        m_TargetAssemblyTypeName: Items.UI.InventoryScreen, Project
+        m_MethodName: HideBackGround
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1530207613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65706,7 +65872,7 @@ GameObject:
   - component: {fileID: 1609689037}
   - component: {fileID: 1609689038}
   m_Layer: 0
-  m_Name: SpellList
+  m_Name: KnownSpellList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66598,6 +66764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthbarPrefab: {fileID: 3371638015022652161, guid: 3afc95d7210952f4c93dc3301bd5dc9f, type: 3}
+  _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
 --- !u!114 &1709729482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68218,7 +68385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880566adee1d3ed4e802b59cf500c6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dragController: {fileID: 11400000, guid: 2fbf08c6acb18734a83f2644c4e4480f, type: 2}
+  _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
 --- !u!114 &1784957724
 MonoBehaviour:
   m_ObjectHideFlags: 0

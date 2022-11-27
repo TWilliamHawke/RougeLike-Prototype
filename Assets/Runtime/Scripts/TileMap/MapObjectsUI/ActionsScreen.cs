@@ -20,7 +20,7 @@ namespace Map.Objects.UI
         public void Init()
         {
             _closeButton.onClick.AddListener(Close);
-			_actionsScreenInjector.AddDependency(this);
+			_actionsScreenInjector.SetDependency(this);
         }
 
 		public void Open()

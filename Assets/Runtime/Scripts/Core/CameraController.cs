@@ -19,7 +19,7 @@ namespace Core
         private void Awake()
         {
             _playerInjector.AddInjectionTarget(this);
-            _mainCameraInjector.AddDependency(GetComponent<Camera>());
+            _mainCameraInjector.SetDependency(GetComponent<Camera>());
         }
 
         void LateUpdate()

@@ -25,7 +25,7 @@ namespace Map.Objects
 			_uIController = new MapObjectsUIController(tileMapManager.location);
 			_topLocationPanelInjector.AddInjectionTarget(_uIController);
 			_actionsScreenInjector.AddInjectionTarget(_uIController);
-			_objectsManagerInjector.AddDependency(this);
+			_objectsManagerInjector.SetDependency(this);
 		}
 
         public Site CreateSite(Vector3 position)

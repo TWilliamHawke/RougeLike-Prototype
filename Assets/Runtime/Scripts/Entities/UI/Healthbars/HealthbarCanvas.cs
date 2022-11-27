@@ -7,6 +7,12 @@ namespace Entities.UI
     public class HealthbarCanvas : MonoBehaviour
     {
         [SerializeField] Healthbar _healthbarPrefab;
+        [SerializeField] Injector _healthbarCanvasInjector;
+
+        private void Awake()
+        {
+            _healthbarCanvasInjector.SetDependency(this);
+        }
 
         public void CreateNewHealthbar(IHealthbarData entityHealth)
         {

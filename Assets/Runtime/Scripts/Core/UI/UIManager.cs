@@ -18,8 +18,6 @@ namespace Core
     {
         [InjectField] InputController _inputController;
 
-        [SerializeField] HealthbarCanvas _healthbarCanvas;
-        [SerializeField] DragElementsCanvas _dragElementsCanvas;
         [SerializeField] TooltipCanvas _tooltipCanvas;
         [Header("UI Screens")]
         [SerializeField] MainCanvas _mainCanvas;
@@ -28,7 +26,6 @@ namespace Core
         [SerializeField] LootPanel _lootPanel;
         [SerializeField] ActionsScreen _actionsScreen;
         [Header("Injectors")]
-        [SerializeField] Injector _healthbarCanvasInjector;
         [SerializeField] Injector _inputControllerInjector;
         [Header("Data Objects")]
         [SerializeField] Inventory _inventory;
@@ -42,7 +39,6 @@ namespace Core
         void Awake()
         {
             CreateControllers();
-            _dragElementsCanvas.Init();
             _mainCanvas.Init();
             _tooltipCanvas.Init();
             _actionsScreen.Init();
@@ -55,7 +51,6 @@ namespace Core
             _spellbookScreen.Init();
 
             _inputControllerInjector.AddInjectionTarget(this);
-            _healthbarCanvasInjector.AddDependency(_healthbarCanvas);
         }
 
         private void CreateControllers()

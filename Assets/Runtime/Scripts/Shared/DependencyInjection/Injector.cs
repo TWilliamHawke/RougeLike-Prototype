@@ -32,16 +32,16 @@ public class Injector : ScriptableObject
         }
     }
 
-    public void AddDependency<T>(ref T dependency) where T : class, IPermanentDependency
+    public void SetDependency<T>(ref T dependency) where T : class, IPermanentDependency
     {
         if (_dependency is null)
         {
-            AddDependency(dependency);
+            SetDependency(dependency);
         }
         dependency = _dependency as T ?? dependency;
     }
 
-    public void AddDependency(System.Object dependency)
+    public void SetDependency(System.Object dependency)
     {
         if (_dependency is not null) return;
         _dependency = dependency;

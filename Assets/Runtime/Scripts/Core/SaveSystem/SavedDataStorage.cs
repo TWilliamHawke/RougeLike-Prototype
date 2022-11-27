@@ -36,7 +36,7 @@ namespace Core.SaveSystem
                 _serializedData[key] = value;
             }
 
-            _selfInjector.AddDependency(this);
+            _selfInjector.SetDependency(this);
         }
 
         public void SaveGame(string path)

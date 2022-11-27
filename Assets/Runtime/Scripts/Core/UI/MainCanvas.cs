@@ -28,7 +28,7 @@ namespace Core
 			_activeEffectsPanel.Init();
 			_expBarController = new ExperienceBarController(_experienceBar);
 			_experienceStorageInjector.AddInjectionTarget(_expBarController);
-			_infoButtonInjector.AddDependency(_infoButton);
+			_infoButtonInjector.SetDependency(_infoButton);
 		}
 	}
 }

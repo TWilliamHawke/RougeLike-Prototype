@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace UI.DragAndDrop
 {
-	[RequireComponent(typeof(Canvas))]
-	public class DragElementsCanvas : MonoBehaviour
-	{
-		[SerializeField] DragController _dragController;
+    [RequireComponent(typeof(Canvas))]
+    public class DragElementsCanvas : MonoBehaviour
+    {
+        [SerializeField] Injector _dragCanvasInjector;
 
-	    public void Init()
-		{
-			_dragController.canvas = GetComponent<Canvas>();
-		}
-	}
+        private void Awake()
+        {
+			_dragCanvasInjector.SetDependency(GetComponent<Canvas>());
+        }
+    }
 }

@@ -32,7 +32,7 @@ namespace Core.Input
         private void Awake()
         {
             _inputController = new InputController();
-            _inputControllerInjector.AddDependency(_inputController);
+            _inputControllerInjector.SetDependency(_inputController);
 
             _clickStateMachine = new ClickStateMachine();
             _playerInjector.AddInjectionTarget(_clickStateMachine);

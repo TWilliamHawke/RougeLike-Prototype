@@ -15,7 +15,7 @@ namespace Entities.PlayerScripts
         public void StartUp()
         {
 			var experienceStorage = new ExperienceStorage();
-			_experienceStorageInjector.AddDependency(ref experienceStorage);
+			_experienceStorageInjector.SetDependency(ref experienceStorage);
 			_saveDataInjector.AddInjectionTarget(experienceStorage);
         }
     }

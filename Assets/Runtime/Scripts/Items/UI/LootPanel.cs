@@ -21,7 +21,7 @@ namespace Items.UI
 
         public void Init()
         {
-            _selfInjector.AddDependency(this);
+            _selfInjector.SetDependency(this);
             Container.OnContainerOpen += Open;
         }
 

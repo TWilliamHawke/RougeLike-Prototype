@@ -17,7 +17,6 @@ namespace Items.UI
             _inventoryScreen.OnScreenOpen += UpdateInventoryScreen;
 
             _inventory.Init();
-            _inventoryScreen.Init();
 
             _inventorySectionControllers.Add(new InventorySectionController(
                 sectionData: _inventory.potionsBag,

@@ -10,14 +10,13 @@ using UI.DragAndDrop;
 namespace Magic.UI
 {
     public class SpellDataButton : UIDataElement<KnownSpellData>, IPointerEnterHandler,
-        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>
+        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>, IInjectionTarget
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
         [SerializeField] Spellbook _spellBook;
         [SerializeField] ActiveAbilities _activeAbilities;
         [SerializeField] DraggedSpell _draggedSpellPrefab;
-        [SerializeField] DragController _dragController;
         [Header("UI Elements")]
         [SerializeField] Image _frame;
         [SerializeField] Image _spellIcon;
@@ -25,17 +24,27 @@ namespace Magic.UI
         [SerializeField] TextMeshProUGUI _spellRank;
         [SerializeField] TextMeshProUGUI _spellCost;
         [SerializeField] Button _spellUpgradeButton;
+        [Header("Injectors")]
+        [SerializeField] Injector _dragCanvasInjector;
+        [Header("Events")]
+        [SerializeField] CustomEvent _onSpellDragStart;
+        [SerializeField] CustomEvent _onSpellDragEnd;
+
+        [InjectField] Canvas _dragCanvas;
 
         KnownSpellData _knownSpell;
         DragHandler<KnownSpellData> _draghandler;
 
         public KnownSpellData dragData => _knownSpell;
         public DragableUIElement<KnownSpellData> dragableElementPrefab => _draggedSpellPrefab;
-        public DragController dragController => _dragController;
+        public Canvas dragCanvas => _dragCanvas;
+
+        public bool waitForAllDependencies => false;
 
         void Awake()
         {
             _spellUpgradeButton.onClick.AddListener(OpenSpellPage);
+            _dragCanvasInjector.AddInjectionTarget(this);
             _draghandler = new DragHandler<KnownSpellData>(this);
         }
 
@@ -75,6 +84,7 @@ namespace Magic.UI
         public void OnBeginDrag(PointerEventData eventData)
         {
             _draghandler.OnBeginDrag();
+            _onSpellDragStart?.Invoke();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -85,6 +95,11 @@ namespace Magic.UI
         public void OnEndDrag(PointerEventData eventData)
         {
             _draghandler.OnEndDrag();
+            _onSpellDragEnd?.Invoke();
+        }
+
+        public void FinalizeInjection()
+        {
         }
     }
 }
