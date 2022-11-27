@@ -28,7 +28,7 @@ namespace Map
             var rawMapData = _location.Create(_tileMap);
 
             _grid = new TilesGrid(rawMapData);
-            _tileGridInjector.AddDependency(_grid);
+            _tileGridInjector.SetDependency(_grid);
 
 
             if (_grid.TryGetNodeAt(rawMapData.playerSpawnPos.x, rawMapData.playerSpawnPos.y, out var node))

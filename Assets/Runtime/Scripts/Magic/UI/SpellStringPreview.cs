@@ -9,25 +9,33 @@ using UnityEngine.EventSystems;
 
 namespace Magic.UI
 {
-    public class SpellStringPreview : UIDataElement<ItemSlotData>, IDragDataSource<ItemSlotData>
+    public class SpellStringPreview : UIDataElement<ItemSlotData>, IDragDataSource<ItemSlotData>, IInjectionTarget
     {
         [SerializeField] DragableUIElement<ItemSlotData> _dragableItemPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
         [SerializeField] TextMeshProUGUI _title;
         [SerializeField] TextMeshProUGUI _count;
-        [SerializeField] DragController _dragController;
+        [Header("Injectors")]
+        [SerializeField] Injector _dragCanvasInjector;
+        [Header("Events")]
+        [SerializeField] CustomEvent _onSpellLineDragStart;
+        [SerializeField] CustomEvent _onSpellLineDragEnd;
+
+        [InjectField] Canvas _dragCanvas;
 
         ItemSlotData _itemSlotData;
         DragHandler<ItemSlotData> _dragHandler;
 
         public ItemSlotData dragData => _itemSlotData;
-        public DragController dragController => _dragController;
 
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _dragableItemPrefab;
+        public bool waitForAllDependencies => false;
+        public Canvas dragCanvas => _dragCanvas;
 
         private void Awake()
         {
+            _dragCanvasInjector.AddInjectionTarget(this);
             _dragHandler = new DragHandler<ItemSlotData>(this);
         }
 
@@ -47,6 +55,7 @@ namespace Magic.UI
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             _dragHandler.OnBeginDrag();
+            _onSpellLineDragStart?.Invoke();
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -57,7 +66,11 @@ namespace Magic.UI
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             _dragHandler.OnEndDrag();
+            _onSpellLineDragEnd?.Invoke();
         }
 
+        public void FinalizeInjection()
+        {
+        }
     }
 }

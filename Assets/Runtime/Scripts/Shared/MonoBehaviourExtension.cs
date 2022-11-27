@@ -22,6 +22,13 @@ public static class MonoBehaviourExtension
 		return obj;
 	}
 
+	public static T CreateChild<T>(this Component mono, T prefab) where T: Component
+	{
+		T obj = GameObject.Instantiate(prefab, mono.transform);
+
+		return obj;
+	}
+
 	public static bool TryStopCoroutine(this MonoBehaviour mono, Coroutine coroutine)
 	{
 		if(coroutine is null) return false;

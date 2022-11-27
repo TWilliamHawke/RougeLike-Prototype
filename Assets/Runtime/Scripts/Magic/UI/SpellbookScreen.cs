@@ -11,7 +11,6 @@ namespace Magic.UI
     {
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
-        [SerializeField] DragController _dragController;
         [Header("UI Elements")]
         [SerializeField] Image _background;
         [SerializeField] SpellList _spellList;
@@ -24,8 +23,6 @@ namespace Magic.UI
         {
             _spellBook.OnSpellPageOpen += OpenSpellPage;
             _spellBook.OnSpellSelect += Close;
-            _dragController.OnBeginDrag += HideBackGround;
-            _dragController.OnEndDrag += ShowBackGround;
 
             _spellPage.Init();
             _resourcesPage.Init();
@@ -43,8 +40,6 @@ namespace Magic.UI
         {
             _spellBook.OnSpellPageOpen -= OpenSpellPage;
             _spellBook.OnSpellSelect -= Close;
-            _dragController.OnBeginDrag -= HideBackGround;
-            _dragController.OnEndDrag -= ShowBackGround;
         }
 
         void OnEnable()
@@ -53,7 +48,17 @@ namespace Magic.UI
             _spellList.UpdateSpellList();
         }
 
-        //use as button listener
+        public void ShowBackGround()
+        {
+            _background.gameObject.SetActive(true);
+        }
+
+        public void HideBackGround()
+        {
+            _background.gameObject.SetActive(false);
+        }
+
+        //use as unityEvent
         public void CloseSpellPage()
         {
             _spellList.Show();
@@ -71,16 +76,6 @@ namespace Magic.UI
         void Close(KnownSpellData _)
         {
             gameObject.SetActive(false);
-        }
-
-        void ShowBackGround()
-        {
-            _background.gameObject.SetActive(true);
-        }
-
-        void HideBackGround(object _)
-        {
-            _background.gameObject.SetActive(false);
         }
 
 

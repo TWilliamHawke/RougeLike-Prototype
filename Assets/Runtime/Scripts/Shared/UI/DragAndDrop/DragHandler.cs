@@ -2,35 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using UnityEngine.Pool;
 
 namespace UI.DragAndDrop
 {
 
     public class DragHandler<T>
     {
-
-        DragController _dragController;
+        static ObjectPool<DragableUIElement<T>> _dragPool;
 
         IDragDataSource<T> _dataSource;
+        DragableUIElement<T> _dragableElement;
 
         public DragHandler(IDragDataSource<T> dataSource)
         {
             _dataSource = dataSource;
-            _dragController = _dataSource.dragController;
+            if (_dragPool is not null) return;
+
+            _dragPool = new(
+                createFunc: () => GameObject.Instantiate(_dataSource.dragableElementPrefab),
+                actionOnGet: elem => elem.gameObject.SetActive(true),
+                actionOnRelease: elem => elem.gameObject.SetActive(false),
+                defaultCapacity: 1
+            );
         }
-
-        DragableUIElement<T> _dragableElement;
-
 
         public void OnBeginDrag()
         {
-            _dragableElement = Object.Instantiate(_dataSource.dragableElementPrefab);
-            _dragableElement.transform.SetParent(_dragController.canvas.transform);
-            _dragableElement.SetData(_dataSource.dragData);
+            _dragableElement = _dragPool.Get();
+            _dragableElement.SetParent(_dataSource.dragCanvas);
+            _dragableElement.SetData(_dataSource);
             _dragableElement.SetDefaultPosition();
-            _dragController.BeginDrag(_dataSource.dragData);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -42,8 +44,7 @@ namespace UI.DragAndDrop
         public void OnEndDrag()
         {
             _dragableElement.TryFindDropTarget();
-            _dragableElement.DestroySelf();
-            _dragController.EndDrag();
+            _dragPool.Release(_dragableElement);
         }
     }
 }

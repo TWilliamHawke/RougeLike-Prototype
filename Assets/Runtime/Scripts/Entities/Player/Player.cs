@@ -37,7 +37,7 @@ namespace Entities.PlayerScripts
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
-            _selfInjector.AddDependency(this);
+            _selfInjector.SetDependency(this);
         }
 
 

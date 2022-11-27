@@ -9,7 +9,6 @@ namespace Items.UI
 {
     public class InventoryScreen : MonoBehaviour, IUIScreen
     {
-        [SerializeField] DragController _dragController;
         [Header("UI Elements")]
         [SerializeField] ContextMenu _contextMenu;
         [SerializeField] InventorySection _potionsBag;
@@ -30,31 +29,17 @@ namespace Items.UI
             OnScreenOpen?.Invoke();
         }
 
-        public void Init()
-        {
-            _storageButton.Init();
-
-            _dragController.OnBeginDrag += HideBackGround;
-            _dragController.OnEndDrag += ShowBackGround;
-        }
-
         void OnEnable()
         {
             _contextMenu.TryInit();
         }
 
-        void OnDestroy()
-        {
-            _dragController.OnBeginDrag -= HideBackGround;
-            _dragController.OnEndDrag -= ShowBackGround;
-        }
-
-        void ShowBackGround()
+        public void ShowBackGround()
         {
             _background.gameObject.SetActive(true);
         }
 
-        void HideBackGround(object _)
+        public void HideBackGround()
         {
             _background.gameObject.SetActive(false);
         }

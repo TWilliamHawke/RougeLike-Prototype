@@ -25,7 +25,7 @@ namespace Map.Objects.UI
 
         private void Awake()
         {
-            _selfInjector.AddDependency(this);
+            _selfInjector.SetDependency(this);
         }
 
 		public void SetLocationIcon(Sprite sprite)

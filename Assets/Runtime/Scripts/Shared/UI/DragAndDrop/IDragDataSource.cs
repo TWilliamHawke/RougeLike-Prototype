@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace UI.DragAndDrop
@@ -6,6 +7,6 @@ namespace UI.DragAndDrop
     {
         T dragData { get; }
         DragableUIElement<T> dragableElementPrefab { get; }
-        DragController dragController { get; }
+        Canvas dragCanvas { get; }
     }
 }

@@ -18,7 +18,7 @@ namespace Entities
 
         private void Awake()
         {
-			_selfInjector.AddDependency(this);
+			_selfInjector.SetDependency(this);
 			_entitiesManagerInjector.AddInjectionTarget(this);
         }
 

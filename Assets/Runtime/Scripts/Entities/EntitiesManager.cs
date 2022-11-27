@@ -41,7 +41,7 @@ namespace Entities
             _testEnemy.Init();
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
             _inputControllerInjector.AddInjectionTarget(this);
-            _selfInjector.AddDependency(this);
+            _selfInjector.SetDependency(this);
             _tilesGridInjector.AddInjectionTarget(this);
         }
 
