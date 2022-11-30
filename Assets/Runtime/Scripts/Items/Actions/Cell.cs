@@ -1,10 +1,29 @@
+using Core;
+
 namespace Items.Actions
 {
     public class Cell : IItemAction
     {
         public string actionTitle => "Cell";
+        public IItemSlot itemSlot { get; set; }
 
-        public void DoAction(ItemSlotData itemSlotData)
+        public RadialButtonPosition preferedPosition => RadialButtonPosition.bottom;
+
+        public Cell(IItemSlot itemSlot)
+        {
+            this.itemSlot = itemSlot;
+        }
+
+        public Cell()
+        {
+        }
+
+        // public void DoAction()
+        // {
+
+        // }
+
+        public void SetData(ItemSlotData data)
         {
 
         }

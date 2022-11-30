@@ -1,13 +1,27 @@
+using Core;
+
 namespace Items.Actions
 {
     public class Use : IItemAction
     {
         public string actionTitle => "Use";
+        public IItemSlot itemSlot { get; set; }
 
-        public void DoAction(ItemSlotData itemSlotData)
+        public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
+
+        public Use(IItemSlot itemSlot)
         {
-
+            this.itemSlot = itemSlot;
         }
+
+        public Use()
+        {
+        }
+
+        // public void DoAction()
+        // {
+
+        // }
 
         public bool SlotIsValid(IItemSlot itemSlot)
         {

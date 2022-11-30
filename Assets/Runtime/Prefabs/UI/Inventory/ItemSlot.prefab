@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 2694975753005769194}
   - component: {fileID: 6294457503562512441}
   - component: {fileID: -3454517684520267812}
+  - component: {fileID: -5158279637171251048}
   m_Layer: 0
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -390,6 +391,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tooltipsController: {fileID: 11400000, guid: 7e903eed2753c104eac46de6e829b583, type: 2}
   _hideOnClick: 1
+--- !u!114 &-5158279637171251048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666333126330395510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ae74777e8756749b76da2d8afd356c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _contextMenuInjector: {fileID: 11400000, guid: a65f8af338a3b504f82ef715738b218a, type: 2}
 --- !u!1 &8677327250042010678
 GameObject:
   m_ObjectHideFlags: 0

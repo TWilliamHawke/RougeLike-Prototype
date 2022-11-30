@@ -1,3 +1,4 @@
+using Core;
 using UnityEngine;
 
 namespace Items.Actions
@@ -6,16 +7,25 @@ namespace Items.Actions
     {
         public string actionTitle => "Destroy";
         Inventory _inventory;
+        public IItemSlot itemSlot { get; set; }
+
+        public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
+
+        public Destroy(IItemSlot itemSlot, Inventory inventory = null)
+        {
+            this.itemSlot = itemSlot;
+            _inventory = inventory;
+        }
 
         public Destroy(Inventory inventory)
         {
             _inventory = inventory;
         }
 
-        public void DoAction(ItemSlotData itemSlotData)
-        {
-            (itemSlotData?.item as IDestroyable)?.AddItemComponentsTo(_inventory);
-        }
+        // public void DoAction()
+        // {
+        //     (itemSlot?.itemSlotData?.item as IDestroyable)?.AddItemComponentsTo(_inventory);
+        // }
 
         public bool SlotIsValid(IItemSlot itemSlot)
         {

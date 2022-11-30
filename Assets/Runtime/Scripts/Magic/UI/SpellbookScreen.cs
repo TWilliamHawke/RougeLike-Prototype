@@ -7,22 +7,23 @@ using UI.DragAndDrop;
 
 namespace Magic.UI
 {
-    public class SpellbookScreen : MonoBehaviour, IUIScreen
+    public class SpellbookScreen : MonoBehaviour
     {
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
-        [SerializeField] Image _background;
+        [SerializeField] UIScreen _spellbookCanvas;
         [SerializeField] SpellList _spellList;
         [SerializeField] SpellPage _spellPage;
         [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] GridLayoutGroup _spellGrid;
         [SerializeField] Spell[] _testSpells;
 
-        public void Init()
+        private void Awake()
         {
             _spellBook.OnSpellPageOpen += OpenSpellPage;
             _spellBook.OnSpellSelect += Close;
+            _spellbookCanvas.OnScreenOpen += PrepareBook;
 
             _spellPage.Init();
             _resourcesPage.Init();
@@ -36,26 +37,17 @@ namespace Magic.UI
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             _spellBook.OnSpellPageOpen -= OpenSpellPage;
             _spellBook.OnSpellSelect -= Close;
+            _spellbookCanvas.OnScreenOpen -= PrepareBook;
         }
 
-        void OnEnable()
+        void PrepareBook()
         {
             CloseSpellPage();
             _spellList.UpdateSpellList();
-        }
-
-        public void ShowBackGround()
-        {
-            _background.gameObject.SetActive(true);
-        }
-
-        public void HideBackGround()
-        {
-            _background.gameObject.SetActive(false);
         }
 
         //use as unityEvent
@@ -75,7 +67,7 @@ namespace Magic.UI
 
         void Close(KnownSpellData _)
         {
-            gameObject.SetActive(false);
+            _spellbookCanvas.Close();
         }
 
 

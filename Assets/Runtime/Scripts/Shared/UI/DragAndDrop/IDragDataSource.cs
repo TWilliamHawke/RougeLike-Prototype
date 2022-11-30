@@ -7,6 +7,5 @@ namespace UI.DragAndDrop
     {
         T dragData { get; }
         DragableUIElement<T> dragableElementPrefab { get; }
-        Canvas dragCanvas { get; }
     }
 }

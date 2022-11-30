@@ -10,18 +10,18 @@ public class CustomEventListener : MonoBehaviour
 
     private void OnEnable()
     {
-		_customEvent.Register(this);
+      _customEvent.Register(this);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-		_customEvent.Deregister(this);
+        _customEvent.Deregister(this);
     }
 
-	public void RaiseEvent()
-	{
-		_unityEvent?.Invoke();
-	}
+    public void RaiseEvent()
+    {
+        _unityEvent?.Invoke();
+    }
 }
 
 

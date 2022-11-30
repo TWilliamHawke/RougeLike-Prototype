@@ -31,12 +31,10 @@ namespace Magic.UI
 
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _dragableItemPrefab;
         public bool waitForAllDependencies => false;
-        public Canvas dragCanvas => _dragCanvas;
 
         private void Awake()
         {
             _dragCanvasInjector.AddInjectionTarget(this);
-            _dragHandler = new DragHandler<ItemSlotData>(this);
         }
 
         public DragableUIElement<ItemSlotData> CreateDragableElement()
@@ -71,6 +69,7 @@ namespace Magic.UI
 
         public void FinalizeInjection()
         {
+            _dragHandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
         }
     }
 }

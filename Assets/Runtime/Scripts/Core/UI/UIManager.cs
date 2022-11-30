@@ -21,8 +21,8 @@ namespace Core
         [SerializeField] TooltipCanvas _tooltipCanvas;
         [Header("UI Screens")]
         [SerializeField] MainCanvas _mainCanvas;
-        [SerializeField] InventoryScreen _inventoryScreen;
-        [SerializeField] SpellbookScreen _spellbookScreen;
+        [SerializeField] UIScreen _inventoryScreen;
+        [SerializeField] UIScreen _spellbookScreen;
         [SerializeField] LootPanel _lootPanel;
         [SerializeField] ActionsScreen _actionsScreen;
         [Header("Injectors")]
@@ -32,13 +32,10 @@ namespace Core
 
         List<IUIScreen> _screens = new List<IUIScreen>();
 
-        InventoryScreenController _inventoryScreenController;
-
         bool IInjectionTarget.waitForAllDependencies => false;
 
         void Awake()
         {
-            CreateControllers();
             _mainCanvas.Init();
             _tooltipCanvas.Init();
             _actionsScreen.Init();
@@ -48,17 +45,7 @@ namespace Core
             _screens.Add(_spellbookScreen);
             //_screens.Add(_lootPanel);
 
-            _spellbookScreen.Init();
-
             _inputControllerInjector.AddInjectionTarget(this);
-        }
-
-        private void CreateControllers()
-        {
-            _inventoryScreenController = new InventoryScreenController(
-                inventory: _inventory,
-                inventoryScreen: _inventoryScreen
-            );
         }
 
         private void OnDestroy()
@@ -81,7 +68,7 @@ namespace Core
             {
                 if (screen != targetScreen)
                 {
-                    screen.gameObject.SetActive(false);
+                    screen.Close();
                 }
                 else
                 {
