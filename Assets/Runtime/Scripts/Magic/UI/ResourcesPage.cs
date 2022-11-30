@@ -7,6 +7,7 @@ using Items;
 
 namespace Magic.UI
 {
+    //UNDONE
     public class ResourcesPage : UIPanelWithGrid<ItemSlotData>
     {
         [SerializeField] Inventory _inventory;
@@ -31,16 +32,16 @@ namespace Magic.UI
 
         void Subscribe()
         {
-            _inventory.resources.OnResourceChange += UpdateDustCount;
-            _inventory.spellStrings.OnItemAdd += UpdateLayout;
-            _inventory.spellStrings.OnItemRemove += UpdateLayout;
+            // _inventory.resources.OnResourceChange += UpdateDustCount;
+            // _inventory.spellStrings.OnItemAdd += UpdateLayout;
+            // _inventory.spellStrings.OnItemRemove += UpdateLayout;
         }
 
         void OnDestroy()
         {
-            _inventory.resources.OnResourceChange -= UpdateDustCount;
-            _inventory.spellStrings.OnItemAdd -= UpdateLayout;
-            _inventory.spellStrings.OnItemRemove -= UpdateLayout;
+            // _inventory.resources.OnResourceChange -= UpdateDustCount;
+            // _inventory.spellStrings.OnItemAdd -= UpdateLayout;
+            // _inventory.spellStrings.OnItemRemove -= UpdateLayout;
             _inventory.OnInit -= Subscribe;
         }
 

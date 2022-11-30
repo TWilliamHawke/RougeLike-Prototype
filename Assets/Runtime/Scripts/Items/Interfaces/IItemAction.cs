@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 namespace Items
 {
-	public interface IItemAction
+	public interface IItemAction: IContextAction
 	{
-		string actionTitle { get; }
-	    void DoAction(ItemSlotData itemSlotData);
+		IItemSlot itemSlot { get; set; }
 		bool SlotIsValid(IItemSlot itemSlot);
 	}
 }

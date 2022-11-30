@@ -6,7 +6,7 @@ using Core.Input;
 
 namespace Core.UI
 {
-    public class TileInfoPanel : MonoBehaviour, IUIScreen, IInjectionTarget
+    public class TileInfoPanel : MonoBehaviour, IInjectionTarget
     {
         [InjectField] InputController _inputController;
         

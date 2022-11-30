@@ -37,7 +37,6 @@ namespace Magic.UI
 
         public KnownSpellData dragData => _knownSpell;
         public DragableUIElement<KnownSpellData> dragableElementPrefab => _draggedSpellPrefab;
-        public Canvas dragCanvas => _dragCanvas;
 
         public bool waitForAllDependencies => false;
 
@@ -45,7 +44,6 @@ namespace Magic.UI
         {
             _spellUpgradeButton.onClick.AddListener(OpenSpellPage);
             _dragCanvasInjector.AddInjectionTarget(this);
-            _draghandler = new DragHandler<KnownSpellData>(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -100,6 +98,7 @@ namespace Magic.UI
 
         public void FinalizeInjection()
         {
+            _draghandler = new DragHandler<KnownSpellData>(this, _dragCanvas);
         }
     }
 }

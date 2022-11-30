@@ -22,6 +22,8 @@ namespace Core.UI
         int _slotIndex;
 		IAbilityInstruction _abilityInSlot;
 
+        public bool checkImageAlpha => false;
+
         public void SetSlotNumber(int slotIndex)
         {
             _slotIndex = slotIndex;

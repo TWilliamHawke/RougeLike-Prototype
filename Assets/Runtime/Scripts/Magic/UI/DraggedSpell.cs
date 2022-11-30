@@ -10,7 +10,7 @@ namespace Magic.UI
 	{
 		[SerializeField] Image _spellIcon;
 
-        protected override void ApplyData(KnownSpellData data)
+        public override void ApplyData(KnownSpellData data)
         {
             _spellIcon.sprite = data.icon;
         }

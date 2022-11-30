@@ -13,6 +13,8 @@ namespace Items.UI
 
         const string DEFAULT_TEXT = "Storage";
 
+        public bool checkImageAlpha => false;
+
         public void SetWelcomeText()
         {
             _buttonText.text = "Drag item to move into storage";

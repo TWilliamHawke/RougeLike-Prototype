@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Items.UI
 {
-    public class LootPanel : UIPanelWithGrid<ItemSlotData>, IUIScreen
+    public class LootPanel : UIPanelWithGrid<ItemSlotData>
     {
         [SerializeField] Inventory _inventory;
 

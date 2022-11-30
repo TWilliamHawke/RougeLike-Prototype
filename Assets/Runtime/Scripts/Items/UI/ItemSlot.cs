@@ -40,7 +40,6 @@ namespace Items
         DragHandler<ItemSlotData> _draghandler;
         ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
-        public Canvas dragCanvas => _dragCanvas;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
@@ -49,7 +48,6 @@ namespace Items
         void Awake()
         {
             _dragCanvasInjector.AddInjectionTarget(this);
-            _draghandler = new DragHandler<ItemSlotData>(this);
         }
 
         public override void UpdateData(ItemSlotData slotData)
@@ -125,6 +123,7 @@ namespace Items
 
         void IInjectionTarget.FinalizeInjection()
         {
+            _draghandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
         }
     }
 }

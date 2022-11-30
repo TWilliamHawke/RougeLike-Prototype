@@ -6,7 +6,8 @@ using TMPro;
 
 namespace Map.Objects.UI
 {
-    public class ActionsScreen : MonoBehaviour, IUIScreen
+	[RequireComponent(typeof(UIScreen))]
+    public class ActionsScreen : MonoBehaviour
     {
 		[SerializeField] Injector _actionsScreenInjector;
 		[SerializeField] Injector _lootScreenInjector;
@@ -14,19 +15,15 @@ namespace Map.Objects.UI
 		[SerializeField] TextMeshProUGUI _title;
 		[SerializeField] Image _objectIcon1;
 		[SerializeField] Image _objectIcon2;
-		[SerializeField] Button _closeButton;
 		[SerializeField] ActionButtonsPanel _actionButtonsPanel;
+
+		UIScreen _UIScreen;
 
         public void Init()
         {
-            _closeButton.onClick.AddListener(Close);
 			_actionsScreenInjector.SetDependency(this);
+			_UIScreen = GetComponent<UIScreen>();
         }
-
-		public void Open()
-		{
-			gameObject.SetActive(true);
-		}
 
 		public void SetTitle(string text)
 		{
@@ -44,9 +41,9 @@ namespace Map.Objects.UI
 			_actionButtonsPanel.SetActions(actionLogics);
 		}
 
-		public void Close()
+		public void Open()
 		{
-			gameObject.SetActive(false);
+			_UIScreen.Open();
 		}
     }
 }

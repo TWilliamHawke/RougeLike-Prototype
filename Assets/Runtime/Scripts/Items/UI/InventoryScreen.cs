@@ -7,42 +7,51 @@ using UnityEngine.Events;
 
 namespace Items.UI
 {
-    public class InventoryScreen : MonoBehaviour, IUIScreen
+    public class InventoryScreen : MonoBehaviour
     {
+        [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
         [SerializeField] ContextMenu _contextMenu;
         [SerializeField] InventorySection _potionsBag;
         [SerializeField] InventorySection _scrollsBag;
-        [SerializeField] InventorySection _main;
-        [SerializeField] StorageButton _storageButton;
-        [SerializeField] Image _background;
+        [SerializeField] InventorySection _mainSection;
 
-        public InventorySection potionsBag => _potionsBag;
-        public InventorySection scrollsBag => _scrollsBag;
-        public InventorySection mainSection => _main;
+        List<InventorySectionController> _inventorySectionControllers = new();
 
-        public event UnityAction OnScreenOpen;
-
-        public void Open()
+        private void Awake()
         {
-            gameObject.SetActive(true);
-            OnScreenOpen?.Invoke();
+            _inventory.Init();
+            CreateControllers();
         }
 
         void OnEnable()
         {
             _contextMenu.TryInit();
+            foreach (var controller in _inventorySectionControllers)
+            {
+                controller.UpdateSectionView();
+            }
         }
 
-        public void ShowBackGround()
+        private void CreateControllers()
         {
-            _background.gameObject.SetActive(true);
+            _inventorySectionControllers.Add(
+                new InventorySectionController(
+                    sectionData: _inventory.potionsBag,
+                    inventorySection: _potionsBag
+            ));
+            _inventorySectionControllers.Add(
+                new InventorySectionController(
+                    sectionData: _inventory.scrollsBag,
+                    inventorySection: _scrollsBag
+            ));
+            _inventorySectionControllers.Add(
+                new InventorySectionController(
+                    sectionData: _inventory.main,
+                    inventorySection: _mainSection
+            ));
         }
 
-        public void HideBackGround()
-        {
-            _background.gameObject.SetActive(false);
-        }
 
     }
 }

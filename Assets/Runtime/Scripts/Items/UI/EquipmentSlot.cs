@@ -17,6 +17,7 @@ namespace Items.UI
 
 		Item _itemInSlot;
 
+        public bool checkImageAlpha => false;
 
         public bool DataIsMeet(ItemSlotData data)
         {
@@ -31,7 +32,7 @@ namespace Items.UI
 			UpdateSlotUI();
         }
 
-		void UpdateSlotUI()
+        void UpdateSlotUI()
 		{
 			_itemIcon.gameObject.SetActive(true);
 			_itemIcon.sprite = _itemInSlot.icon;

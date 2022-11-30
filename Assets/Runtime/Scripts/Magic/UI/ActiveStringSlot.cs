@@ -23,6 +23,8 @@ namespace Magic.UI
         int _slotIndex = 0;
         KnownSpellData _spellData;
 
+        public bool checkImageAlpha => false;
+
         public void Init(int slotIndex)
         {
             _slotIndex = slotIndex;

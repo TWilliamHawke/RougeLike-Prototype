@@ -25,13 +25,14 @@ namespace Items.UI
 		public void CheckItemSlot(IItemSlot itemSlot)
 		{
 			gameObject.SetActive(_boundedAction.SlotIsValid(itemSlot));
+			_boundedAction.itemSlot = itemSlot;
 			_selectedSlot = itemSlot;
 		}
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             if(_selectedSlot == null) return;
-			_boundedAction.DoAction(_selectedSlot.itemSlotData);
+			_boundedAction.DoAction();
 			OnClick?.Invoke();
         }
     }

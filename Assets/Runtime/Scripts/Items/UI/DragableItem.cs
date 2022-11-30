@@ -10,7 +10,7 @@ namespace Items.UI
 	{
 		[SerializeField] Image _itemIcon;
 
-        protected override void ApplyData(ItemSlotData data)
+        public override void ApplyData(ItemSlotData data)
         {
             _itemIcon.sprite = data.item.icon;
         }
