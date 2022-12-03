@@ -47,7 +47,7 @@ namespace Items
 
         void Awake()
         {
-            _dragCanvasInjector.AddInjectionTarget(this);
+            //_dragCanvasInjector.AddInjectionTarget(this);
         }
 
         public override void UpdateData(ItemSlotData slotData)
@@ -75,6 +75,12 @@ namespace Items
         public void SetSlotContainer(ItemSlotContainers slotContainer)
         {
             _slotContainer = slotContainer;
+        }
+
+        //event in editor
+        public void CreateDragHandler()
+        {
+            _draghandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -121,9 +127,8 @@ namespace Items
             return _slotData.item.GetTooltipData();
         }
 
-        void IInjectionTarget.FinalizeInjection()
+        public void FinalizeInjection()
         {
-            _draghandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
         }
     }
 }

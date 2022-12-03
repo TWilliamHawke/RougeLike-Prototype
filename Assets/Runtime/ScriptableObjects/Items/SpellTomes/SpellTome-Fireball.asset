@@ -18,3 +18,5 @@ MonoBehaviour:
   _value: 100
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
   _spell: {fileID: 11400000, guid: caf14fbe3a565b847b783c833c280892, type: 2}
+  _spellbook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
+  _magicDustResource: {fileID: 11400000, guid: aa0aa8d6eb6aac346b1f3062ef689e54, type: 2}

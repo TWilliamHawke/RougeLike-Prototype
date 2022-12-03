@@ -8,6 +8,7 @@ namespace Items
     public interface IUsable
 	{
 	    void UseItem(AbilityController abilityController);
+		bool triggerModalWindow { get; }
 		AudioClip useSound { get; }
 	}
 }

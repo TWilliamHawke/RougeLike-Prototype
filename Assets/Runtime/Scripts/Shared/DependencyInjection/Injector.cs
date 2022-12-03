@@ -41,7 +41,7 @@ public class Injector : ScriptableObject
         dependency = _dependency as T ?? dependency;
     }
 
-    public void SetDependency(System.Object dependency)
+    public void SetDependency(object dependency)
     {
         if (_dependency is not null) return;
         _dependency = dependency;
@@ -57,11 +57,11 @@ public class Injector : ScriptableObject
 
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
     {
-        var fields = FindAllInjectFields(injectionTarget);
+        var fields = FindAllInjectFields(injectionTarget.GetType());
 
         if (fields.Count <= 0)
         {
-            Debug.LogError("Wrong target for injection");
+            Debug.LogError($"Wrong target for injection: {injectionTarget.GetType().Name}");
             return;
         }
 
@@ -101,7 +101,7 @@ public class Injector : ScriptableObject
 
     private void Inject(IInjectionTarget injectionTarget)
     {
-        var fields = FindAllInjectFields(injectionTarget);
+        var fields = FindAllInjectFields(injectionTarget.GetType());
         Inject(injectionTarget, fields);
     }
 
@@ -110,7 +110,7 @@ public class Injector : ScriptableObject
         foreach (var field in fields)
         {
             if (!field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
-            field.SetValue(injectionTarget, _dependency);
+            injectionTarget.SetValue(field, _dependency);
         }
 
         if (_dependencyIsReady)
@@ -134,17 +134,22 @@ public class Injector : ScriptableObject
         OnInjectionFinalize?.Invoke(injectionTarget);
     }
 
-    private bool AnyInjectFieldIsNull(System.Object injectionTarget)
+    private bool AnyInjectFieldIsNull(object dependency)
     {
-        var fields = FindAllInjectFields(injectionTarget);
-        return fields.Any(field => field.GetValue(injectionTarget) is null);
+        if (dependency is not IInjectionTarget) return false;
+        return AnyInjectFieldIsNull(dependency as IInjectionTarget);
     }
 
-    private List<FieldInfo> FindAllInjectFields(System.Object injectionTarget)
+    private bool AnyInjectFieldIsNull(IInjectionTarget injectionTarget)
+    {
+        var fields = FindAllInjectFields(injectionTarget.GetType());
+        return fields.Any(field => injectionTarget.FieldIsNull(field));
+    }
+
+    private List<FieldInfo> FindAllInjectFields(Type type)
     {
         var fieldsWithAttribute = new List<FieldInfo>();
 
-        Type type = injectionTarget.GetType();
         while (type != null)
         {
             var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic

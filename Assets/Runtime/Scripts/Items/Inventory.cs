@@ -71,6 +71,14 @@ namespace Items
             _equipment[(int)type] = item;
         }
 
+        public void AddItems(IEnumerable<ItemSlotData> itemSlots)
+        {
+            foreach(var itemSlot in itemSlots)
+            {
+                AddItems(itemSlot.item, itemSlot.count);
+            }
+        }
+
         public void AddItems(Item item, int count)
         {
             foreach (var section in _sections)

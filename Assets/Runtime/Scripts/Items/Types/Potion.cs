@@ -13,6 +13,8 @@ namespace Items
 
         public Sprite abilityIcon => icon;
 
+        public bool triggerModalWindow => false;
+
         public IAbilityInstruction CreateAbilityInstruction()
         {
             return new ItemUsageInstruction(this);
