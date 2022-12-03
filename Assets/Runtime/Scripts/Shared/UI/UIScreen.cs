@@ -14,7 +14,6 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
     {
         if (!CloseOnStart) return;
         gameObject.SetActive(false);
-
     }
 
     public void Close()

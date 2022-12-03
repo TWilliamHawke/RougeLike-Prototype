@@ -11,11 +11,16 @@ namespace Items
         [SpritePreview]
         [SerializeField] Spell _spell;
 
+        [SerializeField] Spellbook _spellbook;
+        [SerializeField] Resource _magicDustResource;
+
+        const int DUST_PER_SPELL_RANK = 50;
+
         public override int value => base.value * (_spell.startRank + 1);
 
         public void AddItemComponentsTo(Inventory inventory)
         {
-            inventory.resources.AddResource(ResourceType.magicDust, _spell.startRank * 50);
+            inventory.resources.AddResource(ResourceType.magicDust, _spell.startRank * DUST_PER_SPELL_RANK);
         }
 
         public override string GetDescription()
@@ -26,6 +31,11 @@ namespace Items
         public override string GetItemType()
         {
             return "SpellTome";
+        }
+
+        public void AddItemComponentsTo(ref List<ItemSlotData> items)
+        {
+            items.Add(new ItemSlotData(_magicDustResource, _spell.startRank * DUST_PER_SPELL_RANK));
         }
     }
 }
