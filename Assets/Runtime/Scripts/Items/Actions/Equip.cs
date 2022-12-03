@@ -2,32 +2,31 @@ using Core;
 
 namespace Items.Actions
 {
-    public class Equip : IItemAction
+    public class Equip : ItemActionsFactory
     {
-        public string actionTitle => "Equip";
-        public IItemSlot itemSlot { get; set; }
-
-        public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
-
-        public Equip(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
         {
-            this.itemSlot = itemSlot;
+            return new EquipAction(itemSlot);
         }
 
-        public Equip()
-        {
-        }
-
-        // public void DoAction()
-        // {
-
-        // }
-
-        public bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(IItemSlot itemSlot)
         {
             return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
                 itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
                 itemSlot.itemSlotData.item is IEquipment;
+        }
+
+        class EquipAction : IItemAction
+        {
+            public string actionTitle => "Equip";
+            IItemSlot _itemSlot;
+
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
+
+            public EquipAction(IItemSlot itemSlot)
+            {
+                _itemSlot = itemSlot;
+            }
         }
     }
 }

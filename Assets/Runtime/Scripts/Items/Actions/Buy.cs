@@ -2,31 +2,29 @@ using Core;
 
 namespace Items.Actions
 {
-    public class Buy : IItemAction
+    public class Buy : ItemActionsFactory
     {
-        public string actionTitle => "Buy";
-
-        public IItemSlot itemSlot { get; set; }
-
-        public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
-
-        public Buy(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
         {
-            this.itemSlot = itemSlot;
+            return new BuyAction(itemSlot);
         }
 
-        public Buy()
-        {
-        }
-
-        // public void DoAction()
-        // {
-
-        // }
-
-        public bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(IItemSlot itemSlot)
         {
             return itemSlot.itemSlotContainer == ItemSlotContainers.trader;
+        }
+
+        class BuyAction : IItemAction
+        {
+            public string actionTitle => "Buy";
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
+            
+            IItemSlot _itemSlot;
+
+            public BuyAction(IItemSlot itemSlot)
+            {
+                _itemSlot = itemSlot;
+            }
         }
     }
 }
