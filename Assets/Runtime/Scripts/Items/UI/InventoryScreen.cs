@@ -11,7 +11,6 @@ namespace Items.UI
     {
         [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
-        [SerializeField] ContextMenu _contextMenu;
         [SerializeField] InventorySection _potionsBag;
         [SerializeField] InventorySection _scrollsBag;
         [SerializeField] InventorySection _mainSection;
@@ -20,13 +19,11 @@ namespace Items.UI
 
         private void Awake()
         {
-            _inventory.Init();
             CreateControllers();
         }
 
         void OnEnable()
         {
-            _contextMenu.TryInit();
             foreach (var controller in _inventorySectionControllers)
             {
                 controller.UpdateSectionView();

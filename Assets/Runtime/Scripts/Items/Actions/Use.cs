@@ -3,41 +3,41 @@ using Core.UI;
 
 namespace Items.Actions
 {
-    public class Use : IItemAction, IHaveModalWindowData
+    public class Use : ItemActionsFactory
     {
-        public string actionTitle => "Use";
-        public IItemSlot itemSlot { get; set; }
-        IUsable _item;
-
-        public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
-
-        public Use(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
         {
-            this.itemSlot = itemSlot;
-            _item = itemSlot?.itemSlotData?.item as IUsable;
+            return new UseAction(itemSlot);
         }
 
-        public Use()
-        {
-        }
-
-        public void DoAction()
-        {
-
-        }
-
-        public bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(IItemSlot itemSlot)
         {
             return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
                 itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
-                _item is not null;
+                itemSlot?.itemSlotData?.item is IUsable;
         }
 
-        public bool TryFillModalWindowData(ref ModalWindowData data)
+        class UseAction : IItemAction, IHaveModalWindowData
         {
-            if(!_item.triggerModalWindow) return false;
+            public string actionTitle => "Use";
+            IItemSlot _itemSlot;
+            IUsable _item;
 
-            return false;
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
+
+            public UseAction(IItemSlot itemSlot)
+            {
+                _itemSlot = itemSlot;
+                _item = itemSlot?.itemSlotData?.item as IUsable;
+            }
+
+            public bool TryFillModalWindowData(ref ModalWindowData data)
+            {
+                if (!_item.triggerModalWindow) return false;
+
+                return false;
+            }
+
         }
     }
 }

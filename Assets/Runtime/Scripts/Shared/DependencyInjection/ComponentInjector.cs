@@ -7,21 +7,24 @@ using System.Reflection;
 public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
 {
     [SerializeField] MonoBehaviour _injectionTarget;
-    [SerializeField] Injector _injector;
+    [SerializeField] Injector[] _injectors;
     [SerializeField] bool _waitForAllDependencies;
 
-    [SerializeField] UnityEvent _unityEvent;
+    [SerializeField] UnityEvent _finalizeInjectionHandler;
 
     public bool waitForAllDependencies => _waitForAllDependencies;
 
     private void Awake()
     {
-		_injector.AddInjectionTarget(this);
+        foreach (var injector in _injectors)
+        {
+            injector.AddInjectionTarget(this);
+        }
     }
 
     public void FinalizeInjection()
     {
-        _unityEvent?.Invoke();
+        _finalizeInjectionHandler?.Invoke();
     }
 
     System.Type IInjectionTarget.GetType()
@@ -29,15 +32,15 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
         return _injectionTarget.GetType();
     }
 
-	void IInjectionTarget.SetValue(FieldInfo field, object dependency)
-	{
-		field.SetValue(_injectionTarget, dependency);
-	}
+    void IInjectionTarget.SetValue(FieldInfo field, object dependency)
+    {
+        field.SetValue(_injectionTarget, dependency);
+    }
 
-	bool IInjectionTarget.FieldIsNull(FieldInfo field)
-	{
-		return field.GetValue(_injectionTarget) is null;
-	}
+    bool IInjectionTarget.FieldIsNull(FieldInfo field)
+    {
+        return field.GetValue(_injectionTarget) is null;
+    }
 }
 
 

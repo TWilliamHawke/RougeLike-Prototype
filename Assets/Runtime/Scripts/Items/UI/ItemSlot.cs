@@ -8,11 +8,12 @@ using UI.DragAndDrop;
 using UI.Tooltips;
 using UnityEngine.Events;
 using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
+using Items.Actions;
 
 namespace Items
 {
     public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler,
-     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip, IInjectionTarget
+     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip
     {
         public static event UnityAction<IItemSlot> OnRightClick;
 
@@ -29,6 +30,7 @@ namespace Items
         [SerializeField] CustomEvent _onItemDragEnd;
 
         [InjectField] Canvas _dragCanvas;
+        [InjectField] ItemActionsController _itemActionsController;
 
         //data
         ItemSlotData _slotData;
@@ -42,13 +44,6 @@ namespace Items
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
-
-        public bool waitForAllDependencies => false;
-
-        void Awake()
-        {
-            //_dragCanvasInjector.AddInjectionTarget(this);
-        }
 
         public override void UpdateData(ItemSlotData slotData)
         {
@@ -99,6 +94,7 @@ namespace Items
             if (_slotData is null) return;
             _draghandler.OnBeginDrag();
             _onItemDragStart?.Invoke();
+            _itemActionsController.FillContextMenu(this);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -119,6 +115,7 @@ namespace Items
             if (eventData.button == MouseButton.Right)
             {
                 OnRightClick?.Invoke(this);
+                _itemActionsController.FillContextMenu(this);
             }
         }
 
@@ -127,8 +124,5 @@ namespace Items
             return _slotData.item.GetTooltipData();
         }
 
-        public void FinalizeInjection()
-        {
-        }
     }
 }

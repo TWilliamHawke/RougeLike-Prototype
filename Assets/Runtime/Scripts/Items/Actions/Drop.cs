@@ -2,31 +2,30 @@ using Core;
 
 namespace Items.Actions
 {
-    public class Drop : IItemAction
+    public class Drop : ItemActionsFactory
     {
-        public string actionTitle => "Drop";
-        public IItemSlot itemSlot { get; set; }
-
-        public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
-
-        public Drop(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
         {
-            this.itemSlot = itemSlot;
+            return new DropAction(itemSlot);
         }
 
-        public Drop()
-        {
-        }
-
-        // public void DoAction()
-        // {
-
-        // }
-
-        public bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(IItemSlot itemSlot)
         {
             return itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
                 itemSlot.itemSlotContainer == ItemSlotContainers.storage;
+        }
+
+        class DropAction : IItemAction
+        {
+            public string actionTitle => "Drop";
+            IItemSlot _itemSlot;
+
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
+
+            public DropAction(IItemSlot itemSlot)
+            {
+                _itemSlot = itemSlot;
+            }
         }
     }
 }
