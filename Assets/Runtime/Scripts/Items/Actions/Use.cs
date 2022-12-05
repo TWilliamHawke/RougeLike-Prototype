@@ -15,31 +15,31 @@ namespace Items.Actions
             _playerAbilityController = playerAbilityController;
         }
 
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new UseAction(itemSlot, _playerAbilityController);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
-                itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
-                itemSlot?.itemSlotData?.item is IUsableInInventory;
+            return (itemSlot.slotContainer == ItemContainerType.inventory ||
+                itemSlot.slotContainer == ItemContainerType.storage) &&
+                itemSlot?.item is IUsableInInventory;
         }
 
         class UseAction : IItemAction
         {
             public string actionTitle => "Use";
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
             IUsableInInventory _item;
             AbilityController _playerAbilityController;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
-            public UseAction(IItemSlot itemSlot, AbilityController playerAbilityController)
+            public UseAction(ItemSlotData itemSlot, AbilityController playerAbilityController)
             {
                 _itemSlot = itemSlot;
-                _item = itemSlot?.itemSlotData?.item as IUsableInInventory;
+                _item = itemSlot?.item as IUsableInInventory;
                 _playerAbilityController = playerAbilityController;
             }
 
@@ -50,7 +50,7 @@ namespace Items.Actions
 
                 if(_item.destroyAfterUse)
                 {
-                    _itemSlot.itemSlotData.RemoveFromStack();
+                    _itemSlot.RemoveOneItem();
                 }
             }
 

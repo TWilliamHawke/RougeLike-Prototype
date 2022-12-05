@@ -4,24 +4,24 @@ namespace Items.Actions
 {
     public class Sell : ItemActionsFactory
     {
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new SellAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.itemSlotContainer != ItemSlotContainers.trader && false;
+            return itemSlot.slotContainer != ItemContainerType.trader && false;
         }
 
         class SellAction : IItemAction
         {
             public string actionTitle => "Cell";
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottom;
 
-            public SellAction(IItemSlot itemSlot)
+            public SellAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }

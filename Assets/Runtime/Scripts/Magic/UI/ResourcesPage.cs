@@ -26,15 +26,13 @@ namespace Magic.UI
         public void Subscribe()
         {
             _inventory.resources.OnResourceChange += UpdateDustCount;
-            _inventory.spellStrings.OnItemAdd += UpdateLayout;
-            _inventory.spellStrings.OnItemRemove += UpdateLayout;
+            _inventory.spellStrings.OnSectionDataChange += UpdateLayout;
         }
 
         void OnDestroy()
         {
             _inventory.resources.OnResourceChange -= UpdateDustCount;
-            _inventory.spellStrings.OnItemAdd -= UpdateLayout;
-            _inventory.spellStrings.OnItemRemove -= UpdateLayout;
+            _inventory.spellStrings.OnSectionDataChange -= UpdateLayout;
         }
 
         void OnEnable()

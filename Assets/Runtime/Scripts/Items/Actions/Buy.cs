@@ -4,14 +4,14 @@ namespace Items.Actions
 {
     public class Buy : ItemActionsFactory
     {
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlotData)
         {
-            return new BuyAction(itemSlot);
+            return new BuyAction(itemSlotData);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlotitemSlotData)
         {
-            return itemSlot.itemSlotContainer == ItemSlotContainers.trader;
+            return itemSlotitemSlotData.slotContainer == ItemContainerType.trader;
         }
 
         class BuyAction : IItemAction
@@ -19,11 +19,11 @@ namespace Items.Actions
             public string actionTitle => "Buy";
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
             
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlotData;
 
-            public BuyAction(IItemSlot itemSlot)
+            public BuyAction(ItemSlotData itemSlotData)
             {
-                _itemSlot = itemSlot;
+                _itemSlotData = itemSlotData;
             }
         }
     }

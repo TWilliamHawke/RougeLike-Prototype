@@ -4,5 +4,5 @@ using UnityEngine;
 //uses for children of layout
 public abstract class UIDataElement<T> : MonoBehaviour
 {
-    public abstract void UpdateData(T data);
+    public abstract void BindData(T data);
 }

@@ -14,7 +14,7 @@ namespace Items.UI
         {
             _sectionData = sectionData;
             _inventorySection = inventorySection;
-            _sectionData.OnItemAdd += UpdateSectionView;
+            _sectionData.OnSectionDataChange += UpdateSectionView;
 
             _inventorySection.ClearLayout();
 

@@ -14,15 +14,30 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
 
     public bool waitForAllDependencies => _waitForAllDependencies;
 
+    bool _targetAdded = false;
+
     private void Awake()
     {
+        TryAddTarget();
+    }
+
+    private void OnEnable()
+    {
+        TryAddTarget();
+    }
+
+    private void TryAddTarget()
+    {
+        if (_targetAdded) return;
+        _targetAdded = true;
+
         foreach (var injector in _injectors)
         {
             injector.AddInjectionTarget(this);
         }
     }
 
-    public void FinalizeInjection()
+    void IInjectionTarget.FinalizeInjection()
     {
         _finalizeInjectionHandler?.Invoke();
     }

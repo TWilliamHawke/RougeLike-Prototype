@@ -4,7 +4,7 @@ namespace Items
 {
 	public interface IItemActionFactory
 	{
-		bool TryCreateItemAction(IItemSlot itemSlot, out IRadialMenuAction action);
+		bool TryCreateItemAction(ItemSlotData itemSlot, out IRadialMenuAction action);
 	}
 }
 

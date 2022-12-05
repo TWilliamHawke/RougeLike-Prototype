@@ -55,7 +55,7 @@ namespace Entities
             [SerializeField] EnemyTemplate _template;
             [SerializeField] int _count = 1;
 
-            public EnemyTemplate item => _template;
+            public EnemyTemplate element => _template;
             public int count => _count;
         }
 

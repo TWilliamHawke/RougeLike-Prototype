@@ -9,7 +9,7 @@ namespace Items.Actions
     {
         Inventory _inventory;
         ModalWindowController _modalWindow;
-        ItemSection<Item> _items = new();
+        ItemSection<Item> _itemsList = new(ItemContainerType.none);
 
         public Destroy(Inventory inventory, ModalWindowController modalWindow)
         {
@@ -17,28 +17,28 @@ namespace Items.Actions
             _modalWindow = modalWindow;
         }
 
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
-            _items.Clear();
-            var item = itemSlot.itemSlotData.item as IDestroyable;
-            item?.resourcesData?.FillItemSection(ref _items);
+            _itemsList.Clear();
+            var item = itemSlot.item as IDestroyable;
+            item?.resourcesData?.FillItemSection(ref _itemsList);
 
             var modalWindowData = new ModalWindowData
             {
                 title = "Destoy Item",
-                mainText = "You receive resources:",
-                action = new ConfirmDestroy(itemSlot, _inventory, _items),
-                resourcesData = _items
+                mainText = "You will receive resources:",
+                action = new ConfirmDestroy(itemSlot, _inventory, _itemsList),
+                resourcesData = _itemsList
             };
 
             return new OpenDestroyWindow(_modalWindow, modalWindowData);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
-                itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
-                itemSlot.itemSlotData.item is IDestroyable;
+            return (itemSlot.slotContainer == ItemContainerType.inventory ||
+                itemSlot.slotContainer == ItemContainerType.storage) &&
+                itemSlot.item is IDestroyable;
         }
 
         class OpenDestroyWindow : IItemAction
@@ -65,22 +65,22 @@ namespace Items.Actions
         {
             public string actionTitle => "Confirm";
             Inventory _inventory;
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
             ItemSection<Item> _items;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
 
-            public ConfirmDestroy(IItemSlot itemSlot, Inventory inventory, ItemSection<Item> items)
+            public ConfirmDestroy(ItemSlotData itemSlot, Inventory inventory, ItemSection<Item> itemsList)
             {
                 _itemSlot = itemSlot;
                 _inventory = inventory;
-                _items = items;
+                _items = itemsList;
             }
 
             public void DoAction()
             {
                 _inventory.AddItems(_items);
-                _itemSlot.itemSlotData.RemoveFromStack();
+                _itemSlot.RemoveOneItem();
             }
         }
     }

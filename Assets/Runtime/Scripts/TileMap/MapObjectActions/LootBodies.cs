@@ -27,7 +27,7 @@ namespace Map.Objects
 
         public void CreateLoot(IEnumerable<IHaveLoot> enemies)
         {
-            _loot = new ItemSection<Item>(-1);
+            _loot = new ItemSection<Item>(ItemContainerType.loot);
             foreach (var enemy in enemies)
             {
                 enemy.lootTable.FillItemSection(ref _loot);

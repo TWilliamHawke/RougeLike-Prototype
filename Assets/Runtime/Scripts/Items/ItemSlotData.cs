@@ -5,53 +5,64 @@ using UnityEngine;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<Item>
+    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe
     {
         [SerializeField] Item _item;
         [SerializeField] int _count = 1;
 
-        public ItemSlotData(Item item)
-        {
-            _item = item;
-        }
+        IItemSectionInfo _itemSection;
 
-        public ItemSlotData(Item item, int count)
+        public ItemContainerType slotContainer => _itemSection.itemContainer;
+
+        public ItemSlotData(Item item, int count, IItemSectionInfo itemSectionInfo)
         {
             _item = item;
             _count = count;
+            _itemSection = itemSectionInfo;
         }
 
         public Item item => _item;
         public int count => _count;
+        Item IDataCount<Item>.element => _item;
 
-        public void AddToStack()
+        public void AddOneItem()
         {
             _count++;
+            _itemSection.Refresh();
         }
 
-        //UNDONE should trigger 
-        public void RemoveFromStack()
+        public void RemoveOneItem()
         {
-            if (count == 0) return;
             _count--;
-            Debug.Log(_count);
+            _itemSection.Refresh();
         }
 
-        public void IncreaseCountBy(int num)
+        public void RemoveAllItems()
         {
-            _count += num;
-        }
-
-        public void DecreaseCountBy(int num)
-        {
-            _count = Mathf.Max(0, _count - num);
+            _count = 0;
+            _itemSection.Refresh();
         }
 
         public void FillToMaxSize()
         {
             _count = item.maxStackSize;
+            _itemSection.Refresh();
         }
 
+        void IItemSlotDataUnsafe.IncreaseCountBy(int num)
+        {
+            _count += num;
+        }
 
+        void IItemSlotDataUnsafe.DecreaseCountBy(int num)
+        {
+            _count = Mathf.Max(0, _count - num);
+            _itemSection.Refresh();
+        }
+
+        void IItemSlotDataUnsafe.SetCount(int count)
+        {
+            _count = count;
+        }
     }
 }

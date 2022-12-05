@@ -12,7 +12,7 @@ namespace Core.UI
 		[SerializeField] Image _icon;
 		[SerializeField] TextMeshProUGUI _description;
 
-        public override void UpdateData(ItemSlotData data)
+        public override void BindData(ItemSlotData data)
         {
             _icon.sprite = data.item.icon;
 			_description.text = data.item.displayName + ": x" + data.count;

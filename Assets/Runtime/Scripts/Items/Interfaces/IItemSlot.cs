@@ -1,8 +1,8 @@
 namespace Items
 {
-	public interface IItemSlot
+    public interface IItemSlot
 	{
-	    ItemSlotContainers itemSlotContainer { get; }
-		ItemSlotData itemSlotData { get; }
+		void BindData(ItemSlotData slotData);
+		void Clear();
 	}
 }

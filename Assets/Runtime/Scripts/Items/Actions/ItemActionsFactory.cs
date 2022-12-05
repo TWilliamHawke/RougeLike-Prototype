@@ -4,10 +4,10 @@ namespace Items.Actions
 {
     public abstract class ItemActionsFactory : IItemActionFactory
     {
-		protected abstract IRadialMenuAction CreateAction(IItemSlot itemSlot);
-		protected abstract bool SlotIsValid(IItemSlot itemSlot);
+		protected abstract IRadialMenuAction CreateAction(ItemSlotData itemSlot);
+		protected abstract bool SlotIsValid(ItemSlotData itemSlot);
 
-        public bool TryCreateItemAction(IItemSlot itemSlot, out IRadialMenuAction action)
+        public bool TryCreateItemAction(ItemSlotData itemSlot, out IRadialMenuAction action)
         {
             action = default;
             if (SlotIsValid(itemSlot))

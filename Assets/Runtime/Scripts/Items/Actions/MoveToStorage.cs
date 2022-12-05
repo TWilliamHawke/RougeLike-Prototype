@@ -4,24 +4,24 @@ namespace Items.Actions
 {
     public class MoveToStorage : ItemActionsFactory
     {
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new MoveToStorageAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.itemSlotContainer == ItemSlotContainers.inventory;
+            return itemSlot.slotContainer == ItemContainerType.inventory;
         }
 
         class MoveToStorageAction : IItemAction
         {
             public string actionTitle => "MoveToStorage";
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottom;
 
-            public MoveToStorageAction(IItemSlot itemSlot)
+            public MoveToStorageAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }

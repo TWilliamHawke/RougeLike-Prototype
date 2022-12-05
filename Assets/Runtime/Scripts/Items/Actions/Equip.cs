@@ -4,26 +4,26 @@ namespace Items.Actions
 {
     public class Equip : ItemActionsFactory
     {
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new EquipAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
-                itemSlot.itemSlotContainer == ItemSlotContainers.storage) &&
-                itemSlot.itemSlotData.item is IEquipment;
+            return (itemSlot.slotContainer == ItemContainerType.inventory ||
+                itemSlot.slotContainer == ItemContainerType.storage) &&
+                itemSlot.item is IEquipment;
         }
 
         class EquipAction : IItemAction
         {
             public string actionTitle => "Equip";
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
-            public EquipAction(IItemSlot itemSlot)
+            public EquipAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }
