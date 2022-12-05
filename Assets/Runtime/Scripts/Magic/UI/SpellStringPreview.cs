@@ -42,7 +42,7 @@ namespace Magic.UI
             return Instantiate(_dragableItemPrefab);
         }
 
-        public override void UpdateData(ItemSlotData data)
+        public override void BindData(ItemSlotData data)
         {
             _itemSlotData = data;
             _icon.sprite = data.item.icon;

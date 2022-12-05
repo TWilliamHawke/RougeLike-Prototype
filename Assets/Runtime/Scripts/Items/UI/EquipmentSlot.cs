@@ -27,7 +27,7 @@ namespace Items.UI
 
         public void DropData(ItemSlotData data)
         {
-			data.RemoveFromStack();
+			data.RemoveOneItem();
             _itemInSlot = data.item;
 			UpdateSlotUI();
         }

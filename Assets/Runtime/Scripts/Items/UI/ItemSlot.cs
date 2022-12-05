@@ -12,11 +12,9 @@ using Items.Actions;
 
 namespace Items
 {
-    public class ItemSlot : UIDataElement<ItemSlotData>, IPointerEnterHandler, IPointerExitHandler,
-     IDragDataSource<ItemSlotData>, IPointerClickHandler, IItemSlot, IHaveItemTooltip
+    public class ItemSlot : UIDataElement<ItemSlotData>, IItemSlot, IPointerEnterHandler, IPointerExitHandler,
+     IDragDataSource<ItemSlotData>, IPointerClickHandler, IHaveItemTooltip
     {
-        public static event UnityAction<IItemSlot> OnRightClick;
-
         [SerializeField] Sprite _emptyFrame;
         [SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
         [Header("UI Elements")]
@@ -34,9 +32,6 @@ namespace Items
 
         //data
         ItemSlotData _slotData;
-        ItemSlotContainers _slotContainer;
-        ItemSlotContainers IItemSlot.itemSlotContainer => _slotContainer;
-        ItemSlotData IItemSlot.itemSlotData => _slotData;
 
         //drag item
         DragHandler<ItemSlotData> _draghandler;
@@ -45,7 +40,7 @@ namespace Items
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
-        public override void UpdateData(ItemSlotData slotData)
+        public override void BindData(ItemSlotData slotData)
         {
             _icon.gameObject.SetActive(true);
 
@@ -53,11 +48,8 @@ namespace Items
 
             _icon.sprite = slotData.item.icon;
 
-            if (slotData.item.maxStackSize > 1)
-            {
-                _count.gameObject.SetActive(true);
-                _count.text = slotData.count.ToString();
-            }
+            _count.gameObject.SetActive(slotData.item.maxStackSize > 1);
+            _count.text = slotData.count.ToString();
         }
 
         public void Clear()
@@ -65,11 +57,6 @@ namespace Items
             _slotData = null;
             _icon.gameObject.SetActive(false);
             _count.gameObject.SetActive(false);
-        }
-
-        public void SetSlotContainer(ItemSlotContainers slotContainer)
-        {
-            _slotContainer = slotContainer;
         }
 
         //event in editor
@@ -94,7 +81,7 @@ namespace Items
             if (_slotData is null) return;
             _draghandler.OnBeginDrag();
             _onItemDragStart?.Invoke();
-            _itemActionsController.FillContextMenu(this);
+            _itemActionsController.FillContextMenu(_slotData);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -112,10 +99,11 @@ namespace Items
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
+            if (_slotData is null) return;
+
             if (eventData.button == MouseButton.Right)
             {
-                OnRightClick?.Invoke(this);
-                _itemActionsController.FillContextMenu(this);
+                _itemActionsController.FillContextMenu(_slotData);
             }
         }
 

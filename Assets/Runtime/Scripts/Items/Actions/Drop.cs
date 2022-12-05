@@ -4,27 +4,32 @@ namespace Items.Actions
 {
     public class Drop : ItemActionsFactory
     {
-        protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new DropAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(IItemSlot itemSlot)
+        protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.itemSlotContainer == ItemSlotContainers.inventory ||
-                itemSlot.itemSlotContainer == ItemSlotContainers.storage;
+            return itemSlot.slotContainer == ItemContainerType.inventory ||
+                itemSlot.slotContainer == ItemContainerType.storage;
         }
 
         class DropAction : IItemAction
         {
             public string actionTitle => "Drop";
-            IItemSlot _itemSlot;
+            ItemSlotData _itemSlot;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
 
-            public DropAction(IItemSlot itemSlot)
+            public DropAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
+            }
+
+            public void DoAction()
+            {
+                _itemSlot.RemoveAllItems();
             }
         }
     }

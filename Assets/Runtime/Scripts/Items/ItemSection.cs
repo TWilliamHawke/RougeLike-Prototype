@@ -2,53 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 namespace Items
 {
     [System.Serializable]
     public class ItemSection<T> : IEnumerable<ItemSlotData>, IInventorySectionData,
-            IDataList<Item>, IItemSection where T : Item
+            IDataList<Item>, IItemSection, IItemSectionInfo where T : Item
     {
 
         List<ItemSlotData> _itemsList;
-        Dictionary<Item, ItemSlotData> _activeSlotForItems;
+        Dictionary<Item, ItemSlotData> _activeSlotsByItem;
 
         int _maxSlotsCount;
 
-        public event UnityAction OnItemAdd;
-        public event UnityAction OnItemRemove;
+        public event UnityAction OnSectionDataChange;
 
         ItemSlotData IInventorySectionData.this[int idx] => _itemsList[idx];
         public int maxCount => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
         int IInventorySectionData.count => _itemsList.Count;
+        ItemContainerType IItemSectionInfo.itemContainer => _slotContainer;
 
-        public ItemSection(): this(-1)
-        {
-        }
+        ItemContainerType _slotContainer;
 
-        public ItemSection(int maxSlotsCount)
+        public ItemSection(ItemContainerType slotContainer, int maxSlotsCount = -1)
         {
+            _slotContainer = slotContainer;
             _maxSlotsCount = maxSlotsCount;
-            _activeSlotForItems = new Dictionary<Item, ItemSlotData>(maxCount);
+            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(maxCount);
             _itemsList = new List<ItemSlotData>(maxCount);
         }
-
-        public void RemoveItemFromSlot(ItemSlotData itemSlotData)
-        {
-            if(!_itemsList.Contains(itemSlotData)) return;
-
-            if(itemSlotData.count == 1)
-            {
-                _itemsList.Remove(itemSlotData);
-            }
-            else
-            {
-                itemSlotData.DecreaseCountBy(1);
-            }
-
-            OnItemRemove?.Invoke();
-        }
-
 
         bool IItemSection.ItemMeet(Item someItem)
         {
@@ -65,10 +48,10 @@ namespace Items
 
             //no empty slots - check exist slots
             //slot with item doesnt exist
-            if (!_activeSlotForItems.ContainsKey(item)) return false;
+            if (!_activeSlotsByItem.ContainsKey(item)) return false;
 
             //slot with item is exist - check empty space
-            if (_activeSlotForItems[item].count < item.maxStackSize) return true;
+            if (_activeSlotsByItem[item].count < item.maxStackSize) return true;
 
             //no empty space in section
             return false;
@@ -79,16 +62,10 @@ namespace Items
             AddItems(someItem, 1);
         }
 
-        public void InvokeEvent()
-        {
-            Debug.Log("invoke");
-            OnItemRemove?.Invoke();
-        }
-
         public void Clear()
         {
             _itemsList.Clear();
-            _activeSlotForItems.Clear();
+            _activeSlotsByItem.Clear();
         }
 
         //UNDONE this code can create slots over _maxSlotsCount!!!
@@ -97,18 +74,20 @@ namespace Items
         {
             if(item is null) return;
             
-            if (_activeSlotForItems.TryGetValue(item, out var itemSlot))
+            if (_activeSlotsByItem.TryGetValue(item, out var itemSlot))
             {
                 int freeSpace = item.maxStackSize - itemSlot.count;
+                var unsafeItemSlot = itemSlot as IItemSlotDataUnsafe;
+
                 if (freeSpace < count)
                 {
                     count -= freeSpace;
-                    itemSlot.FillToMaxSize();
+                    unsafeItemSlot.IncreaseCountBy(freeSpace);
                     CreateNewItemSlot(item, count);
                 }
                 else
                 {
-                    itemSlot.IncreaseCountBy(count);
+                    unsafeItemSlot.IncreaseCountBy(count);
                 }
             }
             else
@@ -116,24 +95,7 @@ namespace Items
                 CreateNewItemSlot(item, count);
             }
 
-            OnItemAdd?.Invoke();
-        }
-
-        void CreateNewItemSlot(Item item, int count)
-        {
-            var itemSlotData = new ItemSlotData(item, count);
-            _activeSlotForItems[item] = itemSlotData;
-            _itemsList.Add(itemSlotData);
-        }
-
-        public IEnumerator<ItemSlotData> GetEnumerator()
-        {
-            return _itemsList.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _itemsList.GetEnumerator();
+            OnSectionDataChange?.Invoke();
         }
 
         public int FindItemCount(Item item)
@@ -147,6 +109,37 @@ namespace Items
 
             return itemsCount;
         }
+
+        public void Refresh()
+        {
+            _activeSlotsByItem =_activeSlotsByItem
+                .Where(pair => pair.Value.count > 0)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+            
+            _itemsList = _itemsList
+                .Where(slotData => slotData.count > 0)
+                .ToList();
+
+            OnSectionDataChange?.Invoke();
+        }
+
+        void CreateNewItemSlot(Item item, int count)
+        {
+            var itemSlotData = new ItemSlotData(item, count, this);
+            _activeSlotsByItem[item] = itemSlotData;
+            _itemsList.Add(itemSlotData);
+        }
+
+        IEnumerator<ItemSlotData> IEnumerable<ItemSlotData>.GetEnumerator()
+        {
+            return _itemsList.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _itemsList.GetEnumerator();
+        }
+
     }
 
 }

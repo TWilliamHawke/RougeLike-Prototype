@@ -1,5 +1,5 @@
 public interface IDataCount<T>
 {
-    T item { get; }
+    T element { get; }
     int count { get; }
 }

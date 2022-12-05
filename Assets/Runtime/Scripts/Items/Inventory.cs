@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.Events;
 
 namespace Items
 {
@@ -105,14 +103,14 @@ namespace Items
 
         private void CreateSections()
         {
-            _sections = new List<IItemSection>(5);
+            _sections = new List<IItemSection>(6);
 
             _resources = new StoredResources(_startResources);
-            _potionsBag = new ItemSection<Potion>(3);
-            _spellStrings = new ItemSection<SpellString>();
-            _scrollsBag = new ItemSection<MagicScroll>(5);
-            _main = new ItemSection<Item>(12);
-            _storage = new ItemSection<Item>();
+            _potionsBag = new ItemSection<Potion>(ItemContainerType.inventory, 3);
+            _spellStrings = new ItemSection<SpellString>(ItemContainerType.inventory);
+            _scrollsBag = new ItemSection<MagicScroll>(ItemContainerType.inventory, 5);
+            _main = new ItemSection<Item>(ItemContainerType.inventory, 12);
+            _storage = new ItemSection<Item>(ItemContainerType.storage);
 
             _sections.Add(_resources);
             _sections.Add(_potionsBag);

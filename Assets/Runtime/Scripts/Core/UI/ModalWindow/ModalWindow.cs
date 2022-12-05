@@ -38,7 +38,7 @@ namespace Core.UI
             _mainImage.sprite = data.mainImage;
             _action = data.action;
             _confirmButtonText.text = data.action?.actionTitle ?? CONFIRM_BUTTON_TITLE;
-            _resourcesData = data.resourcesData ?? new ItemSection<Item>();
+            _resourcesData = data.resourcesData ?? new ItemSection<Item>(ItemContainerType.none);
             gameObject.SetActive(true);
         }
 

@@ -15,7 +15,7 @@ namespace Core.UI
 		[SerializeField] Image _effectFrame;
 		[SerializeField] TextMeshProUGUI _turnsText;
 
-        public override void UpdateData(TemporaryEffectData data)
+        public override void BindData(TemporaryEffectData data)
         {
             _effectIcon.sprite = data.effect.icon;
 			_turnsText.text = data.remainingDuration.ToString();

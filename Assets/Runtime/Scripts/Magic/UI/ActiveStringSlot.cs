@@ -42,11 +42,11 @@ namespace Magic.UI
             _icon.sprite = _activeLine?.icon ?? _defaultIcon;
         }
 
-        public void DropData(ItemSlotData data)
+        public void DropData(ItemSlotData slotData)
         {
-            _icon.sprite = data.item.icon;
-            _activeLine = data.item as SpellString;
-            _inventory.spellStrings.RemoveItemFromSlot(data);
+            _icon.sprite = slotData.item.icon;
+            _activeLine = slotData.item as SpellString;
+            slotData.RemoveOneItem();
             _spellData.SetActiveString(_slotIndex, _activeLine);
         }
 

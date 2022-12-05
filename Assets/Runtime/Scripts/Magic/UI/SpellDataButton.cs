@@ -62,7 +62,7 @@ namespace Magic.UI
             _frame.color = _defaultColor;
         }
 
-        public override void UpdateData(KnownSpellData data)
+        public override void BindData(KnownSpellData data)
         {
             _knownSpell = data;
             _frame.color = _defaultColor;

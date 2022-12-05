@@ -37,7 +37,6 @@ namespace Items
         public void UseItem(AbilityController abilityController)
         {
             _spellHasBeenAdded = _spellBook.TryAddSpell(_spell);
-            Debug.Log(_spellHasBeenAdded);
         }
     }
 }

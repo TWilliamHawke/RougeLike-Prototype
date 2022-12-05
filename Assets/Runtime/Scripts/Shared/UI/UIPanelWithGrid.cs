@@ -30,7 +30,7 @@ public abstract class UIPanelWithGrid<T> : MonoBehaviour
         {
             var uiElement = Instantiate(_layoutElementPrefab);
             uiElement.transform.SetParent(_layout.transform);
-            uiElement.UpdateData(template);
+            uiElement.BindData(template);
         }
 
     }

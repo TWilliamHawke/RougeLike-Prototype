@@ -10,14 +10,20 @@ namespace Items.UI
         [SerializeField] LayoutGroup _layout;
         [SerializeField] ItemSlot _slotPrefab;
 
-        List<ItemSlot> _itemSlots = new(5);
+        List<IItemSlot> _itemSlots = new(5);
 
         public void FillSection(IInventorySectionData section)
         {
-            for (int i = 0; i < section.count; i++)
+            for (int i = 0; i < _itemSlots.Count; i++)
             {
-                if (i >= _itemSlots.Count) return;
-                _itemSlots[i].UpdateData(section[i]);
+                if (i >= section.count)
+                {
+                    _itemSlots[i].Clear();
+                }
+                else
+                {
+                    _itemSlots[i].BindData(section[i]);
+                }
             }
         }
 
@@ -26,7 +32,6 @@ namespace Items.UI
             var slot = Instantiate(_slotPrefab);
             slot.transform.SetParent(_layout.transform);
             slot.gameObject.transform.localScale = transform.localScale;
-            slot.SetSlotContainer(ItemSlotContainers.inventory);
             _itemSlots.Add(slot);
         }
 

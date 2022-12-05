@@ -37,7 +37,7 @@ namespace Items.Actions
             _itemActionsFactory.Add(new Drop());
         }
 
-        public void FillContextMenu(ItemSlot itemSlot)
+        public void FillContextMenu(ItemSlotData itemSlot)
         {
             _itemActions.Clear();
 
