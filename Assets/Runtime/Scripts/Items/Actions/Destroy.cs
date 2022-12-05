@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core;
+using Core.UI;
 using UnityEngine;
 
 namespace Items.Actions
@@ -7,15 +8,30 @@ namespace Items.Actions
     public class Destroy : ItemActionsFactory
     {
         Inventory _inventory;
+        ModalWindowController _modalWindow;
+        ItemSection<Item> _items = new();
 
-        public Destroy(Inventory inventory)
+        public Destroy(Inventory inventory, ModalWindowController modalWindow)
         {
             _inventory = inventory;
+            _modalWindow = modalWindow;
         }
 
         protected override IRadialMenuAction CreateAction(IItemSlot itemSlot)
         {
-            return new DestroyAction(itemSlot, _inventory);
+            _items.Clear();
+            var item = itemSlot.itemSlotData.item as IDestroyable;
+            item?.resourcesData?.FillItemSection(ref _items);
+
+            var modalWindowData = new ModalWindowData
+            {
+                title = "Destoy Item",
+                mainText = "You receive resources:",
+                action = new ConfirmDestroy(itemSlot, _inventory, _items),
+                resourcesData = _items
+            };
+
+            return new OpenDestroyWindow(_modalWindow, modalWindowData);
         }
 
         protected override bool SlotIsValid(IItemSlot itemSlot)
@@ -25,27 +41,46 @@ namespace Items.Actions
                 itemSlot.itemSlotData.item is IDestroyable;
         }
 
-        class DestroyAction : IItemAction
+        class OpenDestroyWindow : IItemAction
         {
             public string actionTitle => "Destroy";
-            Inventory _inventory;
-            IItemSlot _itemSlot;
-            IDestroyable _item;
-
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
 
-            public DestroyAction(IItemSlot itemSlot, Inventory inventory)
+            ModalWindowController _modalWindowController;
+            ModalWindowData _modalWindowData;
+
+            public OpenDestroyWindow(ModalWindowController modalWindowController, ModalWindowData modalWindowData)
             {
-                _itemSlot = itemSlot;
-                _inventory = inventory;
-                _item = itemSlot?.itemSlotData?.item as IDestroyable;
+                _modalWindowController = modalWindowController;
+                _modalWindowData = modalWindowData;
             }
 
             public void DoAction()
             {
-                var itemList = new List<ItemSlotData>();
-                _item?.AddItemComponentsTo(ref itemList);
-                _inventory.AddItems(itemList);
+                _modalWindowController.OpenWindow(_modalWindowData);
+            }
+        }
+
+        class ConfirmDestroy : IItemAction
+        {
+            public string actionTitle => "Confirm";
+            Inventory _inventory;
+            IItemSlot _itemSlot;
+            ItemSection<Item> _items;
+
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
+
+            public ConfirmDestroy(IItemSlot itemSlot, Inventory inventory, ItemSection<Item> items)
+            {
+                _itemSlot = itemSlot;
+                _inventory = inventory;
+                _items = items;
+            }
+
+            public void DoAction()
+            {
+                _inventory.AddItems(_items);
+                _itemSlot.itemSlotData.RemoveFromStack();
             }
         }
     }

@@ -29,10 +29,12 @@ namespace Items
             _count++;
         }
 
+        //UNDONE should trigger 
         public void RemoveFromStack()
         {
             if (count == 0) return;
             _count--;
+            Debug.Log(_count);
         }
 
         public void IncreaseCountBy(int num)

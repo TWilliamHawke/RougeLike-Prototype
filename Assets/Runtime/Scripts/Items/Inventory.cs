@@ -6,12 +6,12 @@ using UnityEngine.Events;
 
 namespace Items
 {
-    public class Inventory : ScriptableObject
+    public class Inventory : ScriptableObject, IPermanentDependency
     {
         [SerializeField] Item[] _testItems;
         [SerializeField] Resource[] _startResources;
 
-        public event UnityAction OnInit;
+        [SerializeField] Injector _selfInjector;
 
         StoredResources _resources;
         ItemSection<Potion> _potionsBag;
@@ -31,22 +31,20 @@ namespace Items
 
         List<Item> _equipment;
 
-        bool _isInit = false;
-        public bool isInit => _isInit;
+        bool _isInit;
 
-
-        public void Init()
+        private void OnEnable()
         {
-            //if(_isInit) return; //UNDONE this causes a bug in spellbook resource page
+            if(_resources is not null) return;
+
             CreateSections();
 
             foreach (var item in _testItems)
             {
                 AddItems(item, item.maxStackSize);
             }
-            
-            _isInit = true;
-            OnInit?.Invoke();
+
+            _selfInjector.SetDependency(this);
         }
 
         public void AddItem(Item item)
@@ -134,6 +132,11 @@ namespace Items
             {
                 section.Clear();
             }
+        }
+
+        public void ClearState()
+        {
+
         }
     }
 }

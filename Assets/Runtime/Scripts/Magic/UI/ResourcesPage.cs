@@ -10,7 +10,7 @@ namespace Magic.UI
     //UNDONE
     public class ResourcesPage : UIPanelWithGrid<ItemSlotData>
     {
-        [SerializeField] Inventory _inventory;
+        [InjectField] Inventory _inventory;
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _magicDustCount;
 
@@ -20,29 +20,21 @@ namespace Magic.UI
 
         public void Init()
         {
-            if (_inventory.isInit)
-            {
-                Subscribe();
-            }
-            else
-            {
-                _inventory.OnInit += Subscribe;
-            }
+
         }
 
-        void Subscribe()
+        public void Subscribe()
         {
-            // _inventory.resources.OnResourceChange += UpdateDustCount;
-            // _inventory.spellStrings.OnItemAdd += UpdateLayout;
-            // _inventory.spellStrings.OnItemRemove += UpdateLayout;
+            _inventory.resources.OnResourceChange += UpdateDustCount;
+            _inventory.spellStrings.OnItemAdd += UpdateLayout;
+            _inventory.spellStrings.OnItemRemove += UpdateLayout;
         }
 
         void OnDestroy()
         {
-            // _inventory.resources.OnResourceChange -= UpdateDustCount;
-            // _inventory.spellStrings.OnItemAdd -= UpdateLayout;
-            // _inventory.spellStrings.OnItemRemove -= UpdateLayout;
-            _inventory.OnInit -= Subscribe;
+            _inventory.resources.OnResourceChange -= UpdateDustCount;
+            _inventory.spellStrings.OnItemAdd -= UpdateLayout;
+            _inventory.spellStrings.OnItemRemove -= UpdateLayout;
         }
 
         void OnEnable()

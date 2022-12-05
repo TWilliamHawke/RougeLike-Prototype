@@ -49,7 +49,7 @@ namespace Magic.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             _spellBook.SelectSpell(_knownSpell);
-            _activeAbilities.UseAbility(_knownSpell.spell);
+            _activeAbilities.UseAbility(_knownSpell.spellEffect);
         }
 
         public void OnPointerEnter(PointerEventData _)

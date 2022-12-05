@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Items
 {
-    public interface IUsable
+    public interface IUsableInInventory
 	{
 	    void UseItem(AbilityController abilityController);
-		bool triggerModalWindow { get; }
 		AudioClip useSound { get; }
+		bool destroyAfterUse { get; }
 	}
 }

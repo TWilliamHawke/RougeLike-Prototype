@@ -6,7 +6,7 @@ using Effects;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsable
+	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsableInInventory
 	{
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
@@ -14,6 +14,7 @@ namespace Items
         public Sprite abilityIcon => icon;
 
         public bool triggerModalWindow => false;
+        public bool destroyAfterUse => true;
 
         public IAbilityInstruction CreateAbilityInstruction()
         {

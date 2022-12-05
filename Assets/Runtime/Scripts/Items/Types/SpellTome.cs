@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using Magic;
 using UnityEngine;
 
 namespace Items
 {
     [CreateAssetMenu(fileName = "SpellTome", menuName = "Items/Spell Tome")]
-    public class SpellTome : Item, IDestroyable
+    public class SpellTome : Item, IDestroyable, IUsableInInventory
     {
         [SpritePreview]
         [SerializeField] Spell _spell;
 
-        [SerializeField] Spellbook _spellbook;
-        [SerializeField] Resource _magicDustResource;
-
-        const int DUST_PER_SPELL_RANK = 50;
+        [HideInInspector]
+        [SerializeField] LootTable _resourcesData;
+        [HideInInspector]
+        [SerializeField] Spellbook _spellBook;
 
         public override int value => base.value * (_spell.startRank + 1);
+        public Spell spell => _spell;
+        public LootTable resourcesData => _resourcesData;
+        public bool destroyAfterUse => !_spellBook.SpellIsKnown(_spell) || _spellHasBeenAdded;
 
-        public void AddItemComponentsTo(Inventory inventory)
-        {
-            inventory.resources.AddResource(ResourceType.magicDust, _spell.startRank * DUST_PER_SPELL_RANK);
-        }
+        bool _spellHasBeenAdded = false;
 
         public override string GetDescription()
         {
@@ -33,9 +34,10 @@ namespace Items
             return "SpellTome";
         }
 
-        public void AddItemComponentsTo(ref List<ItemSlotData> items)
+        public void UseItem(AbilityController abilityController)
         {
-            items.Add(new ItemSlotData(_magicDustResource, _spell.startRank * DUST_PER_SPELL_RANK));
+            _spellHasBeenAdded = _spellBook.TryAddSpell(_spell);
+            Debug.Log(_spellHasBeenAdded);
         }
     }
 }

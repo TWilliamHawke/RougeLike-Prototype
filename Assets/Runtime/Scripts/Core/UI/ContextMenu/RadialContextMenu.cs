@@ -42,7 +42,6 @@ namespace Core.UI
         {
             var preferedPosition = (action as IRadialMenuAction).preferedPosition;
             var button = _buttonsByPosition[preferedPosition];
-            _modalWindowController.TryCreateActionWrapper(ref action);
             button?.BindAction(action);
         }
     }

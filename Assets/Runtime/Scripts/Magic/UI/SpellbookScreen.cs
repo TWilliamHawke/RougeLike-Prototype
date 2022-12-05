@@ -11,6 +11,7 @@ namespace Magic.UI
     {
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
+        [SerializeField] Injector _spellBookScreenInjector;
         [Header("UI Elements")]
         [SerializeField] UIScreen _spellbookCanvas;
         [SerializeField] SpellList _spellList;
@@ -24,6 +25,8 @@ namespace Magic.UI
             _spellBook.OnSpellPageOpen += OpenSpellPage;
             _spellBook.OnSpellSelect += Close;
             _spellbookCanvas.OnScreenOpen += PrepareBook;
+
+            _spellBookScreenInjector.SetDependency(_spellbookCanvas);
 
             _spellPage.Init();
             _resourcesPage.Init();

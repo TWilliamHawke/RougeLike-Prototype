@@ -7,8 +7,10 @@ MonoImporter:
   - _icon: {fileID: 21300000, guid: 1a20e8fe145316b43ac480425fe38547, type: 3}
   - _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
   - _spell: {instanceID: 0}
+  - _resourcesData: {fileID: 11400000, guid: f29bf9877fc42e84ca8a8e233974eb01, type: 2}
+  - _spellBook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 2800000, guid: 1a20e8fe145316b43ac480425fe38547, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
