@@ -9,25 +9,42 @@ namespace Items.UI
 {
     public class InventoryScreen : MonoBehaviour
     {
-        [SerializeField] Inventory _inventory;
+        [SerializeField] UIScreen _inventoryScreen;
+        [InjectField] Inventory _inventory;
         [Header("UI Elements")]
         [SerializeField] InventorySection _potionsBag;
         [SerializeField] InventorySection _scrollsBag;
         [SerializeField] InventorySection _mainSection;
+        [SerializeField] ResourceCounter _goldCounter;
+        [SerializeField] ResourceCounter _dustCounter;
 
         List<InventorySectionController> _inventorySectionControllers = new();
 
-        private void Awake()
+        //event handler in editor
+        public void Init()
         {
+            _inventoryScreen.OnScreenOpen += UpdateInventoryScreen;
+            _inventory.resources.OnResourceChange += UpdateResources;
             CreateControllers();
         }
 
-        void OnEnable()
+        private void UpdateInventoryScreen()
         {
             foreach (var controller in _inventorySectionControllers)
             {
                 controller.UpdateSectionView();
             }
+        }
+
+        private void OnDestroy()
+        {
+            _inventory.resources.OnResourceChange -= UpdateResources;
+        }
+
+        private void UpdateResources(ResourceType resourceType)
+        {
+            _goldCounter.UpdateResourceValue(resourceType);
+            _dustCounter.UpdateResourceValue(resourceType);
         }
 
         private void CreateControllers()

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Core.UI;
+using Effects;
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Items.Actions
@@ -12,29 +14,34 @@ namespace Items.Actions
         [SerializeField] Inventory _inventory;
 
         [InjectField] IContextMenu _contextMenu;
+        [InjectField] Player _player;
+        [InjectField] ModalWindowController _modalWindowController;
 
-        List<IItemActionFactory> _itemActionsFactories = new();
+        List<IItemActionFactory> _itemActionsFactory = new();
         List<IContextAction> _itemActions = new();
 
         private void Awake()
         {
             _selfIjector.SetDependency(this);
+        }
 
-            _itemActionsFactories.Add(new Use());
-            _itemActionsFactories.Add(new Buy());
-            _itemActionsFactories.Add(new Sell());
-            _itemActionsFactories.Add(new Equip());
-            _itemActionsFactories.Add(new MoveToStorage());
-            _itemActionsFactories.Add(new Destroy(_inventory));
-            _itemActionsFactories.Add(new Drop());
-
+        //event handler in editor
+        public void CreateFactory()
+        {
+            _itemActionsFactory.Add(new Use(_player.GetComponent<AbilityController>()));
+            _itemActionsFactory.Add(new Buy());
+            _itemActionsFactory.Add(new Sell());
+            _itemActionsFactory.Add(new Equip());
+            _itemActionsFactory.Add(new MoveToStorage());
+            _itemActionsFactory.Add(new Destroy(_inventory, _modalWindowController));
+            _itemActionsFactory.Add(new Drop());
         }
 
         public void FillContextMenu(ItemSlot itemSlot)
         {
             _itemActions.Clear();
 
-            foreach (var factory in _itemActionsFactories)
+            foreach (var factory in _itemActionsFactory)
             {
                 if (factory.TryCreateItemAction(itemSlot, out var action))
                 {

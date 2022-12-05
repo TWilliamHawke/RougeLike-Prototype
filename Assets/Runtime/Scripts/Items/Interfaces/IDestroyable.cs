@@ -4,7 +4,6 @@ namespace Items
 {
 	public interface IDestroyable
 	{
-	    void AddItemComponentsTo(Inventory inventory);
-		void AddItemComponentsTo(ref List<ItemSlotData> items);
+		LootTable resourcesData { get; }
 	}
 }

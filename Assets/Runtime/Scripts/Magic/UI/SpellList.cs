@@ -12,7 +12,6 @@ namespace Magic.UI
 
 		public void UpdateSpellList()
 		{
-            Debug.Log("uodate");
 			UpdateLayout();
 		}
     }

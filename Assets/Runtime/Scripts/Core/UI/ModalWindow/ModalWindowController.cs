@@ -15,6 +15,11 @@ namespace Core.UI
 			_selfInjector.SetDependency(this);
         }
 
+        public void OpenWindow(ModalWindowData windowData)
+        {
+            _modalWindow.Open(windowData);
+        }
+
         public bool TryCreateActionWrapper(ref IContextAction action)
         {
             var dataCreator = action as IHaveModalWindowData;
@@ -22,7 +27,7 @@ namespace Core.UI
             
             var data = new ModalWindowData();
             if (!dataCreator.TryFillModalWindowData(ref data)) return false;
-            action = new OpenModalWindow(_modalWindow, data);
+            action = new OpenModalWindow(this, data);
             return true;
         }
     }

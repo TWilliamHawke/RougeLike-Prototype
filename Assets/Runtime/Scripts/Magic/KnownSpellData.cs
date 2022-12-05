@@ -12,9 +12,9 @@ namespace Magic
     {
         public static event UnityAction<KnownSpellData> OnChangeData;
 
-        delegate int SelectSpellMod(SpellString spellString);
+        delegate int SelectSpellLinesBuff(SpellString spellString);
 
-        Spell _spell;
+        public Spell spell { get; init; }
         int _rank = 1;
         SpellString[] _activeStrings;
 
@@ -26,18 +26,18 @@ namespace Magic
         private int CalculateManaCost()
         {
 			//min = 10%
-			float costMult = Mathf.Max(1 + GetSpellMod(s => s.manaCostMod) / 100f, 0.1f);
-            return Mathf.RoundToInt(_spell[_rank].manaCost * costMult);
+			float costMult = Mathf.Max(1 + GetBuffFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
+            return Mathf.RoundToInt(spell[_rank].manaCost * costMult);
         }
 
-        public string displayName => _spell.displayName;
-        public Sprite icon => _spell.icon;
-        public Ability spell => _spell[rank].spellEffect;
+        public string displayName => spell.displayName;
+        public Sprite icon => spell.icon;
+        public Ability spellEffect => spell[rank].spellEffect;
 
         public KnownSpellData(Spell spell)
         {
-            _spell = spell;
-            _rank = _spell.startRank;
+            this.spell = spell;
+            _rank = spell.startRank;
             _activeStrings = new SpellString[6];
         }
 
@@ -56,8 +56,8 @@ namespace Magic
 
         public string ConstructDescription()
         {
-            float powerMult = 1 + GetSpellMod(s => s.spellPowerMod) / 100f;
-            return spell.GetDescription(new AbilityModifiers(powerMult));
+            float powerMult = 1 + GetBuffFromSpellLines(s => s.spellPowerMod) / 100f;
+            return spellEffect.GetDescription(new AbilityModifiers(powerMult));
         }
 
         public void SetActiveString(int slotIndex, SpellString spellString)
@@ -67,14 +67,14 @@ namespace Magic
             OnChangeData?.Invoke(this);
         }
 
-        int GetSpellMod(SelectSpellMod selector)
+        int GetBuffFromSpellLines(SelectSpellLinesBuff selector)
         {
             int mod = 0;
 
-            foreach (var spellString in _activeStrings)
+            foreach (var spellLine in _activeStrings)
             {
-                if (spellString is null) continue;
-                mod += selector(spellString);
+                if (spellLine is null) continue;
+                mod += selector(spellLine);
             }
 
             return mod;

@@ -32,7 +32,7 @@ namespace Effects
         {
             if(_manaComponent.TrySpendMana(_spellData.manaCost))
             {
-                _spellData.spell.SelectControllerUsage(controller);
+                _spellData.spellEffect.SelectControllerUsage(controller);
             }
         }
 

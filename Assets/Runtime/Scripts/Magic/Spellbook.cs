@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using Entities.PlayerScripts;
 using Items;
+using System.Linq;
 
 namespace Magic
 {
     public class Spellbook : ScriptableObject
     {
-        public event UnityAction OnSpellAdded;
+        public event UnityAction<Spell> OnSpellAdded;
+        public event UnityAction OnSpellAddedFailure;
         public event UnityAction<KnownSpellData> OnSpellPageOpen;
         public event UnityAction<KnownSpellData> OnSpellSelect;
 
@@ -22,11 +24,31 @@ namespace Magic
         public int maxSpellRank => 6;
         public int increaseRankCost => _increaseRankCost;
 
+        public bool TryAddSpell(Spell spell)
+        {
+            bool spellisKnown = SpellIsKnown(spell);
+            if (spellisKnown)
+            {
+                OnSpellAddedFailure?.Invoke();
+            }
+            else
+            {
+                AddSpell(spell);
+            }
+
+            return !spellisKnown;
+        }
+
 
         public void AddSpell(Spell spell)
         {
             _knownSpells.Add(new KnownSpellData(spell));
-            OnSpellAdded?.Invoke();
+            OnSpellAdded?.Invoke(spell);
+        }
+
+        public bool SpellIsKnown(Spell spell)
+        {
+            return _knownSpells.Any(spelldata => spelldata.spell == spell);
         }
 
         public void Clear()
