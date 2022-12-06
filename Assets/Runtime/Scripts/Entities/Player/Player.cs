@@ -11,7 +11,7 @@ namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity, IHaveHealthData
     {
         public event UnityAction OnPlayerTurnEnd;
 
@@ -20,6 +20,9 @@ namespace Entities.PlayerScripts
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
         [SerializeField] Injector _selfInjector;
+        [SerializeField] Faction _playerFaction;
+
+        AudioClip[] _deathSounds = new AudioClip[0];
 
         MovementController _movementController;
         MeleeAttackController _meleeAttackController;
@@ -31,6 +34,9 @@ namespace Entities.PlayerScripts
         public IAudioSource body => _body;
 
         public EffectStorage effectStorage => _stats.effectStorage;
+        public AudioClip[] deathSounds => _deathSounds;
+        public int maxHealth => 100;
+        public BehaviorType antiPlayerBehavior => BehaviorType.none;
 
         public void Init()
         {

@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
   _bodyChar: s
-  _bodyColor: {r: 1, g: 1, b: 1, a: 1}
+  _bodyColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  _health: 100
+  _faction: {fileID: 11400000, guid: 42ba64def1a2ed34781fb2951f4b5e60, type: 2}
+  _expForKill: 0
+  _sounds: {fileID: 11400000, guid: a1b2620a9d2a935469a0391a72ec4ded, type: 2}
   _minDamage: 10
   _maxDamage: 20
   _damageType: 1
-  _health: 100
   _resists: {fileID: 11400000, guid: 38ae83a959d36a1439f026d8ea73c3a1, type: 2}
-  _sounds: {fileID: 11400000, guid: a1b2620a9d2a935469a0391a72ec4ded, type: 2}
   _lootTable: {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}

@@ -13,7 +13,7 @@ namespace Entities
     public class EntitiesManager : MonoBehaviour, IInjectionTarget
     {
         [SerializeField] Player _player;
-        [SerializeField] Enemy _testEnemy;
+        [SerializeField] Entity _testEnemy;
 
         [Header("Injectors")]
         [SerializeField] Injector _inputControllerInjector;
@@ -45,7 +45,7 @@ namespace Entities
             _tilesGridInjector.AddInjectionTarget(this);
         }
 
-        public void AddEnemy(Enemy enemy)
+        public void AddEnemy(Entity enemy)
         {
             AddEntityToObserve(enemy);
             _tilesGrid.TryAddEntityToTile(enemy);
