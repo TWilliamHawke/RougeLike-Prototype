@@ -10,7 +10,7 @@ namespace Map.Objects
     public class Site : MapObject, IInjectionTarget
     {
         MapObjectTask _task = new MapObjectTask("Kill All wolves", true);
-        List<Enemy> _enemiesFromSite;
+        List<Entity> _enemiesFromSite;
         RandomStack<Vector3Int> _tileStorage;
         SiteTemplate _template;
         Rng _rng;
@@ -70,7 +70,7 @@ namespace Map.Objects
 
             if (_tileStorage.isEmpty) return;
 
-            _enemiesFromSite = new List<Enemy>();
+            _enemiesFromSite = new List<Entity>();
             var enemies = _template.enemies.GetCreatures(_rng);
 
             foreach (var enemyTemplate in enemies)
@@ -122,7 +122,7 @@ namespace Map.Objects
             return false;
         }
 
-        private void RemoveDeadEnemy(Enemy enemy)
+        private void RemoveDeadEnemy(Entity enemy)
         {
             if(!_enemiesFromSite.Contains(enemy)) return;
             _enemiesFromSite.Remove(enemy);

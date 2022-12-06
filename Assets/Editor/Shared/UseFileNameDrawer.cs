@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Text.RegularExpressions;
+using System;
 
 [CustomPropertyDrawer(typeof(UseFileNameAttribute))]
 public class UseFileNameDrawer : PropertyDrawer
@@ -26,7 +27,8 @@ public class UseFileNameDrawer : PropertyDrawer
                 string pattern = @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])";
                 Regex regex = new Regex(pattern);
 
-                property.stringValue = regex.Replace(fileName, " "); ;
+                var splittedName = regex.Replace(fileName, " ");
+                property.stringValue = EditorHelpers.Capitalize(splittedName);
             }
         }
         else

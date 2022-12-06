@@ -6,7 +6,6 @@ using Entities.Combat;
 using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
-using TMPro;
 using Effects;
 using UnityEngine.Events;
 using Items;
@@ -15,28 +14,31 @@ namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
-    public class Enemy : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity
+    public class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget, 
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IHaveHealthData
     {
         [SerializeField] SpriteRenderer _spriteRanderer;
-        [SerializeField] EnemyTemplate _template;
+        [SerializeField] CreatureTemplate _template;
         [SerializeField] Body _body;
 
         Health _health;
         EffectStorage _effectStorage;
 
-        public event UnityAction<Enemy> OnDeath;
+        public event UnityAction<Entity> OnDeath;
 
         public IDamageSource damageSource => _template;
         public Dictionary<DamageType, int> resists => _template.resists.set;
         public StateMachine stateMachine => GetComponent<StateMachine>();
-        public TileNode currentNode => throw new System.NotImplementedException();
         public EffectStorage effectStorage => _effectStorage;
         public int expForKill => _template.expForKill;
 
         public LootTable lootTable => _template.lootTable;
 
-        public void Init(EnemyTemplate template)
+        public AudioClip[] deathSounds => _template.sounds.deathSounds;
+        public int maxHealth => _template.health;
+        public BehaviorType antiPlayerBehavior => _template.faction.GetAntiPlayerBehavior();
+
+        public void Init(CreatureTemplate template)
         {
             _template = template;
             Init();
@@ -72,7 +74,6 @@ namespace Entities
         private void InitComponents()
         {
             _health = GetComponent<Health>();
-            _health.SetInjureSounds(_template.sounds);
             _health.OnHealthChange += CheckHealth;
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();

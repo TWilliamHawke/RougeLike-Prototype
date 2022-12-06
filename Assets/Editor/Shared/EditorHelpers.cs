@@ -8,6 +8,16 @@ public static class EditorHelpers
 {
     public static float lineHeight => EditorGUIUtility.singleLineHeight + 2;
 
+    public static string Capitalize(string str)
+    {
+        return str switch
+        {
+            null => "",
+            "" => "",
+            _ => str[0].ToString().ToUpper() + str.Substring(1)
+        };
+    }
+
     public static Rect RectToSingleLine(Rect position)
     {
         return new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);

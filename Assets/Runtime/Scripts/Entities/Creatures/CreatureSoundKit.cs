@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Entities
 {
     [CreateAssetMenu(fileName = "Sounds", menuName ="Entities/SoundKit")]
-    public class CreatureSoundKit : ScriptableObject, IHaveInjureSounds
+    public class CreatureSoundKit : ScriptableObject
     {
         [SerializeField] AudioClip[] _attackSounds;
         [SerializeField] AudioClip[] _deathSounds;

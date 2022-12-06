@@ -17,7 +17,7 @@ namespace Entities.UI
         public void CreateNewHealthbar(IHealthbarData entityHealth)
         {
             var healthbar = Instantiate(_healthbarPrefab, transform);
-            healthbar.SetHealth(entityHealth);
+            healthbar.BindHealth(entityHealth);
         }
 
         // void CreatePlayerHealthbar()

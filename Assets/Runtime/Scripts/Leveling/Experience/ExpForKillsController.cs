@@ -10,7 +10,7 @@ namespace Leveling
 
         public bool waitForAllDependencies => false;
 
-        public void AddEnemyToObserve(Enemy enemy)
+        public void AddEnemyToObserve(Entity enemy)
 		{
 			enemy.OnDeath += AddExpOnKill;
 		}
@@ -19,7 +19,7 @@ namespace Leveling
         {
         }
 
-        void AddExpOnKill(Enemy enemy)
+        void AddExpOnKill(Entity enemy)
 		{
 			_storage.AddExp(enemy.expForKill);
 		}
