@@ -58510,6 +58510,7 @@ GameObject:
   - component: {fileID: 805828280}
   - component: {fileID: 805828282}
   - component: {fileID: 805828281}
+  - component: {fileID: 805828283}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -58579,6 +58580,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805828279}
   m_CullTransparentMesh: 1
+--- !u!114 &805828283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805828279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50497ce76018f84c9a752a97afd1eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localisationKey: top_world_button
 --- !u!1001 &814350542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59065,6 +59079,10 @@ PrefabInstance:
     - target: {fileID: 4578610017807632491, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187206951231621920, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
+      propertyPath: _localisationKey
+      value: inventory_section_main
       objectReference: {fileID: 0}
     - target: {fileID: 7457828118129006804, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
       propertyPath: m_Name
@@ -65272,6 +65290,7 @@ GameObject:
   - component: {fileID: 1335670540}
   - component: {fileID: 1335670542}
   - component: {fileID: 1335670541}
+  - component: {fileID: 1335670543}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -65341,6 +65360,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335670539}
   m_CullTransparentMesh: 1
+--- !u!114 &1335670543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335670539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50497ce76018f84c9a752a97afd1eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localisationKey: top_menu_button
 --- !u!1 &1344156898
 GameObject:
   m_ObjectHideFlags: 0
@@ -67445,7 +67477,7 @@ GameObject:
   - component: {fileID: 1625488715}
   - component: {fileID: 1625488714}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67695,6 +67727,7 @@ GameObject:
   - component: {fileID: 1644839306}
   - component: {fileID: 1644839308}
   - component: {fileID: 1644839307}
+  - component: {fileID: 1644839309}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -67764,6 +67797,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644839305}
   m_CullTransparentMesh: 1
+--- !u!114 &1644839309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644839305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50497ce76018f84c9a752a97afd1eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localisationKey: top_char_button
 --- !u!1 &1654517729
 GameObject:
   m_ObjectHideFlags: 0
@@ -74716,6 +74762,10 @@ PrefabInstance:
     - target: {fileID: 4578610017807632491, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5187206951231621920, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
+      propertyPath: _localisationKey
+      value: inventory_section_scrolls
       objectReference: {fileID: 0}
     - target: {fileID: 7457828118129006804, guid: 386f796b1d4eba54b96f7919b9659d7c, type: 3}
       propertyPath: m_Name

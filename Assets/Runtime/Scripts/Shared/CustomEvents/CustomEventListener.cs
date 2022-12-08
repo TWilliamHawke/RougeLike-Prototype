@@ -8,7 +8,7 @@ public class CustomEventListener : MonoBehaviour
     [SerializeField] CustomEvent _customEvent;
     [SerializeField] UnityEvent _unityEvent;
 
-    private void OnEnable()
+    private void Start()
     {
       _customEvent.Register(this);
     }

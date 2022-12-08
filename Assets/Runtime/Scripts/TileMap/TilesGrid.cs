@@ -45,16 +45,9 @@ namespace Map
 
         public bool TryGetNodeAt(int x, int y, out TileNode node)
         {
-            if (PositionInsideGrid(x, y))
-            {
-                node = _grid[x, y];
-                return true;
-            }
-            else
-            {
-                node = _grid[0, 0];
-                return false;
-            }
+            bool insideGrid = PositionInsideGrid(x, y);
+            node = insideGrid ? _grid[x, y] : _grid[0, 0];
+            return insideGrid;
         }
 
         public List<TileNode> GetEmptyNeighbors(TileNode node)
