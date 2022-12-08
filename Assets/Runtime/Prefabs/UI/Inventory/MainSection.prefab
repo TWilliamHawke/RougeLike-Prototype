@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7457828119880398832}
   m_Father: {fileID: 7457828118129006811}
@@ -126,6 +127,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7457828120031381847}
   - {fileID: 5171215094237256875}
@@ -197,6 +199,7 @@ GameObject:
   - component: {fileID: 7457828119880398838}
   - component: {fileID: 7457828119880398839}
   - component: {fileID: 1294489067258005083}
+  - component: {fileID: 5187206951231621920}
   m_Layer: 0
   m_Name: SectionName
   m_TagString: Untagged
@@ -214,6 +217,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5171215094237256875}
   m_RootOrder: 0
@@ -340,6 +344,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5187206951231621920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7457828119880398833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b1041f193675e45b05df720e0aa72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localisationKey: inventory_section_potions
 --- !u!1 &7457828120031381840
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +385,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 609929095799104519}
   - {fileID: 953040263521613471}
