@@ -35,10 +35,11 @@ namespace Map.Generator
 		[Header("Objects")]
 		[SerializeField] List<SiteTemplate> _siteTemplates;
 
+		[InjectField] MapObjectsManager _mapObjectsManager;
+		
 		Tilemap _tileMap;
         Rng _rng;
 		LocationMapData _mapData;
-		[InjectField] MapObjectsManager _mapObjectsManager;
 
         public bool waitForAllDependencies => false;
     }

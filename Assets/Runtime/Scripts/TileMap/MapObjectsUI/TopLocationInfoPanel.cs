@@ -38,7 +38,7 @@ namespace Map.Objects.UI
 			_locationName.text = text;
 		}
 
-		public void SetTask(MapObjectTask task)
+		public void SetTask(MapObjectTaskData task)
 		{
 			_locationTask.text = task.taskText;
 			if(task.objectIsLocked)

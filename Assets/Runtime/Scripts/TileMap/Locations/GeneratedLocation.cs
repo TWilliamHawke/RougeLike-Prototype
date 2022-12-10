@@ -12,9 +12,9 @@ namespace Map.Locations
     {
 		[SerializeField] MapGenerator _generator;
 
-        public override MapObjectTask task => _task;
+        public override MapObjectTaskData task => _task;
 
-        MapObjectTask _task = new MapObjectTask("Explore the location", true);
+        MapObjectTaskData _task = new MapObjectTaskData("Explore the location", true);
 
         public override LocationMapData Create(Tilemap tilemap)
         {

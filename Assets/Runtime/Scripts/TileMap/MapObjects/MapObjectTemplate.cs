@@ -12,11 +12,11 @@ namespace Map.Objects
         [SerializeField] Sprite _icon;
 		[TextArea(3,5)]
 		[SerializeField] string _interactionDescription;
-        [SerializeField] MapObjectAction[] _possibleActions;
+        [SerializeField] MapActionTemplate[] _possibleActions;
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
-        public IEnumerable<MapObjectAction> possibleActions => _possibleActions;
+        public IEnumerable<MapActionTemplate> possibleActions => _possibleActions;
     }
 }
 

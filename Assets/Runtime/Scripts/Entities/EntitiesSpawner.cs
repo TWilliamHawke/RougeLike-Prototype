@@ -18,26 +18,38 @@ namespace Entities
 
         private void Awake()
         {
-			_selfInjector.SetDependency(this);
-			_entitiesManagerInjector.AddInjectionTarget(this);
+            _selfInjector.SetDependency(this);
+            _entitiesManagerInjector.AddInjectionTarget(this);
         }
 
         public void FinalizeInjection()
         {
         }
 
-		// public void SpawnEnemy(EnemyTemplate template, Vector3 position)
-		// {
-		// 	SpawnEnemyAsChild(template, position, this);
-		// }
+        // public void SpawnEnemy(EnemyTemplate template, Vector3 position)
+        // {
+        // 	SpawnEnemyAsChild(template, position, this);
+        // }
 
-		public Entity SpawnEnemyAsChild(CreatureTemplate template, Vector3Int position, Component parent)
-		{
-			var enemy = parent.CreateChild(_enemyPrefab, position);
-			enemy.Init(template);
-			_entitiesManager.AddEnemy(enemy);
+        public Entity SpawnEnemyAsChild(EntitySpawnData spawnData, Component parent)
+        {
+            var enemy = parent.CreateChild(_enemyPrefab, spawnData.position);
+            enemy.Init(spawnData.template);
+            _entitiesManager.AddEnemy(enemy);
             return enemy;
-		}
+        }
+    }
+
+    public struct EntitySpawnData
+    {
+        public CreatureTemplate template { get; init;}
+        public Vector3Int position { get; init;}
+
+        public EntitySpawnData(CreatureTemplate template, Vector3Int position)
+        {
+            this.template = template;
+            this.position = position;
+        }
     }
 }
 

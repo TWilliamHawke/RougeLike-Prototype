@@ -13,6 +13,7 @@ namespace Map.Generator
 
         public override LocationMapData StartGeneration(Tilemap tilemap)
         {
+            _objectsManagerInjector.AddInjectionTarget(this);
             _tileMap = tilemap;
             _tileMap.ClearAllTiles();
             _rng = new Rng(_seed);
@@ -50,7 +51,7 @@ namespace Map.Generator
             _tileMap.DestroyChildren();
 
             var site = _mapObjectsManager.CreateSite(new Vector3(_mapData.width / 2, 10, 0));
-            site.SetTemplate(template, _rng);
+            site.BindTemplate(template, _rng);
 
             if (!template.siteTile) return;
 
@@ -71,7 +72,7 @@ namespace Map.Generator
 
         private void CreateSites()
         {
-            _objectsManagerInjector.AddInjectionTarget(this);
+
         }
 
         private void ChangeCenterTiles(int centerX, int centerY, SiteTemplate template)

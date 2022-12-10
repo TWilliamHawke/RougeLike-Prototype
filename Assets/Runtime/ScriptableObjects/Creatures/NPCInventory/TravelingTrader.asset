@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1e43106ebda7841823d1d2d9a9176a, type: 3}
+  m_Name: TravelingTrader
+  m_EditorClassIdentifier: 
+  _inventoryType: 1
+  _weapon: {fileID: 11400000, guid: a30bb1ba01adbfa41b659e865efc35ee, type: 2}
+  _freeAccessItems: {fileID: 11400000, guid: 1e8a0fcefdd96564d8049362e26cead1, type: 2}
+  _tradeGoods:
+  - containerName: Chest
+    security: 15
+    loot: {fileID: 11400000, guid: d62a5ed306e2da94daf247473cf3a771, type: 2}
+  - containerName: Potions Bag
+    security: 0
+    loot: {fileID: 11400000, guid: ccca15f3f4dd3954eb733aa5d2177c5c, type: 2}

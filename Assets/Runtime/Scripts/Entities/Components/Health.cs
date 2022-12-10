@@ -33,6 +33,13 @@ namespace Entities
             _healthData = GetComponent<IHaveHealthData>();
             _currentHealth = _healthData.maxHealth;
             _healthbarCanvasInjector.AddInjectionTarget(this);
+            Debug.Log(_healthData.maxHealth);
+        }
+
+        public void FillToMax()
+        {
+            _currentHealth = maxHealth;
+            OnHealthChange?.Invoke();
         }
 
         public void RestoreHealth(int health)
@@ -48,6 +55,8 @@ namespace Entities
         void ChangeHealth(int health)
         {
             _currentHealth = Mathf.Clamp(_currentHealth + health, 0, maxHealth);
+            Debug.Log(_currentHealth);
+
             OnHealthChange?.Invoke();
 
             if (_currentHealth == 0 && _healthData.deathSounds.Length > 0)

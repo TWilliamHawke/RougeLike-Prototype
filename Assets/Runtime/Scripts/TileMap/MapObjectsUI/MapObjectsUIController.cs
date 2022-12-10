@@ -78,7 +78,7 @@ namespace Map.Objects.UI
             }
         }
 
-        private void UpdateTaskText(MapObjectTask task)
+        private void UpdateTaskText(MapObjectTaskData task)
         {
             _topInfoPanel.SetTask(task);
         }
