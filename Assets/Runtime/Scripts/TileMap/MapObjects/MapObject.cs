@@ -10,14 +10,14 @@ namespace Map.Objects
     {
 		public event UnityAction<MapObject> OnPlayerEnter;
 		public event UnityAction<MapObject> OnPlayerExit;
-        public event UnityAction<MapObjectTask> OnTaskChange;
+        public event UnityAction<MapObjectTaskData> OnTaskChange;
 
         public abstract MapObjectTemplate template { get; }
-        public abstract MapObjectTask task { get; }
+        public abstract MapObjectTaskData task { get; }
 
         public abstract IMapActionsController actionsController { get; }
 
-        protected void InvokeTaskEvent()
+        protected void UpdateTask()
         {
             OnTaskChange?.Invoke(task);
         }

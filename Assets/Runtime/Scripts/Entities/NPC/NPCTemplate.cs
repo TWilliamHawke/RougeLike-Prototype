@@ -11,6 +11,8 @@ namespace Entities
 		[UseFileName]
 		[SerializeField] string _npcName;
 
+        [SerializeField] NPCInventory _inventory;
+
         public override int minDamage => throw new System.NotImplementedException();
         public override int maxDamage => throw new System.NotImplementedException();
         public override DamageType damageType => throw new System.NotImplementedException();

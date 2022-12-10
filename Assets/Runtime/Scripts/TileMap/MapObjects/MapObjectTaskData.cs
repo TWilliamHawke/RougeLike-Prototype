@@ -1,11 +1,11 @@
 namespace Map.Objects
 {
-	public struct MapObjectTask
+	public struct MapObjectTaskData
 	{
 	    public string taskText;
 		public bool objectIsLocked;
 
-        public MapObjectTask(string taskText, bool objectIsLocked)
+        public MapObjectTaskData(string taskText, bool objectIsLocked)
         {
             this.taskText = taskText;
             this.objectIsLocked = objectIsLocked;

@@ -54,6 +54,9 @@ namespace Entities
         public void ApplyStartStats()
         {
             _body.UpdateSkin(_template.bodyChar, _template.bodyColor);
+            _health = GetComponent<Health>();
+            _health.OnHealthChange += CheckHealth;
+            _health.FillToMax();
         }
 
         public void Interact(Player player)
@@ -73,8 +76,6 @@ namespace Entities
 
         private void InitComponents()
         {
-            _health = GetComponent<Health>();
-            _health.OnHealthChange += CheckHealth;
             var meleeAttackController = GetComponent<MeleeAttackController>();
             var movementController = GetComponent<MovementController>();
             movementController.Init(new TileNode(0, 1, true));

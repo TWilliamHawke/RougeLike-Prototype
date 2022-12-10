@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Entities
+namespace Scripts
 {
-    public class SoundKit : ScriptableObject
-    {
+	public class RandomEncounter : MonoBehaviour
+	{
 
-    }
+	}
 }
+
+

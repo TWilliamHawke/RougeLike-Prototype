@@ -9,8 +9,16 @@ namespace Map.Objects
 {
     public class Site : MapObject, IInjectionTarget
     {
-        MapObjectTask _task = new MapObjectTask("Kill All wolves", true);
+        [SerializeField] BoxCollider2D _collider;
+        [SerializeField] Injector _enemySpawnerInjector;
+        [SerializeField] Injector _lootPanelInjector;
+        [SerializeField] MapActionTemplate _lootBodiesAction;
+
+        [InjectField] EntitiesSpawner _spawner;
+
+        MapObjectTaskData _task = new MapObjectTaskData("Kill All wolves", true);
         List<Entity> _enemiesFromSite;
+        List<EntitySpawnData> _spawnerData;
         RandomStack<Vector3Int> _tileStorage;
         SiteTemplate _template;
         Rng _rng;
@@ -18,16 +26,10 @@ namespace Map.Objects
         int _posX;
         int _posY;
 
-        [SerializeField] BoxCollider2D _collider;
-        [SerializeField] Injector _enemySpawnerInjector;
-        [SerializeField] Injector _lootPanelInjector;
-        [SerializeField] MapObjectAction _lootBodiesAction;
-
-        [InjectField] EntitiesSpawner _spawner;
 
         public bool waitForAllDependencies => true;
         public override MapObjectTemplate template => _template;
-        public override MapObjectTask task => _task;
+        public override MapObjectTaskData task => _task;
 
         public override IMapActionsController actionsController => _actionsController;
         IMapActionsController _actionsController = new DefaultMapActionsController();
@@ -38,7 +40,7 @@ namespace Map.Objects
             FillActionsList();
         }
 
-        public void SetTemplate(SiteTemplate template, Rng rng)
+        public void BindTemplate(SiteTemplate template, Rng rng)
         {
             _template = template;
             _rng = rng;
@@ -77,7 +79,7 @@ namespace Map.Objects
             {
                 if (_tileStorage.TryPull(_rng, out var position))
                 {
-                    var enemy = _spawner.SpawnEnemyAsChild(enemyTemplate, position, this);
+                    var enemy = _spawner.SpawnEnemyAsChild(new EntitySpawnData(enemyTemplate, position), this);
                     _enemiesFromSite.Add(enemy);
                     enemy.OnDeath += RemoveDeadEnemy;
                 }
@@ -133,10 +135,10 @@ namespace Map.Objects
             }
             else
             {
-                _task = new MapObjectTask("Click to loot", false);
+                _task = new MapObjectTaskData("Click to loot", false);
             }
 
-            InvokeTaskEvent();
+            UpdateTask();
         }
     }
 }

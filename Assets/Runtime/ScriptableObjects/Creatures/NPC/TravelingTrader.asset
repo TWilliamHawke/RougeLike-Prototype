@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cefe5e40956698742b39efafd1ce6a62, type: 3}
-  m_Name: traveledMerchant
+  m_Name: TravelingTrader
   m_EditorClassIdentifier: 
   _bodyChar: T
   _bodyColor: {r: 1, g: 1, b: 1, a: 1}
   _health: 100
   _faction: {fileID: 11400000, guid: 7e704cc1f13b233439bfe604c30ad394, type: 2}
   _expForKill: 0
-  _npcName: Traveled Merchant
+  _npcName: Traveling Trader
+  _inventory: {fileID: 11400000, guid: 66ff99e91173a944088ddbe033c96a35, type: 2}

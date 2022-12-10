@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Map.Objects
 {
     [CreateAssetMenu(menuName = "Map/Action", fileName = "MapObjectAction")]
-    public class MapObjectAction : ScriptableObject, IIconData, IActionLogicCreator
+    public class MapActionTemplate : ScriptableObject, IIconData, IActionLogicCreator
     {
         [UseFileName]
         [SerializeField] string _displayName;

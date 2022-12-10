@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.InteractiveObjects;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,12 +21,6 @@ namespace Items.UI
         public void Init()
         {
             _selfInjector.SetDependency(this);
-            Container.OnContainerOpen += Open;
-        }
-
-        private void OnDestroy()
-        {
-            Container.OnContainerOpen -= Open;
         }
 
         public void Open(ItemSection<Item> loot)

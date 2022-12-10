@@ -16,7 +16,7 @@ namespace Map.Locations
 		public string displayName => _displayName;
 		public Sprite icon => _icon;
 
-		public abstract MapObjectTask task { get; }
+		public abstract MapObjectTaskData task { get; }
 	}
 }
 
