@@ -7,47 +7,80 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    class Loot : IMapActionLogic
+    class Loot : IMapActionCreator
     {
-        IIconData _action;
-        [InjectField] LootPanel _lootPanel;
-        LootTable _lootTable;
+        LootPanel _lootPanel;
 
-        public bool isEnable { get; set; } = true;
-
-        public event UnityAction<IMapActionLogic> OnCompletion;
-
-        public IIconData template => _action;
-        public bool waitForAllDependencies => false;
-
-        public Loot(IIconData action, LootTable lootTable)
+        public Loot(LootPanel lootPanel)
         {
-            _action = action;
-            _lootTable = lootTable;
+            _lootPanel = lootPanel;
         }
 
-        public void DoAction()
+        public IMapAction CreateActionLogic(MapActionTemplate template)
         {
-            _lootPanel.Open(_lootTable.GetLoot());
-            _lootPanel.OnTakeAll += InvokeEvent;
-            _lootPanel.OnClose += ClearEvents;
+            if((template as ILootActionData)?.lootTable is null)
+            {
+                throw new System.Exception($"{template.name} labeled as loot but loot table is not assigned");
+            }
+            return new LootAction(template, _lootPanel);
         }
 
-        void InvokeEvent()
+        public IMapAction CreateActionLogic(MapActionTemplate template, ILootStorage loot)
         {
-            OnCompletion?.Invoke(this);
-            ClearEvents();
+            return new LootAction(template, loot, _lootPanel);
         }
 
-        void ClearEvents()
-        {
-            _lootPanel.OnTakeAll -= InvokeEvent;
-            _lootPanel.OnClose -= ClearEvents;
-        }
 
-        public void FinalizeInjection()
+        class LootAction : IMapAction
         {
-            
+            LootPanel _lootPanel;
+            ILootActionData _template;
+            public Sprite icon => _template.icon;
+            public string actionTitle => _template.displayName;
+
+            ILootStorage _loot;
+
+            //in some locations action can be used multiple times
+            //so it require outer control
+            public bool isEnable { get; set; } = true;
+
+            public event UnityAction<IMapAction> OnCompletion;
+
+
+            public LootAction(ILootActionData template, LootPanel lootPanel)
+            {
+                _loot = new ItemSection<Item>(ItemContainerType.loot);
+                _template = template;
+                template.lootTable.FillItemSection(ref _loot);
+                _lootPanel = lootPanel;
+            }
+
+            public LootAction(ILootActionData template, ILootStorage loot, LootPanel lootPanel)
+            {
+                _template = template;
+                _loot = loot;
+                _lootPanel = lootPanel;
+            }
+
+            public void DoAction()
+            {
+                _lootPanel.Open(_loot);
+                _lootPanel.OnTakeAll += InvokeEvent;
+                _lootPanel.OnClose += ClearEvents;
+            }
+
+            void InvokeEvent()
+            {
+                OnCompletion?.Invoke(this);
+                ClearEvents();
+            }
+
+            void ClearEvents()
+            {
+                _lootPanel.OnTakeAll -= InvokeEvent;
+                _lootPanel.OnClose -= ClearEvents;
+            }
+
         }
     }
 }

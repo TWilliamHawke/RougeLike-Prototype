@@ -7,14 +7,13 @@ using Rng = System.Random;
 
 namespace Map.Objects
 {
-    public class Site : MapObject, IInjectionTarget
+    public class Site : MapObject
     {
         [SerializeField] BoxCollider2D _collider;
-        [SerializeField] Injector _enemySpawnerInjector;
-        [SerializeField] Injector _lootPanelInjector;
         [SerializeField] MapActionTemplate _lootBodiesAction;
 
         [InjectField] EntitiesSpawner _spawner;
+        [InjectField] IMapActionsFactory _mapActionsFactory;
 
         MapObjectTaskData _task = new MapObjectTaskData("Kill All wolves", true);
         List<Entity> _enemiesFromSite;
@@ -32,10 +31,11 @@ namespace Map.Objects
         public override MapObjectTaskData task => _task;
 
         public override IMapActionsController actionsController => _actionsController;
-        IMapActionsController _actionsController = new DefaultMapActionsController();
+        IMapActionsController _actionsController;
 
         public void FinalizeInjection()
         {
+            _actionsController = new DefaultMapActionsController(_mapActionsFactory);
             SpawnEnemies();
             FillActionsList();
         }
@@ -47,19 +47,15 @@ namespace Map.Objects
             _collider.size = new Vector2(template.width, template.height);
             _posX = (int)transform.position.x;
             _posY = (int)transform.position.y;
-            _enemySpawnerInjector.AddInjectionTarget(this);
         }
 
         private void FillActionsList()
         {
-            var lootBodiesLogic = new LootBodies(_lootBodiesAction);
-            _lootPanelInjector.AddInjectionTarget(lootBodiesLogic);
-            lootBodiesLogic.CreateLoot(_enemiesFromSite);
-            _actionsController.AddLogic(lootBodiesLogic);
+            _actionsController.CreateLootAction(_lootBodiesAction, _enemiesFromSite);
 
             foreach(var action in _template.possibleActions)
             {
-                _actionsController.AddLogic(action);
+                _actionsController.AddAction(action);
             }
         }
 

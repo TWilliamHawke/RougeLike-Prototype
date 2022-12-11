@@ -17,7 +17,7 @@ namespace Map.Objects.UI
 		[SerializeField] Image _buttonBg;
 		[SerializeField] Button _button;
 
-		IMapActionLogic _action;
+		IMapAction _action;
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -25,11 +25,11 @@ namespace Map.Objects.UI
             _action.DoAction();
         }
 
-        public void SetAction(IMapActionLogic actionLogic)
+        public void SetAction(IMapAction actionLogic)
 		{
 			_action = actionLogic;
-			_actionIcon.sprite = actionLogic.template.icon;
-			_actionTitle.text = actionLogic.template.displayName;
+			_actionIcon.sprite = actionLogic.icon;
+			_actionTitle.text = actionLogic.actionTitle;
 			this.gameObject.SetActive(true);
 			_button.interactable = actionLogic.isEnable;
 

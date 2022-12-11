@@ -5,19 +5,25 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    class Attack : IMapActionLogic
+    class Attack : IMapActionCreator
     {
-        IIconData _action;
-        public event UnityAction<IMapActionLogic> OnCompletion;
+        public IMapAction CreateActionLogic(MapActionTemplate template)
+        {
+            return new AttackAction(template);
+        }
+
+        public class AttackAction: IMapAction
+    {
+        public event UnityAction<IMapAction> OnCompletion;
         public bool isEnable { get; set; } = true;
 
-        public IIconData template => _action;
+        MapActionTemplate _template;
+        public Sprite icon => _template.icon;
+        public string actionTitle => _template.displayName;
 
-        public bool waitForAllDependencies => false;
-
-        public Attack(IIconData action)
+        public AttackAction(MapActionTemplate action)
         {
-            _action = action;
+            _template = action;
         }
 
         public void DoAction()
@@ -25,10 +31,7 @@ namespace Map.Objects
             OnCompletion?.Invoke(this);
         }
 
-        public void FinalizeInjection()
-        {
-
-        }
+    }
     }
 }
 

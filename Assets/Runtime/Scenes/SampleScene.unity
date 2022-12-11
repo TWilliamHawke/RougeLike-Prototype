@@ -3829,9 +3829,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 285033831}
+  _waitForAllDependencies: 0
   _injectors:
   - {fileID: 11400000, guid: 3bc6aedfb9e675041b64d4e8b976e1aa, type: 2}
-  _waitForAllDependencies: 0
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
@@ -6016,11 +6016,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 497878641}
+  _waitForAllDependencies: 1
   _injectors:
   - {fileID: 11400000, guid: a65f8af338a3b504f82ef715738b218a, type: 2}
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
-  _waitForAllDependencies: 1
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
@@ -62458,6 +62458,8 @@ GameObject:
   - component: {fileID: 1081761064}
   - component: {fileID: 1081761063}
   - component: {fileID: 1081761065}
+  - component: {fileID: 1081761067}
+  - component: {fileID: 1081761066}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -62515,6 +62517,50 @@ MonoBehaviour:
   _topLocationPanelInjector: {fileID: 11400000, guid: a02b1b089ec24114eb8c788ed1fe0f18, type: 2}
   _actionsScreenInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
   tileMapManager: {fileID: 1081761063}
+--- !u!114 &1081761066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081761062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1081761067}
+  _waitForAllDependencies: 0
+  _injectors:
+  - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1081761067}
+        m_TargetAssemblyTypeName: Map.Objects.MapActionsFactory, Project
+        m_MethodName: CreateFactory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1081761067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081761062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936f6f93b8013f245a5097492cb1044c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfInjector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
 --- !u!1 &1112199530
 GameObject:
   m_ObjectHideFlags: 0
@@ -65602,9 +65648,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1357326748}
+  _waitForAllDependencies: 0
   _injectors:
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
-  _waitForAllDependencies: 0
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls: []
@@ -71553,10 +71599,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1951007504}
+  _waitForAllDependencies: 0
   _injectors:
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
   - {fileID: 11400000, guid: 2813f78f9f2c64241a962d6d79b8a86a, type: 2}
-  _waitForAllDependencies: 0
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls: []

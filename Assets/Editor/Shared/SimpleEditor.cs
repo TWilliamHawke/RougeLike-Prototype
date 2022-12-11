@@ -11,8 +11,10 @@ namespace CustomEditors
         {
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
+            
             DrawScriptName();
             DrawProperties();
+
             serializedObject.ApplyModifiedProperties();
             EditorGUI.EndChangeCheck();
         }
@@ -24,6 +26,12 @@ namespace CustomEditors
             property.NextVisible(true);
             EditorGUILayout.PropertyField(property);
             GUI.enabled = true;
+        }
+
+        protected void DrawPropertyField(string propertyName)
+        {
+            var property = serializedObject.FindProperty(propertyName);
+            EditorGUILayout.PropertyField(property);
         }
 
         protected virtual void DrawProperties()

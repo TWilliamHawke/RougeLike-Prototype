@@ -1,25 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Items;
+using Map.Objects;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Map
 {
-	public interface IMapActionsController: IMapActionList, IActionLogicConsumer
+	public interface IMapActionsController: IMapActionList
 	{
 		event UnityAction OnActionStateChange;
+		void AddAction(MapActionTemplate actionTemplate);
+		void CreateLootAction(MapActionTemplate actionTemplate, IEnumerable<IHaveLoot> enemies);
 	}
 
 	public interface IMapActionList
 	{
-	    IMapActionLogic this[int idx] { get; }
+	    IMapAction this[int idx] { get; }
 		int count { get; }
 	}
 
-	public interface IActionLogicConsumer
-	{
-		void AddLogic(IActionLogicCreator actionLogicCreator);
-		void AddLogic(IMapActionLogic actionLogic);
-	}
 }
 
