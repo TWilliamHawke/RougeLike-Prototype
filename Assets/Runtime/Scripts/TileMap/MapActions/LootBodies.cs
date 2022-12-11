@@ -7,22 +7,20 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    public class LootBodies : IMapActionLogic
+    public class LootBodies : IMapAction
     {
-        IIconData _action;
+        IIconData _template;
         public bool isEnable { get; set; } = true;
         [InjectField] LootPanel _lootPanel;
         ItemSection<Item> _loot;
 
-        public event UnityAction<IMapActionLogic> OnCompletion;
-
-        public IIconData template => _action;
-
-        public bool waitForAllDependencies => false;
+        public event UnityAction<IMapAction> OnCompletion;
+        public Sprite icon => _template.icon;
+        public string actionTitle => _template.displayName;
 
         public LootBodies(IIconData action)
         {
-            _action = action;
+            _template = action;
         }
 
         public void CreateLoot(IEnumerable<IHaveLoot> enemies)
@@ -52,11 +50,6 @@ namespace Map.Objects
         {
             _lootPanel.OnTakeAll -= InvokeEvent;
             _lootPanel.OnClose -= ClearEvents;
-        }
-
-        public void FinalizeInjection()
-        {
-
         }
     }
 

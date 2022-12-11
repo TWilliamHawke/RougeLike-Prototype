@@ -28,7 +28,7 @@ namespace Items
             _dataListGenerator = new DataListGenerator<Item>(this);
         }
 
-        public void FillItemSection(ref ItemSection<Item> loot)
+        public void FillItemSection<T>(ref T loot) where T : ILootStorage
         {
             _dataListGenerator.FillDataList(ref loot);
         }

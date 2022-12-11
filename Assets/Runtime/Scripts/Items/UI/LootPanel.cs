@@ -12,7 +12,7 @@ namespace Items.UI
         [SerializeField] Injector _selfInjector;
 
         protected override IEnumerable<ItemSlotData> _layoutElementsData => _loot;
-        ItemSection<Item> _loot;
+        IEnumerable<ItemSlotData> _loot;
 
         public event UnityAction OnTakeAll;
         public event UnityAction OnClose;
@@ -23,7 +23,7 @@ namespace Items.UI
             _selfInjector.SetDependency(this);
         }
 
-        public void Open(ItemSection<Item> loot)
+        public void Open(ILootStorage loot)
         {
             _loot = loot;
             gameObject.SetActive(true);

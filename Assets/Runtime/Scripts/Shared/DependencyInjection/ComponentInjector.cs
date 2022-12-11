@@ -7,8 +7,8 @@ using System.Reflection;
 public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
 {
     [SerializeField] MonoBehaviour _injectionTarget;
-    [SerializeField] Injector[] _injectors;
     [SerializeField] bool _waitForAllDependencies;
+    [SerializeField] Injector[] _injectors;
 
     [SerializeField] UnityEvent _finalizeInjectionHandler;
 

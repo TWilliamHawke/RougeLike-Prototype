@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,25 +8,43 @@ namespace Map.Objects
 {
     public class DefaultMapActionsController : IMapActionsController
     {
-		List<IMapActionLogic> _actionsLogic = new List<IMapActionLogic>();
+		List<IMapAction> _actionsLogic = new List<IMapAction>();
 
         public event UnityAction OnActionStateChange;
 
-        public IMapActionLogic this[int idx] => _actionsLogic[idx];
+        public IMapAction this[int idx] => _actionsLogic[idx];
         public int count => _actionsLogic.Count;
+        IMapActionsFactory _actionsFactory;
 
-        public void AddLogic(IActionLogicCreator actionLogicCreator)
+        public DefaultMapActionsController(IMapActionsFactory actionsFactory)
         {
-            AddLogic(actionLogicCreator.CreateActionLogic());
+            _actionsFactory = actionsFactory;
         }
 
-        public void AddLogic(IMapActionLogic actionLogic)
+        public void AddAction(MapActionTemplate template)
+        {
+            AddAction(_actionsFactory.CreateActionLogic(template));
+        }
+
+        public void CreateLootAction(MapActionTemplate template, IEnumerable<IHaveLoot> enemies)
+        {
+            var loot = new ItemSection<Item>(ItemContainerType.loot);
+
+            foreach (var enemy in enemies)
+            {
+                enemy.lootTable.FillItemSection(ref loot);
+            }
+
+            AddAction(_actionsFactory.CreateLootAction(template, loot));
+        }
+
+        private void AddAction(IMapAction actionLogic)
 		{
 			_actionsLogic.Add(actionLogic);
 			actionLogic.OnCompletion += DisableAction;
 		}
 
-		private void DisableAction(IMapActionLogic actionLogic)
+		private void DisableAction(IMapAction actionLogic)
 		{
 			actionLogic.isEnable = false;
 			OnActionStateChange?.Invoke();

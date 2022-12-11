@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2905629595467949150}
   - component: {fileID: 2905629595467949151}
   - component: {fileID: 2905629595467949136}
+  - component: {fileID: -7220348691357748830}
   m_Layer: 0
   m_Name: Site
   m_TagString: Untagged
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.4697638, y: 4.892063, z: -1.9705654}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,4 +75,35 @@ MonoBehaviour:
   _collider: {fileID: 2905629595467949151}
   _enemySpawnerInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
   _lootBodiesAction: {fileID: 11400000, guid: bccd4168dfd67cd439c1443d1e4428cd, type: 2}
-  _lootPanelInjector: {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+--- !u!114 &-7220348691357748830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2905629595467949137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 2905629595467949136}
+  _waitForAllDependencies: 1
+  _injectors:
+  - {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
+  - {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2905629595467949136}
+        m_TargetAssemblyTypeName: Map.Objects.Site, Project
+        m_MethodName: FinalizeInjection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
