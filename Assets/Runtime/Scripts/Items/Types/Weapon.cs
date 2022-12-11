@@ -13,6 +13,9 @@ namespace Items
 		[SerializeField] int _maxDamage;
 		[SerializeField] int _accuracy;
 
+        [SerializeField] AudioClip[] _attackSounds;
+
+        public AudioClip attackSound => _attackSounds.GetRandom();
         public EquipmentTypes equipmentType => EquipmentTypes.weapon;
 
         public override string GetDescription()

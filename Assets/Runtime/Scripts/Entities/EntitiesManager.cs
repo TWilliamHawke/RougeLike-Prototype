@@ -13,7 +13,6 @@ namespace Entities
     public class EntitiesManager : MonoBehaviour, IInjectionTarget
     {
         [SerializeField] Player _player;
-        [SerializeField] Entity _testEnemy;
 
         [Header("Injectors")]
         [SerializeField] Injector _inputControllerInjector;
@@ -38,7 +37,6 @@ namespace Entities
             _enemyKillsObserver = new ExpForKillsController();
             _experienceStorageInjector.AddInjectionTarget(_enemyKillsObserver);
             _player.Init();
-            _testEnemy.Init();
             _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
             _inputControllerInjector.AddInjectionTarget(this);
             _selfInjector.SetDependency(this);
@@ -91,7 +89,7 @@ namespace Entities
 
         void IInjectionTarget.FinalizeInjection()
         {
-            AddEnemy(_testEnemy);
+
         }
     }
 }

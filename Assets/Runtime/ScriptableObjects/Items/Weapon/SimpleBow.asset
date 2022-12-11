@@ -20,3 +20,7 @@ MonoBehaviour:
   _minDamage: 10
   _maxDamage: 20
   _accuracy: 15
+  _attackSounds:
+  - {fileID: 8300000, guid: c652ff312840b0c4d8f1f63c5c14ecad, type: 3}
+  - {fileID: 8300000, guid: 6fafd689ce549c446a62d4e96cb47d3b, type: 3}
+  - {fileID: 8300000, guid: 837148419bf42be41ae1055e6ed219ff, type: 3}

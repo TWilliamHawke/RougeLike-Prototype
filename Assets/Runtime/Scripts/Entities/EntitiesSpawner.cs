@@ -10,7 +10,7 @@ namespace Entities
     {
         [InjectField] EntitiesManager _entitiesManager;
 
-        [SerializeField] Entity _enemyPrefab;
+        [SerializeField] Creature _enemyPrefab;
         [SerializeField] Injector _entitiesManagerInjector;
         [SerializeField] Injector _selfInjector;
 
@@ -34,7 +34,7 @@ namespace Entities
         public Entity SpawnEnemyAsChild(EntitySpawnData spawnData, Component parent)
         {
             var enemy = parent.CreateChild(_enemyPrefab, spawnData.position);
-            enemy.Init(spawnData.template);
+            enemy.BindTemplate(spawnData.template);
             _entitiesManager.AddEnemy(enemy);
             return enemy;
         }

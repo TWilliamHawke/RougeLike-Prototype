@@ -35,14 +35,13 @@ namespace Entities.UI
         {
             _healthbarData = entity;
             _healthbarData.OnHealthChange += UpdateHealthBar;
-            _fillImage.color = GetHealthbarColor(entity.behavior);
-
         }
 
         void UpdateHealthBar()
         {
             float healthPct = (float)_healthbarData.currentHealth / _healthbarData.maxHealth;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
+            _fillImage.color = GetHealthbarColor(_healthbarData.behavior);
         }
 
         Color GetHealthbarColor(BehaviorType behavior)
