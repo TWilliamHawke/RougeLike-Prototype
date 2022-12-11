@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Entities;
+using Entities.NPCScripts;
 
 namespace CustomEditors
 {
-    [CustomEditor(typeof(NPCInventory))]
+    [CustomEditor(typeof(NPCInventoryTemplate))]
     public class NPCInventoryEditor : SimpleEditor
     {
         SerializedProperty _inventoryType;
@@ -29,7 +29,7 @@ namespace CustomEditors
             EditorGUILayout.PropertyField(_weapon);
             EditorGUILayout.PropertyField(_freeAccessItems);
 
-            var type = (target as NPCInventory)?.inventoryType;
+            var type = (target as NPCInventoryTemplate)?.inventoryType;
 
             if (type != NPCInventoryType.normal)
             {

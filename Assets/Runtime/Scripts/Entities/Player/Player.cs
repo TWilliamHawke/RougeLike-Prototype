@@ -36,7 +36,6 @@ namespace Entities.PlayerScripts
         public EffectStorage effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
         public int maxHealth => 100;
-        public BehaviorType antiPlayerBehavior => BehaviorType.none;
 
         public void Init()
         {

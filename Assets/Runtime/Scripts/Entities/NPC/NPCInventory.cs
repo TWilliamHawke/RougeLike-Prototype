@@ -2,28 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Items;
+using Entities.Combat;
 
-namespace Entities
+namespace Entities.NPCScripts
 {
-    [CreateAssetMenu(fileName = "NPCInventory", menuName = "Entities/NPCInventory", order = 0)]
-    public class NPCInventory : ScriptableObject
+    public class NPCInventory
     {
-        [SerializeField] NPCInventoryType _inventoryType;
-		[SerializeField] Weapon _weapon;
+        ItemSection<Item> _freeAccessItems = new(ItemContainerType.trader);
 
-        [SerializeField] LootTable _freeAccessItems;
-        [SerializeField] TraderContainer[] _tradeGoods;
+        public Dictionary<DamageType, int> resists { get; init; } = new();
 
-        public Weapon weapon => _weapon;
-        public NPCInventoryType inventoryType => _inventoryType;
+        public Weapon weapon { get; init; }
 
-    }
-
-    public enum NPCInventoryType
-    {
-        normal = 0,
-        trader = 1,
-        shop = 2,
+        public NPCInventory(NPCInventoryTemplate template)
+        {
+            weapon = template.weapon;
+        }
     }
 }
 

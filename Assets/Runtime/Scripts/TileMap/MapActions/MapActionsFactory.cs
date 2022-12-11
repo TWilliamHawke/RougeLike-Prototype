@@ -47,6 +47,11 @@ namespace Map.Objects
             _mapActionCreators.Add(MapActionType.attack, new Attack());
             _mapActionCreators.Add(MapActionType.talk, new Talk());
         }
+
+        public IMapAction CreateNPCAction(MapActionTemplate template)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

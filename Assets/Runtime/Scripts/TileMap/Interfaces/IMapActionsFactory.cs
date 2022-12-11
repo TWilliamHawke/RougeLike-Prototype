@@ -8,6 +8,7 @@ namespace Map
     {
         IMapAction CreateActionLogic(MapActionTemplate template);
         IMapAction CreateLootAction(MapActionTemplate template, ILootStorage loot);
+        IMapAction CreateNPCAction(MapActionTemplate template);
     }
 }
 

@@ -26,7 +26,7 @@ namespace Entities
 
         public bool waitForAllDependencies => false;
 
-        public BehaviorType behavior => _healthData.antiPlayerBehavior;
+        public BehaviorType behavior { get; set; } = BehaviorType.none;
 
         void Awake()
         {

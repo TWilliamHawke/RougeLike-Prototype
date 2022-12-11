@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d8f00b134c8284ca2189fe6899cd00, type: 3}
+  m_Name: NPCSounds
+  m_EditorClassIdentifier: 
+  _deathSounds:
+  - {fileID: 8300000, guid: b61870925c3eee54587d6b6177792c03, type: 3}
+  - {fileID: 8300000, guid: e95d225e5695c7c409b0d7de042a3d32, type: 3}
+  - {fileID: 8300000, guid: 46066b5d4102ecc45a357f507f4c9b70, type: 3}
