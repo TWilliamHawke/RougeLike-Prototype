@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+namespace Map.Objects
 {
-	public class RandomEncounter : MonoBehaviour
-	{
+    public class RandomEncounter : MonoBehaviour
+    {
 
-	}
+    }
 }
 
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2905629595467949151}
   - component: {fileID: 2905629595467949136}
   - component: {fileID: -7220348691357748830}
+  - component: {fileID: 7135116305748396564}
   m_Layer: 0
   m_Name: Site
   m_TagString: Untagged
@@ -72,8 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e5cabcf6b76704d87eee239ad96154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 2905629595467949151}
-  _enemySpawnerInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
   _lootBodiesAction: {fileID: 11400000, guid: bccd4168dfd67cd439c1443d1e4428cd, type: 2}
 --- !u!114 &-7220348691357748830
 MonoBehaviour:
@@ -107,3 +106,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7135116305748396564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2905629595467949137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47202924e92d114ebc40053dc42dadb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 2905629595467949151}

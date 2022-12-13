@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    public class DefaultMapActionsController : IMapActionsController
+    public class OpenWorldActionsController : IMapActionsController
     {
 		List<IMapAction> _actionsLogic = new List<IMapAction>();
 
@@ -16,7 +16,7 @@ namespace Map.Objects
         public int count => _actionsLogic.Count;
         IMapActionsFactory _actionsFactory;
 
-        public DefaultMapActionsController(IMapActionsFactory actionsFactory)
+        public OpenWorldActionsController(IMapActionsFactory actionsFactory)
         {
             _actionsFactory = actionsFactory;
         }

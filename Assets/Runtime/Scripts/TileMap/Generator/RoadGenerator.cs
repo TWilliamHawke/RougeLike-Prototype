@@ -77,9 +77,9 @@ namespace Map.Generator
 
         private void ChangeCenterTiles(int centerX, int centerY, SiteTemplate template)
         {
-            for (int i = centerX - template.tilesWidth / 2; i <= centerX + template.tilesWidth / 2; i++)
+            for (int i = centerX - template.centerZoneWidth / 2; i <= centerX + template.centerZoneWidth / 2; i++)
             {
-                for (int j = centerY - template.tilesHeight / 2; j <= centerY + template.tilesHeight / 2; j++)
+                for (int j = centerY - template.centerZoneHeight / 2; j <= centerY + template.centerZoneHeight / 2; j++)
                 {
                     _tileMap.SetTile(new Vector3Int(i, j, 0), template.siteTile);
                 }

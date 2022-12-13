@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using Map.Locations;
 using UnityEngine;
 using System.Linq;
+using Map.Objects;
 
-namespace Map.Objects.UI
+namespace Map.UI
 {
-    public class MapObjectsUIController : IInjectionTarget
+    public class TaskPanelController : IInjectionTarget
     {
-        HashSet<MapObject> _visitedMapObjects = new HashSet<MapObject>();
+        HashSet<IMapObject> _visitedMapObjects = new HashSet<IMapObject>();
         Location _currentLocation;
-        MapObject _currentMapObject;
+        IMapObject _currentMapObject;
 
-        [InjectField] TopLocationInfoPanel _topInfoPanel;
+        [InjectField] TaskPanel _topInfoPanel;
         [InjectField] ActionsScreen _actionsScreen;
 
         public bool waitForAllDependencies => true;
 
-        public MapObjectsUIController(Location currentLocation)
+        public TaskPanelController(Location currentLocation)
         {
             _currentLocation = currentLocation;
         }
@@ -37,31 +38,27 @@ namespace Map.Objects.UI
 
         private void SetCurrentLocationData()
         {
-            _topInfoPanel.SetLocationIcon(_currentLocation.icon);
-            _topInfoPanel.SetLocationName(_currentLocation.name);
             _topInfoPanel.SetTask(_currentLocation.task);
         }
 
-        private void EnterToLocation(MapObject mapObject)
+        private void EnterToLocation(IMapObject mapObject)
         {
             _visitedMapObjects.Add(mapObject);
             SetCurrentMapObject(mapObject);
         }
 
-        private void SetCurrentMapObject(MapObject mapObject)
+        private void SetCurrentMapObject(IMapObject mapObject)
         {
-            mapObject.OnTaskChange += UpdateTaskText;
-            mapObject.actionsController.OnActionStateChange += SetActions;
+            mapObject.behavior.OnTaskChange += UpdateTaskText;
+            mapObject.behavior.actionsController.OnActionStateChange += SetActions;
             _currentMapObject = mapObject;
-            _topInfoPanel.SetLocationIcon(mapObject.template.icon);
-            _topInfoPanel.SetLocationName(mapObject.template.displayName);
-            _topInfoPanel.SetTask(mapObject.task);
+            _topInfoPanel.SetTask(mapObject.behavior.task);
         }
 
-        private void ExitFromLocation(MapObject mapObject)
+        private void ExitFromLocation(IMapObject mapObject)
         {
-            mapObject.OnTaskChange -= UpdateTaskText;
-            mapObject.actionsController.OnActionStateChange -= SetActions;
+            mapObject.behavior.OnTaskChange -= UpdateTaskText;
+            mapObject.behavior.actionsController.OnActionStateChange -= SetActions;
 
             if (_visitedMapObjects.Contains(mapObject))
             {
@@ -78,14 +75,14 @@ namespace Map.Objects.UI
             }
         }
 
-        private void UpdateTaskText(MapObjectTaskData task)
+        private void UpdateTaskText(TaskData task)
         {
             _topInfoPanel.SetTask(task);
         }
 
         private void OpenActionPanel()
         {
-            if (!_currentMapObject) return;
+            if (_currentMapObject is null) return;
             _actionsScreen.SetTitle(_currentMapObject.template.displayName);
             _actionsScreen.SetIcon(_currentMapObject.template.icon);
             SetActions();
@@ -94,7 +91,7 @@ namespace Map.Objects.UI
 
         private void SetActions()
         {
-            _actionsScreen.SetActions(_currentMapObject.actionsController);
+            _actionsScreen.SetActions(_currentMapObject.behavior.actionsController);
         }
     }
 }

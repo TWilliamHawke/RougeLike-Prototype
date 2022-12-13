@@ -9,7 +9,7 @@ using Core.Input;
 using UI.DragAndDrop;
 using X = UnityEngine.InputSystem.InputAction.CallbackContext;
 using UI.Tooltips;
-using Map.Objects.UI;
+using Map.UI;
 using Items;
 
 namespace Core

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Map.Objects.UI
+namespace Map.UI
 {
 	[RequireComponent(typeof(UIScreen))]
     public class ActionsScreen : MonoBehaviour

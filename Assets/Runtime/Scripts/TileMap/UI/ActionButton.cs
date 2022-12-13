@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-namespace Map.Objects.UI
+namespace Map.UI
 {
 	public class ActionButton : MonoBehaviour, IPointerClickHandler
 	{
