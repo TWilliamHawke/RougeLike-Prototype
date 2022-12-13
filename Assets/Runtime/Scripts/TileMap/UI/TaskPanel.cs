@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-namespace Map.Objects.UI
+namespace Map.UI
 {
-    public class TopLocationInfoPanel : MonoBehaviour, IPointerClickHandler
+    public class TaskPanel : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] Injector _selfInjector;
 		[SerializeField] Sprite _activeBg;
@@ -38,9 +38,12 @@ namespace Map.Objects.UI
 			_locationName.text = text;
 		}
 
-		public void SetTask(MapObjectTaskData task)
+		public void SetTask(TaskData task)
 		{
 			_locationTask.text = task.taskText;
+			_locationIcon.sprite = task.icon;
+			_locationName.text = task.displayName;
+
 			if(task.objectIsLocked)
 			{
 				SetInactive();

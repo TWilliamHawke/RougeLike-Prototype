@@ -46,7 +46,7 @@ namespace Entities
         public void ReplaceFaction(Faction faction)
         {
             _faction = faction;
-            _health.behavior = _faction.GetAntiPlayerBehavior();
+            _health.behavior = _faction.GetAntiPlayerBehavior(); //ugly HACK
             OnFactionChange?.Invoke();
         }
 

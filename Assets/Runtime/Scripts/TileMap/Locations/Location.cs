@@ -13,10 +13,10 @@ namespace Map.Locations
 
 		public abstract LocationMapData Create(Tilemap tilemap);
 
-		public string displayName => _displayName;
-		public Sprite icon => _icon;
+		protected string displayName => _displayName;
+		protected Sprite icon => _icon;
 
-		public abstract MapObjectTaskData task { get; }
+		public abstract TaskData task { get; }
 	}
 }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
-using Map.Objects.UI;
+using Map.UI;
 using Map.Locations;
 
 namespace Map.Objects
@@ -18,11 +18,11 @@ namespace Map.Objects
 
 		[SerializeField] TileMapManager tileMapManager;
 
-		MapObjectsUIController _uIController;
+		TaskPanelController _uIController;
 
 		private void Awake()
 		{
-			_uIController = new MapObjectsUIController(tileMapManager.location);
+			_uIController = new TaskPanelController(tileMapManager.location);
 			_topLocationPanelInjector.AddInjectionTarget(_uIController);
 			_actionsScreenInjector.AddInjectionTarget(_uIController);
 			_objectsManagerInjector.SetDependency(this);
@@ -31,7 +31,7 @@ namespace Map.Objects
         public Site CreateSite(Vector3 position)
         {
             var site = _tileMap.CreateChild(_sitePrefab, position);
-			_uIController.AddToObserve(site);
+			_uIController.AddToObserve(site.GetComponent<MapObject>());
 			return site;
         }
     }

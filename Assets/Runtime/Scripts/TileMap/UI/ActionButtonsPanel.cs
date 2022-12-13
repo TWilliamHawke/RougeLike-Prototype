@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Map.Objects.UI
+namespace Map.UI
 {
 	public class ActionButtonsPanel : MonoBehaviour
 	{
