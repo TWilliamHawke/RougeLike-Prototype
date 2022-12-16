@@ -7,37 +7,26 @@ using UnityEngine.Events;
 namespace Map.Objects
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class MapObject : MonoBehaviour, IMapObject
+    public abstract class MapObject : MonoBehaviour, IMapObject
     {
         public event UnityAction<IMapObject> OnPlayerEnter;
         public event UnityAction<IMapObject> OnPlayerExit;
 
-        public IIconData template => _template;
+        protected IMapObjectTemplate _template;
+        protected RandomStack<Vector3Int> _tileStorage;
 
-        public IMapObjectBehavior behavior => _behavior;
+        int _posX => (int)transform.position.x;
+        int _posY => (int)transform.position.y;
 
-        IMapObjectTemplate _template;
-        IMapObjectBehavior _behavior;
-        RandomStack<Vector3Int> _tileStorage;
+        public string displayName => _template.displayName;
+        public Sprite icon => _template.icon;
 
-        int _posX;
-        int _posY;
-
-        private void Awake()
-        {
-            _behavior = GetComponent<IMapObjectBehavior>();
-        }
-
-        public RandomStack<Vector3Int> GetWalkableTiles()
-        {
-            return _tileStorage;
-        }
+        public abstract IMapActionList mapActionList { get; }
+        public abstract TaskData currentTask { get; }
 
         public void BindTemplate(IMapObjectTemplate template)
         {
             _template = template;
-            _posX = (int)transform.position.x;
-            _posY = (int)transform.position.y;
             GetComponent<BoxCollider2D>().size = new Vector2(template.width, template.height);
             FillStorageWithWalkableTile();
         }

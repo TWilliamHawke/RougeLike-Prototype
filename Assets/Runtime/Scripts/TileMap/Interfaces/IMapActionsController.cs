@@ -9,9 +9,8 @@ namespace Map
 {
 	public interface IMapActionsController: IMapActionList
 	{
-		event UnityAction OnActionStateChange;
 		void AddAction(MapActionTemplate actionTemplate);
-		void CreateLootAction(MapActionTemplate actionTemplate, IEnumerable<IHaveLoot> enemies);
+		void AddLootAction(MapActionTemplate actionTemplate, IEnumerable<IHaveLoot> enemies);
 	}
 
 	public interface IMapActionList

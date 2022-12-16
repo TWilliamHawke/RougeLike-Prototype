@@ -4,29 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 
 namespace Map.UI
 {
     public class TaskPanel : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] Injector _selfInjector;
 		[SerializeField] Sprite _activeBg;
 		[SerializeField] Sprite _inactiveBg;
+		[SerializeField] CustomEvent _event;
 		[Header("UI Elements")]
         [SerializeField] Image _locationIcon;
         [SerializeField] Image _background;
         [SerializeField] TextMeshProUGUI _locationName;
         [SerializeField] TextMeshProUGUI _locationTask;
-
-		public bool _isActive = false;
-
-		public event UnityAction OnClick;
-
-        private void Awake()
-        {
-            _selfInjector.SetDependency(this);
-        }
 
 		public void SetLocationIcon(Sprite sprite)
 		{
@@ -43,34 +33,13 @@ namespace Map.UI
 			_locationTask.text = task.taskText;
 			_locationIcon.sprite = task.icon;
 			_locationName.text = task.displayName;
-
-			if(task.objectIsLocked)
-			{
-				SetInactive();
-			}
-			else
-			{
-				SetActive();
-			}
+			_background.sprite = task.isDone ? _activeBg : _inactiveBg;
 		}
 
         public void OnPointerClick(PointerEventData eventData)
         {
-			if(!_isActive) return;
-            OnClick?.Invoke();
+			_event?.Invoke();
         }
-
-		void SetActive()
-		{
-			_isActive = true;
-			_background.sprite = _activeBg;
-		}
-
-		void SetInactive()
-		{
-			_isActive = false;
-			_background.sprite = _inactiveBg;
-		}
     }
 }
 

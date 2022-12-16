@@ -4,7 +4,7 @@ namespace Map
 {
     public interface IMapActionCreator
     {
-        IMapAction CreateActionLogic(MapActionTemplate template);
+        IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage);
     }
 }
 

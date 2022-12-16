@@ -1,14 +1,11 @@
-using Map.Objects;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Map
 {
     public interface IMapAction : IContextAction
     {
-        bool isEnable { get; set; }
+        bool isEnable { get; }
         Sprite icon { get; }
-        event UnityAction<IMapAction> OnCompletion;
     }
 
 }

@@ -24,7 +24,6 @@ namespace Core
         [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] UIScreen _spellbookScreen;
         [SerializeField] LootPanel _lootPanel;
-        [SerializeField] ActionsScreen _actionsScreen;
         [Header("Injectors")]
         [SerializeField] Injector _inputControllerInjector;
         [Header("Data Objects")]
@@ -38,7 +37,6 @@ namespace Core
         {
             _mainCanvas.Init();
             _tooltipCanvas.Init();
-            _actionsScreen.Init();
             _lootPanel.Init();
 
             _screens.Add(_inventoryScreen);

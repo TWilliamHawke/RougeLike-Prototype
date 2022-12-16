@@ -7,7 +7,7 @@ namespace Map.Objects
 {
     class Talk : IMapActionCreator
     {
-        public IMapAction CreateActionLogic(MapActionTemplate template)
+        public IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage)
         {
             return new TalkAction(template);
         }
@@ -16,9 +16,7 @@ namespace Map.Objects
     {
         IIconData _template;
 
-        public event UnityAction<IMapAction> OnCompletion;
-
-        public bool isEnable { get; set; } = true;
+        public bool isEnable { get; } = true;
         public Sprite icon => _template.icon;
         public string actionTitle => _template.displayName;
 
@@ -30,7 +28,7 @@ namespace Map.Objects
 
         public void DoAction()
         {
-            OnCompletion?.Invoke(this);
+
         }
 
     }

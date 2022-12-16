@@ -7,31 +7,22 @@ using Rng = System.Random;
 
 namespace Map.Objects
 {
-    [RequireComponent(typeof(MapObject))]
-    public class Site : MonoBehaviour, IMapObjectBehavior
+    public class Site : MapObject
     {
         [SerializeField] MapActionTemplate _lootBodiesAction;
+        [SerializeField] CustomEvent _onLocalTaskChange;
 
         [InjectField] EntitiesSpawner _spawner;
         [InjectField] IMapActionsFactory _mapActionsFactory;
 
-        public event UnityAction<TaskData> OnTaskChange;
-
-
-        TaskData _task;
-        List<Entity> _enemiesFromSite;
         List<EntitySpawnData> _spawnerData;
-        SiteTemplate _template;
         Rng _rng;
-
-        IMapObject _mapObject;
-
-
-        public bool waitForAllDependencies => true;
-        public TaskData task => _task;
-
-        public IMapActionsController actionsController => _actionsController;
+        new SiteTemplate _template;
         IMapActionsController _actionsController;
+        KillEnemiesTask _taskController;
+
+        public override IMapActionList mapActionList => _actionsController;
+        public override TaskData currentTask => _taskController.currentTask;
 
         public void FinalizeInjection()
         {
@@ -46,16 +37,16 @@ namespace Map.Objects
 
         public void BindTemplate(SiteTemplate template, Rng rng)
         {
+            base.BindTemplate(template);
             _template = template;
             _rng = rng;
-            _mapObject = GetComponent<IMapObject>();
-            _mapObject.BindTemplate(template);
+            _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
             FinalizeInjection();
         }
 
         private void FillActionsList()
         {
-            _actionsController.CreateLootAction(_lootBodiesAction, _enemiesFromSite);
+            _actionsController.AddLootAction(_lootBodiesAction, _taskController.enemiesFromLocation);
 
             foreach (var action in _template.possibleActions)
             {
@@ -65,57 +56,16 @@ namespace Map.Objects
 
         private void SpawnEnemies()
         {
-            var walkableTiles = _mapObject.GetWalkableTiles();
-
-            _enemiesFromSite = new List<Entity>();
             var enemies = _template.enemies.GetCreatures(_rng);
 
             foreach (var enemyTemplate in enemies)
             {
-                if (walkableTiles.TryPull(_rng, out var position))
+                if (_tileStorage.TryPull(_rng, out var position))
                 {
                     var enemy = _spawner.SpawnEnemyAsChild(new EntitySpawnData(enemyTemplate, position), this);
-                    _enemiesFromSite.Add(enemy);
-                    enemy.OnDeath += RemoveDeadEnemy;
+                    _taskController.RegisterEnemy(enemy);
                 }
             }
-
-            CreateKillTask(_enemiesFromSite.Count);
-        }
-
-        private void CreateKillTask(int enemiesCount)
-        {
-            _task = new TaskData
-            {
-                displayName = _template.displayName,
-                icon = _template.icon,
-                taskText = $"Kill all wolves ({enemiesCount} remains)",
-                objectIsLocked = true,
-            };
-        }
-
-        private void RemoveDeadEnemy(Entity enemy)
-        {
-            if (!_enemiesFromSite.Contains(enemy)) return;
-            _enemiesFromSite.Remove(enemy);
-
-            if (_enemiesFromSite.Count > 0)
-            {
-                CreateKillTask(_enemiesFromSite.Count);
-            }
-            else
-            {
-                _task = new TaskData
-                {
-                    displayName = _template.displayName,
-                    icon = _template.icon,
-                    taskText = "click to loot",
-                    objectIsLocked = false,
-                };
-
-            }
-
-            OnTaskChange?.Invoke(_task);
         }
     }
 }

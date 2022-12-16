@@ -5255,7 +5255,6 @@ MonoBehaviour:
   _inventoryScreen: {fileID: 1500834477}
   _spellbookScreen: {fileID: 1411236377}
   _lootPanel: {fileID: 801670869}
-  _actionsScreen: {fileID: 1315345898}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
 --- !u!224 &433595845 stripped
@@ -56800,6 +56799,113 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574955008}
   m_CullTransparentMesh: 1
+--- !u!1 &582680837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582680838}
+  - component: {fileID: 582680839}
+  - component: {fileID: 582680841}
+  - component: {fileID: 582680840}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &582680838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582680837}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1742080897}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &582680839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582680837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daedf2a19f1091143b88ae23755594ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionsScreen: {fileID: 1315345898}
+  _thisInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
+--- !u!114 &582680840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582680837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 582680839}
+        m_TargetAssemblyTypeName: Map.UI.ActionScreenController, Project
+        m_MethodName: OpenActionScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &582680841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582680837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 582680839}
+  _waitForAllDependencies: 0
+  _injectors:
+  - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 582680839}
+        m_TargetAssemblyTypeName: Map.UI.ActionScreenController, Project
+        m_MethodName: FinalizeInjection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &607313006 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4884713195302840770, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}
@@ -56814,6 +56920,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618016951}
+  - component: {fileID: 618016954}
+  - component: {fileID: 618016953}
+  - component: {fileID: 618016952}
   m_Layer: 5
   m_Name: TopPanelsWrapper
   m_TagString: Untagged
@@ -56843,6 +56952,78 @@ RectTransform:
   m_AnchoredPosition: {x: 0.13427734, y: -115.29999}
   m_SizeDelta: {x: -0.2199707, y: 74.60303}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &618016952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618016950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 826afaea2c27153489cd863a1dd99507, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 618016954}
+        m_TargetAssemblyTypeName: Map.UI.TaskPanelController, Project
+        m_MethodName: UpdateTaskPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &618016953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618016950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 618016954}
+  _waitForAllDependencies: 0
+  _injectors:
+  - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 618016954}
+        m_TargetAssemblyTypeName: Map.UI.TaskPanelController, Project
+        m_MethodName: FinalizeInjection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &618016954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618016950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f59e68bd2706a54784e326ea8a0ddb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _taskPanel: {fileID: 1761461841}
 --- !u!1 &621907682
 GameObject:
   m_ObjectHideFlags: 0
@@ -60651,7 +60832,7 @@ Transform:
   - {fileID: 875341151}
   - {fileID: 1112199534}
   - {fileID: 1709729485}
-  - {fileID: 1315345894}
+  - {fileID: 1742080897}
   - {fileID: 2008051779}
   - {fileID: 801670868}
   - {fileID: 829740739}
@@ -62513,10 +62694,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sitePrefab: {fileID: 2905629595467949136, guid: caa7db27b9e5f9a4e89d8e571ad01f72, type: 3}
   _tileMap: {fileID: 499363882}
-  _objectsManagerInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
-  _topLocationPanelInjector: {fileID: 11400000, guid: a02b1b089ec24114eb8c788ed1fe0f18, type: 2}
-  _actionsScreenInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
   tileMapManager: {fileID: 1081761063}
+  _thisInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
+  _mapObserverInjector: {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
 --- !u!114 &1081761066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62530,9 +62710,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1081761067}
-  _waitForAllDependencies: 0
+  _waitForAllDependencies: 1
   _injectors:
   - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+  - {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
@@ -62560,7 +62741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f6f93b8013f245a5097492cb1044c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfInjector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
+  _thisInjector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
 --- !u!1 &1112199530
 GameObject:
   m_ObjectHideFlags: 0
@@ -64845,7 +65026,6 @@ GameObject:
   - component: {fileID: 1315345896}
   - component: {fileID: 1315345895}
   - component: {fileID: 1315345898}
-  - component: {fileID: 1315345899}
   m_Layer: 0
   m_Name: ActionsCanvas
   m_TagString: Untagged
@@ -64866,8 +65046,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2051989317}
-  m_Father: {fileID: 952031286}
-  m_RootOrder: 4
+  m_Father: {fileID: 1742080897}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -64947,25 +65127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921126e7fc7a25a49964a9debee64906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionsScreenInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
-  _lootScreenInjector: {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
   _title: {fileID: 185069681}
   _objectIcon1: {fileID: 706751402}
   _objectIcon2: {fileID: 368932197}
   _actionButtonsPanel: {fileID: 1347059331}
---- !u!114 &1315345899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315345893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83dd0f05464d731448e72be8eae0230e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CloseOnStart: 0
 --- !u!1001 &1322933663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69154,6 +69319,39 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4884713195302840770, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}
   m_PrefabInstance: {fileID: 941519559}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1742080896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742080897}
+  m_Layer: 0
+  m_Name: ActionScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742080897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742080896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 582680838}
+  - {fileID: 1315345894}
+  m_Father: {fileID: 952031286}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1747095739
 GameObject:
   m_ObjectHideFlags: 0
@@ -69562,14 +69760,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a67bcc275e59794c87c55ae1f8254db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfInjector: {fileID: 11400000, guid: a02b1b089ec24114eb8c788ed1fe0f18, type: 2}
   _activeBg: {fileID: 21300000, guid: 3fccc703093741f479a46f65b30e7c0d, type: 3}
   _inactiveBg: {fileID: 21300000, guid: 87d9e51d2f8fc0b4e8d275d853d55312, type: 3}
+  _event: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
   _locationIcon: {fileID: 1013939901}
   _background: {fileID: 1761461839}
   _locationName: {fileID: 374738287}
   _locationTask: {fileID: 861110855}
-  _isActive: 0
 --- !u!1 &1768791386
 GameObject:
   m_ObjectHideFlags: 0
@@ -71628,7 +71825,7 @@ PrefabInstance:
     - target: {fileID: 953114929586467093, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1315345899}
+      objectReference: {fileID: 1315345898}
     - target: {fileID: 953114929586467093, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -71639,7 +71836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953114929586467093, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIScreen, Project
+      value: Map.UI.ActionsScreen, Project
       objectReference: {fileID: 0}
     - target: {fileID: 953114929586467093, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

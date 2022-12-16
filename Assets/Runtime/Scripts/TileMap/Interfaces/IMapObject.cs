@@ -4,10 +4,10 @@ namespace Map
 {
     public interface IMapObject
     {
-        IIconData template { get; }
-        RandomStack<Vector3Int> GetWalkableTiles();
-        void BindTemplate(IMapObjectTemplate template);
-        IMapObjectBehavior behavior { get; }
+        string displayName { get; }
+        Sprite icon { get; }
+        IMapActionList mapActionList { get; }
+        TaskData currentTask { get; }
     }
 }
 
