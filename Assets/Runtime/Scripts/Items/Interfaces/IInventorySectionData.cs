@@ -5,7 +5,7 @@ namespace Items
     public interface IInventorySectionData
     {
         event UnityAction OnSectionDataChange;
-        int maxCount { get; }
+        int capacity { get; }
         int count { get; }
         ItemSlotData this[int idx] { get; }
     }

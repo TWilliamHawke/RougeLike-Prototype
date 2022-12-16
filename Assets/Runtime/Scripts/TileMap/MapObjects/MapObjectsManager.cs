@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Tilemaps;
-using Map.UI;
-using Map.Locations;
 
 namespace Map.Objects
 {
@@ -12,26 +9,24 @@ namespace Map.Objects
 	{
 	    [SerializeField] Site _sitePrefab;
 		[SerializeField] Tilemap _tileMap;
-		[SerializeField] Injector _objectsManagerInjector;
-		[SerializeField] Injector _topLocationPanelInjector;
-		[SerializeField] Injector _actionsScreenInjector;
-
 		[SerializeField] TileMapManager tileMapManager;
+		[Header("Inectors")]
+		[SerializeField] Injector _thisInjector;
+		[SerializeField] Injector _mapObserverInjector;
 
-		TaskPanelController _uIController;
+		MapObjectObserver _mapObjectObserver;
 
 		private void Awake()
 		{
-			_uIController = new TaskPanelController(tileMapManager.location);
-			_topLocationPanelInjector.AddInjectionTarget(_uIController);
-			_actionsScreenInjector.AddInjectionTarget(_uIController);
-			_objectsManagerInjector.SetDependency(this);
+			_mapObjectObserver = new MapObjectObserver(tileMapManager.location);
+			_mapObserverInjector.SetDependency(_mapObjectObserver);
+			_thisInjector.SetDependency(this);
 		}
 
         public Site CreateSite(Vector3 position)
         {
             var site = _tileMap.CreateChild(_sitePrefab, position);
-			_uIController.AddToObserve(site.GetComponent<MapObject>());
+			_mapObjectObserver.AddToObserve(site.GetComponent<MapObject>());
 			return site;
         }
     }

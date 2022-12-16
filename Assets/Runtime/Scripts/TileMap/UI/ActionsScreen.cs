@@ -6,45 +6,39 @@ using TMPro;
 
 namespace Map.UI
 {
-	[RequireComponent(typeof(UIScreen))]
     public class ActionsScreen : MonoBehaviour
     {
-		[SerializeField] Injector _actionsScreenInjector;
-		[SerializeField] Injector _lootScreenInjector;
-		[Header("UI Elements")]
-		[SerializeField] TextMeshProUGUI _title;
-		[SerializeField] Image _objectIcon1;
-		[SerializeField] Image _objectIcon2;
-		[SerializeField] ActionButtonsPanel _actionButtonsPanel;
+        [Header("UI Elements")]
+        [SerializeField] TextMeshProUGUI _title;
+        [SerializeField] Image _objectIcon1;
+        [SerializeField] Image _objectIcon2;
+        [SerializeField] ActionButtonsPanel _actionButtonsPanel;
 
-		UIScreen _UIScreen;
-
-        public void Init()
+        public void SetTitle(string text)
         {
-			_actionsScreenInjector.SetDependency(this);
-			_UIScreen = GetComponent<UIScreen>();
+            _title.text = text;
         }
 
-		public void SetTitle(string text)
-		{
-			_title.text = text;
-		}
+        public void SetIcon(Sprite icon)
+        {
+            _objectIcon1.sprite = icon;
+            _objectIcon2.sprite = icon;
+        }
 
-		public void SetIcon(Sprite icon)
-		{
-			_objectIcon1.sprite = icon;
-			_objectIcon2.sprite = icon;
-		}
+        public void SetActions(IMapActionList actionLogics)
+        {
+            _actionButtonsPanel.SetActions(actionLogics);
+        }
 
-		public void SetActions(IMapActionList actionLogics)
-		{
-			_actionButtonsPanel.SetActions(actionLogics);
-		}
+        public void Open()
+        {
+            gameObject.SetActive(true);
+        }
 
-		public void Open()
-		{
-			_UIScreen.Open();
-		}
+        public void Close()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
 

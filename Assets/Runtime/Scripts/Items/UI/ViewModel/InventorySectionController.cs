@@ -18,7 +18,7 @@ namespace Items.UI
 
             _inventorySection.ClearLayout();
 
-            for (int i = 0; i < _sectionData.maxCount; i++)
+            for (int i = 0; i < _sectionData.capacity; i++)
             {
                 _inventorySection.CreateSlot();
             }

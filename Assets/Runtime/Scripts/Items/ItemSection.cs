@@ -18,9 +18,10 @@ namespace Items
         public event UnityAction OnSectionDataChange;
 
         ItemSlotData IInventorySectionData.this[int idx] => _itemsList[idx];
-        public int maxCount => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
         int IInventorySectionData.count => _itemsList.Count;
         ItemContainerType IItemSectionInfo.itemContainer => _slotContainer;
+        public int capacity => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
+        public bool isEmpty => _itemsList.Count == 0;
 
         ItemContainerType _slotContainer;
 
@@ -28,8 +29,8 @@ namespace Items
         {
             _slotContainer = slotContainer;
             _maxSlotsCount = maxSlotsCount;
-            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(maxCount);
-            _itemsList = new List<ItemSlotData>(maxCount);
+            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(capacity);
+            _itemsList = new List<ItemSlotData>(capacity);
         }
 
         bool IItemSection.ItemMeet(Item someItem)

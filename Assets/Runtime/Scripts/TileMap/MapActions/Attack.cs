@@ -7,15 +7,14 @@ namespace Map.Objects
 {
     class Attack : IMapActionCreator
     {
-        public IMapAction CreateActionLogic(MapActionTemplate template)
+        public IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage)
         {
             return new AttackAction(template);
         }
 
         public class AttackAction: IMapAction
     {
-        public event UnityAction<IMapAction> OnCompletion;
-        public bool isEnable { get; set; } = true;
+        public bool isEnable { get; } = true;
 
         MapActionTemplate _template;
         public Sprite icon => _template.icon;
@@ -28,7 +27,7 @@ namespace Map.Objects
 
         public void DoAction()
         {
-            OnCompletion?.Invoke(this);
+
         }
 
     }

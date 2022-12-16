@@ -10,8 +10,6 @@ namespace Map.Objects
     {
 		List<IMapAction> _actionsLogic = new List<IMapAction>();
 
-        public event UnityAction OnActionStateChange;
-
         public IMapAction this[int idx] => _actionsLogic[idx];
         public int count => _actionsLogic.Count;
         IMapActionsFactory _actionsFactory;
@@ -23,10 +21,10 @@ namespace Map.Objects
 
         public void AddAction(MapActionTemplate template)
         {
-            AddAction(_actionsFactory.CreateActionLogic(template));
+            _actionsLogic.Add(_actionsFactory.CreateActionLogic(template, 1));
         }
 
-        public void CreateLootAction(MapActionTemplate template, IEnumerable<IHaveLoot> enemies)
+        public void AddLootAction(MapActionTemplate template, IEnumerable<IHaveLoot> enemies)
         {
             var loot = new ItemSection<Item>(ItemContainerType.loot);
 
@@ -35,20 +33,8 @@ namespace Map.Objects
                 enemy.lootTable.FillItemSection(ref loot);
             }
 
-            AddAction(_actionsFactory.CreateLootAction(template, loot));
+            _actionsLogic.Add(_actionsFactory.CreateLootAction(template, loot));
         }
-
-        private void AddAction(IMapAction actionLogic)
-		{
-			_actionsLogic.Add(actionLogic);
-			actionLogic.OnCompletion += DisableAction;
-		}
-
-		private void DisableAction(IMapAction actionLogic)
-		{
-			actionLogic.isEnable = false;
-			OnActionStateChange?.Invoke();
-		}
     }
 }
 

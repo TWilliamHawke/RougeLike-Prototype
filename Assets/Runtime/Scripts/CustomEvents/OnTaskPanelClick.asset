@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f39bc839c1ab27542befab2a7b9ff61c, type: 3}
-  m_Name: ActionsScreen
+  m_Script: {fileID: 11500000, guid: 4bc931dc58a2d2b438f4e43cb61a4834, type: 3}
+  m_Name: OnTaskPanelClick
   m_EditorClassIdentifier: 
-  _clearOnLoad: 1
