@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 681a4b7cf4f4b6545b60219dcf0a5bad, type: 3}
-  m_Name: GeneratorConfig
+  m_Name: TestConfig
   m_EditorClassIdentifier: 
   _seed: 50
   _maxWidth: 100

@@ -14,11 +14,12 @@ namespace Map
     {
         [SerializeField] Tilemap _tileMap;
         [SerializeField] Player _player;
-        [SerializeField] MapObjectsManager _mapObjectsManager;
 
         [SerializeField] Location _location;
 
         [SerializeField] Injector _tileGridInjector;
+
+        [SerializeField] MapObjectsManager _mapObjectsManager;
 
         public Location location => _location;
         TilesGrid _grid;
@@ -41,6 +42,5 @@ namespace Map
             }
 
         }
-
     }
 }

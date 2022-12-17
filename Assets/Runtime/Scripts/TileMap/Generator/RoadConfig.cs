@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using Map.Objects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Rng = System.Random;
 
 namespace Map.Generator
 {
 	[CreateAssetMenu(fileName ="RoadConfig", menuName="Musc/Road Config")]
-	public partial class RoadGenerator : MapGenerator, IInjectionTarget
+	public partial class RoadConfig : GeneratorConfig
 	{
 		[SerializeField] Injector _objectsManagerInjector;
 		[SerializeField] int _seed = 15;
@@ -34,14 +33,15 @@ namespace Map.Generator
 		[SerializeField] TileBase[] _randomObstacles;
 		[Header("Objects")]
 		[SerializeField] List<SiteTemplate> _siteTemplates;
+		[SerializeField] List<EncounterTemplate> _encounterTemplates;
 
-		[InjectField] MapObjectsManager _mapObjectsManager;
+        int totalWidth => (_emptyWidth + _siteWidth + _borderWidth + _voidWidth) * 2 + _roadWidth;
 		
-		Tilemap _tileMap;
-        Rng _rng;
-		LocationMapData _mapData;
 
-        public bool waitForAllDependencies => false;
+        public override IGenerationLogic GetLogic(Tilemap tilemap)
+        {
+            return new RoadGeneratorr(tilemap, this);
+        }
     }
 }
 

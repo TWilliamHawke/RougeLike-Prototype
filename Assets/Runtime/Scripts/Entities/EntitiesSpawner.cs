@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Map;
 using UnityEngine;
 using UnityEngine.Events;
+using Entities.NPCScripts;
 
 namespace Entities
 {
@@ -11,6 +12,7 @@ namespace Entities
         [InjectField] EntitiesManager _entitiesManager;
 
         [SerializeField] Creature _enemyPrefab;
+        [SerializeField] NPC _npcPrefab;
         [SerializeField] Injector _entitiesManagerInjector;
         [SerializeField] Injector _selfInjector;
 
@@ -31,21 +33,29 @@ namespace Entities
         // 	SpawnEnemyAsChild(template, position, this);
         // }
 
-        public Entity SpawnEnemyAsChild(EntitySpawnData spawnData, Component parent)
+        public Entity SpawnNpc(SpawnData<NPCTemplate> spawnData, Component parent)
+        {
+            var npc = parent.CreateChild(_npcPrefab, spawnData.position);
+            npc.BindTemplate(spawnData.template);
+            _entitiesManager.AddEntity(npc);
+            return npc;
+        }
+
+        public Entity SpawnEnemyAsChild(SpawnData<CreatureTemplate> spawnData, Component parent)
         {
             var enemy = parent.CreateChild(_enemyPrefab, spawnData.position);
             enemy.BindTemplate(spawnData.template);
-            _entitiesManager.AddEnemy(enemy);
+            _entitiesManager.AddEntity(enemy);
             return enemy;
         }
     }
 
-    public struct EntitySpawnData
+    public struct SpawnData<T>
     {
-        public CreatureTemplate template { get; init;}
+        public T template { get; init;}
         public Vector3Int position { get; init;}
 
-        public EntitySpawnData(CreatureTemplate template, Vector3Int position)
+        public SpawnData(T template, Vector3Int position)
         {
             this.template = template;
             this.position = position;

@@ -15,7 +15,7 @@ namespace Map.Objects
         [InjectField] EntitiesSpawner _spawner;
         [InjectField] IMapActionsFactory _mapActionsFactory;
 
-        List<EntitySpawnData> _spawnerData;
+        List<SpawnData<CreatureTemplate>> _spawnerData;
         Rng _rng;
         new SiteTemplate _template;
         IMapActionsController _actionsController;
@@ -62,7 +62,7 @@ namespace Map.Objects
             {
                 if (_tileStorage.TryPull(_rng, out var position))
                 {
-                    var enemy = _spawner.SpawnEnemyAsChild(new EntitySpawnData(enemyTemplate, position), this);
+                    var enemy = _spawner.SpawnEnemyAsChild(new SpawnData<CreatureTemplate>(enemyTemplate, position), this);
                     _taskController.RegisterEnemy(enemy);
                 }
             }

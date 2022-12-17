@@ -17,7 +17,6 @@ namespace Entities
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
         IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IHaveHealthData
     {
-        [SerializeField] SpriteRenderer _spriteRanderer;
         [SerializeField] Body _body;
 
         protected Body body => _body;
@@ -40,7 +39,7 @@ namespace Entities
         public abstract LootTable lootTable { get; }
 
         public abstract AudioClip[] deathSounds { get; }
-        public int maxHealth => template.health;
+        public int maxHealth => template?.health ?? 100;
         public BehaviorType antiPlayerBehavior => _faction?.GetAntiPlayerBehavior() ?? BehaviorType.neutral;
 
         public void ReplaceFaction(Faction faction)

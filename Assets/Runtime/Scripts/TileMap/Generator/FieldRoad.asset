@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45200ab21c0789c4e9ae8328aa19af30, type: 3}
+  m_Script: {fileID: 11500000, guid: b91d7558c50813946adfe35056029dc0, type: 3}
   m_Name: FieldRoad
   m_EditorClassIdentifier: 
   _objectsManagerInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
@@ -31,3 +31,5 @@ MonoBehaviour:
   _randomObstacles: []
   _siteTemplates:
   - {fileID: 11400000, guid: 0565c3f09c044614e8a5b762448a3c3d, type: 2}
+  _encounterTemplates:
+  - {fileID: 11400000, guid: 0b4926616db2c9c49baec3dbf2b6e52c, type: 2}
