@@ -8,6 +8,7 @@ namespace Map.Objects
 	public class MapObjectsManager : MonoBehaviour, IMapObjectsCreator
 	{
 	    [SerializeField] Site _sitePrefab;
+	    [SerializeField] Encounter _encounterPrefab;
 		[SerializeField] Tilemap _tileMap;
 		[SerializeField] TileMapManager tileMapManager;
 		[Header("Inectors")]
@@ -26,9 +27,16 @@ namespace Map.Objects
         public Site CreateSite(Vector3 position)
         {
             var site = _tileMap.CreateChild(_sitePrefab, position);
-			_mapObjectObserver.AddToObserve(site.GetComponent<MapObject>());
+			_mapObjectObserver.AddToObserve(site);
 			return site;
         }
+
+		public Encounter CreateEncounter(Vector3 position)
+		{
+			var encounter = _tileMap.CreateChild(_encounterPrefab, position);
+			_mapObjectObserver.AddToObserve(encounter);
+			return encounter;
+		}
     }
 
 	public interface IMapObjectsCreator

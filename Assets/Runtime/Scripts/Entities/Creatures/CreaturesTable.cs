@@ -15,9 +15,9 @@ namespace Entities
 
         [SerializeField] CreaturesTable[] _childCreatureTables;
         [SerializeField] CreatureData[] _creatures;
-        DataListGenerator<CreatureTemplate> _dataListGenerator;
 
-        DataListGenerator<CreatureTemplate> IDataListSource<CreatureTemplate>.dataListGenerator => _dataListGenerator;
+        public DataListGenerator<CreatureTemplate> dataListGenerator { get; private set; }
+        
         IDataListSource<CreatureTemplate>[] IDataListSource<CreatureTemplate>.childTables => _childCreatureTables;
         IDataCount<CreatureTemplate>[] IDataListSource<CreatureTemplate>.dataItems => _creatures;
         bool IDataListSource<CreatureTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
@@ -25,14 +25,14 @@ namespace Entities
 
         private void OnEnable()
         {
-            if (_dataListGenerator != null) return;
-            _dataListGenerator = new DataListGenerator<CreatureTemplate>(this);
+            if (dataListGenerator != null) return;
+            dataListGenerator = new DataListGenerator<CreatureTemplate>(this);
         }
 
         public IEnumerable<CreatureTemplate> GetCreatures(Rng rng)
         {
             var creatures = new CreaturesList();
-            _dataListGenerator.FillDataList(rng, ref creatures);
+            dataListGenerator.FillDataList(rng, ref creatures);
             return creatures.creaturesList;
         }
 

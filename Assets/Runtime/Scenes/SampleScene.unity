@@ -62662,9 +62662,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileMap: {fileID: 499363882}
   _player: {fileID: 390164292}
-  _mapObjectsManager: {fileID: 1081761065}
   _location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
+  _mapObjectsManager: {fileID: 1081761065}
 --- !u!4 &1081761064
 Transform:
   m_ObjectHideFlags: 0
@@ -62693,6 +62693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sitePrefab: {fileID: 2905629595467949136, guid: caa7db27b9e5f9a4e89d8e571ad01f72, type: 3}
+  _encounterPrefab: {fileID: 2155633556521881270, guid: ecc70e2d2e5198b4f9739bffedd79510, type: 3}
   _tileMap: {fileID: 499363882}
   tileMapManager: {fileID: 1081761063}
   _thisInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
@@ -65404,6 +65405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: -8535166691431048405, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
+  _npcPrefab: {fileID: -3835083210805704611, guid: b856b33ca605ec744894610d3ce6178d, type: 3}
   _entitiesManagerInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
   _selfInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
 --- !u!114 &1330791957 stripped

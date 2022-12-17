@@ -17,6 +17,7 @@ namespace Map
         {
             _locationTemplate = locationTemplate;
             _onLocalTaskChange = onLocalTaskChange;
+            CreateLootTask();
         }
 
         public void RegisterEnemy(Entity entity)
@@ -48,6 +49,14 @@ namespace Map
             }
             else
             {
+                CreateLootTask();
+            }
+
+            _onLocalTaskChange?.Invoke();
+        }
+
+        private void CreateLootTask()
+        {
                 currentTask = new TaskData
                 {
                     displayName = _locationTemplate.displayName,
@@ -55,9 +64,6 @@ namespace Map
                     taskText = "Click to loot",
                     isDone = true,
                 };
-            }
-
-            _onLocalTaskChange?.Invoke();
         }
     }
 }

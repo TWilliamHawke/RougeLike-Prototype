@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Entities.NPCScripts;
+using Entities;
 
 namespace Map.Objects
 {
     [CreateAssetMenu(fileName = "RandomEncounter", menuName = "Map/Templates/Random Encounter", order = 0)]
-    public class RandomEncounterTemplate : ScriptableObject, IMapObjectTemplate
+    public class EncounterTemplate : ScriptableObject, IMapObjectTemplate, IObjectWithCenterZone
     {
         [UseFileName]
         [SerializeField] string _displayName;
@@ -22,17 +24,25 @@ namespace Map.Objects
 		[Header("Tiles")]
 		[SerializeField] int _tilesWidth = 3;
 		[SerializeField] int _tilesHeight = 3;
-		[SerializeField] TileBase _siteTile;
+		[SerializeField] TileBase _centerTile;
 		[SerializeField] bool _tilesIsWalkable;
 
+        [SerializeField] NPCTemplate _mainNPC;
+
+        [SerializeField] CreaturesTable _otherEntities;
+
+
+        public int width => _width;
+        public int height => _height;
+        public string displayName => _displayName;
+        public Sprite icon => _icon;
 
         public int centerZoneWidth => _tilesWidth;
         public int centerZoneHeight => _tilesHeight;
-        public int width => _width;
-        public int height => _height;
         public bool centerZoneIsWalkable => _tilesIsWalkable;
-        public string displayName => _displayName;
-        public Sprite icon => _icon;
+        public TileBase centerZoneTile => _centerTile;
+
+        public NPCTemplate mainNPC => _mainNPC;
     }
 }
 

@@ -43,7 +43,7 @@ namespace Entities
             _tilesGridInjector.AddInjectionTarget(this);
         }
 
-        public void AddEnemy(Entity enemy)
+        public void AddEntity(Entity enemy)
         {
             AddEntityToObserve(enemy);
             _tilesGrid.TryAddEntityToTile(enemy);

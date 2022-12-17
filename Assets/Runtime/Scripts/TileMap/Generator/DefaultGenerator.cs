@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map.Objects;
 using UnityEngine;
-
+using UnityEngine.Tilemaps;
 using Rng = System.Random;
 
 namespace Map.Generator
 {
-    public class DefaultGenerator : IGenerationAlgorithm
+    public class DefaultGenerator : IGenerationLogic
     {
-        GeneratorConfig _config;
+        TestConfig _config;
         Rng _rng;
         int[,] _intMap;
         CellInfo[,] _grid;
@@ -20,19 +21,40 @@ namespace Map.Generator
         const int CHANCE_CREATE_NON_PARENT_BRIDGE = 30;
 
         int _neightborsCount = 0;
-
+        Tilemap _tilemap;
 
         int[] _walkableTiles = new[] { 1 };
 
-        public DefaultGenerator(GeneratorConfig config)
+        public DefaultGenerator(TestConfig config, Tilemap tilemap)
         {
             _config = config;
             _rng = new Rng(_config.seed);
+            _tilemap = tilemap;
         }
 
-        public int[] walkableTiles => _walkableTiles;
+        public LocationMapData StartGeneration()
+        {
+            var mapData = new LocationMapData();
 
-        public int[,] Create2dArray()
+			mapData.walkabilityMap = Create2dArray();
+            mapData.width = _config.maxWidth;
+            mapData.height = _config.maxHeight;
+
+			mapData.playerSpawnPos = GetSpawnPoint();
+
+			for (int x = 0; x <= mapData.walkabilityMap.GetUpperBound(0); x++)
+			{
+				for(int y = 0; y <= mapData.walkabilityMap.GetUpperBound(1); y++)
+				{
+					var position = new Vector3Int(x,y,0);
+					_tilemap.SetTile(position, _config.tiles[mapData.walkabilityMap[x,y]]);
+				}
+			}
+
+            return mapData;
+        }
+
+        int[,] Create2dArray()
         {
             _intMap = new int[_config.maxWidth, _config.maxHeight];
 
@@ -269,6 +291,10 @@ namespace Map.Generator
             }
         }
 
+        public void CreateMapObjects(MapObjectsManager mapObjectsManager)
+        {
+
+        }
 
         class CellInfo
         {

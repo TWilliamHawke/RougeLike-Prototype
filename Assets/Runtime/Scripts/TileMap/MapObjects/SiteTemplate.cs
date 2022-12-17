@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 namespace Map.Objects
 {
 	[CreateAssetMenu(fileName ="Site", menuName ="Map/Templates/Site")]
-	public class SiteTemplate :ScriptableObject, IMapObjectTemplate
+	public class SiteTemplate :ScriptableObject, IMapObjectTemplate, IObjectWithCenterZone
 	{
         [UseFileName]
         [SerializeField] string _displayName;
@@ -36,7 +36,7 @@ namespace Map.Objects
         public CreaturesTable enemies => _enemies; 
         public int centerZoneWidth => _tilesWidth; 
         public int centerZoneHeight => _tilesHeight; 
-        public TileBase siteTile => _siteTile; 
+        public TileBase centerZoneTile => _siteTile; 
         public bool centerZoneIsWalkable => _tilesIsWalkable; 
     }
 }
