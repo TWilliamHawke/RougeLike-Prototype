@@ -38,8 +38,8 @@ namespace Map.Objects
             LootTable _loot;
             int _numOfUsage;
             IActionScreenController _actionScreenController;
-
             public bool isEnable => _numOfUsage != 0;
+            public bool isHidden => false;
 
             public LootAction(ILootActionData template, LootPanel lootPanel, int numOfUsage, IActionScreenController actionScreenController)
             {

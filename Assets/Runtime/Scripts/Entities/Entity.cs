@@ -15,7 +15,8 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IHaveHealthData
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IHaveHealthData,
+        IFactionMember
     {
         [SerializeField] Body _body;
 
@@ -24,7 +25,7 @@ namespace Entities
 
         Health _health;
         EffectStorage _effectStorage;
-		Faction _faction;
+		public Faction faction { get; private set; }
 
         public event UnityAction<Entity> OnDeath;
         public event UnityAction OnFactionChange;
@@ -40,12 +41,12 @@ namespace Entities
 
         public abstract AudioClip[] deathSounds { get; }
         public int maxHealth => template?.health ?? 100;
-        public BehaviorType antiPlayerBehavior => _faction?.GetAntiPlayerBehavior() ?? BehaviorType.neutral;
+        public BehaviorType antiPlayerBehavior => faction?.GetAntiPlayerBehavior() ?? BehaviorType.neutral;
 
         public void ReplaceFaction(Faction faction)
         {
-            _faction = faction;
-            _health.behavior = _faction.GetAntiPlayerBehavior(); //ugly HACK
+            this.faction = faction;
+            _health.behavior = this.faction.GetAntiPlayerBehavior(); //ugly HACK
             OnFactionChange?.Invoke();
         }
 
@@ -57,9 +58,9 @@ namespace Entities
         protected void ApplyStartStats(EntityTemplate template)
         {
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
-            _faction = template.faction;
+            faction = template.faction;
             _health = GetComponent<Health>();
-            _health.behavior = _faction.GetAntiPlayerBehavior();
+            _health.behavior = faction.GetAntiPlayerBehavior();
             _health.OnHealthChange += CheckHealth;
             _health.FillToMax();
         }

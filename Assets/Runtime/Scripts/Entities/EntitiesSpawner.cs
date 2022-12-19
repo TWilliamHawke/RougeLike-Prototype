@@ -33,7 +33,7 @@ namespace Entities
         // 	SpawnEnemyAsChild(template, position, this);
         // }
 
-        public Entity SpawnNpc(SpawnData<NPCTemplate> spawnData, Component parent)
+        public NPC SpawnNpc(SpawnData<NPCTemplate> spawnData, Component parent)
         {
             var npc = parent.CreateChild(_npcPrefab, spawnData.position);
             npc.BindTemplate(spawnData.template);

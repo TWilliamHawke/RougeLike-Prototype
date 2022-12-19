@@ -5,32 +5,47 @@ using UnityEngine.Events;
 
 namespace Map.Objects
 {
-    class Attack : IMapActionCreator
+    class Attack : INpcActionCreator
     {
-        public IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage)
+        IActionScreenController _actionScreenController;
+
+        public Attack(IActionScreenController actionScreenController)
         {
-            return new AttackAction(template);
+            _actionScreenController = actionScreenController;
         }
 
-        public class AttackAction: IMapAction
-    {
-        public bool isEnable { get; } = true;
-
-        MapActionTemplate _template;
-        public Sprite icon => _template.icon;
-        public string actionTitle => _template.displayName;
-
-        public AttackAction(MapActionTemplate action)
+        public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget actionTarget)
         {
-            _template = action;
+            return new AttackAction(template, actionTarget, _actionScreenController);
         }
 
-        public void DoAction()
+        public class AttackAction : IMapAction
         {
+            IAttackActionData _template;
+            IAttackActionTarget _target;
+
+            public bool isEnable { get; } = true;
+
+            public Sprite icon => _template.icon;
+            public string actionTitle => _template.displayName;
+
+            public bool isHidden => false;
+            IActionScreenController _actionScreenController;
+
+            public AttackAction(IAttackActionData action, IAttackActionTarget target, IActionScreenController actionScreenController)
+            {
+                _template = action;
+                _target = target;
+                _actionScreenController = actionScreenController;
+            }
+
+            public void DoAction()
+            {
+                _target.ReplaceFactionForAll(_template.enemyFaction);
+                _actionScreenController.CloseActionScreen();
+            }
 
         }
-
-    }
     }
 }
 

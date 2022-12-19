@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Map.Generator;
 using Entities.PlayerScripts;
-using Entities.Behavior;
 using Map.Locations;
 using Map.Objects;
 

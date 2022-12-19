@@ -17,6 +17,8 @@ MonoBehaviour:
   _interactionDescription: You meet the trader
   _possibleActions:
   - {fileID: 11400000, guid: d1e50fd6b07b4f24096339038544a8b6, type: 2}
+  - {fileID: 11400000, guid: 034a26d4c2abbd9499da562cdccd7ba8, type: 2}
+  - {fileID: 11400000, guid: 04c45a62d73785f4db6d5953cee230a8, type: 2}
   - {fileID: 11400000, guid: 766506c9bcb50374fa010db7a9396b7a, type: 2}
   _width: 5
   _height: 5

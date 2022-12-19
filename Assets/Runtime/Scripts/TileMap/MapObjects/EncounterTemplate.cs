@@ -43,6 +43,7 @@ namespace Map.Objects
         public TileBase centerZoneTile => _centerTile;
 
         public NPCTemplate mainNPC => _mainNPC;
+        public MapActionTemplate[] possibleActions => _possibleActions;
     }
 }
 

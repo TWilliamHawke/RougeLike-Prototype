@@ -363,9 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889e5fd06bf1d184d829af19c177430a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRanderer: {fileID: 5691333116864966465}
-  _template: {fileID: 11400000, guid: 7e985e9dd54e72844a76ebc900c021d4, type: 2}
   _body: {fileID: 1875642537}
+  _template: {fileID: 11400000, guid: 7e985e9dd54e72844a76ebc900c021d4, type: 2}
 --- !u!114 &950653437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInjector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _tilesGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
 --- !u!114 &3329514156785081863
 MonoBehaviour:
   m_ObjectHideFlags: 0

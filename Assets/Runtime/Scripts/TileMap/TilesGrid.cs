@@ -42,7 +42,6 @@ namespace Map
             return false;
         }
 
-
         public bool TryGetNodeAt(int x, int y, out TileNode node)
         {
             bool insideGrid = PositionInsideGrid(x, y);

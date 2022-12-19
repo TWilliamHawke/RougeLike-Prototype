@@ -1,6 +1,6 @@
 using Items;
 
-namespace Map.Objects
+namespace Map
 {
     public interface ILootActionData : IIconData
     {

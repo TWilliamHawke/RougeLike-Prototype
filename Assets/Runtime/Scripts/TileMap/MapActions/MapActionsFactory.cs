@@ -18,6 +18,7 @@ namespace Map.Objects
         StaticLoot _lootActionCreator;
 
         Dictionary<MapActionType, IMapActionCreator> _mapActionCreators = new();
+        Dictionary<MapActionType, INpcActionCreator> _npcActionCreators = new();
 
         private void Awake()
         {
@@ -46,13 +47,27 @@ namespace Map.Objects
         {
             _lootActionCreator = new StaticLoot(_lootPanel, _actionScreenController);
             _mapActionCreators.Add(MapActionType.loot, new Loot(_lootPanel, _actionScreenController));
-            _mapActionCreators.Add(MapActionType.attack, new Attack());
-            _mapActionCreators.Add(MapActionType.talk, new Talk());
+
+            _npcActionCreators.Add(MapActionType.talk, new Talk());
+            _npcActionCreators.Add(MapActionType.attack, new Attack(_actionScreenController));
+            _npcActionCreators.Add(MapActionType.rob, new Rob());
+            _npcActionCreators.Add(MapActionType.trade, new Trade());
         }
 
-        public IMapAction CreateNPCAction(MapActionTemplate template)
+        public IMapAction CreateNPCAction(MapActionTemplate template, INpcActionTarget target, int numOfUsage = -1)
         {
-            throw new System.NotImplementedException();
+            if(_npcActionCreators.TryGetValue(template.actionType, out var npcActionCreator))
+            {
+                return npcActionCreator.CreateActionLogic(template, target);
+            }
+            if (_mapActionCreators.TryGetValue(template.actionType, out var actionCreator))
+            {
+                return actionCreator.CreateActionLogic(template, numOfUsage);
+            }
+            else
+            {
+                return new EmptyAction(template);
+            }
         }
     }
 }

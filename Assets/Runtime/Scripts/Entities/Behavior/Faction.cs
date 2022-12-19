@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Entities.Behavior;
 
-namespace Entities.Behavior
+namespace Entities
 {
     [CreateAssetMenu(fileName = "Faction", menuName = "Entities/Faction", order = 0)]
     public class Faction : ScriptableObject
@@ -18,6 +19,7 @@ namespace Entities.Behavior
         HashSet<Faction> _enemyFactionsSet = new();
 
 		public bool isPlayerFaction => _isPlayerFaction;
+		public bool agressiveTowardPlayer => GetAntiPlayerBehavior() == BehaviorType.agressive;
 
         public bool IsAgressiveToward(Faction other)
         {

@@ -130,7 +130,7 @@ namespace Entities.Combat
             foreach (var node in neightBorNodes)
             {
                 var target = node.entityInthisNode as IRangeAttackTarget;
-                if (target is null) return;
+                if (target is null) continue;
                 var damage = DamageCalulator.GetDamage(_startedAoeEffect.template, target);
                 target.TakeDamage(damage);
             }
