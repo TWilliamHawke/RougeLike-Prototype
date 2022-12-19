@@ -8,7 +8,7 @@ namespace Map
     {
         IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage);
         IMapAction CreateLootAction(MapActionTemplate template, ILootStorage loot);
-        IMapAction CreateNPCAction(MapActionTemplate template);
+        IMapAction CreateNPCAction(MapActionTemplate template, INpcActionTarget actionTarget, int numOfUsage = -1);
     }
 }
 

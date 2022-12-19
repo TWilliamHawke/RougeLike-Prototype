@@ -7,6 +7,7 @@ namespace Map
 {
     public class TileNode
     {
+        public static int maxNeightborDistance => 15;
         public bool isWalkable { get; init; }
 
         public TileNode parent { get; set; }

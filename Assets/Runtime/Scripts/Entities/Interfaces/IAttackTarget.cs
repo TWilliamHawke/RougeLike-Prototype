@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities.Combat
 {
-	public interface IAttackTarget
+	public interface IAttackTarget: IFactionMember
 	{
 	    void TakeDamage(int damage);
 		Dictionary<DamageType, int> resists { get; }

@@ -96,6 +96,8 @@ namespace Entities.Behavior
             {
                 _progress = 0;
                 _onPause = true;
+                _currentNode.entityInthisNode = null;
+                _targetNode.entityInthisNode = GetComponent<IObstacleEntity>();
                 transform.position = _targetNodePosition;
                 _currentNode = _targetNode;
                 _targetNode = null;

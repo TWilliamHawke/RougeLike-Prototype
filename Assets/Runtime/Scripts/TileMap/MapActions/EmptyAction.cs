@@ -11,6 +11,8 @@ namespace Map.Objects
         public Sprite icon => _template.icon;
         public string actionTitle => _template.displayName;
 
+        public bool isHidden => true;
+
         public event UnityAction<IMapAction> OnCompletion;
 
         public EmptyAction(MapActionTemplate template)

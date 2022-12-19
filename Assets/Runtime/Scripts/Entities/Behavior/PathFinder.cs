@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Map;
 using UnityEngine;
+using System.Linq;
 
 namespace Entities.Behavior
 {
@@ -11,8 +12,8 @@ namespace Entities.Behavior
         static TileNode _targetNode;
         static TilesGrid _mapController;
 
-        static List<TileNode> _sortedNodes = new List<TileNode>();
-        static List<TileNode> _unsortedNodes = new List<TileNode>();
+        static HashSet<TileNode> _sortedNodes = new HashSet<TileNode>();
+        static HashSet<TileNode> _unsortedNodes = new HashSet<TileNode>();
 
         public PathFinder(TilesGrid mapController)
         {
@@ -26,6 +27,8 @@ namespace Entities.Behavior
             _targetNode = to;
             _targetNode.parent = null;
 
+            _startNode.targetDist = _startNode.GetDistanceFrom(_targetNode);
+            _startNode.startDist = 0;
             _unsortedNodes.Add(_startNode);
 
             CheckNodes();
@@ -57,17 +60,20 @@ namespace Entities.Behavior
             while (_unsortedNodes.Count > 0)
             {
                 var nearestNode = FindNearestNodeFromUnsorted();
+
+                if (NodeIsNeightborOfTarget(nearestNode))
+                {
+                    _targetNode.parent = nearestNode;
+                    return;
+                }
+
                 var neightborNodes = _mapController.GetEmptyNeighbors(nearestNode);
 
                 foreach (var node in neightborNodes)
                 {
-                    if (_unsortedNodes.Contains(node) || _sortedNodes.Contains(node))
-                    {
-                        continue;
-                    }
+                    if (_unsortedNodes.Contains(node) || _sortedNodes.Contains(node)) continue;
 
                     node.parent = nearestNode;
-                    if (node == _targetNode) return;
 
                     node.startDist = node.GetDistanceFrom(_startNode);
                     node.targetDist = node.GetDistanceFrom(_targetNode);
@@ -79,15 +85,20 @@ namespace Entities.Behavior
             }
         }
 
+        private bool NodeIsNeightborOfTarget(TileNode nearestNode)
+        {
+            return nearestNode.targetDist < TileNode.maxNeightborDistance;
+        }
+
         TileNode FindNearestNodeFromUnsorted()
         {
-            TileNode nearestNode = _unsortedNodes[0];
+            TileNode nearestNode = _unsortedNodes.FirstOrDefault();
 
             foreach (var node in _unsortedNodes)
             {
                 try
                 {
-                    if (IsnodeClose(nearestNode, node))
+                    if (IsNodeClose(nearestNode, node))
                     {
                         nearestNode = node;
                     }
@@ -102,7 +113,7 @@ namespace Entities.Behavior
             return nearestNode;
         }
 
-        bool IsnodeClose(TileNode selectedNode, TileNode candidate)
+        bool IsNodeClose(TileNode selectedNode, TileNode candidate)
         {
             if (selectedNode.totalDist < candidate.totalDist)
             {

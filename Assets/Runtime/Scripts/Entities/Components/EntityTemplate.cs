@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine;
 

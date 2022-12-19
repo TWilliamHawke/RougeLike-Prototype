@@ -32,6 +32,7 @@ namespace Map.Objects
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
             public bool isEnable => !_loot.isEmpty;
+            public bool isHidden => false;
 
             IActionScreenController _actionScreenController;
 

@@ -20,6 +20,7 @@ namespace CustomEditors
 			System.Action action = actionType switch
 			{
 				MapActionType.loot => DrawLootFields,
+				MapActionType.attack => DrawAttackFields,
 				_ => DrawNothing,
 			};
 
@@ -30,6 +31,11 @@ namespace CustomEditors
 		{
 			DrawPropertyField("_lootTable");
 			DrawPropertyField("_lootDescription");
+		}
+
+		private void DrawAttackFields()
+		{
+			DrawPropertyField("_enemyFaction");
 		}
 
 		private void DrawNothing()

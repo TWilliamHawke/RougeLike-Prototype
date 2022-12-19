@@ -7,7 +7,7 @@ using Entities.NPCScripts;
 
 namespace Map.Objects
 {
-    public class Encounter : MapObject
+    public class Encounter : MapObject, INpcActionTarget, IMapActionList
     {
         [SerializeField] CustomEvent _onLocalTaskChange;
 
@@ -15,11 +15,16 @@ namespace Map.Objects
         [InjectField] IMapActionsFactory _mapActionsFactory;
 
         new EncounterTemplate _template;
-        public override IMapActionList mapActionList => _actionsController;
+        public override IMapActionList mapActionList => this;
         public override TaskData currentTask => _taskController.currentTask;
 
+        public int count => _encounterActions.Count;
+
+        public IMapAction this[int idx] => _encounterActions[idx];
+
         KillEnemiesTask _taskController;
-        IMapActionsController _actionsController;
+        List<IMapAction> _encounterActions = new();
+        NPC _mainNpc;
 
         public void FinalizeInjection()
         {
@@ -27,7 +32,6 @@ namespace Map.Objects
             if (_mapActionsFactory is null) return;
             if (_template is null) return;
 
-            _actionsController = new OpenWorldActionsController(_mapActionsFactory);
             SpawnEntities();
             FillActionsList();
         }
@@ -41,14 +45,23 @@ namespace Map.Objects
             FinalizeInjection();
         }
 
+        public void ReplaceFactionForAll(Faction replacer)
+        {
+            _mainNpc.ReplaceFaction(replacer);
+        }
+
         private void FillActionsList()
         {
-
+            foreach(var actionTemplate in _template.possibleActions)
+            {
+                var action = _mapActionsFactory.CreateNPCAction(actionTemplate, this);
+                _encounterActions.Add(action);
+            }
         }
 
         private void SpawnEntities()
         {
-            _spawner.SpawnNpc(new SpawnData<NPCTemplate>(_template.mainNPC, transform.position.ToInt()), this);
+            _mainNpc = _spawner.SpawnNpc(new SpawnData<NPCTemplate>(_template.mainNPC, transform.position.ToInt()), this);
         }
 
     }

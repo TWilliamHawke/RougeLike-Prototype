@@ -11,7 +11,8 @@ namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity, IHaveHealthData
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity,
+        IHaveHealthData, IFactionMember
     {
         public event UnityAction OnPlayerTurnEnd;
 
@@ -36,6 +37,8 @@ namespace Entities.PlayerScripts
         public EffectStorage effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
         public int maxHealth => 100;
+
+        public Faction faction => _playerFaction;
 
         public void Init()
         {

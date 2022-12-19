@@ -21,12 +21,8 @@ namespace Core.Input
         {
             foreach (var hit in _inputController.hoveredTileHits)
             {
-                if(hit.collider.TryGetComponent<IRangeAttackTarget>(out var target))
-                {
-                    _target = target;
-
-                    return true;
-                }
+                if(!hit.collider.TryGetComponent<IRangeAttackTarget>(out _target)) continue;
+                if(_target.faction.agressiveTowardPlayer) return true;
             }
 
             return false;
