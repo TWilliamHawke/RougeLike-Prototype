@@ -4,9 +4,9 @@ using Entities;
 using Items;
 using UnityEngine;
 
-namespace Map.Objects
+namespace Map.Actions
 {
-    [CreateAssetMenu(menuName = "Map/Action", fileName = "MapObjectAction")]
+    [CreateAssetMenu(menuName = "Map/Action", fileName = "MapAction")]
     public class MapActionTemplate : ScriptableObject, ILootActionData, IAttackActionData
     {
         [UseFileName]

@@ -62664,7 +62664,7 @@ MonoBehaviour:
   _player: {fileID: 390164292}
   _location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
-  _mapObjectsManager: {fileID: 1081761065}
+  _mapZonesManager: {fileID: 1081761065}
 --- !u!4 &1081761064
 Transform:
   m_ObjectHideFlags: 0
@@ -65129,8 +65129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _title: {fileID: 185069681}
-  _objectIcon1: {fileID: 706751402}
-  _objectIcon2: {fileID: 368932197}
+  _zoneIcon1: {fileID: 706751402}
+  _zoneIcon2: {fileID: 368932197}
   _actionButtonsPanel: {fileID: 1347059331}
 --- !u!1001 &1322933663
 PrefabInstance:

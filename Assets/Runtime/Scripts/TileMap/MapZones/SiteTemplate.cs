@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Entities;
 using UnityEngine.Tilemaps;
+using Map.Actions;
 
-namespace Map.Objects
+namespace Map.Zones
 {
 	[CreateAssetMenu(fileName ="Site", menuName ="Map/Templates/Site")]
-	public class SiteTemplate :ScriptableObject, IMapObjectTemplate, IObjectWithCenterZone
+	public class SiteTemplate :ScriptableObject, IMapZoneTemplate, IZoneWithCenterTiles
 	{
         [UseFileName]
         [SerializeField] string _displayName;

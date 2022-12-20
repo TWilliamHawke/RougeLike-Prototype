@@ -5,7 +5,7 @@ using Items.UI;
 using Map.UI;
 using UnityEngine;
 
-namespace Map.Objects
+namespace Map.Actions
 {
     [RequireComponent(typeof(ComponentInjector))]
     public class MapActionsFactory : MonoBehaviour, IMapActionsFactory

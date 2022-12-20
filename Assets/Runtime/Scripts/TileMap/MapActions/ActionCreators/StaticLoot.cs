@@ -1,58 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Items;
 using Items.UI;
+using UnityEngine;
 using UnityEngine.Events;
 
-namespace Map.Objects
+namespace Map.Actions
 {
-    class Loot : IMapActionCreator
+    public class StaticLoot
     {
         LootPanel _lootPanel;
         IActionScreenController _actionScreenController;
 
-        public Loot(LootPanel lootPanel, IActionScreenController actionScreenController)
+        public StaticLoot(LootPanel lootPanel, IActionScreenController actionScreenController)
         {
             _lootPanel = lootPanel;
             _actionScreenController = actionScreenController;
         }
 
-        public IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage)
+        public IMapAction CreateActionLogic(MapActionTemplate template, ILootStorage loot)
         {
-            if ((template as ILootActionData)?.lootTable is null)
-            {
-                throw new System.Exception($"{template.name} labeled as loot but loot table is not assigned");
-            }
-            return new LootAction(template, _lootPanel, numOfUsage, _actionScreenController);
+            return new LootAction(template, loot, _lootPanel, _actionScreenController);
         }
-
 
         class LootAction : IMapAction
         {
             LootPanel _lootPanel;
             ILootActionData _template;
+            ILootStorage _loot;
+
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
-
-            LootTable _loot;
-            int _numOfUsage;
-            IActionScreenController _actionScreenController;
-            public bool isEnable => _numOfUsage != 0;
+            public bool isEnable => !_loot.isEmpty;
             public bool isHidden => false;
 
-            public LootAction(ILootActionData template, LootPanel lootPanel, int numOfUsage, IActionScreenController actionScreenController)
+            IActionScreenController _actionScreenController;
+
+            public LootAction(ILootActionData template, ILootStorage loot, LootPanel lootPanel, IActionScreenController actionScreenController)
             {
-                _loot = template.lootTable;
                 _template = template;
+                _loot = loot;
                 _lootPanel = lootPanel;
-                _numOfUsage = numOfUsage;
                 _actionScreenController = actionScreenController;
             }
 
             public void DoAction()
             {
-                _lootPanel.Open(_loot.GetLoot());
+                _lootPanel.Open(_loot);
                 _actionScreenController.CloseActionScreen();
                 _lootPanel.OnTakeAll += CompleteAction;
                 _lootPanel.OnClose += ClearEvents;
@@ -60,11 +54,7 @@ namespace Map.Objects
 
             void CompleteAction()
             {
-                if (_numOfUsage > 0)
-                {
-                    _numOfUsage--;
-                }
-
+                _loot.Clear();
                 ClearEvents();
             }
 
@@ -78,4 +68,5 @@ namespace Map.Objects
         }
     }
 }
+
 

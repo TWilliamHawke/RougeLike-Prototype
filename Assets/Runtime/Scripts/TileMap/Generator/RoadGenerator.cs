@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,8 +12,8 @@ namespace Map.Generator
     {
         public class RoadGeneratorr : IGenerationLogic
         {
-            delegate IObjectWithCenterZone MapObjectCreator(int x, int y);
-            MapObjectsManager _mapObjectsManager;
+            delegate IZoneWithCenterTiles MapZoneCreator(int x, int y);
+            MapZonesManager _mapZonesManager;
             RoadConfig _config;
 
             Tilemap _tileMap;
@@ -52,9 +52,9 @@ namespace Map.Generator
                 return _rawMapData;
             }
 
-            public void CreateMapObjects(MapObjectsManager mapObjectsManager)
+            public void CreateMapZones(MapZonesManager mapZonesManager)
             {
-                _mapObjectsManager = mapObjectsManager;
+                _mapZonesManager = mapZonesManager;
                 CreateSites();
             }
 
@@ -64,9 +64,9 @@ namespace Map.Generator
                 int leftSitesX = _config._voidWidth + _config._siteWidth / 2;
                 int rightSitesX = _rawMapData.width - _config._voidWidth - _config._siteWidth / 2;
 
-                CreateMapObject(leftSitesX, 0, CreateSite);
-                CreateMapObject(rightSitesX, 0, CreateSite);
-                CreateMapObject(_rawMapData.width / 2, 0, CreateEncounter, .5f);
+                CreateMapZone(leftSitesX, 0, CreateSite);
+                CreateMapZone(rightSitesX, 0, CreateSite);
+                CreateMapZone(_rawMapData.width / 2, 0, CreateEncounter, .5f);
             }
 
             private void FillWithDefaultTile(int y)
@@ -81,22 +81,22 @@ namespace Map.Generator
                 }
             }
 
-            private void CreateMapObject(int x, int prevY, MapObjectCreator mapObjectCreator, float disanceMult = 1f)
+            private void CreateMapZone(int x, int prevY, MapZoneCreator mapZoneCreator, float disanceMult = 1f)
             {
                 float distanceFromPrev = _rng.Next(_config._minDistanceBetweenSites, _config._maxDistanceBetweenSites) * disanceMult;
                 int y = prevY + (int)distanceFromPrev;
-                var template = mapObjectCreator(x, y);
+                var template = mapZoneCreator(x, y);
 
                 ChangeCenterTiles(x, y, template);
 
                 if (y + _config._maxDistanceBetweenSites * disanceMult > _rawMapData.height) return;
-                CreateMapObject(x, y, mapObjectCreator, disanceMult);
+                CreateMapZone(x, y, mapZoneCreator, disanceMult);
             }
 
             private SiteTemplate CreateSite(int x, int y)
             {
                 var template = _config._siteTemplates.GetRandom(_rng);
-                var site = _mapObjectsManager.CreateSite(new Vector3(x, y, 0));
+                var site = _mapZonesManager.CreateSite(new Vector3(x, y, 0));
                 site.BindTemplate(template, _rng);
                 return template;
             }
@@ -104,12 +104,12 @@ namespace Map.Generator
             private EncounterTemplate CreateEncounter(int x, int y)
             {
                 var template = _config._encounterTemplates.GetRandom(_rng);
-                var encounter = _mapObjectsManager.CreateEncounter(new Vector3(x, y, 0));
+                var encounter = _mapZonesManager.CreateEncounter(new Vector3(x, y, 0));
                 encounter.BindTemplate(template);
                 return template;
             }
 
-            private void ChangeCenterTiles(int centerX, int centerY, IObjectWithCenterZone template)
+            private void ChangeCenterTiles(int centerX, int centerY, IZoneWithCenterTiles template)
             {
                 if (template.centerZoneTile is null) return;
 

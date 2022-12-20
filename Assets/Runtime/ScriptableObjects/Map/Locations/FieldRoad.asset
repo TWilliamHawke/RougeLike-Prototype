@@ -15,4 +15,4 @@ MonoBehaviour:
   _displayName: Field Road
   _icon: {fileID: 21300000, guid: a91b26d2a8f6bf84c93597240f410020, type: 3}
   _generator: {fileID: 11400000, guid: 139bfd199c7aa0948b246c8cde1bde53, type: 2}
-  _objectsManagerInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}
+  _zonesManagerInjector: {fileID: 11400000, guid: 2b7dbf6fb8bc1b84e89b67e374e345b0, type: 2}

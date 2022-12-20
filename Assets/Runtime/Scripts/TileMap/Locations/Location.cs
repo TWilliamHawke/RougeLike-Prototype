@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Map.Locations
 {
-    public abstract class Location : ScriptableObject, IMapObject, IMapActionList
+    public abstract class Location : ScriptableObject, IMapZone, IMapActionList
     {
         [UseFileName]
         [SerializeField] string _displayName;

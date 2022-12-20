@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Map.Objects;
+using Map.Actions;
 
 namespace CustomEditors
 {

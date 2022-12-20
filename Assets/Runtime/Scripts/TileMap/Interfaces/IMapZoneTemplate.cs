@@ -1,6 +1,6 @@
 namespace Map
 {
-    public interface IMapObjectTemplate : IIconData
+    public interface IMapZoneTemplate : IIconData
     {
         int width { get; }
         int height { get; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Map.Objects
+namespace Map.Actions
 {
     class Talk : INpcActionCreator
     {

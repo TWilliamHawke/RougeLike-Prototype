@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace Map
 {
-	public interface IObjectWithCenterZone
+	public interface IZoneWithCenterTiles
 	{
         int centerZoneWidth { get; }
         int centerZoneHeight { get; }

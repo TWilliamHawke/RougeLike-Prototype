@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Map.Generator;
 using Entities.PlayerScripts;
 using Map.Locations;
-using Map.Objects;
+using Map.Zones;
 
 namespace Map
 {
@@ -18,7 +18,7 @@ namespace Map
 
         [SerializeField] Injector _tileGridInjector;
 
-        [SerializeField] MapObjectsManager _mapObjectsManager;
+        [SerializeField] MapZonesManager _mapZonesManager;
 
         public Location location => _location;
         TilesGrid _grid;
