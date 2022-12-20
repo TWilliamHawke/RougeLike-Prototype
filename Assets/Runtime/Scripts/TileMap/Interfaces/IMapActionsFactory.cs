@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Items;
-using Map.Objects;
+using Map.Actions;
 
 namespace Map
 {

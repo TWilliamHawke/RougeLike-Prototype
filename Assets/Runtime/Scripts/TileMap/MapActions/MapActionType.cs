@@ -1,4 +1,4 @@
-namespace Map.Objects
+namespace Map.Actions
 {
     public enum MapActionType
 	{

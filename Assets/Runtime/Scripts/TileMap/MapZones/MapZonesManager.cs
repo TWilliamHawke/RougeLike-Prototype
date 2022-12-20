@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Map.Objects
+namespace Map.Zones
 {
-	public class MapObjectsManager : MonoBehaviour, IMapObjectsCreator
+	public class MapZonesManager : MonoBehaviour, IMapZonesCreator
 	{
 	    [SerializeField] Site _sitePrefab;
 	    [SerializeField] Encounter _encounterPrefab;
@@ -15,31 +15,31 @@ namespace Map.Objects
 		[SerializeField] Injector _thisInjector;
 		[SerializeField] Injector _mapObserverInjector;
 
-		MapObjectObserver _mapObjectObserver;
+		MapZonesObserver _mapZonesObserver;
 
 		private void Awake()
 		{
-			_mapObjectObserver = new MapObjectObserver(tileMapManager.location);
-			_mapObserverInjector.SetDependency(_mapObjectObserver);
+			_mapZonesObserver = new MapZonesObserver(tileMapManager.location);
+			_mapObserverInjector.SetDependency(_mapZonesObserver);
 			_thisInjector.SetDependency(this);
 		}
 
         public Site CreateSite(Vector3 position)
         {
             var site = _tileMap.CreateChild(_sitePrefab, position);
-			_mapObjectObserver.AddToObserve(site);
+			_mapZonesObserver.AddToObserve(site);
 			return site;
         }
 
 		public Encounter CreateEncounter(Vector3 position)
 		{
 			var encounter = _tileMap.CreateChild(_encounterPrefab, position);
-			_mapObjectObserver.AddToObserve(encounter);
+			_mapZonesObserver.AddToObserve(encounter);
 			return encounter;
 		}
     }
 
-	public interface IMapObjectsCreator
+	public interface IMapZonesCreator
 	{
 		Site CreateSite(Vector3 position);
 	}

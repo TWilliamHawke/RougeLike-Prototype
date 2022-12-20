@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,7 +9,6 @@ namespace Map.Generator
 	[CreateAssetMenu(fileName ="RoadConfig", menuName="Musc/Road Config")]
 	public partial class RoadConfig : GeneratorConfig
 	{
-		[SerializeField] Injector _objectsManagerInjector;
 		[SerializeField] int _seed = 15;
 		[Header("Size")]
 	    [SerializeField] int _minLength = 100;
@@ -31,7 +30,7 @@ namespace Map.Generator
 		[SerializeField] TileBase _roadTile;
 		[SerializeField] TileBase[] _randomTiles;
 		[SerializeField] TileBase[] _randomObstacles;
-		[Header("Objects")]
+		[Header("Map Zones")]
 		[SerializeField] List<SiteTemplate> _siteTemplates;
 		[SerializeField] List<EncounterTemplate> _encounterTemplates;
 

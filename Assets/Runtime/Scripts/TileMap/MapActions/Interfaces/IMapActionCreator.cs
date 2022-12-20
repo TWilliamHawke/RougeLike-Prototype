@@ -1,4 +1,4 @@
-using Map.Objects;
+using Map.Actions;
 
 namespace Map
 {

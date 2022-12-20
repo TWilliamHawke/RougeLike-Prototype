@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Rng = System.Random;
@@ -291,7 +291,7 @@ namespace Map.Generator
             }
         }
 
-        public void CreateMapObjects(MapObjectsManager mapObjectsManager)
+        public void CreateMapZones(MapZonesManager mapZonesManager)
         {
 
         }

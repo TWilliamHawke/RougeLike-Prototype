@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Map
 {
-    public interface IMapObject
+    public interface IMapZone
     {
         string displayName { get; }
         Sprite icon { get; }

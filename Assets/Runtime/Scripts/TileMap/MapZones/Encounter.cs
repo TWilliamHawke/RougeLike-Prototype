@@ -5,9 +5,9 @@ using Entities;
 using UnityEngine;
 using Entities.NPCScripts;
 
-namespace Map.Objects
+namespace Map.Zones
 {
-    public class Encounter : MapObject, INpcActionTarget, IMapActionList
+    public class Encounter : MapZone, INpcActionTarget, IMapActionList
     {
         [SerializeField] CustomEvent _onLocalTaskChange;
 

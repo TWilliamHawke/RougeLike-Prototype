@@ -4,15 +4,15 @@ using Entities.PlayerScripts;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Map.Objects
+namespace Map.Zones
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public abstract class MapObject : MonoBehaviour, IMapObject
+    public abstract class MapZone : MonoBehaviour, IMapZone
     {
-        public event UnityAction<IMapObject> OnPlayerEnter;
-        public event UnityAction<IMapObject> OnPlayerExit;
+        public event UnityAction<IMapZone> OnPlayerEnter;
+        public event UnityAction<IMapZone> OnPlayerExit;
 
-        protected IMapObjectTemplate _template;
+        protected IMapZoneTemplate _template;
         protected RandomStack<Vector3Int> _tileStorage;
 
         int _posX => (int)transform.position.x;
@@ -24,7 +24,7 @@ namespace Map.Objects
         public abstract IMapActionList mapActionList { get; }
         public abstract TaskData currentTask { get; }
 
-        public void BindTemplate(IMapObjectTemplate template)
+        public void BindTemplate(IMapZoneTemplate template)
         {
             _template = template;
             GetComponent<BoxCollider2D>().size = new Vector2(template.width, template.height);

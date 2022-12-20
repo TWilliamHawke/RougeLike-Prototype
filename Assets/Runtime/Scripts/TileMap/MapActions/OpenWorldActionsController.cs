@@ -4,7 +4,7 @@ using Items;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Map.Objects
+namespace Map.Actions
 {
     public class OpenWorldActionsController : IMapActionsController
     {

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Map.Objects;
+using Map.Zones;
 
 namespace Map.UI
 {
@@ -7,29 +7,29 @@ namespace Map.UI
     {
         [SerializeField] TaskPanel _taskPanel;
 
-        [InjectField] MapObjectObserver _mapObjectObserver;
+        [InjectField] MapZonesObserver _mapZonesObserver;
 
-        IMapObject _currentMapObject;
+        IMapZone _currentMapZone;
 
         //used in editor
         public void FinalizeInjection()
         {
-            _mapObjectObserver.OnMapObjectChange += ChangeTargetMapObject;
-            _currentMapObject = _mapObjectObserver.currentMapObject;
+            _mapZonesObserver.OnMapZoneChange += ChangeTargetMapZone;
+            _currentMapZone = _mapZonesObserver.currentMapZone;
             UpdateTaskPanel();
         }
 
-        public void ChangeTargetMapObject(IMapObject mapObject)
+        public void ChangeTargetMapZone(IMapZone mapZone)
         {
-            if (_currentMapObject == mapObject) return;
-            _currentMapObject = mapObject;
+            if (_currentMapZone == mapZone) return;
+            _currentMapZone = mapZone;
             UpdateTaskPanel();
         }
 
         //used in editor
         public void UpdateTaskPanel()
         {
-            _taskPanel.SetTask(_currentMapObject.currentTask);
+            _taskPanel.SetTask(_currentMapZone.currentTask);
         }
     }
 }

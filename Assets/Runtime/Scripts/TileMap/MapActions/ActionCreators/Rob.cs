@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Map.Objects
+namespace Map.Actions
 {
-    public class Trade : INpcActionCreator
+    public class Rob : INpcActionCreator
     {
         public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget actionTarget)
         {
-            return new TradeAction(template);
+            return new RobAction(template);
         }
 
-        class TradeAction : IMapAction
+        class RobAction : IMapAction
         {
             public bool isEnable => true;
             public bool isHidden => false;
@@ -20,7 +20,7 @@ namespace Map.Objects
 
 			IIconData _template;
 
-            public TradeAction(IIconData template)
+            public RobAction(IIconData template)
             {
                 _template = template;
             }

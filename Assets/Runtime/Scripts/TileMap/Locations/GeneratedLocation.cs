@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Map.Generator;
-using Map.Objects;
+using Map.Zones;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,9 +11,9 @@ namespace Map.Locations
     public class GeneratedLocation : Location, IInjectionTarget
     {
         [SerializeField] GeneratorConfig _generator;
-        [SerializeField] Injector _objectsManagerInjector;
+        [SerializeField] Injector _zonesManagerInjector;
 
-        [InjectField] MapObjectsManager _mapObjectsManager;
+        [InjectField] MapZonesManager _mapZonesManager;
 
         public override TaskData currentTask { get; protected set; }
 
@@ -37,14 +37,14 @@ namespace Map.Locations
             _generatorLogic = _generator.GetLogic(tilemap);
 
             var rawMapData = _generatorLogic.StartGeneration();
-            _objectsManagerInjector.AddInjectionTarget(this);
+            _zonesManagerInjector.AddInjectionTarget(this);
 
             return rawMapData;
         }
 
         public void FinalizeInjection()
         {
-            _generatorLogic.CreateMapObjects(_mapObjectsManager);
+            _generatorLogic.CreateMapZones(_mapZonesManager);
         }
     }
 }

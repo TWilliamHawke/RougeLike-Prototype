@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Items;
-using Map.Objects;
-using UnityEngine;
-using UnityEngine.Events;
+using Map.Actions;
 
 namespace Map
 {

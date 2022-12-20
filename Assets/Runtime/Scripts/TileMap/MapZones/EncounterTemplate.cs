@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Entities.NPCScripts;
 using Entities;
+using Map.Actions;
 
-namespace Map.Objects
+namespace Map.Zones
 {
     [CreateAssetMenu(fileName = "RandomEncounter", menuName = "Map/Templates/Random Encounter", order = 0)]
-    public class EncounterTemplate : ScriptableObject, IMapObjectTemplate, IObjectWithCenterZone
+    public class EncounterTemplate : ScriptableObject, IMapZoneTemplate, IZoneWithCenterTiles
     {
         [UseFileName]
         [SerializeField] string _displayName;

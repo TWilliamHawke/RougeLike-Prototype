@@ -4,10 +4,11 @@ using Entities;
 using UnityEngine;
 using UnityEngine.Events;
 using Rng = System.Random;
+using Map.Actions;
 
-namespace Map.Objects
+namespace Map.Zones
 {
-    public class Site : MapObject
+    public class Site : MapZone
     {
         [SerializeField] MapActionTemplate _lootBodiesAction;
         [SerializeField] CustomEvent _onLocalTaskChange;
