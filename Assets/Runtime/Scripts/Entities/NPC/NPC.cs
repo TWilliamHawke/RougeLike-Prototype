@@ -5,6 +5,7 @@ using Entities.PlayerScripts;
 using Items;
 using UnityEngine;
 using Entities.Behavior;
+using Map.Zones;
 
 namespace Entities.NPCScripts
 {
@@ -12,17 +13,20 @@ namespace Entities.NPCScripts
     {
         [SerializeField] NPCSoundKit _soundKit;
         [SerializeField] CustomEvent OnLocationPanelClick;
+        [SerializeField] NpcInteractionZone _interactionZone;
 
         NPCTemplate _template;
-        
 
         public override Dictionary<DamageType, int> resists => _inventory.resists;
         //HACK 
         public override LootTable lootTable => _template.inventory.freeAccessItems;
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
-        protected override EntityTemplate template => _template;
+        protected override ITemplateWithBaseStats template => _template;
 
-		NPCInventory _inventory;
+        public MapZone interactionZone => _interactionZone;
+        public override IDamageSource damageSource => throw new System.NotImplementedException();
+
+        NPCInventory _inventory;
 
         public void BindTemplate(NPCTemplate template)
         {
@@ -30,6 +34,11 @@ namespace Entities.NPCScripts
 			_inventory = new NPCInventory(template.inventory);
             InitComponents();
             ApplyStartStats(template);
+        }
+
+        public void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
+        {
+            _interactionZone.Init(mapZoneLogic);
         }
 
         public override void Interact(Player player)

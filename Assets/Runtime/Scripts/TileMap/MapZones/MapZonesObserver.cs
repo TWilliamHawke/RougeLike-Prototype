@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Map.Zones
 {
-    public class MapZonesObserver
+    public class MapZonesObserver: IObserver<MapZone>
     {
         HashSet<IMapZone> _visitedMapZones = new HashSet<IMapZone>();
         Location _currentLocation;

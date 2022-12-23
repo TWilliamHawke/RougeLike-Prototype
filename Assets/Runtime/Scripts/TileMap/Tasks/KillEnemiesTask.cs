@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Map
 {
-    public class KillEnemiesTask : ITaskController
+    public class KillEnemiesTask : ITaskController, IObserver<Entity>
     {
         public TaskData currentTask { get; private set;}
         public HashSet<Entity> enemiesFromLocation { get; private set; } = new();
@@ -20,25 +20,14 @@ namespace Map
             CreateLootTask();
         }
 
-        public void RegisterEnemy(Entity entity)
+        public void AddToObserve(Entity entity)
         {
             enemiesFromLocation.Add(entity);
-            entity.OnDeath += RemoveDeadEnemy;
+            entity.OnDeath += RemoveFromObserve;
             CreateKillTask();
         }
 
-        private void CreateKillTask()
-        {
-            currentTask = new TaskData
-            {
-                displayName = _locationTemplate.displayName,
-                icon = _locationTemplate.icon,
-                taskText = $"Kill all wolves ({enemiesFromLocation.Count} remains)",
-                isDone = false,
-            };
-        }
-
-        private void RemoveDeadEnemy(Entity enemy)
+        public void RemoveFromObserve(Entity enemy)
         {
             if (!enemiesFromLocation.Contains(enemy)) return;
             enemiesFromLocation.Remove(enemy);
@@ -53,6 +42,17 @@ namespace Map
             }
 
             _onLocalTaskChange?.Invoke();
+        }
+
+        private void CreateKillTask()
+        {
+            currentTask = new TaskData
+            {
+                displayName = _locationTemplate.displayName,
+                icon = _locationTemplate.icon,
+                taskText = $"Kill all wolves ({enemiesFromLocation.Count} remains)",
+                isDone = false,
+            };
         }
 
         private void CreateLootTask()

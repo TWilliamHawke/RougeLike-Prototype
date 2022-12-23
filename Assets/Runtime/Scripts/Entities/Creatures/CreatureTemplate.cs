@@ -24,5 +24,10 @@ namespace Entities
         public AudioClip[] attackSounds => _sounds.attackSounds;
 		public CreatureSoundKit sounds => _sounds;
         public LootTable lootTable => _lootTable;
+
+        public override Entity CreateEntity(EntitiesSpawner spawner, Vector3 position)
+        {
+            return spawner.SpawnCreature(this, position);
+        }
     }
 }

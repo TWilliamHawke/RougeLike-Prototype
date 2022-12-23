@@ -16,8 +16,8 @@ namespace Entities
         public override AudioClip[] deathSounds => _template.sounds.deathSounds;
 
         public override LootTable lootTable => _template.lootTable;
-
-        protected override EntityTemplate template => _template;
+        public override IDamageSource damageSource => _template;
+        protected override ITemplateWithBaseStats template => _template;
 
         public void BindTemplate(CreatureTemplate template)
         {

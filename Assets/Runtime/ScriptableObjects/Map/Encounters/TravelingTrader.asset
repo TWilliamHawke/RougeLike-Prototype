@@ -20,8 +20,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 034a26d4c2abbd9499da562cdccd7ba8, type: 2}
   - {fileID: 11400000, guid: 04c45a62d73785f4db6d5953cee230a8, type: 2}
   - {fileID: 11400000, guid: 766506c9bcb50374fa010db7a9396b7a, type: 2}
-  _width: 5
-  _height: 5
+  _spawnZoneSize: {x: 3, y: 3}
+  _colliderSize: {x: 5, y: 5}
   _tilesWidth: 3
   _tilesHeight: 3
   _centerTile: {fileID: 0}

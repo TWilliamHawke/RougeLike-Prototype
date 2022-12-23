@@ -15,13 +15,13 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IHaveHealthData,
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IHaveHealthData, IMortal, IObstacleEntity,
         IFactionMember
     {
         [SerializeField] Body _body;
 
         protected Body body => _body;
-        protected abstract EntityTemplate template { get; }
+        protected abstract ITemplateWithBaseStats template { get; }
 
         Health _health;
         EffectStorage _effectStorage;
@@ -30,7 +30,6 @@ namespace Entities
         public event UnityAction<Entity> OnDeath;
         public event UnityAction OnFactionChange;
 
-        IDamageSource ICanAttack.damageSource => template;
 
         public abstract Dictionary<DamageType, int> resists { get; }
         public StateMachine stateMachine => GetComponent<StateMachine>();
@@ -42,6 +41,8 @@ namespace Entities
         public abstract AudioClip[] deathSounds { get; }
         public int maxHealth => template?.health ?? 100;
         public BehaviorType antiPlayerBehavior => faction?.GetAntiPlayerBehavior() ?? BehaviorType.neutral;
+
+        public abstract IDamageSource damageSource { get; }
 
         public void ReplaceFaction(Faction faction)
         {
@@ -55,7 +56,7 @@ namespace Entities
             _health.DamageHealth(damage);
         }
 
-        protected void ApplyStartStats(EntityTemplate template)
+        protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
             faction = template.faction;
@@ -83,5 +84,11 @@ namespace Entities
 
         public abstract void PlayAttackSound();
         public abstract void Interact(Player player);
+    }
+
+    public interface IMortal
+    {
+        public event UnityAction<Entity> OnDeath;
+        int expForKill { get; }
     }
 }

@@ -29,7 +29,7 @@ namespace Entities
             dataListGenerator = new DataListGenerator<CreatureTemplate>(this);
         }
 
-        public IEnumerable<CreatureTemplate> GetCreatures(Rng rng)
+        public IEnumerable<CreatureTemplate> GetTemplates(Rng rng)
         {
             var creatures = new CreaturesList();
             dataListGenerator.FillDataList(rng, ref creatures);
@@ -39,7 +39,7 @@ namespace Entities
         [ContextMenu("Check Generation")]
         void Generate()
         {
-            var creatures = GetCreatures(new Rng());
+            var creatures = GetTemplates(new Rng());
 
             foreach (var itemSlot in creatures)
             {

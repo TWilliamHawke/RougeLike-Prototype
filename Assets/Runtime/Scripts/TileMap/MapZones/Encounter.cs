@@ -4,27 +4,32 @@ using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 using Entities.NPCScripts;
+using Rng = System.Random;
+
 
 namespace Map.Zones
 {
-    public class Encounter : MapZone, INpcActionTarget, IMapActionList
+    public class Encounter : MonoBehaviour, INpcActionTarget, IMapActionList, IMapZoneLogic, IObserver<Entity>
     {
         [SerializeField] CustomEvent _onLocalTaskChange;
 
         [InjectField] EntitiesSpawner _spawner;
         [InjectField] IMapActionsFactory _mapActionsFactory;
+        [InjectField] MapZonesObserver _mapZonesObserver;
 
-        new EncounterTemplate _template;
-        public override IMapActionList mapActionList => this;
-        public override TaskData currentTask => _taskController.currentTask;
+        EncounterTemplate _template;
 
         public int count => _encounterActions.Count;
+        public TaskData currentTask => _taskController.currentTask;
+        public IMapZoneTemplate template => _template;
+        public IMapActionList actionList => this;
 
         public IMapAction this[int idx] => _encounterActions[idx];
 
         KillEnemiesTask _taskController;
         List<IMapAction> _encounterActions = new();
         NPC _mainNpc;
+        ZoneEntitiesSpawner _spawnQueue;
 
         public void FinalizeInjection()
         {
@@ -32,15 +37,17 @@ namespace Map.Zones
             if (_mapActionsFactory is null) return;
             if (_template is null) return;
 
-            SpawnEntities();
+            _spawnQueue.SpawnAll(_spawner);
             FillActionsList();
         }
 
-        public void BindTemplate(EncounterTemplate template)
+        public void BindTemplate(EncounterTemplate template, Rng rng)
         {
-            base.BindTemplate(template);
             _template = template;
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
+            _spawnQueue = new ZoneEntitiesSpawner(template, this);
+            _spawnQueue.AddObserver(this);
+            _spawnQueue.AddToQueue(template.mainNPC, rng);
 
             FinalizeInjection();
         }
@@ -59,11 +66,14 @@ namespace Map.Zones
             }
         }
 
-        private void SpawnEntities()
+        public void AddToObserve(Entity target)
         {
-            _mainNpc = _spawner.SpawnNpc(new SpawnData<NPCTemplate>(_template.mainNPC, transform.position.ToInt()), this);
+            (target as NPC)?.InitInteractiveZone(this);
         }
 
+        public void RemoveFromObserve(Entity target)
+        {
+        }
     }
 }
 
