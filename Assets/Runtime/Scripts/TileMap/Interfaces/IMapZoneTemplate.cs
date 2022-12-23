@@ -1,11 +1,16 @@
+using UnityEngine;
+
 namespace Map
 {
     public interface IMapZoneTemplate : IIconData
     {
-        int width { get; }
-        int height { get; }
-        int centerZoneWidth { get; }
-        int centerZoneHeight { get; }
+        Vector2Int size { get; }
+    }
+
+    public interface ISpawnZoneTemplate
+    {
+        Vector2Int size { get; }
+        Vector2Int centerZoneSize { get; }
         bool centerZoneIsWalkable { get; }
     }
 }

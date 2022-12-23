@@ -27,14 +27,12 @@ namespace Map.Zones
         public Site CreateSite(Vector3 position)
         {
             var site = _tileMap.CreateChild(_sitePrefab, position);
-			_mapZonesObserver.AddToObserve(site);
 			return site;
         }
 
 		public Encounter CreateEncounter(Vector3 position)
 		{
 			var encounter = _tileMap.CreateChild(_encounterPrefab, position);
-			_mapZonesObserver.AddToObserve(encounter);
 			return encounter;
 		}
     }

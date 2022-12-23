@@ -8,7 +8,7 @@ using Map.Actions;
 namespace Map.Zones
 {
 	[CreateAssetMenu(fileName ="Site", menuName ="Map/Templates/Site")]
-	public class SiteTemplate :ScriptableObject, IMapZoneTemplate, IZoneWithCenterTiles
+	public class SiteTemplate :ScriptableObject, IMapZoneTemplate, IZoneWithCenterTiles, ISpawnZoneTemplate
 	{
         [UseFileName]
         [SerializeField] string _displayName;
@@ -32,13 +32,11 @@ namespace Map.Zones
         public string displayName => _displayName;
         public Sprite icon => _icon;
         public IEnumerable<MapActionTemplate> possibleActions => _possibleActions;
-        public int width => _width; 
-        public int height => _height; 
         public CreaturesTable enemies => _enemies; 
-        public int centerZoneWidth => _tilesWidth; 
-        public int centerZoneHeight => _tilesHeight; 
+        public Vector2Int size => new Vector2Int(_width, _height);
+        public Vector2Int centerZoneSize => new Vector2Int(_tilesWidth, _tilesHeight);
         public TileBase centerZoneTile => _siteTile; 
-        public bool centerZoneIsWalkable => _tilesIsWalkable; 
+        public bool centerZoneIsWalkable => _tilesIsWalkable;
     }
 }
 

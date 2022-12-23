@@ -43,20 +43,14 @@ namespace Entities
             _tilesGridInjector.AddInjectionTarget(this);
         }
 
-        public void AddEntity(Entity enemy)
-        {
-            AddEntityToObserve(enemy);
-            _tilesGrid.TryAddEntityToTile(enemy);
-            _enemyKillsObserver.AddEnemyToObserve(enemy);
-        }
-
-        void AddEntityToObserve(IEntityWithAI entity)
+        public void AddEntity(Entity entity)
         {
             entity.stateMachine.Init();
             entity.stateMachine.OnTurnEnd += StartNextEnemyTurn;
             _allEntities.Add(entity.stateMachine);
+            _tilesGrid.TryAddEntityToTile(entity);
+            _enemyKillsObserver.AddEnemyToObserve(entity);
         }
-
 
         void StartFirstEnemyTurn()
         {

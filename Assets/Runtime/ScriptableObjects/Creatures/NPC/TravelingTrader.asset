@@ -19,3 +19,4 @@ MonoBehaviour:
   _expForKill: 0
   _npcName: Traveling Trader
   _inventory: {fileID: 11400000, guid: 66ff99e91173a944088ddbe033c96a35, type: 2}
+  _interactionZoneSize: {x: 5, y: 5}

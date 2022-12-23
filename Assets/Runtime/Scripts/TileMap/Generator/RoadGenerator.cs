@@ -105,7 +105,7 @@ namespace Map.Generator
             {
                 var template = _config._encounterTemplates.GetRandom(_rng);
                 var encounter = _mapZonesManager.CreateEncounter(new Vector3(x, y, 0));
-                encounter.BindTemplate(template);
+                encounter.BindTemplate(template, _rng);
                 return template;
             }
 
@@ -113,9 +113,9 @@ namespace Map.Generator
             {
                 if (template.centerZoneTile is null) return;
 
-                for (int i = centerX - template.centerZoneWidth / 2; i <= centerX + template.centerZoneWidth / 2; i++)
+                for (int i = centerX - template.centerZoneSize.x / 2; i <= centerX + template.centerZoneSize.x / 2; i++)
                 {
-                    for (int j = centerY - template.centerZoneHeight / 2; j <= centerY + template.centerZoneHeight / 2; j++)
+                    for (int j = centerY - template.centerZoneSize.y / 2; j <= centerY + template.centerZoneSize.y / 2; j++)
                     {
                         _tileMap.SetTile(new Vector3Int(i, j, 0), template.centerZoneTile);
                     }

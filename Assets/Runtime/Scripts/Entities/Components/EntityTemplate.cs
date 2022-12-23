@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace Entities
 {
-	public abstract class EntityTemplate : ScriptableObject, IDamageSource
+	public abstract class EntityTemplate : ScriptableObject, ITemplateWithBaseStats, IEntityTemplate,
+	 IDamageSource
 	{
 		[SerializeField] string _bodyChar = "-";
 		[SerializeField] Color _bodyColor = Color.white;
@@ -22,7 +23,23 @@ namespace Entities
         public abstract int minDamage { get; }
         public abstract int maxDamage { get; }
         public abstract DamageType damageType { get; }
+		
+		public abstract Entity CreateEntity(EntitiesSpawner spawner, Vector3 position);
     }
+
+	public interface ITemplateWithBaseStats
+	{
+		int health { get; }
+		string bodyChar { get; }
+		Color bodyColor { get; }
+		int expForKill { get; }
+		Faction faction { get; }
+	}
+
+	public interface IEntityTemplate
+	{
+		Entity CreateEntity(EntitiesSpawner spawner, Vector3 position);
+	}
 }
 
 

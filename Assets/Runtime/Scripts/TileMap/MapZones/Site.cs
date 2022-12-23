@@ -16,14 +16,26 @@ namespace Map.Zones
         [InjectField] EntitiesSpawner _spawner;
         [InjectField] IMapActionsFactory _mapActionsFactory;
 
-        List<SpawnData<CreatureTemplate>> _spawnerData;
-        Rng _rng;
-        new SiteTemplate _template;
+        SiteTemplate _template;
         IMapActionsController _actionsController;
         KillEnemiesTask _taskController;
+        ZoneEntitiesSpawner _spawnQueue;
 
         public override IMapActionList mapActionList => _actionsController;
         public override TaskData currentTask => _taskController.currentTask;
+
+        public void BindTemplate(SiteTemplate template, Rng rng)
+        {
+            _template = template;
+
+            base.BindTemplate(template);
+            _spawnQueue = new ZoneEntitiesSpawner(template, this);
+            _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
+            _spawnQueue.AddObserver(_taskController);
+            _spawnQueue.AddToQueue(_template.enemies, rng);
+
+            FinalizeInjection();
+        }
 
         public void FinalizeInjection()
         {
@@ -31,42 +43,16 @@ namespace Map.Zones
             if (_mapActionsFactory is null) return;
             if (_template is null) return;
 
-            _actionsController = new OpenWorldActionsController(_mapActionsFactory);
-            SpawnEnemies();
+            AddToObserver();
+            _spawnQueue.SpawnAll(_spawner);
             FillActionsList();
-        }
-
-        public void BindTemplate(SiteTemplate template, Rng rng)
-        {
-            base.BindTemplate(template);
-            _template = template;
-            _rng = rng;
-            _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
-            FinalizeInjection();
         }
 
         private void FillActionsList()
         {
+            _actionsController = new OpenWorldActionsController(_mapActionsFactory);
             _actionsController.AddLootAction(_lootBodiesAction, _taskController.enemiesFromLocation);
-
-            foreach (var action in _template.possibleActions)
-            {
-                _actionsController.AddAction(action);
-            }
-        }
-
-        private void SpawnEnemies()
-        {
-            var enemies = _template.enemies.GetCreatures(_rng);
-
-            foreach (var enemyTemplate in enemies)
-            {
-                if (_tileStorage.TryPull(_rng, out var position))
-                {
-                    var enemy = _spawner.SpawnEnemyAsChild(new SpawnData<CreatureTemplate>(enemyTemplate, position), this);
-                    _taskController.RegisterEnemy(enemy);
-                }
-            }
+            _template.possibleActions.ForEach(action => _actionsController.AddAction(action));
         }
     }
 }

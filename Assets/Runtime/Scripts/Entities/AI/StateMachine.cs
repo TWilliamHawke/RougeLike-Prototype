@@ -36,7 +36,7 @@ namespace Entities.AI
         public void Init()
 		{
 			_health = GetComponent<Health>();
-			faction = GetComponent<Entity>().faction;
+			faction = GetComponent<IFactionMember>().faction;
 			
 			_playerInjector.AddInjectionTarget(this);
 			_tilesGridInjector.AddInjectionTarget(this);

@@ -33,20 +33,20 @@ namespace Entities
         // 	SpawnEnemyAsChild(template, position, this);
         // }
 
-        public NPC SpawnNpc(SpawnData<NPCTemplate> spawnData, Component parent)
+        public NPC SpawnNpc(NPCTemplate template, Vector3 position)
         {
-            var npc = parent.CreateChild(_npcPrefab, spawnData.position);
-            npc.BindTemplate(spawnData.template);
+            var npc = Instantiate(_npcPrefab, position, Quaternion.identity);
+            npc.BindTemplate(template);
             _entitiesManager.AddEntity(npc);
             return npc;
         }
 
-        public Entity SpawnEnemyAsChild(SpawnData<CreatureTemplate> spawnData, Component parent)
+        public Creature SpawnCreature(CreatureTemplate template, Vector3 position)
         {
-            var enemy = parent.CreateChild(_enemyPrefab, spawnData.position);
-            enemy.BindTemplate(spawnData.template);
-            _entitiesManager.AddEntity(enemy);
-            return enemy;
+            var creature = Instantiate(_enemyPrefab, position, Quaternion.identity);
+            creature.BindTemplate(template);
+            _entitiesManager.AddEntity(creature);
+            return creature;
         }
     }
 
