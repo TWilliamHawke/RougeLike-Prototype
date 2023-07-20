@@ -28,7 +28,7 @@ namespace Entities
 		public Faction faction { get; private set; }
 
         public event UnityAction<Entity> OnDeath;
-        public event UnityAction OnFactionChange;
+        public event UnityAction<Faction> OnFactionChange;
 
 
         public abstract Dictionary<DamageType, int> resists { get; }
@@ -44,11 +44,10 @@ namespace Entities
 
         public abstract IDamageSource damageSource { get; }
 
-        public void ReplaceFaction(Faction faction)
+        public void ReplaceFaction(Faction newFaction)
         {
-            this.faction = faction;
-            _health.behavior = this.faction.GetAntiPlayerBehavior(); //ugly HACK
-            OnFactionChange?.Invoke();
+            faction = newFaction;
+            OnFactionChange?.Invoke(newFaction);
         }
 
         void IAttackTarget.TakeDamage(int damage)
@@ -61,9 +60,8 @@ namespace Entities
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
             faction = template.faction;
             _health = GetComponent<Health>();
-            _health.behavior = faction.GetAntiPlayerBehavior();
+            _health.Init(this);
             _health.OnHealthChange += CheckHealth;
-            _health.FillToMax();
         }
 
         protected void InitComponents()

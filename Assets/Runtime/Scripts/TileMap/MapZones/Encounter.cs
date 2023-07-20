@@ -28,7 +28,8 @@ namespace Map.Zones
 
         KillEnemiesTask _taskController;
         List<IMapAction> _encounterActions = new();
-        NPC _mainNpc;
+        HashSet<Entity> _entities = new();
+        //NPC _mainNpc;
         ZoneEntitiesSpawner _spawnQueue;
 
         public void FinalizeInjection()
@@ -54,7 +55,7 @@ namespace Map.Zones
 
         public void ReplaceFactionForAll(Faction replacer)
         {
-            _mainNpc.ReplaceFaction(replacer);
+            _entities.ForEach(entitiy => entitiy.ReplaceFaction(replacer));
         }
 
         private void FillActionsList()
@@ -69,10 +70,12 @@ namespace Map.Zones
         public void AddToObserve(Entity target)
         {
             (target as NPC)?.InitInteractiveZone(this);
+            _entities.Add(target);
         }
 
         public void RemoveFromObserve(Entity target)
         {
+            _entities.Remove(target);
         }
     }
 }

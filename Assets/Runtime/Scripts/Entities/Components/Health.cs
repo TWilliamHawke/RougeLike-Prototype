@@ -21,7 +21,7 @@ namespace Entities
         int _currentHealth;
 
         public int currentHealth => _currentHealth;
-        public int maxHealth => _healthData.maxHealth;
+        public int maxHealth => _healthData?.maxHealth ?? 100;
         public Vector3 bodyPosition => _body.transform.position;
 
         public bool waitForAllDependencies => false;
@@ -31,8 +31,15 @@ namespace Entities
         void Awake()
         {
             _healthData = GetComponent<IHaveHealthData>();
-            _currentHealth = _healthData.maxHealth;
             _healthbarCanvasInjector.AddInjectionTarget(this);
+        }
+
+        public void Init(IHaveHealthData entitiy)
+        {
+            _currentHealth = _healthData.maxHealth;
+            behavior = entitiy.faction.GetAntiPlayerBehavior();
+            entitiy.OnFactionChange += UpdateFaction;
+            OnHealthChange?.Invoke();
         }
 
         public void FillToMax()
@@ -49,6 +56,12 @@ namespace Entities
         public void DamageHealth(int health)
         {
             ChangeHealth(-health);
+        }
+
+        void UpdateFaction(Faction newFaction)
+        {
+            behavior = newFaction.GetAntiPlayerBehavior();
+            OnHealthChange?.Invoke();
         }
 
         void ChangeHealth(int health)

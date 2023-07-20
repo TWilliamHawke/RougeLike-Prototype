@@ -40,6 +40,8 @@ namespace Entities.PlayerScripts
 
         public Faction faction => _playerFaction;
 
+        public event UnityAction<Faction> OnFactionChange;
+
         public void Init()
         {
             InitComponents();
@@ -109,6 +111,7 @@ namespace Entities.PlayerScripts
             _movementController.OnStepEnd += EndPlayerTurn;
 
             _health = GetComponent<Health>();
+            _health.Init(this);
 
             GetComponent<VisibilityController>().ChangeViewingRange();
             GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
@@ -120,5 +123,10 @@ namespace Entities.PlayerScripts
             OnPlayerTurnEnd?.Invoke();
         }
 
+        void IFactionMember.ReplaceFaction(Faction newFaction)
+        {
+            _playerFaction = newFaction;
+            OnFactionChange?.Invoke(newFaction);
+        }
     }
 }

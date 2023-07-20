@@ -9,9 +9,11 @@ namespace Entities.Combat
         {
             float baseDamage = Random.Range(damageSource.minDamage, damageSource.maxDamage);
             if(baseDamage < 1) return 0;
-            float resist = target.resists[damageSource.damageType];
+            int resist = 0;
 
-            float finalDamage = baseDamage / (1 + resist / baseDamage);
+            target.resists.TryGetValue(damageSource.damageType, out resist);
+
+            float finalDamage = baseDamage / (1 + (float)resist / baseDamage);
             return (int)finalDamage;
         }
 
