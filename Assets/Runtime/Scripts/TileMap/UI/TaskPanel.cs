@@ -30,6 +30,9 @@ namespace Map.UI
 
 		public void SetTask(TaskData task)
 		{
+            //onTriggerExit2d invokes then scene was destroyed
+            if (_locationIcon.IsDestroyed()) return;
+            
 			_locationTask.text = task.taskText;
 			_locationIcon.sprite = task.icon;
 			_locationName.text = task.displayName;
