@@ -37,23 +37,7 @@ namespace Entities.Combat
         private void Awake()
         {
             _tilesGridInjector.AddInjectionTarget(this);
-
-            if (_projectiles is not null) return;
-
-            _projectiles = new ObjectPool<Projectile>(
-                createFunc: () => Instantiate(_projectilePrefab),
-                actionOnGet: proj => proj.SetParent(this)
-            );
-
-            _aoeEffects = new ObjectPool<AoeAnimation>(
-                createFunc: () => Instantiate(_aoeEffectPrefab),
-                actionOnGet: aoe =>
-                {
-                    aoe.transform.SetParent(this.transform);
-                    aoe.Reset();
-                },
-                actionOnRelease: aoe => aoe.Hide()
-            );
+            FillProjectilesPool();
         }
 
         void Update()
@@ -96,8 +80,7 @@ namespace Entities.Combat
         private void DoDamage()
         {
             _progress = 0;
-            var damage = DamageCalulator.GetDamage(_launchedProjectile.template, _target);
-            _target.TakeDamage(damage);
+            AttackHandler.ProcessAttack(_launchedProjectile.template, _target);
             _launchedProjectile.PlayImpactSound();
             _launchedProjectile.HideSprite();
             _projectileCoroutine = StartCoroutine(ReleaseAfter5Sec());
@@ -131,9 +114,28 @@ namespace Entities.Combat
             {
                 var target = node.entityInthisNode as IRangeAttackTarget;
                 if (target is null) continue;
-                var damage = DamageCalulator.GetDamage(_startedAoeEffect.template, target);
-                target.TakeDamage(damage);
+                AttackHandler.ProcessAttack(_startedAoeEffect.template, target);
             }
+        }
+
+        private void FillProjectilesPool()
+        {
+            if (_projectiles is not null) return;
+
+            _projectiles = new ObjectPool<Projectile>(
+                createFunc: () => Instantiate(_projectilePrefab),
+                actionOnGet: proj => proj.SetParent(this)
+            );
+
+            _aoeEffects = new ObjectPool<AoeAnimation>(
+                createFunc: () => Instantiate(_aoeEffectPrefab),
+                actionOnGet: aoe =>
+                {
+                    aoe.transform.SetParent(this.transform);
+                    aoe.Reset();
+                },
+                actionOnRelease: aoe => aoe.Hide()
+            );
         }
 
         private void FinalizeAOE()

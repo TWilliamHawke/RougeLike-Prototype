@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using Rng = System.Random;
-
 
 public static class CollectionsExtension
 {
@@ -36,5 +36,29 @@ public static class CollectionsExtension
         {
             action(item);
         }
+    }
+
+    public static T GetRandonByWeight<T>(this IEnumerable<T> list, System.Func<T, int> selector)
+    {
+        var result = list.FirstOrDefault();
+        int totalWeight = 0;
+
+        foreach(var element in list)
+        {
+            totalWeight += selector(element);
+        }
+
+        int randomWeight = Random.Range(0, totalWeight);
+        totalWeight = 0;
+
+        foreach(var element in list)
+        {
+            result = element;
+            totalWeight += selector(element);
+
+            if (totalWeight >= randomWeight) break;
+        }
+
+        return result;
     }
 }

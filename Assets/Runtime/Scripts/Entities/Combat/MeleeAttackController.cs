@@ -79,8 +79,7 @@ namespace Entities.Combat
 
         void DoDamage(IDamageSource damageSource, IAttackTarget target)
         {
-            int damage = DamageCalulator.GetDamage(damageSource, target);
-            target.TakeDamage(damage);
+            AttackHandler.ProcessAttack(damageSource, target);
         }
 
         public void FinalizeInjection()
