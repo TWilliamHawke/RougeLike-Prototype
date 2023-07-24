@@ -8,7 +8,7 @@ namespace Entities.Combat
     {
         public int CalculateProbability(IDamageSource damageSource, IAttackTarget target)
         {
-            return 1;
+            return 80;
         }
 
         public void DoHit(IDamageSource damageSource, IAttackTarget target)
