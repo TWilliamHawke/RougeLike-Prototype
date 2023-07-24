@@ -76,6 +76,7 @@ namespace Entities
         private void CheckHealth()
         {
             if (_health.currentHealth > 0) return;
+            _body.StartDeathAnimation();
             OnDeath?.Invoke(this);
             OnDeath = null;
         }

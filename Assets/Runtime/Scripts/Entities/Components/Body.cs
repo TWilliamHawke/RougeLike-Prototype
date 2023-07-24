@@ -11,7 +11,20 @@ namespace Entities
     {
         [SerializeField] AudioSource _audioSource;
         [SerializeField] TMP_Text _TMPSprite;
+        [SerializeField] TMP_Text _remains;
+        [SerializeField] [Range(0, 1)] float _deathAnimationSpeed = .5f;
 
+        public event UnityAction OnAnimationEnd;
+
+        enum AnimationState {
+            death = -1,
+            none = 0,
+            rise = 1,
+        }
+
+        float _animationProgress = 0;
+        AnimationState _animationState = AnimationState.none;
+        Vector3 _defaultPosition;
 
         public void UpdateSkin(string bodyChar, Color color)
         {
@@ -23,6 +36,35 @@ namespace Entities
         {
             _audioSource.PlayOneShot(sound);
         }
+
+        public void StartDeathAnimation()
+        {
+            _animationState = AnimationState.death;
+            _defaultPosition = _TMPSprite.rectTransform.position;
+        }
+
+
+        private void Update() {
+            if (_animationState == AnimationState.none) return;
+            _animationProgress += Time.deltaTime * _deathAnimationSpeed;
+
+            _TMPSprite.rectTransform.position = _defaultPosition + Vector3.up
+                * _animationProgress *(int)_animationState;
+
+            if (_animationState == AnimationState.death) {
+                var color = new Color(1, 1, 1, Mathf.Clamp01(_animationProgress));
+                _remains.color = color;
+            }
+
+            if (_animationProgress >= 1) {
+                OnAnimationEnd?.Invoke();
+                _animationProgress = 0;
+                _animationState = AnimationState.none;
+            }
+
+        }
+
+
 
     }
 }
