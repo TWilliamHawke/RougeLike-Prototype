@@ -7,7 +7,7 @@ using Entities.NPCScripts;
 
 namespace Entities
 {
-    public class EntitiesSpawner : MonoBehaviour, IInjectionTarget
+    public class EntitiesSpawner : MonoBehaviour
     {
         [InjectField] EntitiesManager _entitiesManager;
 
@@ -16,17 +16,6 @@ namespace Entities
         [SerializeField] Injector _entitiesManagerInjector;
         [SerializeField] Injector _selfInjector;
 
-        public bool waitForAllDependencies => true;
-
-        private void Awake()
-        {
-            _selfInjector.SetDependency(this);
-            _entitiesManagerInjector.AddInjectionTarget(this);
-        }
-
-        public void FinalizeInjection()
-        {
-        }
 
         // public void SpawnEnemy(EnemyTemplate template, Vector3 position)
         // {

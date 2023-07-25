@@ -10,80 +10,72 @@ using Map;
 
 namespace Entities
 {
-    public class EntitiesManager : MonoBehaviour, IInjectionTarget
+    public class EntitiesManager : MonoBehaviour
     {
-        [SerializeField] Player _player;
+        [SerializeField] CustomEvent _onPlayerTurnStart;
 
         [Header("Injectors")]
-        [SerializeField] Injector _inputControllerInjector;
-        [SerializeField] Injector _selfInjector;
         [SerializeField] Injector _experienceStorageInjector;
-        [SerializeField] Injector _tilesGridInjector;
 
-        [InjectField] InputController _inputController;
         [InjectField] TilesGrid _tilesGrid;
 
-        ExpForKillsController _enemyKillsObserver;
+        Stack<StateMachine> _activeEnemies = new();
+        List<Entity> _allEntities = new();
+        List<IObserver<Entity>> _entitiesObservers = new();
 
-        StateMachine _currentStateMachine;
-
-        Stack<StateMachine> _activeEnemies = new Stack<StateMachine>();
-        List<StateMachine> _allEntities = new List<StateMachine>();
-
-        bool IInjectionTarget.waitForAllDependencies => true;
-
-        public void StartUp()
+        public void Awake()
         {
-            _enemyKillsObserver = new ExpForKillsController();
-            _experienceStorageInjector.AddInjectionTarget(_enemyKillsObserver);
-            _player.Init();
-            _player.OnPlayerTurnEnd += StartFirstEnemyTurn;
-            _inputControllerInjector.AddInjectionTarget(this);
-            _selfInjector.SetDependency(this);
-            _tilesGridInjector.AddInjectionTarget(this);
+            var enemyKillsObserver = new ExpForKillsController();
+            AddObserver(enemyKillsObserver);
+            _experienceStorageInjector.AddInjectionTarget(enemyKillsObserver);
         }
 
         public void AddEntity(Entity entity)
         {
             entity.stateMachine.Init();
-            entity.stateMachine.OnTurnEnd += StartNextEnemyTurn;
-            _allEntities.Add(entity.stateMachine);
-            _tilesGrid.TryAddEntityToTile(entity);
-            _enemyKillsObserver.AddEnemyToObserve(entity);
+            _allEntities.Add(entity);
+            _entitiesObservers.ForEach(observer => observer.AddToObserve(entity));
         }
 
-        void StartFirstEnemyTurn()
+        public void AddObserver(IObserver<Entity> observer)
+        {
+            _allEntities.ForEach(entity => observer.AddToObserve(entity));
+            _entitiesObservers.Add(observer);
+        }
+
+        //used in editor
+        public void StartFirstEnemyTurn()
         {
             AddActiveEnemiesToStack();
             StartNextEnemyTurn();
         }
 
-        void StartNextEnemyTurn()
+        //used in editor
+        public void StartNextEnemyTurn()
         {
             if (_activeEnemies.Count > 0)
             {
-                _currentStateMachine = _activeEnemies.Pop();
-                _currentStateMachine.StartTurn();
+                var currentStateMachine = _activeEnemies.Pop();
+                currentStateMachine.StartTurn();
             }
             else
             {
-                _currentStateMachine = null;
-                _inputController.EnableLeftClick();
-                _player.StartTurn();
+                _onPlayerTurnStart.Invoke();
             }
         }
 
         void AddActiveEnemiesToStack()
         {
-            foreach (var stateMachine in _allEntities)
+            foreach (var entity in _allEntities)
             {
-                _activeEnemies.Push(stateMachine);
+                _activeEnemies.Push(entity.stateMachine);
             }
         }
 
-        void IInjectionTarget.FinalizeInjection()
+        //used in editor
+        public void FinalizeInjection()
         {
-
+            AddObserver(_tilesGrid);
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Map
 {
-    public class TilesGrid
+    public class TilesGrid : IObserver<Entity>
     {
         TileNode[,] _grid;
         PathFinder _pathFinder;
@@ -26,20 +26,6 @@ namespace Map
         public bool TryGetNode(Vector3Int pos, out TileNode node)
         {
             return TryGetNodeAt(pos.x, pos.y, out node);
-        }
-
-        public bool TryAddEntityToTile(IObstacleEntity entity)
-        {
-            var tilePos = entity.transform.position.ToTilePos();
-            if (PositionInsideGrid(tilePos.x, tilePos.y))
-            {
-                var node = _grid[tilePos.x, tilePos.y];
-                if (node.entityInthisNode is not null) return false;
-                node.entityInthisNode = entity;
-                return true;
-            }
-
-            return false;
         }
 
         public bool TryGetNodeAt(int x, int y, out TileNode node)
@@ -87,6 +73,19 @@ namespace Map
             return neightBors;
         }
 
+        bool TryAddEntityToTile(Entity entity)
+        {
+            var tilePos = entity.transform.position.ToTilePos();
+            if (PositionInsideGrid(tilePos.x, tilePos.y))
+            {
+                var node = _grid[tilePos.x, tilePos.y];
+                if (node.entityInthisNode is not null) return false;
+                node.entityInthisNode = entity;
+                return true;
+            }
+
+            return false;
+        }
 
         void FillGrid(int[,] intMap)
         {
@@ -102,6 +101,16 @@ namespace Map
         bool PositionInsideGrid(int x, int y)
         {
             return x >= 0 && x <= _grid.GetUpperBound(0) && y >= 0 && y <= _grid.GetUpperBound(1);
+        }
+
+        void IObserver<Entity>.AddToObserve(Entity target)
+        {
+            TryAddEntityToTile(target);
+        }
+
+        void IObserver<Entity>.RemoveFromObserve(Entity target)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

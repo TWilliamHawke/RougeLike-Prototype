@@ -12,7 +12,7 @@ namespace Core.Input
     {
         InputController _inputController;
         ClickStateMachine _clickStateMachine;
-        
+
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _infoButtonInjector;
         [SerializeField] Injector _tileGridInjector;
@@ -39,6 +39,12 @@ namespace Core.Input
             _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
             _tileGridInjector.AddInjectionTarget(_clickStateMachine);
             _infoButtonInjector.AddInjectionTarget(_clickStateMachine);
+        }
+
+        //used in editor
+        public void EnableLeftClick()
+        {
+            _inputController.EnableLeftClick();
         }
 
         void UpdateHoveredTilePosition()

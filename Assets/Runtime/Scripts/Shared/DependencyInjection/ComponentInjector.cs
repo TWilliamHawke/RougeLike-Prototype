@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
 
-public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
+interface IDependencyProvider : IInjectionTarget
+{
+    IInjectionTarget realTarget { get; }
+}
+
+public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider
 {
     [SerializeField] MonoBehaviour _injectionTarget;
     [SerializeField] bool _waitForAllDependencies;
@@ -12,7 +17,9 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget
 
     [SerializeField] UnityEvent _finalizeInjectionHandler;
 
-    public bool waitForAllDependencies => _waitForAllDependencies;
+    bool IInjectionTarget.waitForAllDependencies => _injectors.Length < 2 ? false : _waitForAllDependencies;
+
+    IInjectionTarget IDependencyProvider.realTarget => _injectionTarget as IInjectionTarget;
 
     bool _targetAdded = false;
 
