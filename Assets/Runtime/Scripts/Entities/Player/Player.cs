@@ -14,7 +14,7 @@ namespace Entities.PlayerScripts
     public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity,
         IHaveHealthData, IFactionMember
     {
-        public event UnityAction OnPlayerTurnEnd;
+        [SerializeField] CustomEvent _onPlayerTurnEnd;
 
         [SerializeField] PlayerStats _stats;
         [SerializeField] Body _body;
@@ -42,7 +42,7 @@ namespace Entities.PlayerScripts
 
         public event UnityAction<Faction> OnFactionChange;
 
-        public void Init()
+        private void Awake()
         {
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
@@ -50,7 +50,7 @@ namespace Entities.PlayerScripts
             _selfInjector.SetDependency(this);
         }
 
-
+        //used in editor
         public void StartTurn()
         {
             if (_target != null && _movementController.pathLength <= 1)
@@ -120,7 +120,7 @@ namespace Entities.PlayerScripts
 
         void EndPlayerTurn()
         {
-            OnPlayerTurnEnd?.Invoke();
+            _onPlayerTurnEnd.Invoke();
         }
 
         void IFactionMember.ReplaceFaction(Faction newFaction)

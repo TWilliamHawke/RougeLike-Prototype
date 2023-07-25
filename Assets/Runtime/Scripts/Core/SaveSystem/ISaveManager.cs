@@ -2,7 +2,7 @@ namespace Core.SaveSystem
 {
     public interface ILoadManager
     {
-        void GetSaveState<T>(string key, ref T data);
+        bool GetSaveState<T>(string key, ref T data);
     }
 
     public interface ISaveManager

@@ -505,6 +505,89 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &52292504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52292505}
+  - component: {fileID: 52292508}
+  - component: {fileID: 52292507}
+  - component: {fileID: 52292506}
+  m_Layer: 0
+  m_Name: EntitiesSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52292505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52292504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1329410026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &52292506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52292504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 52292508}
+  _waitForAllDependencies: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &52292507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52292504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8c4b678c881548a18849259a18727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dependency: {fileID: 52292508}
+  _injector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
+--- !u!114 &52292508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52292504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2415df3798c4b439bb3dc0eed37ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyPrefab: {fileID: -8535166691431048405, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
+  _npcPrefab: {fileID: -3835083210805704611, guid: b856b33ca605ec744894610d3ce6178d, type: 3}
+  _entitiesManagerInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _selfInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
 --- !u!1001 &57925207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1879,10 +1962,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 166398774}
-  - component: {fileID: 166398775}
   - component: {fileID: 166398776}
   m_Layer: 0
-  m_Name: MainManager
+  m_Name: InjectorsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1903,20 +1985,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 389726488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &166398775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166398773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03920a5de3159ed4283920938eb34686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entitiesManager: {fileID: 1329410027}
-  _playerDataManager: {fileID: 1747095741}
 --- !u!114 &166398776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65476,7 +65544,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1329410026}
   - component: {fileID: 1329410027}
-  - component: {fileID: 1329410028}
+  - component: {fileID: 1329410030}
+  - component: {fileID: 1329410031}
+  - component: {fileID: 1329410032}
+  - component: {fileID: 1329410033}
   m_Layer: 0
   m_Name: EntitiesManager
   m_TagString: Untagged
@@ -65496,7 +65567,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 52292505}
   m_Father: {fileID: 389726488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1329410027
@@ -65511,12 +65583,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e4baf1bbaaaf74fa8a30944d6c4ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 390164292}
-  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
-  _selfInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _onPlayerTurnStart: {fileID: 11400000, guid: 376e9c8db85016947abf3d038a760384, type: 2}
   _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
-  _tilesGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
---- !u!114 &1329410028
+--- !u!114 &1329410030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65525,13 +65594,98 @@ MonoBehaviour:
   m_GameObject: {fileID: 1329410025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2415df3798c4b439bb3dc0eed37ad2, type: 3}
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: -8535166691431048405, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
-  _npcPrefab: {fileID: -3835083210805704611, guid: b856b33ca605ec744894610d3ce6178d, type: 3}
-  _entitiesManagerInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
-  _selfInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
+  _injectionTarget: {fileID: 1329410027}
+  _waitForAllDependencies: 1
+  _injectors:
+  - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1329410027}
+        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
+        m_MethodName: FinalizeInjection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1329410031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329410025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8c4b678c881548a18849259a18727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dependency: {fileID: 1329410027}
+  _injector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+--- !u!114 &1329410032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329410025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: adf8980e5685cb741935668bbd700de1, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1329410027}
+        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
+        m_MethodName: StartFirstEnemyTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1329410033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329410025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 7a69202fa51ba5a47bc801c71e6f18b6, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1329410027}
+        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
+        m_MethodName: StartNextEnemyTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1330791957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5066929566410913032, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
@@ -71108,6 +71262,7 @@ GameObject:
   - component: {fileID: 1866764015}
   - component: {fileID: 1866764017}
   - component: {fileID: 1866764016}
+  - component: {fileID: 1866764018}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -71176,6 +71331,34 @@ MonoBehaviour:
   m_DefaultActionMap: Disabled
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1866764018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866764014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 376e9c8db85016947abf3d038a760384, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1866764016}
+        m_TargetAssemblyTypeName: Core.Input.InputManager, Project
+        m_MethodName: EnableLeftClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1880405994
 GameObject:
   m_ObjectHideFlags: 0
@@ -74918,17 +75101,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7328594240612423248, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _playerFaction
-      value: 
-      objectReference: {fileID: 11400000, guid: 89cbf51a26e4daf49bb715ad15c862e7, type: 2}
     - target: {fileID: 7328594240612423254, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328594240612423255, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7328594240612423255, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
       propertyPath: m_LocalPosition.x

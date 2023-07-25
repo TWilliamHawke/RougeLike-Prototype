@@ -12,7 +12,7 @@ namespace Entities.PlayerScripts
         [SerializeField] Injector _saveDataInjector;
 		[SerializeField] Injector _experienceStorageInjector;
 
-        public void StartUp()
+        private void Awake()
         {
 			var experienceStorage = new ExperienceStorage();
 			_experienceStorageInjector.SetDependency(ref experienceStorage);

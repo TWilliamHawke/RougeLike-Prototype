@@ -70,14 +70,16 @@ namespace Core.SaveSystem
             saveDataOwner.Load(this);
         }
 
-        void ILoadManager.GetSaveState<T>(string key, ref T data)
+        bool ILoadManager.GetSaveState<T>(string key, ref T data)
         {
             if (_serializedData.TryGetValue(key, out var json))
             {
                 var saveData = JsonUtility.FromJson<SavedData<T>>(json);
-                if (saveData == null) return;
+                if (saveData == null) return false;
                 data = saveData.data;
+                return true;
             }
+            return false;
         }
 
         void ISaveManager.AddSaveState<T>(string key, T stringifyData)

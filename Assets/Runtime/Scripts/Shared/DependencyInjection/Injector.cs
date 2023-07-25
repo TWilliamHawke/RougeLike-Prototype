@@ -131,7 +131,10 @@ public class Injector : ScriptableObject
             && AnyInjectFieldIsNull(injectionTarget)) return;
 
         injectionTarget.FinalizeInjection();
-        OnInjectionFinalize?.Invoke(injectionTarget);
+
+        var realTarget = (injectionTarget as IDependencyProvider)?.realTarget ?? injectionTarget;
+
+        OnInjectionFinalize?.Invoke(realTarget);
     }
 
     private bool AnyInjectFieldIsNull(object dependency)

@@ -6,66 +6,47 @@ using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 namespace Entities.AI
 {
-	[RequireComponent(typeof(MovementController))]
-	[RequireComponent(typeof(MeleeAttackController))]
-	[RequireComponent(typeof(Health))]
-	public class StateMachine : MonoBehaviour, IInjectionTarget
-	{
-		public event UnityAction OnTurnEnd;
-
-		[SerializeField] Injector _playerInjector;
-        [SerializeField] Injector _tilesGridInjector;
+    [RequireComponent(typeof(MovementController))]
+    [RequireComponent(typeof(MeleeAttackController))]
+    [RequireComponent(typeof(Health))]
+    public class StateMachine : MonoBehaviour
+    {
+        [SerializeField] CustomEvent _onTurnEnd;
 
         [InjectField] TilesGrid _tilesGrid;
-		[InjectField] Player _player;
+        [InjectField] Player _player;
 
-		MeleeAttackController _meleeAttackController;
-		Health _health;
+        IState _defaultState;
 
-		IState _defaultState;
-		IState _currentState;
-
-		List<IState> _states = new List<IState>();
-		public Faction faction { get; private set; }
-
-        public bool waitForAllDependencies => true;
+        List<IState> _states = new();
+        public Faction faction { get; private set; }
 
         public void Init()
-		{
-			_health = GetComponent<Health>();
-			faction = GetComponent<IFactionMember>().faction;
-			
-			_playerInjector.AddInjectionTarget(this);
-			_tilesGridInjector.AddInjectionTarget(this);
-		}
-
-	    public void StartTurn()
-		{
-			_currentState = _defaultState;
-			foreach (var state in _states)
-            {
-                if (!state.Condition()) continue;
-
-                _currentState = state;
-				break;
-            }
-
-			_currentState.StartTurn();
+        {
+            faction = GetComponent<IFactionMember>().faction;
         }
 
-		public void EndTurn()
-		{
-			OnTurnEnd?.Invoke();
-		}
-
-        public void FinalizeInjection()
+        public void StartTurn()
         {
-			_defaultState = new DoNothing(this);
-			_states.Add(new Death(_health, this));
-			_states.Add(new Wait(this, _tilesGrid));
+            var currentState = _states.FirstOrDefault(state => state.Condition()) ?? _defaultState;
+            currentState.StartTurn();
+        }
+
+        public void EndTurn()
+        {
+            _onTurnEnd.Invoke();
+        }
+
+        //used in editor
+        public void CreateStates()
+        {
+            _defaultState = new DoNothing(this);
+            _states.Add(new Death(GetComponent<Health>(), this));
+            _states.Add(new Wait(this, _tilesGrid));
             _states.Add(new MeleeAttack(_player, this));
         }
     }
