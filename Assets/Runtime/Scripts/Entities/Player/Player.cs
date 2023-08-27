@@ -6,6 +6,7 @@ using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine.Events;
 using Effects;
+using Entities.Stats;
 
 namespace Entities.PlayerScripts
 {
@@ -20,8 +21,8 @@ namespace Entities.PlayerScripts
         [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
-        [SerializeField] Injector _selfInjector;
         [SerializeField] Faction _playerFaction;
+        [SerializeField] Stat _healthStat;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
@@ -29,12 +30,14 @@ namespace Entities.PlayerScripts
         MeleeAttackController _meleeAttackController;
         Health _health;
         IInteractive _target;
+        StatStorage _healthStorage;
+        StatsController _statsController;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public IAudioSource body => _body;
 
-        public EffectStorage effectStorage => _stats.effectStorage;
+        public EffectStorage effectStorage => _statsController.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
         public int maxHealth => 100;
 
@@ -44,10 +47,11 @@ namespace Entities.PlayerScripts
 
         private void Awake()
         {
+            _statsController = new(this);
+            _statsController.InitStat(_healthStat, 100);
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
-            _selfInjector.SetDependency(this);
         }
 
         //used in editor

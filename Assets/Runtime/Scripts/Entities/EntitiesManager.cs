@@ -66,6 +66,7 @@ namespace Entities
 
         void AddActiveEnemiesToStack()
         {
+            //logic will be much more complex
             foreach (var entity in _allEntities)
             {
                 _activeEnemies.Push(entity.stateMachine);

@@ -11,9 +11,9 @@ namespace Effects
 
 		IEffectTarget _self;
 
-        List<StaticEffectData> _staticEffects = new List<StaticEffectData>();
-		List<TemporaryEffectData> _temporaryEffectsList = new List<TemporaryEffectData>();
-		Dictionary<Effect, TemporaryEffectData> _temporaryEffects = new Dictionary<Effect, TemporaryEffectData>();
+        List<StaticEffectData> _staticEffects = new();
+		List<TemporaryEffectData> _temporaryEffectsList = new();
+		Dictionary<Effect, TemporaryEffectData> _temporaryEffects = new();
 
 		public List<TemporaryEffectData> temporaryEffects => _temporaryEffectsList;
 
