@@ -13,20 +13,14 @@ namespace Entities
 
         [SerializeField] Creature _enemyPrefab;
         [SerializeField] NPC _npcPrefab;
-        [SerializeField] Injector _entitiesManagerInjector;
-        [SerializeField] Injector _selfInjector;
 
-
-        // public void SpawnEnemy(EnemyTemplate template, Vector3 position)
-        // {
-        // 	SpawnEnemyAsChild(template, position, this);
-        // }
+        List<Entity> _uninitedCreatures = new();
 
         public NPC SpawnNpc(NPCTemplate template, Vector3 position)
         {
             var npc = Instantiate(_npcPrefab, position, Quaternion.identity);
             npc.BindTemplate(template);
-            _entitiesManager.AddEntity(npc);
+            AddEntity(npc);
             return npc;
         }
 
@@ -34,8 +28,27 @@ namespace Entities
         {
             var creature = Instantiate(_enemyPrefab, position, Quaternion.identity);
             creature.BindTemplate(template);
-            _entitiesManager.AddEntity(creature);
+            AddEntity(creature);
             return creature;
+        }
+
+        //editor event
+        public void AddAllEntities()
+        {
+            _uninitedCreatures.ForEach(entity => _entitiesManager.AddEntity(entity));
+            _uninitedCreatures.Clear();
+        }
+
+        private void AddEntity(Entity entity)
+        {
+            if (_entitiesManager)
+            {
+                _entitiesManager.AddEntity(entity);
+            }
+            else
+            {
+                _uninitedCreatures.Add(entity);
+            }
         }
     }
 

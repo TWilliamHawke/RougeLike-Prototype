@@ -557,7 +557,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 52292508}
+        m_TargetAssemblyTypeName: Entities.EntitiesSpawner, Project
+        m_MethodName: AddAllEntities
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &52292507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,8 +598,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: -8535166691431048405, guid: 495737ad1b6148f4ea307c39ca60c97f, type: 3}
   _npcPrefab: {fileID: -3835083210805704611, guid: b856b33ca605ec744894610d3ce6178d, type: 3}
-  _entitiesManagerInjector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
-  _selfInjector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
 --- !u!1001 &57925207
 PrefabInstance:
   m_ObjectHideFlags: 0
