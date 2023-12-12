@@ -33,6 +33,7 @@ namespace Map.Actions
                 enemy.lootTable.FillItemSection(ref loot);
             }
 
+            if(loot.isEmpty) return;
             _actionsLogic.Add(_actionsFactory.CreateLootAction(template, loot));
         }
     }
