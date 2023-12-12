@@ -9,7 +9,8 @@ using Rng = System.Random;
 
 namespace Map.Zones
 {
-    public class Encounter : MonoBehaviour, INpcActionTarget, IMapActionList, IMapZoneLogic, IObserver<Entity>
+    public class Encounter : MonoBehaviour,
+        INpcActionTarget, IMapActionList, IMapZoneLogic, IObserver<Entity>
     {
         [SerializeField] CustomEvent _onLocalTaskChange;
 
@@ -50,7 +51,7 @@ namespace Map.Zones
             _spawnQueue.AddObserver(this);
             _spawnQueue.AddToQueue(template.mainNPC, rng);
 
-            FinalizeInjection();
+            this.StartInjection();
         }
 
         public void ReplaceFactionForAll(Faction replacer)

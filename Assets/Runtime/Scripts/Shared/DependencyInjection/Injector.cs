@@ -55,6 +55,7 @@ public class Injector : ScriptableObject
         InjectForWaitingTargets();
     }
 
+    //add object that required this dependency
     public void AddInjectionTarget(IInjectionTarget injectionTarget)
     {
         var fields = FindAllInjectFields(injectionTarget.GetType());
@@ -65,6 +66,8 @@ public class Injector : ScriptableObject
             return;
         }
 
+        //if SetDependency already called - inject immediately
+        //else - add object to queue
         if (_dependency is null)
         {
             _targetsWaitingForInjection.Add(injectionTarget);
@@ -75,6 +78,7 @@ public class Injector : ScriptableObject
         }
     }
 
+    //calls if dependency in this injector becoming ready
     private void FinalizeTargetsIfDependencyIsReady(IInjectionTarget possibleDependency)
     {
         if (possibleDependency != _dependency) return;
@@ -90,6 +94,7 @@ public class Injector : ScriptableObject
         OnInjectionFinalize -= FinalizeTargetsIfDependencyIsReady;
     }
 
+    //calls then dependency added to injector
     private void InjectForWaitingTargets()
     {
         foreach (var target in _targetsWaitingForInjection)

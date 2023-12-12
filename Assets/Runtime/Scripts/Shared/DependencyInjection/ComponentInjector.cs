@@ -4,22 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
 
-interface IDependencyProvider : IInjectionTarget
-{
-    IInjectionTarget realTarget { get; }
-}
-
-public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider
+public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IManualInjector
 {
     [SerializeField] MonoBehaviour _injectionTarget;
     [SerializeField] bool _waitForAllDependencies;
+    [SerializeField] bool _addTargetManualy;
     [SerializeField] Injector[] _injectors;
 
     [SerializeField] UnityEvent _finalizeInjectionHandler;
 
     bool IInjectionTarget.waitForAllDependencies => _injectors.Length < 2 ? false : _waitForAllDependencies;
-
     IInjectionTarget IDependencyProvider.realTarget => _injectionTarget as IInjectionTarget;
+    MonoBehaviour IManualInjector.target => _injectionTarget;
 
     bool _targetAdded = false;
 
@@ -33,15 +29,20 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider
         TryAddTarget();
     }
 
-    private void TryAddTarget()
+    public void AddTarget()
     {
-        if (_targetAdded) return;
         _targetAdded = true;
 
         foreach (var injector in _injectors)
         {
             injector.AddInjectionTarget(this);
         }
+    }
+
+    private void TryAddTarget()
+    {
+        if (_targetAdded || _addTargetManualy) return;
+        AddTarget();
     }
 
     void IInjectionTarget.FinalizeInjection()

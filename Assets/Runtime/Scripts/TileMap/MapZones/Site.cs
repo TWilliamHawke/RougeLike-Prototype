@@ -34,7 +34,7 @@ namespace Map.Zones
             _spawnQueue.AddObserver(_taskController);
             _spawnQueue.AddToQueue(_template.enemies, rng);
 
-            FinalizeInjection();
+            this.StartInjection();
         }
 
         public void FinalizeInjection()
