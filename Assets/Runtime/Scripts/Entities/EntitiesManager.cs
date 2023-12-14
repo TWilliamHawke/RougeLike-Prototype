@@ -12,14 +12,9 @@ namespace Entities
 {
     public class EntitiesManager : MonoBehaviour
     {
-        [SerializeField] CustomEvent _onPlayerTurnStart;
-
         [Header("Injectors")]
         [SerializeField] Injector _experienceStorageInjector;
 
-        [InjectField] TilesGrid _tilesGrid;
-
-        Stack<StateMachine> _activeEnemies = new();
         List<Entity> _allEntities = new();
         List<IObserver<Entity>> _entitiesObservers = new();
 
@@ -41,42 +36,6 @@ namespace Entities
         {
             _allEntities.ForEach(entity => observer.AddToObserve(entity));
             _entitiesObservers.Add(observer);
-        }
-
-        //used in editor
-        public void StartFirstEnemyTurn()
-        {
-            AddActiveEnemiesToStack();
-            StartNextEnemyTurn();
-        }
-
-        //used in editor
-        public void StartNextEnemyTurn()
-        {
-            if (_activeEnemies.Count > 0)
-            {
-                var currentStateMachine = _activeEnemies.Pop();
-                currentStateMachine.StartTurn();
-            }
-            else
-            {
-                _onPlayerTurnStart.Invoke();
-            }
-        }
-
-        void AddActiveEnemiesToStack()
-        {
-            //logic will be much more complex
-            foreach (var entity in _allEntities)
-            {
-                _activeEnemies.Push(entity.stateMachine);
-            }
-        }
-
-        //used in editor
-        public void FinalizeInjection()
-        {
-            AddObserver(_tilesGrid);
         }
     }
 }

@@ -553,6 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 52292508}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
   _finalizeInjectionHandler:
@@ -3932,6 +3933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 285033831}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 3bc6aedfb9e675041b64d4e8b976e1aa, type: 2}
   _finalizeInjectionHandler:
@@ -5124,6 +5126,7 @@ Transform:
   - {fileID: 1747095740}
   - {fileID: 106419238}
   - {fileID: 497878639}
+  - {fileID: 1084460780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &390164292 stripped
@@ -6103,6 +6106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 497878641}
   _waitForAllDependencies: 1
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: a65f8af338a3b504f82ef715738b218a, type: 2}
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -57009,6 +57013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 582680839}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
   _finalizeInjectionHandler:
@@ -57113,6 +57118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 618016954}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
   _finalizeInjectionHandler:
@@ -62798,6 +62804,7 @@ GameObject:
   - component: {fileID: 1081761065}
   - component: {fileID: 1081761067}
   - component: {fileID: 1081761066}
+  - component: {fileID: 1081761068}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -62821,7 +62828,6 @@ MonoBehaviour:
   _player: {fileID: 390164292}
   _location: {fileID: 11400000, guid: 534371ef8a2d66b44b4c67b5f83af704, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
-  _mapZonesManager: {fileID: 1081761065}
 --- !u!4 &1081761064
 Transform:
   m_ObjectHideFlags: 0
@@ -62869,6 +62875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1081761067}
   _waitForAllDependencies: 1
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
   - {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
@@ -62900,6 +62907,174 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _thisInjector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
+--- !u!114 &1081761068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081761062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1081761063}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1081761063}
+        m_TargetAssemblyTypeName: Map.TileMapManager, Project
+        m_MethodName: StartObservation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &1084460779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1084460780}
+  - component: {fileID: 1084460784}
+  - component: {fileID: 1084460783}
+  - component: {fileID: 1084460782}
+  - component: {fileID: 1084460781}
+  m_Layer: 0
+  m_Name: AI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1084460780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084460779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389726488}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1084460781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084460779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1084460784}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084460784}
+        m_TargetAssemblyTypeName: Entities.AI.AIManager, Project
+        m_MethodName: StartObservation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1084460782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084460779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 7a69202fa51ba5a47bc801c71e6f18b6, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084460784}
+        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
+        m_MethodName: StartNextEnemyTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1084460783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084460779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: adf8980e5685cb741935668bbd700de1, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084460784}
+        m_TargetAssemblyTypeName: Entities.AI.AIManager, Project
+        m_MethodName: StartFirstEnemyTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1084460784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084460779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a585187ac208874fb1f2ea7a88367bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onPlayerTurnStart: {fileID: 11400000, guid: 376e9c8db85016947abf3d038a760384, type: 2}
 --- !u!1 &1112199530
 GameObject:
   m_ObjectHideFlags: 0
@@ -65554,10 +65729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329410026}
   - component: {fileID: 1329410027}
-  - component: {fileID: 1329410030}
   - component: {fileID: 1329410031}
-  - component: {fileID: 1329410032}
-  - component: {fileID: 1329410033}
   m_Layer: 0
   m_Name: EntitiesManager
   m_TagString: Untagged
@@ -65593,39 +65765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e4baf1bbaaaf74fa8a30944d6c4ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onPlayerTurnStart: {fileID: 11400000, guid: 376e9c8db85016947abf3d038a760384, type: 2}
   _experienceStorageInjector: {fileID: 11400000, guid: 345ca51d3c4bda542b5430a5219c6e41, type: 2}
---- !u!114 &1329410030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329410025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _injectionTarget: {fileID: 1329410027}
-  _waitForAllDependencies: 1
-  _injectors:
-  - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
-  _finalizeInjectionHandler:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329410027}
-        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
-        m_MethodName: FinalizeInjection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1329410031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65640,62 +65780,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 1329410027}
   _injector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
---- !u!114 &1329410032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329410025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _customEvent: {fileID: 11400000, guid: adf8980e5685cb741935668bbd700de1, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329410027}
-        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
-        m_MethodName: StartFirstEnemyTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1329410033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329410025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _customEvent: {fileID: 11400000, guid: 7a69202fa51ba5a47bc801c71e6f18b6, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329410027}
-        m_TargetAssemblyTypeName: Entities.EntitiesManager, Project
-        m_MethodName: StartNextEnemyTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1330791957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5066929566410913032, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
@@ -66089,6 +66173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1357326748}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
   _finalizeInjectionHandler:
@@ -72136,6 +72221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1951007504}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
   - {fileID: 11400000, guid: 2813f78f9f2c64241a962d6d79b8a86a, type: 2}
