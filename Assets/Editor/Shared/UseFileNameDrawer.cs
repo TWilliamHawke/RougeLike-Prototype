@@ -9,6 +9,8 @@ using System;
 public class UseFileNameDrawer : PropertyDrawer
 {
     float btnWidth = 23f;
+    const string UPPERCASE_PATTERN = @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])";
+    static readonly Regex regex = new Regex(UPPERCASE_PATTERN);
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -24,9 +26,6 @@ public class UseFileNameDrawer : PropertyDrawer
             {
                 string fileName = property.serializedObject.targetObject.name;
                 //split camelcase into separate words
-                string pattern = @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])";
-                Regex regex = new Regex(pattern);
-
                 var splittedName = regex.Replace(fileName, " ");
                 property.stringValue = EditorHelpers.Capitalize(splittedName);
             }

@@ -37,10 +37,6 @@ namespace CustomEditors
 		{
 			DrawPropertyField("_enemyFaction");
 		}
-
-		private void DrawNothing()
-		{
-		}
 	}
 }
 

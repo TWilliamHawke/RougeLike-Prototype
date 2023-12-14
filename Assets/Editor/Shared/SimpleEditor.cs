@@ -11,7 +11,7 @@ namespace CustomEditors
         {
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
-            
+
             DrawScriptName();
             DrawProperties();
 
@@ -37,6 +37,11 @@ namespace CustomEditors
         protected virtual void DrawProperties()
         {
         }
+
+        protected void DrawNothing()
+        {
+        }
+
     }
 }
 
