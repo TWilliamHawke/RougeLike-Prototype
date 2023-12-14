@@ -19,7 +19,7 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IMan
 
     bool _targetAdded = false;
 
-    private void Awake()
+    private void Start()
     {
         TryAddTarget();
     }

@@ -6,6 +6,7 @@ using Map.Generator;
 using Entities.PlayerScripts;
 using Map.Locations;
 using Map.Zones;
+using Entities;
 
 namespace Map
 {
@@ -18,7 +19,7 @@ namespace Map
 
         [SerializeField] Injector _tileGridInjector;
 
-        [SerializeField] MapZonesManager _mapZonesManager;
+        [InjectField] EntitiesManager _entitiesManager;
 
         public Location location => _location;
         TilesGrid _grid;
@@ -40,6 +41,12 @@ namespace Map
                 throw new System.Exception("node for player spawn not found");
             }
 
+        }
+
+        //for editor
+        public void StartObservation()
+        {
+            _entitiesManager.AddObserver(_grid);
         }
     }
 }
