@@ -18,4 +18,4 @@ MonoBehaviour:
   _value: 100
   _soundKit: {fileID: 11400000, guid: 335037fffc6c51f4c9f4302804592c16, type: 2}
   _equipmentType: 4
-  _physicalResist: 5
+  _physicalResist: 10
