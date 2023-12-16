@@ -22,7 +22,7 @@ namespace Entities.PlayerScripts
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
         [SerializeField] Faction _playerFaction;
-        [SerializeField] Stat _healthStat;
+        [SerializeField] StatValues _baseStats;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
@@ -47,7 +47,7 @@ namespace Entities.PlayerScripts
         private void Awake()
         {
             _statsController = new(this);
-            _statsController.InitStat(_healthStat, 100);
+            _baseStats.ForEach(s => _statsController.InitStat(s.stat, s.value));
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
