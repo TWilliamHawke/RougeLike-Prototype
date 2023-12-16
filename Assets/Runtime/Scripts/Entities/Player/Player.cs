@@ -30,7 +30,6 @@ namespace Entities.PlayerScripts
         MeleeAttackController _meleeAttackController;
         Health _health;
         IInteractive _target;
-        StatStorage _healthStorage;
         StatsController _statsController;
 
         public Dictionary<DamageType, int> resists => _testResists.set;

@@ -5,60 +5,46 @@ using UnityEngine;
 
 namespace Entities.Stats
 {
-    public class StatsController
+    public class StatsController : IStatController
     {
         public EffectStorage effectStorage { get; init; }
-
+        Dictionary<Stat, IStatStorage> _statsStorage = new();
 
         public StatsController(IEffectTarget effectTarget)
         {
             effectStorage = new(effectTarget);
         }
 
-        Dictionary<Stat, StatStorage> _statsStorage = new();
-
-        public StatStorage InitStat(Stat stat, int baseValue)
+        public void InitStat(Stat stat, int baseValue)
         {
-            if (stat.parentStat != null)
-            {
-                InitStat(stat.parentStat, baseValue);
-            }
-
             if (!_statsStorage.TryGetValue(stat, out var storage))
             {
                 storage = CreateStorage(stat);
             }
             storage.SetStatValue(baseValue);
-            return storage;
         }
 
-        public void AddObserver(IObserver<IStatData> observer, Stat stat)
+        public void AddObserver<T>(IObserver<T>  observer, Stat stat) where T : class
         {
             if (!_statsStorage.TryGetValue(stat, out var storage))
             {
                 storage = CreateStorage(stat);
             }
 
-            observer.AddToObserve(storage);
+            if (storage is not T) return;
+
+            observer.AddToObserve(storage as T);
         }
 
-        private StatStorage CreateStorage(Stat stat)
+        private IStatStorage CreateStorage(Stat stat)
         {
             if (_statsStorage.TryGetValue(stat, out var storage))
             {
                 return storage;
             }
 
-            if (stat.parentStat is null)
-            {
-                storage = new StatStorage(stat, effectStorage);
-                _statsStorage.Add(stat, storage);
-            }
-            else
-            {
-                var parent = CreateStorage(stat.parentStat);
-                storage = new StatStorage(parent, effectStorage);
-            }
+            storage = stat.CreateStorage(this);
+            _statsStorage.Add(stat, storage);
 
             return storage;
         }
