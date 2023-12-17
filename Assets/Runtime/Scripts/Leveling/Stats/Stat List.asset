@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75cace0631e21c44ca581a527bf8d4e6, type: 3}
+  m_Name: Stat List
+  m_EditorClassIdentifier: 
+  health: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
+  mana: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
+  maxHealth: {fileID: 11400000, guid: 188b34aca4da9cd479713b6748056320, type: 2}
+  maxMana: {fileID: 11400000, guid: c448979ad874b26448f283abb8156b09, type: 2}

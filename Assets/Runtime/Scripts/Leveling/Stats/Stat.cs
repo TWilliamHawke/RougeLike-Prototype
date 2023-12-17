@@ -5,17 +5,8 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class Stat : DisplayedObject
+    public abstract class Stat<T> : DisplayedObject
     {
-        public virtual IStatStorage CreateStorage(IStatController controller)
-        {
-            throw new System.Exception("no inplemented");
-        }
-
-        public virtual IStatStorage CreateStorage(IStatController controller, int startValue)
-        {
-            throw new System.Exception("no inplemented");
-        }
-
+        public abstract T SelectStorage(IStatContainer controller);
     }
 }

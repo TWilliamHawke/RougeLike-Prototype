@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Entities.Stats
 {
     [CreateAssetMenu(fileName ="Stat", menuName ="Entities/Stat")]
-    public class StaticStat : Stat
+    public class StaticStat : Stat<StaticStatStorage>
     {
         [SerializeField] bool _applyMultFirst = true;
         [SerializeField] int _capMin = 0;
@@ -26,18 +26,22 @@ namespace Entities.Stats
             return Mathf.FloorToInt((baseValue + flatBonus) * (1 + pctBonus / 100f));
         }
 
-        public override IStatStorage CreateStorage(IStatController controller, int startValue)
+        public StaticStatStorage CreateStorage(IStatContainer controller)
         {
             var storage = new StaticStatStorage(controller.effectStorage, this);
-            storage.SetStatValue(startValue);
+            controller.staticStatStorage.Add(this, storage);
             return storage;
         }
 
-        public override IStatStorage CreateStorage(IStatController controller)
+        public override StaticStatStorage SelectStorage(IStatContainer controller)
         {
-            return new StaticStatStorage(controller.effectStorage, this);
+            if (!controller.staticStatStorage.TryGetValue(this, out var storage))
+            {
+                storage = CreateStorage(controller);
+                var c = controller as StatsContainer;
+                IParentStat s = c.FindStorage<IParentStat, StaticStatStorage>(this);
+            }
+            return storage;
         }
-
-
     }
 }
