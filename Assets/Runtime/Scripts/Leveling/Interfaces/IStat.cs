@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public abstract class Stat<T> : DisplayedObject
+    public interface IStat<out T>
     {
         public abstract T SelectStorage(IStatContainer controller);
     }

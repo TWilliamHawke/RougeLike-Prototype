@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Entities.Stats
 {
     [CreateAssetMenu(fileName ="Stat", menuName ="Entities/CappedStat")]
-    public class CappedStat : Stat<CappedStatStorage>
+    public class CappedStat : DisplayedObject, IStat<CappedStatStorage>
     {
         [SerializeField] StaticStat _parentStat;
 
@@ -17,18 +17,13 @@ namespace Entities.Stats
             return storage;
         }
 
-        public override CappedStatStorage SelectStorage(IStatContainer controller)
+        public CappedStatStorage SelectStorage(IStatContainer controller)
         {
             if (!controller.cappedStatStorage.TryGetValue(this, out var storage))
             {
                 storage = CreateStorage(controller);
             }
             return storage;
-        }
-
-        public void AddObserver<T>(IObserver<T> observer)
-        {
-
         }
     }
 }
