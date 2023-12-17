@@ -17,19 +17,19 @@ namespace Entities.Stats
             effectStorage = new(effectTarget);
         }
 
-        public void InitStat<T>(Stat<T> stat, int baseValue) where T :IStatStorage
+        public void InitStat<T>(IStat<T> stat, int baseValue) where T :IStatStorage
         {
             var storage = stat.SelectStorage(this);
             storage.SetStatValue(baseValue);
         }
 
-        public void AddObserver<T, U>(IObserver<T>  observer, Stat<U> stat) where U : T
+        public void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T
         {
             var storage = stat.SelectStorage(this);
             observer.AddToObserve(storage);
         }
 
-        public T FindStorage<T, U>(Stat<U> stat) where U : T
+        public T FindStorage<T>(IStat<T> stat)
         {
             return stat.SelectStorage(this);
         }
