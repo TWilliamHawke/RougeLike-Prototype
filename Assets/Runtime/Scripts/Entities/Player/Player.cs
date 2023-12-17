@@ -30,7 +30,7 @@ namespace Entities.PlayerScripts
         MeleeAttackController _meleeAttackController;
         Health _health;
         IInteractive _target;
-        StatsController _statsController;
+        StatsContainer _statsController;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
@@ -47,7 +47,7 @@ namespace Entities.PlayerScripts
         private void Awake()
         {
             _statsController = new(this);
-            _baseStats.ForEach(s => _statsController.InitStat(s.stat, s.value));
+            _baseStats.InitStats(_statsController);
             InitComponents();
             _stats.SubscribeOnHealthEvents(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());

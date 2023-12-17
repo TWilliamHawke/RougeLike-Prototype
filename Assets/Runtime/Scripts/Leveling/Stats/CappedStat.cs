@@ -5,23 +5,30 @@ using UnityEngine;
 namespace Entities.Stats
 {
     [CreateAssetMenu(fileName ="Stat", menuName ="Entities/CappedStat")]
-    public class CappedStat : Stat
+    public class CappedStat : Stat<CappedStatStorage>
     {
         [SerializeField] StaticStat _parentStat;
 
-        public override IStatStorage CreateStorage(IStatController controller, int startValue)
+        public CappedStatStorage CreateStorage(IStatContainer controller)
         {
             var storage = new CappedStatStorage();
-            controller.InitStat(_parentStat, startValue);
             controller.AddObserver(storage, _parentStat);
+            controller.cappedStatStorage.Add(this, storage);
             return storage;
         }
 
-        public override IStatStorage CreateStorage(IStatController controller)
+        public override CappedStatStorage SelectStorage(IStatContainer controller)
         {
-            var storage = new CappedStatStorage();
-            controller.AddObserver(storage, _parentStat);
+            if (!controller.cappedStatStorage.TryGetValue(this, out var storage))
+            {
+                storage = CreateStorage(controller);
+            }
             return storage;
+        }
+
+        public void AddObserver<T>(IObserver<T> observer)
+        {
+
         }
     }
 }
