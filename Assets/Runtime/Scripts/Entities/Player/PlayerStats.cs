@@ -5,31 +5,42 @@ using UnityEngine;
 using UnityEngine.Events;
 using Effects;
 using Core;
+using Entities.Stats;
+using Entities.Behavior;
 
 namespace Entities.PlayerScripts
 {
-    public class PlayerStats : ScriptableObject, IManaComponent
+    public class PlayerStats : ScriptableObject, IManaComponent, IHealthbarData, IStatsController
     {
         [SerializeField] AudioClip[] _weaponSounds;
+        [SerializeField] StatList _statList;
+        [SerializeField] StatValues _defaultStats;
+        [SerializeField] CustomEvent _onPlayerStatsInit;
+
+        CappedStatStorage _mana;
+        Body _body;
 
         //public event UnityAction OnHealthChange;
-        public event UnityAction OnManaChange;
-
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
-        EffectStorage _effectStorage = new EffectStorage();
-
-        int _maxMana = 100;
-        int _currentMana = 100;
+        StatsContainer _statsContainer;
 
         public AudioClip[] attackSounds => _weaponSounds;
-        public int maxMana => _maxMana;
-        public int curentMana => _currentMana;
-        public EffectStorage effectStorage => _effectStorage;
+        public int maxMana => _mana.currentValue;
+        public int curentMana => _mana.maxValue;
+        public EffectStorage effectStorage => _statsContainer.effectStorage;
 
-        public void SubscribeOnHealthEvents(Player player)
+        public Vector3 bodyPosition => _body.transform.position;
+
+        public BehaviorType behavior => BehaviorType.none;
+
+        public void Init(Player player)
         {
-            _effectStorage.SetEffectTarget(player);
+            _statsContainer = new(player);
+            _defaultStats.InitStats(_statsContainer);
+            _mana = _statsContainer.FindStorage(_statList.mana);
+            _body = player.body;
+            _onPlayerStatsInit.Invoke();
         }
 
         public IDamageSource CalculateDamageData()
@@ -48,14 +59,17 @@ namespace Entities.PlayerScripts
 
         public bool TrySpendMana(int count)
         {
-            if(count <= _currentMana)
-            {
-                _currentMana -= count;
-                OnManaChange?.Invoke();
-                return true;
-            }
+            return _mana.TryReduceStat(count);
+        }
 
-            return false;
+        public void AddObserver<T, U>(IObserver<T> observer, IStat<U> stat) where U : T
+        {
+            _statsContainer.AddObserver(observer, stat);
+        }
+
+        public T FindStorage<T>(IStat<T> stat)
+        {
+            return _statsContainer.FindStorage(stat);
         }
     }
 }

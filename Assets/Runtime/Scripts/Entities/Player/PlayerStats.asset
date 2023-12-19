@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3e871627cc7b145836002781a9ecc4, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _weaponSounds:
   - {fileID: 8300000, guid: e73598c5297550640a28a0ed384b1976, type: 3}
   - {fileID: 8300000, guid: f64aa102abfd3b34f9c640d2a1552437, type: 3}
   - {fileID: 8300000, guid: 10efd5510e03d27408f4c316f2b928b7, type: 3}
   - {fileID: 8300000, guid: b71d6b72824a9f54784f9db54608d0be, type: 3}
+  _statList: {fileID: 11400000, guid: 8b54609446ac8f547b196f2e1705cdde, type: 2}
+  _defaultStats: {fileID: 11400000, guid: b64469b7efc36f546b0e90644f893ed7, type: 2}
+  _onPlayerStatsInit: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}

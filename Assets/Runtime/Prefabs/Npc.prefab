@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 717013027337067571}
+  _statList: {fileID: 11400000, guid: 8b54609446ac8f547b196f2e1705cdde, type: 2}
   _soundKit: {fileID: 11400000, guid: c5204c183e3592f4191e15f3994a0ba0, type: 2}
   OnLocationPanelClick: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
   _interactionZone: {fileID: 1303255968071488322}

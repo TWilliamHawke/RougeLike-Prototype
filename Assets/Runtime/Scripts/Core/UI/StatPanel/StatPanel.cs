@@ -28,7 +28,6 @@ namespace Core.UI
 
         public void Init()
         {
-            _playerStats.OnManaChange += UpdateManabar;
             _playerInjector.AddInjectionTarget(this);
 
 			UpdateManabar();
@@ -36,7 +35,6 @@ namespace Core.UI
 
         void OnDestroy()
         {
-            _playerStats.OnManaChange += UpdateManabar;
         }
 
 

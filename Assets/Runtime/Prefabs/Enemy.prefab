@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 1875642537}
+  _statList: {fileID: 11400000, guid: 8b54609446ac8f547b196f2e1705cdde, type: 2}
   _template: {fileID: 11400000, guid: 7e985e9dd54e72844a76ebc900c021d4, type: 2}
 --- !u!114 &950653437
 MonoBehaviour:

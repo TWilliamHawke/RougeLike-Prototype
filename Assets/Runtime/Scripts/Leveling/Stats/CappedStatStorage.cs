@@ -5,9 +5,12 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class CappedStatStorage : IStatStorage, IDynamicStat, IObserver<IParentStat>
+    public class CappedStatStorage : IStatStorage, IDynamicStat, IObserver<IParentStat>, IStatValues, ICappedStatChanges, IStatValueController, ISafeStatController
     {
         public int value => _value;
+
+        public int currentValue => _value;
+        public int maxValue => _parentStat.currentValue;
 
         int _value;
         float _pctOfMax = 1f;
@@ -26,7 +29,7 @@ namespace Entities.Stats
 
         public void ChangeStatPctOfParent(float statMod)
         {
-            SetStatValue((_parentStat.maxValue - _parentStat.minValue) * statMod);
+            SetStatValue((_parentStat.currentValue - _parentStat.minValue) * statMod);
             _pctOfMax = statMod;
         }
 
@@ -42,15 +45,16 @@ namespace Entities.Stats
         {
             if (_value == newValue) return;
 
-            _value = Mathf.Clamp(newValue, _parentStat.minValue, _parentStat.maxValue);
-            _pctOfMax = (float)_value / (_parentStat.maxValue - _parentStat.minValue);
+            var oldPctOfMax = _pctOfMax;
+            _value = Mathf.Clamp(newValue, _parentStat.minValue, _parentStat.currentValue);
+            _pctOfMax = (float)_value / (_parentStat.currentValue - _parentStat.minValue);
             OnValueChange?.Invoke(_value);
 
-            if (_value == _parentStat.minValue)
+            if (_value == _parentStat.minValue && oldPctOfMax > 0f)
             {
                 OnReachMin?.Invoke();
             }
-            if (_value == _parentStat.maxValue)
+            if (_value == _parentStat.currentValue && oldPctOfMax < 1f)
             {
                 OnReachMax?.Invoke();
             }
@@ -59,7 +63,7 @@ namespace Entities.Stats
         public void AddToObserve(IParentStat target)
         {
             _parentStat = target;
-            _value = _parentStat.maxValue;
+            _value = _parentStat.currentValue;
             _pctOfMax = 1f;
             _parentStat.OnValueChange += AjustValueToParent;
             OnValueChange?.Invoke(_value);
@@ -71,7 +75,7 @@ namespace Entities.Stats
 
         private void SetStatValue(float value)
         {
-            SetStatValue(Mathf.Ceil(value));
+            SetStatValue(Mathf.CeilToInt(value));
         }
 
         private void AjustValueToParent(int newParentValue)
@@ -79,5 +83,9 @@ namespace Entities.Stats
             SetStatValue(newParentValue * _pctOfMax);
         }
 
+        void IStatStorage.SetBaseStatValue(int value)
+        {
+            _parentStat.SetBaseStatValue(value);
+        }
     }
 }

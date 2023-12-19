@@ -2,9 +2,9 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public interface IParentStat
+    public interface IParentStat : IStatStorage
     {
-        int maxValue { get; }
+        int currentValue { get; }
         int minValue { get; }
         event UnityAction<int> OnValueChange;
     }
