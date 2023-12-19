@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class StaticStatStorage : IStatStorage, IParentStat
+    public class StaticStatStorage : IStatStorage, IParentStat, IStatValueController
     {
         int _value;
-        int IParentStat.maxValue => _value;
+        int IParentStat.currentValue => _value;
         int IParentStat.minValue => _stat.capMin;
 
         StaticStat _stat;
@@ -29,11 +29,16 @@ namespace Entities.Stats
             SetStatValue(_value + value);
         }
 
-        public void SetStatValue(int newValue)
+        private void SetStatValue(int newValue)
         {
             if (_value == newValue) return;
             _value = Mathf.Clamp(newValue, _stat.capMin, _stat.capMax);
             OnValueChange?.Invoke(_value);
+        }
+
+        void IStatStorage.SetBaseStatValue(int value)
+        {
+            SetStatValue(value);
         }
     }
 }

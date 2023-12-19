@@ -9,6 +9,7 @@ using UnityEngine;
 using Effects;
 using UnityEngine.Events;
 using Items;
+using Entities.Stats;
 
 namespace Entities
 {
@@ -16,20 +17,22 @@ namespace Entities
     [RequireComponent(typeof(Health))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
         IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IHaveHealthData, IMortal, IObstacleEntity,
-        IFactionMember
+        IFactionMember, IHealthbarData, IEntityWithComponents
     {
         [SerializeField] Body _body;
+        [SerializeField] StatList _statList;
 
         protected Body body => _body;
         protected abstract ITemplateWithBaseStats template { get; }
 
-        Health _health;
+        IStatValueController _health;
         EffectStorage _effectStorage;
-		public Faction faction { get; private set; }
+        StatsContainer _statsContainer;
+        public Faction faction { get; private set; }
 
         public event UnityAction<Entity> OnDeath;
         public event UnityAction<Faction> OnFactionChange;
-
+        public event UnityAction<IStatsController> OnStatsInit;
 
         public abstract Dictionary<DamageType, int> resists { get; }
         public StateMachine stateMachine => GetComponent<StateMachine>();
@@ -44,6 +47,9 @@ namespace Entities
 
         public abstract IDamageSource damageSource { get; }
 
+        public Vector3 bodyPosition => _body.transform.position;
+        public BehaviorType behavior => antiPlayerBehavior;
+
         public void ReplaceFaction(Faction newFaction)
         {
             faction = newFaction;
@@ -52,16 +58,20 @@ namespace Entities
 
         void IAttackTarget.TakeDamage(int damage)
         {
-            _health.DamageHealth(damage);
+            _health.ChangeStat(-damage);
         }
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
+            _statsContainer = new(this);
+            template.InitStats(_statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
             faction = template.faction;
-            _health = GetComponent<Health>();
-            _health.Init(this);
-            _health.OnHealthChange += CheckHealth;
+
+            var healthStorage = _statsContainer.FindStorage(_statList.health);
+            healthStorage.OnReachMin += ProceedDeath;
+            _health = healthStorage;
+            OnStatsInit?.Invoke(_statsContainer);
         }
 
         protected void InitComponents()
@@ -73,9 +83,8 @@ namespace Entities
             _effectStorage = new EffectStorage(this);
         }
 
-        private void CheckHealth()
+        private void ProceedDeath()
         {
-            if (_health.currentHealth > 0) return;
             _body.StartDeathAnimation();
             OnDeath?.Invoke(this);
             OnDeath = null;
@@ -83,6 +92,21 @@ namespace Entities
 
         public abstract void PlayAttackSound();
         public abstract void Interact(Player player);
+
+        public void AddStatObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T
+        {
+            _statsContainer.AddObserver(observer, stat);
+        }
+
+        public T FindStatStorage<T>(IStat<T> stat)
+        {
+            return _statsContainer.FindStorage(stat);
+        }
+
+        public U GetEntityComponent<U>() where U : MonoBehaviour, IEntityComponent
+        {
+            return GetComponent<U>();
+        }
     }
 
     public interface IMortal

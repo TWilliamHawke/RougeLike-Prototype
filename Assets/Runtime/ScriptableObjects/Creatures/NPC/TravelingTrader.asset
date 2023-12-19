@@ -17,6 +17,7 @@ MonoBehaviour:
   _health: 100
   _faction: {fileID: 11400000, guid: 7e704cc1f13b233439bfe604c30ad394, type: 2}
   _expForKill: 0
+  _statValues: {fileID: 11400000, guid: a71b01f280f977543a1451dbc2c28952, type: 2}
   _npcName: Traveling Trader
   _inventory: {fileID: 11400000, guid: 66ff99e91173a944088ddbe033c96a35, type: 2}
   _interactionZoneSize: {x: 5, y: 5}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Entities.Stats
 {
-    public class StatsContainer : IStatContainer
+    public class StatsContainer : IStatContainer, IStatsController
     {
         public EffectStorage effectStorage { get; init; }
 
@@ -20,7 +20,7 @@ namespace Entities.Stats
         public void InitStat<T>(IStat<T> stat, int baseValue) where T :IStatStorage
         {
             var storage = stat.SelectStorage(this);
-            storage.SetStatValue(baseValue);
+            storage.SetBaseStatValue(baseValue);
         }
 
         public void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T

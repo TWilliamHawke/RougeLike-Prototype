@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core;
 using Entities.Behavior;
+using Entities.Stats;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ namespace Entities.UI
     public class Healthbar : MonoBehaviour, IInjectionTarget
     {
         IHealthbarData _healthbarData;
+        IStatValues _healthStat;
 
         [SerializeField] Injector _mainCameraInjector;
         [SerializeField] Image _fillImage;
@@ -31,15 +33,27 @@ namespace Entities.UI
             _mainCameraInjector.AddInjectionTarget(this);
         }
 
-        public void BindHealth(IHealthbarData entity)
+        public void BindHealth(IHealthbarData entity, IStatValues healthStat)
         {
             _healthbarData = entity;
-            _healthbarData.OnHealthChange += UpdateHealthBar;
+            _healthStat = healthStat;
+            _healthStat.OnValueChange += UpdateHealthBar;
+            UpdateHealthBar();
         }
 
-        void UpdateHealthBar()
+        public void SubscribeOnFactionEvent(IFactionMember factionMember)
         {
-            float healthPct = (float)_healthbarData.currentHealth / _healthbarData.maxHealth;
+            factionMember.OnFactionChange += UpdateHealthFaction;
+        }
+
+        private void UpdateHealthFaction(Faction faction)
+        {
+            UpdateHealthBar();
+        }
+
+        void UpdateHealthBar(int _ = 0)
+        {
+            float healthPct = (float)_healthStat.currentValue / _healthStat.maxValue;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
             _fillImage.color = GetHealthbarColor(_healthbarData.behavior);
         }

@@ -4,7 +4,11 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - _faction: {instanceID: 0}
+  - _statValues: {fileID: 11400000, guid: a71b01f280f977543a1451dbc2c28952, type: 2}
+  - _sounds: {instanceID: 0}
   - _resists: {fileID: 11400000, guid: 38ae83a959d36a1439f026d8ea73c3a1, type: 2}
+  - _lootTable: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

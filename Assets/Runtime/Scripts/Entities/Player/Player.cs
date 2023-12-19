@@ -13,7 +13,7 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
     public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity,
-        IHaveHealthData, IFactionMember
+        IHaveHealthData, IFactionMember, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;
 
@@ -22,7 +22,6 @@ namespace Entities.PlayerScripts
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
         [SerializeField] Faction _playerFaction;
-        [SerializeField] StatValues _baseStats;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
@@ -30,27 +29,26 @@ namespace Entities.PlayerScripts
         MeleeAttackController _meleeAttackController;
         Health _health;
         IInteractive _target;
-        StatsContainer _statsController;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
-        public IAudioSource body => _body;
+        public Body body => _body;
 
-        public EffectStorage effectStorage => _statsController.effectStorage;
+        public EffectStorage effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
         public int maxHealth => 100;
 
         public Faction faction => _playerFaction;
 
         public event UnityAction<Faction> OnFactionChange;
+        public event UnityAction<IStatsController> OnStatsInit;
 
         private void Awake()
         {
-            _statsController = new(this);
-            _baseStats.InitStats(_statsController);
             InitComponents();
-            _stats.SubscribeOnHealthEvents(this);
+            _stats.Init(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
+            OnStatsInit?.Invoke(_stats);
         }
 
         //used in editor
@@ -130,6 +128,11 @@ namespace Entities.PlayerScripts
         {
             _playerFaction = newFaction;
             OnFactionChange?.Invoke(newFaction);
+        }
+
+        public U GetEntityComponent<U>() where U : MonoBehaviour, IEntityComponent
+        {
+            return GetComponent<U>();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.Combat;
+using Entities.Stats;
 using UnityEngine;
 
 namespace Entities
@@ -13,6 +14,7 @@ namespace Entities
 		[SerializeField] int _health;
 		[SerializeField] Faction _faction;
 		[SerializeField] int _expForKill;
+        [SerializeField] StatValues _statValues;
 
 		public int health => _health;
 		public string bodyChar => _bodyChar;
@@ -25,6 +27,11 @@ namespace Entities
         public abstract DamageType damageType { get; }
 		
 		public abstract Entity CreateEntity(EntitiesSpawner spawner, Vector3 position);
+
+        public void InitStats(IStatContainer container)
+        {
+            _statValues.InitStats(container);
+        }
     }
 
 	public interface ITemplateWithBaseStats
@@ -34,6 +41,7 @@ namespace Entities
 		Color bodyColor { get; }
 		int expForKill { get; }
 		Faction faction { get; }
+        void InitStats(IStatContainer container);
 	}
 
 	public interface IEntityTemplate

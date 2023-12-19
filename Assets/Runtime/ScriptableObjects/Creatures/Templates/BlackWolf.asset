@@ -13,14 +13,11 @@ MonoBehaviour:
   m_Name: BlackWolf
   m_EditorClassIdentifier: 
   _bodyChar: w
-  _bodyColor:
-    r: 0.3207547
-    g: 0.3207547
-    b: 0.3207547
-    a: 1
+  _bodyColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
   _health: 20
   _faction: {fileID: 11400000, guid: 8dfc6061be133dd48a304147f8faaf6b, type: 2}
   _expForKill: 50
+  _statValues: {fileID: 11400000, guid: a71b01f280f977543a1451dbc2c28952, type: 2}
   _sounds: {fileID: 11400000, guid: 4967973cec41be848bf9ef88d2881135, type: 2}
   _minDamage: 10
   _maxDamage: 15
