@@ -6,6 +6,7 @@ using Items;
 using UnityEngine;
 using Entities.Behavior;
 using Map.Zones;
+using UnityEngine.Events;
 
 namespace Entities.NPCScripts
 {
@@ -28,12 +29,15 @@ namespace Entities.NPCScripts
 
         NPCInventory _inventory;
 
+        public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
+
         public void BindTemplate(NPCTemplate template)
         {
             _template = template;
 			_inventory = new NPCInventory(template.inventory);
             InitComponents();
             ApplyStartStats(template);
+            OnTemplateApplied?.Invoke(template);
         }
 
         public void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
@@ -43,7 +47,8 @@ namespace Entities.NPCScripts
 
         public override void Interact(Player player)
         {
-            if (antiPlayerBehavior == BehaviorType.agressive)
+            var behavior = GetComponent<FactionHandler>().antiPlayerBehavior;
+            if (behavior == BehaviorType.agressive)
             {
                 player.Attack(this);
             }

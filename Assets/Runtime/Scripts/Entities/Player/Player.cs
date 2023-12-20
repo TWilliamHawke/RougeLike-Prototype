@@ -12,6 +12,7 @@ namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
+    [RequireComponent(typeof(FactionHandler))]
     public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity,
         IHaveHealthData, IFactionMember, IEntityWithComponents
     {
@@ -40,15 +41,21 @@ namespace Entities.PlayerScripts
 
         public Faction faction => _playerFaction;
 
+        public BehaviorType behavior => BehaviorType.friendly;
+
         public event UnityAction<Faction> OnFactionChange;
         public event UnityAction<IStatsController> OnStatsInit;
 
         private void Awake()
         {
             InitComponents();
-            _stats.Init(this);
             _activeAbilities.SetController(GetComponent<AbilityController>());
-            OnStatsInit?.Invoke(_stats);
+        }
+
+        void Start()
+        {
+            _stats.Init(this);
+            OnStatsInit?.Invoke(_stats);      
         }
 
         //used in editor
@@ -112,7 +119,6 @@ namespace Entities.PlayerScripts
             _movementController.OnStepEnd += EndPlayerTurn;
 
             _health = GetComponent<Health>();
-            _health.Init(this);
 
             GetComponent<VisibilityController>().ChangeViewingRange();
             GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
@@ -130,7 +136,7 @@ namespace Entities.PlayerScripts
             OnFactionChange?.Invoke(newFaction);
         }
 
-        public U GetEntityComponent<U>() where U : MonoBehaviour, IEntityComponent
+        public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
         }

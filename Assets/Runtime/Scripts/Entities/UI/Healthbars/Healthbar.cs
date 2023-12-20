@@ -43,19 +43,19 @@ namespace Entities.UI
 
         public void SubscribeOnFactionEvent(IFactionMember factionMember)
         {
-            factionMember.OnFactionChange += UpdateHealthFaction;
+            UpdateHealthColor(factionMember.faction);
+            factionMember.OnFactionChange += UpdateHealthColor;
         }
 
-        private void UpdateHealthFaction(Faction faction)
+        private void UpdateHealthColor(Faction faction)
         {
-            UpdateHealthBar();
+            _fillImage.color = GetHealthbarColor(faction.GetAntiPlayerBehavior());
         }
 
         void UpdateHealthBar(int _ = 0)
         {
             float healthPct = (float)_healthStat.currentValue / _healthStat.maxValue;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
-            _fillImage.color = GetHealthbarColor(_healthbarData.behavior);
         }
 
         Color GetHealthbarColor(BehaviorType behavior)

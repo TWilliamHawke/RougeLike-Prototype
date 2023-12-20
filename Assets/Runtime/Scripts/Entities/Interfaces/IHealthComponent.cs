@@ -3,11 +3,9 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-	public interface IHealthComponent
+	public interface IHealthComponent : IEntityComponent
 	{
-		event UnityAction OnHealthChange;
-		int currentHealth { get; }
-		int maxHealth { get; }
+        bool isDead { get; }
 
         void DamageHealth(int health);
 		void RestoreHealth(int health);

@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 794024100}
   - component: {fileID: 1727609378632740904}
   - component: {fileID: 7746625641524832713}
+  - component: {fileID: 4890606717087606755}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -429,7 +430,6 @@ MonoBehaviour:
   _testResists: {fileID: 11400000, guid: 8cf33a657405d484494447d5578ff8aa, type: 2}
   _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
   _playerFaction: {fileID: 11400000, guid: 89cbf51a26e4daf49bb715ad15c862e7, type: 2}
-  _healthStat: {fileID: 11400000, guid: bbb16feeb67eaea468fd319da7ec0db0, type: 2}
 --- !u!114 &1257288472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _body: {fileID: 1921085457}
   _healthbarCanvasInjector: {fileID: 11400000, guid: 782e5e611d1340f41baea49703b52c38, type: 2}
+  _health: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
 --- !u!61 &2084189526720122616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -634,3 +635,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 7328594240612423248}
   _injector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+--- !u!114 &4890606717087606755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328594240612423254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f44e76628f96e4bbee723ea403d32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _faction: {fileID: 11400000, guid: 89cbf51a26e4daf49bb715ad15c862e7, type: 2}

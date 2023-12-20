@@ -11,7 +11,7 @@ namespace Core.UI
         [SerializeField] PlayerStats _playerStats;
         protected override IEnumerable<TemporaryEffectData> _layoutElementsData => _playerStats.effectStorage.temporaryEffects;
 
-        public void Init()
+        public void Subscribe()
         {
 			_playerStats.effectStorage.OnEffectsUpdate += UpdateLayout;
 			UpdateLayout();

@@ -12,13 +12,18 @@ namespace Entities
 
     public interface IEntityWithComponents
     {
-        public U GetEntityComponent<U>() where U : MonoBehaviour, IEntityComponent;
+        public U GetEntityComponent<U>() where U : IEntityComponent;
         event UnityAction<IStatsController> OnStatsInit;
     }
 
     public interface IEntityComponent
     {
 
+    }
+
+    public interface IEntityWithTemplate
+    {
+        event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
     }
 }
 

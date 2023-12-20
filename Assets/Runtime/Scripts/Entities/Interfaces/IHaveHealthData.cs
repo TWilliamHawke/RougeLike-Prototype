@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-	public interface IHaveHealthData : IFactionMember
+	public interface IHaveHealthData
 	{
 	    AudioClip[] deathSounds { get; }
 		int maxHealth { get; }

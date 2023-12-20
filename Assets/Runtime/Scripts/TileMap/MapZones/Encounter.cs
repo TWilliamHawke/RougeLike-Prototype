@@ -56,7 +56,7 @@ namespace Map.Zones
 
         public void ReplaceFactionForAll(Faction replacer)
         {
-            _entities.ForEach(entitiy => entitiy.ReplaceFaction(replacer));
+            _entities.ForEach(entitiy => entitiy.GetEntityComponent<IFactionMember>().ReplaceFaction(replacer));
         }
 
         private void FillActionsList()

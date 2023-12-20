@@ -6,9 +6,8 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-	public interface IHealthbarData
+	public interface IHealthbarData : IEntityComponent
 	{
 	    Vector3 bodyPosition { get; }
-        BehaviorType behavior { get; }
     }
 }

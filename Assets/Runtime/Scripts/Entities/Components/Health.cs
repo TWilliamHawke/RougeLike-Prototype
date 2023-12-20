@@ -1,65 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.Behavior;
+using Entities.Combat;
+using Entities.Stats;
 using Entities.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHealthComponent, IEntityComponent
+    public class Health : MonoBehaviour, IHealthComponent, IHealthbarData
     {
-        public event UnityAction OnHealthChange;
 
         [SerializeField] Body _body;
         [SerializeField] Injector _healthbarCanvasInjector;
+        [SerializeField] CappedStat _health;
 
-        IHaveHealthData _healthData;
+        CappedStatStorage _healthStorage;
 
-        int _currentHealth;
-
-        public int currentHealth => _currentHealth;
-        public int maxHealth => _healthData?.maxHealth ?? 100;
         public Vector3 bodyPosition => _body.transform.position;
+
+        public bool isDead => _healthStorage.currentValue <= 0;
 
         void Awake()
         {
-            _healthData = GetComponent<IHaveHealthData>();
-        }
-
-        public void Init(IHaveHealthData entitiy)
-        {
-            _currentHealth = _healthData.maxHealth;
-            OnHealthChange?.Invoke();
-        }
-
-        public void FillToMax()
-        {
-            _currentHealth = maxHealth;
-            OnHealthChange?.Invoke();
-        }
-
-        public void RestoreHealth(int health)
-        {
-            ChangeHealth(health);
-        }
-
-        public void DamageHealth(int health)
-        {
-            ChangeHealth(-health);
-        }
-
-        void ChangeHealth(int health)
-        {
-            _currentHealth = Mathf.Clamp(_currentHealth + health, 0, maxHealth);
-
-            OnHealthChange?.Invoke();
-
-            if (_currentHealth == 0 && _healthData.deathSounds.Length > 0)
+            if(TryGetComponent<IEntityWithComponents>(out var entity))
             {
-                var sound = _healthData.deathSounds.GetRandom();
-                _body.PlaySound(sound);
+                entity.OnStatsInit += ObserveHealth;
             }
+        }
+
+        public void RestoreHealth(int value)
+        {
+            ChangeHealth(value);
+        }
+
+        public void DamageHealth(int value)
+        {
+            ChangeHealth(-value);
+        }
+
+        void ChangeHealth(int value)
+        {
+            _healthStorage.ChangeStat(value);
+        }
+
+        private void ObserveHealth(IStatsController controller)
+        {
+            _healthStorage = controller.FindStorage(_health);
+        }
+
+        private void GetTemplateData(ITemplateWithBaseStats template)
+        {
+            
         }
     }
 }
