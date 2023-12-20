@@ -4,6 +4,7 @@ using Entities.Combat;
 using Entities.PlayerScripts;
 using Items;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Entities
 {
@@ -19,11 +20,14 @@ namespace Entities
         public override IDamageSource damageSource => _template;
         protected override ITemplateWithBaseStats template => _template;
 
+        public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
+
         public void BindTemplate(CreatureTemplate template)
         {
             _template = template;
             InitComponents();
             ApplyStartStats(template);
+            OnTemplateApplied?.Invoke(template);
         }
 
         public override void Interact(Player player)

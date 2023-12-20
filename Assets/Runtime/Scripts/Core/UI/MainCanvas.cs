@@ -10,7 +10,6 @@ namespace Core
 	{
 	    [SerializeField] QuickBar _quickBar;
 		[SerializeField] TileInfoPanel _tileInfoPanel;
-		[SerializeField] StatPanel _statPanel;
 		[SerializeField] ActiveEffectsPanel _activeEffectsPanel;
 		[SerializeField] ExperienceBar _experienceBar;
 		[SerializeField] InfoButton _infoButton;
@@ -24,8 +23,6 @@ namespace Core
 		{
 			_quickBar.Init();
 			_tileInfoPanel.Init();
-			_statPanel.Init();
-			_activeEffectsPanel.Init();
 			_expBarController = new ExperienceBarController(_experienceBar);
 			_experienceStorageInjector.AddInjectionTarget(_expBarController);
 			_infoButtonInjector.SetDependency(_infoButton);

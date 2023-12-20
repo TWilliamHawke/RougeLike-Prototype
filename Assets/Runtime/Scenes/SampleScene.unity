@@ -60297,7 +60297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _quickBar: {fileID: 389518435}
   _tileInfoPanel: {fileID: 1439812204}
-  _statPanel: {fileID: 1627645177}
   _activeEffectsPanel: {fileID: 1819180731}
   _experienceBar: {fileID: 1075676615}
   _infoButton: {fileID: 829673892}
@@ -66859,6 +66858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 1058725264}
   _statText: {fileID: 885835872}
+  _observedStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
 --- !u!222 &1446389418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -68084,6 +68084,7 @@ GameObject:
   - component: {fileID: 1627645179}
   - component: {fileID: 1627645178}
   - component: {fileID: 1627645177}
+  - component: {fileID: 1627645180}
   m_Layer: 5
   m_Name: StatsPanel
   m_TagString: Untagged
@@ -68125,7 +68126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
-  _playerInjector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
   _healthbar: {fileID: 1446389417}
   _manabar: {fileID: 1717321910}
 --- !u!114 &1627645178
@@ -68166,6 +68166,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627645175}
   m_CullTransparentMesh: 1
+--- !u!114 &1627645180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627645175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1627645177}
+        m_TargetAssemblyTypeName: Core.UI.StatPanel, Project
+        m_MethodName: SubscribeOnStatChanges
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1641946041
 GameObject:
   m_ObjectHideFlags: 0
@@ -69409,6 +69437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 233381171}
   _statText: {fileID: 358380994}
+  _observedStat: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
 --- !u!222 &1717321911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -71092,6 +71121,7 @@ GameObject:
   - component: {fileID: 1819180729}
   - component: {fileID: 1819180728}
   - component: {fileID: 1819180731}
+  - component: {fileID: 1819180732}
   m_Layer: 5
   m_Name: ActiveEffectsPanel
   m_TagString: Untagged
@@ -71189,6 +71219,34 @@ MonoBehaviour:
   _layoutElementPrefab: {fileID: 6648194026331298129, guid: 36131f647caf2874fabc49858fc79e3e, type: 3}
   _layout: {fileID: 1819180728}
   _playerStats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
+--- !u!114 &1819180732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819180726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1819180731}
+        m_TargetAssemblyTypeName: Core.UI.ActiveEffectsPanel, Project
+        m_MethodName: Subscribe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1831192257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75261,14 +75319,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7328594240612423248, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _baseStats
-      value: 
-      objectReference: {fileID: 11400000, guid: b64469b7efc36f546b0e90644f893ed7, type: 2}
-    - target: {fileID: 7328594240612423248, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
-      propertyPath: _healthStat
-      value: 
-      objectReference: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
     - target: {fileID: 7328594240612423254, guid: 4a1b928e47d94284988ef56b8721cfbf, type: 3}
       propertyPath: m_Name
       value: Player

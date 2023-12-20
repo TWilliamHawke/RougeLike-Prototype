@@ -3,51 +3,20 @@ using System.Collections.Generic;
 using Entities.PlayerScripts;
 using Entities;
 using UnityEngine;
+using Entities.Stats;
 
 namespace Core.UI
 {
-    public class StatPanel : MonoBehaviour, IInjectionTarget
+    public class StatPanel : MonoBehaviour
     {
         [SerializeField] PlayerStats _playerStats;
-        [SerializeField] Injector _playerInjector;
         [SerializeField] StatBar _healthbar;
         [SerializeField] StatBar _manabar;
 
-        [InjectField] Player _player;
-
-        Health _playerHealth;
-
-        public bool waitForAllDependencies => false;
-
-        public void FinalizeInjection()
+        public void SubscribeOnStatChanges()
         {
-            _playerHealth = _player.GetComponent<Health>();
-            _playerHealth.OnHealthChange += UpdateHealthbar;
-			UpdateHealthbar();
+            _playerStats.AddObserver(_manabar, _manabar.observedStat);
+            _playerStats.AddObserver(_healthbar, _healthbar.observedStat);
         }
-
-        public void Init()
-        {
-            _playerInjector.AddInjectionTarget(this);
-
-			UpdateManabar();
-        }
-
-        void OnDestroy()
-        {
-        }
-
-
-
-        void UpdateHealthbar()
-        {
-			_healthbar.ChangeStat(_playerHealth.currentHealth, _playerHealth.maxHealth);
-        }
-
-        void UpdateManabar()
-        {
-			_manabar.ChangeStat(_playerStats.curentMana, _playerStats.maxMana);
-        }
-
     }
 }

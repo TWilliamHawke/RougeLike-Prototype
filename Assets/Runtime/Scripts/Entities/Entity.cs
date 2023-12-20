@@ -15,46 +15,33 @@ namespace Entities
 {
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(FactionHandler))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IHaveHealthData, IMortal, IObstacleEntity,
-        IFactionMember, IHealthbarData, IEntityWithComponents
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IMortal, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
         [SerializeField] Body _body;
         [SerializeField] StatList _statList;
 
-        protected Body body => _body;
-        protected abstract ITemplateWithBaseStats template { get; }
 
         IStatValueController _health;
         EffectStorage _effectStorage;
         StatsContainer _statsContainer;
-        public Faction faction { get; private set; }
 
         public event UnityAction<Entity> OnDeath;
-        public event UnityAction<Faction> OnFactionChange;
         public event UnityAction<IStatsController> OnStatsInit;
+        public abstract event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
-        public abstract Dictionary<DamageType, int> resists { get; }
         public StateMachine stateMachine => GetComponent<StateMachine>();
         public EffectStorage effectStorage => _effectStorage;
         public int expForKill => template.expForKill;
 
+        public abstract Dictionary<DamageType, int> resists { get; }
         public abstract LootTable lootTable { get; }
-
         public abstract AudioClip[] deathSounds { get; }
-        public int maxHealth => template?.health ?? 100;
-        public BehaviorType antiPlayerBehavior => faction?.GetAntiPlayerBehavior() ?? BehaviorType.neutral;
-
         public abstract IDamageSource damageSource { get; }
 
-        public Vector3 bodyPosition => _body.transform.position;
-        public BehaviorType behavior => antiPlayerBehavior;
-
-        public void ReplaceFaction(Faction newFaction)
-        {
-            faction = newFaction;
-            OnFactionChange?.Invoke(newFaction);
-        }
+        protected Body body => _body;
+        protected abstract ITemplateWithBaseStats template { get; }
 
         void IAttackTarget.TakeDamage(int damage)
         {
@@ -66,7 +53,6 @@ namespace Entities
             _statsContainer = new(this);
             template.InitStats(_statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
-            faction = template.faction;
 
             var healthStorage = _statsContainer.FindStorage(_statList.health);
             healthStorage.OnReachMin += ProceedDeath;
@@ -85,6 +71,8 @@ namespace Entities
 
         private void ProceedDeath()
         {
+            var sound = deathSounds.GetRandom();
+            _body.PlaySound(sound);
             _body.StartDeathAnimation();
             OnDeath?.Invoke(this);
             OnDeath = null;
@@ -103,7 +91,7 @@ namespace Entities
             return _statsContainer.FindStorage(stat);
         }
 
-        public U GetEntityComponent<U>() where U : MonoBehaviour, IEntityComponent
+        public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
         }

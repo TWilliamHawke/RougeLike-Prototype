@@ -23,19 +23,14 @@ namespace Entities.UI
             _healthbarCanvasInjector.SetDependency(this);
         }
 
-        public void CreateNewHealthbar(IHealthbarData entityHealth, IStatValues statValues)
-        {
-            var healthbar = Instantiate(_healthbarPrefab, transform);
-            healthbar.BindHealth(entityHealth, statValues);
-        }
-
         public void AddToObserve(Entity target)
         {
-            var health = target.FindStatStorage(_statList.health);
+            var healthStorage = target.FindStatStorage(_statList.health);
+            var health = target.GetEntityComponent<IHealthbarData>();
 
             var healthbar = Instantiate(_healthbarPrefab, transform);
-            healthbar.BindHealth(target, health);
-            healthbar.SubscribeOnFactionEvent(target);
+            healthbar.BindHealth(health, healthStorage);
+            healthbar.SubscribeOnFactionEvent(target.GetEntityComponent<IFactionMember>());
 
             _healthbars.Add(target, healthbar);
         }

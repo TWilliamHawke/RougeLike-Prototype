@@ -17,7 +17,7 @@ namespace Entities.AI
 
         public bool Condition()
         {
-            return _health.currentHealth <= 0;
+            return _health.isDead;
         }
 
         public void EndTurn()
