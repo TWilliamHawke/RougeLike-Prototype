@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Map;
 using UnityEngine;
 using UnityEngine.Events;
-using Entities.NPCScripts;
+using Entities.NPC;
 
 namespace Entities
 {
@@ -12,11 +12,11 @@ namespace Entities
         [InjectField] EntitiesManager _entitiesManager;
 
         [SerializeField] Creature _enemyPrefab;
-        [SerializeField] NPC _npcPrefab;
+        [SerializeField] NPC.NPC _npcPrefab;
 
         List<Entity> _uninitedCreatures = new();
 
-        public NPC SpawnNpc(NPCTemplate template, Vector3 position)
+        public NPC.NPC SpawnNpc(NPCTemplate template, Vector3 position)
         {
             var npc = Instantiate(_npcPrefab, position, Quaternion.identity);
             npc.BindTemplate(template);

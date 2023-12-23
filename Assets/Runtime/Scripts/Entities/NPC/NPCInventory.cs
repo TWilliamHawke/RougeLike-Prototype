@@ -4,19 +4,23 @@ using UnityEngine;
 using Items;
 using Entities.Combat;
 
-namespace Entities.NPCScripts
+namespace Entities.NPC
 {
-    public class NPCInventory
+    public partial class NPCInventoryTemplate : ScriptableObject
     {
-        ItemSection<Item> _freeAccessItems = new(ItemContainerType.trader);
 
-        public Dictionary<DamageType, int> resists { get; init; } = new();
-
-        public Weapon weapon { get; init; }
-
-        public NPCInventory(NPCInventoryTemplate template)
+        protected class NPCInventory : INPCInventory
         {
-            weapon = template.weapon;
+            public Dictionary<DamageType, int> resists { get; init; } = new();
+
+            public Weapon weapon { get; init; }
+            public LootTable loot { get; init; }
+
+            public NPCInventory(NPCInventoryTemplate template)
+            {
+                weapon = template.weapon;
+                loot = template.inventory;
+            }
         }
     }
 }

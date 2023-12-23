@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.NPCScripts;
+using Entities.NPC;
 using UnityEngine;
 
 namespace Map.Zones

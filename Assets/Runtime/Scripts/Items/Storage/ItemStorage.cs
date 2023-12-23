@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using Items;
 using UnityEngine;
 
-namespace Entities.NPCScripts
+namespace Items
 {
-    public class TraderContainer : MonoBehaviour
+    public class ItemStorage : MonoBehaviour
     {
         public int lockLevel { get; private set; } = 0;
         public bool hasTrap { get; private set; } = false;
-        public string containerName { get; init; }
+        public string storageName { get; init; }
 
         ItemSection<Item> _itemsInContainer;
 
 
-        public TraderContainer(TraderContainerTemplate template)
+        public ItemStorage(ItemStorageData template)
         {
             _itemsInContainer = new ItemSection<Item>(ItemContainerType.trader);
             template.loot.FillItemSection(ref _itemsInContainer);
-            containerName = template.containerName;
+            storageName = template.storageName;
         }
 
-        public TraderContainer(ItemSection<Item> itemSection, string containerName)
+        public ItemStorage(ItemSection<Item> itemSection, string containerName)
         {
-            this.containerName = containerName;
+            this.storageName = containerName;
             _itemsInContainer = itemSection;
         }
 
