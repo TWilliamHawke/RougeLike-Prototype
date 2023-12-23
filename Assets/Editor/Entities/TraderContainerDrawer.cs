@@ -1,14 +1,11 @@
-using Entities;
-using Entities.NPCScripts;
+using Items;
 using UnityEditor;
 
 namespace CustomEditors
 {
-    [CustomPropertyDrawer(typeof(TraderContainerTemplate))]
+    [CustomPropertyDrawer(typeof(ItemStorageData))]
     public class TraderContainerDrawer : SimplePropertyDrawer
     {
-        string[] properties = { "containerName", "security", "loot" };
-        protected override string[] _properties => properties;
     }
 
 }

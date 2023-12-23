@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
-namespace Entities.NPCScripts
+namespace Items
 {
 	[System.Serializable]
-	public class TraderContainerTemplate
+	public class ItemStorageData
 	{
-		public string containerName;
+		public string storageName;
 		public int security;
 		public LootTable loot;
 	}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Entities;
 using UnityEngine;
-using Entities.NPCScripts;
+using Entities.NPC;
 using Rng = System.Random;
 
 

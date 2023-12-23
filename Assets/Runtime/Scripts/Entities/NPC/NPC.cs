@@ -8,7 +8,7 @@ using Entities.Behavior;
 using Map.Zones;
 using UnityEngine.Events;
 
-namespace Entities.NPCScripts
+namespace Entities.NPC
 {
     public class NPC : Entity
     {
@@ -20,21 +20,21 @@ namespace Entities.NPCScripts
 
         public override Dictionary<DamageType, int> resists => _inventory.resists;
         //HACK 
-        public override LootTable lootTable => _template.inventory.freeAccessItems;
+        public override LootTable lootTable => _inventory.loot;
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
         protected override ITemplateWithBaseStats template => _template;
 
         public MapZone interactionZone => _interactionZone;
         public override IDamageSource damageSource => throw new System.NotImplementedException();
 
-        NPCInventory _inventory;
+        INPCInventory _inventory;
 
         public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public void BindTemplate(NPCTemplate template)
         {
             _template = template;
-			_inventory = new NPCInventory(template.inventory);
+            _inventory = template.CreateInventory();
             InitComponents();
             ApplyStartStats(template);
             OnTemplateApplied?.Invoke(template);
@@ -54,7 +54,7 @@ namespace Entities.NPCScripts
             }
             else
             {
-                OnLocationPanelClick?.Invoke();
+                OnLocationPanelClick.Invoke();
             }
         }
 
