@@ -25,12 +25,14 @@ namespace Magic.UI
         [InjectField] Canvas _dragCanvas;
 
         ItemSlotData _itemSlotData;
-        DragHandler<ItemSlotData> _dragHandler;
+        DragController<ItemSlotData> _dragHandler;
 
         public ItemSlotData dragData => _itemSlotData;
 
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _dragableItemPrefab;
         public bool waitForAllDependencies => false;
+
+        public IDragController dataHandler => _dragHandler;
 
         private void Awake()
         {
@@ -50,26 +52,9 @@ namespace Magic.UI
             _count.text = data.count.ToString();
         }
 
-        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-        {
-            _dragHandler.OnBeginDrag();
-            _onSpellLineDragStart?.Invoke();
-        }
-
-        void IDragHandler.OnDrag(PointerEventData eventData)
-        {
-            _dragHandler.OnDrag(eventData);
-        }
-
-        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-        {
-            _dragHandler.OnEndDrag();
-            _onSpellLineDragEnd?.Invoke();
-        }
-
         public void FinalizeInjection()
         {
-            _dragHandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
+            _dragHandler = new(this, _dragableItemPrefab);
         }
     }
 }

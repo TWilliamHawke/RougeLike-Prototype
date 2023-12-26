@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8001032242689432034}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -107,7 +106,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8001032242689432034}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -183,7 +181,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8001032242689432034}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -259,12 +256,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8001032242689432034}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 64, y: 64}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2818757573289160827
 CanvasRenderer:
@@ -317,6 +313,7 @@ GameObject:
   - component: {fileID: 6294457503562512441}
   - component: {fileID: -3454517684520267812}
   - component: {fileID: -5124375662429245748}
+  - component: {fileID: 8914032609886409785}
   m_Layer: 0
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -342,7 +339,6 @@ RectTransform:
   - {fileID: 2978576483785438452}
   - {fileID: 4785779837357439427}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -374,9 +370,6 @@ MonoBehaviour:
   _icon: {fileID: 4362007808519729512}
   _outline: {fileID: 949575568011433269}
   _count: {fileID: 2779302045430758158}
-  _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
-  _onItemDragStart: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
-  _onItemDragEnd: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
 --- !u!114 &-3454517684520267812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,11 +397,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 6294457503562512441}
-  _injector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
-  _injectors:
-  - {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
-  - {fileID: 11400000, guid: d8046a279e6b4044a90184a431a0afa1, type: 2}
   _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: d8046a279e6b4044a90184a431a0afa1, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
@@ -424,6 +416,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8914032609886409785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666333126330395510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce1d12f5f0516b4182f2c532e0bcca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
 --- !u!1 &8677327250042010678
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +460,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8001032242689432034}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}

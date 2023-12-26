@@ -7,7 +7,10 @@ public interface IInjectionTarget
     //true is safe but slower
     bool waitForAllDependencies { get; }
 
-    void FinalizeInjection();
+    void FinalizeInjection()
+    {
+        
+    }
     Type GetType();
 
     void SetValue(FieldInfo field, object dependency)

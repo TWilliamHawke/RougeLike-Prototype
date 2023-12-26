@@ -4,12 +4,15 @@ using UnityEngine.InputSystem;
 namespace UI.DragAndDrop
 {
     //used as prefab so MonoBehaviour instead of interface
+    public abstract class DragableUIElement<T> : DragableUIElement
+    {
+        public abstract void ApplyData(T data);
+    }
+
     [RequireComponent(typeof(RectTransform))]
-    public abstract class DragableUIElement<T> : MonoBehaviour
+    public abstract class DragableUIElement : MonoBehaviour
     {
         RectTransform _transform;
-
-        public abstract void ApplyData(T data);
 
         public void UpdatePosition(Vector2 position)
         {

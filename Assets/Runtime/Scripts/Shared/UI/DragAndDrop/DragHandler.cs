@@ -5,73 +5,128 @@ using UnityEngine.EventSystems;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 namespace UI.DragAndDrop
 {
 
-    public class DragHandler<T>
+    public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IInjectionTarget
+    {
+        [InjectField] Canvas _dragCanvas;
+        [SerializeField] Injector _dragCanvasInjector;
+
+        public event UnityAction OnDragStart;
+        public event UnityAction OnDragEnd;
+
+        IDragDataSource _dragDataSource;
+        DragableUIElement _dragableElement;
+        IDropTarget _dropTarget;
+
+        public bool waitForAllDependencies => false;
+
+        void Awake()
+        {
+            _dragCanvasInjector.AddInjectionTarget(this);
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (_dragDataSource is null)
+            {
+                _dragDataSource = GetComponent<IDragDataSource>();
+            }
+            _dragableElement = _dragDataSource.CreateElement();
+            _dragableElement.SetParent(_dragCanvas);
+            var mousePos = Mouse.current.position.ReadValue();
+            var startPos = mousePos - _dragCanvas.renderingDisplaySize / 2;
+
+            _dragableElement.SetDragStartPosition(startPos);
+            OnDragStart?.Invoke();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            _dragableElement.UpdatePosition(eventData.delta);
+            var raycast = _dragableElement.GetRaycastPosition();
+            _dragDataSource.TryFindDropTarget(out var nextTarget, raycast);
+            if (nextTarget == _dropTarget) return;
+
+            _dropTarget?.UnHighlight();
+            nextTarget?.Highlight();
+            _dropTarget = nextTarget;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _dragDataSource.DropData();
+            OnDragEnd?.Invoke();
+            _dropTarget = null;
+            _dragableElement = null;
+        }
+    }
+
+    public interface IDragController
+    {
+        bool TryFindDropTarget(out IDropTarget target, Vector2 raycastPos);
+        DragableUIElement CreateElement();
+        void DropData();
+    }
+
+    public class DragController<T> : IDragController
     {
         static ObjectPool<DragableUIElement<T>> _dragPool;
 
         IDragDataSource<T> _dataSource;
-        DragableUIElement<T> _dragableElement;
-        IDropTarget<T> _prevTarget;
-        Canvas _dragCanvas;
+        DragableUIElement<T> _dragableElementPrefab;
+        DragableUIElement<T> _createdElement;
 
-        public DragHandler(IDragDataSource<T> dataSource, Canvas dragCanvas)
+        public DragableUIElement CreateElement()
+        {
+            _createdElement = _dragPool.Get();
+            _createdElement.ApplyData(_dataSource.dragData);
+            return _createdElement;
+        }
+
+        public DragController(IDragDataSource<T> dataSource, DragableUIElement<T> dragableElement)
         {
             _dataSource = dataSource;
-            _dragCanvas = dragCanvas;
+            _dragableElementPrefab = dragableElement;
+
             if (_dragPool is not null) return;
 
             _dragPool = new(
-                createFunc: () => GameObject.Instantiate(_dataSource.dragableElementPrefab),
+                createFunc: () => GameObject.Instantiate(_dragableElementPrefab),
                 actionOnGet: elem => elem.gameObject.SetActive(true),
                 actionOnRelease: elem => elem.gameObject.SetActive(false),
                 defaultCapacity: 1
             );
         }
 
-        public void OnBeginDrag()
+        public void DropData()
         {
-            _dragableElement = _dragPool.Get();
-            _dragableElement.SetParent(_dragCanvas);
-            _dragableElement.ApplyData(_dataSource.dragData);
-            var startPos = Mouse.current.position.ReadValue() - _dragCanvas.renderingDisplaySize / 2;
-
-            _dragableElement.SetDragStartPosition(startPos);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            _dragableElement.UpdatePosition(eventData.delta);
-            TryFindDropTarget(out var target);
-            if (target == _prevTarget) return;
-
-            _prevTarget?.UnHighlight();
-            target?.Highlight();
-            _prevTarget = target;
-        }
-
-        public void OnEndDrag()
-        {
-            TryFindDropTarget(out var target);
+            var raycastPos = _createdElement.GetRaycastPosition();
+            TryFindGenericTarget(out var target, raycastPos);
             target?.UnHighlight();
             target?.DropData(_dataSource.dragData);
-            _prevTarget = target = null;
-            _dragPool.Release(_dragableElement);
+            _dragPool.Release(_createdElement);
         }
 
-        bool TryFindDropTarget(out IDropTarget<T> target)
+        public bool TryFindDropTarget(out IDropTarget target, Vector2 raycastPos)
+        {
+            bool isSuccess = TryFindGenericTarget(out var genericTarget, raycastPos);
+            target = genericTarget;
+            return isSuccess;
+        }
+
+        public bool TryFindGenericTarget(out IDropTarget<T> target, Vector2 raycastPos)
         {
             target = default;
-            var raycastPosition = _dragableElement.GetRaycastPosition();
-            var hits = Raycasts.UI(raycastPosition);
+            var hits = Raycasts.UI(raycastPos);
 
             foreach (var hit in hits)
             {
                 if (hit.gameObject.TryGetComponent<IDropTarget<T>>(out var possibleTarget)
-                    && TargetIsValid(possibleTarget, hit, raycastPosition))
+                    && TargetIsValid(possibleTarget, hit, raycastPos))
                 {
                     target = possibleTarget;
                     return true;
