@@ -12,6 +12,7 @@ using Items.Actions;
 
 namespace Items
 {
+    [RequireComponent(typeof(DragHandler))]
     public class ItemSlot : UIDataElement<ItemSlotData>, IItemSlot, IPointerEnterHandler, IPointerExitHandler,
      IDragDataSource<ItemSlotData>, IPointerClickHandler, IHaveItemTooltip
     {
@@ -21,24 +22,20 @@ namespace Items
         [SerializeField] Image _icon;
         [SerializeField] Image _outline;
         [SerializeField] TextMeshProUGUI _count;
-        [Header("Injectors")]
-        [SerializeField] Injector _dragCanvasInjector;
-        [Header("Events")]
-        [SerializeField] CustomEvent _onItemDragStart;
-        [SerializeField] CustomEvent _onItemDragEnd;
 
-        [InjectField] Canvas _dragCanvas;
         [InjectField] ItemActionsController _itemActionsController;
 
         //data
         ItemSlotData _slotData;
 
         //drag item
-        DragHandler<ItemSlotData> _draghandler;
         ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
         public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
+        public IDragController dataHandler => _dragDataHandler;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
+
+        DragController<ItemSlotData> _dragDataHandler;
 
         public override void BindData(ItemSlotData slotData)
         {
@@ -62,39 +59,21 @@ namespace Items
         //event in editor
         public void CreateDragHandler()
         {
-            _draghandler = new DragHandler<ItemSlotData>(this, _dragCanvas);
+            _dragDataHandler = new(this, _floatingItemPrefab);
         }
 
+        //mouse only
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (_slotData is null) return;
             _outline.gameObject.SetActive(true);
-        }
-
-        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-        {
-            _outline.gameObject.SetActive(false);
-        }
-
-        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-        {
-            if (_slotData is null) return;
-            _draghandler.OnBeginDrag();
-            _onItemDragStart?.Invoke();
             _itemActionsController.FillContextMenu(_slotData);
         }
 
-        void IDragHandler.OnDrag(PointerEventData eventData)
+        //mouse only
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (_slotData is null) return;
-            _draghandler.OnDrag(eventData);
-        }
-
-        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-        {
-            if (_slotData is null) return;
-            _draghandler.OnEndDrag();
-            _onItemDragEnd?.Invoke();
+            _outline.gameObject.SetActive(false);
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

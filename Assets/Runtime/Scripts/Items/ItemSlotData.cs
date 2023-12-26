@@ -11,14 +11,17 @@ namespace Items
         [SerializeField] int _count = 1;
 
         IItemSectionInfo _itemSection;
-
+        public int slotPrice { get; init; }
+        
         public ItemContainerType slotContainer => _itemSection.itemContainer;
 
-        public ItemSlotData(Item item, int count, IItemSectionInfo itemSectionInfo)
+        public ItemSlotData(Item item, int count,
+            IItemSectionInfo itemSectionInfo, int slotPrice = 0)
         {
             _item = item;
             _count = count;
             _itemSection = itemSectionInfo;
+            this.slotPrice = slotPrice;
         }
 
         public Item item => _item;

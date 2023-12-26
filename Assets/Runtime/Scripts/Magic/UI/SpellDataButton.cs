@@ -33,12 +33,13 @@ namespace Magic.UI
         [InjectField] Canvas _dragCanvas;
 
         KnownSpellData _knownSpell;
-        DragHandler<KnownSpellData> _draghandler;
 
         public KnownSpellData dragData => _knownSpell;
-        public DragableUIElement<KnownSpellData> dragableElementPrefab => _draggedSpellPrefab;
 
         public bool waitForAllDependencies => false;
+
+        public IDragController dataHandler => _dragDataHandler;
+        DragController<KnownSpellData> _dragDataHandler;
 
         void Awake()
         {
@@ -79,26 +80,9 @@ namespace Magic.UI
             _spellBook.OpenSpellPage(_knownSpell);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _draghandler.OnBeginDrag();
-            _onSpellDragStart?.Invoke();
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            _draghandler.OnDrag(eventData);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            _draghandler.OnEndDrag();
-            _onSpellDragEnd?.Invoke();
-        }
-
         public void FinalizeInjection()
         {
-            _draghandler = new DragHandler<KnownSpellData>(this, _dragCanvas);
+            _dragDataHandler = new(this, _draggedSpellPrefab);
         }
     }
 }
