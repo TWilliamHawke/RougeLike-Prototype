@@ -9,6 +9,7 @@ namespace Items
     public class ItemSlotWithPrice : ItemSlot
     {
         [SerializeField] TextMeshProUGUI _price;
+        [SerializeField] LayoutGroup _label;
 
         public event UnityAction<ItemSlotData> OnClick;
 
@@ -17,7 +18,7 @@ namespace Items
             if (slotData.item is null) return;
             base.BindData(slotData);
             _price.text = slotData.slotPrice.ToString();
-            _price.gameObject.SetActive(slotData.slotPrice >= 0);
+            _label.Show();
         }
 
         public void OnPointerClick(PointerEventData eventData)

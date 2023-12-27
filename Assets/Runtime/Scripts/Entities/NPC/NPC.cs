@@ -18,23 +18,23 @@ namespace Entities.NPC
 
         NPCTemplate _template;
 
-        public override Dictionary<DamageType, int> resists => _inventory.resists;
+        public override Dictionary<DamageType, int> resists => inventory.resists;
         //HACK 
-        public override LootTable lootTable => _inventory.loot;
+        public override LootTable lootTable => inventory.loot;
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
-        protected override ITemplateWithBaseStats template => _template;
+        public override ITemplateWithBaseStats template => _template;
 
         public MapZone interactionZone => _interactionZone;
         public override IDamageSource damageSource => throw new System.NotImplementedException();
 
-        INPCInventory _inventory;
+        public INPCInventory inventory { get; private set;}
 
         public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public void BindTemplate(NPCTemplate template)
         {
             _template = template;
-            _inventory = template.CreateInventory();
+            inventory = template.CreateInventory();
             InitComponents();
             ApplyStartStats(template);
             OnTemplateApplied?.Invoke(template);
@@ -60,7 +60,7 @@ namespace Entities.NPC
 
         public override void PlayAttackSound()
         {
-            body.PlaySound(_inventory.weapon.attackSound);
+            body.PlaySound(inventory.weapon.attackSound);
         }
     }
 }

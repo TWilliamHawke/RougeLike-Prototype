@@ -41,7 +41,7 @@ namespace Entities
         public abstract IDamageSource damageSource { get; }
 
         protected Body body => _body;
-        protected abstract ITemplateWithBaseStats template { get; }
+        public abstract ITemplateWithBaseStats template { get; }
 
         void IAttackTarget.TakeDamage(int damage)
         {

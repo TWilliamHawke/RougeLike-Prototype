@@ -13,7 +13,7 @@ namespace Items
         IItemSectionInfo _itemSection;
         public int slotPrice { get; set; }
         
-        public ItemContainerType slotContainer => _itemSection.itemContainer;
+        public ItemStorageType slotContainer => _itemSection.itemContainer;
 
         public ItemSlotData(Item item, int count,
             IItemSectionInfo itemSectionInfo, int slotPrice = -1)

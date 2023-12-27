@@ -11,8 +11,8 @@ namespace Items.Actions
 
         protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer == ItemContainerType.inventory ||
-                itemSlot.slotContainer == ItemContainerType.storage;
+            return itemSlot.slotContainer == ItemStorageType.inventory ||
+                itemSlot.slotContainer == ItemStorageType.storage;
         }
 
         class DropAction : IItemAction

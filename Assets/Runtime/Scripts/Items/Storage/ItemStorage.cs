@@ -5,18 +5,24 @@ using UnityEngine;
 
 namespace Items
 {
-    public class ItemStorage : MonoBehaviour
+    public class ItemStorage : IEnumerable<ItemSlotData>
     {
         public int lockLevel { get; private set; } = 0;
-        public bool hasTrap { get; private set; } = false;
+        public int trapLevel { get; private set; } = 0;
         public string storageName { get; init; }
 
         ItemSection<Item> _itemsInContainer;
 
+        public ItemStorage(string name, LootTable items, ItemStorageType containerType)
+        {
+            _itemsInContainer = new ItemSection<Item>(containerType);
+            storageName = name;
+            items.FillItemSection(ref _itemsInContainer);
+        }
 
         public ItemStorage(ItemStorageData template)
         {
-            _itemsInContainer = new ItemSection<Item>(ItemContainerType.trader);
+            _itemsInContainer = new ItemSection<Item>(ItemStorageType.trader);
             template.loot.FillItemSection(ref _itemsInContainer);
             storageName = template.storageName;
         }
@@ -34,8 +40,18 @@ namespace Items
 
 		public void DisarmTrap()
 		{
-			hasTrap = false;
+			trapLevel = 0;
 		}
+
+        public IEnumerator<ItemSlotData> GetEnumerator()
+        {
+            return _itemsInContainer.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _itemsInContainer.GetEnumerator();
+        }
     }
 }
 

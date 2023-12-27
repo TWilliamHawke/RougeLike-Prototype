@@ -11,7 +11,7 @@ namespace Items.Actions
 
         protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer != ItemContainerType.trader && false;
+            return itemSlot.slotContainer != ItemStorageType.trader && false;
         }
 
         class SellAction : IItemAction
