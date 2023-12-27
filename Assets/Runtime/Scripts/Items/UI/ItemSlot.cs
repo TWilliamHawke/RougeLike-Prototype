@@ -16,7 +16,6 @@ namespace Items
     public class ItemSlot : UIDataElement<ItemSlotData>, IItemSlot, IPointerEnterHandler, IPointerExitHandler,
      IDragDataSource<ItemSlotData>, IPointerClickHandler, IHaveItemTooltip
     {
-        [SerializeField] Sprite _emptyFrame;
         [SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
@@ -26,24 +25,27 @@ namespace Items
         [InjectField] ItemActionsController _itemActionsController;
 
         //data
-        ItemSlotData _slotData;
+        protected ItemSlotData _slotData;
 
         //drag item
-        ItemSlotData IDragDataSource<ItemSlotData>.dragData => _slotData;
-        public DragableUIElement<ItemSlotData> dragableElementPrefab => _floatingItemPrefab;
+        public ItemSlotData dragData => _slotData;
         public IDragController dataHandler => _dragDataHandler;
+        public bool allowToDrag => _slotData is not null;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
+
 
         DragController<ItemSlotData> _dragDataHandler;
 
         public override void BindData(ItemSlotData slotData)
         {
+            if (slotData.item is null) return;
             _icon.gameObject.SetActive(true);
 
             _slotData = slotData;
 
             _icon.sprite = slotData.item.icon;
+            _icon.gameObject.SetActive(slotData.count > 0);
 
             _count.gameObject.SetActive(slotData.item.maxStackSize > 1);
             _count.text = slotData.count.ToString();
@@ -92,4 +94,5 @@ namespace Items
         }
 
     }
+
 }

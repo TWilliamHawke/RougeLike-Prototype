@@ -39,6 +39,9 @@ namespace Magic.UI
         public bool waitForAllDependencies => false;
 
         public IDragController dataHandler => _dragDataHandler;
+
+        public bool allowToDrag => _knownSpell is not null;
+
         DragController<KnownSpellData> _dragDataHandler;
 
         void Awake()

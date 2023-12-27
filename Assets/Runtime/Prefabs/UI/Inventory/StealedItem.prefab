@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 2951684170556047102}
   - component: {fileID: 5382295398105492822}
   - component: {fileID: -8727056967298458237}
+  - component: {fileID: 8197376732390260811}
   m_Layer: 0
   m_Name: StealedItem
   m_TagString: Untagged
@@ -294,10 +295,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0facf2cee22f8e7498f954c281a129c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _emptyFrame: {fileID: 21300000, guid: 5076c998e4f21f94ab61b6819495350d, type: 3}
+  _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
   _icon: {fileID: 2632863187402208168}
-  _outline: {fileID: 0}
+  _outline: {fileID: 1525779167150725109}
   _count: {fileID: 4508993415214102990}
   _price: {fileID: 8584220669152531891}
+--- !u!114 &8197376732390260811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329261298420222615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce1d12f5f0516b4182f2c532e0bcca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
 --- !u!1 &1809868545335331773
 GameObject:
   m_ObjectHideFlags: 0

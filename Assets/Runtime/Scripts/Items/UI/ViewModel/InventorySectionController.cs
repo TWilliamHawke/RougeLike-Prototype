@@ -15,18 +15,11 @@ namespace Items.UI
             _sectionData = sectionData;
             _inventorySection = inventorySection;
             _sectionData.OnSectionDataChange += UpdateSectionView;
-
-            _inventorySection.ClearLayout();
-
-            for (int i = 0; i < _sectionData.capacity; i++)
-            {
-                _inventorySection.CreateSlot();
-            }
         }
 
         public void UpdateSectionView()
         {
-            _inventorySection.FillSection(_sectionData);
+            _inventorySection.UpdateLayout(_sectionData);
         }
     }
 }

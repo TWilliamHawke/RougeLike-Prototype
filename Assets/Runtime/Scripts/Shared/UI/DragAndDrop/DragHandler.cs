@@ -35,6 +35,7 @@ namespace UI.DragAndDrop
             {
                 _dragDataSource = GetComponent<IDragDataSource>();
             }
+            if (!_dragDataSource.allowToDrag) return;
             _dragableElement = _dragDataSource.CreateElement();
             _dragableElement.SetParent(_dragCanvas);
             var mousePos = Mouse.current.position.ReadValue();
@@ -46,6 +47,8 @@ namespace UI.DragAndDrop
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!_dragDataSource.allowToDrag) return;
+
             _dragableElement.UpdatePosition(eventData.delta);
             var raycast = _dragableElement.GetRaycastPosition();
             _dragDataSource.TryFindDropTarget(out var nextTarget, raycast);
@@ -58,6 +61,7 @@ namespace UI.DragAndDrop
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (!_dragDataSource.allowToDrag) return;
             _dragDataSource.DropData();
             OnDragEnd?.Invoke();
             _dropTarget = null;
