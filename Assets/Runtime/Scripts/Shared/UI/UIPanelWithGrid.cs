@@ -36,13 +36,25 @@ public abstract class UIPanelWithGrid<T> : MonoBehaviour
         }
     }
 
+    public void UpdateLayout(IEnumerable<T> data)
+    {
+        ClearLayout();
+
+        foreach (var template in data)
+        {
+            var uiElement = _layout.CreateChild(_layoutElementPrefab);
+            uiElement.BindData(template);
+            _observers.ForEach(observer => observer.AddToObserve(uiElement));
+        }
+    }
+
     protected virtual void UpdateLayout()
     {
         ClearLayout();
 
         foreach (var template in _layoutElementsData)
         {
-            var uiElement = this.CreateChild(_layoutElementPrefab);
+            var uiElement = _layout.CreateChild(_layoutElementPrefab);
             uiElement.BindData(template);
             _observers.ForEach(observer => observer.AddToObserve(uiElement));
         }

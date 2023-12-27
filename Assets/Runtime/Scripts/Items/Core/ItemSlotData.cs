@@ -8,15 +8,15 @@ namespace Items
     public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe
     {
         [SerializeField] Item _item;
-        [SerializeField] int _count = 1;
+        [SerializeField] int _count;
 
         IItemSectionInfo _itemSection;
-        public int slotPrice { get; init; }
+        public int slotPrice { get; set; }
         
         public ItemContainerType slotContainer => _itemSection.itemContainer;
 
         public ItemSlotData(Item item, int count,
-            IItemSectionInfo itemSectionInfo, int slotPrice = 0)
+            IItemSectionInfo itemSectionInfo, int slotPrice = -1)
         {
             _item = item;
             _count = count;

@@ -17,7 +17,6 @@ namespace Items
 
         public event UnityAction OnSectionDataChange;
 
-        ItemSlotData IInventorySectionData.this[int idx] => _itemsList[idx];
         int IInventorySectionData.count => _itemsList.Count;
         ItemContainerType IItemSectionInfo.itemContainer => _slotContainer;
         public int capacity => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
@@ -130,14 +129,24 @@ namespace Items
             _itemsList.Add(itemSlotData);
         }
 
-        IEnumerator<ItemSlotData> IEnumerable<ItemSlotData>.GetEnumerator()
+        public IEnumerator<ItemSlotData> GetEnumerator()
         {
-            return _itemsList.GetEnumerator();
+            for (int i = 0; i < capacity; i++)
+            {
+                if (i < _itemsList.Count)
+                {
+                    yield return _itemsList[i];
+                }
+                else
+                {
+                    yield return new ItemSlotData(null, 0, this);
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _itemsList.GetEnumerator();
+            return GetEnumerator();
         }
 
     }

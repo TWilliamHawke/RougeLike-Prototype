@@ -11,6 +11,7 @@ namespace UI.DragAndDrop
     public interface IDragDataSource
     {
         IDragController dataHandler { get; }
+        bool allowToDrag { get; }
         DragableUIElement CreateElement()
         {
             return dataHandler.CreateElement();

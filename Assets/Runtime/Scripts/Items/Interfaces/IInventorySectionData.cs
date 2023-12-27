@@ -1,12 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 namespace Items
 {
-    public interface IInventorySectionData
+    public interface IInventorySectionData : IEnumerable<ItemSlotData>
     {
         event UnityAction OnSectionDataChange;
         int capacity { get; }
         int count { get; }
-        ItemSlotData this[int idx] { get; }
     }
 }

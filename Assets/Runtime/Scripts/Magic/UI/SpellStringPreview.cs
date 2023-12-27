@@ -34,6 +34,8 @@ namespace Magic.UI
 
         public IDragController dataHandler => _dragHandler;
 
+        public bool allowToDrag => _itemSlotData is not null;
+
         private void Awake()
         {
             _dragCanvasInjector.AddInjectionTarget(this);
