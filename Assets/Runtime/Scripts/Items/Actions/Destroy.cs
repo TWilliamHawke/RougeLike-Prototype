@@ -9,7 +9,7 @@ namespace Items.Actions
     {
         Inventory _inventory;
         ModalWindowController _modalWindow;
-        ItemSection<Item> _itemsList = new(ItemContainerType.none);
+        ItemSection<Item> _itemsList = new(ItemStorageType.none);
 
         public Destroy(Inventory inventory, ModalWindowController modalWindow)
         {
@@ -36,8 +36,8 @@ namespace Items.Actions
 
         protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.slotContainer == ItemContainerType.inventory ||
-                itemSlot.slotContainer == ItemContainerType.storage) &&
+            return (itemSlot.slotContainer == ItemStorageType.inventory ||
+                itemSlot.slotContainer == ItemStorageType.storage) &&
                 itemSlot.item is IDestroyable;
         }
 

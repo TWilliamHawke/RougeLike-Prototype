@@ -19,11 +19,14 @@ namespace Map.Zones
         [InjectField] MapZonesObserver _mapZonesObserver;
 
         EncounterTemplate _template;
+        INPCInventory _npcInventory;
 
         public int count => _encounterActions.Count;
         public TaskData currentTask => _taskController.currentTask;
         public IMapZoneTemplate template => _template;
         public IMapActionList actionList => this;
+
+        public INPCInventory inventory => _npcInventory;
 
         public IMapAction this[int idx] => _encounterActions[idx];
 
@@ -72,6 +75,12 @@ namespace Map.Zones
         {
             (target as NPC)?.InitInteractiveZone(this);
             _entities.Add(target);
+
+            if (target.template == (ITemplateWithBaseStats)_template.mainNPC)
+            {
+                var npc = (NPC)target;
+                _npcInventory = npc?.inventory;
+            }
         }
 
         public void RemoveFromObserve(Entity target)

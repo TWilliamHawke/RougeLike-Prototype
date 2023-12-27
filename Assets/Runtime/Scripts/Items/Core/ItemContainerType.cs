@@ -1,6 +1,6 @@
 namespace Items
 {
-    public enum ItemContainerType
+    public enum ItemStorageType
 	{
 		none,
 		inventory,

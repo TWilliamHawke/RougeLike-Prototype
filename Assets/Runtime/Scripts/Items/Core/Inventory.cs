@@ -106,11 +106,11 @@ namespace Items
             _sections = new List<IItemSection>(6);
 
             _resources = new StoredResources(_startResources);
-            _potionsBag = new ItemSection<Potion>(ItemContainerType.inventory, 3);
-            _spellStrings = new ItemSection<SpellString>(ItemContainerType.inventory);
-            _scrollsBag = new ItemSection<MagicScroll>(ItemContainerType.inventory, 5);
-            _main = new ItemSection<Item>(ItemContainerType.inventory, 12);
-            _storage = new ItemSection<Item>(ItemContainerType.storage);
+            _potionsBag = new ItemSection<Potion>(ItemStorageType.inventory, 3);
+            _spellStrings = new ItemSection<SpellString>(ItemStorageType.inventory);
+            _scrollsBag = new ItemSection<MagicScroll>(ItemStorageType.inventory, 5);
+            _main = new ItemSection<Item>(ItemStorageType.inventory, 12);
+            _storage = new ItemSection<Item>(ItemStorageType.storage);
 
             _sections.Add(_resources);
             _sections.Add(_potionsBag);

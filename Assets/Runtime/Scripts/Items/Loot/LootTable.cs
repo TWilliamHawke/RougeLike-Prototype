@@ -35,7 +35,7 @@ namespace Items
 
         public ItemSection<Item> GetLoot()
         {
-            var section = new ItemSection<Item>(ItemContainerType.loot);
+            var section = new ItemSection<Item>(ItemStorageType.loot);
             FillItemSection(ref section);
             return section;
         }

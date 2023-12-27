@@ -11,7 +11,7 @@ namespace Items.Actions
 
         protected override bool SlotIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer == ItemContainerType.inventory;
+            return itemSlot.slotContainer == ItemStorageType.inventory;
         }
 
         class MoveToStorageAction : IItemAction

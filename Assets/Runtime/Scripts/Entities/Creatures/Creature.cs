@@ -18,7 +18,7 @@ namespace Entities
 
         public override LootTable lootTable => _template.lootTable;
         public override IDamageSource damageSource => _template;
-        protected override ITemplateWithBaseStats template => _template;
+        public override ITemplateWithBaseStats template => _template;
 
         public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 

@@ -4,7 +4,7 @@ using Entities.Combat;
 
 namespace Entities.NPC
 {
-    public interface INPCInventory
+    public interface INPCInventory : IEnumerable<ItemStorage>
     {
         Weapon weapon { get; }
         Dictionary<DamageType, int> resists { get; }

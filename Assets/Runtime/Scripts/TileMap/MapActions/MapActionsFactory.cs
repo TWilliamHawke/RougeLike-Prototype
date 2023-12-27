@@ -12,6 +12,7 @@ namespace Map.Actions
     {
         [InjectField] LootPanel _lootPanel;
         [InjectField] ActionScreenController _actionScreenController;
+        [InjectField] StealingController _stealingController;
 
         [SerializeField] Injector _thisInjector;
 
@@ -50,7 +51,7 @@ namespace Map.Actions
 
             _npcActionCreators.Add(MapActionType.talk, new Talk());
             _npcActionCreators.Add(MapActionType.attack, new Attack(_actionScreenController));
-            _npcActionCreators.Add(MapActionType.rob, new Rob());
+            _npcActionCreators.Add(MapActionType.rob, new Rob(_stealingController));
             _npcActionCreators.Add(MapActionType.trade, new Trade());
         }
 

@@ -6,8 +6,25 @@ using System.Linq;
 
 namespace Items
 {
+    public class ItemSection<T> : ItemSection where T : Item
+    {
+        public ItemSection(ItemStorageType slotContainer, int maxSlotsCount = -1) : base(slotContainer, maxSlotsCount)
+        {
+        }
+
+        public override bool ItemMeet(Item someItem)
+        {
+            T item = someItem as T;
+
+            //item doesnt fit a selected type
+            if (item is null) return false;
+
+            return base.ItemMeet(item);
+        }
+    }
+
     [System.Serializable]
-    public class ItemSection<T> : IInventorySectionData, IItemSection, ILootStorage, IItemSectionInfo where T : Item
+    public class ItemSection : IInventorySectionData, IItemSection, ILootStorage, IItemSectionInfo
     {
 
         List<ItemSlotData> _itemsList;
@@ -18,13 +35,13 @@ namespace Items
         public event UnityAction OnSectionDataChange;
 
         int IInventorySectionData.count => _itemsList.Count;
-        ItemContainerType IItemSectionInfo.itemContainer => _slotContainer;
+        ItemStorageType IItemSectionInfo.itemContainer => _slotContainer;
         public int capacity => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
         public bool isEmpty => _itemsList.Count == 0;
 
-        ItemContainerType _slotContainer;
+        ItemStorageType _slotContainer;
 
-        public ItemSection(ItemContainerType slotContainer, int maxSlotsCount = -1)
+        public ItemSection(ItemStorageType slotContainer, int maxSlotsCount = -1)
         {
             _slotContainer = slotContainer;
             _maxSlotsCount = maxSlotsCount;
@@ -32,10 +49,8 @@ namespace Items
             _itemsList = new List<ItemSlotData>(capacity);
         }
 
-        bool IItemSection.ItemMeet(Item someItem)
+        public virtual bool ItemMeet(Item item)
         {
-            T item = someItem as T;
-
             //item doesnt fit a section
             if (item is null) return false;
 

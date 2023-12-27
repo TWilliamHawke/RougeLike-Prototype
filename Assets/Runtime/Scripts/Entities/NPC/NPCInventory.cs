@@ -15,11 +15,24 @@ namespace Entities.NPC
 
             public Weapon weapon { get; init; }
             public LootTable loot { get; init; }
+            public ItemStorage equipment { get; init; }
 
             public NPCInventory(NPCInventoryTemplate template)
             {
                 weapon = template.weapon;
                 loot = template.inventory;
+
+                equipment = new("Equipment", loot, ItemStorageType.inventory);
+            }
+
+            public virtual IEnumerator<ItemStorage> GetEnumerator()
+            {
+                yield return equipment;
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
             }
         }
     }

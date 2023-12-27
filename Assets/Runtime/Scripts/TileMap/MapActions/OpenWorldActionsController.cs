@@ -26,7 +26,7 @@ namespace Map.Actions
 
         public void AddLootAction(MapActionTemplate template, IEnumerable<IHaveLoot> enemies)
         {
-            var loot = new ItemSection<Item>(ItemContainerType.loot);
+            var loot = new ItemSection<Item>(ItemStorageType.loot);
 
             foreach (var enemy in enemies)
             {
