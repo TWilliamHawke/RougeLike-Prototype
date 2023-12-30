@@ -35,7 +35,8 @@ namespace Items
         public event UnityAction OnSectionDataChange;
 
         int IInventorySectionData.count => _itemsList.Count;
-        ItemStorageType IItemSectionInfo.itemContainer => _slotContainer;
+
+        public ItemStorageType itemStorage => _slotContainer;
         public int capacity => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
         public bool isEmpty => _itemsList.Count == 0;
 

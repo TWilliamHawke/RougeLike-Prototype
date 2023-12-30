@@ -10,8 +10,11 @@ namespace Items
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
         public string storageName { get; init; }
+        public bool isIdentified { get; private set; } = false;
 
         ItemSection<Item> _itemsInContainer;
+
+        public ItemStorageType storageType => _itemsInContainer.itemStorage;
 
         public ItemStorage(string name, LootTable items, ItemStorageType containerType)
         {

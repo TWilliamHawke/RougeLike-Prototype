@@ -50,6 +50,7 @@ namespace Map
             {
                 displayName = _locationTemplate.displayName,
                 icon = _locationTemplate.icon,
+                //HACK always is Kill all wolves
                 taskText = $"Kill all wolves ({enemiesFromLocation.Count} remains)",
                 isDone = false,
             };

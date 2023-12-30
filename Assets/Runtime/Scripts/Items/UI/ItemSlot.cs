@@ -31,11 +31,12 @@ namespace Items
         public ItemSlotData dragData => _slotData;
         public IDragController dataHandler => _dragDataHandler;
         public bool allowToDrag => _slotData is not null;
+        DragController<ItemSlotData> _dragDataHandler;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
+        public event UnityAction<ItemSlotData> OnClick;
 
-        DragController<ItemSlotData> _dragDataHandler;
 
         public override void BindData(ItemSlotData slotData)
         {
@@ -81,6 +82,7 @@ namespace Items
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             if (_slotData is null) return;
+            OnClick?.Invoke(_slotData);
 
             if (eventData.button == MouseButton.Right)
             {

@@ -2,7 +2,7 @@ namespace Items
 {
     public interface IItemSectionInfo
     {
-        ItemStorageType itemContainer { get; }
+        ItemStorageType itemStorage { get; }
         void Refresh();
     }
 }

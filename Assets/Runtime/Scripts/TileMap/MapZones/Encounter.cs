@@ -76,6 +76,7 @@ namespace Map.Zones
             (target as NPC)?.InitInteractiveZone(this);
             _entities.Add(target);
 
+            //HACK
             if (target.template == (ITemplateWithBaseStats)_template.mainNPC)
             {
                 var npc = (NPC)target;
