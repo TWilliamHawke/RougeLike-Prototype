@@ -11,6 +11,8 @@ namespace Entities.NPC
         protected class TraderInventory : NPCInventory
         {
             List<ItemStorage> _tradeItemStorages = new();
+            public override ItemStorage this[int idx] => FindStorage(idx);
+            public override int storageCount => _tradeItemStorages.Count + 1;
 
             public TraderInventory(TraderInventoryTemplate template) : base(template)
             {
@@ -28,6 +30,18 @@ namespace Entities.NPC
                 for (int i = 0; i < _tradeItemStorages.Count; i++)
                 {
                     yield return _tradeItemStorages[i];
+                }
+            }
+
+            ItemStorage FindStorage(int idx)
+            {
+                if (idx == 0)
+                {
+                    return equipment;
+                }
+                else
+                {
+                    return _tradeItemStorages[idx - 1];
                 }
             }
 

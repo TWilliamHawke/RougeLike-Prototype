@@ -299,7 +299,7 @@ MonoBehaviour:
   _icon: {fileID: 2632863187402208168}
   _outline: {fileID: 1525779167150725109}
   _count: {fileID: 4508993415214102990}
-  _price: {fileID: 8584220669152531891}
+  _price: {fileID: 1852519169466902439}
   _label: {fileID: 1107212890552671888}
 --- !u!114 &8197376732390260811
 MonoBehaviour:
@@ -571,6 +571,7 @@ GameObject:
   - component: {fileID: 5957278921730658154}
   - component: {fileID: 6368084163162528930}
   - component: {fileID: 1107212890552671888}
+  - component: {fileID: 1852519169466902439}
   m_Layer: 0
   m_Name: CostLabel
   m_TagString: Untagged
@@ -633,6 +634,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1852519169466902439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988610233822550087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022513f753bffff4eaedba187000e046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _labelText: {fileID: 8584220669152531891}
+  _defaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _inactiveTextColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6936733015340771766
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,8 +790,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -810,7 +826,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 4.955158, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

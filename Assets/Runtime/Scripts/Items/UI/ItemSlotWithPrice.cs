@@ -8,23 +8,19 @@ namespace Items
 {
     public class ItemSlotWithPrice : ItemSlot
     {
-        [SerializeField] TextMeshProUGUI _price;
-        [SerializeField] LayoutGroup _label;
-
-        public event UnityAction<ItemSlotData> OnClick;
+        [SerializeField] EdgeLabel _price;
 
         public override void BindData(ItemSlotData slotData)
         {
             if (slotData.item is null) return;
             base.BindData(slotData);
-            _price.text = slotData.slotPrice.ToString();
-            _label.Show();
+            _price.SetEdge(slotData.slotPrice);
+            _price.gameObject.SetActive(true);
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void SetValueStorage(IValueStorage valueStorage)
         {
-            if (_slotData is null) return;
-            OnClick?.Invoke(_slotData);
+            _price.AddToObserve(valueStorage);
         }
     }
 }

@@ -17,6 +17,9 @@ namespace Entities.NPC
             public LootTable loot { get; init; }
             public ItemStorage equipment { get; init; }
 
+            public virtual int storageCount => 1;
+            public virtual ItemStorage this[int idx] => equipment;
+
             public NPCInventory(NPCInventoryTemplate template)
             {
                 weapon = template.weapon;

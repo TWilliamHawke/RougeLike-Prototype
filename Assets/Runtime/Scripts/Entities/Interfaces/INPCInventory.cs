@@ -9,6 +9,8 @@ namespace Entities.NPC
         Weapon weapon { get; }
         Dictionary<DamageType, int> resists { get; }
         LootTable loot { get; }
+        ItemStorage this[int idx] { get; }
+        int storageCount { get; }
     }
 }
 
