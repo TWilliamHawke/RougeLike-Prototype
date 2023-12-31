@@ -6,9 +6,10 @@ using UnityEngine.Events;
 
 namespace Items
 {
-    public class ItemSlotWithPrice : ItemSlot
+    public class ItemSlotWithPrice : ItemSlot, IPointerClickHandler
     {
         [SerializeField] EdgeLabel _price;
+        public override event UnityAction<ItemSlotData> OnClick;
 
         public override void BindData(ItemSlotData slotData)
         {
@@ -22,5 +23,13 @@ namespace Items
         {
             _price.AddToObserve(valueStorage);
         }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        {
+            if (_slotData is null) return;
+            if (!_price.isActive) return;
+            OnClick?.Invoke(_slotData);
+        }
+
     }
 }

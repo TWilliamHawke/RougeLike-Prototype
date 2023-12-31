@@ -12,6 +12,7 @@ namespace Items.UI
     public class StealingController : MonoBehaviour, IObserver<ItemSlot>, IStealingController
     {
         [SerializeField] PlayerStats _playerStats;
+        [SerializeField] Inventory _playerInventory;
         [SerializeField] StatList _statList;
         [Header("UI Elements")]
         [SerializeField] UIScreen _stealingScreen;
@@ -25,11 +26,11 @@ namespace Items.UI
 
         int _playerSkill = 69;
         int _targetSecurity = 42;
+        int _selectedSlotCount = 6;
 
         ValueStorage _actionPoints;
-        INPCInventory _inventory;
-
-        ItemSection _stolenItems = new(ItemStorageType.loot, 5);
+        INPCInventory _NPCInventory;
+        IItemPriceCalculator _priceCalculator;
 
         int maxActionPoints => Mathf.CeilToInt(100f * _playerSkill / _targetSecurity);
 
@@ -37,20 +38,19 @@ namespace Items.UI
         {
             _catchedItems.AddObserver(this);
             _storageList.OnStorageSelected += ShowStorage;
+            _storageViewer.OnItemSelection += UpdateSelectedItems;
+            _priceCalculator = new StealingCostCalculator(_playerStats);
         }
 
         public void OpenScreen(INPCInventory inventory)
         {
-            _inventory = inventory;
-            _actionPoints = new ValueStorage(0, maxActionPoints, maxActionPoints);
-            _storageViewer.SetActionPoints(_actionPoints);
+            _NPCInventory = inventory;
+            _priceCalculator.SetPrices(inventory);
             _storageList.SetInventory(inventory);
-            _actionPointsBar.AddToObserve(_actionPoints);
+            InitActionPoints();
+            UpdateSelectedItems();
+            SetSkillText();
             _stealingScreen.Open();
-            var selectedStorage = inventory.FirstOrDefault();
-            _catchedItems.UpdateLayout(_stolenItems);
-            _playerSkillText.text = _playerSkill.ToString();
-            _targetSecurityText.text = _targetSecurity.ToString();
         }
 
         public void AddToObserve(ItemSlot target)
@@ -65,12 +65,47 @@ namespace Items.UI
 
         private void ShowStorage(int storageNumber)
         {
-            _storageViewer.ShowStorage(_inventory[storageNumber]);
+            _storageViewer.ShowStorage(_NPCInventory[storageNumber]);
         }
 
-        void ProcessClick(ItemSlotData itemSlotData)
+        private void InitActionPoints()
         {
-            _actionPoints.IncreaseValue(itemSlotData.slotPrice);
+            _actionPoints = new ValueStorage(0, maxActionPoints, maxActionPoints);
+            _storageViewer.SetActionPoints(_actionPoints);
+            _actionPointsBar.AddToObserve(_actionPoints);
+        }
+
+        private void SetSkillText()
+        {
+            _playerSkillText.text = _playerSkill.ToString();
+            _targetSecurityText.text = _targetSecurity.ToString();
+        }
+
+        private void ProcessClick(ItemSlotData item)
+        {
+            _actionPoints.IncreaseValue(item.slotPrice);
+            _NPCInventory.DeselectItem(item);
+            UpdateSelectedItems();
+            _storageViewer.UpdatePanels();
+        }
+
+        private void UpdateSelectedItems()
+        {
+            _catchedItems.UpdateLayout(GetSelectedItems(_selectedSlotCount));
+        }
+
+        private IEnumerable<ItemSlotData> GetSelectedItems(int slotCount)
+        {
+            foreach(var slot in _NPCInventory.GetSelectedItems())
+            {
+                slotCount--;
+                yield return slot;
+            }
+
+            for(int i = slotCount; i >= 1; i--)
+            {
+                yield return new ItemSlotData();
+            }
         }
     }
 
