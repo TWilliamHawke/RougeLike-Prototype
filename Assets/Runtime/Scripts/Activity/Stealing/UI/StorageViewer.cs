@@ -1,14 +1,19 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items.UI
 {
     public class StorageViewer : MonoBehaviour, IObserver<ItemSlotWithPrice>
     {
+        [SerializeField] TextMeshProUGUI _storageName;
         [SerializeField] ShopSection _listView;
         [SerializeField] ShopSection _gridView;
 
         [SerializeField] StorageProtectionPanel _lockPanel;
         [SerializeField] StorageProtectionPanel _trapPanel;
+
+        public event UnityAction OnItemSelection;
 
         ItemStorage _storage;
         ValueStorage _actionPoints;
@@ -32,17 +37,15 @@ namespace Items.UI
         public void ShowStorage(ItemStorage storage)
         {
             _storage = storage;
+            _storageName.text = storage.storageName;
             UpdatePanels();
         }
 
-        private void UpdatePanels()
+        public void UpdatePanels()
         {
-            _listView.Hide();
-            _gridView.Hide();
-            _lockPanel.Hide();
-            _trapPanel.Hide();
+            HideAllPanels();
 
-            if(_storage.lockLevel > 0)
+            if (_storage.lockLevel > 0)
             {
                 ShowLockPanel();
                 return;
@@ -57,28 +60,28 @@ namespace Items.UI
             if (_storage.isIdentified)
             {
                 _listView.Show();
-                _listView.UpdateLayout(_storage);
+                _listView.UpdateLayout(_storage.GetUnselectedItems());
                 return;
             }
 
             _gridView.Show();
-            _gridView.UpdateLayout(_storage);
+            _gridView.UpdateLayout(_storage.GetUnselectedItems());
         }
 
-        public void AddToObserve(ItemSlotWithPrice target)
+        private void HideAllPanels()
         {
-            target.OnClick += ProcessClick;
-            target.SetValueStorage(_actionPoints);
+            _listView.Hide();
+            _gridView.Hide();
+            _lockPanel.Hide();
+            _trapPanel.Hide();
         }
 
-        public void RemoveFromObserve(ItemSlotWithPrice target)
+        private void ProcessClick(ItemSlotData item)
         {
-            target.OnClick -= ProcessClick;
-        }
-
-        private void ProcessClick(ItemSlotData data)
-        {
-            _actionPoints.ReduceValue(data.slotPrice);
+            _actionPoints.ReduceValue(item.slotPrice);
+            _storage.SelectItem(item);
+            UpdatePanels();
+            OnItemSelection?.Invoke();
         }
 
         private void UnlockChest()
@@ -108,5 +111,17 @@ namespace Items.UI
             _trapPanel.SetSkillProtection(_disarmTrapSkill, _storage.trapLevel);
             _trapPanel.SetCostProtection(_actionPoints.currentValue, 20);
         }
+
+        void IObserver<ItemSlotWithPrice>.AddToObserve(ItemSlotWithPrice target)
+        {
+            target.OnClick += ProcessClick;
+            target.SetValueStorage(_actionPoints);
+        }
+
+        void IObserver<ItemSlotWithPrice>.RemoveFromObserve(ItemSlotWithPrice target)
+        {
+            target.OnClick -= ProcessClick;
+        }
+
     }
 }

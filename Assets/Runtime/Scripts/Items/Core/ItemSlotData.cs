@@ -15,6 +15,11 @@ namespace Items
         
         public ItemStorageType slotContainer => _itemSection.itemStorage;
 
+        public ItemSlotData()
+        {
+            
+        }
+
         public ItemSlotData(Item item, int count,
             IItemSectionInfo itemSectionInfo, int slotPrice = -1)
         {

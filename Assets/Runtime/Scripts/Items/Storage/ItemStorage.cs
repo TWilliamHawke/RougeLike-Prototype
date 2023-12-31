@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Items;
 using UnityEngine;
 
 namespace Items
 {
-    public class ItemStorage : IEnumerable<ItemSlotData>
+    public interface IItemStorage : IEnumerable<ItemSlotData>
+    {
+        ItemStorageType storageType { get;}
+    }
+    
+    public class ItemStorage : IItemStorage
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
@@ -13,6 +19,9 @@ namespace Items
         public bool isIdentified { get; private set; } = false;
 
         ItemSection<Item> _itemsInContainer;
+        HashSet<ItemSlotData> _selectedItems = new();
+
+        public IEnumerable<ItemSlotData> selectedItems => _selectedItems;
 
         public ItemStorageType storageType => _itemsInContainer.itemStorage;
 
@@ -34,6 +43,22 @@ namespace Items
         {
             this.storageName = containerName;
             _itemsInContainer = itemSection;
+        }
+
+        public IEnumerable<ItemSlotData> GetUnselectedItems()
+        {
+            return _itemsInContainer.Except(_selectedItems);
+        }
+
+        public void SelectItem(ItemSlotData item)
+        {
+            if(!_itemsInContainer.Contains(item)) return;
+            _selectedItems.Add(item);
+        }
+
+        public void DeselectItem(ItemSlotData item)
+        {
+            _selectedItems.Remove(item);
         }
 
         public void Unlock()

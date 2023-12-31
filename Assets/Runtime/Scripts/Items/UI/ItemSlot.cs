@@ -35,7 +35,7 @@ namespace Items
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
-        public event UnityAction<ItemSlotData> OnClick;
+        public virtual event UnityAction<ItemSlotData> OnClick;
 
 
         public override void BindData(ItemSlotData slotData)
@@ -83,11 +83,6 @@ namespace Items
         {
             if (_slotData is null) return;
             OnClick?.Invoke(_slotData);
-
-            if (eventData.button == MouseButton.Right)
-            {
-                _itemActionsController.FillContextMenu(_slotData);
-            }
         }
 
         ItemTooltipData IHaveItemTooltip.GetTooltipData()
