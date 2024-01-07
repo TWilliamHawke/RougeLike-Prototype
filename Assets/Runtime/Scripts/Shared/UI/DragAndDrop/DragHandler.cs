@@ -15,6 +15,9 @@ namespace UI.DragAndDrop
         [InjectField] Canvas _dragCanvas;
         [SerializeField] Injector _dragCanvasInjector;
 
+        [SerializeField] CustomEvent _onDragStart;
+        [SerializeField] CustomEvent _onDragEnd;
+
         public event UnityAction OnDragStart;
         public event UnityAction OnDragEnd;
 
@@ -29,7 +32,7 @@ namespace UI.DragAndDrop
             _dragCanvasInjector.AddInjectionTarget(this);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             if (_dragDataSource is null)
             {
@@ -43,9 +46,10 @@ namespace UI.DragAndDrop
 
             _dragableElement.SetDragStartPosition(startPos);
             OnDragStart?.Invoke();
+            _onDragStart?.Invoke();
         }
 
-        public void OnDrag(PointerEventData eventData)
+        void IDragHandler.OnDrag(PointerEventData eventData)
         {
             if (!_dragDataSource.allowToDrag) return;
 
@@ -59,11 +63,12 @@ namespace UI.DragAndDrop
             _dropTarget = nextTarget;
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             if (!_dragDataSource.allowToDrag) return;
             _dragDataSource.DropData();
             OnDragEnd?.Invoke();
+            _onDragEnd?.Invoke();
             _dropTarget = null;
             _dragableElement = null;
         }

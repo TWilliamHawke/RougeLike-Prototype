@@ -10,27 +10,40 @@ namespace Items.UI
     public class InventoryScreen : MonoBehaviour
     {
         [SerializeField] UIScreen _inventoryScreen;
-        [InjectField] Inventory _inventory;
+        [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
-        [SerializeField] InventorySection _potionsBag;
-        [SerializeField] InventorySection _scrollsBag;
-        [SerializeField] InventorySection _mainSection;
+        [SerializeField] InventorySectionController _potionsBag;
+        [SerializeField] InventorySectionController _scrollsBag;
+        [SerializeField] InventorySectionController _mainSection;
         [SerializeField] ResourceCounter _goldCounter;
         [SerializeField] ResourceCounter _dustCounter;
 
-        List<InventorySectionController> _inventorySectionControllers = new();
+        List<InventorySectionController> _controllers = new();
 
-        //event handler in editor
-        public void Init()
+        void Awake()
+        {
+            _controllers.Add(_potionsBag);
+            _controllers.Add(_mainSection);
+            _controllers.Add(_scrollsBag);
+        }
+
+        void Start()
         {
             _inventoryScreen.OnScreenOpen += UpdateInventoryScreen;
             _inventory.resources.OnResourceChange += UpdateResources;
-            CreateControllers();
+            _potionsBag.BindSection(_inventory.potionsBag);
+            _mainSection.BindSection(_inventory.main);
+            _scrollsBag.BindSection(_inventory.scrollsBag);
+        }
+
+        public void AddSlotObservers(IObserver<ItemSlot> observer)
+        {
+            _controllers.ForEach(controller => controller.AddSlotObservers(observer));
         }
 
         private void UpdateInventoryScreen()
         {
-            foreach (var controller in _inventorySectionControllers)
+            foreach (var controller in _controllers)
             {
                 controller.UpdateSectionView();
             }
@@ -46,26 +59,6 @@ namespace Items.UI
             _goldCounter.UpdateResourceValue(resourceType);
             _dustCounter.UpdateResourceValue(resourceType);
         }
-
-        private void CreateControllers()
-        {
-            _inventorySectionControllers.Add(
-                new InventorySectionController(
-                    sectionData: _inventory.potionsBag,
-                    inventorySection: _potionsBag
-            ));
-            _inventorySectionControllers.Add(
-                new InventorySectionController(
-                    sectionData: _inventory.scrollsBag,
-                    inventorySection: _scrollsBag
-            ));
-            _inventorySectionControllers.Add(
-                new InventorySectionController(
-                    sectionData: _inventory.main,
-                    inventorySection: _mainSection
-            ));
-        }
-
 
     }
 }

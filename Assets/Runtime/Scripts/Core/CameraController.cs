@@ -25,7 +25,7 @@ namespace Core
         void LateUpdate()
         {
             if(_player is null) return;
-            transform.position = transform.position.ReplaceXYFrom(_player.transform.position);
+            CenterAt(_player.transform.position);
         }
 
         public void CenterAt(Vector3 pos)
@@ -36,11 +36,6 @@ namespace Core
         public void CenterAt(Vector2 pos)
         {
             transform.position = transform.position.ReplaceXYFrom(pos);
-        }
-
-        public void FinalizeInjection()
-        {
-            
         }
     }
 }

@@ -312,7 +312,6 @@ GameObject:
   - component: {fileID: 2694975753005769194}
   - component: {fileID: 6294457503562512441}
   - component: {fileID: -3454517684520267812}
-  - component: {fileID: -5124375662429245748}
   - component: {fileID: 8914032609886409785}
   m_Layer: 0
   m_Name: ItemSlot
@@ -365,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171da057830fac34c95a56867929e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emptyFrame: {fileID: 21300000, guid: 5076c998e4f21f94ab61b6819495350d, type: 3}
   _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
   _icon: {fileID: 4362007808519729512}
   _outline: {fileID: 949575568011433269}
@@ -384,38 +382,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tooltipsController: {fileID: 11400000, guid: 7e903eed2753c104eac46de6e829b583, type: 2}
   _hideOnClick: 1
---- !u!114 &-5124375662429245748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8666333126330395510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _injectionTarget: {fileID: 6294457503562512441}
-  _waitForAllDependencies: 0
-  _addTargetManualy: 0
-  _injectors:
-  - {fileID: 11400000, guid: d8046a279e6b4044a90184a431a0afa1, type: 2}
-  _finalizeInjectionHandler:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6294457503562512441}
-        m_TargetAssemblyTypeName: Items.ItemSlot, Project
-        m_MethodName: CreateDragHandler
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &8914032609886409785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
+  _onDragStart: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
+  _onDragEnd: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
 --- !u!1 &8677327250042010678
 GameObject:
   m_ObjectHideFlags: 0
