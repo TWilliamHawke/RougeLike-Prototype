@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using Core.UI;
 using Effects;
 using Entities.PlayerScripts;
+using Items.UI;
 using UnityEngine;
 
 namespace Items.Actions
 {
-    public class ItemActionsController : MonoBehaviour
+    public class ItemActionsController : MonoBehaviour, IObserver<ItemSlot>
     {
-        [SerializeField] Injector _selfIjector;
         [SerializeField] Inventory _inventory;
+        [SerializeField] InventoryScreen _inventoryScreen;
 
         [InjectField] IContextMenu _contextMenu;
         [InjectField] Player _player;
@@ -19,9 +20,9 @@ namespace Items.Actions
         List<IItemActionFactory> _itemActionsFactory = new();
         List<IContextAction> _itemActions = new();
 
-        private void Awake()
+        void Start()
         {
-            _selfIjector.SetDependency(this);
+            _inventoryScreen.AddSlotObservers(this);
         }
 
         //event handler in editor
@@ -34,6 +35,16 @@ namespace Items.Actions
             _itemActionsFactory.Add(new MoveToStorage());
             _itemActionsFactory.Add(new Destroy(_inventory, _modalWindowController));
             _itemActionsFactory.Add(new Drop());
+        }
+
+        public void AddToObserve(ItemSlot target)
+        {
+            target.OnDragStart += FillContextMenu;
+        }
+
+        public void RemoveFromObserve(ItemSlot target)
+        {
+            target.OnDragStart -= FillContextMenu;
         }
 
         public void FillContextMenu(ItemSlotData itemSlot)
@@ -50,6 +61,7 @@ namespace Items.Actions
 
             _contextMenu.Fill(_itemActions);
         }
+
     }
 }
 

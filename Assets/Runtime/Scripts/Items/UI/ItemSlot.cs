@@ -22,8 +22,6 @@ namespace Items
         [SerializeField] Image _outline;
         [SerializeField] TextMeshProUGUI _count;
 
-        [InjectField] ItemActionsController _itemActionsController;
-
         //data
         protected ItemSlotData _slotData;
 
@@ -36,7 +34,14 @@ namespace Items
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
         public virtual event UnityAction<ItemSlotData> OnClick;
+        public event UnityAction<ItemSlotData> OnDragStart;
 
+        void Awake()
+        {
+            var dragHandler = GetComponent<DragHandler>();
+            dragHandler.OnDragStart += TriggerDragEvent;
+            _dragDataHandler = new(this, _floatingItemPrefab);
+        }
 
         public override void BindData(ItemSlotData slotData)
         {
@@ -59,10 +64,10 @@ namespace Items
             _count.gameObject.SetActive(false);
         }
 
-        //event in editor
-        public void CreateDragHandler()
+        private void TriggerDragEvent()
         {
-            _dragDataHandler = new(this, _floatingItemPrefab);
+            if (_slotData is null) return;
+            OnDragStart?.Invoke(_slotData);
         }
 
         //mouse only
@@ -70,7 +75,6 @@ namespace Items
         {
             if (_slotData is null) return;
             _outline.gameObject.SetActive(true);
-            _itemActionsController.FillContextMenu(_slotData);
         }
 
         //mouse only

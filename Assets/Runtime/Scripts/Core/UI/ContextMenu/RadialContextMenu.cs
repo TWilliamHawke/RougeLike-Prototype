@@ -6,6 +6,7 @@ namespace Core.UI
 {
     public class RadialContextMenu : MonoBehaviour, IContextMenu
     {
+        [SerializeField] UIScreen _menu;
         [SerializeField] Injector _selfInjector;
 
         [SerializeField] RadialContextButton[] _buttons;
@@ -14,7 +15,7 @@ namespace Core.UI
 
         Dictionary<RadialButtonPosition, RadialContextButton> _buttonsByPosition = new();
 
-        private void Awake()
+        void Awake()
         {
             _selfInjector.SetDependency(this);
 
