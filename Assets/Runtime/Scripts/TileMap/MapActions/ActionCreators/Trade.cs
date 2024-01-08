@@ -24,6 +24,11 @@ namespace Map.Actions
             {
                 _template = template;
             }
+
+            public void DoAction()
+            {
+                Debug.Log("Trade");
+            }
         }
     }
 }

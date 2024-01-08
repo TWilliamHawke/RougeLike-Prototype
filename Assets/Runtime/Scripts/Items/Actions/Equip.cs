@@ -1,4 +1,5 @@
 using Core;
+using UnityEngine;
 
 namespace Items.Actions
 {
@@ -16,7 +17,7 @@ namespace Items.Actions
                 itemSlot.item is IEquipment;
         }
 
-        class EquipAction : IItemAction
+        class EquipAction : IRadialMenuAction
         {
             public string actionTitle => "Equip";
             ItemSlotData _itemSlot;
@@ -26,6 +27,11 @@ namespace Items.Actions
             public EquipAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
+            }
+
+            public void DoAction()
+            {
+                Debug.Log("Buy");
             }
         }
     }

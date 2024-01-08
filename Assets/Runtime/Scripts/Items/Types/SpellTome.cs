@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "SpellTome", menuName = "Items/Spell Tome")]
-    public class SpellTome : Item, IDestroyable, IUsableInInventory
+    public class SpellTome : Item, IDestroyable, IUsableItem
     {
         [SpritePreview]
         [SerializeField] Spell _spell;

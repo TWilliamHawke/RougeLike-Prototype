@@ -1,4 +1,5 @@
 using Core;
+using UnityEngine;
 
 namespace Items.Actions
 {
@@ -14,7 +15,7 @@ namespace Items.Actions
             return itemSlot.slotContainer == ItemStorageType.inventory;
         }
 
-        class MoveToStorageAction : IItemAction
+        class MoveToStorageAction : IRadialMenuAction
         {
             public string actionTitle => "MoveToStorage";
             ItemSlotData _itemSlot;
@@ -24,6 +25,11 @@ namespace Items.Actions
             public MoveToStorageAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
+            }
+
+            public void DoAction()
+            {
+                Debug.Log("Buy");
             }
         }
     }

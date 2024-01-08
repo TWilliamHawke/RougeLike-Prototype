@@ -6,7 +6,7 @@ using Effects;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsableInInventory
+	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsableItem
 	{
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
