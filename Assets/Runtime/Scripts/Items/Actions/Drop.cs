@@ -15,7 +15,7 @@ namespace Items.Actions
                 itemSlot.slotContainer == ItemStorageType.storage;
         }
 
-        class DropAction : IItemAction
+        class DropAction : IRadialMenuAction
         {
             public string actionTitle => "Drop";
             ItemSlotData _itemSlot;

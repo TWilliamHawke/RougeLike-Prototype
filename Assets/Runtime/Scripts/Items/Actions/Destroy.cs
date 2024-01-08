@@ -41,7 +41,7 @@ namespace Items.Actions
                 itemSlot.item is IDestroyable;
         }
 
-        class OpenDestroyWindow : IItemAction
+        class OpenDestroyWindow : IRadialMenuAction
         {
             public string actionTitle => "Destroy";
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
@@ -61,7 +61,7 @@ namespace Items.Actions
             }
         }
 
-        class ConfirmDestroy : IItemAction
+        class ConfirmDestroy : IRadialMenuAction
         {
             public string actionTitle => "Confirm";
             Inventory _inventory;

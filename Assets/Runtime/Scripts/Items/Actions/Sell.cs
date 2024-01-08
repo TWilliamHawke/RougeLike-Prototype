@@ -1,4 +1,5 @@
 using Core;
+using UnityEngine;
 
 namespace Items.Actions
 {
@@ -14,7 +15,7 @@ namespace Items.Actions
             return itemSlot.slotContainer != ItemStorageType.trader && false;
         }
 
-        class SellAction : IItemAction
+        class SellAction : IRadialMenuAction
         {
             public string actionTitle => "Cell";
             ItemSlotData _itemSlot;
@@ -24,6 +25,11 @@ namespace Items.Actions
             public SellAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
+            }
+
+            public void DoAction()
+            {
+                Debug.Log("Buy");
             }
         }
     }

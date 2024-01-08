@@ -1,4 +1,5 @@
 using Core;
+using UnityEngine;
 
 namespace Items.Actions
 {
@@ -14,7 +15,7 @@ namespace Items.Actions
             return itemSlotitemSlotData.slotContainer == ItemStorageType.trader;
         }
 
-        class BuyAction : IItemAction
+        class BuyAction : IRadialMenuAction
         {
             public string actionTitle => "Buy";
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
@@ -24,6 +25,11 @@ namespace Items.Actions
             public BuyAction(ItemSlotData itemSlotData)
             {
                 _itemSlotData = itemSlotData;
+            }
+
+            public void DoAction()
+            {
+                Debug.Log("Buy");
             }
         }
     }

@@ -24,14 +24,14 @@ namespace Items.Actions
         {
             return (itemSlot.slotContainer == ItemStorageType.inventory ||
                 itemSlot.slotContainer == ItemStorageType.storage) &&
-                itemSlot?.item is IUsableInInventory;
+                itemSlot?.item is IUsableItem;
         }
 
-        class UseAction : IItemAction
+        class UseAction : IRadialMenuAction
         {
             public string actionTitle => "Use";
             ItemSlotData _itemSlot;
-            IUsableInInventory _item;
+            IUsableItem _item;
             AbilityController _playerAbilityController;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
@@ -39,7 +39,7 @@ namespace Items.Actions
             public UseAction(ItemSlotData itemSlot, AbilityController playerAbilityController)
             {
                 _itemSlot = itemSlot;
-                _item = itemSlot?.item as IUsableInInventory;
+                _item = itemSlot?.item as IUsableItem;
                 _playerAbilityController = playerAbilityController;
             }
 

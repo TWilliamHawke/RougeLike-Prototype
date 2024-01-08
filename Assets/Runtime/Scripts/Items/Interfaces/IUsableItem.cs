@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public interface IUsableInInventory
+    public interface IUsableItem
 	{
 	    void UseItem(AbilityController abilityController);
 		AudioClip useSound { get; }

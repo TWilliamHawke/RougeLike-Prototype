@@ -16,10 +16,9 @@ namespace Core.UI
             _modalWindowData = modalWindowData;
         }
 
-
-        void DoAction()
+        public void DoAction()
 		{
-			_modalWindow.OpenWindow(_modalWindowData);
+            
 		}
     }
 }

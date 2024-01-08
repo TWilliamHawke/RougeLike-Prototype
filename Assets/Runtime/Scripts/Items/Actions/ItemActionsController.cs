@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Core.UI;
 using Effects;
 using Entities.PlayerScripts;
@@ -8,17 +7,15 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class ItemActionsController : MonoBehaviour, IObserver<ItemSlot>
+
+    public class ItemActionsController : ActionController<ItemSlotData>, IObserver<ItemSlot>
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] InventoryScreen _inventoryScreen;
 
-        [InjectField] IContextMenu _contextMenu;
         [InjectField] Player _player;
         [InjectField] ModalWindowController _modalWindowController;
 
-        List<IItemActionFactory> _itemActionsFactory = new();
-        List<IContextAction> _itemActions = new();
 
         void Start()
         {
@@ -26,7 +23,7 @@ namespace Items.Actions
         }
 
         //event handler in editor
-        public void CreateFactory()
+        public override void CreateFactory()
         {
             _itemActionsFactory.Add(new Use(_player.GetComponent<AbilityController>()));
             _itemActionsFactory.Add(new Buy());
@@ -47,20 +44,6 @@ namespace Items.Actions
             target.OnDragStart -= FillContextMenu;
         }
 
-        public void FillContextMenu(ItemSlotData itemSlot)
-        {
-            _itemActions.Clear();
-
-            foreach (var factory in _itemActionsFactory)
-            {
-                if (factory.TryCreateItemAction(itemSlot, out var action))
-                {
-                    _itemActions.Add(action);
-                }
-            }
-
-            _contextMenu.Fill(_itemActions);
-        }
 
     }
 }

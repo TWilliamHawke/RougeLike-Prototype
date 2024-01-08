@@ -37,7 +37,7 @@ namespace Items
         int IInventorySectionData.count => _itemsList.Count;
 
         public ItemStorageType itemStorage => _slotContainer;
-        public int capacity => _maxSlotsCount > 0 ? _maxSlotsCount : 10;
+        public int capacity => _maxSlotsCount >= 0 ? _maxSlotsCount : 10;
         public bool isEmpty => _itemsList.Count == 0;
 
         ItemStorageType _slotContainer;
