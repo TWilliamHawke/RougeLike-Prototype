@@ -23,6 +23,8 @@ namespace Magic
         public List<KnownSpellData> knownSpells => _knownSpells;
         public int maxSpellRank => 6;
         public int increaseRankCost => _increaseRankCost;
+        public int totalCount => _knownSpells.Count;
+        public KnownSpellData this[int idx] => _knownSpells[idx];
 
         public bool TryAddSpell(Spell spell)
         {
@@ -40,15 +42,17 @@ namespace Magic
         }
 
 
-        public void AddSpell(Spell spell)
+        public void AddSpellCopy(Spell spell)
         {
-            _knownSpells.Add(new KnownSpellData(spell));
+            int spellCount = _knownSpells.Count(spellData => spellData.ContainSpell(spell));
+            spellCount++;
+            _knownSpells.Add(new KnownSpellData(spell, $"{spell.displayName} {spellCount}"));
             OnSpellAdded?.Invoke(spell);
         }
 
         public bool SpellIsKnown(Spell spell)
         {
-            return _knownSpells.Any(spelldata => spelldata.spell == spell);
+            return _knownSpells.Any(spelldata => spelldata.ContainSpell(spell));
         }
 
         public void Clear()
@@ -72,6 +76,12 @@ namespace Magic
             {
                 spell.IncreaseRank();
             }
+        }
+
+        private void AddSpell(Spell spell)
+        {
+            _knownSpells.Add(new KnownSpellData(spell));
+            OnSpellAdded?.Invoke(spell);
         }
     }
 }

@@ -4,16 +4,9 @@ using UnityEngine;
 
 namespace Magic.UI
 {
-    public class SpellList : UIPanelWithGrid<KnownSpellData>
+    public class SpellList : UILayoutWithObserver<KnownSpellData, SpellDataButton>
     {
-        [SerializeField] Spellbook _spellBook;
 
-        protected override IEnumerable<KnownSpellData> _layoutElementsData => _spellBook.knownSpells;
-
-		public void UpdateSpellList()
-		{
-			UpdateLayout();
-		}
     }
 }
 
