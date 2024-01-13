@@ -4,11 +4,13 @@ using UnityEngine;
 using Items;
 using UnityEngine.UI;
 using UI.DragAndDrop;
+using TMPro;
 
 namespace Magic.UI
 {
     public class SpellbookScreen : MonoBehaviour
     {
+        [SerializeField] int _spellsPerPage = 6;
         [SerializeField] Spellbook _spellBook;
         [SerializeField] Inventory _inventory;
         [SerializeField] Injector _spellBookScreenInjector;
@@ -17,8 +19,12 @@ namespace Magic.UI
         [SerializeField] SpellList _spellList;
         [SerializeField] SpellPage _spellPage;
         [SerializeField] ResourcesPage _resourcesPage;
-        [SerializeField] GridLayoutGroup _spellGrid;
+        [SerializeField] TextMeshProUGUI _pageNumber;
         [SerializeField] Spell[] _testSpells;
+
+        int _maxPage => _spellBook.totalCount / _spellsPerPage + 1;
+
+        int _currentPage = 1;
 
         private void Awake()
         {
@@ -34,9 +40,9 @@ namespace Magic.UI
             _spellBook.Clear(); //only for tests
             foreach (var spell in _testSpells)
             {
-                _spellBook.AddSpell(spell);
-                _spellBook.AddSpell(spell);
-                _spellBook.AddSpell(spell);
+                _spellBook.AddSpellCopy(spell);
+                _spellBook.AddSpellCopy(spell);
+                _spellBook.AddSpellCopy(spell);
             }
         }
 
@@ -50,7 +56,7 @@ namespace Magic.UI
         void PrepareBook()
         {
             CloseSpellPage();
-            _spellList.UpdateSpellList();
+            _spellList.UpdateLayout(FindSpellsOnPage());
         }
 
         //use as unityEvent
@@ -60,6 +66,24 @@ namespace Magic.UI
             _spellPage.Hide();
             _resourcesPage.Hide();
         }
+
+        private void UpdatePageText()
+        {
+            _pageNumber.text = $"Page {_currentPage}/{_maxPage}";
+        }
+
+        private IEnumerable<KnownSpellData> FindSpellsOnPage()
+        {
+            int maxIdx = Mathf.Min(_currentPage * _spellsPerPage, _spellBook.totalCount);
+            int startIdx = (_currentPage - 1) * _spellsPerPage;
+
+            for (int i = startIdx; i < maxIdx; i++)
+            {
+                yield return _spellBook[i];
+            }
+        }
+
+
 
         void OpenSpellPage(KnownSpellData data)
         {
