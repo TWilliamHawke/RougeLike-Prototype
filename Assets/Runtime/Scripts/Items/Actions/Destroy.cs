@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Destroy : ItemActionsFactory
+    public class Destroy : RadialActionFactory<ItemSlotData>
     {
         Inventory _inventory;
         ModalWindowController _modalWindow;
@@ -34,7 +34,7 @@ namespace Items.Actions
             return new OpenDestroyWindow(_modalWindow, modalWindowData);
         }
 
-        protected override bool SlotIsValid(ItemSlotData itemSlot)
+        protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
             return (itemSlot.slotContainer == ItemStorageType.inventory ||
                 itemSlot.slotContainer == ItemStorageType.storage) &&

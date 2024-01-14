@@ -8,7 +8,7 @@ using TMPro;
 
 namespace Magic.UI
 {
-    public class SpellbookScreen : MonoBehaviour
+    public class SpellbookScreen : MonoBehaviour, IObserver<KnownSpellSlot>
     {
         [SerializeField] int _spellsPerPage = 6;
         [SerializeField] Spellbook _spellBook;
@@ -21,21 +21,26 @@ namespace Magic.UI
         [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] TextMeshProUGUI _pageNumber;
         [SerializeField] Spell[] _testSpells;
+        [SerializeField] Button _prevButton;
+        [SerializeField] Button _nextButton;
 
-        int _maxPage => _spellBook.totalCount / _spellsPerPage + 1;
+        int _maxPage => Mathf.CeilToInt(_spellBook.totalCount / (float)_spellsPerPage);
 
         int _currentPage = 1;
 
         private void Awake()
         {
-            _spellBook.OnSpellPageOpen += OpenSpellPage;
-            _spellBook.OnSpellSelect += Close;
+            _spellList.AddObserver(this);
+            _spellBook.OnUpdate += UpdatePage;
             _spellbookCanvas.OnScreenOpen += PrepareBook;
 
             _spellBookScreenInjector.SetDependency(_spellbookCanvas);
 
             _spellPage.Init();
             _resourcesPage.Init();
+
+            _nextButton.onClick.AddListener(ShowNextPage);
+            _prevButton.onClick.AddListener(ShowPrevPage);
 
             _spellBook.Clear(); //only for tests
             foreach (var spell in _testSpells)
@@ -48,14 +53,14 @@ namespace Magic.UI
 
         private void OnDestroy()
         {
-            _spellBook.OnSpellPageOpen -= OpenSpellPage;
-            _spellBook.OnSpellSelect -= Close;
             _spellbookCanvas.OnScreenOpen -= PrepareBook;
+            _spellBook.OnUpdate -= UpdatePage;
         }
 
         void PrepareBook()
         {
             CloseSpellPage();
+            UpdatePage();
             _spellList.UpdateLayout(FindSpellsOnPage());
         }
 
@@ -67,9 +72,24 @@ namespace Magic.UI
             _resourcesPage.Hide();
         }
 
-        private void UpdatePageText()
+        private void ShowPrevPage()
         {
+            _currentPage--;
+            UpdatePage();
+        }
+
+        private void ShowNextPage()
+        {
+            _currentPage++;
+            UpdatePage();
+        }
+
+        private void UpdatePage()
+        {
+            _spellList.UpdateLayout(FindSpellsOnPage());
             _pageNumber.text = $"Page {_currentPage}/{_maxPage}";
+            _prevButton.interactable = _currentPage > 1;
+            _nextButton.interactable = _currentPage < _maxPage;
         }
 
         private IEnumerable<KnownSpellData> FindSpellsOnPage()
@@ -92,13 +112,21 @@ namespace Magic.UI
             _resourcesPage.Show();
         }
 
-        void Close(KnownSpellData _)
+        private void CloseScreen(KnownSpellData _)
         {
             _spellbookCanvas.Close();
         }
 
+        void IObserver<KnownSpellSlot>.AddToObserve(KnownSpellSlot target)
+        {
+            target.OnSpellSelect += CloseScreen;
+            target.OnEditButtonClick += CloseScreen;
+        }
 
-
-
+        void IObserver<KnownSpellSlot>.RemoveFromObserve(KnownSpellSlot target)
+        {
+            target.OnSpellSelect -= CloseScreen;
+            target.OnEditButtonClick -= CloseScreen;
+        }
     }
 }

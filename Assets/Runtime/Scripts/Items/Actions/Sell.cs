@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Sell : ItemActionsFactory
+    public class Sell : RadialActionFactory<ItemSlotData>
     {
         protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new SellAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(ItemSlotData itemSlot)
+        protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
             return itemSlot.slotContainer != ItemStorageType.trader && false;
         }

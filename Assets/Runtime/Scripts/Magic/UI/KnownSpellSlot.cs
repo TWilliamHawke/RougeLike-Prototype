@@ -6,11 +6,14 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Entities.PlayerScripts;
 using UI.DragAndDrop;
+using UnityEngine.Events;
+using Core.UI;
 
 namespace Magic.UI
 {
-    public class SpellDataButton : UIDataElement<KnownSpellData>, IPointerEnterHandler,
-        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>, IInjectionTarget
+    [RequireComponent(typeof(DragHandler))]
+    public class KnownSpellSlot : UIDataElement<KnownSpellData>, IPointerEnterHandler,
+        IPointerExitHandler, IPointerClickHandler, IDragDataSource<IActionBearer>, IInjectionTarget
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
@@ -23,36 +26,34 @@ namespace Magic.UI
         [SerializeField] TextMeshProUGUI _spellName;
         [SerializeField] TextMeshProUGUI _spellRank;
         [SerializeField] TextMeshProUGUI _spellCost;
-        [SerializeField] Button _spellUpgradeButton;
-        [Header("Injectors")]
-        [SerializeField] Injector _dragCanvasInjector;
         [Header("Events")]
         [SerializeField] CustomEvent _onSpellDragStart;
         [SerializeField] CustomEvent _onSpellDragEnd;
 
-        [InjectField] Canvas _dragCanvas;
-
         KnownSpellData _knownSpell;
 
-        public KnownSpellData dragData => _knownSpell;
-
         public bool waitForAllDependencies => false;
-
+        //drag spell
+        public IActionBearer dragData => _knownSpell;
         public IDragController dataHandler => _dragDataHandler;
-
         public bool allowToDrag => _knownSpell is not null;
 
-        DragController<KnownSpellData> _dragDataHandler;
+        DragController<IActionBearer> _dragDataHandler;
+
+        public event UnityAction<KnownSpellData> OnDragStart;
+        public event UnityAction<KnownSpellData> OnEditButtonClick;
+        public event UnityAction<KnownSpellData> OnSpellSelect;
 
         void Awake()
         {
-            _spellUpgradeButton.onClick.AddListener(OpenSpellPage);
-            _dragCanvasInjector.AddInjectionTarget(this);
+            _dragDataHandler = new(this, _draggedSpellPrefab);
+            var dragHandler = GetComponent<DragHandler>();
+            dragHandler.OnDragStart += TriggerDragEvent;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData _)
         {
-            _spellBook.SelectSpell(_knownSpell);
+            OnSpellSelect?.Invoke(_knownSpell);
             _activeAbilities.UseAbility(_knownSpell.spellEffect);
         }
 
@@ -77,15 +78,16 @@ namespace Magic.UI
             _spellCost.text = data.manaCost.ToString();
         }
 
-        void OpenSpellPage()
+        public void TriggerSpellEditEvent()
         {
-            _frame.color = _defaultColor;
-            _spellBook.OpenSpellPage(_knownSpell);
+            if (_knownSpell is null) return;
+            OnEditButtonClick?.Invoke(_knownSpell);
         }
 
-        public void FinalizeInjection()
+        private void TriggerDragEvent()
         {
-            _dragDataHandler = new(this, _draggedSpellPrefab);
+            if (_knownSpell is null) return;
+            OnDragStart?.Invoke(_knownSpell);
         }
     }
 }

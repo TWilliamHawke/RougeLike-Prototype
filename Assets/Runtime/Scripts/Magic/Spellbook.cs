@@ -12,8 +12,7 @@ namespace Magic
     {
         public event UnityAction<Spell> OnSpellAdded;
         public event UnityAction OnSpellAddedFailure;
-        public event UnityAction<KnownSpellData> OnSpellPageOpen;
-        public event UnityAction<KnownSpellData> OnSpellSelect;
+        public event UnityAction OnUpdate;
 
         [SerializeField] Inventory _inventory;
         [SerializeField] int _increaseRankCost = 500;
@@ -44,30 +43,27 @@ namespace Magic
 
         public void AddSpellCopy(Spell spell)
         {
-            int spellCount = _knownSpells.Count(spellData => spellData.ContainSpell(spell));
-            spellCount++;
+            int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
             _knownSpells.Add(new KnownSpellData(spell, $"{spell.displayName} {spellCount}"));
             OnSpellAdded?.Invoke(spell);
+            OnUpdate?.Invoke();
+        }
+
+        public void AddSpellCopy(KnownSpellData spell)
+        {
+            int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
+            _knownSpells.Add(spell.CreateCopy($"{spell.displayName} {spellCount}"));
+            OnUpdate?.Invoke();
         }
 
         public bool SpellIsKnown(Spell spell)
         {
-            return _knownSpells.Any(spelldata => spelldata.ContainSpell(spell));
+            return _knownSpells.Any(spelldata => spelldata.SpellIsTheSame(spell));
         }
 
         public void Clear()
         {
             _knownSpells.Clear();
-        }
-
-        public void OpenSpellPage(KnownSpellData spell)
-        {
-            OnSpellPageOpen?.Invoke(spell);
-        }
-
-        public void SelectSpell(KnownSpellData spell)
-        {
-            OnSpellSelect?.Invoke(spell);
         }
 
         public void IncreaseSpellRank(KnownSpellData spell)
@@ -76,6 +72,18 @@ namespace Magic
             {
                 spell.IncreaseRank();
             }
+        }
+
+        public int GetCountSpellsOfType(KnownSpellData spellData)
+        {
+            return _knownSpells.Count(spell => spell.SpellIsTheSame(spellData));
+        }
+
+
+        public void DeleteSpell(KnownSpellData data)
+        {
+            _knownSpells.Remove(data);
+            OnUpdate?.Invoke();
         }
 
         private void AddSpell(Spell spell)

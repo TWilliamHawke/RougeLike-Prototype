@@ -25,8 +25,6 @@ namespace Magic.UI
             KnownSpellData.OnChangeData -= UpdateState;
         }
 
-
-
         public void UpdateState(KnownSpellData data)
         {
             _spellData = data;

@@ -1,6 +1,5 @@
-using Core;
 
-namespace Items
+namespace Core
 {
 	public interface IActionFactory<T>
 	{

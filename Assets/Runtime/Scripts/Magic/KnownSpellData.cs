@@ -4,19 +4,25 @@ using UnityEngine;
 using Items;
 using UnityEngine.Events;
 using Effects;
+using Core.UI;
 
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource
+    public class KnownSpellData : IAbilitySource, IActionBearer
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public static event UnityAction<KnownSpellData> OnChangeData;
 
-        //other classes shouldn't read spell data directly
+        const int MAX_SPELL_RANK = 6;
+        public string displayName { get; init; }
+
         public int rank => _rank;
         public SpellString[] activeStrings => _activeStrings;
         public int manaCost => CalculateManaCost();
+        public bool spellHasMaxRank => _rank >= MAX_SPELL_RANK;
+        public Sprite icon => _spell.icon;
+        public Ability spellEffect => _spell[rank].spellEffect;
 
         Spell _spell;
 
@@ -32,9 +38,6 @@ namespace Magic
             return Mathf.RoundToInt(_spell[_rank].manaCost * costMult);
         }
 
-        public string displayName { get; init; }
-        public Sprite icon => _spell.icon;
-        public Ability spellEffect => _spell[rank].spellEffect;
 
         public KnownSpellData(Spell spell)
         {
@@ -49,14 +52,24 @@ namespace Magic
             displayName = customName;
         }
 
-        public bool ContainSpell(Spell spell)
+        public KnownSpellData CreateCopy(string name)
+        {
+            return new KnownSpellData(_spell, name);
+        }
+
+        public bool SpellIsTheSame(Spell spell)
         {
             return spell == _spell;
         }
 
+        public bool SpellIsTheSame(KnownSpellData other)
+        {
+            return other._spell == _spell;
+        }
+
         public void IncreaseRank()
         {
-            if (_rank >= 6) return;
+            if (_rank >= MAX_SPELL_RANK) return;
 
             _rank++;
             OnChangeData?.Invoke(this);

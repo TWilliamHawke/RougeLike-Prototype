@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Magic.UI
 {
-    public class SpellList : UILayoutWithObserver<KnownSpellData, SpellDataButton>
+    public class SpellList : UILayoutWithObserver<KnownSpellData, KnownSpellSlot>
     {
 
     }

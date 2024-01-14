@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 namespace Core.UI
 {
-    public class RadialContextButton : MonoBehaviour, IDropTarget<ItemSlotData>
+
+    public class RadialContextButton : MonoBehaviour, IDropTarget<IActionBearer>
     {
         [SerializeField] RadialButtonPosition _buttonPosition;
         [SerializeField] TextMeshProUGUI _buttonText;
@@ -19,12 +20,12 @@ namespace Core.UI
 
         public RadialButtonPosition buttonPosition => _buttonPosition;
 
-        public bool DataIsMeet(ItemSlotData data)
+        public bool DataIsMeet(IActionBearer data)
         {
             return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
         }
 
-        public void DropData(ItemSlotData data)
+        public void DropData(IActionBearer data)
         {
             _buttonAction?.DoAction();
         }
