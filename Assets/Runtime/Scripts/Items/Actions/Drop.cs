@@ -2,14 +2,14 @@ using Core;
 
 namespace Items.Actions
 {
-    public class Drop : ItemActionsFactory
+    public class Drop : RadialActionFactory<ItemSlotData>
     {
         protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
             return new DropAction(itemSlot);
         }
 
-        protected override bool SlotIsValid(ItemSlotData itemSlot)
+        protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
             return itemSlot.slotContainer == ItemStorageType.inventory ||
                 itemSlot.slotContainer == ItemStorageType.storage;

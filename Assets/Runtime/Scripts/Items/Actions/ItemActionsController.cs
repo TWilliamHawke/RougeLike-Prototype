@@ -1,12 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
+using Core;
 using Core.UI;
 using Effects;
 using Entities.PlayerScripts;
 using Items.UI;
 using UnityEngine;
 
+
 namespace Items.Actions
 {
+    using FactoryList = List<IActionFactory<ItemSlotData>>;
 
     public class ItemActionsController : ActionController<ItemSlotData>, IObserver<ItemSlot>
     {
@@ -16,22 +20,20 @@ namespace Items.Actions
         [InjectField] Player _player;
         [InjectField] ModalWindowController _modalWindowController;
 
-
         void Start()
         {
             _inventoryScreen.AddSlotObservers(this);
         }
 
-        //event handler in editor
-        public override void CreateFactory()
+        protected override void FillFactory(FactoryList factory)
         {
-            _itemActionsFactory.Add(new Use(_player.GetComponent<AbilityController>()));
-            _itemActionsFactory.Add(new Buy());
-            _itemActionsFactory.Add(new Sell());
-            _itemActionsFactory.Add(new Equip());
-            _itemActionsFactory.Add(new MoveToStorage());
-            _itemActionsFactory.Add(new Destroy(_inventory, _modalWindowController));
-            _itemActionsFactory.Add(new Drop());
+            factory.Add(new Use(_player.GetComponent<AbilityController>()));
+            factory.Add(new Buy());
+            factory.Add(new Sell());
+            factory.Add(new Equip());
+            factory.Add(new MoveToStorage());
+            factory.Add(new Destroy(_inventory, _modalWindowController));
+            factory.Add(new Drop());
         }
 
         public void AddToObserve(ItemSlot target)

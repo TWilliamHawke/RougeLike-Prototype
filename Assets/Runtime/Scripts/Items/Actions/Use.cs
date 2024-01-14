@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Items.Actions
 {
-    public class Use : ItemActionsFactory
+    public class Use : RadialActionFactory<ItemSlotData>
     {
         AbilityController _playerAbilityController;
 
@@ -20,7 +20,7 @@ namespace Items.Actions
             return new UseAction(itemSlot, _playerAbilityController);
         }
 
-        protected override bool SlotIsValid(ItemSlotData itemSlot)
+        protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
             return (itemSlot.slotContainer == ItemStorageType.inventory ||
                 itemSlot.slotContainer == ItemStorageType.storage) &&
