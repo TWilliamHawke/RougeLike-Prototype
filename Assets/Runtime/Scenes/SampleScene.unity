@@ -60369,9 +60369,9 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_Spacing: 10
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -76286,6 +76286,8 @@ MonoBehaviour:
   _spellbook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
   _spellPage: {fileID: 274755475}
   _spellList: {fileID: 1609689038}
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _modalWindow: {fileID: 623873821}
 --- !u!1001 &1571777257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83818,8 +83820,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 100
   m_MinHeight: 100
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredWidth: 100
+  m_PreferredHeight: 100
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1

@@ -40,19 +40,13 @@ namespace Magic
             return !spellisKnown;
         }
 
-
-        public void AddSpellCopy(Spell spell)
-        {
-            int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
-            _knownSpells.Add(new KnownSpellData(spell, $"{spell.displayName} {spellCount}"));
-            OnSpellAdded?.Invoke(spell);
-            OnUpdate?.Invoke();
-        }
-
         public void AddSpellCopy(KnownSpellData spell)
         {
             int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
-            _knownSpells.Add(spell.CreateCopy($"{spell.displayName} {spellCount}"));
+            var newSpell = spell.CreateCopy($"{spell.baseName} {spellCount}");
+            int idx = _knownSpells.FindLastIndex(spellData => spellData.SpellIsTheSame(spell));
+
+            _knownSpells.Insert(idx + 1, newSpell);
             OnUpdate?.Invoke();
         }
 
@@ -78,7 +72,6 @@ namespace Magic
         {
             return _knownSpells.Count(spell => spell.SpellIsTheSame(spellData));
         }
-
 
         public void DeleteSpell(KnownSpellData data)
         {

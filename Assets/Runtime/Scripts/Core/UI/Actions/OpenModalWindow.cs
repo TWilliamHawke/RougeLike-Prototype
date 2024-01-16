@@ -6,9 +6,11 @@ namespace Core.UI
 {
     public class OpenModalWindow : IContextAction
     {
-        public string actionTitle => "Open Modal Window";
+        public string actionTitle => _actionTitle;
+
 		ModalWindowController _modalWindow;
         ModalWindowData _modalWindowData;
+        protected string _actionTitle = "Open Modal Window";
 
         public OpenModalWindow(ModalWindowController modalWindow, ModalWindowData modalWindowData)
         {
@@ -18,7 +20,7 @@ namespace Core.UI
 
         public void DoAction()
 		{
-            
+            _modalWindow.OpenWindow(_modalWindowData);
 		}
     }
 }

@@ -20,16 +20,16 @@ namespace Core.UI
             _modalWindow.Open(windowData);
         }
 
-        public bool TryCreateActionWrapper(ref IContextAction action)
-        {
-            var dataCreator = action as IHaveModalWindowData;
-            if (dataCreator is null) return false;
+        // public bool TryCreateActionWrapper(ref IContextAction action)
+        // {
+        //     var dataCreator = action as IHaveModalWindowData;
+        //     if (dataCreator is null) return false;
             
-            var data = new ModalWindowData();
-            if (!dataCreator.TryFillModalWindowData(ref data)) return false;
-            action = new OpenModalWindow(this, data);
-            return true;
-        }
+        //     var data = new ModalWindowData();
+        //     if (!dataCreator.TryFillModalWindowData(ref data)) return false;
+        //     action = new OpenModalWindow(this, data);
+        //     return true;
+        // }
     }
 }
 

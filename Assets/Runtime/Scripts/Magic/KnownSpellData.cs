@@ -9,16 +9,17 @@ using Core.UI;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IActionBearer
+    public class KnownSpellData : IAbilitySource
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public static event UnityAction<KnownSpellData> OnChangeData;
 
         const int MAX_SPELL_RANK = 6;
         public string displayName { get; init; }
+        public string baseName => _spell.displayName;
 
         public int rank => _rank;
-        public SpellString[] activeStrings => _activeStrings;
+        public List<SpellString> activeStrings => _activeStrings;
         public int manaCost => CalculateManaCost();
         public bool spellHasMaxRank => _rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
@@ -27,16 +28,7 @@ namespace Magic
         Spell _spell;
 
         int _rank = 1;
-        SpellString[] _activeStrings;
-
-
-
-        private int CalculateManaCost()
-        {
-            //min = 10%
-            float costMult = Mathf.Max(1 + GetBuffFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
-            return Mathf.RoundToInt(_spell[_rank].manaCost * costMult);
-        }
+        List<SpellString> _activeStrings = new(6);
 
 
         public KnownSpellData(Spell spell)
@@ -44,7 +36,6 @@ namespace Magic
             _spell = spell;
             _rank = spell.startRank;
             displayName = spell.displayName;
-            _activeStrings = new SpellString[6];
         }
 
         public KnownSpellData(Spell spell, string customName) : this(spell)
@@ -55,6 +46,11 @@ namespace Magic
         public KnownSpellData CreateCopy(string name)
         {
             return new KnownSpellData(_spell, name);
+        }
+
+        public IEnumerable<SpellString> GetSpellStrings()
+        {
+            return _activeStrings;
         }
 
         public bool SpellIsTheSame(Spell spell)
@@ -88,12 +84,19 @@ namespace Magic
 
         public void SetActiveString(int slotIndex, SpellString spellString)
         {
-            if (slotIndex >= _activeStrings.Length) return;
+            if (slotIndex >= _activeStrings.Count) return;
             _activeStrings[slotIndex] = spellString;
             OnChangeData?.Invoke(this);
         }
 
-        int GetBuffFromSpellLines(SelectSpellLinesBuff selector)
+        private int CalculateManaCost()
+        {
+            //min = 10%
+            float costMult = Mathf.Max(1 + GetBuffFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
+            return Mathf.RoundToInt(_spell[_rank].manaCost * costMult);
+        }
+
+        private int GetBuffFromSpellLines(SelectSpellLinesBuff selector)
         {
             int mod = 0;
 
@@ -105,5 +108,6 @@ namespace Magic
 
             return mod;
         }
+
     }
 }
