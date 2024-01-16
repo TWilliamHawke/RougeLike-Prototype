@@ -45,9 +45,7 @@ namespace Magic.UI
             _spellBook.Clear(); //only for tests
             foreach (var spell in _testSpells)
             {
-                _spellBook.AddSpellCopy(spell);
-                _spellBook.AddSpellCopy(spell);
-                _spellBook.AddSpellCopy(spell);
+                _spellBook.TryAddSpell(spell);
             }
         }
 

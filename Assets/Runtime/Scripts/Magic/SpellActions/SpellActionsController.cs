@@ -4,6 +4,7 @@ using UnityEngine;
 using Core.UI;
 using Magic.UI;
 using Core;
+using Items;
 
 namespace Magic.Actions
 {
@@ -15,6 +16,8 @@ namespace Magic.Actions
         [SerializeField] Spellbook _spellbook;
         [SerializeField] SpellPage _spellPage;
         [SerializeField] SpellList _spellList;
+        [SerializeField] Inventory _inventory;
+        [SerializeField] ModalWindowController _modalWindow;
 
         void Start()
         {
@@ -26,8 +29,9 @@ namespace Magic.Actions
         {
             factory.Add(new ShowInfo<KnownSpellData>());
             factory.Add(new BindToQuickbar<KnownSpellData>());
-            factory.Add(new DeleteSpell(_spellbook));
+            factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
             factory.Add(new EditSpell(_spellPage));
+            factory.Add(new CopySpell(_spellbook));
         }
 
         public void AddToObserve(KnownSpellSlot target)

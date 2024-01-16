@@ -67,7 +67,7 @@ namespace Magic.UI
             for (int i = 0; i < _spellStringSlots.Length; i++)
             {
                 var slot = _spellStringSlots[i];
-                if (i >= _spellData.rank || i >= _spellData.activeStrings.Length)
+                if (i >= _spellData.rank || i >= _spellData.activeStrings.Count)
                 {
                     slot.gameObject.SetActive(false);
                     continue;

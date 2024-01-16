@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core;
+using Items;
 using UnityEngine;
 
 namespace Magic.Actions
@@ -9,19 +10,24 @@ namespace Magic.Actions
     {
         Spellbook _spellbook;
 
+        public CopySpell(Spellbook spellbook)
+        {
+            _spellbook = spellbook;
+        }
+
         protected override IRadialMenuAction CreateAction(KnownSpellData element)
         {
-            throw new System.NotImplementedException();
+            return new CopySpellAction(_spellbook, element);
         }
 
         protected override bool ElementIsValid(KnownSpellData element)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         class CopySpellAction : IRadialMenuAction
         {
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.topRight;
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
 
             public string actionTitle => "Copy Spell";
 

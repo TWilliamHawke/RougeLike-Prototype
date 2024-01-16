@@ -7,11 +7,11 @@ using Core.UI;
 
 namespace Magic.UI
 {
-	public class DraggedSpell : DragableUIElement<IActionBearer>
+	public class DraggedSpell : DragableUIElement<KnownSpellData>
 	{
 		[SerializeField] Image _spellIcon;
 
-        public override void ApplyData(IActionBearer data)
+        public override void ApplyData(KnownSpellData data)
         {
             _spellIcon.sprite = data.icon;
         }

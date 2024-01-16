@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Items;
+using Magic;
 using TMPro;
 using UI.DragAndDrop;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 namespace Core.UI
 {
 
-    public class RadialContextButton : MonoBehaviour, IDropTarget<IActionBearer>
+    public class RadialContextButton : MonoBehaviour, IDropTarget<ItemSlotData>, IDropTarget<KnownSpellData>
     {
         [SerializeField] RadialButtonPosition _buttonPosition;
         [SerializeField] TextMeshProUGUI _buttonText;
@@ -20,14 +21,24 @@ namespace Core.UI
 
         public RadialButtonPosition buttonPosition => _buttonPosition;
 
-        public bool DataIsMeet(IActionBearer data)
+        public bool DataIsMeet(ItemSlotData _)
         {
-            return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
+            return DataIsMeet();
         }
 
-        public void DropData(IActionBearer data)
+        public void DropData(ItemSlotData _)
         {
-            _buttonAction?.DoAction();
+            DropData();
+        }
+
+        public bool DataIsMeet(KnownSpellData _)
+        {
+            return DataIsMeet();
+        }
+
+        public void DropData(KnownSpellData _)
+        {
+            DropData();
         }
 
         public void Highlight()
@@ -42,17 +53,28 @@ namespace Core.UI
 
         public void BindAction(IContextAction action)
         {
-            if(_buttonPosition == RadialButtonPosition.middle) return;
+            if (_buttonPosition == RadialButtonPosition.middle) return;
             _buttonAction = action;
             _buttonText.text = action.actionTitle;
         }
 
         public void ClearAction()
         {
-            if(_buttonPosition == RadialButtonPosition.middle) return;
+            if (_buttonPosition == RadialButtonPosition.middle) return;
             _buttonAction = null;
             _buttonText.text = "";
         }
+
+        private bool DataIsMeet()
+        {
+            return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
+        }
+
+        private void DropData()
+        {
+            _buttonAction?.DoAction();
+        }
+
     }
 }
 

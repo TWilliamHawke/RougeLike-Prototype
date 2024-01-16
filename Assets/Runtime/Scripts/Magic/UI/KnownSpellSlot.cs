@@ -13,7 +13,7 @@ namespace Magic.UI
 {
     [RequireComponent(typeof(DragHandler))]
     public class KnownSpellSlot : UIDataElement<KnownSpellData>, IPointerEnterHandler,
-        IPointerExitHandler, IPointerClickHandler, IDragDataSource<IActionBearer>, IInjectionTarget
+        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>, IInjectionTarget
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
@@ -34,11 +34,11 @@ namespace Magic.UI
 
         public bool waitForAllDependencies => false;
         //drag spell
-        public IActionBearer dragData => _knownSpell;
+        public KnownSpellData dragData => _knownSpell;
         public IDragController dataHandler => _dragDataHandler;
         public bool allowToDrag => _knownSpell is not null;
 
-        DragController<IActionBearer> _dragDataHandler;
+        DragController<KnownSpellData> _dragDataHandler;
 
         public event UnityAction<KnownSpellData> OnDragStart;
         public event UnityAction<KnownSpellData> OnEditButtonClick;
