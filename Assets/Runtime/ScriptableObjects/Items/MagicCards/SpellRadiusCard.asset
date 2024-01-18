@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SpellRadiusCard
   m_EditorClassIdentifier: 
   _displayName: Spell Radius Card
-  _icon: {fileID: 21300000, guid: 919bd3e268a67314c8c0e7366205d459, type: 3}
+  _icon: {fileID: 21300000, guid: e6721d9b95a017747aa14018c16be887, type: 3}
   _maxStackSize: 999
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
-  _previewColor: {r: 0.9019608, g: 0.19999999, b: 0.26851135, a: 1}
+  _previewColor: {r: 0.9921569, g: 0.03529412, b: 0, a: 1}
   _spellPowerMod: 25
   _manaCostMod: 50

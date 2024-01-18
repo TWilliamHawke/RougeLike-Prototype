@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpellPowerCard
   m_EditorClassIdentifier: 
   _displayName: Spell Power Card
-  _icon: {fileID: 21300000, guid: 250c4263450a88e45ad31615cf965802, type: 3}
+  _icon: {fileID: 21300000, guid: 2496b936501532f41924623162c7988f, type: 3}
   _maxStackSize: 999
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
