@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SpellCostCard
   m_EditorClassIdentifier: 
   _displayName: Spell Cost Card
-  _icon: {fileID: 21300000, guid: cb5797b328a93c748a1ebbb2bfa7222e, type: 3}
+  _icon: {fileID: 21300000, guid: 2c872843eb2dd3b4ebf134b326b6fc26, type: 3}
   _maxStackSize: 999
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
-  _previewColor: {r: 0.10196079, g: 0.5568628, b: 0.80392164, a: 1}
+  _previewColor: {r: 0.30980393, g: 0.8745099, b: 0.9803922, a: 1}
   _spellPowerMod: 0
   _manaCostMod: -20

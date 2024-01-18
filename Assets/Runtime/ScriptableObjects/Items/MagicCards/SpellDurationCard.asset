@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SpellDurationCard
   m_EditorClassIdentifier: 
   _displayName: Spell Duration Card
-  _icon: {fileID: 21300000, guid: 4bf94b9b7dba3ac45a3ea670f63b85d2, type: 3}
+  _icon: {fileID: 21300000, guid: 9f987fa80e1b69b43abf46d6acf7b645, type: 3}
   _maxStackSize: 1
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
-  _previewColor: {r: 0.7372549, g: 0, b: 0.6228326, a: 1}
+  _previewColor: {r: 0, g: 0.7137255, b: 0.16078432, a: 1}
   _spellPowerMod: 0
   _manaCostMod: 0
