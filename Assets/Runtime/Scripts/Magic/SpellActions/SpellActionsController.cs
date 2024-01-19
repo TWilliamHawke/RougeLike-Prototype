@@ -14,7 +14,7 @@ namespace Magic.Actions
     public class SpellActionsController : ActionController<KnownSpellData>, IObserver<KnownSpellSlot>
     {
         [SerializeField] Spellbook _spellbook;
-        [SerializeField] SpellPage _spellPage;
+        [SerializeField] SpellPage _spellEditor;
         [SerializeField] SpellList _spellList;
         [SerializeField] Inventory _inventory;
         [SerializeField] ModalWindowController _modalWindow;
@@ -30,7 +30,7 @@ namespace Magic.Actions
             factory.Add(new ShowInfo<KnownSpellData>());
             factory.Add(new BindToQuickbar<KnownSpellData>());
             factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
-            factory.Add(new EditSpell(_spellPage));
+            factory.Add(new EditSpell(_spellEditor));
             factory.Add(new CopySpell(_spellbook));
         }
 

@@ -2,6 +2,16 @@ using UnityEngine;
 
 public static class MonoBehaviourExtension
 {
+    public static void Enable(this MonoBehaviour mono)
+    {
+        mono.gameObject.SetActive(true);
+    }
+
+    public static void Disable(this MonoBehaviour mono)
+    {
+        mono.gameObject.SetActive(false);
+    }
+
     public static void DestroyChildren(this Component mono)
     {
         foreach (Transform children in mono.transform)

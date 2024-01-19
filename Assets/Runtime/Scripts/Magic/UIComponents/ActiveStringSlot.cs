@@ -6,75 +6,84 @@ using UnityEngine.UI;
 using UI.DragAndDrop;
 using UnityEngine.EventSystems;
 using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
+using UnityEngine.Events;
 
 namespace Magic.UI
 {
     public class ActiveStringSlot : MonoBehaviour, IDropTarget<ItemSlotData>, IPointerClickHandler
     {
         [SerializeField] Sprite _defaultIcon;
-        [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
         [SerializeField] Image _dragMask;
+        [SerializeField] Image _pointer;
 
-        const int RESOURCE_COST_TO_CLEAR = 100;
-
-        SpellString _activeLine;
-        int _slotIndex = 0;
-        KnownSpellData _spellData;
+        int _slotIndex = -1;
 
         public bool checkImageAlpha => false;
+
+        public event UnityAction<int> OnClick;
+        public event UnityAction<ItemSlotData> OnStringDrop;
+
+        void OnEnable()
+        {
+            _pointer.Hide();
+            _dragMask.Hide();
+        }
 
         public void Init(int slotIndex)
         {
             _slotIndex = slotIndex;
         }
 
-        public bool DataIsMeet(ItemSlotData data)
+        public void SetSelection(bool state)
         {
-            return data != null && data.item is SpellString && _activeLine is null;
+            if (state)
+            {
+                _pointer.Show();
+            }
+            else
+            {
+                _pointer.Hide();
+            }
         }
 
-        public void SetData(KnownSpellData data)
+        public bool DataIsMeet(ItemSlotData data)
         {
-            _spellData = data;
-            _activeLine = data.activeStrings[_slotIndex];
-            _icon.sprite = _activeLine?.icon ?? _defaultIcon;
+            return data != null && data.item is SpellString;
+        }
+
+        public void SetIcon(IIconData iconData)
+        {
+            if (iconData == null)
+            {
+                _icon.Hide();
+                return;
+            }
+            _icon.Show();
+            _icon.sprite = iconData.icon;
         }
 
         public void DropData(ItemSlotData slotData)
         {
-            _icon.sprite = slotData.item.icon;
-            _activeLine = slotData.item as SpellString;
-            slotData.RemoveOneItem();
-            _spellData.SetActiveString(_slotIndex, _activeLine);
+            OnStringDrop?.Invoke(slotData);
         }
 
         //used as unityevent
         public void ShowDragMask()
         {
-            if (_activeLine is not null) return;
-            _dragMask.gameObject.SetActive(true);
+            _dragMask.Show();
         }
 
         //used as unityEvent
         public void HideDragMask()
         {
-            _dragMask.gameObject.SetActive(false);
+            _dragMask.Hide();
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button != MouseButton.Right || _activeLine is null) return;
-
-            if(_inventory.resources.TrySpendResource(ResourceType.magicDust, RESOURCE_COST_TO_CLEAR))
-            {
-                _inventory.spellStrings.AddItem(_activeLine);
-                _icon.sprite = _defaultIcon;
-                _activeLine = null;
-                _spellData.SetActiveString(_slotIndex, _activeLine);
-            }
-
+            OnClick?.Invoke(_slotIndex);
         }
     }
 }

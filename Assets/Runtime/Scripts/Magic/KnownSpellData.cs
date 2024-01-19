@@ -12,14 +12,14 @@ namespace Magic
     public class KnownSpellData : IAbilitySource
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
-        public static event UnityAction<KnownSpellData> OnChangeData;
+        public event UnityAction OnChangeData;
 
         const int MAX_SPELL_RANK = 6;
         public string displayName { get; init; }
         public string baseName => _spell.displayName;
 
         public int rank => _rank;
-        public List<SpellString> activeStrings => _activeStrings;
+        public SpellString[] activeStrings => _activeStrings;
         public int manaCost => CalculateManaCost();
         public bool spellHasMaxRank => _rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
@@ -28,7 +28,7 @@ namespace Magic
         Spell _spell;
 
         int _rank = 1;
-        List<SpellString> _activeStrings = new(6);
+        SpellString[] _activeStrings = new SpellString[6];
 
 
         public KnownSpellData(Spell spell)
@@ -68,7 +68,7 @@ namespace Magic
             if (_rank >= MAX_SPELL_RANK) return;
 
             _rank++;
-            OnChangeData?.Invoke(this);
+            OnChangeData?.Invoke();
         }
 
         public IAbilityInstruction CreateAbilityInstruction()
@@ -84,9 +84,9 @@ namespace Magic
 
         public void SetActiveString(int slotIndex, SpellString spellString)
         {
-            if (slotIndex >= _activeStrings.Count) return;
+            if (slotIndex >= _activeStrings.Length) return;
             _activeStrings[slotIndex] = spellString;
-            OnChangeData?.Invoke(this);
+            OnChangeData?.Invoke();
         }
 
         private int CalculateManaCost()
