@@ -5,7 +5,7 @@ using UI.Tooltips;
 
 namespace Items
 {
-	public abstract class Item : ScriptableObject
+	public abstract class Item : ScriptableObject, IIconData
 	{
 		[UseFileName]
 	    [SerializeField] string _displayName;

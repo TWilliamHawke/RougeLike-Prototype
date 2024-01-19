@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9568628, g: 1, b: 0.86274517, a: 1}
+  m_Color: {r: 0.9568628, g: 1, b: 0.86274517, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -291,9 +291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultIcon: {fileID: 21300000, guid: 2f5cfdf77ed5df6429bf23d2855baccd, type: 3}
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _icon: {fileID: 4858898064873024744}
   _dragMask: {fileID: 8217847504634560509}
+  _pointer: {fileID: 2202109980505729798}
 --- !u!114 &6616085460355274716
 MonoBehaviour:
   m_ObjectHideFlags: 0

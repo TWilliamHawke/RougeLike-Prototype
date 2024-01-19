@@ -12,13 +12,10 @@ namespace Magic.UI
     {
         [SerializeField] int _spellsPerPage = 6;
         [SerializeField] Spellbook _spellBook;
-        [SerializeField] Inventory _inventory;
         [SerializeField] Injector _spellBookScreenInjector;
         [Header("UI Elements")]
         [SerializeField] UIScreen _spellbookCanvas;
         [SerializeField] SpellList _spellList;
-        [SerializeField] SpellPage _spellPage;
-        [SerializeField] ResourcesPage _resourcesPage;
         [SerializeField] TextMeshProUGUI _pageNumber;
         [SerializeField] Spell[] _testSpells;
         [SerializeField] Button _prevButton;
@@ -35,9 +32,6 @@ namespace Magic.UI
             _spellbookCanvas.OnScreenOpen += PrepareBook;
 
             _spellBookScreenInjector.SetDependency(_spellbookCanvas);
-
-            _spellPage.Init();
-            _resourcesPage.Init();
 
             _nextButton.onClick.AddListener(ShowNextPage);
             _prevButton.onClick.AddListener(ShowPrevPage);
@@ -57,7 +51,6 @@ namespace Magic.UI
 
         void PrepareBook()
         {
-            CloseSpellPage();
             UpdatePage();
             _spellList.UpdateLayout(FindSpellsOnPage());
         }
@@ -65,9 +58,6 @@ namespace Magic.UI
         //use as unityEvent
         public void CloseSpellPage()
         {
-            _spellList.Show();
-            _spellPage.Hide();
-            _resourcesPage.Hide();
         }
 
         private void ShowPrevPage()
@@ -99,15 +89,6 @@ namespace Magic.UI
             {
                 yield return _spellBook[i];
             }
-        }
-
-
-
-        void OpenSpellPage(KnownSpellData data)
-        {
-            _spellList.Hide();
-            _spellPage.Open(data);
-            _resourcesPage.Show();
         }
 
         private void CloseScreen(KnownSpellData _)

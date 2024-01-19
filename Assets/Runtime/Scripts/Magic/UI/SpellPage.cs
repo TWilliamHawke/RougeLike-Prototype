@@ -8,51 +8,48 @@ using Entities.PlayerScripts;
 
 namespace Magic.UI
 {
-    public class SpellPage : MonoBehaviour
+    public class SpellPage : MonoBehaviour, IObserver<KnownSpellSlot>
     {
+        const int EMPTY_IDX = -2;
+
+        [SerializeField] UIScreen _editorScreen;
         [Header("UI Elements")]
         [SerializeField] Image _spellIcon;
         [SerializeField] TextMeshProUGUI _spellName;
         [SerializeField] TextMeshProUGUI _spellRank;
         [SerializeField] TextMeshProUGUI _spellCost;
         [SerializeField] TextMeshProUGUI _spellDescription;
-        [SerializeField] IncreaseRankButton _rankUpButton;
+
         [SerializeField] ActiveStringSlot[] _spellStringSlots;
+        [SerializeField] ActiveStringSlot _increaseRankButton;
+        [SerializeField] SpellList _spellList;
+
+        int _activeStringSlot = EMPTY_IDX;
 
         KnownSpellData _spellData;
 
-        public void Init()
+        public void Start()
         {
-            KnownSpellData.OnChangeData += UpdateData;
-            _rankUpButton.Init();
+            _spellList.AddObserver(this);
+            _increaseRankButton.OnClick += OpenIncreaseRankPanel;
 
             for (int i = 0; i < _spellStringSlots.Length; i++)
             {
-                _spellStringSlots[i].Init(i);
-                
+                ActiveStringSlot slot = _spellStringSlots[i];
+                slot.Init(i);
+                slot.OnClick += SelectSlot;
             }
         }
-
-        void OnDestroy()
-        {
-            KnownSpellData.OnChangeData -= UpdateData;
-        }
-
 
         public void Open(KnownSpellData spellData)
         {
             _spellData = spellData;
-            SetUIData();
-            gameObject.SetActive(true);
-            _rankUpButton.UpdateState(spellData);
+            spellData.OnChangeData += UpdateUIData;
+            UpdateUIData();
+            _editorScreen.Open();
         }
 
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        void SetUIData()
+        void UpdateUIData()
         {
             _spellIcon.sprite = _spellData.icon;
             _spellName.text = _spellData.displayName;
@@ -64,27 +61,47 @@ namespace Magic.UI
 
         void UpdateActiveSlots()
         {
+            _increaseRankButton.gameObject.SetActive(!_spellData.spellHasMaxRank);
             for (int i = 0; i < _spellStringSlots.Length; i++)
             {
                 var slot = _spellStringSlots[i];
-                if (i >= _spellData.rank || i >= _spellData.activeStrings.Count)
+                if (i >= _spellData.rank || i >= _spellData.activeStrings.Length)
                 {
-                    slot.gameObject.SetActive(false);
+                    slot.Disable();
                     continue;
                 }
 
-                slot.gameObject.SetActive(true);
-                slot.SetData(_spellData);
-
+                slot.Enable();
+                slot.SetIcon(_spellData.activeStrings[i]);
             }
         }
 
-        void UpdateData(KnownSpellData data)
+        void OpenIncreaseRankPanel(int _)
         {
-            if (data != _spellData) return;
-
-            SetUIData();
+            SelectSlot(-1);
+            Debug.Log("OpenIncreaseRankPanel");
+            _spellData.IncreaseRank();
+            UpdateUIData();
         }
 
+        void SelectSlot(int idx)
+        {
+            _increaseRankButton.SetSelection(idx == -1 && _activeStringSlot != -1);
+            for (int i = 0; i < _spellStringSlots.Length; i++)
+            {
+                _spellStringSlots[i].SetSelection(i == idx && _activeStringSlot != i);
+            }
+            _activeStringSlot = _activeStringSlot == idx ? EMPTY_IDX : idx;
+        }
+
+        void IObserver<KnownSpellSlot>.AddToObserve(KnownSpellSlot target)
+        {
+            target.OnEditButtonClick += Open;
+        }
+
+        void IObserver<KnownSpellSlot>.RemoveFromObserve(KnownSpellSlot target)
+        {
+            target.OnEditButtonClick -= Open;
+        }
     }
 }
