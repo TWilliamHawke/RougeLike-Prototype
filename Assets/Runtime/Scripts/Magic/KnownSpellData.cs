@@ -71,6 +71,15 @@ namespace Magic
             OnChangeData?.Invoke();
         }
 
+        public bool StringSlotIsEmpty(int idx)
+        {
+            if (idx < 0 || idx >= MAX_SPELL_RANK)
+            {
+                return false;
+            }
+            return _activeStrings[idx] == null;
+        }
+
         public IAbilityInstruction CreateAbilityInstruction()
         {
             return new SpellUsageInstruction(this);

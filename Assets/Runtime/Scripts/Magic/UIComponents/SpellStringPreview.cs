@@ -6,10 +6,11 @@ using Items;
 using UnityEngine.UI;
 using UI.DragAndDrop;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 namespace Magic.UI
 {
-    public class SpellStringPreview : UIDataElement<ItemSlotData>, IDragDataSource<ItemSlotData>
+    public class SpellStringPreview : UIDataElement<ItemSlotData>, IDragDataSource<ItemSlotData>, IPointerClickHandler
     {
         [SerializeField] DragableUIElement<ItemSlotData> _dragableItemPrefab;
         [Header("UI Elements")]
@@ -19,6 +20,8 @@ namespace Magic.UI
         [Header("Events")]
         [SerializeField] CustomEvent _onSpellLineDragStart;
         [SerializeField] CustomEvent _onSpellLineDragEnd;
+
+        public event UnityAction<SpellString> OnClick;
 
         ItemSlotData _itemSlotData;
         DragController<ItemSlotData> _dragHandler;
@@ -43,6 +46,14 @@ namespace Magic.UI
             _icon.sprite = data.item.icon;
             _title.text = data.item.displayName;
             _count.text = data.count.ToString();
+        }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData _)
+        {
+            if (_itemSlotData?.item is SpellString spellString)
+            {
+                OnClick?.Invoke(spellString);
+            }
         }
     }
 }

@@ -147,16 +147,9 @@ namespace Items
 
         public IEnumerator<ItemSlotData> GetEnumerator()
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < _itemsList.Count; i++)
             {
-                if (i < _itemsList.Count)
-                {
-                    yield return _itemsList[i];
-                }
-                else
-                {
-                    yield return new ItemSlotData(null, 0, this);
-                }
+                yield return _itemsList[i];
             }
         }
 
