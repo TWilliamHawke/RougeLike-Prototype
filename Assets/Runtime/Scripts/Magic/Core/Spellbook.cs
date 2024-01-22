@@ -16,11 +16,13 @@ namespace Magic
 
         [SerializeField] Inventory _inventory;
         [SerializeField] int _increaseRankCost = 500;
+        [SerializeField] int _clearSlotCost = 25;
 
         List<KnownSpellData> _knownSpells;
 
         public List<KnownSpellData> knownSpells => _knownSpells;
         public int maxSpellRank => 6;
+        public int clearSlotCost => _clearSlotCost;
         public int increaseRankCost => _increaseRankCost;
         public int totalCount => _knownSpells.Count;
         public KnownSpellData this[int idx] => _knownSpells[idx];
@@ -43,7 +45,7 @@ namespace Magic
         public void AddSpellCopy(KnownSpellData spell)
         {
             int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
-            var newSpell = spell.CreateCopy($"{spell.baseName} {spellCount}");
+            var newSpell = spell.CreateNewSpellData($"{spell.baseName} {spellCount}");
             int idx = _knownSpells.FindLastIndex(spellData => spellData.SpellIsTheSame(spell));
 
             _knownSpells.Insert(idx + 1, newSpell);
@@ -58,14 +60,6 @@ namespace Magic
         public void Clear()
         {
             _knownSpells.Clear();
-        }
-
-        public void IncreaseSpellRank(KnownSpellData spell)
-        {
-            if (_inventory.resources.TrySpendResource(ResourceType.magicDust, _increaseRankCost))
-            {
-                spell.IncreaseRank();
-            }
         }
 
         public int GetCountSpellsOfType(KnownSpellData spellData)

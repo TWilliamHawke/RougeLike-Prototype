@@ -43,7 +43,7 @@ namespace Magic
             displayName = customName;
         }
 
-        public KnownSpellData CreateCopy(string name)
+        public KnownSpellData CreateNewSpellData(string name)
         {
             return new KnownSpellData(_spell, name);
         }
@@ -73,10 +73,7 @@ namespace Magic
 
         public bool StringSlotIsEmpty(int idx)
         {
-            if (idx < 0 || idx >= MAX_SPELL_RANK)
-            {
-                return false;
-            }
+            if (!IndexIsCorrect(idx)) return false;
             return _activeStrings[idx] == null;
         }
 
@@ -87,25 +84,37 @@ namespace Magic
 
         public string ConstructDescription()
         {
-            float powerMult = 1 + GetBuffFromSpellLines(s => s.spellPowerMod) / 100f;
+            float powerMult = 1 + GetBuffsFromSpellLines(s => s.spellPowerMod) / 100f;
             return spellEffect.GetDescription(new AbilityModifiers(powerMult));
         }
 
         public void SetActiveString(int slotIndex, SpellString spellString)
         {
-            if (slotIndex >= _activeStrings.Length) return;
+            if (!IndexIsCorrect(slotIndex)) return;
             _activeStrings[slotIndex] = spellString;
             OnChangeData?.Invoke();
+        }
+
+        public void ClearStringSlot(int idx)
+        {
+            if (!IndexIsCorrect(idx)) return;
+            _activeStrings[idx] = null;
+            OnChangeData?.Invoke();
+        }
+
+        private bool IndexIsCorrect(int idx)
+        {
+            return idx < _activeStrings.Length && idx >= 0;
         }
 
         private int CalculateManaCost()
         {
             //min = 10%
-            float costMult = Mathf.Max(1 + GetBuffFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
+            float costMult = Mathf.Max(1 + GetBuffsFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
             return Mathf.RoundToInt(_spell[_rank].manaCost * costMult);
         }
 
-        private int GetBuffFromSpellLines(SelectSpellLinesBuff selector)
+        private int GetBuffsFromSpellLines(SelectSpellLinesBuff selector)
         {
             int mod = 0;
 

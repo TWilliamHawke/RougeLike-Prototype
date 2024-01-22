@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Items;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Magic.UI
@@ -10,14 +11,14 @@ namespace Magic.UI
     public class SpellEditorComponents : MonoBehaviour
     {
         [SerializeField] Inventory _inventory;
+        [SerializeField] Spellbook _spellbook;
         [SerializeField] TextMeshProUGUI _spellCost;
         [SerializeField] TextMeshProUGUI _spellDescription;
         [SerializeField] TextMeshProUGUI _header;
         [SerializeField] HorizontalLayoutGroup _spellCostWrapper;
-        [SerializeField] Button _closeButton;
-        [SerializeField] Button _clearSlotButon;
         [SerializeField] SpellStringList _stringList;
         [SerializeField] Image _frame;
+        [SerializeField] SpellEditorButtons _buttons;
 
         public void ShowDefaultEffects(KnownSpellData spellData)
         {
@@ -32,6 +33,7 @@ namespace Magic.UI
             SetHeaderText("Upgrade Spell");
             SetSpellCost(spellData.manaCost);
             SetDescriptionText(spellData.ConstructDescription());
+            _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
         }
 
         public void ShowSlotEffects(SpellString spellString)
@@ -39,6 +41,8 @@ namespace Magic.UI
             HideAllComponents();
             SetHeaderText(spellString.displayName);
             SetDescriptionText(spellString.GetDescription());
+            _buttons.ShowClearButton(_spellbook.clearSlotCost);
+            _buttons.ShowCloseButton();
         }
 
         public void ShowEmtySlotOptions()
@@ -47,6 +51,7 @@ namespace Magic.UI
             SetHeaderText("Select new Spell String");
             _stringList.Show();
             _stringList.UpdateLayout(_inventory.spellStrings);
+            _buttons.ShowCloseButton();
         }
 
         public void ShowSpellLineEffect(KnownSpellData spellData, SpellString spellString)
@@ -55,6 +60,7 @@ namespace Magic.UI
             SetHeaderText("Add new Spell String");
             SetSpellCost(spellData.manaCost);
             SetDescriptionText(spellData.ConstructDescription());
+            _buttons.ShowConfirmButton();
         }
 
         void SetHeaderText(string text)
@@ -81,10 +87,9 @@ namespace Magic.UI
             _spellCostWrapper.Hide();
             _spellDescription.Hide();
             _header.Hide();
-            _clearSlotButon.Hide();
-            _closeButton.Hide();
             _stringList.Hide();
             _frame.Hide();
+            _buttons.HideAll();
         }
     }
 }
