@@ -17,13 +17,13 @@ MonoBehaviour:
   _startRank: 1
   _levels:
   - spellEffect: {fileID: 11400000, guid: 3a3534d8217ba794e87b00e64b337509, type: 2}
-    manaCost: 20
+    manaCost: 5
   - spellEffect: {fileID: 11400000, guid: 7341bac4a616f574f8f597ee6a3eb67d, type: 2}
-    manaCost: 20
+    manaCost: 10
   - spellEffect: {fileID: 11400000, guid: adfb2df218d4a6c4ea5c302d92c63856, type: 2}
-    manaCost: 20
+    manaCost: 15
   - spellEffect: {fileID: 11400000, guid: c86c8ca5b4f044f4f80c38803e4e25c8, type: 2}
     manaCost: 20
   - spellEffect: {fileID: 11400000, guid: f9b66b08fa103964bbd62db675f40bc1, type: 2}
-    manaCost: 20
+    manaCost: 25
   _description: Restore %m health for caster

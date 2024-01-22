@@ -24,17 +24,10 @@ namespace Magic.UI
         //used in button click handler
         public void IncreaseSpellRank()
         {
-            if (_spellData is null) return;
-            _spellbook.IncreaseSpellRank(_spellData);
         }
 
         void CheckButtonState()
         {
-            if (_spellData.rank >= _spellbook.maxSpellRank)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
 
             gameObject.SetActive(true);
 
