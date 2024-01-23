@@ -10,7 +10,7 @@ namespace Entities.Stats
         [SerializeField] bool _applyMultFirst = true;
         [SerializeField] int _capMin = 0;
         [SerializeField] int _capMax = System.Int32.MaxValue;
-        [SerializeField] int _defaultValue = 100;
+        [SerializeField] int _defaultValue = 0;
 
         public int defaultValue => _defaultValue;
         public int capMax => _capMax;

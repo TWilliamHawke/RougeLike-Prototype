@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ad18a7025105d4a9c653a253feb2ea, type: 3}
+  m_Name: BowSounds
+  m_EditorClassIdentifier: 
+  _useSounds:
+  - {fileID: 8300000, guid: c652ff312840b0c4d8f1f63c5c14ecad, type: 3}
+  - {fileID: 8300000, guid: 6fafd689ce549c446a62d4e96cb47d3b, type: 3}
+  - {fileID: 8300000, guid: 837148419bf42be41ae1055e6ed219ff, type: 3}
+  _dragSounds:
+  - {fileID: 8300000, guid: 7d2de0a90a3521a43b867a9ed3efb89c, type: 3}
+  - {fileID: 8300000, guid: 05b3d7b345cc356489001a4e0849971a, type: 3}

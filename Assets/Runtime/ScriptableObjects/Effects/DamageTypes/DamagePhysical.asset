@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71dbfde04137bf449d9045cd00b3a90, type: 3}
+  m_Name: DamagePhysical
+  m_EditorClassIdentifier: 
+  _displayName: Physical Damage
+  _description: 
+  _icon: {fileID: 0}
+  _damagedStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
+  _resist: {fileID: 11400000, guid: 89f1e79fa7f3c9748ba63b640028b2f8, type: 2}

@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using UnityEngine;
 
 namespace Items
 {
-	[CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapon")]
-	public class Weapon : Item, IEquipment
-	{
-		[Min(1)]
-		[SerializeField] int _minDamage;
-		[Min(1)]
-		[SerializeField] int _maxDamage;
-		[SerializeField] int _accuracy;
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapon")]
+    public class Weapon : Item, IEquipment
+    {
+        [SerializeField] DamageEffect _damageType;
+        [Min(1)]
+        [SerializeField] int _minDamage;
+        [Min(1)]
+        [SerializeField] int _maxDamage;
+        [Min(1)]
+        [SerializeField] int _accuracy;
 
-        [SerializeField] AudioClip[] _attackSounds;
-
-        public AudioClip attackSound => _attackSounds.GetRandom();
+        public AudioClip attackSound => useSound;
         public EquipmentTypes equipmentType => EquipmentTypes.weapon;
 
         public override string GetDescription()
