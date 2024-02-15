@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Effects
 {
-	public interface IEffectSource
+	public interface IEffectSource : IBonusValueSource
 	{
 	    string displayName { get; }
 	}
