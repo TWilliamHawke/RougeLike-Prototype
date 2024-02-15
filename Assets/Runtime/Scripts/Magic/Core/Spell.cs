@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using UnityEngine;
 
 namespace Magic
 {
 	[CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
-	public class Spell : ScriptableObject, ISpriteGetter
+	public class Spell : ScriptableObject, ISpriteGetter, IEffectSource
 	{
 		[UseFileName]
 		[SerializeField] string _displayName;

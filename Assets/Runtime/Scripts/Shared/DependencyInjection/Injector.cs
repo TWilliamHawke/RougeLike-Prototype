@@ -130,6 +130,7 @@ public class Injector : ScriptableObject
 
     //FinalizeInjection will call only if all injections is done
     //(fields with InjectFieldAttribute not null)
+    //and calls immediately after last injection
     private void Finalize(IInjectionTarget injectionTarget)
     {
         if (injectionTarget.waitForAllDependencies
@@ -139,6 +140,7 @@ public class Injector : ScriptableObject
 
         var realTarget = (injectionTarget as IDependencyProvider)?.realTarget ?? injectionTarget;
 
+        //key part. starts the chain of FinalizeInjection call
         OnInjectionFinalize?.Invoke(realTarget);
     }
 
