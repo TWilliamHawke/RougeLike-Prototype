@@ -20,3 +20,10 @@ MonoBehaviour:
   _previewColor: {r: 0.90196085, g: 0.4784314, b: 0.20000002, a: 1}
   _spellPowerMod: 25
   _manaCostMod: 30
+  _effects:
+  - _effect: {fileID: 11400000, guid: 5ee0a1661be26284ba51014ce132d8eb, type: 2}
+    _power: 25
+    _duration: 0
+  - _effect: {fileID: 11400000, guid: cc758ecd9f55ca84788be9da48220e59, type: 2}
+    _power: 30
+    _duration: 0

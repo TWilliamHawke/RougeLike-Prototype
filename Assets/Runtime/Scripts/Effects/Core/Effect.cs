@@ -6,15 +6,17 @@ namespace Effects
 {
     public class Effect : ScriptableObject
     {
-        [UseFileName]
+        [LocalisationKey]
         [SerializeField] string _displayName;
-        [Multiline(4)]
+        [LocalisationKey]
         [SerializeField] string _description;
         [SpritePreview]
         [SerializeField] Sprite _icon;
+        [SerializeField] bool _isPositiveValueGood = true;
 
         public Sprite icon => _icon;
         public string description => _description;
+        public bool isPositiveValueGood => _isPositiveValueGood;
 
         public virtual bool CanApply(IEffectSource source, IEffectTarget target)
         {

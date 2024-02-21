@@ -9,8 +9,10 @@ namespace Effects
     public class ChangeStat : Effect
     {
         [SerializeField] StaticStat _stat;
+        [SerializeField] BonusValueType _bonusType = BonusValueType.flat;
         [SerializeField] ConditionsList _conditions;
 
         public StaticStat stat => _stat;
+        public BonusValueType bonusType => _bonusType;
     }
 }

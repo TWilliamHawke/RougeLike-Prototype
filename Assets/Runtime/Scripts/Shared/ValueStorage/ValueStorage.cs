@@ -11,7 +11,7 @@ public class ValueStorage : IValueStorage
     public int maxValue => _maxValue;
     public int minValue => _minValue;
 
-    Dictionary<IBonusValueSource, BonusValueData> _bonusValues = new();
+    protected Dictionary<IBonusValueSource, BonusValueData> _bonusValues = new();
 
     int _maxValue;
     int _currentValue;
@@ -85,7 +85,7 @@ public class ValueStorage : IValueStorage
         return true;
     }
 
-    public int GetFinalValue()
+    public virtual int GetFinalValue()
     {
         float flatBonus = GetBonusValue(BonusValueType.flat, 0, (acc, val) => acc + val);
         float pctBonus = GetBonusValue(BonusValueType.percentage, 1, (acc, val) => acc + val / 100);
@@ -113,7 +113,7 @@ public class ValueStorage : IValueStorage
         return startValue;
     }
 
-    private int NormalizeValue(float value)
+    protected int NormalizeValue(float value)
     {
         value = Mathf.Clamp(value, _minValue, _maxValue);
         return Mathf.RoundToInt(value);

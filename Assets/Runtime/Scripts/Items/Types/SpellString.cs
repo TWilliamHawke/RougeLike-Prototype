@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using UnityEngine;
+using System.Text;
 
 namespace Items
 {
@@ -11,18 +13,23 @@ namespace Items
 	    [SerializeField] Color _previewColor = Color.red;
 		[SerializeField] int _spellPowerMod;
 		[SerializeField] int _manaCostMod;
+        [SerializeField] SourceEffectData[] _effects;
 
 		public int spellPowerMod => _spellPowerMod;
 		public int manaCostMod => _manaCostMod;
 
+        const string _itemType = "SpellString";
+
         public override string GetDescription()
         {
-            return $"Spell power: {_spellPowerMod}%\nSpell cost: {_manaCostMod}%";
+            var sb = new StringBuilder();
+            _effects.ForEach(effect => effect.AddDescription(ref sb));
+            return sb.ToString();
         }
 
         public override string GetItemType()
         {
-            return "SpellString";
+            return _itemType;
         }
     }
 }

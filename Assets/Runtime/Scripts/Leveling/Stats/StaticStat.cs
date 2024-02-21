@@ -11,24 +11,19 @@ namespace Entities.Stats
         [SerializeField] int _capMin = 0;
         [SerializeField] int _capMax = System.Int32.MaxValue;
         [SerializeField] int _defaultValue = 0;
+        [Range(0, 1f)]
+        [SerializeField] float _minReductionMod = .2f;
 
         public int defaultValue => _defaultValue;
         public int capMax => _capMax;
         public int capMin => _capMin;
+        public bool applyMultFirst => _applyMultFirst;
+        public float minReductionMod => _minReductionMod;
 
-        public int ApplyStatMods(int baseValue, int pctBonus, int flatBonus)
-        {
-            if (_applyMultFirst)
-            {
-                return Mathf.FloorToInt(baseValue * (1 + pctBonus / 100f)) + flatBonus;
-            }
-
-            return Mathf.FloorToInt((baseValue + flatBonus) * (1 + pctBonus / 100f));
-        }
 
         public StaticStatStorage CreateStorage(IStatContainer controller)
         {
-            var storage = new StaticStatStorage(controller.effectStorage, this);
+            var storage = new StaticStatStorage(this);
             controller.staticStatStorage.Add(this, storage);
             return storage;
         }

@@ -82,7 +82,7 @@ namespace Magic.UI
                 }
 
                 slot.Enable();
-                slot.SetIcon(_spellData.activeStrings[i]);
+                slot.SetIcon(_spellData.activeStrings[i].spellString);
             }
         }
 

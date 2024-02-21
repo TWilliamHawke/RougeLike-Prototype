@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5097b9667972c4cac1e149cdee4fb5, type: 3}
+  m_Name: DamageModAllFlat
+  m_EditorClassIdentifier: 
+  _displayName: effect_name_damage_mod_all
+  _description: effect_description_damage_mod_all
+  _icon: {fileID: 21300000, guid: 2496b936501532f41924623162c7988f, type: 3}
+  _isPositiveValueGood: 1
+  _stat: {fileID: 11400000, guid: 3113c7825f6f4ba4f9bdd62b32e700d5, type: 2}
+  _bonusType: 1
+  _conditions:
+    _conditions: []

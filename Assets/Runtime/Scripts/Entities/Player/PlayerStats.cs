@@ -32,8 +32,6 @@ namespace Entities.PlayerScripts
 
         public Vector3 bodyPosition => _body.transform.position;
 
-        public BehaviorType behavior => BehaviorType.none;
-
         public void Init(Player player)
         {
             _statsContainer = new(player);

@@ -27,7 +27,17 @@ namespace Magic
         public Sprite sprite => _icon;
 		public string description => _description;
 
-        public SpellLevelData this[int idx] => GetLevelData(idx);
+        public int GetCostAt(int rank)
+        {
+            var levelData = GetLevelData(rank);
+            return levelData.manaCost;
+        }
+
+        public Ability GetEffectAt(int rank)
+        {
+            var levelData = GetLevelData(rank);
+            return levelData.spellEffect;
+        }
 
         private SpellLevelData GetLevelData(int idx)
         {
