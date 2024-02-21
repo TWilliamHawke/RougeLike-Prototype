@@ -21,11 +21,14 @@ namespace Localisation
         public static string[] SplitLine(string line)
         {
             string[] parts = line.Split(_cellSeparator);
+            int oldSize = parts.Length;
 
-            if (parts.Length != normalSize)
+            if (oldSize < normalSize)
             {
                 Array.Resize(ref parts, normalSize);
             }
+
+            Array.Fill(parts, "empty", oldSize, normalSize - oldSize);
 
             return parts;
         }
