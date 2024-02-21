@@ -1,0 +1,34 @@
+key	en	ru
+test_key	Test	Тест
+qwerty	Qwerty	Йцукен
+top_menu_button	Menu	Меню
+top_char_button	Character	Персонаж
+top_world_button	World	Мир
+inventory_section_potions	Potions	Зелья
+inventory_section_scrolls	Scrolls	Свитки
+inventory_section_main	Main Section	Общая сумка
+effect_name_accuracy	Accuracy	Точность
+effect_description_accuracy	Increace accuracy by %m	Точность : %m
+effect_description_accurac	qwerty	qwerty
+effect_name_damage_mod_all	Damage from all sources	Урон из всех источников
+effect_description_damage_mod_all	Damage from all sources: %m%	Весь урон: %m%
+effect_name_spell_cost	Spell cost	Spell cost
+effect_descr_spell_cost	Spell cost : %m%	Стоимость заклинаний : %m%
+effect_name_damage_bleeding	Bleeding Damage	Урон от кровотечения
+effect_descr_damage_bleeding	Takes %m bleeding damage	Наносит %m урона от кровотечения
+effect_name_damage_fire	Fire Damage	Урон от огня
+effect_descr_damage_fire	Takes %m fire damage	Наносит %m урона от огня
+effect_name_damage_frost	Frost damage	Frost damage
+effect_descr_damage_frost	Takes %m frost damage	Наносит %m урона холодом
+effect_name_damage_lightning	Lightning Damage	Урон от молнии
+effect_descr_damage_lightning	Takes %m fire damage	Наносит %m урона молнией
+effect_name_damage_physical	Physical Damage	Physical Damage
+effect_descr_damage_physical	Takes %m physical damage	Наносит %m физического урона
+effect_name_spell_cast	Spell Cast	Произнесение заклинания
+effect_descr_spell_cast	Reduce Mana by %m	Снижает ману на %m
+effect_name_effect_duration_flat	Effect Duration Mod	Продолжительность эффекта
+effect_name_spell_duration_flat	Spell duration	Длительность заклинаний
+effect_descr_spell_duration_flat	Increases spell duration by %m	Длительность заклинаний увеличена на %m
+effect_name_spell_radius	Spell Radius	Радиус действия
+effect_descr_spell_radius	Spell Radius %m	Радиус действия &m
+effect_duration	for %dx	на %dx

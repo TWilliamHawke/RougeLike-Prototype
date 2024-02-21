@@ -10,5 +10,7 @@ namespace Effects
     {
         [SerializeField] CappedStat _damagedStat;
         [SerializeField] StaticStat _resist;
+
+        [SerializeField] StaticStat[] _damageMods;
     }
 }

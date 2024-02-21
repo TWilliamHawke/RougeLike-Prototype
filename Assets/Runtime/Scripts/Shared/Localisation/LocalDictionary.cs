@@ -6,27 +6,28 @@ using Localisation;
 public static class LocalDictionary
 {
     static Dictionary<string, string> _dictionary;
-    static string _aRegexp = "%a";
-    static string _bRegexp = "%b";
 
     static LocalDictionary()
     {
-        var gameLang = PlayerPrefs.GetString("game_lang", "en");
-        var localisationLoader = new CSVReader(gameLang);
-        _dictionary = localisationLoader.CreateDictionary();
+        var gameLang = PlayerPrefs.GetString("game_lang", "english");
+        var localisationLoader = new TSVReader();
+        _dictionary = localisationLoader.CreateDictionary(gameLang);
     }
 
-    public static string GetLocalisedString(string key, string aReplacer = "", string bReplacer = "")
+    public static string GetLocalisedString(string key, params TextReplacer[] replacers)
     {
         if (_dictionary.TryGetValue(key, out var value))
         {
-            value = ReplaceText(value, _aRegexp, aReplacer);
-            value = ReplaceText(value, _bRegexp, bReplacer);
+            for(int i = 0; i < replacers.Length; i++)
+            {
+                var data = replacers[i];
+                value = ReplaceText(value, data.pattern, data.replacer);
+            }
             return value;
         }
         else
         {
-            Debug.Log($"{key} not found in localisation file");
+            Debug.LogWarning($"{key} not found in localisation file");
             return key;
         }
     }
@@ -36,8 +37,6 @@ public static class LocalDictionary
         if (replacer is null || replacer == "") return original;
         return original.Replace(regexp, replacer);
     }
-
-
 
 }
 

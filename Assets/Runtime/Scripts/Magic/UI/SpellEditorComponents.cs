@@ -36,7 +36,7 @@ namespace Magic.UI
             _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
         }
 
-        public void ShowSlotEffects(SpellString spellString)
+        public void ShowSlotEffects(StringSlotData spellString)
         {
             HideAllComponents();
             SetHeaderText(spellString.displayName);

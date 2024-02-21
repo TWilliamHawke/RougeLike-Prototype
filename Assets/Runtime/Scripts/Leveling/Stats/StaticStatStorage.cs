@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Effects;
@@ -6,39 +7,41 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class StaticStatStorage : IStatStorage, IParentStat, IStatValueController
+    public class StaticStatStorage : ValueStorage, IStatStorage, IParentStat, IStatValueController
     {
-        int _value;
-        int IParentStat.currentValue => _value;
-        int IParentStat.minValue => _stat.capMin;
-
         StaticStat _stat;
-        EffectStorage _effectStorage;
 
-        public event UnityAction<int> OnValueChange;
-
-        public StaticStatStorage(EffectStorage effectStorage, StaticStat stat)
+        public StaticStatStorage(StaticStat stat) : base(stat.capMin, stat.capMax, stat.defaultValue, !stat.applyMultFirst)
         {
-            _effectStorage = effectStorage;
             _stat = stat;
-            _value = stat.defaultValue;
         }
 
         public void ChangeStat(int value)
         {
-            SetStatValue(_value + value);
+            SetNewValue(currentValue + value);
+        }
+
+        public override int GetFinalValue()
+        {
+            int finalValue = base.GetFinalValue();
+
+            if (_stat.minReductionMod > 0f)
+            {
+                int minFinalValue = NormalizeValue(currentValue * _stat.minReductionMod);
+                finalValue = Math.Max(finalValue, minFinalValue);
+            }
+
+            return finalValue;
         }
 
         private void SetStatValue(int newValue)
         {
-            if (_value == newValue) return;
-            _value = Mathf.Clamp(newValue, _stat.capMin, _stat.capMax);
-            OnValueChange?.Invoke(_value);
+            SetNewValue(newValue);
         }
 
         void IStatStorage.SetBaseStatValue(int value)
         {
-            SetStatValue(value);
+            SetNewValue(value);
         }
     }
 }
