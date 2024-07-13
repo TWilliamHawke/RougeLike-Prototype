@@ -14,7 +14,7 @@ namespace Entities.Stats
         event UnityAction<int> OnValueChange;
     }
 
-    public interface ICappedStatChanges
+    public interface IStoredResourceEvents
     {
         event UnityAction<int> OnValueChange;
         event UnityAction OnReachMax;

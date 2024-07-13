@@ -17,7 +17,7 @@ namespace Localisation
 
         public Dictionary<string, string> CreateDictionary()
         {
-            throw new NotImplementedException();
+            return CreateDictionary(GameLanguages.english);
         }
 
         public Dictionary<string, string> CreateDictionary(string gameLanguage)
@@ -25,7 +25,6 @@ namespace Localisation
             Enum.TryParse<GameLanguages>(gameLanguage, out var _gameLanguage);
             return CreateDictionary(_gameLanguage);
         }
-
 
         public Dictionary<string, string> CreateDictionary(GameLanguages gameLanguage)
         {
@@ -62,13 +61,15 @@ namespace Localisation
 
         private void AddLineToDictionary(string line)
         {
+            if (String.IsNullOrEmpty(line)) throw new Exception($"Line is empty: {line}");
+
             var keyValues = line.Split(_cellSeparator);
             string key = keyValues[0];
             string value = keyValues[_gameLanguageIdx];
 
-            if (key == "") throw new System.Exception($"Found empty Key in line: {line}");
-            if (value == "") throw new System.Exception($"Value for {key} is empty");
-            if (_dictionary.ContainsKey(key)) throw new System.Exception($"Key {key} is already exist");
+            if (key == "") throw new Exception($"Found empty Key in line: {line}");
+            if (value == "") throw new Exception($"Value for {key} is empty");
+            if (_dictionary.ContainsKey(key)) throw new Exception($"Key {key} is already exist");
 
             _dictionary[key] = value;
         }

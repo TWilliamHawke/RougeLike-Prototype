@@ -17,7 +17,7 @@ namespace Entities.PlayerScripts
         [SerializeField] StatValues _defaultStats;
         [SerializeField] CustomEvent _onPlayerStatsInit;
 
-        CappedStatStorage _mana;
+        ResourceStorage _mana;
         Body _body;
 
         //public event UnityAction OnHealthChange;

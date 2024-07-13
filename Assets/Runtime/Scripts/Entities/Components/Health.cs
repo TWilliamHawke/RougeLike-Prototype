@@ -14,9 +14,9 @@ namespace Entities
 
         [SerializeField] Body _body;
         [SerializeField] Injector _healthbarCanvasInjector;
-        [SerializeField] CappedStat _health;
+        [SerializeField] StoredResource _health;
 
-        CappedStatStorage _healthStorage;
+        ResourceStorage _healthStorage;
 
         public Vector3 bodyPosition => _body.transform.position;
 

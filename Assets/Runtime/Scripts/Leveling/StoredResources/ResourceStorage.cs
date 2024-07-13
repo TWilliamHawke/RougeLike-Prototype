@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class CappedStatStorage : IStatStorage, IDynamicStat, IObserver<IParentStat>, IStatValues, ICappedStatChanges, IStatValueController, ISafeStatController
+    public class ResourceStorage : IStatStorage, IDynamicStat, IObserver<IParentStat>, IStatValues, IStoredResourceEvents, IStatValueController, ISafeStatController
     {
         public int value => _value;
 

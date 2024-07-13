@@ -7,8 +7,8 @@ namespace Entities.Stats
     public class StatList : ScriptableObject
     {
         [Header("Capped Stats")]
-        public CappedStat health;
-        public CappedStat mana;
+        public StoredResource health;
+        public StoredResource mana;
         [Space()]
         [Header("Static Stat")]
         public StaticStat maxHealth;

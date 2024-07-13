@@ -9,6 +9,6 @@ namespace Entities.Stats
         void InitStat<T>(IStat<T> stat, int baseValue) where T: IStatStorage;
         void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T;
         Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; }
-        Dictionary<CappedStat, CappedStatStorage> cappedStatStorage { get; }
+        Dictionary<StoredResource, ResourceStorage> cappedStatStorage { get; }
     }
 }
