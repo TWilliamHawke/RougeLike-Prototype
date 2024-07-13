@@ -15,9 +15,10 @@ namespace Effects
         [SpritePreview]
         [SerializeField] Sprite _icon;
 
-        [SerializeField] StoredResource _damagedStat;
+        [SerializeField] BonusValueType _type;
+        [SerializeField] StoredResource _targetStat;
         [SerializeField] StaticStat _resist;
 
-        [SerializeField] StaticStat[] _damageMods;
+        [SerializeField] StaticStat[] _factormods;
     }
 }
