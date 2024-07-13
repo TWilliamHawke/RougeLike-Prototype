@@ -15,9 +15,8 @@ MonoBehaviour:
   _displayName: effect_name_damage_bleeding
   _description: effect_descr_damage_bleeding
   _icon: {fileID: 21300000, guid: 2496b936501532f41924623162c7988f, type: 3}
-  _isPositiveValueGood: 1
-  _damagedStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
+  _type: 1
+  _targetStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
   _resist: {fileID: 11400000, guid: 34f891360689d954d919ff11617cf23d, type: 2}
-  _damageMods:
-  - {fileID: 11400000, guid: 3113c7825f6f4ba4f9bdd62b32e700d5, type: 2}
+  _factormods:
   - {fileID: 11400000, guid: feeb8dbaf16d5914098c5f1e099481f6, type: 2}

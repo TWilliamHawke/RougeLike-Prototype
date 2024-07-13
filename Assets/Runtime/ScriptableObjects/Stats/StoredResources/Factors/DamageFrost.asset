@@ -15,9 +15,9 @@ MonoBehaviour:
   _displayName: effect_name_damage_frost
   _description: effect_descr_damage_frost
   _icon: {fileID: 21300000, guid: 2496b936501532f41924623162c7988f, type: 3}
-  _isPositiveValueGood: 1
-  _damagedStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
+  _type: 1
+  _targetStat: {fileID: 11400000, guid: 5af2461cb210f0c46aee3774984e13ca, type: 2}
   _resist: {fileID: 11400000, guid: 6ec9537cd57048c438944da16974d3de, type: 2}
-  _damageMods:
-  - {fileID: 11400000, guid: 3113c7825f6f4ba4f9bdd62b32e700d5, type: 2}
+  _factormods:
   - {fileID: 11400000, guid: 1fe39501ce0539c4d9cdf1ee8465b601, type: 2}
+  - {fileID: 11400000, guid: 3113c7825f6f4ba4f9bdd62b32e700d5, type: 2}

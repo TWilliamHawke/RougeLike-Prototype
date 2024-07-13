@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    [CreateAssetMenu(fileName = "Stat", menuName = "Entities/CappedStat")]
+    [CreateAssetMenu(fileName = "Stat", menuName = "Entities/StoredResource", order = 0)]
     public class StoredResource : DisplayedObject, IStat<ResourceStorage>
     {
         static readonly int _minValue = 0;
