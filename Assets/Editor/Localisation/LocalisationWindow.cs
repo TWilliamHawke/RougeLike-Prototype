@@ -19,6 +19,12 @@ public class LocalisationWindow : EditorWindow
         var window = GetWindow<LocalisationWindow>();
     }
 
+    public static void Open(string searchquery)
+    {
+        var window = GetWindow<LocalisationWindow>();
+        window._searchString = searchquery;
+    }
+
     void OnGUI()
     {
         DrawLanguageSelector();
@@ -66,7 +72,7 @@ public class LocalisationWindow : EditorWindow
 
 
         EditorGUILayout.EndVertical();
-        if (GUILayout.Button("Refresh", GUILayout.MaxWidth(150)))
+        if (GUILayout.Button("Refresh", GUILayout.MaxWidth(80)))
         {
 
         }
@@ -75,11 +81,19 @@ public class LocalisationWindow : EditorWindow
 
         _searchString = EditorGUILayout.TextField(_searchString, GUILayout.MaxWidth(150));
 
-        if (GUILayout.Button("X", GUILayout.MaxWidth(20)))
+        if (GUILayout.Button(new GUIContent("X", "Clear search"), GUILayout.MaxWidth(20)))
         {
             _searchString = "";
         }
 
+        if (GUILayout.Button(new GUIContent("<", "Erase last character"), GUILayout.MaxWidth(20)))
+        {
+            _searchString = _searchString.Substring(0, _searchString.Length - 1);
+        }
+        if (GUILayout.Button(new GUIContent("Open", "Manual file edit"), GUILayout.MaxWidth(50)))
+        {
+            EditorUtility.OpenWithDefaultApp("Assets/Resources/localisation.tsv");
+        }
 
         EditorGUILayout.EndHorizontal();
 
