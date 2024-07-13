@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e0704b003240541b01a4bbde67d519, type: 3}
   m_Name: DamageModBleeding
   m_EditorClassIdentifier: 
-  _displayName: Damage Mod Bleeding
+  _displayName: stat_name_damage_type_bleeding
   _icon: {fileID: 0}
   _applyMultFirst: 1
   _capMin: -100

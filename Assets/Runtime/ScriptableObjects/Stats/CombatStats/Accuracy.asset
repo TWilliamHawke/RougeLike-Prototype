@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e0704b003240541b01a4bbde67d519, type: 3}
   m_Name: Accuracy
   m_EditorClassIdentifier: 
-  _displayName: Accuracy
+  _displayName: stat_name_accuracy
   _icon: {fileID: 21300000, guid: c122f27f001ff954cb32267ecaac560b, type: 3}
   _applyMultFirst: 1
   _capMin: 0

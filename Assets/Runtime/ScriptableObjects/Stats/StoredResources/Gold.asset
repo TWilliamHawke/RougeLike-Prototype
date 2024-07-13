@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35ab59dde726ba249897429802eecb23, type: 3}
-  m_Name: Health
+  m_Name: Gold
   m_EditorClassIdentifier: 
-  _displayName: resource_name_health
-  _icon: {fileID: 21300000, guid: f33cdaec8684a134db47183f07703fb8, type: 3}
-  _useParentStat: 1
-  _parentStat: {fileID: 11400000, guid: 188b34aca4da9cd479713b6748056320, type: 2}
+  _displayName: resource_name_gold
+  _icon: {fileID: 21300000, guid: 9e2f62818167e944f8b64f6991f1d77d, type: 3}
+  _useParentStat: 0
+  _parentStat: {fileID: 0}

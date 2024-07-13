@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ab59dde726ba249897429802eecb23, type: 3}
   m_Name: Mana
   m_EditorClassIdentifier: 
-  _displayName: Mana
+  _displayName: resource_name_mana
   _icon: {fileID: 21300000, guid: da22a3e485805254d8d80f6b6b234a88, type: 3}
+  _useParentStat: 1
   _parentStat: {fileID: 11400000, guid: c448979ad874b26448f283abb8156b09, type: 2}
