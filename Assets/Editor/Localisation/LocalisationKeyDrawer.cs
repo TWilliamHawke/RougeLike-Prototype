@@ -35,6 +35,7 @@ public class LocalisationKeyDrawer : PropertyDrawer
 
         if (GUI.Button(buttonRect, new GUIContent("\u226b", "Search"), style))
         {
+            LocalisationWindow.Open(locKey);
         }
 
         buttonX -= btnWidth;
