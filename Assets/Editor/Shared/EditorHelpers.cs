@@ -23,6 +23,27 @@ public static class EditorHelpers
         return new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
     }
 
+    public static void NextLine(ref Rect position)
+    {
+        position.y += lineHeight;
+    }
+
+    public static Rect CutX(Rect position, float start, float end)
+    {
+        return new Rect(position.x + start, position.y, end - start, EditorGUIUtility.singleLineHeight);
+    }
+
+    public static Rect CutX(Rect position, float start)
+    {
+        if (start < 0)
+        {
+            return new Rect(position.x + position.width + start, position.y, -start, EditorGUIUtility.singleLineHeight);
+        }
+
+
+        return new Rect(position.x + start, position.y, position.width - start, EditorGUIUtility.singleLineHeight);
+    }
+
     /// <summary>
     /// Get all instances of scriptable objects with given type.
     /// </summary>
