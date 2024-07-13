@@ -9,10 +9,7 @@ namespace Items
     public class Weapon : Item, IEquipment
     {
         [SerializeField] DamageEffect _damageType;
-        [Min(1)]
-        [SerializeField] int _minDamage;
-        [Min(1)]
-        [SerializeField] int _maxDamage;
+        [SerializeField] IntValue _damage;
         [Min(1)]
         [SerializeField] int _accuracy;
 
@@ -21,7 +18,7 @@ namespace Items
 
         public override string GetDescription()
         {
-            return $"Min admage: {_minDamage}\nMax Damage: {_maxDamage}\nAccuracy: {_accuracy}";
+            return $"Damage: {_damage}\nAccuracy: {_accuracy}";
         }
 
         public override string GetItemType()

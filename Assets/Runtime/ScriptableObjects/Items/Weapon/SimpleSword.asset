@@ -21,3 +21,7 @@ MonoBehaviour:
   _minDamage: 10
   _maxDamage: 20
   _accuracy: 15
+  _damage:
+    _minValue: 10
+    _maxValue: 20
+    _isRandom: 1

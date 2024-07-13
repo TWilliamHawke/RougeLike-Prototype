@@ -18,6 +18,8 @@ MonoBehaviour:
   _value: 100
   _soundKit: {fileID: 11400000, guid: 9622238d6861cbb4fafabaee39dfecb8, type: 2}
   _damageType: {fileID: 11400000, guid: 642594276621c214193cd2d9226afc2b, type: 2}
-  _minDamage: 10
-  _maxDamage: 20
+  _damage:
+    _minValue: 10
+    _maxValue: 20
+    _isRandom: 1
   _accuracy: 15
