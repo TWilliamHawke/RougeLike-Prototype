@@ -47,7 +47,14 @@ public class LocalisationKeyDrawer : PropertyDrawer
 
         if (GUI.Button(buttonRect, new GUIContent(btnText, tooltip)))
         {
-            EditLocalStringWindow.Open(locKey, GameLanguages.english, mode);
+            if (locKey == "") 
+            {
+                throw new System.Exception("Localisation key is empty");
+            }
+            else
+            {
+                EditLocalStringWindow.Open(locKey, GameLanguages.english, mode);
+            }
         }
 
     }

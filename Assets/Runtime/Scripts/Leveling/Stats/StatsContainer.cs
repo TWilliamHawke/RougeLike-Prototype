@@ -10,7 +10,7 @@ namespace Entities.Stats
         public EffectStorage effectStorage { get; init; }
 
         public Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; } = new();
-        public Dictionary<CappedStat, CappedStatStorage> cappedStatStorage { get; } = new();
+        public Dictionary<StoredResource, ResourceStorage> cappedStatStorage { get; } = new();
 
         public StatsContainer(IEffectTarget effectTarget)
         {

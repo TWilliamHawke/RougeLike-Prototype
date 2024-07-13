@@ -26,7 +26,7 @@ namespace Entities.Stats
     [System.Serializable]
     public class StatValue
     {
-        public CappedStat stat;
+        public StoredResource stat;
         public int value;
     }
 }

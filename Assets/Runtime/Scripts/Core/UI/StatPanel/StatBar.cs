@@ -12,9 +12,9 @@ namespace Core.UI
 
 		[SerializeField] Image _fillImage;
 		[SerializeField] TextMeshProUGUI _statText;
-        [SerializeField] CappedStat _observedStat;
+        [SerializeField] StoredResource _observedStat;
 
-        public CappedStat observedStat => _observedStat;
+        public StoredResource observedStat => _observedStat;
 
         IStatValues _stat;
 
