@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71dbfde04137bf449d9045cd00b3a90, type: 3}
+  m_Name: ManaRestoration
+  m_EditorClassIdentifier: 
+  _displayName: resource_factor_mana_restoration
+  _description: effect_descr_spell_cast
+  _icon: {fileID: 21300000, guid: da22a3e485805254d8d80f6b6b234a88, type: 3}
+  _type: 1
+  _targetStat: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
+  _resist: {fileID: 11400000, guid: fa467c2feadfbfe4c88eb4082f995792, type: 2}
+  _factormods: []

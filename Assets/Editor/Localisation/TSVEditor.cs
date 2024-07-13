@@ -28,7 +28,7 @@ namespace Localisation
                 Array.Resize(ref parts, normalSize);
             }
 
-            Array.Fill(parts, "empty", oldSize, normalSize - oldSize);
+            Array.Fill(parts, parts[0], oldSize, normalSize - oldSize);
 
             return parts;
         }

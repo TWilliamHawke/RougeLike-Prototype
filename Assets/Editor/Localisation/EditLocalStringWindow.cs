@@ -94,6 +94,14 @@ public class EditLocalStringWindow : EditorWindow
             return;
         }
 
+        for (int i = 2; i < _parts.Length; i++)
+        {
+            if (String.IsNullOrEmpty(_parts[i]) || _parts[i] == _key)
+            {
+                _parts[i] = _parts[1];
+            }
+        }
+
         if (TSVEditor.TrySaveValues(_parts))
         {
             _mode = WindowMode.edit;
@@ -112,7 +120,16 @@ public class EditLocalStringWindow : EditorWindow
             _errorMessage = "English text is empty";
             return;
         }
+
+        EditorGUILayout.BeginHorizontal();
+
         EditorGUILayout.LabelField("English Text:");
+        if (GUILayout.Button("Copy to Value"))
+        {
+            _parts[(int)_gameLanguage] = _parts[1];
+        }
+        EditorGUILayout.EndHorizontal();
+
         EditorGUILayout.LabelField(_parts[1]);
     }
 

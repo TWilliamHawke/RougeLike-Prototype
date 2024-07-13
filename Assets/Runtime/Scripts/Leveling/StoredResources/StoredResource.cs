@@ -11,14 +11,17 @@ namespace Entities.Stats
         static readonly int _minValue = 0;
         static readonly int _maxValue = System.Int32.MaxValue;
 
+        [SerializeField] bool _useParentStat;
         [SerializeField] StaticStat _parentStat;
+
+        public bool useParentStat => _useParentStat;
 
         public ResourceStorage CreateStorage(IStatContainer controller)
         {
             //TODO works only for init, should be ajusted for save/load
             var storage = new ResourceStorage();
         
-            if (_parentStat)
+            if (_useParentStat && _parentStat)
             {
                 controller.AddObserver(storage, _parentStat);
             }

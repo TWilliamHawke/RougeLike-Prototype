@@ -18,7 +18,7 @@ effect_name_damage_bleeding	Bleeding Damage	Урон от кровотечени
 effect_descr_damage_bleeding	Takes %m bleeding damage	Наносит %m урона от кровотечения
 effect_name_damage_fire	Fire Damage	Урон от огня
 effect_descr_damage_fire	Takes %m fire damage	Наносит %m урона от огня
-effect_name_damage_frost	Frost damage	Frost damage
+effect_name_damage_frost	Frost damage	Ледяной урон
 effect_descr_damage_frost	Takes %m frost damage	Наносит %m урона холодом
 effect_name_damage_lightning	Lightning Damage	Урон от молнии
 effect_descr_damage_lightning	Takes %m fire damage	Наносит %m урона молнией
@@ -32,3 +32,30 @@ effect_descr_spell_duration_flat	Increases spell duration by %m	Длительн
 effect_name_spell_radius	Spell Radius	Радиус действия
 effect_descr_spell_radius	Spell Radius %m	Радиус действия &m
 effect_duration	for %dx	на %dx
+stat_name_accuracy	Accuracy	Точность
+stat_name_damage_type_all	Damage Mod All	Общий урон
+stat_name_damage_type_bleeding	Damage Mod Bleeding	Бонус к урону от кровотечения
+stat_name_damage_type_fire	Damage Mod Fire	Бонус к огненному урону
+stat_name_damage_type_frost	Damage Mod Frost	Бонус к урону от льда
+stat_name_damage_type_lightning	Damage Mod Lightning	Бонус к урону от молнии
+stat_name_damage_type_physical	Damage Mod Physical	Бонус к физическому урону
+stat_name_spell_cost_mod	Spell Cost mod	Стоимость заклинаний
+stat_name_max_health	Max Health	Максимум здоровья
+stat_name_max_mana	Max Mana	Маскимум маны
+		
+stat_name_empty_resist	No Resist	Нет сопротивления
+stat_name_resist_bleeding	Resist Bleeding	Сопротивление кровотечению
+stat_name_resist_fire	Fire Resist	Сопротивление огню
+stat_name_resist_frost	Frost resist	Сопротивление холоду
+stat_name_resist_lightning	Lightning Resist	Сопротивление молнии
+stat_name_resist_physical	Physical resist	Сопротивление физ. урону
+		
+		
+resource_name_health	Health	Здоровье
+resource_name_mana	Mana	Мана
+resource_name_experience	Experience	Опыт
+resource_name_gold	Gold	Золото
+resource_name_dust	Magic Dust	Волшебная пыль
+
+resource_factor_mana_regen	Passive mana replenishment	Пассивное восполнение маны
+resource_factor_mana_restoration	Mana restoration	Восполнение маны

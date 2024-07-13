@@ -79,7 +79,7 @@ public class LocalisationWindow : EditorWindow
         EditorGUILayout.LabelField("Filter by: ", GUILayout.MaxWidth(50));
         _filterType = (FilterType)EditorGUILayout.EnumPopup(_filterType, GUILayout.MaxWidth(55));
 
-        _searchString = EditorGUILayout.TextField(_searchString, GUILayout.MaxWidth(150));
+        _searchString = EditorGUILayout.TextField(_searchString, GUILayout.MaxWidth(200));
 
         if (GUILayout.Button(new GUIContent("X", "Clear search"), GUILayout.MaxWidth(20)))
         {
