@@ -14,13 +14,6 @@ namespace Entities.Stats
         event UnityAction<int> OnValueChange;
     }
 
-    public interface IStoredResourceEvents
-    {
-        event UnityAction<int> OnValueChange;
-        event UnityAction OnReachMax;
-        event UnityAction OnReachMin;
-    }
-
     public interface IStatsController
     {
         void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T;

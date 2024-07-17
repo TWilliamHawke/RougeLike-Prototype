@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
-	public interface IObstacleEntity
+	public interface IObstacleEntity : IEntityWithComponents
 	{
 		Transform transform { get; }
 	}

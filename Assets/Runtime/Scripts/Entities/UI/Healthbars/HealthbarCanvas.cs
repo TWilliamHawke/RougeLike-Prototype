@@ -14,23 +14,25 @@ namespace Entities.UI
         [SerializeField] PlayerStats _playerStats;
 
         [InjectField] EntitiesManager _entitiesManager;
+        [InjectField] Player _player;
 
         Dictionary<Entity, Healthbar> _healthbars = new();
         Healthbar _playerHealthbar;
 
         private void Awake()
         {
+            _playerHealthbar = Instantiate(_healthbarPrefab, transform);
             _healthbarCanvasInjector.SetDependency(this);
         }
 
         public void AddToObserve(Entity target)
         {
             var healthStorage = target.FindStatStorage(_statList.health);
-            var health = target.GetEntityComponent<IHealthbarData>();
 
             var healthbar = Instantiate(_healthbarPrefab, transform);
-            healthbar.BindHealth(health, healthStorage);
-            healthbar.SubscribeOnFactionEvent(target.GetEntityComponent<IFactionMember>());
+            healthbar.FollowTheBody(target.body);
+            healthbar.AddToObserve(healthStorage);
+            healthbar.AddToObserve(target.GetEntityComponent<IFactionMember>());
 
             _healthbars.Add(target, healthbar);
         }
@@ -40,16 +42,18 @@ namespace Entities.UI
             _healthbars.Remove(target);
         }
 
-        public void AddObserver()
+        //Used in Unity Editor
+        public void ObserveEntities()
         {
             _entitiesManager.AddObserver(this);
+            _playerHealthbar.FollowTheBody(_player.body);
         }
 
+        //Used in Unity Editor
         public void CreatePlayerHealthbar()
         {
             var health = _playerStats.FindStorage(_statList.health);
-            _playerHealthbar = Instantiate(_healthbarPrefab, transform);
-            _playerHealthbar.BindHealth(_playerStats, health);
+            _playerHealthbar.AddToObserve(health);
         }
     }
 }

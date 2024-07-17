@@ -7,7 +7,7 @@ using Entities.Stats;
 
 namespace Core.UI
 {
-	public class StatBar : MonoBehaviour, IObserver<IStatValues>
+	public class StatBar : MonoBehaviour, IObserver<IResourceStorageData>
 	{
 
 		[SerializeField] Image _fillImage;
@@ -16,18 +16,10 @@ namespace Core.UI
 
         public StoredResource observedStat => _observedStat;
 
-        IStatValues _stat;
-
-        public void AddToObserve(IStatValues target)
+        public void AddToObserve(IResourceStorageData target)
         {
-            _stat = target;
-            UpdateBar();
-            _stat.OnValueChange += UpdateBar;
-        }
-
-        private void UpdateBar(int _ = 0)
-        {
-            ChangeStat(_stat.currentValue, _stat.maxValue);
+            ChangeStat(target.value, target.maxValue);
+            target.OnValueChange += ChangeStat;
         }
 
         public void ChangeStat(int current, int max)
@@ -36,9 +28,9 @@ namespace Core.UI
 			_statText.text = $"{current}/{max}";
 		}
 
-        public void RemoveFromObserve(IStatValues target)
+        public void RemoveFromObserve(IResourceStorageData target)
         {
-            target.OnValueChange -= UpdateBar;
+            target.OnValueChange -= ChangeStat;
         }
     }
 }

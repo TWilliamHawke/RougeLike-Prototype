@@ -13,6 +13,7 @@ namespace Entities.AI
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(MeleeAttackController))]
     [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(FactionHandler))]
     public class StateMachine : MonoBehaviour
     {
         [SerializeField] CustomEvent _onTurnEnd;
