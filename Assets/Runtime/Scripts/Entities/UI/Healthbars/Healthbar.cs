@@ -8,10 +8,9 @@ using UnityEngine.UI;
 
 namespace Entities.UI
 {
-    public class Healthbar : MonoBehaviour, IInjectionTarget
+    public class Healthbar : MonoBehaviour, IInjectionTarget, IObserver<IResourceStorageData>, IObserver<IFactionMember>
     {
-        IHealthbarData _healthbarData;
-        IStatValues _healthStat;
+        IHavePosition _body;
 
         [SerializeField] Injector _mainCameraInjector;
         [SerializeField] Image _fillImage;
@@ -33,18 +32,45 @@ namespace Entities.UI
             _mainCameraInjector.AddInjectionTarget(this);
         }
 
-        public void BindHealth(IHealthbarData entity, IStatValues healthStat)
+        void LateUpdate()
         {
-            _healthbarData = entity;
-            _healthStat = healthStat;
-            _healthStat.OnValueChange += UpdateHealthBar;
-            UpdateHealthBar();
+            if (_mainCamera is null) return;
+            if (_body is null)
+            {
+                DestroyImmediate(this);
+            }
+            else
+            {
+                var entityPos = _mainCamera.WorldToScreenPoint(_body.position + _shift);
+                transform.position = entityPos;
+            }
         }
 
-        public void SubscribeOnFactionEvent(IFactionMember factionMember)
+        public void FollowTheBody(IHavePosition entity)
         {
-            UpdateHealthColor(factionMember.faction);
-            factionMember.OnFactionChange += UpdateHealthColor;
+            _body = entity;
+        }
+
+        public void AddToObserve(IResourceStorageData target)
+        {
+            target.OnValueChange += UpdateHealthBar;
+            UpdateHealthBar(target.value, target.maxValue);
+        }
+
+        public void RemoveFromObserve(IResourceStorageData target)
+        {
+            target.OnValueChange -= UpdateHealthBar;
+        }
+
+        public void AddToObserve(IFactionMember target)
+        {
+            UpdateHealthColor(target.faction);
+            target.OnFactionChange += UpdateHealthColor;
+        }
+
+        public void RemoveFromObserve(IFactionMember target)
+        {
+            target.OnFactionChange -= UpdateHealthColor;
         }
 
         private void UpdateHealthColor(Faction faction)
@@ -52,13 +78,13 @@ namespace Entities.UI
             _fillImage.color = GetHealthbarColor(faction.GetAntiPlayerBehavior());
         }
 
-        void UpdateHealthBar(int _ = 0)
+        private void UpdateHealthBar(int currentValue, int maxValue)
         {
-            float healthPct = (float)_healthStat.currentValue / _healthStat.maxValue;
+            float healthPct = (float)currentValue / maxValue;
             _fillImage.fillAmount = Mathf.Clamp(healthPct, _minVisibleHealth, 1);
         }
 
-        Color GetHealthbarColor(BehaviorType behavior)
+        private Color GetHealthbarColor(BehaviorType behavior)
         {
             return behavior switch
             {
@@ -69,22 +95,9 @@ namespace Entities.UI
             };
         }
 
-        void LateUpdate()
-        {
-            if (_mainCamera is null) return;
-            if (_healthbarData is null)
-            {
-                DestroyImmediate(this);
-            }
-            else
-            {
-                var entityPos = _mainCamera.WorldToScreenPoint(_healthbarData.bodyPosition + _shift);
-                transform.position = entityPos;
-            }
-        }
-
         public void FinalizeInjection()
         {
         }
+
     }
 }

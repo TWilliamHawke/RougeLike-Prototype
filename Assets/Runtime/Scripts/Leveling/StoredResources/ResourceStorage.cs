@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class ResourceStorage : IStatStorage, IDynamicStat, IObserver<IParentStat>, IStatValues, IStoredResourceEvents, IStatValueController, ISafeStatController
+    public class ResourceStorage : IStatStorage, IResourceStorageData, IObserver<IParentStat>, IStoredResourceEvents, IStatValueController, ISafeStatController
     {
         public int value => _value;
 
@@ -17,7 +17,7 @@ namespace Entities.Stats
 
         IParentStat _parentStat;
 
-        public event UnityAction<int> OnValueChange;
+        public event UnityAction<int, int> OnValueChange;
         public event UnityAction OnReachMax;
         public event UnityAction OnReachMin;
 
@@ -48,7 +48,7 @@ namespace Entities.Stats
             var oldPctOfMax = _pctOfMax;
             _value = Mathf.Clamp(newValue, _parentStat.minValue, _parentStat.currentValue);
             _pctOfMax = (float)_value / (_parentStat.currentValue - _parentStat.minValue);
-            OnValueChange?.Invoke(_value);
+            OnValueChange?.Invoke(_value, maxValue);
 
             if (_value == _parentStat.minValue && oldPctOfMax > 0f)
             {
@@ -66,7 +66,7 @@ namespace Entities.Stats
             _value = _parentStat.currentValue;
             _pctOfMax = 1f;
             _parentStat.OnValueChange += AjustValueToParent;
-            OnValueChange?.Invoke(_value);
+            OnValueChange?.Invoke(_value, maxValue);
         }
 
         public void RemoveFromObserve(IParentStat target)

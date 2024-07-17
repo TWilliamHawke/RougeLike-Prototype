@@ -10,7 +10,7 @@ using Entities.Behavior;
 
 namespace Entities.PlayerScripts
 {
-    public class PlayerStats : ScriptableObject, IManaComponent, IHealthbarData, IStatsController
+    public class PlayerStats : ScriptableObject, IManaComponent, IStatsController
     {
         [SerializeField] AudioClip[] _weaponSounds;
         [SerializeField] StatList _statList;
@@ -18,9 +18,6 @@ namespace Entities.PlayerScripts
         [SerializeField] CustomEvent _onPlayerStatsInit;
 
         ResourceStorage _mana;
-        Body _body;
-
-        //public event UnityAction OnHealthChange;
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
         StatsContainer _statsContainer;
@@ -30,14 +27,12 @@ namespace Entities.PlayerScripts
         public int curentMana => _mana.maxValue;
         public EffectStorage effectStorage => _statsContainer.effectStorage;
 
-        public Vector3 bodyPosition => _body.transform.position;
 
         public void Init(Player player)
         {
             _statsContainer = new(player);
             _defaultStats.InitStats(_statsContainer);
             _mana = _statsContainer.FindStorage(_statList.mana);
-            _body = player.body;
             _onPlayerStatsInit.Invoke();
         }
 

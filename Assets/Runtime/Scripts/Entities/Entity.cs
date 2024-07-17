@@ -40,7 +40,7 @@ namespace Entities
         public abstract AudioClip[] deathSounds { get; }
         public abstract IDamageSource damageSource { get; }
 
-        protected Body body => _body;
+        public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }
 
         void IAttackTarget.TakeDamage(int damage)

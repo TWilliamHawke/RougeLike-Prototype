@@ -79239,16 +79239,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1709729481}
-  _waitForAllDependencies: 0
+  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1709729481}
         m_TargetAssemblyTypeName: Entities.UI.HealthbarCanvas, Project
-        m_MethodName: AddObserver
+        m_MethodName: ObserveEntities
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

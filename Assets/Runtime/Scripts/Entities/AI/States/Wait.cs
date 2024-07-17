@@ -36,7 +36,7 @@ namespace Entities.AI
             var neightBorNodes = _tilesGrid.GetNonEmptyNeighbors(postition, _agressionRadius);
             foreach (var node in neightBorNodes)
             {
-                var target = node.entityInthisNode as IFactionMember;
+                var target = node.entityInthisNode.GetEntityComponent<IFactionMember>();
                 if (target is null) continue;
                 if(target.faction.IsAgressiveToward(_stateMachine.faction)) return false;
             }

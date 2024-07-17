@@ -42,20 +42,16 @@ stat_name_damage_type_physical	Damage Mod Physical	Бонус к физичес�
 stat_name_spell_cost_mod	Spell Cost mod	Стоимость заклинаний
 stat_name_max_health	Max Health	Максимум здоровья
 stat_name_max_mana	Max Mana	Маскимум маны
-		
 stat_name_empty_resist	No Resist	Нет сопротивления
 stat_name_resist_bleeding	Resist Bleeding	Сопротивление кровотечению
 stat_name_resist_fire	Fire Resist	Сопротивление огню
 stat_name_resist_frost	Frost resist	Сопротивление холоду
 stat_name_resist_lightning	Lightning Resist	Сопротивление молнии
 stat_name_resist_physical	Physical resist	Сопротивление физ. урону
-		
-		
 resource_name_health	Health	Здоровье
 resource_name_mana	Mana	Мана
 resource_name_experience	Experience	Опыт
 resource_name_gold	Gold	Золото
 resource_name_dust	Magic Dust	Волшебная пыль
-
 resource_factor_mana_regen	Passive mana replenishment	Пассивное восполнение маны
 resource_factor_mana_restoration	Mana restoration	Восполнение маны

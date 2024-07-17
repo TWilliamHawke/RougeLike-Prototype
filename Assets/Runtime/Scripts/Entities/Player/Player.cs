@@ -13,8 +13,7 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
     [RequireComponent(typeof(FactionHandler))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity,
-        IHaveHealthData, IFactionMember, IEntityWithComponents
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;
 
@@ -22,7 +21,6 @@ namespace Entities.PlayerScripts
         [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;
         [SerializeField] ActiveAbilities _activeAbilities;
-        [SerializeField] Faction _playerFaction;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
@@ -37,13 +35,7 @@ namespace Entities.PlayerScripts
 
         public EffectStorage effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
-        public int maxHealth => 100;
 
-        public Faction faction => _playerFaction;
-
-        public BehaviorType behavior => BehaviorType.friendly;
-
-        public event UnityAction<Faction> OnFactionChange;
         public event UnityAction<IStatsController> OnStatsInit;
 
         private void Awake()
@@ -128,12 +120,6 @@ namespace Entities.PlayerScripts
         void EndPlayerTurn()
         {
             _onPlayerTurnEnd.Invoke();
-        }
-
-        void IFactionMember.ReplaceFaction(Faction newFaction)
-        {
-            _playerFaction = newFaction;
-            OnFactionChange?.Invoke(newFaction);
         }
 
         public U GetEntityComponent<U>() where U : IEntityComponent

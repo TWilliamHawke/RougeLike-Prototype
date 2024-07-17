@@ -9,16 +9,13 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class Health : MonoBehaviour, IHealthComponent, IHealthbarData
+    public class Health : MonoBehaviour, IHealthComponent
     {
 
-        [SerializeField] Body _body;
         [SerializeField] Injector _healthbarCanvasInjector;
         [SerializeField] StoredResource _health;
 
         ResourceStorage _healthStorage;
-
-        public Vector3 bodyPosition => _body.transform.position;
 
         public bool isDead => _healthStorage.currentValue <= 0;
 
