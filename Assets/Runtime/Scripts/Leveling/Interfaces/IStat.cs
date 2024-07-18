@@ -7,6 +7,6 @@ namespace Entities.Stats
 {
     public interface IStat<out T>
     {
-        public abstract T SelectStorage(IStatContainer controller);
+
     }
 }

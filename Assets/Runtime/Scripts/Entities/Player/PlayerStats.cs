@@ -55,12 +55,22 @@ namespace Entities.PlayerScripts
             return _mana.TryReduceStat(count);
         }
 
-        public void AddObserver<T, U>(IObserver<T> observer, IStat<U> stat) where U : T
+        public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat)
         {
             _statsContainer.AddObserver(observer, stat);
         }
 
-        public T FindStorage<T>(IStat<T> stat)
+        public void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat)
+        {
+            _statsContainer.AddObserver(observer, stat);
+        }
+
+        public StaticStatStorage FindStorage(StaticStat stat)
+        {
+            return _statsContainer.FindStorage(stat);
+        }
+
+        public ResourceStorage FindStorage(StoredResource stat)
         {
             return _statsContainer.FindStorage(stat);
         }

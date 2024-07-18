@@ -11,7 +11,7 @@ public class ValueStorage : IValueStorage
     public int maxValue => _maxValue;
     public int minValue => _minValue;
 
-    protected Dictionary<IBonusValueSource, BonusValueData> _bonusValues = new();
+    Dictionary<IBonusValueSource, BonusValueData> _bonusValues = new();
 
     int _maxValue;
     int _currentValue;

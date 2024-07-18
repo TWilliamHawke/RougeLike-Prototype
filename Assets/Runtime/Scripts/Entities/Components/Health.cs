@@ -11,8 +11,6 @@ namespace Entities
 {
     public class Health : MonoBehaviour, IHealthComponent
     {
-
-        [SerializeField] Injector _healthbarCanvasInjector;
         [SerializeField] StoredResource _health;
 
         ResourceStorage _healthStorage;
@@ -45,11 +43,6 @@ namespace Entities
         private void ObserveHealth(IStatsController controller)
         {
             _healthStorage = controller.FindStorage(_health);
-        }
-
-        private void GetTemplateData(ITemplateWithBaseStats template)
-        {
-            
         }
     }
 }

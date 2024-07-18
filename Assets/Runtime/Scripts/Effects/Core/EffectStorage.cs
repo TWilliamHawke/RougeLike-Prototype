@@ -22,15 +22,6 @@ namespace Effects
             _self = self;
         }
 
-        public EffectStorage()
-        {
-        }
-
-		public void SetEffectTarget(IEffectTarget self)
-		{
-			_self = self;
-		}
-
 		public void AddTemporaryEffect(SourceEffectData sourceEffectData)
 		{
 			if(_temporaryEffects.TryGetValue(sourceEffectData.effect, out var effectData))

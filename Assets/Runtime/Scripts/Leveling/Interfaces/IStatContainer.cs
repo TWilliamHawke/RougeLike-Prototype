@@ -6,9 +6,13 @@ namespace Entities.Stats
     public interface IStatContainer
     {
         EffectStorage effectStorage { get; init; }
-        void InitStat<T>(IStat<T> stat, int baseValue) where T: IStatStorage;
-        void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T;
-        Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; }
-        Dictionary<StoredResource, ResourceStorage> cappedStatStorage { get; }
+        void InitStat(StaticStat stat, int baseValue);
+        void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat);
+    }
+
+    public interface IResourceContainer
+    {
+        void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat);
+        void InitStat(StoredResource stat, int baseValue);
     }
 }

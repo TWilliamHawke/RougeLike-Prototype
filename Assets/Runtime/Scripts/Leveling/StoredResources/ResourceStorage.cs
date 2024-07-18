@@ -83,7 +83,7 @@ namespace Entities.Stats
             SetStatValue(newParentValue * _pctOfMax);
         }
 
-        void IStatStorage.SetBaseStatValue(int value)
+        public void SetBaseStatValue(int value)
         {
             _parentStat.SetBaseStatValue(value);
         }

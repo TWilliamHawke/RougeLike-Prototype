@@ -32,16 +32,6 @@ namespace Entities.Stats
                 dummy.SetBaseStatValue(_maxValue);
             }
 
-            controller.cappedStatStorage.Add(this, storage);
-            return storage;
-        }
-
-        public ResourceStorage SelectStorage(IStatContainer controller)
-        {
-            if (!controller.cappedStatStorage.TryGetValue(this, out var storage))
-            {
-                storage = CreateStorage(controller);
-            }
             return storage;
         }
 
