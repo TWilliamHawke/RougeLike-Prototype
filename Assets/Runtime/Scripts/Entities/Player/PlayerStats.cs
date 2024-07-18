@@ -21,12 +21,12 @@ namespace Entities.PlayerScripts
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
         StatsContainer _statsContainer;
-        EffectStorage _effectStorage;
+        EffectContainer _effectStorage;
 
         public AudioClip[] attackSounds => _weaponSounds;
         public int maxMana => _mana.currentValue;
         public int curentMana => _mana.maxValue;
-        public EffectStorage effectStorage => _effectStorage;
+        public EffectContainer effectStorage => _effectStorage;
 
 
         public void Init(Player player)

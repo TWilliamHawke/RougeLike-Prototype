@@ -35,7 +35,7 @@ namespace Entities.PlayerScripts
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
 
-        public EffectStorage effectStorage => _stats.effectStorage;
+        public EffectContainer effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
 
         public event UnityAction<IStatsController> OnStatsInit;

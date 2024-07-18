@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Effects
 {
-	public class EffectStorage
+	public class EffectContainer
 	{
 		public event UnityAction OnEffectsUpdate;
 
@@ -17,7 +17,7 @@ namespace Effects
 
 		public List<TemporaryEffectData> temporaryEffects => _temporaryEffectsList;
 
-        public EffectStorage(IEffectTarget self)
+        public EffectContainer(IEffectTarget self)
         {
             _self = self;
         }
