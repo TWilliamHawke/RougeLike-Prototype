@@ -39,7 +39,7 @@ namespace Entities.Stats
             SetNewValue(newValue);
         }
 
-        void IStatStorage.SetBaseStatValue(int value)
+        public void SetBaseStatValue(int value)
         {
             SetNewValue(value);
         }

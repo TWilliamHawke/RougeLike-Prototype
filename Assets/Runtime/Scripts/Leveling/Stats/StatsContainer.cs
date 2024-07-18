@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Effects;
 using UnityEngine;
+using Type = System.Type;
 
 namespace Entities.Stats
 {
-    public class StatsContainer : IStatContainer, IStatsController
+    public class StatsContainer : IStatContainer, IResourceContainer, IStatsController
     {
         public EffectStorage effectStorage { get; init; }
 
@@ -17,21 +18,50 @@ namespace Entities.Stats
             effectStorage = new(effectTarget);
         }
 
-        public void InitStat<T>(IStat<T> stat, int baseValue) where T :IStatStorage
+        public void InitStat(StaticStat stat, int baseValue)
         {
-            var storage = stat.SelectStorage(this);
+            var storage = FindStorage(stat);
             storage.SetBaseStatValue(baseValue);
         }
 
-        public void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T
+        public void InitStat(StoredResource resource, int baseValue)
         {
-            var storage = stat.SelectStorage(this);
+            var storage = FindStorage(resource);
+            storage.SetBaseStatValue(baseValue);
+        }
+
+        public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat) 
+        {
+            StaticStatStorage storage = FindStorage(stat);
             observer.AddToObserve(storage);
         }
 
-        public T FindStorage<T>(IStat<T> stat)
+        public void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat)
         {
-            return stat.SelectStorage(this);
+            ResourceStorage storage = FindStorage(stat);
+            observer.AddToObserve(storage);
+        }
+
+        public ResourceStorage FindStorage(StoredResource stat)
+        {
+            if (!cappedStatStorage.TryGetValue(stat, out var storage))
+            {
+                storage = stat.CreateStorage(this);
+                cappedStatStorage.Add(stat, storage);
+            }
+
+            return storage;
+        }
+
+        public StaticStatStorage FindStorage(StaticStat stat)
+        {
+            if (!staticStatStorage.TryGetValue(stat, out var storage))
+            {
+                storage = stat.CreateStorage(this);
+                staticStatStorage.Add(stat, storage);
+            }
+
+            return storage;
         }
     }
 }

@@ -16,8 +16,9 @@ namespace Entities.Stats
 
     public interface IStatsController
     {
-        void AddObserver<T, U>(IObserver<T>  observer, IStat<U> stat) where U : T;
-        T FindStorage<T>(IStat<T> stat);
+        void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat);
+        ResourceStorage FindStorage(StoredResource stat);
+        StaticStatStorage FindStorage(StaticStat stat);
     }
 
     public interface IStatValueController

@@ -28,7 +28,7 @@ namespace Entities
 		
 		public abstract Entity CreateEntity(EntitiesSpawner spawner, Vector3 position);
 
-        public void InitStats(IStatContainer container)
+        public void InitStats(IResourceContainer container)
         {
             _statValues.InitStats(container);
         }
@@ -41,7 +41,7 @@ namespace Entities
 		Color bodyColor { get; }
 		int expForKill { get; }
 		Faction faction { get; }
-        void InitStats(IStatContainer container);
+        void InitStats(IResourceContainer container);
 	}
 
 	public interface IEntityTemplate

@@ -24,17 +24,6 @@ namespace Entities.Stats
         public StaticStatStorage CreateStorage(IStatContainer controller)
         {
             var storage = new StaticStatStorage(this);
-            controller.staticStatStorage.Add(this, storage);
-            return storage;
-        }
-
-        public StaticStatStorage SelectStorage(IStatContainer controller)
-        {
-            if (!controller.staticStatStorage.TryGetValue(this, out var storage))
-            {
-                storage = CreateStorage(controller);
-                var c = controller as StatsContainer;
-            }
             return storage;
         }
     }
