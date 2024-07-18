@@ -5,7 +5,6 @@ namespace Entities.Stats
 {
     public interface IStatContainer
     {
-        EffectStorage effectStorage { get; init; }
         void InitStat(StaticStat stat, int baseValue);
         void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat);
     }

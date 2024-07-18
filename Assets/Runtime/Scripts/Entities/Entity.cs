@@ -16,8 +16,9 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(FactionHandler))]
+    [RequireComponent(typeof(StatsContainer))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IMortal, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
+        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
         [SerializeField] Body _body;
         [SerializeField] StatList _statList;
@@ -50,7 +51,7 @@ namespace Entities
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
-            _statsContainer = new(this);
+            _statsContainer = GetEntityComponent<StatsContainer>();
             template.InitStats(_statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
 
@@ -81,35 +82,9 @@ namespace Entities
         public abstract void PlayAttackSound();
         public abstract void Interact(Player player);
 
-        public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat)
-        {
-            _statsContainer.AddObserver(observer, stat);
-        }
-
-        public void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat)
-        {
-            _statsContainer.AddObserver(observer, stat);
-        }
-
-        public StaticStatStorage FindStorage(StaticStat stat)
-        {
-            return _statsContainer.FindStorage(stat);
-        }
-
-        public ResourceStorage FindStorage(StoredResource stat)
-        {
-            return _statsContainer.FindStorage(stat);
-        }
-
         public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
         }
-    }
-
-    public interface IMortal
-    {
-        public event UnityAction<Entity> OnDeath;
-        int expForKill { get; }
     }
 }
