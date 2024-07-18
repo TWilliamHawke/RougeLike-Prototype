@@ -18,7 +18,7 @@ namespace Effects
         public string description => _description;
         public bool isPositiveValueGood => _isPositiveValueGood;
 
-        public virtual bool CanApply(IEffectSource source, IEffectTarget target)
+        public virtual bool CanApply(IEffectSource source, IAbilityTarget target)
         {
             return true;
         }

@@ -9,7 +9,7 @@ namespace Effects
     {
         [SerializeField] EffectCondition[] _conditions;
 
-        public bool CanApply(IEffectSource source, IEffectTarget target)
+        public bool CanApply(IEffectSource source, IAbilityTarget target)
         {
             foreach (var condition in _conditions)
             {

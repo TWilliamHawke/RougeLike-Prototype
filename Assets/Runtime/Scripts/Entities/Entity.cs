@@ -18,22 +18,19 @@ namespace Entities
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(StatsContainer))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
-        IInteractive, IEffectTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
+        IInteractive, IAbilityTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
         [SerializeField] Body _body;
         [SerializeField] StatList _statList;
 
 
         IStatValueController _health;
-        EffectContainer _effectStorage;
-        StatsContainer _statsContainer;
 
         public event UnityAction<Entity> OnDeath;
         public event UnityAction<IStatsController> OnStatsInit;
         public abstract event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public StateMachine stateMachine => GetComponent<StateMachine>();
-        public EffectContainer effectStorage => _effectStorage;
         public int expForKill => template.expForKill;
 
         public abstract Dictionary<DamageType, int> resists { get; }
@@ -51,14 +48,14 @@ namespace Entities
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
-            _statsContainer = GetEntityComponent<StatsContainer>();
-            template.InitStats(_statsContainer);
+            var statsContainer = GetEntityComponent<StatsContainer>();
+            template.InitStats(statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
 
-            var healthStorage = _statsContainer.FindStorage(_statList.health);
+            var healthStorage = statsContainer.FindStorage(_statList.health);
             healthStorage.OnReachMin += ProceedDeath;
             _health = healthStorage;
-            OnStatsInit?.Invoke(_statsContainer);
+            OnStatsInit?.Invoke(statsContainer);
         }
 
         protected void InitComponents()
@@ -67,7 +64,6 @@ namespace Entities
             var movementController = GetComponent<MovementController>();
             movementController.Init(new TileNode(0, 1, true));
             meleeAttackController.Init(this);
-            _effectStorage = new EffectContainer(this);
         }
 
         private void ProceedDeath()

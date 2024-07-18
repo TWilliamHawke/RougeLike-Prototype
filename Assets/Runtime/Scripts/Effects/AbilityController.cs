@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 namespace Effects
 {
-    public class AbilityController : MonoBehaviour
+    [RequireComponent(typeof(EffectsStorage))]
+    public class AbilityController : MonoBehaviour, IEntityComponent
     {
 		public Body _body;
 		public event UnityAction<IAbilityWithTarget> OnTargetSelectionStart;
@@ -14,18 +15,16 @@ namespace Effects
 
         IAbilityWithTarget _performedAbility;
 
-        IEffectTarget _self;
+        EffectsStorage _effectsStorage;
 
         public void Init()
         {
-            var success = TryGetComponent<IEffectTarget>(out _self);
-			if(success) return;
-			Debug.LogError("Object hasn't any components with IEffectTarget interface");
+            _effectsStorage = GetComponent<EffectsStorage>();
         }
 
         public void ApplyToSelf(SourceEffectData effect, IEffectSource effectSource)
         {
-            effect.ApplyEffect(_self, effectSource);
+            effect.ApplyEffect(_effectsStorage, effectSource);
             OnAbilityUse?.Invoke();
         }
 
@@ -40,7 +39,7 @@ namespace Effects
 			OnTargetSelectionStart?.Invoke(ability);
         }
 
-        public void SelectTarget(IEffectTarget target)
+        public void SelectTarget(IAbilityTarget target)
         {
             _performedAbility.UseOnTarget(this, target);
             OnAbilityUse?.Invoke();

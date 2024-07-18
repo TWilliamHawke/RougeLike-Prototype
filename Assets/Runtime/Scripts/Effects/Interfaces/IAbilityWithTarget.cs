@@ -6,7 +6,7 @@ namespace Effects
 {
 	public interface IAbilityWithTarget
 	{
-		bool TargetIsValid(IEffectTarget target);
-		void UseOnTarget(AbilityController controller, IEffectTarget target);
+		bool TargetIsValid(IAbilityTarget target);
+		void UseOnTarget(AbilityController controller, IAbilityTarget target);
 	}
 }

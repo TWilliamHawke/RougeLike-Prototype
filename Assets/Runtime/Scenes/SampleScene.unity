@@ -82279,11 +82279,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819180726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _customEvent: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}
-  _unityEvent:
+  _injectionTarget: {fileID: 1819180731}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1819180731}

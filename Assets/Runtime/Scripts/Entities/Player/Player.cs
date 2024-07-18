@@ -15,7 +15,7 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(StatsContainer))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity, IEntityWithComponents
+    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IAbilityTarget, IObstacleEntity, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;
 
@@ -35,7 +35,6 @@ namespace Entities.PlayerScripts
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
 
-        public EffectContainer effectStorage => _stats.effectStorage;
         public AudioClip[] deathSounds => _deathSounds;
 
         public event UnityAction<IStatsController> OnStatsInit;

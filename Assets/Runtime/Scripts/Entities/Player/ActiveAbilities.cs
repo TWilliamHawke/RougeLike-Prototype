@@ -68,7 +68,7 @@ namespace Entities.PlayerScripts
         {
             foreach (var hit in _inputController.hoveredTileHits)
             {
-                if (hit.collider.TryGetComponent<IEffectTarget>(out var target))
+                if (hit.collider.TryGetComponent<IAbilityTarget>(out var target))
                 {
                     _selectedAbility.UseOnTarget(_playerController, target);
                     _inputController.SwitchToMainActionMap();

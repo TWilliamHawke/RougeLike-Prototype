@@ -8,7 +8,7 @@ namespace Effects
     {
         [SerializeField] List<SourceEffectData> _effects;
 
-        public bool TargetIsValid(IEffectTarget target)
+        public bool TargetIsValid(IAbilityTarget target)
         {
             return true;
         }
@@ -18,11 +18,12 @@ namespace Effects
             controller.StartTargetSelection(this);
         }
 
-        public void UseOnTarget(AbilityController _, IEffectTarget target)
+        public void UseOnTarget(AbilityController _, IAbilityTarget target)
         {
+            var effectsStorage = target.GetComponent<EffectsStorage>();
 			foreach (var effect in _effects)
 			{
-				effect.ApplyEffect(target, this);
+				effect.ApplyEffect(effectsStorage, this);
 			}
         }
 

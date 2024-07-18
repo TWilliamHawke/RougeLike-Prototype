@@ -17,7 +17,7 @@ namespace Effects
         [TextArea(5, 10)]
         [SerializeField] string _description;
 
-        public bool TargetIsValid(IEffectTarget target)
+        public bool TargetIsValid(IAbilityTarget target)
         {
             return target.GetComponent<Health>() != null;
         }
@@ -27,7 +27,7 @@ namespace Effects
             controller.StartTargetSelection(this);
         }
 
-        public void UseOnTarget(AbilityController controller, IEffectTarget target)
+        public void UseOnTarget(AbilityController controller, IAbilityTarget target)
         {
             if (target is IRangeAttackTarget)
             {

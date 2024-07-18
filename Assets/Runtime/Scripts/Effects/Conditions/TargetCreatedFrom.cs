@@ -8,7 +8,7 @@ namespace Effects
     {
         [SerializeField] MonoBehaviour _template;
 
-        public override bool IsMeet(IEffectSource source, IEffectTarget target)
+        public override bool IsMeet(IEffectSource source, IAbilityTarget target)
         {
             if (target is IHaveTemplate obj)
             {

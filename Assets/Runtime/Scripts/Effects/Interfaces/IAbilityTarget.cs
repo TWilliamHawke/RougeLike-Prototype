@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Effects
 {
-	public interface IEffectTarget
+	public interface IAbilityTarget
 	{
 		T GetComponent<T>();
 		Transform transform { get; }
-		EffectContainer effectStorage { get; }
 	}
 }

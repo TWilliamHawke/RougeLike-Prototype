@@ -9,19 +9,22 @@ namespace Core.UI
     public class ActiveEffectsPanel : UIPanelWithGrid<TemporaryEffectData>
     {
         [SerializeField] PlayerStats _playerStats;
-        protected override IEnumerable<TemporaryEffectData> _layoutElementsData => _playerStats.effectStorage.temporaryEffects;
+        protected override IEnumerable<TemporaryEffectData> _layoutElementsData => _effectsStorage.temporaryEffects;
+
+        [InjectField] Player _player;
+
+        EffectsStorage _effectsStorage;
 
         public void Subscribe()
         {
-			_playerStats.effectStorage.OnEffectsUpdate += UpdateLayout;
+            _effectsStorage = _player.GetComponent<EffectsStorage>();
+			_effectsStorage.OnEffectsUpdate += UpdateLayout;
 			UpdateLayout();
         }
 
         private void OnDestroy()
         {
-			_playerStats.effectStorage.OnEffectsUpdate -= UpdateLayout;
+			_effectsStorage.OnEffectsUpdate -= UpdateLayout;
         }
-
-
     }
 }
