@@ -8,6 +8,6 @@ namespace Effects
 	{
 		T GetComponent<T>();
 		Transform transform { get; }
-		EffectStorage effectStorage { get; }
+		EffectContainer effectStorage { get; }
 	}
 }

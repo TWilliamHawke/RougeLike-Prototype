@@ -25,7 +25,7 @@ namespace Entities
 
 
         IStatValueController _health;
-        EffectStorage _effectStorage;
+        EffectContainer _effectStorage;
         StatsContainer _statsContainer;
 
         public event UnityAction<Entity> OnDeath;
@@ -33,7 +33,7 @@ namespace Entities
         public abstract event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public StateMachine stateMachine => GetComponent<StateMachine>();
-        public EffectStorage effectStorage => _effectStorage;
+        public EffectContainer effectStorage => _effectStorage;
         public int expForKill => template.expForKill;
 
         public abstract Dictionary<DamageType, int> resists { get; }
@@ -67,7 +67,7 @@ namespace Entities
             var movementController = GetComponent<MovementController>();
             movementController.Init(new TileNode(0, 1, true));
             meleeAttackController.Init(this);
-            _effectStorage = new EffectStorage(this);
+            _effectStorage = new EffectContainer(this);
         }
 
         private void ProceedDeath()
