@@ -13,6 +13,8 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(VisibilityController))]
     [RequireComponent(typeof(ProjectileController))]
     [RequireComponent(typeof(FactionHandler))]
+    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(StatsContainer))]
     public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IEffectTarget, IObstacleEntity, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;

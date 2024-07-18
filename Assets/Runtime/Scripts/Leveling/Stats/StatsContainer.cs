@@ -6,17 +6,10 @@ using Type = System.Type;
 
 namespace Entities.Stats
 {
-    public class StatsContainer : IStatContainer, IResourceContainer, IStatsController
+    public class StatsContainer : MonoBehaviour, IEntityComponent, IStatContainer, IResourceContainer, IStatsController
     {
-        public EffectStorage effectStorage { get; init; }
-
         public Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; } = new();
         public Dictionary<StoredResource, ResourceStorage> cappedStatStorage { get; } = new();
-
-        public StatsContainer(IEffectTarget effectTarget)
-        {
-            effectStorage = new(effectTarget);
-        }
 
         public void InitStat(StaticStat stat, int baseValue)
         {

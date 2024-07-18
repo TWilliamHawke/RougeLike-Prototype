@@ -27,7 +27,8 @@ namespace Entities.UI
 
         public void AddToObserve(Entity target)
         {
-            var healthStorage = target.FindStorage(_statList.health);
+            var statsContainer = target.GetEntityComponent<StatsContainer>();
+            var healthStorage = statsContainer.FindStorage(_statList.health);
 
             var healthbar = Instantiate(_healthbarPrefab, transform);
             healthbar.FollowTheBody(target.body);
