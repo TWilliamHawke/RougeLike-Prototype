@@ -7,36 +7,7 @@ namespace Effects
 {
 	public class EffectContainer
 	{
-		public event UnityAction OnEffectsUpdate;
-
-		IEffectTarget _self;
-
         List<StaticEffectData> _staticEffects = new();
-		List<TemporaryEffectData> _temporaryEffectsList = new();
-		Dictionary<Effect, TemporaryEffectData> _temporaryEffects = new();
-
-		public List<TemporaryEffectData> temporaryEffects => _temporaryEffectsList;
-
-        public EffectContainer(IEffectTarget self)
-        {
-            _self = self;
-        }
-
-		public void AddTemporaryEffect(SourceEffectData sourceEffectData)
-		{
-			if(_temporaryEffects.TryGetValue(sourceEffectData.effect, out var effectData))
-			{
-				effectData.UpdateEffectData(sourceEffectData);
-			}
-			else
-			{
-				var newEffectData = new TemporaryEffectData(sourceEffectData);
-				_temporaryEffects[sourceEffectData.effect] = newEffectData;
-				_temporaryEffectsList.Add(newEffectData);
-			}
-
-			OnEffectsUpdate?.Invoke();
-		}
 
 		public void AddStaticEffect(SourceEffectData sourceEffectData)
 		{

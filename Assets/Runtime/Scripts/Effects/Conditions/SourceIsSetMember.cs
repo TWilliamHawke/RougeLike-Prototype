@@ -8,7 +8,7 @@ namespace Effects.Conditions
     {
         [SerializeField] DatabaseSet _set;
 
-        public override bool IsMeet(IEffectSource source, IEffectTarget target)
+        public override bool IsMeet(IEffectSource source, IAbilityTarget target)
         {
             if (source is ScriptableObject obj)
             {

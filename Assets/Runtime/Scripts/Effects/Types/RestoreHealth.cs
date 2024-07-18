@@ -8,7 +8,7 @@ namespace Effects
 	[CreateAssetMenu(fileName = "RestoreHealth", menuName = "Effects/RestoreHealth")]
     public class RestoreHealth : Effect, IInstantEffect
     {
-        public void Apply(IEffectTarget target, int power)
+        public void Apply(EffectsStorage target, int power)
         {
             target.GetComponent<IHealthComponent>().RestoreHealth(power);
         }

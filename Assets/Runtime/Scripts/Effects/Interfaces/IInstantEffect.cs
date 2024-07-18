@@ -6,6 +6,6 @@ namespace Effects
 {
 	public interface IInstantEffect
 	{
-	    void Apply(IEffectTarget target, int power);
+	    void Apply(EffectsStorage storage, int power);
 	}
 }

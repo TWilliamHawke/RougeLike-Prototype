@@ -24,23 +24,23 @@ namespace Effects
         public int duration => _duration;
         public IEffectSource source => _source;
 
-        public void ApplyEffect(IEffectTarget target, IEffectSource effectSource)
+        public void ApplyEffect(EffectsStorage storage, IEffectSource effectSource)
         {
             _source = effectSource;
 
             if (duration > 0)
             {
-                target.effectStorage.AddTemporaryEffect(this);
+                storage.AddTemporaryEffect(this);
                 return;
             }
 
             if (_effect is IInstantEffect instantEffect)
             {
-                instantEffect.Apply(target, power);
+                instantEffect.Apply(storage, power);
                 return;
             }
 
-            target.effectStorage.AddStaticEffect(this);
+            storage.AddStaticEffect(this);
 
         }
 

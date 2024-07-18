@@ -21,17 +21,14 @@ namespace Entities.PlayerScripts
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
         StatsContainer _statsContainer;
-        EffectContainer _effectStorage;
 
         public AudioClip[] attackSounds => _weaponSounds;
         public int maxMana => _mana.currentValue;
         public int curentMana => _mana.maxValue;
-        public EffectContainer effectStorage => _effectStorage;
 
 
         public void Init(Player player)
         {
-            _effectStorage = new(player);
             _statsContainer = player.GetEntityComponent<StatsContainer>();
             _defaultStats.InitStats(_statsContainer);
             _mana = _statsContainer.FindStorage(_statList.mana);

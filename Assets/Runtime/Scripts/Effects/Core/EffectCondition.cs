@@ -6,6 +6,6 @@ namespace Effects
 {
     public abstract class EffectCondition : ScriptableObject
     {
-        public abstract bool IsMeet(IEffectSource source, IEffectTarget target);
+        public abstract bool IsMeet(IEffectSource source, IAbilityTarget target);
     }
 }
