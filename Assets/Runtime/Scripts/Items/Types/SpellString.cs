@@ -17,6 +17,7 @@ namespace Items
 
 		public int spellPowerMod => _spellPowerMod;
 		public int manaCostMod => _manaCostMod;
+        public IEnumerable<SourceEffectData> effects => _effects;
 
         const string _itemType = "SpellString";
 

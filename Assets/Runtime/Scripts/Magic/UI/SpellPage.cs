@@ -55,7 +55,7 @@ namespace Magic.UI
         public void Open(KnownSpellData spellData)
         {
             _spellData = spellData;
-            spellData.OnChangeData += UpdateUIData;
+            spellData.OnDataChange += UpdateUIData;
             UpdateUIData();
             _editorScreen.Open();
             ShowDefaultEffects();
@@ -75,14 +75,14 @@ namespace Magic.UI
             for (int i = 0; i < _spellStringSlots.Length; i++)
             {
                 var slot = _spellStringSlots[i];
-                if (i >= _spellData.rank || i >= _spellData.activeStrings.Length)
+                if (i >= _spellData.rank)
                 {
                     slot.Disable();
                     continue;
                 }
 
                 slot.Enable();
-                slot.SetIcon(_spellData.activeStrings[i].spellString);
+                slot.SetIcon(_spellData.GetSpellStringAt(i));
             }
         }
 
@@ -106,11 +106,11 @@ namespace Magic.UI
             }
             else if (_spellData.StringSlotIsEmpty(idx))
             {
-                _editorComponents.ShowEmtySlotOptions();
+                _editorComponents.ShowEmptySlotOptions();
             }
             else
             {
-                _editorComponents.ShowSlotEffects(_spellData.activeStrings[idx]);
+                _editorComponents.ShowSlotEffects(_spellData.GetSpellStringAt(idx));
             }
 
             _activeSlotIdx = idx;
@@ -140,10 +140,10 @@ namespace Magic.UI
 
         private void HandleConfirmClick()
         {
-            if (_activeSlotIdx >= 0)
+            if (_spellData.StringSlotIsEmpty(_activeSlotIdx))
             {
                 _spellData.SetActiveString(_activeSlotIdx, _selectedString);
-                _editorComponents.ShowSlotEffects(_spellData.activeStrings[_activeSlotIdx]);
+                _editorComponents.ShowSlotEffects(_spellData.GetSpellStringAt(_activeSlotIdx));
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace Magic.UI
             if (_inventory.resources.TrySpendResource(ResourceType.magicDust, _spellbook.clearSlotCost))
             {
                 _spellData.ClearStringSlot(_activeSlotIdx);
-                _editorComponents.ShowEmtySlotOptions();
+                _editorComponents.ShowEmptySlotOptions();
             }
         }
 

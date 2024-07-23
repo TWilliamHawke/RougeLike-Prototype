@@ -33,5 +33,32 @@ namespace Magic
         {
             spellString = null;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is StringSlotData)) return false;
+            return Equals((StringSlotData)obj);
+        }
+
+        public static bool operator ==(StringSlotData a, StringSlotData b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(StringSlotData a, StringSlotData b)
+        {
+            return !a.Equals(b);
+        }
+
+        public override int GetHashCode()
+        {
+            return slotIndex.GetHashCode();
+        }
+
+        private bool Equals(StringSlotData other)
+        {
+            return other.slotIndex == this.slotIndex;
+        }
+
     }
 }

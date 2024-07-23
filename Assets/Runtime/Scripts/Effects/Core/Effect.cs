@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Effects
 {
-    public class Effect : ScriptableObject
+    public class Effect : ScriptableObject, IEffect, IEffectSignature
     {
         [LocalisationKey]
         [SerializeField] string _displayName;
@@ -17,6 +17,8 @@ namespace Effects
         public Sprite icon => _icon;
         public string description => _description;
         public bool isPositiveValueGood => _isPositiveValueGood;
+
+        public IEffectSignature effectType => this;
 
         public virtual bool CanApply(IEffectSource source, IAbilityTarget target)
         {
