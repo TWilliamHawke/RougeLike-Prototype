@@ -45,7 +45,7 @@ namespace Magic
         public void AddSpellCopy(KnownSpellData spell)
         {
             int spellCount = 1 + _knownSpells.Count(spellData => spellData.SpellIsTheSame(spell));
-            var newSpell = spell.CreateNewSpellData($"{spell.baseName} {spellCount}");
+            var newSpell = spell.CreateCopy($"{spell.baseName} {spellCount}");
             int idx = _knownSpells.FindLastIndex(spellData => spellData.SpellIsTheSame(spell));
 
             _knownSpells.Insert(idx + 1, newSpell);

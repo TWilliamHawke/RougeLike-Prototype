@@ -12,7 +12,7 @@ namespace Effects
 
         EffectContainer _mainContainer = new();
 
-        Dictionary<Effect, TemporaryEffectData> _temporaryEffects = new();
+        Dictionary<IEffect, TemporaryEffectData> _temporaryEffects = new();
         List<TemporaryEffectData> _temporaryEffectsList = new();
 
         public IEnumerable<TemporaryEffectData> temporaryEffects => _temporaryEffectsList;
@@ -33,9 +33,9 @@ namespace Effects
             OnEffectsUpdate?.Invoke();
         }
 
-        public void AddStaticEffect(SourceEffectData sourceEffectData)
+        public void AddStaticEffect(IEffectSource effectSource, SourceEffectData sourceEffectData)
         {
-            _mainContainer.AddStaticEffect(sourceEffectData);
+            _mainContainer.AddEffect(effectSource, sourceEffectData);
         }
 
 

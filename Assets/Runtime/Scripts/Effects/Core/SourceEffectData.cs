@@ -7,27 +7,24 @@ using System.Text;
 namespace Effects
 {
     [System.Serializable]
-    public class SourceEffectData : IHaveDescription
+    public class SourceEffectData : IHaveDescription, IStaticEffectData
     {
         [SerializeField] Effect _effect;
         [SerializeField] int _power;
         [SerializeField] int _duration;
 
-        IEffectSource _source;
-
         const string magnitudePattern = "%m";
         const string durationPattern = "%d";
         const string duaration_loc_key = "effect_duration";
 
-        public Effect effect => _effect;
+        public IEffect effect => _effect;
         public int power => _power;
         public int duration => _duration;
-        public IEffectSource source => _source;
+
+        public IEffectSignature effectType => _effect.effectType;
 
         public void ApplyEffect(EffectsStorage storage, IEffectSource effectSource)
         {
-            _source = effectSource;
-
             if (duration > 0)
             {
                 storage.AddTemporaryEffect(this);
@@ -40,7 +37,7 @@ namespace Effects
                 return;
             }
 
-            storage.AddStaticEffect(this);
+            storage.AddStaticEffect(effectSource, this);
 
         }
 

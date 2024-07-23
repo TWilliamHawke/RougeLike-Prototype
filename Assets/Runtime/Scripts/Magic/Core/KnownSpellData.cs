@@ -5,6 +5,7 @@ using Items;
 using UnityEngine.Events;
 using Effects;
 using Core.UI;
+using Magic.UI;
 
 namespace Magic
 {
@@ -12,24 +13,26 @@ namespace Magic
     public class KnownSpellData : IAbilitySource
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
-        public event UnityAction OnChangeData;
+        public event UnityAction OnDataChange;
 
         const int MAX_SPELL_RANK = 6;
+
         public string displayName { get; init; }
         public string baseName => _spell.displayName;
 
         public int rank => _rank;
-        public StringSlotData[] activeStrings => _activeStrings;
         public int manaCost => CalculateManaCost();
         public bool spellHasMaxRank => _rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
         public Ability spellEffect => _spell.GetEffectAt(rank);
         public int baseManaCost => _spell.GetCostAt(rank);
+        public IEnumerator<IStaticEffectData> stringEffects => _effectContainer.GetEffects();
 
         Spell _spell;
 
         int _rank = 1;
         StringSlotData[] _activeStrings = new StringSlotData[6];
+        EffectContainer _effectContainer = new();
 
 
         public KnownSpellData(Spell spell)
@@ -44,7 +47,7 @@ namespace Magic
             displayName = customName;
         }
 
-        public KnownSpellData CreateNewSpellData(string name)
+        public KnownSpellData CreateCopy(string name)
         {
             return new KnownSpellData(_spell, name);
         }
@@ -61,21 +64,10 @@ namespace Magic
 
         public void IncreaseRank()
         {
-            if (_rank >= MAX_SPELL_RANK) return;
+            if (spellHasMaxRank) return;
 
             _rank++;
-            OnChangeData?.Invoke();
-        }
-
-        public bool StringSlotIsEmpty(int idx)
-        {
-            if (!IndexIsCorrect(idx)) return false;
-            return _activeStrings[idx].IsEmpty();
-        }
-
-        public IAbilityInstruction CreateAbilityInstruction()
-        {
-            return new SpellUsageInstruction(this);
+            OnDataChange?.Invoke();
         }
 
         public string ConstructDescription()
@@ -84,18 +76,52 @@ namespace Magic
             return spellEffect.GetDescription(new AbilityModifiers(powerMult));
         }
 
+        public IAbilityInstruction CreateAbilityInstruction()
+        {
+            return new SpellUsageInstruction(this);
+        }
+
+        public bool StringSlotIsEmpty(int idx)
+        {
+            if (!IndexIsCorrect(idx)) return false;
+            return _activeStrings[idx].IsEmpty();
+        }
+
         public void SetActiveString(int slotIndex, SpellString spellString)
         {
             if (!IndexIsCorrect(slotIndex)) return;
-            _activeStrings[slotIndex] = new(spellString, slotIndex);
-            OnChangeData?.Invoke();
+            StringSlotData slot = new(spellString, slotIndex);
+            _activeStrings[slotIndex] = slot;
+
+            foreach (var effect in spellString.effects)
+            {
+                _effectContainer.AddEffect(slot, effect);
+            }
+            OnDataChange?.Invoke();
         }
 
         public void ClearStringSlot(int idx)
         {
-            if (!IndexIsCorrect(idx)) return;
-            _activeStrings[idx].Clear();
-            OnChangeData?.Invoke();
+            if (StringSlotIsEmpty(idx)) return;
+            var slot = _activeStrings[idx];
+            _effectContainer.RemoveEffect(slot);
+            slot.Clear();
+            OnDataChange?.Invoke();
+        }
+
+        public IEnumerable<SpellString> GetActiveStrings()
+        {
+            foreach (var stringSlot in _activeStrings)
+            {
+                if (stringSlot.IsEmpty()) continue;
+                yield return stringSlot.spellString;
+            }
+        }
+
+        public SpellString GetSpellStringAt(int slotIndex)
+        {
+            if (StringSlotIsEmpty(slotIndex)) return null;
+            return _activeStrings[slotIndex].spellString;
         }
 
         private bool IndexIsCorrect(int idx)

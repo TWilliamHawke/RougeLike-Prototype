@@ -36,7 +36,7 @@ namespace Magic.UI
             _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
         }
 
-        public void ShowSlotEffects(StringSlotData spellString)
+        public void ShowSlotEffects(SpellString spellString)
         {
             HideAllComponents();
             SetHeaderText(spellString.displayName);
@@ -45,7 +45,7 @@ namespace Magic.UI
             _buttons.ShowCloseButton();
         }
 
-        public void ShowEmtySlotOptions()
+        public void ShowEmptySlotOptions()
         {
             HideAllComponents();
             SetHeaderText("Select new Spell String");

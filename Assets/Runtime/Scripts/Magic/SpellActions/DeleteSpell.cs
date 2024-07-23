@@ -64,12 +64,9 @@ namespace Magic.Actions
 
             public void DoAction()
             {
-                foreach (var stringSlot in _spellData.activeStrings)
+                foreach (var spellString in _spellData.GetActiveStrings())
                 {
-                    if (!stringSlot.IsEmpty())
-                    {
-                        _inventory.AddItem(stringSlot.spellString);
-                    }
+                    _inventory.AddItem(spellString);
                 }
 
                 _spellbook.DeleteSpell(_spellData);
