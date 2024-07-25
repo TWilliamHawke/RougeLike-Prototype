@@ -21,18 +21,19 @@ namespace Entities.Stats
             SetNewValue(currentValue + value);
         }
 
-        public override int GetFinalValue()
-        {
-            int finalValue = base.GetFinalValue();
+        // public override int GetFinalValue()
+        // {
+        //     int finalValue = base.GetFinalValue();
+        //     Debug.Log(_stat.name + " " + finalValue);
 
-            if (_stat.minReductionMod > 0f)
-            {
-                int minFinalValue = NormalizeValue(currentValue * _stat.minReductionMod);
-                finalValue = Math.Max(finalValue, minFinalValue);
-            }
+        //     if (_stat.minReductionMod > 0f)
+        //     {
+        //         int minFinalValue = NormalizeValue(currentValue * _stat.minReductionMod);
+        //         finalValue = Math.Max(finalValue, minFinalValue);
+        //     }
 
-            return finalValue;
-        }
+        //     return finalValue;
+        // }
 
         private void SetStatValue(int newValue)
         {
@@ -43,5 +44,18 @@ namespace Entities.Stats
         {
             SetNewValue(value);
         }
+
+        public int GetAdjustedValue(IEffectsIterator effects)
+        {
+            ResetBonusValues();
+
+            foreach (var effect in effects.GetEffects(_stat))
+            {
+                AddBonusValue(effect.bonusType, effect.power);
+            }
+
+            return GetFinalValue();
+        }
+
     }
 }

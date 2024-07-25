@@ -17,6 +17,6 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: da22a3e485805254d8d80f6b6b234a88, type: 3}
   _isPositiveValueGood: 0
   _stat: {fileID: 11400000, guid: 560a9c499cb376f45987d256b3febf51, type: 2}
-  _bonusType: 2
+  _bonusType: 1
   _conditions:
     _conditions: []

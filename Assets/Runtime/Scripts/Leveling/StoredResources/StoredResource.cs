@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace Entities.Stats
 {
     [CreateAssetMenu(fileName = "Stat", menuName = "Entities/StoredResource", order = 0)]
-    public class StoredResource : DisplayedObject, IStat<ResourceStorage>
+    public class StoredResource : DisplayedObject
     {
         static readonly int _minValue = 0;
         static readonly int _maxValue = System.Int32.MaxValue;

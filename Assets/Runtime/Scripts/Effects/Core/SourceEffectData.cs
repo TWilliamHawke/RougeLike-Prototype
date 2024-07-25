@@ -13,15 +13,17 @@ namespace Effects
         [SerializeField] int _power;
         [SerializeField] int _duration;
 
-        const string magnitudePattern = "%m";
-        const string durationPattern = "%d";
-        const string duaration_loc_key = "effect_duration";
+        const string MAGNITUDE_PATTERN = "%m";
+        const string DURATION_PATTERN = "%d";
+        const string DURATION_LOC_PATTERN = "effect_duration";
 
         public IEffect effect => _effect;
         public int power => _power;
         public int duration => _duration;
 
         public IEffectSignature effectType => _effect.effectType;
+
+        public BonusValueType bonusType => _effect is IEffectWithBonusValue e ? e.bonusType : BonusValueType.none;
 
         public void ApplyEffect(EffectsStorage storage, IEffectSource effectSource)
         {
@@ -50,15 +52,15 @@ namespace Effects
         {
             string description = LocalDictionary.GetLocalisedString(effect.description, new TextReplacer
             {
-                pattern = magnitudePattern,
+                pattern = MAGNITUDE_PATTERN,
                 replacer = _power.ToString()
             });
 
             if (duration > 0)
             {
-                string appendix = LocalDictionary.GetLocalisedString(duaration_loc_key, new TextReplacer
+                string appendix = LocalDictionary.GetLocalisedString(DURATION_LOC_PATTERN, new TextReplacer
                 {
-                    pattern = duaration_loc_key,
+                    pattern = DURATION_LOC_PATTERN,
                     replacer = _duration.ToString()
                 });
                 description = $"{description} {appendix}";

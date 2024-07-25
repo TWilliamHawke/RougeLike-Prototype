@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Effects
 {
-    public class EffectsStorage : MonoBehaviour, IEntityComponent
+    public class EffectsStorage : MonoBehaviour, IEntityComponent, IEffectsIterator
     {
         public event UnityAction OnEffectsUpdate;
 
@@ -38,6 +38,14 @@ namespace Effects
             _mainContainer.AddEffect(effectSource, sourceEffectData);
         }
 
+        public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
+        {
+            return _mainContainer.GetEffects(type);
+        }
 
+        public IEnumerable<IStaticEffectData> GetEffects()
+        {
+            return _mainContainer.GetEffects();
+        }
     }
 }

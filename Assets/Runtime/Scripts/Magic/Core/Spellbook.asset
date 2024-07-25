@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Spellbook
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _playerSpellController: {fileID: 11400000, guid: b5019c50cbfb7bf4e80953e609e3d903, type: 2}
   _increaseRankCost: 500
+  _clearSlotCost: 25
