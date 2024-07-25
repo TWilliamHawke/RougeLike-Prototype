@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Effects
 {
-    public class EffectContainer
+    public class EffectContainer : IEffectsIterator
     {
         Dictionary<IEffectSource, IList<IStaticEffectData>> _effectsBySource = new();
         Dictionary<IEffectSignature, IList<EffectSourceDataPair>> _effectsByType = new();
@@ -25,7 +25,7 @@ namespace Effects
             effects.ForEach(e => AddType(source, e));
         }
 
-        public IEnumerator<IStaticEffectData> GetEffects(IEffectSignature type)
+        public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
         {
             if (_effectsByType.TryGetValue(type, out var effects))
             {
@@ -36,7 +36,7 @@ namespace Effects
             }
         }
 
-        public IEnumerator<IStaticEffectData> GetEffects()
+        public IEnumerable<IStaticEffectData> GetEffects()
         {
             foreach (var effectList in _effectsBySource)
             {
@@ -81,7 +81,7 @@ namespace Effects
             {
                 for (int i = 0; i < pairs.Count; i++)
                 {
-                    if (pairs[i].source == source)
+                    if (pairs[i].HasSameComponents(pair))
                     {
                         pairs[i] = pair;
                         return;
@@ -124,6 +124,11 @@ namespace Effects
         {
             this.source = source;
             this.effectData = effectData;
+        }
+
+        public bool HasSameComponents(EffectSourceDataPair other)
+        {
+            return other.source == source && other.effectData.effect == effectData.effect;
         }
     }
 }

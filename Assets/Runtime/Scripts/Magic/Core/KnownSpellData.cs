@@ -10,14 +10,14 @@ using Magic.UI;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource
+    public class KnownSpellData : IAbilitySource, IEffectsIterator, IInjectionTarget
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;
 
         const int MAX_SPELL_RANK = 6;
 
-        public string displayName { get; init; }
+        public string displayName { get; set; }
         public string baseName => _spell.displayName;
 
         public int rank => _rank;
@@ -26,7 +26,8 @@ namespace Magic
         public Sprite icon => _spell.icon;
         public Ability spellEffect => _spell.GetEffectAt(rank);
         public int baseManaCost => _spell.GetCostAt(rank);
-        public IEnumerator<IStaticEffectData> stringEffects => _effectContainer.GetEffects();
+
+        public bool waitForAllDependencies => false;
 
         Spell _spell;
 
@@ -34,22 +35,26 @@ namespace Magic
         StringSlotData[] _activeStrings = new StringSlotData[6];
         EffectContainer _effectContainer = new();
 
+        [InjectField] SpellUsageController _playerSpellController;
 
-        public KnownSpellData(Spell spell)
+        public KnownSpellData(Spell spell, Injector injector) : this(spell)
+        {
+            injector.AddInjectionTarget(this);
+        }
+
+        private KnownSpellData(Spell spell)
         {
             _spell = spell;
             _rank = spell.startRank;
             displayName = spell.displayName;
         }
 
-        public KnownSpellData(Spell spell, string customName) : this(spell)
-        {
-            displayName = customName;
-        }
-
         public KnownSpellData CreateCopy(string name)
         {
-            return new KnownSpellData(_spell, name);
+            KnownSpellData data = new(_spell);
+            data.displayName = name;
+            data._playerSpellController = _playerSpellController;
+            return data;
         }
 
         public bool SpellIsTheSame(Spell spell)
@@ -124,6 +129,21 @@ namespace Magic
             return _activeStrings[slotIndex].spellString;
         }
 
+        public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
+        {
+            return _effectContainer.GetEffects(type);
+        }
+
+        public IEnumerable<IStaticEffectData> GetEffects()
+        {
+            return _effectContainer.GetEffects();
+        }
+
+        public void FinalizeInjection()
+        {
+            _playerSpellController.OnMonoDestroy += RemoveSpellController;
+        }
+
         private bool IndexIsCorrect(int idx)
         {
             return idx < _activeStrings.Length && idx >= 0;
@@ -131,9 +151,12 @@ namespace Magic
 
         private int CalculateManaCost()
         {
-            //min = 10%
-            float costMult = Mathf.Max(1 + GetBuffsFromSpellLines(s => s.manaCostMod) / 100f, 0.1f);
-            return Mathf.RoundToInt(baseManaCost * costMult);
+            return _playerSpellController?.GetSpellCost(this) ?? baseManaCost;
+        }
+
+        private void RemoveSpellController()
+        {
+            _playerSpellController = null;
         }
 
         private int GetBuffsFromSpellLines(SelectSpellLinesBuff selector)

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Magic
 {
-	[CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
+    [CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
 	public class Spell : ScriptableObject, ISpriteGetter, IEffectSource
 	{
 		[UseFileName]

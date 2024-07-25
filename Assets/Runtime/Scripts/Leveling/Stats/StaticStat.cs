@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using UnityEngine;
 
 namespace Entities.Stats
 {
     [CreateAssetMenu(fileName ="Stat", menuName ="Entities/Stat")]
-    public class StaticStat : DisplayedObject, IStat<StaticStatStorage>
+    public class StaticStat : DisplayedObject, IEffectSignature
     {
         [SerializeField] bool _applyMultFirst = true;
         [SerializeField] int _capMin = 0;

@@ -15,6 +15,7 @@ namespace Magic
         public event UnityAction OnUpdate;
 
         [SerializeField] Inventory _inventory;
+        [SerializeField] Injector _playerSpellController;
         [SerializeField] int _increaseRankCost = 500;
         [SerializeField] int _clearSlotCost = 25;
 
@@ -75,7 +76,7 @@ namespace Magic
 
         private void AddSpell(Spell spell)
         {
-            _knownSpells.Add(new KnownSpellData(spell));
+            _knownSpells.Add(new KnownSpellData(spell, _playerSpellController));
             OnSpellAdded?.Invoke(spell);
         }
     }

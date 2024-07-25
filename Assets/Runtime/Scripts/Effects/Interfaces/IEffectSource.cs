@@ -13,6 +13,7 @@ namespace Effects
         IEffect effect { get; }
         int power { get; }
         IEffectSignature effectType { get; }
+        BonusValueType bonusType { get; }
     }
 
     public interface IEffectSignature

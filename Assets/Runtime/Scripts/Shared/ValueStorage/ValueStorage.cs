@@ -11,7 +11,12 @@ public class ValueStorage : IValueStorage
     public int maxValue => _maxValue;
     public int minValue => _minValue;
 
-    Dictionary<IBonusValueSource, BonusValueData> _bonusValues = new();
+    Dictionary<BonusValueType, IBonusValueLogic> _bonusValues = new()
+    {
+        { BonusValueType.flat, new FlatBonusValue() },
+        { BonusValueType.percentage, new PercentageBonusValue() },
+        { BonusValueType.mult, new MultBonusValue() }
+    };
 
     int _maxValue;
     int _currentValue;
@@ -55,15 +60,12 @@ public class ValueStorage : IValueStorage
         }
     }
 
-    public void AddBonusValue(IBonusValueSource valueSource, BonusValueType bonusType, float bonus)
+    public void AddBonusValue(BonusValueType bonusType, float bonus)
     {
-        RemoveBonusValue(valueSource);
-        _bonusValues.Add(valueSource, new BonusValueData(bonus, bonusType));
-    }
-
-    public void RemoveBonusValue(IBonusValueSource valueSource)
-    {
-        _bonusValues.Remove(valueSource);
+        if (_bonusValues.TryGetValue(bonusType, out IBonusValueLogic bonusValue))
+        {
+            bonusValue.AddBonusValue(bonus);
+        }
     }
 
     public void IncreaseValue(int change)
@@ -87,30 +89,24 @@ public class ValueStorage : IValueStorage
 
     public virtual int GetFinalValue()
     {
-        float flatBonus = GetBonusValue(BonusValueType.flat, 0, (acc, val) => acc + val);
-        float pctBonus = GetBonusValue(BonusValueType.percentage, 1, (acc, val) => acc + val / 100);
-        float multBonus = GetBonusValue(BonusValueType.mult, 1, (acc, val) => acc * val);
+        float flatBonus = _bonusValues[BonusValueType.flat].bonusValue;
+        float pctBonus = _bonusValues[BonusValueType.percentage].bonusValue;
+        float multBonus = _bonusValues[BonusValueType.mult].bonusValue;
+
         float finalValue = _flatFirst ? (_currentValue + flatBonus) * pctBonus : _currentValue * pctBonus + flatBonus;
 
         return NormalizeValue(finalValue * multBonus);
+    }
+
+    public void ResetBonusValues()
+    {
+        _bonusValues.ForEach(bonusValue => bonusValue.Value.ResetValue());
     }
 
     public ValueState GetState()
     {
         int numericState = (int)Mathf.Sign(GetFinalValue() - _currentValue);
         return (ValueState)numericState;
-    }
-
-    private float GetBonusValue(BonusValueType valueType, float startValue, ReduceCallback callback)
-    {
-        foreach (var pair in _bonusValues)
-        {
-            if (pair.Value.valueBonusType != valueType) continue;
-            float bonus = pair.Value.value;
-            startValue = callback(startValue, bonus);
-        }
-
-        return startValue;
     }
 
     protected int NormalizeValue(float value)
