@@ -55,3 +55,6 @@ resource_name_gold	Gold	Золото
 resource_name_dust	Magic Dust	Волшебная пыль
 resource_factor_mana_regen	Passive mana replenishment	Пассивное восполнение маны
 resource_factor_mana_restoration	Mana restoration	Восполнение маны
+stat_name_spell_power	Spell Power	Сила заклинаний
+effect_name_spell_power_mult	Spell power bonus	Множитель силы заклинаний
+effect_description_spell_power_mult	Spell power: x%m	Сила заклинаний: х%m

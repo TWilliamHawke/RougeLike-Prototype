@@ -49,6 +49,7 @@ namespace Effects
 
         public void RemoveEffect(IEffectSource source)
         {
+
             if (_effectsBySource.Remove(source, out var effects))
             {
                 foreach (var effect in effects)
@@ -57,8 +58,9 @@ namespace Effects
                     {
                         for (int i = 0; i < pairs.Count; i++)
                         {
-                            if (pairs[i].source == source)
+                            if (pairs[i].source.Equals(source))
                             {
+                                Debug.Log("Removed effect at: " + i);
                                 pairs.RemoveAt(i);
                             }
                         }

@@ -82,7 +82,7 @@ namespace Magic.UI
                 }
 
                 slot.Enable();
-                slot.SetIcon(_spellData.GetSpellStringAt(i));
+                slot.SetIcon(_spellData.GetSpellSlotAt(i));
             }
         }
 
@@ -110,7 +110,7 @@ namespace Magic.UI
             }
             else
             {
-                _editorComponents.ShowSlotEffects(_spellData.GetSpellStringAt(idx));
+                _editorComponents.ShowSlotEffects(_spellData.GetSpellSlotAt(idx));
             }
 
             _activeSlotIdx = idx;
@@ -143,7 +143,7 @@ namespace Magic.UI
             if (_spellData.StringSlotIsEmpty(_activeSlotIdx))
             {
                 _spellData.SetActiveString(_activeSlotIdx, _selectedString);
-                _editorComponents.ShowSlotEffects(_spellData.GetSpellStringAt(_activeSlotIdx));
+                _editorComponents.ShowSlotEffects(_spellData.GetSpellSlotAt(_activeSlotIdx));
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace Magic.UI
         {
             if (_inventory.resources.TrySpendResource(ResourceType.magicDust, _spellbook.clearSlotCost))
             {
-                _spellData.ClearStringSlot(_activeSlotIdx);
+                _spellData.ClearStringSlot(_activeSlotIdx, _inventory);
                 _editorComponents.ShowEmptySlotOptions();
             }
         }
