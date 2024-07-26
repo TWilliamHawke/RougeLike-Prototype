@@ -6,7 +6,7 @@ public class MultBonusValue : IBonusValueLogic
 
     public void AddBonusValue(float value)
     {
-        bonusValue *= value;
+        bonusValue *= value * 0.01f;
     }
 
     public void ResetValue()

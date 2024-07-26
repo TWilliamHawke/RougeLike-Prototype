@@ -12,6 +12,7 @@ namespace Magic
         public int slotIndex { get; init; }
 
         public string displayName => spellString.displayName;
+        public Sprite icon => spellString.icon;
 
         public StringSlotData(SpellString spellString, int slotIndex)
         {
@@ -34,6 +35,11 @@ namespace Magic
             spellString = null;
         }
 
+        public override string ToString()
+        {
+            return "Spell slot #" + slotIndex;
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is StringSlotData)) return false;
@@ -52,7 +58,7 @@ namespace Magic
 
         public override int GetHashCode()
         {
-            return slotIndex.GetHashCode();
+            return 125 + slotIndex;
         }
 
         private bool Equals(StringSlotData other)

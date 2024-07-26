@@ -21,8 +21,8 @@ MonoBehaviour:
   _spellPowerMod: 25
   _manaCostMod: 30
   _effects:
-  - _effect: {fileID: 11400000, guid: 5ee0a1661be26284ba51014ce132d8eb, type: 2}
-    _power: 25
+  - _effect: {fileID: 11400000, guid: ddf9feb01bfddf4438fd9b85843476ae, type: 2}
+    _power: 125
     _duration: 0
   - _effect: {fileID: 11400000, guid: cc758ecd9f55ca84788be9da48220e59, type: 2}
     _power: 30

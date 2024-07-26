@@ -7,9 +7,9 @@ namespace Effects
 {
 	public struct AbilityModifiers
 	{
-	    public float magnitudeMult;
-        public int durationAdd;
-		public DamageType newDamageType;
+	    public float magnitudeMult { get; init; }
+        public int durationAdd { get; init; }
+		public DamageType newDamageType { get; init; }
 
         public AbilityModifiers(float magnitudeMult) : this()
         {

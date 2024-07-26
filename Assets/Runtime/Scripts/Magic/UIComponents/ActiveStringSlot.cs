@@ -53,15 +53,15 @@ namespace Magic.UI
             return data != null && data.item is SpellString;
         }
 
-        public void SetIcon(IIconData iconData)
+        public void SetIcon(StringSlotData slot)
         {
-            if (iconData == null)
+            if (slot.IsEmpty())
             {
                 _icon.Hide();
                 return;
             }
             _icon.Show();
-            _icon.sprite = iconData.icon;
+            _icon.sprite = slot.icon;
         }
 
         public void DropData(ItemSlotData slotData)

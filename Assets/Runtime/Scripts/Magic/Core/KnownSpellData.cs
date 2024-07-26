@@ -77,8 +77,8 @@ namespace Magic
 
         public string ConstructDescription()
         {
-            float powerMult = 1 + GetBuffsFromSpellLines(s => s.spellPowerMod) / 100f;
-            return spellEffect.GetDescription(new AbilityModifiers(powerMult));
+            var abilityMods = _playerSpellController.GetSpellModifiers(this);
+            return spellEffect.GetDescription(abilityMods);
         }
 
         public IAbilityInstruction CreateAbilityInstruction()
@@ -105,28 +105,28 @@ namespace Magic
             OnDataChange?.Invoke();
         }
 
-        public void ClearStringSlot(int idx)
+        public void ClearStringSlot(int idx, Inventory inventory)
         {
             if (StringSlotIsEmpty(idx)) return;
-            var slot = _activeStrings[idx];
-            _effectContainer.RemoveEffect(slot);
-            slot.Clear();
+            inventory.AddItems(_activeStrings[idx].spellString, 1);
+            _effectContainer.RemoveEffect(_activeStrings[idx]);
+            _activeStrings[idx].Clear();
             OnDataChange?.Invoke();
         }
 
-        public IEnumerable<SpellString> GetActiveStrings()
+        public void ClearAllSlots(Inventory inventory)
         {
-            foreach (var stringSlot in _activeStrings)
+            for (int i = 0; i < _activeStrings.Length; i++)
             {
-                if (stringSlot.IsEmpty()) continue;
-                yield return stringSlot.spellString;
+                ClearStringSlot(i, inventory);
             }
+            OnDataChange?.Invoke();
         }
 
-        public SpellString GetSpellStringAt(int slotIndex)
+        public StringSlotData GetSpellSlotAt(int slotIndex)
         {
-            if (StringSlotIsEmpty(slotIndex)) return null;
-            return _activeStrings[slotIndex].spellString;
+            if (!IndexIsCorrect(slotIndex)) return default;
+            return _activeStrings[slotIndex];
         }
 
         public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
@@ -158,19 +158,5 @@ namespace Magic
         {
             _playerSpellController = null;
         }
-
-        private int GetBuffsFromSpellLines(SelectSpellLinesBuff selector)
-        {
-            int mod = 0;
-
-            foreach (var stringSlot in _activeStrings)
-            {
-                if (stringSlot.IsEmpty()) continue;
-                mod += selector(stringSlot.spellString);
-            }
-
-            return mod;
-        }
-
     }
 }
