@@ -11,19 +11,15 @@ namespace Items
 
         [SerializeField] Injector _selfInjector;
 
-        StoredResources _resources;
-        ItemSection<Potion> _potionsBag;
-        ItemSection<MagicScroll> _scrollsBag;
-        ItemSection<Item> _main;
         ItemSection<Item> _storage;
-        ItemSection<SpellString> _spellStrings;
 
-        public ItemSection<Potion> potionsBag => _potionsBag;
-        public ItemSection<MagicScroll> scrollsBag => _scrollsBag;
-        public ItemSection<Item> main => _main;
-        public ItemSection<SpellString>  spellStrings => _spellStrings;
-        public IEnumerable<Item> equipment => _equipment;
-        public StoredResources resources => _resources;
+        public ItemSection<Potion> potionsBag { get; private set; }
+        public ItemSection<MagicScroll> scrollsBag  { get; private set; }
+        public ItemSection<Item> main  { get; private set; }
+        public ItemSection<Item> tempStorage  { get; private set; }
+        public ItemSection<SpellString>  spellStrings  { get; private set; }
+        public StoredResources resources  { get; private set; }
+        public IEnumerable<Item> equipment  => _equipment;
 
         List<IItemSection> _sections;
 
@@ -33,7 +29,7 @@ namespace Items
 
         private void OnEnable()
         {
-            if(_resources is not null) return;
+            if(resources is not null) return;
 
             CreateSections();
 
@@ -105,34 +101,38 @@ namespace Items
         {
             _sections = new List<IItemSection>(6);
 
-            _resources = new StoredResources(_startResources);
-            _potionsBag = new ItemSection<Potion>(ItemStorageType.inventory, 3);
-            _spellStrings = new ItemSection<SpellString>(ItemStorageType.inventory);
-            _scrollsBag = new ItemSection<MagicScroll>(ItemStorageType.inventory, 5);
-            _main = new ItemSection<Item>(ItemStorageType.inventory, 12);
+            resources = new StoredResources(_startResources);
+            potionsBag = new ItemSection<Potion>(ItemStorageType.inventory, 3);
+            spellStrings = new ItemSection<SpellString>(ItemStorageType.inventory);
+            scrollsBag = new ItemSection<MagicScroll>(ItemStorageType.inventory, 5);
+            main = new ItemSection<Item>(ItemStorageType.inventory, 12);
+            tempStorage = new ItemSection<Item>(ItemStorageType.storage);
+
             _storage = new ItemSection<Item>(ItemStorageType.storage);
 
-            _sections.Add(_resources);
-            _sections.Add(_potionsBag);
-            _sections.Add(_scrollsBag);
-            _sections.Add(_spellStrings);
+            _sections.Add(resources);
+            _sections.Add(potionsBag);
+            _sections.Add(scrollsBag);
+            _sections.Add(spellStrings);
             //if special sections is full - add to main
-            _sections.Add(_main);
-            //if main is full - add to storage
-            _sections.Add(_storage);
+            _sections.Add(main);
+            //if main is full - add to temporary storage
+            _sections.Add(tempStorage);
         }
 
+        public void ClearTempStorage()
+        {
+            tempStorage.ForEach(item => _storage.AddItems(item));
+            tempStorage.Clear();
+        }
 
         [ContextMenu("Clear")]
         void Clear()
         {
-            foreach (var section in _sections)
-            {
-                section.Clear();
-            }
+            _sections.ForEach(section => section.Clear());
         }
 
-        public void ClearState()
+        void IPermanentDependency.ClearState()
         {
 
         }

@@ -44,4 +44,9 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
             Destroy(children.gameObject);
         }
     }
+
+    protected void SetLayoutActive(bool active)
+    {
+        _layout.gameObject.SetActive(active);
+    }
 }

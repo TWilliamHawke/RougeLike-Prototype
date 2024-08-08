@@ -58,3 +58,4 @@ resource_factor_mana_restoration	Mana restoration	Восполнение ман�
 stat_name_spell_power	Spell Power	Сила заклинаний
 effect_name_spell_power_mult	Spell power bonus	Множитель силы заклинаний
 effect_description_spell_power_mult	Spell power: x%m	Сила заклинаний: х%m
+inventory_section_temporary	Temporary Items	Временная сумка

@@ -34,11 +34,12 @@ namespace Items
 
         public event UnityAction OnSectionDataChange;
 
-        int IInventorySectionData.count => _itemsList.Count;
+        public int count => _itemsList.Count;
 
         public ItemStorageType itemStorage => _slotContainer;
         public int capacity => _maxSlotsCount >= 0 ? _maxSlotsCount : 10;
         public bool isEmpty => _itemsList.Count == 0;
+        public bool isInfinity => _maxSlotsCount < 0;
 
         ItemStorageType _slotContainer;
 
@@ -81,6 +82,11 @@ namespace Items
         {
             _itemsList.Clear();
             _activeSlotsByItem.Clear();
+        }
+
+        public void AddItems(ItemSlotData itemSlotData)
+        {
+            AddItems(itemSlotData.item, itemSlotData.count);
         }
 
         //UNDONE this code can create slots over _maxSlotsCount!!!

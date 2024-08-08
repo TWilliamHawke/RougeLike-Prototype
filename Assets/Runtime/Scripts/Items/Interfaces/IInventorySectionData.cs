@@ -8,5 +8,6 @@ namespace Items
         event UnityAction OnSectionDataChange;
         int capacity { get; }
         int count { get; }
+        bool isInfinity { get; }
     }
 }

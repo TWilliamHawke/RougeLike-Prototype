@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using UI.DragAndDrop;
 using UI.Tooltips;
 using UnityEngine.Events;
 using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
@@ -12,24 +11,19 @@ using Items.Actions;
 
 namespace Items
 {
-    [RequireComponent(typeof(DragHandler))]
     public class ItemSlot : UIDataElement<ItemSlotData>, IItemSlot, IPointerEnterHandler, IPointerExitHandler,
-     IDragDataSource<ItemSlotData>, IPointerClickHandler, IHaveItemTooltip
+     IPointerClickHandler, IHaveItemTooltip
     {
-        [SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _icon;
         [SerializeField] Image _outline;
-        [SerializeField] TextMeshProUGUI _count;
+        [SerializeField] RectTransform _count;
+        [SerializeField] TextMeshProUGUI _countText;
+        [SerializeField] ItemSlotDragLogic _dragLogic;
 
         //data
         protected ItemSlotData _slotData;
 
-        //drag item
-        public ItemSlotData dragData => _slotData;
-        public IDragController dataHandler => _dragDataHandler;
-        public bool allowToDrag => _slotData is not null;
-        DragController<ItemSlotData> _dragDataHandler;
         //tooltip
         bool IHaveItemTooltip.shouldShowTooltip => _slotData != null;
 
@@ -38,14 +32,13 @@ namespace Items
 
         void Awake()
         {
-            var dragHandler = GetComponent<DragHandler>();
-            dragHandler.OnDragStart += TriggerDragEvent;
-            _dragDataHandler = new(this, _floatingItemPrefab);
+            _dragLogic.OnDragStart += TriggerDragEvent;
         }
 
         public override void BindData(ItemSlotData slotData)
         {
             if (slotData.item is null) return;
+            _dragLogic.SetData(slotData);
             _icon.gameObject.SetActive(true);
 
             _slotData = slotData;
@@ -54,7 +47,7 @@ namespace Items
             _icon.gameObject.SetActive(slotData.count > 0);
 
             _count.gameObject.SetActive(slotData.item.maxStackSize > 1);
-            _count.text = slotData.count.ToString();
+            _countText.text = slotData.count.ToString();
         }
 
         public void Clear()
@@ -95,5 +88,4 @@ namespace Items
         }
 
     }
-
 }

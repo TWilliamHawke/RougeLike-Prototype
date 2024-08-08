@@ -12,52 +12,61 @@ namespace Items.UI
         [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] Inventory _inventory;
         [Header("UI Elements")]
-        [SerializeField] InventorySectionController _potionsBag;
-        [SerializeField] InventorySectionController _scrollsBag;
-        [SerializeField] InventorySectionController _mainSection;
-        [SerializeField] ResourceCounter _goldCounter;
-        [SerializeField] ResourceCounter _dustCounter;
+        [SerializeField] InventorySection _tempSection;
+        [SerializeField] InventorySection _potionsBag;
+        [SerializeField] InventorySection _scrollsBag;
+        [SerializeField] InventorySection _mainSection;
 
-        List<InventorySectionController> _controllers = new();
+        List<InventorySection> _sections = new();
 
         void Awake()
         {
-            _controllers.Add(_potionsBag);
-            _controllers.Add(_mainSection);
-            _controllers.Add(_scrollsBag);
+            _sections.Add(_tempSection);
+            _sections.Add(_potionsBag);
+            _sections.Add(_mainSection);
+            _sections.Add(_scrollsBag);
+
+            _sections.ForEach(s => s.OnSectionSelect += ToggleSection);
         }
 
         void Start()
         {
-            _inventoryScreen.OnScreenOpen += UpdateInventoryScreen;
-            _inventory.resources.OnResourceChange += UpdateResources;
+            _inventoryScreen.OnScreenOpen += SetDefaultScreenView;
+            _inventoryScreen.OnScreenClose += _inventory.ClearTempStorage;
+
             _potionsBag.BindSection(_inventory.potionsBag);
             _mainSection.BindSection(_inventory.main);
             _scrollsBag.BindSection(_inventory.scrollsBag);
+            _tempSection.BindSection(_inventory.tempStorage);
         }
 
         public void AddSlotObservers(IObserver<ItemSlot> observer)
         {
-            _controllers.ForEach(controller => controller.AddSlotObservers(observer));
+            _sections.ForEach(s => s.AddObserver(observer));
         }
 
-        private void UpdateInventoryScreen()
+        private void SetDefaultScreenView()
         {
-            foreach (var controller in _controllers)
+            _sections.ForEach(s => s.UpdateSectionView());
+            _sections.ForEach(s => s.Collapse());
+
+            if (!_inventory.tempStorage.isEmpty)
             {
-                controller.UpdateSectionView();
+                _tempSection.Expand();
             }
         }
 
-        private void OnDestroy()
+        private void ToggleSection(InventorySection selectedSection)
         {
-            _inventory.resources.OnResourceChange -= UpdateResources;
-        }
-
-        private void UpdateResources(ResourceType resourceType)
-        {
-            _goldCounter.UpdateResourceValue(resourceType);
-            _dustCounter.UpdateResourceValue(resourceType);
+            foreach (var section in _sections)
+            {
+                if (section == selectedSection)
+                {
+                    section.Toggle();
+                    return;
+                }
+                section.Collapse();
+            }
         }
 
     }
