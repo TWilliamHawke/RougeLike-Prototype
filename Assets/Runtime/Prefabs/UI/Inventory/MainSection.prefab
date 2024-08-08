@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4666853759409875348}
   - component: {fileID: 9010985612313996194}
   - component: {fileID: 5605647815501057048}
+  - component: {fileID: 4464586834143338488}
   m_Layer: 0
   m_Name: NameBackground
   m_TagString: Untagged
@@ -97,6 +98,22 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4464586834143338488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428183619150080562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adda25ce5ada35249a42e35bec6940b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sectionStateText: {fileID: 7457828119880398839}
+  _sectionTitle: {fileID: 7457828119880398839}
+  _sectionName:
+    _locKey: inventory_section_main
 --- !u!1 &7457828118129006804
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +126,6 @@ GameObject:
   - component: {fileID: 7457828118129006815}
   - component: {fileID: 7457828118129006809}
   - component: {fileID: 7457828118129006810}
-  - component: {fileID: 3387842239184779579}
   m_Layer: 0
   m_Name: MainSection
   m_TagString: Untagged
@@ -186,19 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layoutElementPrefab: {fileID: 6294457503562512441, guid: 0e3d4c6aaaf256b418ed882a608abd54, type: 3}
   _layout: {fileID: 7457828120031381845}
---- !u!114 &3387842239184779579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7457828118129006804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0260381aa429684a8bf8f9756680fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventorySection: {fileID: 7457828118129006810}
+  _sectionHeader: {fileID: 0}
 --- !u!1 &7457828119880398833
 GameObject:
   m_ObjectHideFlags: 0

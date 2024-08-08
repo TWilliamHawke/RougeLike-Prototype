@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 6294457503562512441}
   - component: {fileID: -3454517684520267812}
   - component: {fileID: 8914032609886409785}
+  - component: {fileID: -7322437887946650921}
   m_Layer: 0
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -364,10 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171da057830fac34c95a56867929e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
   _icon: {fileID: 4362007808519729512}
   _outline: {fileID: 949575568011433269}
-  _count: {fileID: 2779302045430758158}
+  _count: {fileID: 2978576483785438452}
+  _countText: {fileID: 2779302045430758158}
+  _dragLogic: {fileID: -7322437887946650921}
 --- !u!114 &-3454517684520267812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +399,19 @@ MonoBehaviour:
   _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
   _onDragStart: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
   _onDragEnd: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
+--- !u!114 &-7322437887946650921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666333126330395510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0822ad056628cd4f92c95c68420ab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
 --- !u!1 &8677327250042010678
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2978576483785438452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -514,7 +529,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
-  m_parseCtrlCharacters: 1
+  m_parseCtrlCharacters: 0
   m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0

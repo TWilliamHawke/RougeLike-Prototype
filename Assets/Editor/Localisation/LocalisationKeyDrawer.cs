@@ -5,7 +5,7 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(LocalisationKeyAttribute))]
 public class LocalisationKeyDrawer : PropertyDrawer
 {
-    float btnWidth = 23f;
+    static float btnWidth = 23f;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -15,11 +15,15 @@ public class LocalisationKeyDrawer : PropertyDrawer
             return;
         }
 
+        DrawKey(position, property, ref label);
+
+    }
+
+    public static void DrawKey(Rect position, SerializedProperty property, ref GUIContent label)
+    {
         string locKey = property.stringValue;
         bool isExist = TSVEditor.KeyIsExist(locKey);
         string translatedText = TSVEditor.GetEnglishText(locKey);
-
-        float change = (attribute as PlusMinusBtnAttribute)?.amount ?? 1f;
 
         var propertyRect = new Rect(position.x, position.y, position.width - btnWidth * 2, position.height);
 
@@ -48,7 +52,7 @@ public class LocalisationKeyDrawer : PropertyDrawer
 
         if (GUI.Button(buttonRect, new GUIContent(btnText, tooltip)))
         {
-            if (locKey == "") 
+            if (locKey == "")
             {
                 throw new System.Exception("Localisation key is empty");
             }
