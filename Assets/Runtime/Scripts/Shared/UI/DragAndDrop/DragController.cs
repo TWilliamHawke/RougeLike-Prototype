@@ -9,16 +9,10 @@ namespace UI.DragAndDrop
     {
         static ObjectPool<DragableUIElement<T>> _dragPool;
 
+        //Data can be changed before drag start, T doesn't fit
         IDragDataSource<T> _dataSource;
         DragableUIElement<T> _prefab;
         DragableUIElement<T> _createdElement;
-
-        public DragableUIElement CreateElement()
-        {
-            _createdElement = _dragPool.Get();
-            _createdElement.ApplyData(_dataSource.dragData);
-            return _createdElement;
-        }
 
         public DragController(IDragDataSource<T> dataSource, DragableUIElement<T> prefab)
         {
@@ -33,6 +27,13 @@ namespace UI.DragAndDrop
                 actionOnRelease: elem => elem.gameObject.SetActive(false),
                 defaultCapacity: 1
             );
+        }
+
+        public DragableUIElement CreateElement()
+        {
+            _createdElement = _dragPool.Get();
+            _createdElement.ApplyData(_dataSource.dragData);
+            return _createdElement;
         }
 
         public void DropData()
@@ -58,19 +59,20 @@ namespace UI.DragAndDrop
 
             foreach (var hit in hits)
             {
-                if (hit.gameObject.TryGetComponent<IDropTarget<T>>(out var possibleTarget)
+                if (hit.gameObject.TryGetComponent<IDropTarget>(out var possibleTarget)
                     && TargetIsValid(possibleTarget, hit, raycastPos))
                 {
-                    target = possibleTarget;
+                    target = possibleTarget as IDropTarget<T>;
                     return true;
                 }
             }
             return false;
         }
 
-        private bool TargetIsValid(IDropTarget<T> target, RaycastResult hit, Vector3 raycastPosition)
+        private bool TargetIsValid(IDropTarget target, RaycastResult hit, Vector3 raycastPosition)
         {
-            if (!target.DataIsMeet(_dataSource.dragData)) return false;
+            if (target is not IDropTarget<T> castedTarget) return false;
+            if (!castedTarget.DataIsMeet(_dataSource.dragData)) return false;
             if (!target.checkImageAlpha) return true;
             if (!hit.gameObject.TryGetComponent<Image>(out var image)) return true;
             return Raycasts.IsRaycastLocationValid(raycastPosition, image);

@@ -45,7 +45,7 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
         }
     }
 
-    protected void SetLayoutActive(bool active)
+    protected void SetLayoutVisibility(bool active)
     {
         _layout.gameObject.SetActive(active);
     }
