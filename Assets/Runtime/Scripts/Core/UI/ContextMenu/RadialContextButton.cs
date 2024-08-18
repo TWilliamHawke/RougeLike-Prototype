@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Core.UI
 {
 
-    public class RadialContextButton : MonoBehaviour, IDropTarget<KnownSpellData>, IDropTarget<ItemSlotData>
+    public class RadialContextButton : MonoBehaviour, IDropTarget<IContextMenuData>
     {
         [SerializeField] RadialButtonPosition _buttonPosition;
         [SerializeField] TextMeshProUGUI _buttonText;
@@ -34,24 +34,14 @@ namespace Core.UI
             _coloredMask.color = _buttonColor;
         }
 
-        public bool DataIsMeet(ItemSlotData _)
+        public bool DataIsMeet(IContextMenuData _)
         {
-            return DataIsMeet();
+            return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
         }
 
-        public void DropData(ItemSlotData _)
+        public void DropData(IContextMenuData _)
         {
-            DropData();
-        }
-
-        public bool DataIsMeet(KnownSpellData _)
-        {
-            return DataIsMeet();
-        }
-
-        public void DropData(KnownSpellData _)
-        {
-            DropData();
+            _buttonAction?.DoAction();
         }
 
         public void Highlight()
@@ -83,17 +73,10 @@ namespace Core.UI
             _buttonAction = null;
             _buttonText.text = "";
         }
+    }
 
-        private bool DataIsMeet()
-        {
-            return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
-        }
-
-        private void DropData()
-        {
-            _buttonAction?.DoAction();
-        }
-
+    public interface IContextMenuData
+    {
     }
 }
 

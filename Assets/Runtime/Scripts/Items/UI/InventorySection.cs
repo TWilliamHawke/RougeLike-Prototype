@@ -40,14 +40,14 @@ namespace Items.UI
 
         public void Collapse()
         {
-            SetLayoutActive(false);
+            SetLayoutVisibility(false);
             _sectionHeader.ShowCollapcePointer();
             _isCollapsed = true;
         }
 
         public void Expand()
         {
-            SetLayoutActive(true);
+            SetLayoutVisibility(true);
             _sectionHeader.ShowExpandPointer();
             _isCollapsed = false;
         }

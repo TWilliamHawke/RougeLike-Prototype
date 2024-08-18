@@ -10,7 +10,7 @@ using Magic.UI;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IEffectsIterator, IInjectionTarget
+    public class KnownSpellData : IAbilitySource, IEffectsIterator, IInjectionTarget, IContextMenuData
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;

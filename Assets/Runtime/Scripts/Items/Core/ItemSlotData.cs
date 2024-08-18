@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe
+    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe, IContextMenuData
     {
         [SerializeField] Item _item;
         [SerializeField] int _count;
