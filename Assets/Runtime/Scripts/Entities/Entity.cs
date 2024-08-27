@@ -10,6 +10,7 @@ using Effects;
 using UnityEngine.Events;
 using Items;
 using Entities.Stats;
+using Abilities;
 
 namespace Entities
 {

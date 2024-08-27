@@ -1,4 +1,4 @@
-namespace Effects
+namespace Abilities
 {
 	public interface IAbilityUser
 	{

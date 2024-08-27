@@ -7,6 +7,7 @@ using Entities.Combat;
 using UnityEngine.Events;
 using Effects;
 using Entities.Stats;
+using Abilities;
 
 namespace Entities.PlayerScripts
 {

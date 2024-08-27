@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entities.Combat;
 using UnityEngine;
 
-namespace Effects
+namespace Abilities
 {
 	public struct AbilityModifiers
 	{

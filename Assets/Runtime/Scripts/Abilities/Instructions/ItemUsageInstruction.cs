@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
-namespace Effects
+namespace Abilities
 {
 	public class ItemUsageInstruction : IAbilityInstruction
 	{

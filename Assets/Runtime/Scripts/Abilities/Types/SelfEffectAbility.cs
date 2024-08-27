@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Effects;
 using UnityEngine;
 
-namespace Effects
+namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Effect On Self")]
     public class SelfEffectAbility : Ability, IEffectSource

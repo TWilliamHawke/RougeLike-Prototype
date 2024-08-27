@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using UnityEngine;
 
-namespace Effects
+namespace Abilities
 {
     public class TargetEffectAbility : Ability, IAbilityWithTarget, IEffectSource
     {

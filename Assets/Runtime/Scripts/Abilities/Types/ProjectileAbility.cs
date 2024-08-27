@@ -5,7 +5,7 @@ using Entities;
 using Entities.Combat;
 using UnityEngine;
 
-namespace Effects
+namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Projectile")]
     public class ProjectileAbility : Ability, IAbilityWithTarget

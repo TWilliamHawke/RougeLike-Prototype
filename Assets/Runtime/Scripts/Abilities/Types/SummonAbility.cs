@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Effects
+namespace Abilities
 {
 	public class SummonAbility : MonoBehaviour
 	{

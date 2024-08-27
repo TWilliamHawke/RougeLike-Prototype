@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Abilities;
 using UnityEngine;
 
 namespace Effects.Conditions

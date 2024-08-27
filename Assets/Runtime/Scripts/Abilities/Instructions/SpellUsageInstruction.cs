@@ -4,7 +4,7 @@ using UnityEngine;
 using Magic;
 using Entities;
 
-namespace Effects
+namespace Abilities
 {
 	public class SpellUsageInstruction : IAbilityInstruction
 	{
