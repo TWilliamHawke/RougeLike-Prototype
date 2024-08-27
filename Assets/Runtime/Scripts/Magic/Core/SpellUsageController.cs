@@ -36,17 +36,16 @@ namespace Magic
             OnMonoDestroy?.Invoke();
         }
 
-        public int GetSpellCost(KnownSpellData spellData)
+        public int GetSpellCost(int baseSpellCost, IEffectsIterator spellEffects)
         {
-            int spellCost = spellData.baseManaCost;
-            int minCost = Mathf.CeilToInt(_minSpellCostOfBase * spellCost);
+            int minCost = Mathf.CeilToInt(_minSpellCostOfBase * baseSpellCost);
 
             //UNDONE it should iterate trough all effect containers
-            spellCost = _spellCostFactor.ApplyStatsToValue(spellCost, _statsContainer, spellData);
-            return Mathf.Max(minCost, spellCost);
+            baseSpellCost = _spellCostFactor.ApplyStatsToValue(baseSpellCost, _statsContainer, spellEffects);
+            return Mathf.Max(minCost, baseSpellCost);
         }
 
-        public AbilityModifiers GetSpellModifiers(KnownSpellData spellData)
+        public AbilityModifiers GetSpellModifiers(IEffectsIterator spellData)
         {
             int rawSpellPower = _spellPowerStorage.GetAdjustedValue(spellData);
 

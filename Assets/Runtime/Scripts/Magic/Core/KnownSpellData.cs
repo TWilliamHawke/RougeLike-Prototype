@@ -10,7 +10,7 @@ using Magic.UI;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IEffectsIterator, IInjectionTarget, IContextMenuData
+    public class KnownSpellData : IAbilitySource, IInjectionTarget, IContextMenuData
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;
@@ -20,20 +20,18 @@ namespace Magic
         public string displayName { get; set; }
         public string baseName => _spell.displayName;
 
-        public int rank => _rank;
+        public int rank { get; private set; }
+        
         public int manaCost => CalculateManaCost();
-        public bool spellHasMaxRank => _rank >= MAX_SPELL_RANK;
+        public bool spellHasMaxRank => rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
         public Ability spellEffect => _spell.GetEffectAt(rank);
-        public int baseManaCost => _spell.GetCostAt(rank);
 
         public bool waitForAllDependencies => false;
 
-        Spell _spell;
+        Spell _spell { get; init; }
 
-        int _rank = 1;
-        StringSlotData[] _activeStrings = new StringSlotData[6];
-        EffectContainer _effectContainer = new();
+        ActiveStrings _activeStrings = new();
 
         [InjectField] SpellUsageController _playerSpellController;
 
@@ -45,7 +43,7 @@ namespace Magic
         private KnownSpellData(Spell spell)
         {
             _spell = spell;
-            _rank = spell.startRank;
+            rank = spell.startRank;
             displayName = spell.displayName;
         }
 
@@ -71,14 +69,23 @@ namespace Magic
         {
             if (spellHasMaxRank) return;
 
-            _rank++;
+            rank++;
             OnDataChange?.Invoke();
         }
 
         public string ConstructDescription()
         {
-            var abilityMods = _playerSpellController.GetSpellModifiers(this);
+            var abilityMods = _playerSpellController.GetSpellModifiers(_activeStrings);
             return spellEffect.GetDescription(abilityMods);
+        }
+
+        public string ConstructDescriptionWith(SpellString spellString)
+        {
+            var oldAbilityMods = _playerSpellController.GetSpellModifiers(_activeStrings);
+            var newAbilityMods = _activeStrings.GetSpellModifiersWith(_playerSpellController, spellString);
+
+            //TODO replace with ability progress description like [1-2] => [2-3]
+            return spellEffect.GetDescription(oldAbilityMods) + "->\n" + spellEffect.GetDescription(newAbilityMods);
         }
 
         public IAbilityInstruction CreateAbilityInstruction()
@@ -88,55 +95,30 @@ namespace Magic
 
         public bool StringSlotIsEmpty(int idx)
         {
-            if (!IndexIsCorrect(idx)) return false;
-            return _activeStrings[idx].IsEmpty();
+            return _activeStrings.StringSlotIsEmpty(idx);
         }
 
         public void SetActiveString(int slotIndex, SpellString spellString)
         {
-            if (!IndexIsCorrect(slotIndex)) return;
-            StringSlotData slot = new(spellString, slotIndex);
-            _activeStrings[slotIndex] = slot;
-
-            foreach (var effect in spellString.effects)
-            {
-                _effectContainer.AddEffect(slot, effect);
-            }
+            _activeStrings.SetActiveString(slotIndex, spellString);
             OnDataChange?.Invoke();
         }
 
         public void ClearStringSlot(int idx, Inventory inventory)
         {
-            if (StringSlotIsEmpty(idx)) return;
-            inventory.AddItems(_activeStrings[idx].spellString, 1);
-            _effectContainer.RemoveEffect(_activeStrings[idx]);
-            _activeStrings[idx].Clear();
+            _activeStrings.ClearStringSlot(idx, inventory);
             OnDataChange?.Invoke();
         }
 
         public void ClearAllSlots(Inventory inventory)
         {
-            for (int i = 0; i < _activeStrings.Length; i++)
-            {
-                ClearStringSlot(i, inventory);
-            }
+            _activeStrings.ClearAllSlots(inventory);
             OnDataChange?.Invoke();
         }
 
         public StringSlotData GetSpellSlotAt(int slotIndex)
         {
-            if (!IndexIsCorrect(slotIndex)) return default;
-            return _activeStrings[slotIndex];
-        }
-
-        public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
-        {
-            return _effectContainer.GetEffects(type);
-        }
-
-        public IEnumerable<IStaticEffectData> GetEffects()
-        {
-            return _effectContainer.GetEffects();
+            return _activeStrings.GetSpellSlotAt(slotIndex);
         }
 
         public void FinalizeInjection()
@@ -144,14 +126,10 @@ namespace Magic
             _playerSpellController.OnMonoDestroy += RemoveSpellController;
         }
 
-        private bool IndexIsCorrect(int idx)
-        {
-            return idx < _activeStrings.Length && idx >= 0;
-        }
-
         private int CalculateManaCost()
         {
-            return _playerSpellController?.GetSpellCost(this) ?? baseManaCost;
+            int baseManaCost = _spell.GetCostAt(rank);
+            return _playerSpellController?.GetSpellCost(baseManaCost, _activeStrings) ?? baseManaCost;
         }
 
         private void RemoveSpellController()

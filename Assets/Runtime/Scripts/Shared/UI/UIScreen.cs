@@ -10,7 +10,7 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
 
     [SerializeField] bool CloseOnStart;
 
-    private void Awake()
+    private void Start()
     {
         if (!CloseOnStart) return;
         gameObject.SetActive(false);
