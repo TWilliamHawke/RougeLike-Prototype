@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Effects;
 using Entities;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Effects
+namespace Abilities
 {
     [RequireComponent(typeof(EffectsStorage))]
     public class AbilityController : MonoBehaviour, IEntityComponent

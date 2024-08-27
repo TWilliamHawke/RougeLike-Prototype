@@ -1,4 +1,4 @@
-using Effects;
+using Abilities;
 
 namespace Items
 {
