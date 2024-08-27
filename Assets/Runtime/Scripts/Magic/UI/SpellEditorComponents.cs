@@ -32,7 +32,7 @@ namespace Magic.UI
             HideAllComponents();
             SetHeaderText("Upgrade Spell");
             SetSpellCost(spellData.manaCost);
-            SetDescriptionText(spellData.ConstructDescription());
+            SetDescriptionText("Rank up effects [UNDONE]");
             _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
         }
 
@@ -57,9 +57,9 @@ namespace Magic.UI
         public void ShowSpellLineEffect(KnownSpellData spellData, SpellString spellString)
         {
             HideAllComponents();
-            SetHeaderText("Add new Spell String");
+            SetHeaderText(spellString.displayName);
             SetSpellCost(spellData.manaCost);
-            SetDescriptionText(spellData.ConstructDescription());
+            SetDescriptionText(spellData.ConstructDescriptionWith(spellString));
             _buttons.ShowConfirmButton();
         }
 

@@ -143,7 +143,7 @@ namespace Magic.UI
             if (_spellData.StringSlotIsEmpty(_activeSlotIdx))
             {
                 _spellData.SetActiveString(_activeSlotIdx, _selectedString);
-                _editorComponents.ShowSlotEffects(_spellData.GetSpellSlotAt(_activeSlotIdx));
+                ShowDefaultEffects();
                 return;
             }
 
