@@ -9,19 +9,21 @@ using UI.DragAndDrop;
 using Entities.PlayerScripts;
 using UnityEngine.EventSystems;
 using Magic;
-using Abilities;
+using UnityEngine.Events;
 
-namespace Core.UI
+namespace Abilities
 {
     public class QuickBarSlot : MonoBehaviour, IDropTarget<ItemSlotData>, IDropTarget<KnownSpellData>, IPointerClickHandler
     {
-		[SerializeField] ActiveAbilities _activeAbilities;
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _slotNumber;
         [SerializeField] Image _actionIcon;
 
-        int _slotIndex;
-		IAbilityInstruction _abilityInSlot;
+        public event UnityAction<int, ItemSlotData> OnItemDrop;
+        public event UnityAction<int, KnownSpellData> OnSpellDrop;
+        public event UnityAction<int> OnAbilityUsed;
+
+        int _slotIndex = -1;
 
         public bool checkImageAlpha => false;
 
@@ -29,8 +31,6 @@ namespace Core.UI
         {
             _slotIndex = slotIndex;
             _slotNumber.text = ((slotIndex + 1) % 10).ToString();
-			_abilityInSlot = _activeAbilities[slotIndex];
-			UpdateSlotGraphic();
         }
 
         public bool DataIsMeet(ItemSlotData data)
@@ -40,7 +40,7 @@ namespace Core.UI
 
         public void DropData(ItemSlotData data)
         {
-			FillSlot(data.item as IAbilitySource);
+            OnItemDrop?.Invoke(_slotIndex, data);
         }
 
         public void UpdateState()
@@ -48,43 +48,25 @@ namespace Core.UI
             //updata cooldown, active on/off
         }
 
-		void UpdateSlotGraphic()
-		{
-			if(_abilityInSlot is null)
-			{
-				_actionIcon.gameObject.SetActive(false);
-			}
-			else
-			{
-				_actionIcon.gameObject.SetActive(true);
-				_actionIcon.sprite = _abilityInSlot.abilityIcon;
-			}
-		}
+        public void ClearSlot()
+        {
+            _actionIcon.gameObject.SetActive(false);
+        }
+
+        public void UpdateSlotGraphic(IAbilityContainerData data)
+        {
+            _actionIcon.gameObject.SetActive(true);
+            _actionIcon.sprite = data.abilityIcon;
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            UseAbility();
+            OnAbilityUsed?.Invoke(_slotIndex);
         }
-
-        void FillSlot(IAbilitySource abilitySource)
-        {
-            if(abilitySource is null) return;
-            _abilityInSlot = abilitySource.CreateAbilityInstruction();
-
-            _activeAbilities[_slotIndex] = _abilityInSlot;
-			UpdateSlotGraphic();
-        }
-
-		void UseAbility()
-		{
-			if(_abilityInSlot is null) return;
-            
-			_activeAbilities.UseAbility(_slotIndex);
-		}
 
         void IDropTarget<KnownSpellData>.DropData(KnownSpellData data)
         {
-            FillSlot(data as IAbilitySource);
+            OnSpellDrop?.Invoke(_slotIndex, data);
         }
 
         bool IDropTarget<KnownSpellData>.DataIsMeet(KnownSpellData data)

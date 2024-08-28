@@ -5,6 +5,8 @@ using Core.UI;
 using Magic.UI;
 using Core;
 using Items;
+using Entities.PlayerScripts;
+using Abilities;
 
 namespace Magic.Actions
 {
@@ -18,6 +20,9 @@ namespace Magic.Actions
         [SerializeField] SpellList _spellList;
         [SerializeField] Inventory _inventory;
         [SerializeField] ModalWindowController _modalWindow;
+        [SerializeField] QuickBarSetupController _quickBarSetupController;
+
+        [InjectField] Player _player;
 
         void Start()
         {
@@ -28,7 +33,8 @@ namespace Magic.Actions
         protected override void FillFactory(FactoryList factory)
         {
             factory.Add(new ShowInfo<KnownSpellData>());
-            factory.Add(new BindToQuickbar<KnownSpellData>());
+            factory.Add(new BindToQuickbar<KnownSpellData>(
+                _player.GetComponent<AbilitiesFactory>(), _quickBarSetupController));
             factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
             factory.Add(new EditSpell(_spellEditor));
             factory.Add(new CopySpell(_spellbook));

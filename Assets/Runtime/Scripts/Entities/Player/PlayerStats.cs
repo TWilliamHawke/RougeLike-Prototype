@@ -10,28 +10,23 @@ using Entities.Behavior;
 
 namespace Entities.PlayerScripts
 {
-    public class PlayerStats : ScriptableObject, IManaComponent, IStatsController
+    public class PlayerStats : ScriptableObject, IStatsController
     {
         [SerializeField] AudioClip[] _weaponSounds;
         [SerializeField] StatList _statList;
         [SerializeField] StatValues _defaultStats;
         [SerializeField] CustomEvent _onPlayerStatsInit;
 
-        ResourceStorage _mana;
-
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
         StatsContainer _statsContainer;
 
         public AudioClip[] attackSounds => _weaponSounds;
-        public int maxMana => _mana.currentValue;
-        public int curentMana => _mana.maxValue;
 
 
         public void Init(Player player)
         {
             _statsContainer = player.GetEntityComponent<StatsContainer>();
             _defaultStats.InitStats(_statsContainer);
-            _mana = _statsContainer.FindStorage(_statList.mana);
             _onPlayerStatsInit.Invoke();
         }
 
@@ -47,11 +42,6 @@ namespace Entities.PlayerScripts
             _resists[DamageType.physical] = 10;
 
             return _resists;
-        }
-
-        public bool TrySpendMana(int count)
-        {
-            return _mana.TryReduceStat(count);
         }
 
         public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat)

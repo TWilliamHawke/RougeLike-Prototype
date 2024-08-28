@@ -11,6 +11,7 @@ namespace Magic
     public class Spellbook : ScriptableObject
     {
         public event UnityAction<Spell> OnSpellAdded;
+        public event UnityAction<KnownSpellData> OnSpellRemoved;
         public event UnityAction OnSpellAddedFailure;
         public event UnityAction OnUpdate;
 
@@ -71,6 +72,7 @@ namespace Magic
         public void DeleteSpell(KnownSpellData data)
         {
             _knownSpells.Remove(data);
+            OnSpellRemoved?.Invoke(data);
             OnUpdate?.Invoke();
         }
 

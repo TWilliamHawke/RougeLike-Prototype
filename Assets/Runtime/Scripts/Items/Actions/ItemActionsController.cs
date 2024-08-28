@@ -17,6 +17,7 @@ namespace Items.Actions
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] InventoryScreen _inventoryScreen;
+        [SerializeField] QuickBarSetupController _quickBarSetupController;
 
         [InjectField] Player _player;
         [InjectField] ModalWindowController _modalWindowController;
@@ -33,6 +34,8 @@ namespace Items.Actions
             factory.Add(new Sell());
             factory.Add(new Equip());
             factory.Add(new MoveToStorage());
+            factory.Add(new BindToQuickbar<ItemSlotData>(
+                _player.GetComponent<AbilitiesFactory>(), _quickBarSetupController));
             factory.Add(new Destroy(_inventory, _modalWindowController));
             factory.Add(new Drop());
         }

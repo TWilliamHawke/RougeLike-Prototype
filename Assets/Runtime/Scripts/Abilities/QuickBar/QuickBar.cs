@@ -7,34 +7,64 @@ using Effects;
 using Entities.PlayerScripts;
 using Abilities;
 
-namespace Core.UI
+namespace Abilities
 {
-	public class QuickBar : MonoBehaviour
+    public class QuickBar : MonoBehaviour
 	{
-		[SerializeField] Inventory _inventory;
-		[SerializeField] PlayerStats _playerStats;
-        [Header("UI Elements")]
 	    [SerializeField] QuickBarSlot[] _quickBarSlots;
+        [SerializeField] QuickBarSlot _mainSlot;
+        [SerializeField] QuickBarDataStorage _quickBarDataStorage;
 
-        public void Init()
+        [InjectField] Player _player;
+
+        AbilityController _abilityController;
+
+        void Awake()
         {
-			ItemUsageInstruction.SetInventory(_inventory);
-			SpellUsageInstruction.SetManaComponent(_playerStats);
             SetUpSlotNumbers();
+            _quickBarDataStorage.OnQuickBarChange += UpdateSlots;
+        }
+
+        void OnDestroy()
+        {
+            _quickBarDataStorage.OnQuickBarChange -= UpdateSlots;
+        }
+
+        //Used in Unity Editor
+        public void FindAbilityController()
+        {
+            _abilityController = _player.GetComponent<AbilityController>();
+            UpdateSlots();
         }
 
         private void SetUpSlotNumbers()
         {
             for (int i = 0; i < _quickBarSlots.Length; i++)
             {
-                try
-                {
-                    _quickBarSlots[i].SetSlotNumber(i);
-                }
-                catch (System.Exception)
-                {
+                _quickBarSlots[i].SetSlotNumber(i);
+            }
+        }
 
-                    Debug.Log(i);
+        private void UpdateSlots()
+        {
+            if (_quickBarDataStorage.mainAbility != null)
+            {
+                _mainSlot.UpdateSlotGraphic(_quickBarDataStorage.mainAbility);
+            }
+            else
+            {
+                _mainSlot.ClearSlot();
+            }
+
+            for (int i = 0; i < _quickBarSlots.Length; i++)
+            {
+                if (_quickBarDataStorage.TryGetQuickAbility(i, out var ability))
+                {
+                    _quickBarSlots[i].UpdateSlotGraphic(ability);
+                }
+                else
+                {
+                    _quickBarSlots[i].ClearSlot();
                 }
             }
         }

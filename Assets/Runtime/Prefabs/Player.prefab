@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 746439970}
   - component: {fileID: 8320816147634027436}
   - component: {fileID: 9206173401267896131}
+  - component: {fileID: 2007208757649129885}
   - component: {fileID: 6603279187782306258}
   - component: {fileID: 2084189526720122616}
   - component: {fileID: 794024100}
@@ -391,6 +392,7 @@ GameObject:
   - component: {fileID: 7746625641524832713}
   - component: {fileID: 3181854499066711308}
   - component: {fileID: 1727609378632740904}
+  - component: {fileID: 7255645199260307820}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -509,6 +511,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 1921085457}
+--- !u!114 &2007208757649129885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328594240612423254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d814116a765ac24eb1314c21c9cdea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _mana: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
+  _playerStats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
 --- !u!114 &6603279187782306258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,6 +710,34 @@ MonoBehaviour:
       - m_Target: {fileID: 7328594240612423248}
         m_TargetAssemblyTypeName: Entities.PlayerScripts.Player, Project
         m_MethodName: StartTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7255645199260307820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7328594240612423254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2007208757649129885}
+        m_TargetAssemblyTypeName: Abilities.AbilitiesFactory, Project
+        m_MethodName: FindManaStorage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

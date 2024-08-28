@@ -8,7 +8,6 @@ namespace Core
 {
 	public class MainCanvas : MonoBehaviour
 	{
-	    [SerializeField] QuickBar _quickBar;
 		[SerializeField] TileInfoPanel _tileInfoPanel;
 		[SerializeField] ActiveEffectsPanel _activeEffectsPanel;
 		[SerializeField] ExperienceBar _experienceBar;
@@ -21,7 +20,6 @@ namespace Core
 
 		public void Init()
 		{
-			_quickBar.Init();
 			_tileInfoPanel.Init();
 			_expBarController = new ExperienceBarController(_experienceBar);
 			_experienceStorageInjector.AddInjectionTarget(_expBarController);
