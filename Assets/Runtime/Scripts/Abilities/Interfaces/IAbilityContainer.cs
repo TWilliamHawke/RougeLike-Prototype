@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Abilities
 {
-    public interface IAbilityInstruction
+    public interface IAbilityContainer : IAbilityContainerData
     {
         void UseAbility(AbilityController controller);
-        Sprite abilityIcon { get; }
 		bool canBeUsed { get; }
     }
 }

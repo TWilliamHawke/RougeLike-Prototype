@@ -89,9 +89,9 @@ namespace Magic
             return spellEffect.GetDescription(oldAbilityMods) + "->\n" + spellEffect.GetDescription(newAbilityMods);
         }
 
-        public IAbilityInstruction CreateAbilityInstruction()
+        public IAbilityContainer CreateAbilityInstruction(AbilitiesFactory factory)
         {
-            return new SpellUsageInstruction(this);
+            return factory.CreateSpellAbility(this);
         }
 
         public bool StringSlotIsEmpty(int idx)

@@ -16,7 +16,7 @@ namespace Entities.PlayerScripts
 
         [SerializeField] Injector _inputControllerInjector;
 
-        IAbilityInstruction[] _activeAbilities = new IAbilityInstruction[10];
+        IAbilityContainer[] _activeAbilities = new IAbilityContainer[10];
 
         AbilityController _playerController;
 
@@ -29,7 +29,7 @@ namespace Entities.PlayerScripts
             _inputControllerInjector.AddInjectionTarget(this);
         }
 
-        public IAbilityInstruction this[int index]
+        public IAbilityContainer this[int index]
         {
             get => index <= 10 ? _activeAbilities[index] : null;
             set => _activeAbilities[index] = value;

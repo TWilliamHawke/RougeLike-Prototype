@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using Magic;
 using Entities;
+using Entities.Stats;
+using System;
 
 namespace Abilities
 {
-	public class SpellUsageInstruction : IAbilityInstruction
-	{
-        static IManaComponent _manaComponent;
-
-		KnownSpellData _spellData;
-
-
-        public static void SetManaComponent(IManaComponent manaComponent)
-        {
-            if(_manaComponent != null) return; 
-            _manaComponent = manaComponent;
-        }
-
-        public SpellUsageInstruction(KnownSpellData spellData)
-        {
-			_spellData = spellData;
-        }
+    public class SpellUsageInstruction : IAbilityContainer
+    {
+        ISafeStatController _manaStorage;
+        KnownSpellData _spellData;
 
         public Sprite abilityIcon => _spellData.icon;
+        public bool canBeUsed => _manaStorage.currentValue >= _spellData.manaCost;
+        public string displayName => _spellData.displayName;
+        public int numOfUses => -1;
 
-        public bool canBeUsed => _manaComponent.curentMana >= _spellData.manaCost;
+        public SpellUsageInstruction(KnownSpellData spellData, ISafeStatController manaStorage)
+        {
+            _spellData = spellData;
+            _manaStorage = manaStorage;
+        }
 
         public void UseAbility(AbilityController controller)
         {
-            if(_manaComponent.TrySpendMana(_spellData.manaCost))
+            if (_manaStorage.TryReduceStat(_spellData.manaCost))
             {
                 _spellData.spellEffect.SelectControllerUsage(controller);
             }
         }
 
-	}
+        public bool HasSpell(KnownSpellData spell)
+        {
+            return _spellData == spell;
+        }
+    }
 }

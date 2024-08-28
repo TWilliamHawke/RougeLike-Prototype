@@ -5,30 +5,22 @@ using Items;
 
 namespace Abilities
 {
-	public class ItemUsageInstruction : IAbilityInstruction
+	public class ItemUsageInstruction : IAbilityContainer
 	{
-		static Inventory _inventory;
-
+		Inventory _inventory;
 
         public Sprite abilityIcon => _item.icon;
+        public bool canBeUsed => _inventory.FindItemCount(_item) > 0;
+        public string displayName => _item.displayName;
+        public int numOfUses => _inventory.FindItemCount(_item);
 
         Item _item;
-        
 
-        public static void SetInventory(Inventory inventory)
-        {
-            if(_inventory != null) return;
-            _inventory = inventory;
-        }
-
-
-        public ItemUsageInstruction(Item item)
+        public ItemUsageInstruction(Item item, Inventory inventory)
         {
             _item = item;
+            _inventory = inventory;
         }
-
-        //items count > 0
-        public bool canBeUsed => _inventory.FindItemCount(_item) > 0;
 
         public void UseAbility(AbilityController controller)
         {

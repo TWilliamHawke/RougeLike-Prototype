@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Abilities
 {
-	public abstract class Ability : ScriptableObject
+    public abstract class Ability : ScriptableObject
 	{
 		[UseFileName]
 		[SerializeField] string _displayName;
