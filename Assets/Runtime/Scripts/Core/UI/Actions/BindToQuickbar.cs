@@ -46,7 +46,7 @@ namespace Core
             {
                 if(_element is IAbilitySource abilitySource)
                 {
-                    var container = abilitySource.CreateAbilityInstruction(_abilitiesFactory);
+                    var container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
                     _quickBarSetupController.OpenSetupScreen(container);
                 }
             }

@@ -8,6 +8,7 @@ using Entities.PlayerScripts;
 using UI.DragAndDrop;
 using UnityEngine.Events;
 using Core.UI;
+using Abilities;
 
 namespace Magic.UI
 {
@@ -17,8 +18,6 @@ namespace Magic.UI
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
-        [SerializeField] Spellbook _spellBook;
-        [SerializeField] ActiveAbilities _activeAbilities;
         [SerializeField] DraggedSpell _draggedSpellPrefab;
         [Header("UI Elements")]
         [SerializeField] Image _frame;
@@ -54,7 +53,6 @@ namespace Magic.UI
         public void OnPointerClick(PointerEventData _)
         {
             OnSpellSelect?.Invoke(_knownSpell);
-            _activeAbilities.UseAbility(_knownSpell.spellEffect);
         }
 
         public void OnPointerEnter(PointerEventData _)
