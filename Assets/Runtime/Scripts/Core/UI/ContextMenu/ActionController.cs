@@ -10,7 +10,7 @@ namespace Core.UI
         [InjectField] IContextMenu _contextMenu;
 
         protected List<IActionFactory<T>> _factory = new();
-        List<IContextAction> _itemActions = new();
+        List<IContextAction> _contextActions = new();
 
         protected abstract void FillFactory(List<IActionFactory<T>> factory);
 
@@ -20,19 +20,19 @@ namespace Core.UI
             FillFactory(_factory);
         }
 
-        public void FillContextMenu(T itemSlot)
+        public void FillContextMenu(T actionSource)
         {
-            _itemActions.Clear();
+            _contextActions.Clear();
 
             foreach (var factory in _factory)
             {
-                if (factory.TryCreateAction(itemSlot, out var action))
+                if (factory.TryCreateAction(actionSource, out var action))
                 {
-                    _itemActions.Add(action);
+                    _contextActions.Add(action);
                 }
             }
 
-            _contextMenu.Fill(_itemActions);
+            _contextMenu.Fill(_contextActions);
         }
     }
 }

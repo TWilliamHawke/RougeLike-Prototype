@@ -23,7 +23,6 @@ namespace Entities.PlayerScripts
         [SerializeField] PlayerStats _stats;
         [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;
-        [SerializeField] ActiveAbilities _activeAbilities;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
@@ -43,7 +42,6 @@ namespace Entities.PlayerScripts
         private void Awake()
         {
             InitComponents();
-            _activeAbilities.SetController(GetComponent<AbilityController>());
         }
 
         void Start()

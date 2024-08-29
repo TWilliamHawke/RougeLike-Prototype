@@ -6,6 +6,6 @@ namespace Abilities
 {
 	public interface IAbilitySource
 	{
-	    IAbilityContainer CreateAbilityInstruction(AbilitiesFactory factory);
+	    IAbilityContainer CreateAbilityContainer(AbilitiesFactory factory);
 	}
 }
