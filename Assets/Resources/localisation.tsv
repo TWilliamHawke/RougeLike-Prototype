@@ -59,3 +59,16 @@ stat_name_spell_power	Spell Power	Сила заклинаний
 effect_name_spell_power_mult	Spell power bonus	Множитель силы заклинаний
 effect_description_spell_power_mult	Spell power: x%m	Сила заклинаний: х%m
 inventory_section_temporary	Temporary Items	Временная сумка
+item_section_potions	Potions Bag	Сумка для зелий
+item_type_armor	Armor	Броня
+item_type_magic_card	Spell Line	Строка заклинания
+item_type_potion	Potion	Зелье
+item_type_spell_tome	Spell Tome	Том заклинаний
+item_type_weapon	Weapon	Оружие
+item_type_resource	Resource	Ресурс
+item_section_scrolls	Scrolls Bag	Сумка для свитков
+item_type_scroll	Scroll	Свиток
+item_section_spell_strings	Spell Strings	Строки заклинаний
+item_section_main_section	Main Section	Главная секция
+item_section_temp_storage	Temporary Storage	Временное Хранилище
+item_section_main_storage	Storage	Хранилище

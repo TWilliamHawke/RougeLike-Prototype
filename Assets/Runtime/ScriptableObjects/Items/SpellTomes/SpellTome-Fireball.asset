@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Spell Tome - Fireball
   _icon: {fileID: 21300000, guid: 1a20e8fe145316b43ac480425fe38547, type: 3}
+  _itemType: {fileID: 11400000, guid: 1ec9c01af23b978489de7be9d85a60dc, type: 2}
   _maxStackSize: 99
   _value: 100
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}

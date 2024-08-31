@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Magic Dust
   _icon: {fileID: 21300000, guid: e8fded53aed15b04b85b9565cc2cddc4, type: 3}
+  _itemType: {fileID: 11400000, guid: cedbd8853d1a8e7408bfde755bfb4ba0, type: 2}
   _maxStackSize: 10000
   _value: 0
   _soundKit: {fileID: 0}
-  _resourceType: 2
+  _resourceType: 0
   _startCount: 5000
+  _description: 

@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41ce104dfb8b1f4fbf3f59093c6e423, type: 3}
-  m_Name: SimpleChest
+  m_Script: {fileID: 11500000, guid: 843086097acd9a540aa7a3d061aa5657, type: 3}
+  m_Name: Armor
   m_EditorClassIdentifier: 
-  _displayName: Simple Chest
+  _displayName:
+    _locKey: item_type_armor
   _icon: {fileID: 21300000, guid: 7e771154419e631418cf355402d9d712, type: 3}
-  _itemType: {fileID: 11400000, guid: 5e97da6d649d8754baa729d6183b3213, type: 2}
-  _maxStackSize: 1
-  _value: 100
-  _soundKit: {fileID: 11400000, guid: 335037fffc6c51f4c9f4302804592c16, type: 2}
-  _equipmentType: 0
-  _physicalResist: 15

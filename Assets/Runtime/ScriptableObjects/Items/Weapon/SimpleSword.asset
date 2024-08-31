@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Simple Sword
   _icon: {fileID: 21300000, guid: fe50767ff031a2147b3ea72b09c0ecf3, type: 3}
+  _itemType: {fileID: 11400000, guid: bfc93a35a2a6919449f9fe913780829f, type: 2}
   _maxStackSize: 1
   _value: 100
   _soundKit: {fileID: 11400000, guid: b5d823c5c2e1e1e499107e00b6ceafff, type: 2}
   _damageType: {fileID: 11400000, guid: 642594276621c214193cd2d9226afc2b, type: 2}
-  _minDamage: 10
-  _maxDamage: 20
-  _accuracy: 15
   _damage:
     _minValue: 10
     _maxValue: 20
     _isRandom: 1
+  _accuracy: 15
