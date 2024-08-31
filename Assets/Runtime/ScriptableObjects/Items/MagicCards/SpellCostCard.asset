@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Spell Cost Card
   _icon: {fileID: 21300000, guid: 2c872843eb2dd3b4ebf134b326b6fc26, type: 3}
+  _itemType: {fileID: 11400000, guid: 734abc3024d24014da28d46e216a563b, type: 2}
   _maxStackSize: 999
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}

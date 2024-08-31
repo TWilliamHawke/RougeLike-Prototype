@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dda7c9d89d4c8f4283b4647e70ea534, type: 3}
-  m_Name: Gold
+  m_Script: {fileID: 11500000, guid: 843086097acd9a540aa7a3d061aa5657, type: 3}
+  m_Name: Resource
   m_EditorClassIdentifier: 
-  _displayName: Gold
+  _displayName:
+    _locKey: item_type_resource
   _icon: {fileID: 21300000, guid: 9e2f62818167e944f8b64f6991f1d77d, type: 3}
-  _itemType: {fileID: 11400000, guid: cedbd8853d1a8e7408bfde755bfb4ba0, type: 2}
-  _maxStackSize: 99999999
-  _value: 0
-  _soundKit: {fileID: 0}
-  _resourceType: 0
-  _startCount: 500
-  _description: 
