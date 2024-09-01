@@ -33,9 +33,9 @@ namespace Items
             _dataListGenerator.FillDataList(ref loot);
         }
 
-        public ItemSection<Item> GetLoot()
+        public ItemSection GetLoot()
         {
-            var section = new ItemSection<Item>(ItemStorageType.loot);
+            var section = new ItemSection(new LootSectionTemplate());
             FillItemSection(ref section);
             return section;
         }

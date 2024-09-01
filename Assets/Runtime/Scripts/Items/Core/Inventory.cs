@@ -8,20 +8,19 @@ namespace Items
     {
         [SerializeField] Item[] _testItems;
         [SerializeField] Resource[] _startResources;
+        [SerializeField] ItemSectionTemplate _storageTemplate;
+        [SerializeField] ItemSectionTemplate _tempStorageTemplate;
+        [SerializeField] ItemSectionTemplate[] _sectionsOrder;
 
         [SerializeField] Injector _selfInjector;
 
-        ItemSection<Item> _storage;
+        ItemSection _storage;
 
-        public ItemSection<Potion> potionsBag { get; private set; }
-        public ItemSection<MagicScroll> scrollsBag  { get; private set; }
-        public ItemSection<Item> main  { get; private set; }
-        public ItemSection<Item> tempStorage  { get; private set; }
-        public ItemSection<SpellString>  spellStrings  { get; private set; }
-        public StoredResources resources  { get; private set; }
-        public IEnumerable<Item> equipment  => _equipment;
+        public StoredResources resources { get; private set; }
+        public IEnumerable<Item> equipment => _equipment;
 
         List<IItemSection> _sections;
+        Dictionary<IItemSectionTemplate, ItemSection> _sectionsByTemplate;
 
         List<Item> _equipment;
 
@@ -29,7 +28,7 @@ namespace Items
 
         private void OnEnable()
         {
-            if(resources is not null) return;
+            if (resources is not null) return;
 
             CreateSections();
 
@@ -65,7 +64,7 @@ namespace Items
 
         public void AddItems(IEnumerable<ItemSlotData> itemSlots)
         {
-            foreach(var itemSlot in itemSlots)
+            foreach (var itemSlot in itemSlots)
             {
                 AddItems(itemSlot.item, itemSlot.count);
             }
@@ -89,39 +88,40 @@ namespace Items
 
             foreach (var section in _sections)
             {
-                if(section == _storage) continue;
+                if (section == _storage) continue;
                 count += section.FindItemCount(item);
             }
 
             return count;
         }
 
+        public ItemSection GetSection(IItemSectionTemplate template)
+        {
+            return _sectionsByTemplate[template];
+        }
 
         private void CreateSections()
         {
-            _sections = new List<IItemSection>(6);
+            _sections = new List<IItemSection>(_sectionsOrder.Length + 1);
+            _sectionsByTemplate = new(_sectionsOrder.Length);
 
             resources = new StoredResources(_startResources);
-            potionsBag = new ItemSection<Potion>(ItemStorageType.inventory, 3);
-            spellStrings = new ItemSection<SpellString>(ItemStorageType.inventory);
-            scrollsBag = new ItemSection<MagicScroll>(ItemStorageType.inventory, 5);
-            main = new ItemSection<Item>(ItemStorageType.inventory, 12);
-            tempStorage = new ItemSection<Item>(ItemStorageType.storage);
-
-            _storage = new ItemSection<Item>(ItemStorageType.storage);
-
             _sections.Add(resources);
-            _sections.Add(potionsBag);
-            _sections.Add(scrollsBag);
-            _sections.Add(spellStrings);
-            //if special sections is full - add to main
-            _sections.Add(main);
-            //if main is full - add to temporary storage
-            _sections.Add(tempStorage);
+
+            foreach (var template in _sectionsOrder)
+            {
+                var section = new ItemSection(template);
+                _sectionsByTemplate[template] = section;
+                _sections.Add(section);
+            }
+
+            _storage = new ItemSection(_storageTemplate);
         }
 
         public void ClearTempStorage()
         {
+            var tempStorage = GetSection(_tempStorageTemplate);
+            if (tempStorage is null || tempStorage.isEmpty) return;
             tempStorage.ForEach(item => _storage.AddItems(item));
             tempStorage.Clear();
         }

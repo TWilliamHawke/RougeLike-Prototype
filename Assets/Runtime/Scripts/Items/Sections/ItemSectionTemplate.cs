@@ -8,6 +8,7 @@ namespace Items
         [SerializeField] LocalString _sectionName;
         [SerializeField] ItemStorageType _storageType;
         [SerializeField] int _startCapacity;
+        [SerializeField] bool _hideifEmpty;
         [SerializeField] bool _allItemsAreMeet;
         [HideIf("_allItemsAreMeet", true)]
         [SerializeField] ItemType _itemType;
@@ -15,6 +16,7 @@ namespace Items
         public int startCapacity => _startCapacity;
         public ItemStorageType storageType => _storageType;
         public string sectionName => _sectionName;
+        public bool hideifEmpty => _hideifEmpty;
 
         public bool ItemTypeIsMeet(Item someItem)
         {

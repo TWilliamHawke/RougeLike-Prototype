@@ -11,6 +11,7 @@ namespace Magic.UI
     public class SpellEditorComponents : MonoBehaviour
     {
         [SerializeField] Inventory _inventory;
+        [SerializeField] ItemSectionTemplate _spellStringSection;
         [SerializeField] Spellbook _spellbook;
         [SerializeField] TextMeshProUGUI _spellCost;
         [SerializeField] TextMeshProUGUI _spellDescription;
@@ -50,7 +51,7 @@ namespace Magic.UI
             HideAllComponents();
             SetHeaderText("Select new Spell String");
             _stringList.Show();
-            _stringList.UpdateLayout(_inventory.spellStrings);
+            _stringList.UpdateLayout(_inventory.GetSection(_spellStringSection));
             _buttons.ShowCloseButton();
         }
 

@@ -18,7 +18,7 @@ namespace Items
         public string storageName { get; init; }
         public bool isIdentified { get; private set; } = false;
 
-        ItemSection<Item> _itemsInContainer;
+        ItemSection _itemsInContainer;
         HashSet<ItemSlotData> _selectedItems = new();
 
         public IEnumerable<ItemSlotData> selectedItems => _selectedItems;
@@ -27,19 +27,19 @@ namespace Items
 
         public ItemStorage(string name, LootTable items, ItemStorageType containerType)
         {
-            _itemsInContainer = new ItemSection<Item>(containerType);
+            _itemsInContainer = new ItemSection(name);
             storageName = name;
             items.FillItemSection(ref _itemsInContainer);
         }
 
         public ItemStorage(ItemStorageData template)
         {
-            _itemsInContainer = new ItemSection<Item>(ItemStorageType.trader);
+            _itemsInContainer = new ItemSection(template.storageName);
             template.loot.FillItemSection(ref _itemsInContainer);
             storageName = template.storageName;
         }
 
-        public ItemStorage(ItemSection<Item> itemSection, string containerName)
+        public ItemStorage(ItemSection itemSection, string containerName)
         {
             this.storageName = containerName;
             _itemsInContainer = itemSection;

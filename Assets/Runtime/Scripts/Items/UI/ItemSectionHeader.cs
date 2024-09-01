@@ -25,7 +25,7 @@ namespace Items
                 counter = $"{section.count}/{section.capacity}";
             }
 
-            _sectionTitle.text = $"{_sectionName.GetLocalText()} ({counter})";
+            _sectionTitle.text = $"{section.sectionName} ({counter})";
         }
 
         public void ShowCollapcePointer()

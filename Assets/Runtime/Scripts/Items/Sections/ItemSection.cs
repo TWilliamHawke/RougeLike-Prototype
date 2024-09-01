@@ -6,47 +6,39 @@ using System.Linq;
 
 namespace Items
 {
-    public class ItemSection<T> : ItemSection where T : Item
-    {
-        public ItemSection(ItemStorageType slotContainer, int maxSlotsCount = -1) : base(slotContainer, maxSlotsCount)
-        {
-        }
-
-        public override bool ItemMeet(Item someItem)
-        {
-            T item = someItem as T;
-
-            //item doesnt fit a selected type
-            if (item is null) return false;
-
-            return base.ItemMeet(item);
-        }
-    }
-
     [System.Serializable]
     public class ItemSection : IInventorySectionData, IItemSection, ILootStorage, IItemSectionInfo
     {
 
         List<ItemSlotData> _itemsList;
         Dictionary<Item, ItemSlotData> _activeSlotsByItem;
+        IItemSectionTemplate _itemSectionTemplate;
+        string _sectionName;
 
-        int _maxSlotsCount;
+        int maxSlotsCount => _itemSectionTemplate.startCapacity;
 
         public event UnityAction OnSectionDataChange;
 
         public int count => _itemsList.Count;
+        public string sectionName => _sectionName;
 
-        public ItemStorageType itemStorage => _slotContainer;
-        public int capacity => _maxSlotsCount >= 0 ? _maxSlotsCount : 10;
+        public ItemStorageType itemStorage => _itemSectionTemplate.storageType;
+        public int capacity => maxSlotsCount >= 0 ? maxSlotsCount : 10;
         public bool isEmpty => _itemsList.Count == 0;
-        public bool isInfinity => _maxSlotsCount < 0;
+        public bool isInfinity => maxSlotsCount < 0;
 
-        ItemStorageType _slotContainer;
-
-        public ItemSection(ItemStorageType slotContainer, int maxSlotsCount = -1)
+        public ItemSection(string sectionName = "Default")
         {
-            _slotContainer = slotContainer;
-            _maxSlotsCount = maxSlotsCount;
+            _sectionName = sectionName;
+            _itemSectionTemplate = new DefaultSection();
+            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(capacity);
+            _itemsList = new List<ItemSlotData>(capacity);
+        }
+
+        public ItemSection(IItemSectionTemplate template)
+        {
+            _sectionName = template.sectionName;
+            _itemSectionTemplate = template;
             _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(capacity);
             _itemsList = new List<ItemSlotData>(capacity);
         }
@@ -54,13 +46,13 @@ namespace Items
         public virtual bool ItemMeet(Item item)
         {
             //item doesnt fit a section
-            if (item is null) return false;
+            if (!_itemSectionTemplate.ItemTypeIsMeet(item)) return false;
 
             //inventory section has unlimited slots
-            if (_maxSlotsCount < 1) return true;
+            if (maxSlotsCount < 1) return true;
 
             //section has empty slot
-            if (_itemsList.Count < _maxSlotsCount) return true;
+            if (_itemsList.Count < maxSlotsCount) return true;
 
             //no empty slots - check exist slots
             //slot with item doesnt exist

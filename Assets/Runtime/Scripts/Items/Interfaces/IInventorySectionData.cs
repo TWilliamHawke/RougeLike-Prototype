@@ -9,5 +9,6 @@ namespace Items
         int capacity { get; }
         int count { get; }
         bool isInfinity { get; }
+        string sectionName { get; }
     }
 }

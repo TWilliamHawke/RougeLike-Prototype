@@ -9,7 +9,7 @@ public class LootGenerationWindow : EditorWindow
 
     List<LootTable> _lootTables;
     LootTable _selectedLootTable;
-    ItemSection<Item> _loot = new ItemSection<Item>(ItemStorageType.none);
+    ItemSection _loot = new ItemSection();
     LootTable _buggedLootTable;
 
     [MenuItem("Window/Loot Generation Window")]

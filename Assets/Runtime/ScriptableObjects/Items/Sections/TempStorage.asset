@@ -16,5 +16,6 @@ MonoBehaviour:
     _locKey: item_section_temp_storage
   _storageType: 1
   _startCapacity: -1
+  _hideifEmpty: 1
   _allItemsAreMeet: 1
   _itemType: {fileID: 11400000, guid: 734abc3024d24014da28d46e216a563b, type: 2}

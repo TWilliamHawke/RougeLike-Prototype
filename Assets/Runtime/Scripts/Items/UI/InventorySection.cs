@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace Items.UI
 {
-    // obsolete : used in desktop ui version
-    public class InventorySection : UILayoutWithObserver<ItemSlotData, ItemSlot>
+    public class InventorySection : UIDataElement<IInventorySectionData>
     {
         [SerializeField] ItemSectionHeader _sectionHeader;
+        [SerializeField] ItemSlotsLayout _itemSlotList;
 
         IInventorySectionData _sectionData;
         bool _isCollapsed = true;
@@ -26,7 +26,7 @@ namespace Items.UI
             _sectionData.OnSectionDataChange -= UpdateSectionView;
         }
 
-        public void BindSection(IInventorySectionData sectionData)
+        public override void BindData(IInventorySectionData sectionData)
         {
             _sectionData = sectionData;
             _sectionData.OnSectionDataChange += UpdateSectionView;
@@ -34,22 +34,32 @@ namespace Items.UI
 
         public void UpdateLayout(IInventorySectionData section)
         {
-            base.UpdateLayout(section);
+            _itemSlotList.UpdateLayout(section);
             _sectionHeader.ReplaceTitle(section);
+        }
+
+        public void UpdateLayout(IEnumerable<ItemSlotData> items)
+        {
+            _itemSlotList.UpdateLayout(items);
         }
 
         public void Collapse()
         {
-            SetLayoutVisibility(false);
+            _itemSlotList.HideLayout();
             _sectionHeader.ShowCollapcePointer();
             _isCollapsed = true;
         }
 
         public void Expand()
         {
-            SetLayoutVisibility(true);
+            _itemSlotList.ShowLayout();
             _sectionHeader.ShowExpandPointer();
             _isCollapsed = false;
+        }
+
+        public void AddObserver(IObserver<ItemSlot> observer)
+        {
+            _itemSlotList.AddObserver(observer);
         }
 
         public void Toggle()
