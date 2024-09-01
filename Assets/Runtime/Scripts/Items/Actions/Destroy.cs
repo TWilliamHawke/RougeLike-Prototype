@@ -9,7 +9,7 @@ namespace Items.Actions
     {
         Inventory _inventory;
         ModalWindowController _modalWindow;
-        ItemSection<Item> _itemsList = new(ItemStorageType.none);
+        ItemSection _itemsList = new();
 
         public Destroy(Inventory inventory, ModalWindowController modalWindow)
         {
@@ -66,11 +66,11 @@ namespace Items.Actions
             public string actionTitle => "Confirm";
             Inventory _inventory;
             ItemSlotData _itemSlot;
-            ItemSection<Item> _items;
+            ItemSection _items;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
 
-            public ConfirmDestroy(ItemSlotData itemSlot, Inventory inventory, ItemSection<Item> itemsList)
+            public ConfirmDestroy(ItemSlotData itemSlot, Inventory inventory, ItemSection itemsList)
             {
                 _itemSlot = itemSlot;
                 _inventory = inventory;

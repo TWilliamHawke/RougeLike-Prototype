@@ -7,24 +7,19 @@ using UnityEngine.Events;
 
 namespace Items.UI
 {
-    public class InventoryScreen : MonoBehaviour
+    public class InventoryScreen : MonoBehaviour, IObserver<InventorySection>
     {
         [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] Inventory _inventory;
+        [SerializeField] ItemSectionTemplate[] _visibleSections;
         [Header("UI Elements")]
-        [SerializeField] InventorySection _tempSection;
-        [SerializeField] InventorySection _potionsBag;
-        [SerializeField] InventorySection _scrollsBag;
-        [SerializeField] InventorySection _mainSection;
+        [SerializeField] SectionsLayout _sectionsLayout;
 
-        List<InventorySection> _sections = new();
+        HashSet<InventorySection> _sections = new();
 
         void Awake()
         {
-            _sections.Add(_tempSection);
-            _sections.Add(_potionsBag);
-            _sections.Add(_mainSection);
-            _sections.Add(_scrollsBag);
+            _sectionsLayout.AddObserver(this);
 
             _sections.ForEach(s => s.OnSectionSelect += ToggleSection);
         }
@@ -34,10 +29,7 @@ namespace Items.UI
             _inventoryScreen.OnScreenOpen += SetDefaultScreenView;
             _inventoryScreen.OnScreenClose += _inventory.ClearTempStorage;
 
-            _potionsBag.BindSection(_inventory.potionsBag);
-            _mainSection.BindSection(_inventory.main);
-            _scrollsBag.BindSection(_inventory.scrollsBag);
-            _tempSection.BindSection(_inventory.tempStorage);
+            _sectionsLayout.UpdateLayout(GetVisibleSections());
         }
 
         public void AddSlotObservers(IObserver<ItemSlot> observer)
@@ -49,11 +41,6 @@ namespace Items.UI
         {
             _sections.ForEach(s => s.UpdateSectionView());
             _sections.ForEach(s => s.Collapse());
-
-            if (!_inventory.tempStorage.isEmpty)
-            {
-                _tempSection.Expand();
-            }
         }
 
         private void ToggleSection(InventorySection selectedSection)
@@ -69,5 +56,27 @@ namespace Items.UI
             }
         }
 
+        private IEnumerable<IInventorySectionData> GetVisibleSections()
+        {
+            foreach (var template in _visibleSections)
+            {
+                var section = _inventory.GetSection(template);
+                if (section == null) continue;
+                if (template.hideifEmpty && section.isEmpty) continue;
+                yield return section;
+            }
+        }
+
+        void IObserver<InventorySection>.AddToObserve(InventorySection target)
+        {
+            target.OnSectionSelect += ToggleSection;
+            _sections.Add(target);
+        }
+
+        void IObserver<InventorySection>.RemoveFromObserve(InventorySection target)
+        {
+            target.OnSectionSelect -= ToggleSection;
+            _sections.Remove(target);
+        }
     }
 }

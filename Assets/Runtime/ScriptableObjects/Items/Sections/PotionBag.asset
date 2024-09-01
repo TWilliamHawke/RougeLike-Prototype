@@ -18,3 +18,4 @@ MonoBehaviour:
   _startCapacity: 3
   _allItemsAreMeet: 0
   _itemType: {fileID: 11400000, guid: 34b55875fe07d38419a7d7a92b230f64, type: 2}
+  _visibleInInventory: 1
