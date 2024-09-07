@@ -6,53 +6,57 @@ using UnityEngine;
 
 namespace Items
 {
-    public interface IItemStorage : IEnumerable<ItemSlotData>
+    public interface IItemContainer : IEnumerable<ItemSlotData>
     {
         ItemStorageType storageType { get;}
     }
     
-    public class ItemStorage : IItemStorage
+    public class ItemStorage : IItemContainer
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
-        public string storageName { get; init; }
+        public string storageName { get; private set; }
         public bool isIdentified { get; private set; } = false;
 
-        ItemSection _itemsInContainer;
+        protected ItemSection _itemsSection;
         HashSet<ItemSlotData> _selectedItems = new();
 
         public IEnumerable<ItemSlotData> selectedItems => _selectedItems;
 
-        public ItemStorageType storageType => _itemsInContainer.itemStorage;
+        public virtual ItemStorageType storageType => _itemsSection.itemStorage;
 
-        public ItemStorage(string name, LootTable items, ItemStorageType containerType)
+        public ItemStorage(string name, LootTable lootTable)
         {
-            _itemsInContainer = new ItemSection(name);
+            _itemsSection = new ItemSection(name);
             storageName = name;
-            items.FillItemSection(ref _itemsInContainer);
+            lootTable.FillItemSection(ref _itemsSection);
         }
 
         public ItemStorage(ItemStorageData template)
         {
-            _itemsInContainer = new ItemSection(template.storageName);
-            template.loot.FillItemSection(ref _itemsInContainer);
+            _itemsSection = new ItemSection(template.storageName);
+            template.loot.FillItemSection(ref _itemsSection);
             storageName = template.storageName;
         }
 
         public ItemStorage(ItemSection itemSection, string containerName)
         {
             this.storageName = containerName;
-            _itemsInContainer = itemSection;
+            _itemsSection = itemSection;
+        }
+
+        protected ItemStorage()
+        {
         }
 
         public IEnumerable<ItemSlotData> GetUnselectedItems()
         {
-            return _itemsInContainer.Except(_selectedItems);
+            return _itemsSection.Except(_selectedItems);
         }
 
         public void SelectItem(ItemSlotData item)
         {
-            if(!_itemsInContainer.Contains(item)) return;
+            if(!_itemsSection.Contains(item)) return;
             _selectedItems.Add(item);
         }
 
@@ -73,12 +77,12 @@ namespace Items
 
         public IEnumerator<ItemSlotData> GetEnumerator()
         {
-            return _itemsInContainer.GetEnumerator();
+            return _itemsSection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _itemsInContainer.GetEnumerator();
+            return _itemsSection.GetEnumerator();
         }
     }
 }

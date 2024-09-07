@@ -26,7 +26,7 @@ namespace Entities.NPC
                 weapon = template.weapon;
                 loot = template.inventory;
 
-                equipment = new("Equipment", loot, ItemStorageType.inventory);
+                equipment = new("Equipment", loot);
             }
 
             public void DeselectItem(ItemSlotData item)

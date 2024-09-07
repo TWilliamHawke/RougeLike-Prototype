@@ -15,7 +15,7 @@ namespace Items
             _playerStats = playerStats;
         }
 
-        public void SetPrices(IEnumerable<IItemStorage> inventory)
+        public void SetPrices(IEnumerable<IItemContainer> inventory)
         {
             foreach (var storage in inventory)
             {
@@ -26,7 +26,7 @@ namespace Items
             }
         }
 
-        private void SetItemPrice(IItemStorage storage, ItemSlotData item)
+        private void SetItemPrice(IItemContainer storage, ItemSlotData item)
         {
             int price = 40;
 
