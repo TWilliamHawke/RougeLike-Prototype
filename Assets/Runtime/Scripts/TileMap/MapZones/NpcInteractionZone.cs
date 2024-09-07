@@ -11,9 +11,12 @@ namespace Map.Zones
         public override TaskData currentTask => _zoneLogic.currentTask;
         public bool waitForAllDependencies => false;
 
+        public override MapZonesObserver mapZonesObserver => _mapZonesObserver;
+
         IMapZoneLogic _zoneLogic;
 
         [SerializeField] Injector _zoneObserverInjector;
+        [InjectField] MapZonesObserver _mapZonesObserver;
 
         public void Init(IMapZoneLogic zoneLogic)
         {

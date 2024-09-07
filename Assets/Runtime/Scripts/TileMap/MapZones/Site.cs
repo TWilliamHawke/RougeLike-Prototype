@@ -15,6 +15,7 @@ namespace Map.Zones
 
         [InjectField] EntitiesSpawner _spawner;
         [InjectField] IMapActionsFactory _mapActionsFactory;
+        [InjectField] MapZonesObserver _mapZonesObserver;
 
         SiteTemplate _template;
         IMapActionsController _actionsController;
@@ -23,7 +24,14 @@ namespace Map.Zones
 
         public override IMapActionList mapActionList => _actionsController;
         public override TaskData currentTask => _taskController.currentTask;
+        public override MapZonesObserver mapZonesObserver => _mapZonesObserver;
 
+        void Start()
+        {
+            this.StartInjection();
+        }
+
+        //should be called in Awake
         public void BindTemplate(SiteTemplate template, Rng rng)
         {
             _template = template;
@@ -33,15 +41,13 @@ namespace Map.Zones
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
             _spawnQueue.AddObserver(_taskController);
             _spawnQueue.AddToQueue(_template.enemies, rng);
-
-            this.StartInjection();
         }
 
         public void FinalizeInjection()
         {
             if (_spawner is null) return;
             if (_mapActionsFactory is null) return;
-            if (_template is null) return;
+            if (_mapZonesObserver is null) return;
 
             AddToObserver();
             _spawnQueue.SpawnAll(_spawner);

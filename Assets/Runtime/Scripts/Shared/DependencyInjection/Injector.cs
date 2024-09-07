@@ -4,6 +4,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
+using Map.Zones;
 
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
@@ -144,10 +145,10 @@ public class Injector : ScriptableObject
         OnInjectionFinalize?.Invoke(realTarget);
     }
 
-    private bool AnyInjectFieldIsNull(object dependency)
+    private bool AnyInjectFieldIsNull(object injectionTarget)
     {
-        if (dependency is not IInjectionTarget) return false;
-        return AnyInjectFieldIsNull(dependency as IInjectionTarget);
+        if (injectionTarget is not IInjectionTarget) return false;
+        return AnyInjectFieldIsNull(injectionTarget as IInjectionTarget);
     }
 
     private bool AnyInjectFieldIsNull(IInjectionTarget injectionTarget)

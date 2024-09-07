@@ -62,6 +62,16 @@ namespace Entities.NPC
         {
             body.PlaySound(inventory.weapon.attackSound);
         }
+
+        public override void AddLoot(ILootContainer container)
+        {
+            inventory.ForEach(storage => container.AddItems(storage));
+        }
+
+        public override void RemoveLoot(ILootContainer container)
+        {
+            inventory.ForEach(storage => container.RemoveItems(storage));
+        }
     }
 }
 

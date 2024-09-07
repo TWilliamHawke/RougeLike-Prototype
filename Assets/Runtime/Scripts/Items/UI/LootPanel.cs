@@ -5,35 +5,29 @@ using UnityEngine.Events;
 
 namespace Items.UI
 {
-    public class LootPanel : UIPanelWithGrid<ItemSlotData>
+    public class LootPanel : MonoBehaviour
     {
         [SerializeField] Inventory _inventory;
+        [SerializeField] InventorySection _lootSection;
 
-        [SerializeField] Injector _selfInjector;
+        [SerializeField] UIScreen _canvas;
 
-        protected override IEnumerable<ItemSlotData> _layoutElementsData => _loot;
-        IEnumerable<ItemSlotData> _loot;
+        ILootStorage _loot;
 
         public event UnityAction OnTakeAll;
         public event UnityAction OnClose;
 
 
-        public void Init()
-        {
-            _selfInjector.SetDependency(this);
-        }
-
         public void Open(ILootStorage loot)
         {
             _loot = loot;
-            gameObject.SetActive(true);
-            UpdateLayout();
+            _canvas.Open();
         }
 
         //used as click handler in editor
         public void Close()
         {
-            gameObject.SetActive(false);
+            _canvas.Close();
             OnClose?.Invoke();
         }
 

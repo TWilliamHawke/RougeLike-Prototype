@@ -12,8 +12,6 @@ namespace Map.Zones
         public event UnityAction<IMapZone> OnPlayerEnter;
         public event UnityAction<IMapZone> OnPlayerExit;
 
-        [InjectField] MapZonesObserver _mapZonesObserver;
-
         IIconData _template;
 
         int _posX => (int)transform.position.x;
@@ -24,6 +22,7 @@ namespace Map.Zones
 
         public abstract IMapActionList mapActionList { get; }
         public abstract TaskData currentTask { get; }
+        public abstract MapZonesObserver mapZonesObserver { get; }
 
         public void BindTemplate(IMapZoneTemplate template)
         {
@@ -33,7 +32,7 @@ namespace Map.Zones
 
         protected void AddToObserver()
         {
-            _mapZonesObserver.AddToObserve(this);
+            mapZonesObserver.AddToObserve(this);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
