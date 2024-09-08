@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using Entities;
-using Entities.NPC;
 
 namespace Items
 {
-    public class DeadEntitiesInventory : EntitiesInventory
+    public class AliveEntitiesStorage : EntitiesStorage
     {
         public override void AddToObserve(Entity target)
         {
             target.OnDeath += HandleDeath;
+            target.AddLoot(this);
         }
 
         public override void RemoveFromObserve(Entity target)
@@ -18,7 +17,9 @@ namespace Items
 
         protected override void HandleDeath(Entity target)
         {
-            target.AddLoot(this);
+            target.RemoveLoot(this);
         }
     }
 }
+
+

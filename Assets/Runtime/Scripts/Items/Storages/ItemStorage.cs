@@ -3,7 +3,7 @@ using Entities.NPC;
 
 namespace Items
 {
-    public interface ILootContainer
+    public interface ItemStorage
     {
         void AddItems(LootTable lootTable);
         void AddItems(ItemContainer container);

@@ -40,12 +40,12 @@ namespace Entities
             body.PlaySound(_template.attackSounds.GetRandom());
         }
 
-        public override void AddLoot(ILootContainer storage)
+        public override void AddLoot(ItemStorage storage)
         {
             storage.AddItems(_template.lootTable);
         }
 
-        public override void RemoveLoot(ILootContainer storage)
+        public override void RemoveLoot(ItemStorage storage)
         {
 
         }
