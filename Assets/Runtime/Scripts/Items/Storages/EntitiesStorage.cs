@@ -3,7 +3,7 @@ using Entities;
 
 namespace Items
 {
-    public abstract class EntitiesInventory : ILootContainer, IObserver<Entity>
+    public abstract class EntitiesStorage : ItemStorage, IObserver<Entity>
     {
         LootContainer _creaturesLoot = new();
         List<ItemContainer> _NPCItems = new();
