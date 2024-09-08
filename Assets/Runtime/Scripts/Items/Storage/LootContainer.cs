@@ -1,8 +1,8 @@
 namespace Items
 {
-    public class LootStorage : ItemStorage
+    public class LootContainer : ItemContainer
     {
-        public LootStorage()
+        public LootContainer()
         {
             _itemsSection = new ItemSection(new LootSectionTemplate());
         }

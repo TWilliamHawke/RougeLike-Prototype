@@ -11,7 +11,7 @@ namespace Items
         ItemStorageType storageType { get;}
     }
     
-    public class ItemStorage : IItemContainer
+    public class ItemContainer : IItemContainer
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
@@ -25,27 +25,27 @@ namespace Items
 
         public virtual ItemStorageType storageType => _itemsSection.itemStorage;
 
-        public ItemStorage(string name, LootTable lootTable)
+        public ItemContainer(string name, LootTable lootTable)
         {
             _itemsSection = new ItemSection(name);
             storageName = name;
             lootTable.FillItemSection(ref _itemsSection);
         }
 
-        public ItemStorage(ItemStorageData template)
+        public ItemContainer(ItemContainerData template)
         {
             _itemsSection = new ItemSection(template.storageName);
             template.loot.FillItemSection(ref _itemsSection);
             storageName = template.storageName;
         }
 
-        public ItemStorage(ItemSection itemSection, string containerName)
+        public ItemContainer(ItemSection itemSection, string containerName)
         {
             this.storageName = containerName;
             _itemsSection = itemSection;
         }
 
-        protected ItemStorage()
+        protected ItemContainer()
         {
         }
 

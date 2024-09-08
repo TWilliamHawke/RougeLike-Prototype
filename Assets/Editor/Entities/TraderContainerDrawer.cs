@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace CustomEditors
 {
-    [CustomPropertyDrawer(typeof(ItemStorageData))]
+    [CustomPropertyDrawer(typeof(ItemContainerData))]
     public class TraderContainerDrawer : SimplePropertyDrawer
     {
     }
