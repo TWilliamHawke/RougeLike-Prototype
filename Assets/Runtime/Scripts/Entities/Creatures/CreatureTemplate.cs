@@ -30,12 +30,12 @@ namespace Entities
             return spawner.SpawnCreature(this, position);
         }
 
-        public void AddLoot(ItemStorage storage)
+        public void AddLoot(IItemStorage storage)
         {
             storage.AddItems(lootTable);
         }
 
-        public void RemoveLoot(ItemStorage storage)
+        public void RemoveLoot(IItemStorage storage)
         {
 
         }

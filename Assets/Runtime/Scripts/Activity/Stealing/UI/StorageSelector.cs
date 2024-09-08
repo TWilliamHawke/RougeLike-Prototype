@@ -12,7 +12,7 @@ namespace Items.UI
     {
         public event UnityAction<int> OnContainerSelected;
         ItemContainer _selectedContainer;
-        INPCInventory _inventory;
+        IContainersList _inventory;
 
         [SerializeField] Sprite _equipmentSprite;
         [SerializeField] Sprite _chestSprite;
@@ -27,7 +27,7 @@ namespace Items.UI
             _smallButtons.ForEach(btn => btn.OnClick += UpdateSelectedStorage);
         }
 
-        public void SetInventory(INPCInventory inventory)
+        public void SetInventory(IContainersList inventory)
         {
             _inventory = inventory;
             UpdateButtonIcons();
@@ -50,18 +50,18 @@ namespace Items.UI
 
         private void UpdateButtonIcons()
         {
-            SetIcon(_bigButton, _inventory[_bigButtonPosition]);
+            SetIcon(_bigButton, _inventory.ContainerAt(_bigButtonPosition));
 
             for (int i = 0; i < _smallButtons.Count; i++)
             {
-                if (i + 1 >= _inventory.sectionsCount)
+                if (i + 1 >= _inventory.count)
                 {
                     _smallButtons[i].gameObject.SetActive(false);
                     continue;
                 }
 
                 int containerIdx = _bigButtonPosition > i ? i : i+1;
-                SetIcon(_smallButtons[i], _inventory[containerIdx]);
+                SetIcon(_smallButtons[i], _inventory.ContainerAt(containerIdx));
             }
         }
 

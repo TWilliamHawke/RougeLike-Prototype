@@ -10,10 +10,6 @@ namespace Entities.NPC
         Weapon weapon { get; }
         Dictionary<DamageType, int> resists { get; }
         LootTable loot { get; }
-        ItemContainer this[int idx] { get; }
-        int sectionsCount { get; }
-        void DeselectItem(ItemSlotData item);
-        IEnumerable<ItemSlotData> GetSelectedItems();
     }
 }
 

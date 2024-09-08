@@ -29,7 +29,7 @@ namespace Items.UI
         int _selectedSlotCount = 6;
 
         ValueStorage _actionPoints;
-        INPCInventory _NPCInventory;
+        IContainersList _NPCInventory;
         IItemPriceCalculator _priceCalculator;
 
         int maxActionPoints => Mathf.CeilToInt(100f * _playerSkill / _targetSecurity);
@@ -42,7 +42,7 @@ namespace Items.UI
             _priceCalculator = new StealingCostCalculator(_playerStats);
         }
 
-        public void OpenScreen(INPCInventory inventory)
+        public void OpenScreen(IContainersList inventory)
         {
             _NPCInventory = inventory;
             _priceCalculator.SetPrices(inventory);
@@ -65,7 +65,7 @@ namespace Items.UI
 
         private void ShowStorage(int storageNumber)
         {
-            _storageViewer.ShowStorage(_NPCInventory[storageNumber]);
+            _storageViewer.ShowStorage(_NPCInventory.ContainerAt(storageNumber));
         }
 
         private void InitActionPoints()
@@ -84,7 +84,7 @@ namespace Items.UI
         private void ProcessClick(ItemSlotData item)
         {
             _actionPoints.IncreaseValue(item.slotPrice);
-            _NPCInventory.DeselectItem(item);
+            RemoveFromSelection(item);
             UpdateSelectedItems();
             _storageViewer.UpdatePanels();
         }
@@ -94,12 +94,23 @@ namespace Items.UI
             _catchedItems.UpdateLayout(GetSelectedItems(_selectedSlotCount));
         }
 
+        private void RemoveFromSelection(ItemSlotData item)
+        {
+            foreach(var section in _NPCInventory.GetAllContainers())
+            {
+                section.DeselectItem(item);
+            }
+        }
+
         private IEnumerable<ItemSlotData> GetSelectedItems(int slotCount)
         {
-            foreach(var slot in _NPCInventory.GetSelectedItems())
+            foreach(var section in _NPCInventory.GetAllContainers())
             {
-                slotCount--;
-                yield return slot;
+                foreach(var slot in section)
+                {
+                    slotCount--;
+                    yield return slot;
+                }
             }
 
             for(int i = slotCount; i >= 1; i--)
@@ -111,6 +122,6 @@ namespace Items.UI
 
     public interface IStealingController
     {
-        void OpenScreen(INPCInventory inventory);
+        void OpenScreen(IContainersList inventory);
     }
 }

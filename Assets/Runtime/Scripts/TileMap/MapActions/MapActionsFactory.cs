@@ -26,7 +26,7 @@ namespace Map.Actions
             _thisInjector.SetDependency(this);
         }
 
-        IMapAction IMapActionsFactory.CreateLootAction(MapActionTemplate template, ILootStorage loot)
+        IMapAction IMapActionsFactory.CreateLootAction(MapActionTemplate template, IContainersList loot)
         {
             return _lootActionCreator.CreateActionLogic(template, loot);
         }

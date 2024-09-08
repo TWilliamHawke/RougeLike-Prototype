@@ -8,7 +8,7 @@ namespace Map
 	public interface IMapActionsController: IMapActionList
 	{
 		void AddAction(MapActionTemplate actionTemplate);
-		void AddLootAction(MapActionTemplate actionTemplate, IEnumerable<IHaveLoot> enemies);
+		void AddLootAction(MapActionTemplate actionTemplate, IContainersList enemies);
 	}
 
 	public interface IMapActionList

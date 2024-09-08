@@ -15,13 +15,14 @@ namespace Items
             _playerStats = playerStats;
         }
 
-        public void SetPrices(IEnumerable<IItemContainer> inventory)
+        public void SetPrices(IContainersList inventory)
         {
-            foreach (var storage in inventory)
+            for (int i = 0; i < inventory.count; i++)
             {
-                foreach (var item in storage)
+                var container = inventory.ContainerAt(i);
+                foreach (var item in container)
                 {
-                    SetItemPrice(storage, item);
+                    SetItemPrice(container, item);
                 }
             }
         }

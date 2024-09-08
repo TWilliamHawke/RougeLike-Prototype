@@ -18,7 +18,7 @@ namespace Map.Actions
             _actionScreenController = actionScreenController;
         }
 
-        public IMapAction CreateActionLogic(MapActionTemplate template, ILootStorage loot)
+        public IMapAction CreateActionLogic(MapActionTemplate template, IContainersList loot)
         {
             return new LootAction(template, loot, _lootPanel, _actionScreenController);
         }
@@ -27,16 +27,16 @@ namespace Map.Actions
         {
             LootPanel _lootPanel;
             ILootActionData _template;
-            ILootStorage _loot;
+            IContainersList _loot;
 
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
-            public bool isEnable => !_loot.isEmpty;
+            public bool isEnable => _loot.count > 0;
             public bool isHidden => false;
 
             IActionScreenController _actionScreenController;
 
-            public LootAction(ILootActionData template, ILootStorage loot, LootPanel lootPanel, IActionScreenController actionScreenController)
+            public LootAction(ILootActionData template, IContainersList loot, LootPanel lootPanel, IActionScreenController actionScreenController)
             {
                 _template = template;
                 _loot = loot;
@@ -54,7 +54,6 @@ namespace Map.Actions
 
             void CompleteAction()
             {
-                _loot.Clear();
                 ClearEvents();
             }
 
