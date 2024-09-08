@@ -37,7 +37,7 @@ namespace Items.UI
         void Awake()
         {
             _catchedItems.AddObserver(this);
-            _storageList.OnStorageSelected += ShowStorage;
+            _storageList.OnContainerSelected += ShowStorage;
             _storageViewer.OnItemSelection += UpdateSelectedItems;
             _priceCalculator = new StealingCostCalculator(_playerStats);
         }

@@ -10,30 +10,30 @@ namespace Entities.NPC
 
         protected class TraderInventory : NPCInventory
         {
-            List<ItemStorage> _tradeItemStorages = new();
-            public override ItemStorage this[int idx] => FindStorage(idx);
-            public override int storageCount => _tradeItemStorages.Count + 1;
+            List<ItemContainer> _tradeItems = new();
+            public override ItemContainer this[int idx] => FindContainer(idx);
+            public override int sectionsCount => _tradeItems.Count + 1;
 
             public TraderInventory(TraderInventoryTemplate template) : base(template)
             {
                 foreach(var data in template._tradeItems)
                 {
-                    var storage = new ItemStorage(data);
-                    _tradeItemStorages.Add(storage);
+                    var container = new ItemContainer(data);
+                    _tradeItems.Add(container);
                 }
             }
 
-            public override IEnumerator<ItemStorage> GetEnumerator()
+            public override IEnumerator<ItemContainer> GetEnumerator()
             {
                 yield return equipment;
 
-                for (int i = 0; i < _tradeItemStorages.Count; i++)
+                for (int i = 0; i < _tradeItems.Count; i++)
                 {
-                    yield return _tradeItemStorages[i];
+                    yield return _tradeItems[i];
                 }
             }
 
-            ItemStorage FindStorage(int idx)
+            ItemContainer FindContainer(int idx)
             {
                 if (idx == 0)
                 {
@@ -41,7 +41,7 @@ namespace Entities.NPC
                 }
                 else
                 {
-                    return _tradeItemStorages[idx - 1];
+                    return _tradeItems[idx - 1];
                 }
             }
 

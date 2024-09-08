@@ -10,8 +10,8 @@ namespace Items.UI
 {
     public class StorageSelector : MonoBehaviour
     {
-        public event UnityAction<int> OnStorageSelected;
-        ItemStorage _selectedStorage;
+        public event UnityAction<int> OnContainerSelected;
+        ItemContainer _selectedContainer;
         INPCInventory _inventory;
 
         [SerializeField] Sprite _equipmentSprite;
@@ -31,7 +31,7 @@ namespace Items.UI
         {
             _inventory = inventory;
             UpdateButtonIcons();
-            OnStorageSelected?.Invoke(0);
+            OnContainerSelected?.Invoke(0);
         }
 
         private void UpdateSelectedStorage(DynamicButton itemStorage)
@@ -45,7 +45,7 @@ namespace Items.UI
             _bigButton.transform.SetSiblingIndex(idx);
             _bigButtonPosition = idx;
             UpdateButtonIcons();
-            OnStorageSelected?.Invoke(idx);
+            OnContainerSelected?.Invoke(idx);
         }
 
         private void UpdateButtonIcons()
@@ -54,18 +54,18 @@ namespace Items.UI
 
             for (int i = 0; i < _smallButtons.Count; i++)
             {
-                if (i + 1 >= _inventory.storageCount)
+                if (i + 1 >= _inventory.sectionsCount)
                 {
                     _smallButtons[i].gameObject.SetActive(false);
                     continue;
                 }
 
-                int storageIdx = _bigButtonPosition > i ? i : i+1;
-                SetIcon(_smallButtons[i], _inventory[storageIdx]);
+                int containerIdx = _bigButtonPosition > i ? i : i+1;
+                SetIcon(_smallButtons[i], _inventory[containerIdx]);
             }
         }
 
-        private void SetIcon(DynamicButton button, ItemStorage storage)
+        private void SetIcon(DynamicButton button, ItemContainer storage)
         {
             Sprite sprite = storage.storageType switch
             {

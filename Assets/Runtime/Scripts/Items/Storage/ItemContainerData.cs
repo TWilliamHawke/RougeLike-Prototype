@@ -6,7 +6,7 @@ using Items;
 namespace Items
 {
 	[System.Serializable]
-	public class ItemStorageData
+	public class ItemContainerData
 	{
 		public string storageName;
 		public int security;

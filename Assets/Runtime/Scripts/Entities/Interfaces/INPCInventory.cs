@@ -5,13 +5,13 @@ using Entities.Combat;
 namespace Entities.NPC
 {
     //TODO split interface
-    public interface INPCInventory : IEnumerable<ItemStorage>
+    public interface INPCInventory : IEnumerable<ItemContainer>
     {
         Weapon weapon { get; }
         Dictionary<DamageType, int> resists { get; }
         LootTable loot { get; }
-        ItemStorage this[int idx] { get; }
-        int storageCount { get; }
+        ItemContainer this[int idx] { get; }
+        int sectionsCount { get; }
         void DeselectItem(ItemSlotData item);
         IEnumerable<ItemSlotData> GetSelectedItems();
     }

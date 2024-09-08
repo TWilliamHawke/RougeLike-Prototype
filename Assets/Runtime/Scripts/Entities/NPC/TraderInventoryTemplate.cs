@@ -8,7 +8,7 @@ namespace Entities.NPC
     [CreateAssetMenu(fileName = "NPCInventory", menuName = "Entities/TraderInventory", order = -1)]
     public partial class TraderInventoryTemplate : NPCInventoryTemplate
     {
-        [SerializeField] List<ItemStorageData> _tradeItems;
+        [SerializeField] List<ItemContainerData> _tradeItems;
 
         public override INPCInventory CreateInventory()
         {

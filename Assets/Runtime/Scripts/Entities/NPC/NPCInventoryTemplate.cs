@@ -11,7 +11,7 @@ namespace Entities.NPC
 		[SerializeField] Weapon _weapon;
 
         [SerializeField] LootTable _inventory;
-        [SerializeField] ItemStorageData[] _tradeGoods;
+        [SerializeField] ItemContainerData[] _tradeGoods;
 
         public Weapon weapon => _weapon;
 

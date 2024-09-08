@@ -16,10 +16,10 @@ namespace Entities.NPC
 
             public Weapon weapon { get; init; }
             public LootTable loot { get; init; }
-            public ItemStorage equipment { get; init; }
+            public ItemContainer equipment { get; init; }
 
-            public virtual int storageCount => 1;
-            public virtual ItemStorage this[int idx] => equipment;
+            public virtual int sectionsCount => 1;
+            public virtual ItemContainer this[int idx] => equipment;
 
             public NPCInventory(NPCInventoryTemplate template)
             {
@@ -34,7 +34,7 @@ namespace Entities.NPC
                 this.ForEach(storage => storage.DeselectItem(item));
             }
 
-            public virtual IEnumerator<ItemStorage> GetEnumerator()
+            public virtual IEnumerator<ItemContainer> GetEnumerator()
             {
                 yield return equipment;
             }

@@ -15,7 +15,7 @@ namespace Items.UI
 
         public event UnityAction OnItemSelection;
 
-        ItemStorage _storage;
+        ItemContainer _storage;
         ValueStorage _actionPoints;
 
         int _unlockSkill = 4;
@@ -34,7 +34,7 @@ namespace Items.UI
             _actionPoints = actionPoints;
         }
 
-        public void ShowStorage(ItemStorage storage)
+        public void ShowStorage(ItemContainer storage)
         {
             _storage = storage;
             _storageName.text = storage.storageName;

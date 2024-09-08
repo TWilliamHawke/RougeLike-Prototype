@@ -5,16 +5,16 @@ namespace Items
 {
     public abstract class EntitiesInventory : ILootContainer, IObserver<Entity>
     {
-        LootStorage _creaturesLoot = new();
-        List<ItemStorage> _NPCItems = new();
+        LootContainer _creaturesLoot = new();
+        List<ItemContainer> _NPCItems = new();
 
         public abstract void AddToObserve(Entity target);
         public abstract void RemoveFromObserve(Entity target);
         protected abstract void HandleDeath(Entity target);
 
-        public void AddItems(ItemStorage storage)
+        public void AddItems(ItemContainer container)
         {
-            _NPCItems.Add(storage);
+            _NPCItems.Add(container);
         }
 
         public void AddItems(LootTable lootTable)
@@ -22,9 +22,9 @@ namespace Items
             _creaturesLoot.AddItemsFrom(lootTable);
         }
 
-        public void RemoveItems(ItemStorage storage)
+        public void RemoveItems(ItemContainer container)
         {
-            _NPCItems.Remove(storage);
+            _NPCItems.Remove(container);
         }
     }
 }
