@@ -12,13 +12,13 @@ namespace Items.UI
 
         [SerializeField] UIScreen _canvas;
 
-        ILootStorage _loot;
+        IContainersList _loot;
 
         public event UnityAction OnTakeAll;
         public event UnityAction OnClose;
 
 
-        public void Open(ILootStorage loot)
+        public void Open(IContainersList loot)
         {
             _loot = loot;
             _canvas.Open();
@@ -34,10 +34,10 @@ namespace Items.UI
         //used as click handler in editor
         public void TakeAll(Inventory inventory)
         {
-            foreach (var slotData in _loot)
-            {
-                inventory.AddItems(slotData.item, slotData.count);
-            }
+            // foreach (var slotData in _loot)
+            // {
+            //     inventory.AddItems(slotData.item, slotData.count);
+            // }
             //_loot.Clear();
             gameObject.SetActive(false);
             OnTakeAll?.Invoke();

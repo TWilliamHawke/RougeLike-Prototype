@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.NPC;
+using Items;
 using Items.UI;
 using UnityEngine;
 
@@ -29,9 +30,9 @@ namespace Map.Actions
 
             readonly IIconData _template;
             readonly IStealingController _controller;
-            readonly INPCInventory _inventory;
+            readonly IContainersList _inventory;
 
-            public RobAction(IIconData template, IStealingController controller, INPCInventory inventory)
+            public RobAction(IIconData template, IStealingController controller, IContainersList inventory)
             {
                 _template = template;
                 _controller = controller;

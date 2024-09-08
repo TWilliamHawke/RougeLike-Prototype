@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Rng = System.Random;
 using Map.Actions;
+using Items;
 
 namespace Map.Zones
 {
@@ -21,6 +22,9 @@ namespace Map.Zones
         IMapActionsController _actionsController;
         KillEnemiesTask _taskController;
         ZoneEntitiesSpawner _spawnQueue;
+
+        AliveEntitiesStorage _aliveEntitiesStorage = new();
+        DeadEntitiesStorage _deadEntitiesStorage = new();
 
         public override IMapActionList mapActionList => _actionsController;
         public override TaskData currentTask => _taskController.currentTask;
@@ -40,6 +44,8 @@ namespace Map.Zones
             _spawnQueue = new ZoneEntitiesSpawner(template, this);
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
             _spawnQueue.AddObserver(_taskController);
+            _spawnQueue.AddObserver(_aliveEntitiesStorage);
+            _spawnQueue.AddObserver(_deadEntitiesStorage);
             _spawnQueue.AddToQueue(_template.enemies, rng);
         }
 
@@ -57,7 +63,7 @@ namespace Map.Zones
         private void FillActionsList()
         {
             _actionsController = new OpenWorldActionsController(_mapActionsFactory);
-            _actionsController.AddLootAction(_lootBodiesAction, _taskController.enemiesFromLocation);
+            _actionsController.AddLootAction(_lootBodiesAction, _deadEntitiesStorage);
             _template.possibleActions.ForEach(action => _actionsController.AddAction(action));
         }
     }

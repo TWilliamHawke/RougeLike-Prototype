@@ -29,19 +29,9 @@ namespace Entities.NPC
                 equipment = new("Equipment", loot);
             }
 
-            public void DeselectItem(ItemSlotData item)
-            {
-                this.ForEach(storage => storage.DeselectItem(item));
-            }
-
             public virtual IEnumerator<ItemContainer> GetEnumerator()
             {
                 yield return equipment;
-            }
-
-            public IEnumerable<ItemSlotData> GetSelectedItems()
-            {
-                return this.SelectMany(storage => storage.selectedItems);
             }
 
             IEnumerator IEnumerable.GetEnumerator()

@@ -4,6 +4,6 @@ namespace Items
 {
     public interface IItemPriceCalculator
     {
-        void SetPrices(IEnumerable<IItemContainer> inventory);
+        void SetPrices(IContainersList inventory);
     }
 }

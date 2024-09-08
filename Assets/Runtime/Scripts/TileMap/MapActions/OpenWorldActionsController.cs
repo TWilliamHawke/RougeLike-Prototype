@@ -24,16 +24,8 @@ namespace Map.Actions
             _actionsLogic.Add(_actionsFactory.CreateActionLogic(template, 1));
         }
 
-        public void AddLootAction(MapActionTemplate template, IEnumerable<IHaveLoot> enemies)
+        public void AddLootAction(MapActionTemplate template, IContainersList loot)
         {
-            var loot = new ItemSection(new LootSectionTemplate());
-
-            foreach (var enemy in enemies)
-            {
-                enemy.lootTable.FillItemSection(ref loot);
-            }
-
-            if(loot.isEmpty) return;
             _actionsLogic.Add(_actionsFactory.CreateLootAction(template, loot));
         }
     }

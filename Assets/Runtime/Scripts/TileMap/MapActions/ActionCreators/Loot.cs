@@ -35,7 +35,7 @@ namespace Map.Actions
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
 
-            LootTable _loot;
+            IContainersList _loot;
             int _numOfUsage;
             IActionScreenController _actionScreenController;
             public bool isEnable => _numOfUsage != 0;
@@ -43,7 +43,6 @@ namespace Map.Actions
 
             public LootAction(ILootActionData template, LootPanel lootPanel, int numOfUsage, IActionScreenController actionScreenController)
             {
-                _loot = template.lootTable;
                 _template = template;
                 _lootPanel = lootPanel;
                 _numOfUsage = numOfUsage;
@@ -52,7 +51,7 @@ namespace Map.Actions
 
             public void DoAction()
             {
-                _lootPanel.Open(_loot.GetLoot());
+                _lootPanel.Open(_loot);
                 _actionScreenController.CloseActionScreen();
                 _lootPanel.OnTakeAll += CompleteAction;
                 _lootPanel.OnClose += ClearEvents;

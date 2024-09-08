@@ -5,6 +5,7 @@ using Entities;
 using UnityEngine;
 using Entities.NPC;
 using Rng = System.Random;
+using Items;
 
 
 namespace Map.Zones
@@ -19,14 +20,15 @@ namespace Map.Zones
         [InjectField] MapZonesObserver _mapZonesObserver;
 
         EncounterTemplate _template;
-        INPCInventory _npcInventory;
+        AliveEntitiesStorage _aliveEntitiesStorage = new();
+        DeadEntitiesStorage _deadEntitiesStorage = new();
 
         public int count => _encounterActions.Count;
         public TaskData currentTask => _taskController.currentTask;
         public IMapZoneTemplate template => _template;
         public IMapActionList actionList => this;
 
-        public INPCInventory inventory => _npcInventory;
+        public IContainersList inventory => _aliveEntitiesStorage;
 
         public IMapAction this[int idx] => _encounterActions[idx];
 
@@ -52,6 +54,8 @@ namespace Map.Zones
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
             _spawnQueue = new ZoneEntitiesSpawner(template, this);
             _spawnQueue.AddObserver(this);
+            _spawnQueue.AddObserver(_aliveEntitiesStorage);
+            _spawnQueue.AddObserver(_deadEntitiesStorage);
             _spawnQueue.AddToQueue(template.mainNPC, rng);
 
             this.StartInjection();
@@ -75,13 +79,6 @@ namespace Map.Zones
         {
             (target as NPC)?.InitInteractiveZone(this);
             _entities.Add(target);
-
-            //HACK
-            if (target.template == (ITemplateWithBaseStats)_template.mainNPC)
-            {
-                var npc = (NPC)target;
-                _npcInventory = npc?.inventory;
-            }
         }
 
         public void RemoveFromObserve(Entity target)

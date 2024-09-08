@@ -63,12 +63,12 @@ namespace Entities.NPC
             body.PlaySound(inventory.weapon.attackSound);
         }
 
-        public override void AddLoot(ItemStorage storage)
+        public override void AddLoot(IItemStorage storage)
         {
             inventory.ForEach(container => storage.AddItems(container));
         }
 
-        public override void RemoveLoot(ItemStorage storage)
+        public override void RemoveLoot(IItemStorage storage)
         {
             inventory.ForEach(container => storage.RemoveItems(container));
         }

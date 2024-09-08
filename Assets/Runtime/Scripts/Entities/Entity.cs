@@ -38,8 +38,8 @@ namespace Entities
         public abstract LootTable lootTable { get; }
         public abstract AudioClip[] deathSounds { get; }
         public abstract IDamageSource damageSource { get; }
-        public abstract void AddLoot(ItemStorage storage);
-        public abstract void RemoveLoot(ItemStorage storage);
+        public abstract void AddLoot(IItemStorage storage);
+        public abstract void RemoveLoot(IItemStorage storage);
 
         public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }
