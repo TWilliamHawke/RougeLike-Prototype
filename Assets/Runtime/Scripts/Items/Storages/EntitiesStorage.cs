@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entities;
+using System.Linq;
 
 namespace Items
 {
@@ -56,6 +57,13 @@ namespace Items
             }
 
             return _NPCItems[idx];
+        }
+
+        public bool IsEmpty()
+        {
+            if (!_creaturesLoot.isEmpty) return false;
+
+            return _NPCItems.All(x => x.isEmpty);
         }
     }
 }

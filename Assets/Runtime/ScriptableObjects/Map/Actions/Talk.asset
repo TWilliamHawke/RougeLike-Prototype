@@ -14,19 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Talk
   _icon: {fileID: 21300000, guid: ba15d20d63a8ed944a892aabcdbb84d1, type: 3}
-  _dependencyInjectors: {fileID: 11400000, guid: ae8a0ac54c62313409fc5978b50d0716, type: 2}
-  _actionLogicCreator:
-    _target: {fileID: 11400000}
-    _methodName: CreateLootLogic
-    _args:
-    - boolValue: 0
-      intValue: 0
-      floatValue: 0
-      stringValue: 
-      objectValue: {fileID: 11400000, guid: d62a5ed306e2da94daf247473cf3a771, type: 2}
-      argType: 5
-      _typeName: Items.LootTable, Project, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    _dynamic: 0
-    _typeName: Map.Objects.MapObjectAction+ActionCreator, Project, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    dirty: 0
+  _actionType: 2
+  _lootTable: {fileID: 0}
+  _lootDescription: 
+  _enemyFaction: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Map.Actions
 {
-    class Attack : INpcActionCreator
+    class Attack : IMapActionCreator
     {
         IActionScreenController _actionScreenController;
 
@@ -14,7 +14,7 @@ namespace Map.Actions
             _actionScreenController = actionScreenController;
         }
 
-        public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget actionTarget)
+        public IMapAction CreateActionLogic(MapActionTemplate template, IMapActionLocation actionTarget)
         {
             return new AttackAction(template, actionTarget, _actionScreenController);
         }
@@ -22,7 +22,7 @@ namespace Map.Actions
         public class AttackAction : IMapAction
         {
             IAttackActionData _template;
-            IAttackActionTarget _target;
+            IMapActionLocation _target;
 
             public bool isEnable { get; } = true;
 
@@ -32,7 +32,7 @@ namespace Map.Actions
             public bool isHidden => false;
             IActionScreenController _actionScreenController;
 
-            public AttackAction(IAttackActionData action, IAttackActionTarget target, IActionScreenController actionScreenController)
+            public AttackAction(IAttackActionData action, IMapActionLocation target, IActionScreenController actionScreenController)
             {
                 _template = action;
                 _target = target;

@@ -16,54 +16,38 @@ namespace Map.Actions
 
         [SerializeField] Injector _thisInjector;
 
-        StaticLoot _lootActionCreator;
+        Loot _lootActionCreator;
 
         Dictionary<MapActionType, IMapActionCreator> _mapActionCreators = new();
-        Dictionary<MapActionType, INpcActionCreator> _npcActionCreators = new();
 
         private void Awake()
         {
-            _thisInjector.SetDependency(this);
-        }
-
-        IMapAction IMapActionsFactory.CreateLootAction(MapActionTemplate template, IContainersList loot)
-        {
-            return _lootActionCreator.CreateActionLogic(template, loot);
-        }
-
-        IMapAction IMapActionsFactory.CreateActionLogic(MapActionTemplate template, int numOfUsage)
-        {
-            if (_mapActionCreators.TryGetValue(template.actionType, out var actionCreator))
-            {
-                return actionCreator.CreateActionLogic(template, numOfUsage);
-            }
-            else
-            {
-                return new EmptyAction(template);
-            }
         }
 
         //used in editor
         public void CreateFactory()
         {
-            _lootActionCreator = new StaticLoot(_lootPanel, _actionScreenController);
-            _mapActionCreators.Add(MapActionType.loot, new Loot(_lootPanel, _actionScreenController));
-
-            _npcActionCreators.Add(MapActionType.talk, new Talk());
-            _npcActionCreators.Add(MapActionType.attack, new Attack(_actionScreenController));
-            _npcActionCreators.Add(MapActionType.rob, new Rob(_stealingController));
-            _npcActionCreators.Add(MapActionType.trade, new Trade());
+            if (_lootActionCreator != null) return;
+            _lootActionCreator = new Loot(_lootPanel, _actionScreenController);
+            _mapActionCreators.Add(MapActionType.loot, _lootActionCreator);
+            _mapActionCreators.Add(MapActionType.talk, new Talk());
+            _mapActionCreators.Add(MapActionType.attack, new Attack(_actionScreenController));
+            _mapActionCreators.Add(MapActionType.rob, new Rob(_stealingController));
+            _mapActionCreators.Add(MapActionType.trade, new Trade());
         }
 
-        public IMapAction CreateNPCAction(MapActionTemplate template, INpcActionTarget target, int numOfUsage = -1)
+        IMapAction IMapActionsFactory.CreateLootAction(MapActionTemplate template, IContainersList loot)
         {
-            if(_npcActionCreators.TryGetValue(template.actionType, out var npcActionCreator))
-            {
-                return npcActionCreator.CreateActionLogic(template, target);
-            }
+            CreateFactory();
+            return _lootActionCreator.CreateLootAction(template, loot);
+        }
+
+        IMapAction IMapActionsFactory.CreateAction(MapActionTemplate template, IMapActionLocation store)
+        {
+            CreateFactory();
             if (_mapActionCreators.TryGetValue(template.actionType, out var actionCreator))
             {
-                return actionCreator.CreateActionLogic(template, numOfUsage);
+                return actionCreator.CreateActionLogic(template, store);
             }
             else
             {

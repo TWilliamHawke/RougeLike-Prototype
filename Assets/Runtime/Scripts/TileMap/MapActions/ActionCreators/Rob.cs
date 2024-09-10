@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Map.Actions
 {
-    public class Rob : INpcActionCreator
+    public class Rob : IMapActionCreator
     {
         IStealingController _controller;
 
@@ -16,7 +16,7 @@ namespace Map.Actions
             _controller = controller;
         }
 
-        public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget actionTarget)
+        public IMapAction CreateActionLogic(MapActionTemplate template, IMapActionLocation actionTarget)
         {
             return new RobAction(template, _controller, actionTarget.inventory);
         }

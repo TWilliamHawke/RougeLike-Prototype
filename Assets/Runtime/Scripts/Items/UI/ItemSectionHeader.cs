@@ -18,11 +18,11 @@ namespace Items
 
         public void ReplaceTitle(IInventorySectionData section)
         {
-            string counter = section.count.ToString();
+            string counter = section.filledSlotsCount.ToString();
 
             if (!section.isInfinity)
             {
-                counter = $"{section.count}/{section.capacity}";
+                counter = $"{section.filledSlotsCount}/{section.capacity}";
             }
 
             _sectionTitle.text = $"{section.sectionName} ({counter})";

@@ -4,7 +4,6 @@ namespace Items
 {
     public class LootContainer : ItemContainer, IContainersList
     {
-        public bool isEmpty => _itemsSection.isEmpty;
         public override ItemStorageType storageType => ItemStorageType.loot;
         public int count => 1;
 
@@ -26,6 +25,11 @@ namespace Items
         public IEnumerable<ItemContainer> GetAllContainers()
         {
             yield return this;
+        }
+
+        public bool IsEmpty()
+        {
+            return isEmpty;
         }
     }
 }
