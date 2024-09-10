@@ -140,6 +140,7 @@ namespace Entities.Combat
 
         private void FinalizeAOE()
         {
+            //TODO fix bug with multiple projectiles
             _startedAoeEffect.OnAnimationEnd -= FinalizeAOE;
             _startedAoeEffect.OnDamageFrame -= DoAoeDamage;
             OnAttackEnd?.Invoke();

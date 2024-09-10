@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Map.Actions
 {
-    public class Trade : INpcActionCreator
+    public class Trade : IMapActionCreator
     {
-        public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget actionTarget)
+        public IMapAction CreateActionLogic(MapActionTemplate template, IMapActionLocation actionTarget)
         {
             return new TradeAction(template);
         }

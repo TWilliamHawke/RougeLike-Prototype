@@ -7,7 +7,7 @@ namespace Items
     {
         event UnityAction OnSectionDataChange;
         int capacity { get; }
-        int count { get; }
+        int filledSlotsCount { get; }
         bool isInfinity { get; }
         string sectionName { get; }
     }

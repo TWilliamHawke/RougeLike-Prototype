@@ -32,6 +32,7 @@ namespace Map.UI
             if (_currentZone is null || _currentZone.mapActionList.count == 0) return;
             _actionsScreen.SetTitle(_currentZone.displayName);
             _actionsScreen.SetIcon(_currentZone.icon);
+
             _actionsScreen.SetActions(_currentZone.mapActionList);
             _actionsScreen.Open();
         }

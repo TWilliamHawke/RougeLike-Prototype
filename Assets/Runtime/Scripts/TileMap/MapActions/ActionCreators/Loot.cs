@@ -18,15 +18,22 @@ namespace Map.Actions
             _actionScreenController = actionScreenController;
         }
 
-        public IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage)
+        public IMapAction CreateLootAction(MapActionTemplate template, IContainersList loot)
         {
-            if ((template as ILootActionData)?.lootTable is null)
-            {
-                throw new System.Exception($"{template.name} labeled as loot but loot table is not assigned");
-            }
-            return new LootAction(template, _lootPanel, numOfUsage, _actionScreenController);
+            return new LootAction(template, loot, _lootPanel, _actionScreenController);
         }
 
+        public IMapAction CreateActionLogic(MapActionTemplate template, IMapActionLocation store)
+        {
+            if (template is ILootActionData lootTemplate && lootTemplate.lootTable != null)
+            {
+                LootContainer lootContainer = new();
+                lootContainer.AddItemsFrom(lootTemplate.lootTable);
+                return new LootAction(template, lootContainer, _lootPanel, _actionScreenController);
+            }
+
+            throw new System.Exception($"{template.name} labeled as loot but loot table is not assigned");
+        }
 
         class LootAction : IMapAction
         {
@@ -36,17 +43,16 @@ namespace Map.Actions
             public string actionTitle => _template.displayName;
 
             IContainersList _loot;
-            int _numOfUsage;
             IActionScreenController _actionScreenController;
-            public bool isEnable => _numOfUsage != 0;
+            public bool isEnable => !_loot.IsEmpty();
             public bool isHidden => false;
 
-            public LootAction(ILootActionData template, LootPanel lootPanel, int numOfUsage, IActionScreenController actionScreenController)
+            public LootAction(ILootActionData template, IContainersList loot, LootPanel lootPanel, IActionScreenController actionScreenController)
             {
                 _template = template;
                 _lootPanel = lootPanel;
-                _numOfUsage = numOfUsage;
                 _actionScreenController = actionScreenController;
+                _loot = loot;
             }
 
             public void DoAction()
@@ -59,12 +65,7 @@ namespace Map.Actions
 
             void CompleteAction()
             {
-                if (_numOfUsage > 0)
-                {
-                    _numOfUsage--;
-                }
-
-                ClearEvents();
+                //ClearEvents();
             }
 
             void ClearEvents()

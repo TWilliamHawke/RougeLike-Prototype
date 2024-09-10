@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items
 {
     public interface IItemContainer : IEnumerable<ItemSlotData>
     {
-        ItemStorageType storageType { get;}
+        ItemStorageType storageType { get; }
     }
-    
-    public class ItemContainer : IItemContainer
+
+    public class ItemContainer : IItemContainer, IInventorySectionData
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
@@ -21,28 +22,25 @@ namespace Items
         protected ItemSection _itemsSection;
         HashSet<ItemSlotData> _selectedItems = new();
 
-        public IEnumerable<ItemSlotData> selectedItems => _selectedItems;
+        public event UnityAction OnSectionDataChange;
 
         public virtual ItemStorageType storageType => _itemsSection.itemStorage;
+        public int capacity => _itemsSection.capacity;
+        public int filledSlotsCount => _itemsSection.filledSlotsCount;
+        public bool isEmpty => _itemsSection.isEmpty;
+        public bool isInfinity => _itemsSection.isInfinity;
+        public string sectionName => storageName;
 
         public ItemContainer(string name, LootTable lootTable)
         {
             _itemsSection = new ItemSection(name);
+            _itemsSection.OnSectionDataChange += HandleSectionChangeEvent;
             storageName = name;
             lootTable.FillItemSection(ref _itemsSection);
         }
 
-        public ItemContainer(ItemContainerData template)
+        public ItemContainer(ItemContainerData template) : this(template.storageName, template.loot)
         {
-            _itemsSection = new ItemSection(template.storageName);
-            template.loot.FillItemSection(ref _itemsSection);
-            storageName = template.storageName;
-        }
-
-        public ItemContainer(ItemSection itemSection, string containerName)
-        {
-            this.storageName = containerName;
-            _itemsSection = itemSection;
         }
 
         protected ItemContainer()
@@ -56,7 +54,7 @@ namespace Items
 
         public void SelectItem(ItemSlotData item)
         {
-            if(!_itemsSection.Contains(item)) return;
+            if (!_itemsSection.Contains(item)) return;
             _selectedItems.Add(item);
         }
 
@@ -70,10 +68,15 @@ namespace Items
             lockLevel = 0;
         }
 
-		public void DisarmTrap()
-		{
-			trapLevel = 0;
-		}
+        public void DisarmTrap()
+        {
+            trapLevel = 0;
+        }
+
+        private void HandleSectionChangeEvent()
+        {
+            OnSectionDataChange?.Invoke();
+        }
 
         public IEnumerator<ItemSlotData> GetEnumerator()
         {

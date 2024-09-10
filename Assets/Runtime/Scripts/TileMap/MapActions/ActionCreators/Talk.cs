@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 namespace Map.Actions
 {
-    class Talk : INpcActionCreator
+    class Talk : IMapActionCreator
     {
-        public IMapAction CreateActionLogic(MapActionTemplate template, INpcActionTarget target)
+        public IMapAction CreateActionLogic(MapActionTemplate template, IMapActionLocation target)
         {
             return new TalkAction(template);
         }

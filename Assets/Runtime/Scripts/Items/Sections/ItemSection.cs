@@ -19,7 +19,7 @@ namespace Items
 
         public event UnityAction OnSectionDataChange;
 
-        public int count => _itemsList.Count;
+        public int filledSlotsCount => _itemsList.Count;
         public string sectionName => _sectionName;
 
         public ItemStorageType itemStorage => _itemSectionTemplate.storageType;

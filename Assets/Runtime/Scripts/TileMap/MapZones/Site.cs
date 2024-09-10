@@ -9,7 +9,7 @@ using Items;
 
 namespace Map.Zones
 {
-    public class Site : MapZone
+    public class Site : MapZone, IMapActionLocation
     {
         [SerializeField] MapActionTemplate _lootBodiesAction;
         [SerializeField] CustomEvent _onLocalTaskChange;
@@ -19,6 +19,7 @@ namespace Map.Zones
         [InjectField] MapZonesObserver _mapZonesObserver;
 
         SiteTemplate _template;
+
         IMapActionsController _actionsController;
         KillEnemiesTask _taskController;
         ZoneEntitiesSpawner _spawnQueue;
@@ -30,10 +31,7 @@ namespace Map.Zones
         public override TaskData currentTask => _taskController.currentTask;
         public override MapZonesObserver mapZonesObserver => _mapZonesObserver;
 
-        void Start()
-        {
-            this.StartInjection();
-        }
+        public IContainersList inventory => _aliveEntitiesStorage;
 
         //should be called in Awake
         public void BindTemplate(SiteTemplate template, Rng rng)
@@ -47,6 +45,7 @@ namespace Map.Zones
             _spawnQueue.AddObserver(_aliveEntitiesStorage);
             _spawnQueue.AddObserver(_deadEntitiesStorage);
             _spawnQueue.AddToQueue(_template.enemies, rng);
+            this.StartInjection();
         }
 
         public void FinalizeInjection()
@@ -62,9 +61,14 @@ namespace Map.Zones
 
         private void FillActionsList()
         {
-            _actionsController = new OpenWorldActionsController(_mapActionsFactory);
+            _actionsController = new OpenWorldActionsController(_mapActionsFactory, this);
             _actionsController.AddLootAction(_lootBodiesAction, _deadEntitiesStorage);
             _template.possibleActions.ForEach(action => _actionsController.AddAction(action));
+        }
+
+        public void ReplaceFactionForAll(Faction replacer)
+        {
+
         }
     }
 }

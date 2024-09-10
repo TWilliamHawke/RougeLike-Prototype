@@ -79,7 +79,7 @@ namespace Items.UI
 
         private void SelectSection()
         {
-            if (_sectionData?.count == 0) return;
+            if (_sectionData?.filledSlotsCount == 0) return;
             OnSectionSelect?.Invoke(this);
         }
     }

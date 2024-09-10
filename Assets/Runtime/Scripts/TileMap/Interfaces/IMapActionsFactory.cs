@@ -6,9 +6,8 @@ namespace Map
 {
     public interface IMapActionsFactory
     {
-        IMapAction CreateActionLogic(MapActionTemplate template, int numOfUsage);
+        IMapAction CreateAction(MapActionTemplate template, IMapActionLocation store);
         IMapAction CreateLootAction(MapActionTemplate template, IContainersList loot);
-        IMapAction CreateNPCAction(MapActionTemplate template, INpcActionTarget actionTarget, int numOfUsage = -1);
     }
 }
 

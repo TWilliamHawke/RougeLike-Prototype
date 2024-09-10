@@ -13,15 +13,17 @@ namespace Map.Actions
         public IMapAction this[int idx] => _actionsLogic[idx];
         public int count => _actionsLogic.Count;
         IMapActionsFactory _actionsFactory;
+        IMapActionLocation _actionsStore;
 
-        public OpenWorldActionsController(IMapActionsFactory actionsFactory)
+        public OpenWorldActionsController(IMapActionsFactory actionsFactory, IMapActionLocation actionsStore)
         {
             _actionsFactory = actionsFactory;
+            _actionsStore = actionsStore;
         }
 
         public void AddAction(MapActionTemplate template)
         {
-            _actionsLogic.Add(_actionsFactory.CreateActionLogic(template, 1));
+            _actionsLogic.Add(_actionsFactory.CreateAction(template, _actionsStore));
         }
 
         public void AddLootAction(MapActionTemplate template, IContainersList loot)

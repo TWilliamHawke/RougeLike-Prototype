@@ -54,7 +54,7 @@ namespace Map.Actions
 
             void CompleteAction()
             {
-                ClearEvents();
+                //ClearEvents();
             }
 
             void ClearEvents()

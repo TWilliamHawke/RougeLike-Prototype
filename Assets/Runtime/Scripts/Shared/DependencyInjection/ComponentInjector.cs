@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
+using Map.Zones;
 
 public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IManualInjector
 {

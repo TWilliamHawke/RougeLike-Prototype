@@ -7,6 +7,7 @@ namespace Items
         ItemContainer ContainerAt(int idx);
         int count { get; }
         IEnumerable<ItemContainer> GetAllContainers();
+        bool IsEmpty();
     }
 }
 

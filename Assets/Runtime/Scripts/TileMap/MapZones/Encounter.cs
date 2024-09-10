@@ -11,7 +11,7 @@ using Items;
 namespace Map.Zones
 {
     public class Encounter : MonoBehaviour,
-        INpcActionTarget, IMapActionList, IMapZoneLogic, IObserver<Entity>
+        IMapActionLocation, IMapActionList, IMapZoneLogic, IObserver<Entity>
     {
         [SerializeField] CustomEvent _onLocalTaskChange;
 
@@ -42,7 +42,6 @@ namespace Map.Zones
         {
             if (_spawner is null) return;
             if (_mapActionsFactory is null) return;
-            if (_template is null) return;
 
             _spawnQueue.SpawnAll(_spawner);
             FillActionsList();
@@ -70,7 +69,7 @@ namespace Map.Zones
         {
             foreach(var actionTemplate in _template.possibleActions)
             {
-                var action = _mapActionsFactory.CreateNPCAction(actionTemplate, this);
+                var action = _mapActionsFactory.CreateAction(actionTemplate, this);
                 _encounterActions.Add(action);
             }
         }
