@@ -6,16 +6,12 @@ using UnityEngine.Events;
 
 namespace Map.Zones
 {
-    [RequireComponent(typeof(BoxCollider2D))]
     public abstract class MapZone : MonoBehaviour, IMapZone
     {
         public event UnityAction<IMapZone> OnPlayerEnter;
         public event UnityAction<IMapZone> OnPlayerExit;
 
         IIconData _template;
-
-        int _posX => (int)transform.position.x;
-        int _posY => (int)transform.position.y;
 
         public string displayName => _template.displayName;
         public Sprite icon => _template.icon;
@@ -27,7 +23,6 @@ namespace Map.Zones
         public void BindTemplate(IMapZoneTemplate template)
         {
             _template = template;
-            GetComponent<BoxCollider2D>().size = template.size;
         }
 
         protected void AddToObserver()

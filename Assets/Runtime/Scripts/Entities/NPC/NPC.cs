@@ -40,7 +40,7 @@ namespace Entities.NPC
             OnTemplateApplied?.Invoke(template);
         }
 
-        public void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
+        public override void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
         {
             _interactionZone.Init(mapZoneLogic);
         }

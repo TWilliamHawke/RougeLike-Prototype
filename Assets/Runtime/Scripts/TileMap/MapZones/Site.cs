@@ -9,6 +9,7 @@ using Items;
 
 namespace Map.Zones
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public class Site : MapZone, IMapActionLocation
     {
         [SerializeField] MapActionTemplate _lootBodiesAction;
@@ -22,7 +23,7 @@ namespace Map.Zones
 
         IMapActionsController _actionsController;
         KillEnemiesTask _taskController;
-        ZoneEntitiesSpawner _spawnQueue;
+        ZoneSpawnQueue _spawnQueue;
 
         AliveEntitiesStorage _aliveEntitiesStorage = new();
         DeadEntitiesStorage _deadEntitiesStorage = new();
@@ -39,12 +40,14 @@ namespace Map.Zones
             _template = template;
 
             base.BindTemplate(template);
-            _spawnQueue = new ZoneEntitiesSpawner(template, this);
+            _spawnQueue = new ZoneSpawnQueue(template, this);
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
             _spawnQueue.AddObserver(_taskController);
             _spawnQueue.AddObserver(_aliveEntitiesStorage);
             _spawnQueue.AddObserver(_deadEntitiesStorage);
             _spawnQueue.AddToQueue(_template.enemies, rng);
+            GetComponent<BoxCollider2D>().size = template.size;
+
             this.StartInjection();
         }
 

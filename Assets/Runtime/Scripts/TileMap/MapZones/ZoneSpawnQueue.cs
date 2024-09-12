@@ -7,7 +7,7 @@ using Rng = System.Random;
 
 namespace Map.Zones
 {
-    public class ZoneEntitiesSpawner
+    public class ZoneSpawnQueue
     {
         ISpawnZoneTemplate _template;
         Vector3Int _center;
@@ -17,7 +17,7 @@ namespace Map.Zones
         List<IObserver<Entity>> _observers = new();
         Queue<SpawnData<IEntityTemplate>> _spawnQueue = new();
 
-        public ZoneEntitiesSpawner(ISpawnZoneTemplate template, Component parentComponent)
+        public ZoneSpawnQueue(ISpawnZoneTemplate template, Component parentComponent)
         {
             _template = template;
             _parentComponent = parentComponent;
