@@ -29,6 +29,7 @@ namespace Map.Zones
 		[SerializeField] bool _tilesIsWalkable = true;
 
         [SerializeField] NPCTemplate _mainNPC;
+        [SerializeField] EntityTemplate[] _entities;
 
         [SerializeField] CreaturesTable _otherEntities;
 
@@ -43,6 +44,7 @@ namespace Map.Zones
 
         public NPCTemplate mainNPC => _mainNPC;
         public MapActionTemplate[] possibleActions => _possibleActions;
+        public EntityTemplate[] entities => _entities;
 
         Vector2Int IMapZoneTemplate.size => _colliderSize;
         Vector2Int ISpawnZoneTemplate.size => _spawnZoneSize;

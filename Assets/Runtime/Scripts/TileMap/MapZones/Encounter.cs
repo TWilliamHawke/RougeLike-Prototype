@@ -36,7 +36,7 @@ namespace Map.Zones
         List<IMapAction> _encounterActions = new();
         HashSet<Entity> _entities = new();
         //NPC _mainNpc;
-        ZoneEntitiesSpawner _spawnQueue;
+        ZoneSpawnQueue _spawnQueue;
 
         public void FinalizeInjection()
         {
@@ -51,7 +51,7 @@ namespace Map.Zones
         {
             _template = template;
             _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
-            _spawnQueue = new ZoneEntitiesSpawner(template, this);
+            _spawnQueue = new ZoneSpawnQueue(template, this);
             _spawnQueue.AddObserver(this);
             _spawnQueue.AddObserver(_aliveEntitiesStorage);
             _spawnQueue.AddObserver(_deadEntitiesStorage);
@@ -76,7 +76,7 @@ namespace Map.Zones
 
         public void AddToObserve(Entity target)
         {
-            (target as NPC)?.InitInteractiveZone(this);
+            target.InitInteractiveZone(this);
             _entities.Add(target);
         }
 

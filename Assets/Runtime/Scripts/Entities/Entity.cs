@@ -11,6 +11,7 @@ using UnityEngine.Events;
 using Items;
 using Entities.Stats;
 using Abilities;
+using Map.Zones;
 
 namespace Entities
 {
@@ -40,6 +41,7 @@ namespace Entities
         public abstract IDamageSource damageSource { get; }
         public abstract void AddLoot(IItemStorage storage);
         public abstract void RemoveLoot(IItemStorage storage);
+        public abstract void InitInteractiveZone(IMapZoneLogic mapZoneLogic);
 
         public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }
