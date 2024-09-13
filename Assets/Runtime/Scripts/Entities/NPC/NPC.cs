@@ -7,6 +7,7 @@ using UnityEngine;
 using Entities.Behavior;
 using Map.Zones;
 using UnityEngine.Events;
+using Map;
 
 namespace Entities.NPC
 {
@@ -14,7 +15,7 @@ namespace Entities.NPC
     {
         [SerializeField] NPCSoundKit _soundKit;
         [SerializeField] CustomEvent OnLocationPanelClick;
-        [SerializeField] NpcInteractionZone _interactionZone;
+        [SerializeField] InteractionZone _interactionZone;
 
         NPCTemplate _template;
 
@@ -24,7 +25,7 @@ namespace Entities.NPC
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
         public override ITemplateWithBaseStats template => _template;
 
-        public MapZone interactionZone => _interactionZone;
+        public InteractionZone interactionZone => _interactionZone;
         public override IDamageSource damageSource => throw new System.NotImplementedException();
 
         public INPCInventory inventory { get; private set;}
@@ -40,7 +41,7 @@ namespace Entities.NPC
             OnTemplateApplied?.Invoke(template);
         }
 
-        public override void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
+        public override void InitInteractiveZone(IMapZone mapZoneLogic)
         {
             _interactionZone.Init(mapZoneLogic);
         }

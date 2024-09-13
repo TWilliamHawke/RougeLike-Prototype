@@ -28,11 +28,7 @@ namespace Map.Zones
 		[SerializeField] TileBase _centerTile;
 		[SerializeField] bool _tilesIsWalkable = true;
 
-        [SerializeField] NPCTemplate _mainNPC;
-        [SerializeField] EntityTemplate[] _entities;
-
-        [SerializeField] CreaturesTable _otherEntities;
-
+        [SerializeField] EntitiesTable _entities;
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
@@ -42,13 +38,10 @@ namespace Map.Zones
         public bool centerZoneIsWalkable => _tilesIsWalkable;
         public TileBase centerZoneTile => _centerTile;
 
-        public NPCTemplate mainNPC => _mainNPC;
         public MapActionTemplate[] possibleActions => _possibleActions;
-        public EntityTemplate[] entities => _entities;
+        public EntitiesTable enemies => _entities;
 
-        Vector2Int IMapZoneTemplate.size => _colliderSize;
+        public Vector2Int size => _colliderSize;
         Vector2Int ISpawnZoneTemplate.size => _spawnZoneSize;
     }
 }
-
-

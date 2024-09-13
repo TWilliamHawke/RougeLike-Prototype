@@ -7,29 +7,29 @@ using Rng = System.Random;
 namespace Entities
 {
     [CreateAssetMenu(fileName ="CreaturesTable", menuName ="Entities/Creatures Table")]
-    public class CreaturesTable : ScriptableObject, IDataListSource<CreatureTemplate>
+    public class EntitiesTable : ScriptableObject, IDataListSource<EntityTemplate>
     {
         [SerializeField] bool _getOnlyOneElenemt;
         [Range(0, 1)]
         [SerializeField] float _chanceOfNone;
 
-        [SerializeField] CreaturesTable[] _childCreatureTables;
-        [SerializeField] CreatureData[] _creatures;
+        [SerializeField] EntitiesTable[] _childTables;
+        [SerializeField] EntityData[] _entities;
 
-        public DataListGenerator<CreatureTemplate> dataListGenerator { get; private set; }
+        public DataListGenerator<EntityTemplate> dataListGenerator { get; private set; }
         
-        IDataListSource<CreatureTemplate>[] IDataListSource<CreatureTemplate>.childTables => _childCreatureTables;
-        IDataCount<CreatureTemplate>[] IDataListSource<CreatureTemplate>.dataItems => _creatures;
-        bool IDataListSource<CreatureTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListSource<CreatureTemplate>.chanceOfNone => _chanceOfNone;
+        IDataListSource<EntityTemplate>[] IDataListSource<EntityTemplate>.childTables => _childTables;
+        IDataCount<EntityTemplate>[] IDataListSource<EntityTemplate>.dataItems => _entities;
+        bool IDataListSource<EntityTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListSource<EntityTemplate>.chanceOfNone => _chanceOfNone;
 
         private void OnEnable()
         {
             if (dataListGenerator != null) return;
-            dataListGenerator = new DataListGenerator<CreatureTemplate>(this);
+            dataListGenerator = new DataListGenerator<EntityTemplate>(this);
         }
 
-        public IEnumerable<CreatureTemplate> GetTemplates(Rng rng)
+        public IEnumerable<EntityTemplate> GetTemplates(Rng rng)
         {
             var creatures = new CreaturesList();
             dataListGenerator.FillDataList(rng, ref creatures);
@@ -50,21 +50,22 @@ namespace Entities
 
         #region Supporting classes
         [System.Serializable]
-        public class CreatureData : IDataCount<CreatureTemplate>
+        public class EntityData : IDataCount<EntityTemplate>
         {
-            [SerializeField] CreatureTemplate _template;
+            [SerializeField] EntityTemplate _template;
+            [PlusMinusBtn]
             [SerializeField] int _count = 1;
 
-            public CreatureTemplate element => _template;
+            public EntityTemplate element => _template;
             public int count => _count;
         }
 
-        public class CreaturesList : IDataList<CreatureTemplate>
+        public class CreaturesList : IDataList<EntityTemplate>
         {
-            List<CreatureTemplate> _creaturesList = new List<CreatureTemplate>();
-            public List<CreatureTemplate> creaturesList => _creaturesList;
+            List<EntityTemplate> _creaturesList = new List<EntityTemplate>();
+            public List<EntityTemplate> creaturesList => _creaturesList;
 
-            public void AddItems(CreatureTemplate item, int count)
+            public void AddItems(EntityTemplate item, int count)
             {
                 if (count <= 0) return;
 

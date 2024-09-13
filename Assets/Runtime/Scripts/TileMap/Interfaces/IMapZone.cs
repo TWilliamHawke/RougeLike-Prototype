@@ -1,12 +1,13 @@
+using Map.Zones;
 using UnityEngine;
 
 namespace Map
 {
-    public interface IMapZone
+    public interface IMapZone : IObserver<InteractionZone>
     {
         string displayName { get; }
         Sprite icon { get; }
-        IMapActionList mapActionList { get; }
+        IMapActionList actionList { get; }
         TaskData currentTask { get; }
     }
 }

@@ -29,11 +29,11 @@ namespace Map.UI
         //used in editor
         public void OpenActionScreen()
         {
-            if (_currentZone is null || _currentZone.mapActionList.count == 0) return;
+            if (_currentZone is null || _currentZone.actionList.count == 0) return;
             _actionsScreen.SetTitle(_currentZone.displayName);
             _actionsScreen.SetIcon(_currentZone.icon);
 
-            _actionsScreen.SetActions(_currentZone.mapActionList);
+            _actionsScreen.SetActions(_currentZone.actionList);
             _actionsScreen.Open();
         }
 

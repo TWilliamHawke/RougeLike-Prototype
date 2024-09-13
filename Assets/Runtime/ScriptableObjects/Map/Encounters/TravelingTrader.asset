@@ -26,7 +26,4 @@ MonoBehaviour:
   _tilesHeight: 3
   _centerTile: {fileID: 0}
   _tilesIsWalkable: 1
-  _mainNPC: {fileID: 11400000, guid: 388439c3706af104b9ac404148a3e084, type: 2}
-  _entities:
-  - {fileID: 11400000, guid: 388439c3706af104b9ac404148a3e084, type: 2}
-  _otherEntities: {fileID: 0}
+  _entities: {fileID: 11400000, guid: a80216c1fdac30c44bdab0e4e82c0790, type: 2}

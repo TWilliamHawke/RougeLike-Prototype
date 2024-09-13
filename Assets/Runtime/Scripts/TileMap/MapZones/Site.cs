@@ -9,69 +9,27 @@ using Items;
 
 namespace Map.Zones
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class Site : MapZone, IMapActionLocation
+    public class Site : MapZone
     {
         [SerializeField] MapActionTemplate _lootBodiesAction;
-        [SerializeField] CustomEvent _onLocalTaskChange;
-
-        [InjectField] EntitiesSpawner _spawner;
-        [InjectField] IMapActionsFactory _mapActionsFactory;
-        [InjectField] MapZonesObserver _mapZonesObserver;
+        [SerializeField] InteractionZone _interactionZone;
 
         SiteTemplate _template;
-
-        IMapActionsController _actionsController;
-        KillEnemiesTask _taskController;
-        ZoneSpawnQueue _spawnQueue;
-
-        AliveEntitiesStorage _aliveEntitiesStorage = new();
-        DeadEntitiesStorage _deadEntitiesStorage = new();
-
-        public override IMapActionList mapActionList => _actionsController;
-        public override TaskData currentTask => _taskController.currentTask;
-        public override MapZonesObserver mapZonesObserver => _mapZonesObserver;
-
-        public IContainersList inventory => _aliveEntitiesStorage;
 
         //should be called in Awake
         public void BindTemplate(SiteTemplate template, Rng rng)
         {
             _template = template;
+            _interactionZone.Init(this);
+            _interactionZone.Resize(template.size);
 
-            base.BindTemplate(template);
-            _spawnQueue = new ZoneSpawnQueue(template, this);
-            _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
-            _spawnQueue.AddObserver(_taskController);
-            _spawnQueue.AddObserver(_aliveEntitiesStorage);
-            _spawnQueue.AddObserver(_deadEntitiesStorage);
-            _spawnQueue.AddToQueue(_template.enemies, rng);
-            GetComponent<BoxCollider2D>().size = template.size;
-
-            this.StartInjection();
+            base.BindTemplate(template, rng);
         }
 
-        public void FinalizeInjection()
+        protected override void FillActionsList(IMapActionsController mapActionsController)
         {
-            if (_spawner is null) return;
-            if (_mapActionsFactory is null) return;
-            if (_mapZonesObserver is null) return;
-
-            AddToObserver();
-            _spawnQueue.SpawnAll(_spawner);
-            FillActionsList();
-        }
-
-        private void FillActionsList()
-        {
-            _actionsController = new OpenWorldActionsController(_mapActionsFactory, this);
-            _actionsController.AddLootAction(_lootBodiesAction, _deadEntitiesStorage);
-            _template.possibleActions.ForEach(action => _actionsController.AddAction(action));
-        }
-
-        public void ReplaceFactionForAll(Faction replacer)
-        {
-
+            mapActionsController.AddLootAction(_lootBodiesAction, _deadEntitiesStorage);
+            _template.possibleActions.ForEach(action => mapActionsController.AddAction(action));
         }
     }
 }
