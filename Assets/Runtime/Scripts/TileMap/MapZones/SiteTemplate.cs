@@ -21,7 +21,7 @@ namespace Map.Zones
 	    [SerializeField] int _width = 5;
 		[SerializeField] int _height = 5;
 		[Header("Population")]
-		[SerializeField] CreaturesTable _enemies;
+		[SerializeField] EntitiesTable _enemies;
 
 		[Header("Tiles")]
 		[SerializeField] int _tilesWidth = 3;
@@ -32,7 +32,7 @@ namespace Map.Zones
         public string displayName => _displayName;
         public Sprite icon => _icon;
         public IEnumerable<MapActionTemplate> possibleActions => _possibleActions;
-        public CreaturesTable enemies => _enemies; 
+        public EntitiesTable enemies => _enemies; 
         public Vector2Int size => new Vector2Int(_width, _height);
         public Vector2Int centerZoneSize => new Vector2Int(_tilesWidth, _tilesHeight);
         public TileBase centerZoneTile => _siteTile; 

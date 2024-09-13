@@ -41,7 +41,7 @@ namespace Entities
         public abstract IDamageSource damageSource { get; }
         public abstract void AddLoot(IItemStorage storage);
         public abstract void RemoveLoot(IItemStorage storage);
-        public abstract void InitInteractiveZone(IMapZoneLogic mapZoneLogic);
+        public abstract void InitInteractiveZone(IMapZone mapZoneLogic);
 
         public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }

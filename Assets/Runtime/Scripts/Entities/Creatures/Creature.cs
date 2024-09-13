@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Entities.Combat;
 using Entities.PlayerScripts;
 using Items;
-using Map.Zones;
+using Map;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -51,7 +51,7 @@ namespace Entities
 
         }
 
-        public override void InitInteractiveZone(IMapZoneLogic mapZoneLogic)
+        public override void InitInteractiveZone(IMapZone mapZoneLogic)
         {
 
         }

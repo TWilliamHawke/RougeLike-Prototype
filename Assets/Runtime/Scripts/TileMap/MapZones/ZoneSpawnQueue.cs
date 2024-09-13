@@ -30,7 +30,7 @@ namespace Map.Zones
             _observers.Add(observer);
         }
 
-        public void AddToQueue(CreaturesTable entitiesTable, Rng rng)
+        public void AddToQueue(EntitiesTable entitiesTable, Rng rng)
         {
             var templates = entitiesTable.GetTemplates(rng);
             templates.ForEach(template => AddToQueue(template, rng));

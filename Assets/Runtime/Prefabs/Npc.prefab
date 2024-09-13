@@ -366,7 +366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5915766062883805833
 Transform:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &1303255968071488322
 MonoBehaviour:
@@ -439,7 +439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae18bbd75c517e84b958b9f9e5b501b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zoneObserverInjector: {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
 --- !u!1001 &7045802901175073397
 PrefabInstance:
   m_ObjectHideFlags: 0

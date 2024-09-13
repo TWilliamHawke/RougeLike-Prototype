@@ -19,11 +19,23 @@ namespace Map.Locations
         public string displayName => _displayName;
         public Sprite icon => _icon;
 
-        public IMapActionList mapActionList => this;
+        public IMapActionList actionList => this;
         public IMapAction this[int idx] => _actions[idx];
         public int count => _actions.Count;
 		
 		List <IMapAction> _actions = new();
+
+        public void AddToObserve(InteractionZone target)
+        {
+
+        }
+
+        public void RemoveFromObserve(InteractionZone target)
+        {
+
+        }
+
+
     }
 }
 

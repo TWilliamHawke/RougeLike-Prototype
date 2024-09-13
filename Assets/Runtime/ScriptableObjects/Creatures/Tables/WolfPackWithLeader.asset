@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _getOnlyOneElenemt: 0
   _chanceOfNone: 0
-  _childCreatureTables:
+  _childTables:
   - {fileID: 11400000, guid: d5784886ddc1f8c4eb29f5c6f52ec150, type: 2}
-  _creatures:
+  _entities:
   - _template: {fileID: 11400000, guid: 41bf0e6ca43d9a74582947fd5a13894b, type: 2}
     _count: 1

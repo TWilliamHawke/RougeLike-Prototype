@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa4f54bbdae2ac442a8cd6c6eb828c5d, type: 3}
-  m_Name: WolfPack
+  m_Name: TravelingTrader
   m_EditorClassIdentifier: 
   _getOnlyOneElenemt: 1
   _chanceOfNone: 0
   _childTables: []
   _entities:
-  - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 3
-  - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 4
-  - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 5
+  - _template: {fileID: 11400000, guid: 388439c3706af104b9ac404148a3e084, type: 2}
+    _count: 1

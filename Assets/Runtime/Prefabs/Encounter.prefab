@@ -110,6 +110,7 @@ MonoBehaviour:
   _injectors:
   - {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
   - {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
+  - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls:
