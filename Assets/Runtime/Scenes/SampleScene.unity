@@ -1509,6 +1509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 52292508}
   _injector: {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
+  _readyTrigger: 2
 --- !u!114 &52292508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8579,6 +8580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 370339923}
   _injector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
+  _readyTrigger: 3
 --- !u!114 &370339922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9874,6 +9876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 412659625}
   _injector: {fileID: 11400000, guid: 98c8ca21dddec3842a9bd09a4416eab4, type: 2}
+  _readyTrigger: 2
 --- !u!114 &412659625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80200,6 +80203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 1329410027}
   _injector: {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
+  _readyTrigger: 2
 --- !u!114 &1330791957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5066929566410913032, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
@@ -93403,6 +93407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 1962507303}
   _injector: {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+  _readyTrigger: 2
 --- !u!114 &1962507303
 MonoBehaviour:
   m_ObjectHideFlags: 0
