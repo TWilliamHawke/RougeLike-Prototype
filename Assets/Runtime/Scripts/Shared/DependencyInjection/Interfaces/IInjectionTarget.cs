@@ -6,14 +6,14 @@ public interface IInjectionTarget
 {
     //true is safe but slower
     bool waitForAllDependencies { get; }
+    Type GetType();
 
     void FinalizeInjection()
     {
         
     }
-    Type GetType();
 
-    void SetValue(FieldInfo field, object dependency)
+    void SetFieldValue(FieldInfo field, object dependency)
     {
         field.SetValue(this, dependency);
     }
@@ -21,6 +21,11 @@ public interface IInjectionTarget
     bool FieldIsNull(FieldInfo field)
     {
         return field.GetValue(this) is null;
+    }
+
+    object GetRealTarget()
+    {
+        return this;
     }
 }
 

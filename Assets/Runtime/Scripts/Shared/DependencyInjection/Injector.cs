@@ -4,24 +4,27 @@ using System;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
-using Map.Zones;
 
 [CreateAssetMenu(fileName = "Injector", menuName = "Musc/Injector")]
 public class Injector : ScriptableObject
 {
-    static event UnityAction<IInjectionTarget> OnInjectionFinalize;
-    System.Object _dependency;
+    static event UnityAction<object> OnInjectionFinalize;
+    static event UnityAction<object> OnInjectionSuccess;
+    object _dependency;
 
     bool _dependencyIsReady = true;
+    DependencyReadyTrigger _readyTrigger;
+    int _emptyInjectFields = 0;
 
     HashSet<IInjectionTarget> _targetsWaitingForInjection = new HashSet<IInjectionTarget>();
     HashSet<IInjectionTarget> _targetsWaitingForFinalization = new HashSet<IInjectionTarget>();
+    List<FieldInfo> _injectFieldCache = new(5);
 
     public void ClearDependency()
     {
         _targetsWaitingForInjection.Clear();
         _targetsWaitingForFinalization.Clear();
-        OnInjectionFinalize -= FinalizeTargetsIfDependencyIsReady;
+        OnInjectionFinalize -= FinalizeAfterFinalization;
 
         if (_dependency is IPermanentDependency)
         {
@@ -42,15 +45,19 @@ public class Injector : ScriptableObject
         dependency = _dependency as T ?? dependency;
     }
 
-    public void SetDependency(object dependency)
+    public void SetDependency(object dependency,
+        DependencyReadyTrigger trigger = DependencyReadyTrigger.allInjectFieldsIsFull)
     {
         if (_dependency is not null) return;
         _dependency = dependency;
+        _readyTrigger = trigger;
+        _emptyInjectFields = GetInjectFieldsCount(dependency);
 
-        if (dependency is IInjectionTarget && AnyInjectFieldIsNull(dependency))
+        if (_emptyInjectFields > 0)
         {
             _dependencyIsReady = false;
-            OnInjectionFinalize += FinalizeTargetsIfDependencyIsReady;
+            OnInjectionSuccess += FinalizeAfterInjection;
+            OnInjectionFinalize += FinalizeAfterFinalization;
         }
 
         InjectForWaitingTargets();
@@ -79,11 +86,29 @@ public class Injector : ScriptableObject
         }
     }
 
+    private void FinalizeAfterInjection(object injectionTarget)
+    {
+        if (injectionTarget != _dependency) return;
+        _emptyInjectFields--;
+
+        if (_emptyInjectFields > 0) return;
+        FinalizeTargets(DependencyReadyTrigger.allInjectFieldsIsFull);
+        OnInjectionSuccess -= FinalizeAfterInjection;
+    }
+
     //calls if dependency in this injector becoming ready
-    private void FinalizeTargetsIfDependencyIsReady(IInjectionTarget possibleDependency)
+    private void FinalizeAfterFinalization(object possibleDependency)
     {
         if (possibleDependency != _dependency) return;
-        if (AnyInjectFieldIsNull(_dependency)) return;
+        if (_emptyInjectFields > 0) return;
+
+        FinalizeTargets(DependencyReadyTrigger.finalization);
+        OnInjectionFinalize -= FinalizeAfterFinalization;
+    }
+
+    private void FinalizeTargets(DependencyReadyTrigger condition)
+    {
+        if (_readyTrigger != condition) return;
         _dependencyIsReady = true;
 
         foreach (var target in _targetsWaitingForFinalization)
@@ -92,7 +117,6 @@ public class Injector : ScriptableObject
         }
 
         _targetsWaitingForFinalization.Clear();
-        OnInjectionFinalize -= FinalizeTargetsIfDependencyIsReady;
     }
 
     //calls then dependency added to injector
@@ -116,7 +140,8 @@ public class Injector : ScriptableObject
         foreach (var field in fields)
         {
             if (!field.FieldType.IsAssignableFrom(_dependency.GetType())) continue;
-            injectionTarget.SetValue(field, _dependency);
+            injectionTarget.SetFieldValue(field, _dependency);
+            OnInjectionSuccess?.Invoke(injectionTarget.GetRealTarget());
         }
 
         if (_dependencyIsReady)
@@ -139,16 +164,25 @@ public class Injector : ScriptableObject
 
         injectionTarget.FinalizeInjection();
 
-        var realTarget = (injectionTarget as IDependencyProvider)?.realTarget ?? injectionTarget;
-
         //key part. starts the chain of FinalizeInjection call
-        OnInjectionFinalize?.Invoke(realTarget);
+        OnInjectionFinalize?.Invoke(injectionTarget.GetRealTarget());
     }
 
-    private bool AnyInjectFieldIsNull(object injectionTarget)
+    private int GetInjectFieldsCount(object obj)
     {
-        if (injectionTarget is not IInjectionTarget) return false;
-        return AnyInjectFieldIsNull(injectionTarget as IInjectionTarget);
+        if (_dependency is not IInjectionTarget && _readyTrigger == DependencyReadyTrigger.adding) return 0;
+
+        if (obj is IInjectionTarget injectionTarget)
+        {
+            var fields = FindAllInjectFields(injectionTarget.GetType());
+            return fields.Count(field => injectionTarget.FieldIsNull(field));
+        }
+        else
+        {
+            var fields = FindAllInjectFields(obj.GetType());
+            return fields.Count(field => field.GetValue(obj) == null);
+        }
+
     }
 
     private bool AnyInjectFieldIsNull(IInjectionTarget injectionTarget)
@@ -159,7 +193,7 @@ public class Injector : ScriptableObject
 
     private List<FieldInfo> FindAllInjectFields(Type type)
     {
-        var fieldsWithAttribute = new List<FieldInfo>();
+        _injectFieldCache.Clear();
 
         while (type != null)
         {
@@ -169,11 +203,21 @@ public class Injector : ScriptableObject
             foreach (var field in fields)
             {
                 if (field.GetCustomAttribute<InjectFieldAttribute>(false) is null) continue;
-                fieldsWithAttribute.Add(field);
+                _injectFieldCache.Add(field);
             }
             type = type.BaseType;
         }
 
-        return fieldsWithAttribute;
+        return _injectFieldCache;
+    }
+
+    private void LogType<T>(object obj, string message = "")
+    {
+        Type requiredType = typeof(T);
+        Type objType = (obj as IInjectionTarget)?.GetType() ?? obj.GetType();
+        if (objType == requiredType)
+        {
+            Debug.Log(message + " " + requiredType.Name);
+        }
     }
 }

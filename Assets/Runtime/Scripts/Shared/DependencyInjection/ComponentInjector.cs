@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
-using Map.Zones;
+using Map.Actions;
 
-public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IManualInjector
+public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget, IManualInjector
 {
     [SerializeField] MonoBehaviour _injectionTarget;
     [SerializeField] bool _waitForAllDependencies;
@@ -14,9 +12,9 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IMan
 
     [SerializeField] UnityEvent _finalizeInjectionHandler;
 
-    bool IInjectionTarget.waitForAllDependencies => _injectors.Length < 2 ? false : _waitForAllDependencies;
-    IInjectionTarget IDependencyProvider.realTarget => _injectionTarget as IInjectionTarget;
+    bool IInjectionTarget.waitForAllDependencies => false;
     MonoBehaviour IManualInjector.target => _injectionTarget;
+    int _remainedDependencies = 0;
 
     bool _targetAdded = false;
 
@@ -33,11 +31,17 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IMan
     public void AddTarget()
     {
         _targetAdded = true;
+        _remainedDependencies = _injectors.Length;
 
         foreach (var injector in _injectors)
         {
             injector.AddInjectionTarget(this);
         }
+    }
+
+    public object GetRealTarget()
+    {
+        return _injectionTarget;
     }
 
     private void TryAddTarget()
@@ -48,6 +52,8 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IMan
 
     void IInjectionTarget.FinalizeInjection()
     {
+        _remainedDependencies--;
+        if (_remainedDependencies > 0) return;
         _finalizeInjectionHandler?.Invoke();
     }
 
@@ -56,7 +62,7 @@ public sealed class ComponentInjector : MonoBehaviour, IDependencyProvider, IMan
         return _injectionTarget.GetType();
     }
 
-    void IInjectionTarget.SetValue(FieldInfo field, object dependency)
+    void IInjectionTarget.SetFieldValue(FieldInfo field, object dependency)
     {
         field.SetValue(_injectionTarget, dependency);
     }

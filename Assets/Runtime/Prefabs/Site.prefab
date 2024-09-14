@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 2905629595467949136}
-  _waitForAllDependencies: 0
+  _waitForAllDependencies: 1
   _addTargetManualy: 1
   _injectors:
   - {fileID: 11400000, guid: cf1bae660a8e3804bbb666a3d85ac866, type: 2}
