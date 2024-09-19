@@ -16,7 +16,7 @@ namespace Items.UI
         [SerializeField] StatList _statList;
         [Header("UI Elements")]
         [SerializeField] UIScreen _stealingScreen;
-        [SerializeField] InventorySection _catchedItems;
+        [SerializeField] ShopSection _catchedItems;
         [SerializeField] StorageSelector _storageList;
         [SerializeField] Bar _actionPointsBar;
         [SerializeField] StorageViewer _storageViewer;
@@ -26,7 +26,6 @@ namespace Items.UI
 
         int _playerSkill = 69;
         int _targetSecurity = 42;
-        int _selectedSlotCount = 6;
 
         ValueStorage _actionPoints;
         IContainersList _NPCInventory;
@@ -91,7 +90,7 @@ namespace Items.UI
 
         private void UpdateSelectedItems()
         {
-            _catchedItems.UpdateLayout(GetSelectedItems(_selectedSlotCount));
+            _catchedItems.ShowSelectedItems(_NPCInventory);
         }
 
         private void RemoveFromSelection(ItemSlotData item)
@@ -99,23 +98,6 @@ namespace Items.UI
             foreach(var section in _NPCInventory.GetAllContainers())
             {
                 section.DeselectItem(item);
-            }
-        }
-
-        private IEnumerable<ItemSlotData> GetSelectedItems(int slotCount)
-        {
-            foreach(var section in _NPCInventory.GetAllContainers())
-            {
-                foreach(var slot in section)
-                {
-                    slotCount--;
-                    yield return slot;
-                }
-            }
-
-            for(int i = slotCount; i >= 1; i--)
-            {
-                yield return new ItemSlotData();
             }
         }
     }

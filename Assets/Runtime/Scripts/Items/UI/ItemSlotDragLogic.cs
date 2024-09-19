@@ -7,7 +7,9 @@ namespace Items
     [RequireComponent(typeof(DragHandler))]
     public class ItemSlotDragLogic : MonoBehaviour, IDragDataSource<ItemSlotData>
     {
+        [HideIf("_disabled", true)]
         [SerializeField] DragableUIElement<ItemSlotData> _floatingItemPrefab;
+        [SerializeField] bool _disabled;
 
         public event UnityAction OnDragStart;
         //drag item
@@ -21,6 +23,7 @@ namespace Items
 
         void Awake()
         {
+            if (_disabled) return;
             var dragHandler = GetComponent<DragHandler>();
             dragHandler.OnDragStart += TriggerDragEvent;
             _dragDataHandler = new(this, _floatingItemPrefab);

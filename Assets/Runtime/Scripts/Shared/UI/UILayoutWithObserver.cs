@@ -21,7 +21,7 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
         }
     }
 
-    public void UpdateLayout(IEnumerable<T> data)
+    public virtual void UpdateLayout(IEnumerable<T> data)
     {
         ClearLayout();
 
@@ -31,6 +31,15 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
             uiElement.BindData(template);
             _observers.ForEach(observer => observer.AddToObserve(uiElement));
         }
+    }
+
+    public Vector2Int GetLayoutSize()
+    {
+        if (_layout is GridLayoutGroup grid)
+        {
+            return grid.GetLayoutSize();
+        }
+        return new Vector2Int(1, _layout.gameObject.transform.childCount);
     }
 
     protected virtual void ClearLayout()

@@ -52,6 +52,11 @@ namespace Items
             return _itemsSection.Except(_selectedItems);
         }
 
+        public IEnumerable<ItemSlotData> GetSelectedItems()
+        {
+            return _selectedItems;
+        }
+
         public void SelectItem(ItemSlotData item)
         {
             if (!_itemsSection.Contains(item)) return;
