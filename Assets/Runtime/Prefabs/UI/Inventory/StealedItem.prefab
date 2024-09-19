@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 5382295398105492822}
   - component: {fileID: -8727056967298458237}
   - component: {fileID: 8197376732390260811}
+  - component: {fileID: 1369550303396777805}
   m_Layer: 0
   m_Name: StealedItem
   m_TagString: Untagged
@@ -295,12 +296,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0facf2cee22f8e7498f954c281a129c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
   _icon: {fileID: 2632863187402208168}
   _outline: {fileID: 1525779167150725109}
-  _count: {fileID: 4508993415214102990}
+  _count: {fileID: 3555379033696843316}
+  _countText: {fileID: 4508993415214102990}
+  _dragLogic: {fileID: 1369550303396777805}
   _price: {fileID: 1852519169466902439}
-  _label: {fileID: 1107212890552671888}
 --- !u!114 &8197376732390260811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +315,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
+  _onDragStart: {fileID: 0}
+  _onDragEnd: {fileID: 0}
+--- !u!114 &1369550303396777805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329261298420222615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0822ad056628cd4f92c95c68420ab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _floatingItemPrefab: {fileID: 0}
+  _disabled: 1
 --- !u!1 &1809868545335331773
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +663,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022513f753bffff4eaedba187000e046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _edgeValue: 0
+  _activeif: 1
+  _staticText: 0
+  _baseText: 
+  _behavior: 1
   _labelText: {fileID: 8584220669152531891}
   _defaultTextColor: {r: 1, g: 1, b: 1, a: 1}
   _inactiveTextColor: {r: 1, g: 0, b: 0, a: 1}

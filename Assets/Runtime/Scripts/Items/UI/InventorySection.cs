@@ -23,6 +23,7 @@ namespace Items.UI
 
         void OnDestroy()
         {
+            if (_sectionData == null) return;
             _sectionData.OnSectionDataChange -= UpdateSectionView;
         }
 
