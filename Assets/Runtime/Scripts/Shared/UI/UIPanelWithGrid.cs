@@ -20,15 +20,25 @@ public abstract class UIPanelWithGrid<T> : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected virtual void UpdateLayout()
+    protected void SetLayoutVisibility(bool state)
+    {
+        _layout.gameObject.SetActive(state);
+    }
+
+    public virtual void UpdateLayout(IEnumerable<T> data)
     {
         ClearLayout();
 
-        foreach (var template in _layoutElementsData)
+        foreach (var template in data)
         {
             var uiElement = _layout.CreateChild(_layoutElementPrefab);
             uiElement.BindData(template);
         }
+    }
+
+    protected virtual void UpdateLayout()
+    {
+        UpdateLayout(_layoutElementsData);
     }
 
     protected void ClearLayout()
