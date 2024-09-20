@@ -25,6 +25,7 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
 
     public void Open()
     {
+        CloseOnStart = false;
         if (gameObject.activeSelf) return;
         gameObject.SetActive(true);
         OnScreenOpen?.Invoke();
