@@ -24,6 +24,8 @@ namespace Items.UI
         [SerializeField] TextMeshProUGUI _playerSkillText;
         [SerializeField] TextMeshProUGUI _targetSecurityText;
 
+        [InjectField] LootPanel _lootPanel;
+
         int _playerSkill = 69;
         int _targetSecurity = 42;
 
@@ -60,6 +62,17 @@ namespace Items.UI
         public void RemoveFromObserve(ItemSlot target)
         {
             target.OnClick -= ProcessClick;
+        }
+
+        //Used in Unity Editor
+        public void FinalizeStealing()
+        {
+            LootContainer loot = new();
+            //loot.AddSelectedItemsFrom(_NPCInventory);
+            _stealingScreen.Close();
+            if (loot.IsEmpty()) return;
+
+            _lootPanel.Open(loot);
         }
 
         private void ShowStorage(int storageNumber)
