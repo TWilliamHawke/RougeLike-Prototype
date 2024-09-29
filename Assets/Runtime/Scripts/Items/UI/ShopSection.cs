@@ -5,36 +5,26 @@ namespace Items.UI
 {
     public class ShopSection : UILayoutWithObserver<ItemSlotData, ItemSlotWithPrice>
     {
+        HashSet<ItemSlotData> _selectedItems = new();
+
         public override void UpdateLayout(IEnumerable<ItemSlotData> section)
         {
-            base.UpdateLayout(GetSlotIterator(section));
+            base.UpdateLayout(GetSlotIterator(section, _selectedItems));
         }
 
-        public void ShowSelectedItems(IContainersList containers)
+        public void ShowUnselectedItems(IEnumerable<ItemSlotData> section, HashSet<ItemSlotData> selectedItems)
         {
-            var selectedSlots = GetSelectedSlots(containers);
-            var iterator = GetSlotIterator(selectedSlots);
-            base.UpdateLayout(iterator);
+            base.UpdateLayout(GetSlotIterator(section, selectedItems));
         }
 
-        IEnumerable<ItemSlotData> GetSelectedSlots(IContainersList containers)
-        {
-            foreach(var section in containers.GetAllContainers())
-            {
-                foreach(var slot in section.GetSelectedItems())
-                {
-                    yield return slot;
-                }
-            }
-        }
-
-        IEnumerable<ItemSlotData> GetSlotIterator(IEnumerable<ItemSlotData> section)
+        IEnumerable<ItemSlotData> GetSlotIterator(IEnumerable<ItemSlotData> section, HashSet<ItemSlotData> selectedItems)
         {
             var size = GetLayoutSize();
             var emptySlots = size.x;
 
             foreach (var slot in section)
             {
+                if (selectedItems.Contains(slot)) continue;
                 emptySlots = emptySlots < 0 ? size.x : emptySlots - 1;
                 yield return slot;
             }

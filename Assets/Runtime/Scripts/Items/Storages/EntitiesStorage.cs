@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Items
 {
-    public abstract class EntitiesStorage : IItemStorage, IContainersList, IObserver<Entity>
+    public abstract class EntitiesStorage : IItemStorage, IInteractiveStorage, IObserver<Entity>
     {
         protected LootContainer _creaturesLoot = new();
         protected List<ItemContainer> _NPCItems = new();
@@ -13,6 +13,7 @@ namespace Items
 
         public ItemContainer this[int idx] => throw new System.NotImplementedException();
 
+        public abstract bool isStealingTarget { get; set; }
         public abstract void AddToObserve(Entity target);
         public abstract void RemoveFromObserve(Entity target);
         protected abstract void HandleDeath(Entity target);

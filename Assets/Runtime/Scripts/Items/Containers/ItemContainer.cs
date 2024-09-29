@@ -20,7 +20,6 @@ namespace Items
         public bool isIdentified { get; private set; } = false;
 
         protected ItemSection _itemsSection;
-        HashSet<ItemSlotData> _selectedItems = new();
 
         public event UnityAction OnSectionDataChange;
 
@@ -45,27 +44,6 @@ namespace Items
 
         protected ItemContainer()
         {
-        }
-
-        public IEnumerable<ItemSlotData> GetUnselectedItems()
-        {
-            return _itemsSection.Except(_selectedItems);
-        }
-
-        public IEnumerable<ItemSlotData> GetSelectedItems()
-        {
-            return _selectedItems;
-        }
-
-        public void SelectItem(ItemSlotData item)
-        {
-            if (!_itemsSection.Contains(item)) return;
-            _selectedItems.Add(item);
-        }
-
-        public void DeselectItem(ItemSlotData item)
-        {
-            _selectedItems.Remove(item);
         }
 
         public void Unlock()

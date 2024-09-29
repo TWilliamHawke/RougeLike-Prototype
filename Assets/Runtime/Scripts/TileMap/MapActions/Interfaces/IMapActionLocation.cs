@@ -5,7 +5,7 @@ namespace Map
 {
     public interface IMapActionLocation
     {
-        IContainersList inventory { get; }
+        IInteractiveStorage inventory { get; }
         void ReplaceFactionForAll(Faction replacer);
     }
 }

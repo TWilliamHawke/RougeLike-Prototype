@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,10 +14,11 @@ namespace Items.UI
         [SerializeField] StorageProtectionPanel _lockPanel;
         [SerializeField] StorageProtectionPanel _trapPanel;
 
-        public event UnityAction OnItemSelection;
+        public event UnityAction<ItemSlotData> OnItemSelection;
 
         ItemContainer _storage;
         ValueStorage _actionPoints;
+        HashSet<ItemSlotData> _selectedItems = new();
 
         int _unlockSkill = 4;
         int _disarmTrapSkill = 4;
@@ -29,9 +31,10 @@ namespace Items.UI
             _gridView.AddObserver(this);
         }
 
-        public void SetActionPoints(ValueStorage actionPoints)
+        public void SetActionPoints(ValueStorage actionPoints, HashSet<ItemSlotData> selectedItems)
         {
             _actionPoints = actionPoints;
+            _selectedItems = selectedItems;
         }
 
         public void ShowStorage(ItemContainer storage)
@@ -60,12 +63,12 @@ namespace Items.UI
             if (_storage.isIdentified)
             {
                 _listView.Show();
-                _listView.UpdateLayout(_storage.GetUnselectedItems());
+                _listView.ShowUnselectedItems(_storage, _selectedItems);
                 return;
             }
 
             _gridView.Show();
-            _gridView.UpdateLayout(_storage.GetUnselectedItems());
+            _gridView.ShowUnselectedItems(_storage, _selectedItems);
         }
 
         private void HideAllPanels()
@@ -78,10 +81,7 @@ namespace Items.UI
 
         private void ProcessClick(ItemSlotData item)
         {
-            _actionPoints.ReduceValue(item.slotPrice);
-            _storage.SelectItem(item);
-            UpdatePanels();
-            OnItemSelection?.Invoke();
+            OnItemSelection?.Invoke(item);
         }
 
         private void UnlockChest()

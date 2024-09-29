@@ -34,7 +34,7 @@ namespace Map.Zones
 
         public string displayName => _template.displayName;
         public Sprite icon => _template.icon;
-        public IContainersList inventory => _aliveEntitiesStorage;
+        public IInteractiveStorage inventory => _aliveEntitiesStorage;
 
         public IMapActionList actionList => _actionsController;
         public TaskData currentTask => _taskController.currentTask;
