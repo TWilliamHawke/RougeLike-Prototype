@@ -17,6 +17,11 @@ namespace Items
             lootTable.FillItemSection(ref _itemsSection);
         }
 
+        public void AddItems(IEnumerable<ItemSlotData> itemSlots)
+        {
+            itemSlots.ForEach(itemSlot => _itemsSection.AddItems(itemSlot));
+        }
+
         public ItemContainer ContainerAt(int idx)
         {
             return this;

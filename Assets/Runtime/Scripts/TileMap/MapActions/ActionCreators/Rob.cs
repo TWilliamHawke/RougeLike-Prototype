@@ -23,16 +23,16 @@ namespace Map.Actions
 
         class RobAction : IMapAction
         {
-            public bool isEnable => true;
+            public bool isEnable => !_inventory.IsEmpty() && _inventory.isStealingTarget;
             public bool isHidden => false;
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
 
             readonly IIconData _template;
             readonly IStealingController _controller;
-            readonly IContainersList _inventory;
+            readonly IInteractiveStorage _inventory;
 
-            public RobAction(IIconData template, IStealingController controller, IContainersList inventory)
+            public RobAction(IIconData template, IStealingController controller, IInteractiveStorage inventory)
             {
                 _template = template;
                 _controller = controller;

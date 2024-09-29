@@ -30,8 +30,11 @@ namespace Items.UI
         int _targetSecurity = 42;
 
         ValueStorage _actionPoints;
-        IContainersList _NPCInventory;
+        IInteractiveStorage _NPCInventory;
         IItemPriceCalculator _priceCalculator;
+
+        List<ItemSlotData> _selectedItems = new();
+        HashSet<ItemSlotData> _selectedItemsSet = new();
 
         int maxActionPoints => Mathf.CeilToInt(100f * _playerSkill / _targetSecurity);
 
@@ -39,39 +42,43 @@ namespace Items.UI
         {
             _catchedItems.AddObserver(this);
             _storageList.OnContainerSelected += ShowStorage;
-            _storageViewer.OnItemSelection += UpdateSelectedItems;
+            _storageViewer.OnItemSelection += AddItemsToSelection;
             _priceCalculator = new StealingCostCalculator(_playerStats);
         }
 
-        public void OpenScreen(IContainersList inventory)
+        public void OpenScreen(IInteractiveStorage inventory)
         {
             _NPCInventory = inventory;
             _priceCalculator.SetPrices(inventory);
             _storageList.SetInventory(inventory);
             InitActionPoints();
-            UpdateSelectedItems();
+            _catchedItems.UpdateLayout(_selectedItems);
             SetSkillText();
             _stealingScreen.Open();
         }
 
         public void AddToObserve(ItemSlot target)
         {
-            target.OnClick += ProcessClick;
+            target.OnClick += RemoveItemFromSelection;
         }
 
         public void RemoveFromObserve(ItemSlot target)
         {
-            target.OnClick -= ProcessClick;
+            target.OnClick -= RemoveItemFromSelection;
         }
 
         //Used in Unity Editor
         public void FinalizeStealing()
         {
             LootContainer loot = new();
-            //loot.AddSelectedItemsFrom(_NPCInventory);
+            loot.AddItems(_selectedItems);
+            _selectedItems.ForEach(slot => slot.RemoveAllItems());
+            _selectedItemsSet.Clear();
+            _selectedItems.Clear();
             _stealingScreen.Close();
             if (loot.IsEmpty()) return;
 
+            _NPCInventory.isStealingTarget = false;
             _lootPanel.Open(loot);
         }
 
@@ -83,7 +90,7 @@ namespace Items.UI
         private void InitActionPoints()
         {
             _actionPoints = new ValueStorage(0, maxActionPoints, maxActionPoints);
-            _storageViewer.SetActionPoints(_actionPoints);
+            _storageViewer.SetActionPoints(_actionPoints, _selectedItemsSet);
             _actionPointsBar.AddToObserve(_actionPoints);
         }
 
@@ -93,30 +100,26 @@ namespace Items.UI
             _targetSecurityText.text = _targetSecurity.ToString();
         }
 
-        private void ProcessClick(ItemSlotData item)
+        private void RemoveItemFromSelection(ItemSlotData item)
         {
+            if (!_selectedItemsSet.Contains(item)) return;
+
             _actionPoints.IncreaseValue(item.slotPrice);
-            RemoveFromSelection(item);
-            UpdateSelectedItems();
+            _selectedItemsSet.Remove(item);
+            _selectedItems.Remove(item);
+            _catchedItems.UpdateLayout(_selectedItems);
             _storageViewer.UpdatePanels();
         }
 
-        private void UpdateSelectedItems()
+        private void AddItemsToSelection(ItemSlotData item)
         {
-            _catchedItems.ShowSelectedItems(_NPCInventory);
-        }
+            if (_selectedItemsSet.Contains(item)) return;
+            if (!_actionPoints.TryReduceValue(item.slotPrice)) return;
 
-        private void RemoveFromSelection(ItemSlotData item)
-        {
-            foreach(var section in _NPCInventory.GetAllContainers())
-            {
-                section.DeselectItem(item);
-            }
+            _selectedItemsSet.Add(item);
+            _selectedItems.Add(item);
+            _catchedItems.UpdateLayout(_selectedItems);
+            _storageViewer.UpdatePanels();
         }
-    }
-
-    public interface IStealingController
-    {
-        void OpenScreen(IContainersList inventory);
     }
 }

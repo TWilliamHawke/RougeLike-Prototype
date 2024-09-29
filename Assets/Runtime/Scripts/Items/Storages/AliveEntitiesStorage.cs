@@ -4,6 +4,8 @@ namespace Items
 {
     public class AliveEntitiesStorage : EntitiesStorage
     {
+        public override bool isStealingTarget { get; set; } = true;
+
         public override void AddToObserve(Entity target)
         {
             target.OnDeath += HandleDeath;
