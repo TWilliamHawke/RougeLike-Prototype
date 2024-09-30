@@ -9,12 +9,9 @@ namespace Map.UI
 {
 	public class ActionButton : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField] Sprite _activeBg;
-		[SerializeField] Sprite _inactiveBg;
 		[Header("UI Elements")]
 		[SerializeField] Image _actionIcon;
 		[SerializeField] TextMeshProUGUI _actionTitle;
-		[SerializeField] Image _buttonBg;
 		[SerializeField] Button _button;
 
 		IMapAction _action;
@@ -32,15 +29,6 @@ namespace Map.UI
 			_actionTitle.text = actionLogic.actionTitle;
 			this.gameObject.SetActive(true);
 			_button.interactable = actionLogic.isEnable;
-
-			if(actionLogic.isEnable)
-			{
-				_buttonBg.sprite = _activeBg;
-			}
-			else
-			{
-				_buttonBg.sprite = _inactiveBg;
-			}
 		}
 
 		public void Hide()
