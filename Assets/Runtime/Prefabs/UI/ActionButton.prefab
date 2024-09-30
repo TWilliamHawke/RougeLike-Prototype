@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 82, y: -1.4851}
-  m_SizeDelta: {x: 90, y: 90}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9172827478836184101
 CanvasRenderer:
@@ -144,8 +144,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3fccc703093741f479a46f65b30e7c0d, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 700625f4eb0e8c74e8c7b93bcc0fd8e5, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -175,11 +175,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0, g: 0.4245283, b: 0.36731416, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.31132078, b: 0.27096438, a: 1}
+    m_PressedColor: {r: 0, g: 0.42352942, b: 0.36862746, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.8666667}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -210,8 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ceed83fd43f1144e8e285c7ca8c75e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeBg: {fileID: 21300000, guid: 3fccc703093741f479a46f65b30e7c0d, type: 3}
-  _inactiveBg: {fileID: 21300000, guid: 87d9e51d2f8fc0b4e8d275d853d55312, type: 3}
   _actionIcon: {fileID: 8921665441876602940}
   _actionTitle: {fileID: 5066929566410913032}
   _buttonBg: {fileID: 6750728485135746649}
@@ -308,8 +306,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

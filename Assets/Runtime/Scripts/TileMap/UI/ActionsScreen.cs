@@ -10,8 +10,7 @@ namespace Map.UI
     {
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _title;
-        [SerializeField] Image _zoneIcon1;
-        [SerializeField] Image _zoneIcon2;
+        [SerializeField] Image _zoneIcon;
         [SerializeField] ActionButtonsPanel _actionButtonsPanel;
 
         public void SetTitle(string text)
@@ -21,8 +20,7 @@ namespace Map.UI
 
         public void SetIcon(Sprite icon)
         {
-            _zoneIcon1.sprite = icon;
-            _zoneIcon2.sprite = icon;
+            _zoneIcon.sprite = icon;
         }
 
         public void SetActions(IMapActionList actionLogics)
