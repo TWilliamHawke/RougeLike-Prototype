@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class TargetEffectAbility : Ability, IAbilityWithTarget, IEffectSource
+    public class TargetAbilityTemplate : AbilityTemplate, IAbilityWithTarget, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;
 

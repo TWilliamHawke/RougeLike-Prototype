@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class MeleeAttackAbility : Ability
+    public class MeleeAbilityTemplate : AbilityTemplate
     {
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {

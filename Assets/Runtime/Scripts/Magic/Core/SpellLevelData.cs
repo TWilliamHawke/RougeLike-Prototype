@@ -9,7 +9,7 @@ namespace Magic
 	[System.Serializable]
 	public class SpellLevelData
 	{
-		public Ability spellEffect;
+		public AbilityTemplate spellEffect;
 		public int manaCost;
 	}
 }
