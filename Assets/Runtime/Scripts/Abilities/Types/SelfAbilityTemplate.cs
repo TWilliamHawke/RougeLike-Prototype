@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Effect On Self")]
-    public class SelfEffectAbility : Ability, IEffectSource
+    public class SelfAbilityTemplate : AbilityTemplate, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;
 

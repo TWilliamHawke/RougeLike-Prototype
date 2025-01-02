@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Projectile")]
-    public class ProjectileAbility : Ability, IAbilityWithTarget
+    public class ProjectileAbilityTemplate : AbilityTemplate, IAbilityWithTarget
     {
         [SerializeField] ProjectileTemplate _projectile;
         [SerializeField] int _minDamage;

@@ -26,7 +26,7 @@ namespace Magic
         public int manaCost => CalculateManaCost();
         public bool spellHasMaxRank => rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
-        public Ability spellEffect => _spell.GetEffectAt(rank);
+        public AbilityTemplate spellEffect => _spell.GetEffectAt(rank);
 
         public bool waitForAllDependencies => false;
 

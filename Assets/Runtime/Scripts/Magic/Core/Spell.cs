@@ -34,7 +34,7 @@ namespace Magic
             return levelData.manaCost;
         }
 
-        public Ability GetEffectAt(int rank)
+        public AbilityTemplate GetEffectAt(int rank)
         {
             var levelData = GetLevelData(rank);
             return levelData.spellEffect;
