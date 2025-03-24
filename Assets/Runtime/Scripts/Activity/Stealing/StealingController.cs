@@ -104,7 +104,7 @@ namespace Items.UI
         {
             if (!_selectedItemsSet.Contains(item)) return;
 
-            _actionPoints.IncreaseValue(item.slotPrice);
+            _actionPoints.ChangeValueBy(item.slotPrice);
             _selectedItemsSet.Remove(item);
             _selectedItems.Remove(item);
             _catchedItems.UpdateLayout(_selectedItems);
