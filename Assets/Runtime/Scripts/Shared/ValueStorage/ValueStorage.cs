@@ -21,7 +21,6 @@ public class ValueStorage : IValueStorage
     int _maxValue;
     int _currentValue;
     int _minValue;
-    float _pctOfMax = 0f;
     bool _flatFirst = true;
 
     public event UnityAction<int> OnValueChange;
@@ -30,31 +29,28 @@ public class ValueStorage : IValueStorage
 
     public ValueStorage(int minValue, int maxValue, int startValue, bool flatFirst = true)
     {
-        _maxValue = maxValue;
-        _minValue = minValue;
+        _maxValue = Mathf.Max(minValue, maxValue);
+        _minValue = Mathf.Min(minValue, maxValue);
         SetNewValue(startValue);
         _flatFirst = flatFirst;
     }
 
-    public ValueStorage() : this(0, int.MaxValue, 0)
-    {
-    }
+    public ValueStorage() : this(0, int.MaxValue, 0) { }
 
     public void SetNewValue(float newValue)
     {
         if (_currentValue == newValue) return;
 
-        var oldPctOfMax = _pctOfMax;
+        int oldValue = _currentValue;
         _currentValue = NormalizeValue(newValue);
-        _pctOfMax = (float)_currentValue / (_maxValue - _minValue);
         OnValueChange?.Invoke(_currentValue);
 
-        if (_currentValue == _minValue && oldPctOfMax > 0f)
+        if (_currentValue == _minValue && oldValue > _minValue)
         {
             OnReachMin?.Invoke();
         }
 
-        if (_currentValue == _maxValue && oldPctOfMax < 1f)
+        if (_currentValue == _maxValue && oldValue < _maxValue)
         {
             OnReachMax?.Invoke();
         }
@@ -68,19 +64,22 @@ public class ValueStorage : IValueStorage
         }
     }
 
-    public void IncreaseValue(int change)
+    public void RemoveBonusValue(BonusValueType bonusType, float bonus)
     {
-        SetNewValue(_currentValue + change);
+        if (_bonusValues.TryGetValue(bonusType, out IBonusValueLogic bonusValue))
+        {
+            bonusValue.RemoveBonusValue(bonus);
+        }
     }
 
-    public void ReduceValue(int change)
+    public void ChangeValueBy(int change)
     {
-        SetNewValue(_currentValue - change);
+        SetNewValue(GetSumSafe(_currentValue, change));
     }
 
     public bool TryReduceValue(int value)
     {
-        int newValue = _currentValue - value;
+        int newValue = GetSumSafe(_currentValue, -value);
         if (newValue < minValue) return false;
 
         SetNewValue(newValue);
@@ -113,5 +112,22 @@ public class ValueStorage : IValueStorage
     {
         value = Mathf.Clamp(value, _minValue, _maxValue);
         return Mathf.RoundToInt(value);
+    }
+
+    private int GetSumSafe(int a, int b)
+    {
+        //prevent overflow
+        if (b < 0 && int.MinValue - b > a)
+        {
+            return _minValue;
+        }
+        else if (b > 0 && int.MaxValue - b < a)
+        {
+            return _maxValue;
+        }
+        else
+        {
+            return a + b;
+        }
     }
 }
