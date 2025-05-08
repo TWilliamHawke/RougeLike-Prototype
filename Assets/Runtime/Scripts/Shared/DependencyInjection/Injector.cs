@@ -119,7 +119,7 @@ public class Injector : ScriptableObject
         _targetsWaitingForFinalization.Clear();
     }
 
-    //calls then dependency added to injector
+    //calls when dependency added to injector
     private void InjectForWaitingTargets()
     {
         foreach (var target in _targetsWaitingForInjection)

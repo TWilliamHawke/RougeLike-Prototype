@@ -14,7 +14,7 @@ namespace Abilities
             return true;
         }
 
-        public override void SelectControllerUsage(AbilityController controller)
+        public override void SelectAbilityController(AbilityController controller)
         {
             controller.StartTargetSelection(this);
         }

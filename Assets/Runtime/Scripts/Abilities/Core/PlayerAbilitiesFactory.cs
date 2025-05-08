@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class AbilitiesFactory : MonoBehaviour
+    public class PlayerAbilitiesFactory : MonoBehaviour, IAbilitiesFactory
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] StoredResource _mana;
@@ -22,12 +22,12 @@ namespace Abilities
 
         public IAbilityContainer CreateItemAbility(Item item)
         {
-            return new ItemUsageInstruction(item, _inventory);
+            return new ItemAbilityContainer(item, _inventory);
         }
 
         public IAbilityContainer CreateSpellAbility(KnownSpellData spell)
         {
-            return new SpellUsageInstruction(spell, _manaStorage);
+            return new SpellAbilityContainer(spell, _manaStorage);
         }
     }
 }

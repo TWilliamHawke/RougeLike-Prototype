@@ -34,7 +34,7 @@ namespace Magic.Actions
         {
             factory.Add(new ShowInfo<KnownSpellData>());
             factory.Add(new BindToQuickbar<KnownSpellData>(
-                _player.GetComponent<AbilitiesFactory>(), _quickBarSetupController));
+                _player.GetComponent<PlayerAbilitiesFactory>(), _quickBarSetupController));
             factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
             factory.Add(new EditSpell(_spellEditor));
             factory.Add(new CopySpell(_spellbook));

@@ -9,7 +9,7 @@ namespace Abilities
         [SerializeField] Spellbook _spellbook;
         [SerializeField] QuickBarDataStorage _quickBarDataStorage;
 
-        HashSet<SpellUsageInstruction> _activeSpells = new();
+        HashSet<SpellAbilityContainer> _activeSpells = new();
 
         void Awake()
         {
@@ -25,7 +25,7 @@ namespace Abilities
 
         public void AddToObserve(IAbilityContainer target)
         {
-            if (target is SpellUsageInstruction instruction)
+            if (target is SpellAbilityContainer instruction)
             {
                 _activeSpells.Add(instruction);
             }
@@ -33,7 +33,7 @@ namespace Abilities
 
         public void RemoveFromObserve(IAbilityContainer target)
         {
-            if (target is SpellUsageInstruction instruction)
+            if (target is SpellAbilityContainer instruction)
             {
                 _activeSpells.Remove(instruction);
             }

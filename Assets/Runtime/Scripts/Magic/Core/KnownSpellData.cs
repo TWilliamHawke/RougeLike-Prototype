@@ -89,7 +89,7 @@ namespace Magic
             return spellEffect.GetDescription(oldAbilityMods) + "->\n" + spellEffect.GetDescription(newAbilityMods);
         }
 
-        public IAbilityContainer CreateAbilityContainer(AbilitiesFactory factory)
+        public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
             return factory.CreateSpellAbility(this);
         }

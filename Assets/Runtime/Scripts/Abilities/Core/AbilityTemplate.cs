@@ -5,13 +5,13 @@ using UnityEngine;
 namespace Abilities
 {
     public abstract class AbilityTemplate : ScriptableObject
-	{
-		[UseFileName]
-		[SerializeField] string _displayName;
+    {
+        [UseFileName]
+        [SerializeField] string _displayName;
 
-		public string displayName => _displayName;
+        public string displayName => _displayName;
 
-	    public abstract void SelectControllerUsage(AbilityController controller);
-		public abstract string GetDescription(AbilityModifiers abilityModifiers);
+        public abstract void SelectAbilityController(AbilityController controller);
+        public abstract string GetDescription(AbilityModifiers abilityModifiers);
 	}
 }

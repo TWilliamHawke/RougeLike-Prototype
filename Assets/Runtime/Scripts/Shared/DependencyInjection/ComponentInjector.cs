@@ -14,7 +14,7 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget, IManual
 
     bool IInjectionTarget.waitForAllDependencies => false;
     MonoBehaviour IManualInjector.target => _injectionTarget;
-    int _remainedDependencies = 0;
+    int _remainingDependencies = 0;
 
     bool _targetAdded = false;
 
@@ -31,7 +31,7 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget, IManual
     public void AddTarget()
     {
         _targetAdded = true;
-        _remainedDependencies = _injectors.Length;
+        _remainingDependencies = _injectors.Length;
 
         foreach (var injector in _injectors)
         {
@@ -52,8 +52,8 @@ public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget, IManual
 
     void IInjectionTarget.FinalizeInjection()
     {
-        _remainedDependencies--;
-        if (_remainedDependencies > 0) return;
+        _remainingDependencies--;
+        if (_remainingDependencies > 0) return;
         _finalizeInjectionHandler?.Invoke();
     }
 
