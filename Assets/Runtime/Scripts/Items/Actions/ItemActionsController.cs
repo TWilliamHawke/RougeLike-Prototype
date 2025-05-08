@@ -35,7 +35,7 @@ namespace Items.Actions
             factory.Add(new Equip());
             factory.Add(new MoveToStorage());
             factory.Add(new BindToQuickbar<ItemSlotData>(
-                _player.GetComponent<AbilitiesFactory>(), _quickBarSetupController));
+                _player.GetComponent<PlayerAbilitiesFactory>(), _quickBarSetupController));
             factory.Add(new Destroy(_inventory, _modalWindowController));
             factory.Add(new Drop());
         }

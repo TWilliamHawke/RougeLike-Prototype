@@ -7,10 +7,10 @@ namespace Core
 {
     public class BindToQuickbar<T> : RadialActionFactory<T>
     {
-        AbilitiesFactory _abilitiesFactory;
+        PlayerAbilitiesFactory _abilitiesFactory;
         QuickBarSetupController _quickBarSetupController;
 
-        public BindToQuickbar(AbilitiesFactory abilitiesFactory, QuickBarSetupController quickBarSetupController)
+        public BindToQuickbar(PlayerAbilitiesFactory abilitiesFactory, QuickBarSetupController quickBarSetupController)
         {
             _abilitiesFactory = abilitiesFactory;
             _quickBarSetupController = quickBarSetupController;
@@ -29,13 +29,13 @@ namespace Core
         class BindToQuickbarAction<U> : IRadialMenuAction
         {
             U _element;
-        AbilitiesFactory _abilitiesFactory;
+        PlayerAbilitiesFactory _abilitiesFactory;
         QuickBarSetupController _quickBarSetupController;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.topRight;
             public string actionTitle => "Bind To Quickbar";
 
-            public BindToQuickbarAction(U element, AbilitiesFactory abilitiesFactory, QuickBarSetupController quickBarSetupController)
+            public BindToQuickbarAction(U element, PlayerAbilitiesFactory abilitiesFactory, QuickBarSetupController quickBarSetupController)
             {
                 _element = element;
                 _abilitiesFactory = abilitiesFactory;

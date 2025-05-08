@@ -22,7 +22,7 @@ namespace Abilities
             return target.GetComponent<Health>() != null;
         }
 
-        public override void SelectControllerUsage(AbilityController controller)
+        public override void SelectAbilityController(AbilityController controller)
         {
             controller.StartTargetSelection(this);
         }

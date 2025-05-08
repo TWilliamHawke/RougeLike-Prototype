@@ -5,7 +5,7 @@ using Items;
 
 namespace Abilities
 {
-	public class ItemUsageInstruction : IAbilityContainer
+	public class ItemAbilityContainer : IAbilityContainer
 	{
 		Inventory _inventory;
 
@@ -16,7 +16,7 @@ namespace Abilities
 
         Item _item;
 
-        public ItemUsageInstruction(Item item, Inventory inventory)
+        public ItemAbilityContainer(Item item, Inventory inventory)
         {
             _item = item;
             _inventory = inventory;

@@ -27,7 +27,7 @@ namespace Abilities
             return sb.ToString();
         }
 
-        public override void SelectControllerUsage(AbilityController controller)
+        public override void SelectAbilityController(AbilityController controller)
         {
             foreach (var effectData in _effects)
             {

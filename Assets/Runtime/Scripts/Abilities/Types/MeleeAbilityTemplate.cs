@@ -12,7 +12,7 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override void SelectControllerUsage(AbilityController controller)
+        public override void SelectAbilityController(AbilityController controller)
         {
             throw new System.NotImplementedException();
         }

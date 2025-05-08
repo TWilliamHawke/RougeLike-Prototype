@@ -17,7 +17,7 @@ namespace Items
         public bool triggerModalWindow => false;
         public bool destroyAfterUse => true;
 
-        public IAbilityContainer CreateAbilityContainer(AbilitiesFactory factory)
+        public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
             return factory.CreateItemAbility(this);
         }

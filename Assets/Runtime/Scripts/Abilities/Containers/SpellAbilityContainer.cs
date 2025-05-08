@@ -8,7 +8,7 @@ using System;
 
 namespace Abilities
 {
-    public class SpellUsageInstruction : IAbilityContainer
+    public class SpellAbilityContainer : IAbilityContainer
     {
         ISafeStatController _manaStorage;
         KnownSpellData _spellData;
@@ -18,7 +18,7 @@ namespace Abilities
         public string displayName => _spellData.displayName;
         public int numOfUses => -1;
 
-        public SpellUsageInstruction(KnownSpellData spellData, ISafeStatController manaStorage)
+        public SpellAbilityContainer(KnownSpellData spellData, ISafeStatController manaStorage)
         {
             _spellData = spellData;
             _manaStorage = manaStorage;
@@ -28,7 +28,7 @@ namespace Abilities
         {
             if (_manaStorage.TryReduceStat(_spellData.manaCost))
             {
-                _spellData.spellEffect.SelectControllerUsage(controller);
+                _spellData.spellEffect.SelectAbilityController(controller);
             }
         }
 
