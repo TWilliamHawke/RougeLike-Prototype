@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Abilities
 {
+    [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Effect on target")]
     public class TargetAbilityTemplate : AbilityTemplate, IAbilityWithTarget, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;

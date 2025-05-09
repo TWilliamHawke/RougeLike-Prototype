@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entities.Combat;
+using Abilities;
 
 namespace Entities.AI
 {

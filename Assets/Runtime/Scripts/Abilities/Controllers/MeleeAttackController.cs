@@ -4,8 +4,9 @@ using Core.Settings;
 using UnityEngine;
 using Core.Input;
 using UnityEngine.Events;
+using Entities.Combat;
 
-namespace Entities.Combat
+namespace Abilities
 {
     public class MeleeAttackController : MonoBehaviour, IInjectionTarget
     {

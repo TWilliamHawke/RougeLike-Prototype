@@ -4,17 +4,15 @@ using UnityEngine;
 
 namespace Abilities
 {
-	public class SummonAbility : MonoBehaviour
-	{
-	    void Awake()
-	    {
-	        
-	    }
-	
+    public class SummonAbility : IAbility
+    {
+        public Sprite abilityIcon => throw new System.NotImplementedException();
 
-	    void Update()
-	    {
-	        
-	    }
-	}
+        SummonAbilityTemplate _template;
+
+        public SummonAbility(SummonAbilityTemplate template)
+        {
+            _template = template;
+        }
+    }
 }

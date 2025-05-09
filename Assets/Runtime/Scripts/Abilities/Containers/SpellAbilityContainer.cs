@@ -13,7 +13,7 @@ namespace Abilities
         ISafeStatController _manaStorage;
         KnownSpellData _spellData;
 
-        public Sprite abilityIcon => _spellData.icon;
+        public Sprite icon => _spellData.icon;
         public bool canBeUsed => _manaStorage.currentValue >= _spellData.manaCost;
         public string displayName => _spellData.displayName;
         public int numOfUses => -1;

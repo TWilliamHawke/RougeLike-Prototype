@@ -3,10 +3,10 @@ using Core.Settings;
 using Map;
 using UnityEngine;
 using Core.Input;
-using Core;
 using UnityEngine.Events;
+using Entities;
 
-namespace Entities.Behavior
+namespace Abilities
 {
     public class MovementController : MonoBehaviour, IInjectionTarget
     {
