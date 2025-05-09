@@ -30,7 +30,7 @@ namespace Abilities
         private void SetSlotData(IAbilityContainerData data)
         {
             _abilityIcon.Show();
-            _abilityIcon.sprite = data.abilityIcon;
+            _abilityIcon.sprite = data.icon;
             _abilityName.text = $"{slotIndex + 1} - {data.displayName}";
 
             if (data.numOfUses > -1)

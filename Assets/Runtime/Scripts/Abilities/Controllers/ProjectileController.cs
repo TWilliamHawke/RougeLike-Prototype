@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Events;
 using Map;
+using Entities.Combat;
 
-namespace Entities.Combat
+namespace Abilities
 {
     public class ProjectileController : MonoBehaviour, IInjectionTarget
     {

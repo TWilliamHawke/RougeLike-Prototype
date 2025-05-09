@@ -1,12 +1,9 @@
 using System.Collections.Generic;
-using Core;
-using Entities.Behavior;
-using Entities.Combat;
 using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
-using UnityEngine.Events;
 using System.Linq;
+using Abilities;
 
 namespace Entities.AI
 {

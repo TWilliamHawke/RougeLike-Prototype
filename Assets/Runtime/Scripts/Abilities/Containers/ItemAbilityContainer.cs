@@ -5,11 +5,11 @@ using Items;
 
 namespace Abilities
 {
-	public class ItemAbilityContainer : IAbilityContainer
-	{
-		Inventory _inventory;
+    public class ItemAbilityContainer : IAbilityContainer
+    {
+        Inventory _inventory;
 
-        public Sprite abilityIcon => _item.icon;
+        public Sprite icon => _item.icon;
         public bool canBeUsed => _inventory.FindItemCount(_item) > 0;
         public string displayName => _item.displayName;
         public int numOfUses => _inventory.FindItemCount(_item);

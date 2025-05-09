@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Combat;
 using UnityEngine;
 
 namespace Abilities
 {
+    [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Melee")]
     public class MeleeAbilityTemplate : AbilityTemplate
     {
         public override string GetDescription(AbilityModifiers abilityModifiers)

@@ -56,7 +56,7 @@ namespace Abilities
         public void UpdateSlotGraphic(IAbilityContainerData data)
         {
             _actionIcon.gameObject.SetActive(true);
-            _actionIcon.sprite = data.abilityIcon;
+            _actionIcon.sprite = data.icon;
         }
 
         public void OnPointerClick(PointerEventData eventData)

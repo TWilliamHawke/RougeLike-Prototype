@@ -4,6 +4,7 @@ using Entities;
 using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine;
+using Abilities;
 
 namespace Core.Input
 {
