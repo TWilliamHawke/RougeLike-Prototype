@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Map;
 
-namespace Entities.Behavior
+namespace Map.Helpers
 {
     public class VisibilityChecker
     {

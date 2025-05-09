@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace Entities.Combat
+namespace Abilities
 {
     public class Projectile : MonoBehaviour
     {
@@ -20,7 +20,6 @@ namespace Entities.Combat
             _TMPSprite.text = template.bodyChar;
             _TMPSprite.color = template.color;
             _TMPSprite.enabled = true;
-
         }
 
         public void PlayImpactSound()
