@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Map;
 using UnityEngine;
 using System.Linq;
 
-namespace Entities.Behavior
+namespace Map.Helpers
 {
     public class PathFinder
     {

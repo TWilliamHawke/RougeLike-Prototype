@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 
-namespace Entities.Combat
+namespace Abilities
 {
     public class AoeAnimation : MonoBehaviour
     {

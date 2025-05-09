@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities.Combat;
 using UnityEngine;
 
-namespace Entities.Combat
+namespace Abilities
 {
 	[CreateAssetMenu(fileName = " ProjectileTemplate", menuName = "Entities/ProjectileTemplate")]
 	public class ProjectileTemplate : ScriptableObject, IDamageSource

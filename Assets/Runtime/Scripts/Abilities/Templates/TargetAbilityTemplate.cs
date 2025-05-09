@@ -23,10 +23,10 @@ namespace Abilities
         public void UseOnTarget(AbilityController _, IAbilityTarget target)
         {
             var effectsStorage = target.GetComponent<EffectsStorage>();
-			foreach (var effect in _effects)
-			{
-				effect.ApplyEffect(effectsStorage, this);
-			}
+            foreach (var effect in _effects)
+            {
+                effect.ApplyEffect(effectsStorage, this);
+            }
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)

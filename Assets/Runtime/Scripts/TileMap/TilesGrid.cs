@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
-using Entities.Behavior;
 using UnityEngine;
+using Map.Helpers;
 
 namespace Map
 {
