@@ -4,13 +4,8 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public abstract class AbilityTemplate : ScriptableObject
+    public abstract class AbilityTemplate : DisplayedObject
     {
-        [UseFileName]
-        [SerializeField] string _displayName;
-
-        public string displayName => _displayName;
-
         public abstract void SelectAbilityController(AbilityController controller);
         public abstract string GetDescription(AbilityModifiers abilityModifiers);
 	}

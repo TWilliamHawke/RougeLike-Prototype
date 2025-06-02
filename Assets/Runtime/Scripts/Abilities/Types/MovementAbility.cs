@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class MovementAbility : IAbility
+    public class MovementAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        MovementAbilityTemplate _template;
+        MovementAbilityTemplate _template { get; init; }
 
         public MovementAbility(MovementAbilityTemplate template)
         {

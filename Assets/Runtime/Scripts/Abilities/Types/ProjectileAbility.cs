@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class ProjectileAbility : IAbility
+    public class ProjectileAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        ProjectileAbilityTemplate _template;
+        ProjectileAbilityTemplate _template { get; init; }
 
         public ProjectileAbility(ProjectileAbilityTemplate template)
         {
