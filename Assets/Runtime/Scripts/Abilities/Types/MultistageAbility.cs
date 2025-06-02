@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class MultistageAbility : IAbility
+    public class MultistageAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        MultistageAbilityTemplate _template;
+        MultistageAbilityTemplate _template { get; init; }
 
         public MultistageAbility(MultistageAbilityTemplate template)
         {

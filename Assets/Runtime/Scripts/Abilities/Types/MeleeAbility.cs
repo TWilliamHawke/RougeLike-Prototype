@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class MeleeAbility : IAbility
+    public class MeleeAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        MeleeAbilityTemplate _template;
+        MeleeAbilityTemplate _template { get; init; }
 
         public MeleeAbility(MeleeAbilityTemplate template)
         {

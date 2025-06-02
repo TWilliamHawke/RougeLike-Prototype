@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class DirectAbility : IAbility
+    public class DirectAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        DirectAbilityTemplate _template;
+        DirectAbilityTemplate _template { get; init; }
 
         public DirectAbility(DirectAbilityTemplate template)
         {

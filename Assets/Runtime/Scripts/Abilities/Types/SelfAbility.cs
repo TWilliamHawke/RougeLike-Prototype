@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class SelfAbility : IAbility
+    public class SelfAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        SelfAbilityTemplate _template;
+        SelfAbilityTemplate _template { get; init; }
 
         public SelfAbility(SelfAbilityTemplate template)
         {

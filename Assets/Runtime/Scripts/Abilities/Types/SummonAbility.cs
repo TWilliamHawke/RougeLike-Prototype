@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class SummonAbility : IAbility
+    public class SummonAbility : AbstractAbility
     {
-        public Sprite abilityIcon => throw new System.NotImplementedException();
+        protected override AbilityTemplate template => _template;
 
-        SummonAbilityTemplate _template;
+        SummonAbilityTemplate _template { get; init; }
 
         public SummonAbility(SummonAbilityTemplate template)
         {

@@ -10,8 +10,8 @@ namespace Abilities
     [RequireComponent(typeof(EffectsStorage))]
     public class AbilityController : MonoBehaviour, IEntityComponent
     {
-		public Body _body;
-		public event UnityAction<IAbilityWithTarget> OnTargetSelectionStart;
+        public Body _body;
+        public event UnityAction<IAbilityWithTarget> OnTargetSelectionStart;
         public event UnityAction OnAbilityUse;
 
         IAbilityWithTarget _performedAbility;
@@ -37,7 +37,7 @@ namespace Abilities
         public void StartTargetSelection(IAbilityWithTarget ability)
         {
             _performedAbility = ability;
-			OnTargetSelectionStart?.Invoke(ability);
+            OnTargetSelectionStart?.Invoke(ability);
         }
 
         public void SelectTarget(IAbilityTarget target)
@@ -46,9 +46,9 @@ namespace Abilities
             OnAbilityUse?.Invoke();
         }
 
-		public void PlaySound(AudioClip sound)
-		{
-			_body.PlaySound(sound);
-		}
+        public void PlaySound(AudioClip sound)
+        {
+            _body.PlaySound(sound);
+        }
     }
 }
