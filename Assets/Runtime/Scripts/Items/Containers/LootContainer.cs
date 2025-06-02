@@ -7,9 +7,8 @@ namespace Items
         public override ItemStorageType storageType => ItemStorageType.loot;
         public int count => 1;
 
-        public LootContainer()
+        public LootContainer() : base(new ItemSection(new LootSectionTemplate()))
         {
-            _itemsSection = new ItemSection(new LootSectionTemplate());
         }
 
         public void AddItemsFrom(LootTable lootTable)

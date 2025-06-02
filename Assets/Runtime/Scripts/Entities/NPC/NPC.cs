@@ -20,8 +20,6 @@ namespace Entities.NPC
         NPCTemplate _template;
 
         public override Dictionary<DamageType, int> resists => inventory.resists;
-        //HACK 
-        public override LootTable lootTable => inventory.loot;
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
         public override ITemplateWithBaseStats template => _template;
 
@@ -64,12 +62,12 @@ namespace Entities.NPC
             body.PlaySound(inventory.weapon.attackSound);
         }
 
-        public override void AddLoot(IItemStorage storage)
+        public override void AddLootTo(IItemStorage storage)
         {
-            inventory.ForEach(container => storage.AddItems(container));
+            inventory.ForEach(container => storage.AddItemsFrom(container));
         }
 
-        public override void RemoveLoot(IItemStorage storage)
+        public override void RemoveLootFrom(IItemStorage storage)
         {
             inventory.ForEach(container => storage.RemoveItems(container));
         }

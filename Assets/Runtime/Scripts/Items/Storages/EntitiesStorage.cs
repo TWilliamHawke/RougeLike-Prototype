@@ -18,12 +18,12 @@ namespace Items
         public abstract void RemoveFromObserve(Entity target);
         protected abstract void HandleDeath(Entity target);
 
-        public void AddItems(ItemContainer container)
+        public void AddItemsFrom(ItemContainer container)
         {
             _NPCItems.Add(container);
         }
 
-        public void AddItems(LootTable lootTable)
+        public void AddItemsFrom(LootTable lootTable)
         {
             _creaturesLoot.AddItemsFrom(lootTable);
         }

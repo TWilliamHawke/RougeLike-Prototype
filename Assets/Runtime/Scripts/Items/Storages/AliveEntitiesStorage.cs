@@ -9,7 +9,7 @@ namespace Items
         public override void AddToObserve(Entity target)
         {
             target.OnDeath += HandleDeath;
-            target.AddLoot(this);
+            target.AddLootTo(this);
         }
 
         public override void RemoveFromObserve(Entity target)
@@ -19,7 +19,7 @@ namespace Items
 
         protected override void HandleDeath(Entity target)
         {
-            target.RemoveLoot(this);
+            target.RemoveLootFrom(this);
         }
     }
 }
