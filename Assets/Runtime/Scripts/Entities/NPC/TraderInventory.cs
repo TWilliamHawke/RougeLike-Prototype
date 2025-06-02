@@ -25,7 +25,7 @@ namespace Entities.NPC
 
             public override IEnumerator<ItemContainer> GetEnumerator()
             {
-                yield return equipment;
+                yield return equipmentContainer;
 
                 for (int i = 0; i < _tradeItems.Count; i++)
                 {
@@ -37,7 +37,7 @@ namespace Entities.NPC
             {
                 if (idx == 0)
                 {
-                    return equipment;
+                    return equipmentContainer;
                 }
                 else
                 {

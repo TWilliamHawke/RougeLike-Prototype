@@ -36,11 +36,10 @@ namespace Entities
         public int expForKill => template.expForKill;
 
         public abstract Dictionary<DamageType, int> resists { get; }
-        public abstract LootTable lootTable { get; }
         public abstract AudioClip[] deathSounds { get; }
         public abstract IDamageSource damageSource { get; }
-        public abstract void AddLoot(IItemStorage storage);
-        public abstract void RemoveLoot(IItemStorage storage);
+        public abstract void AddLootTo(IItemStorage storage);
+        public abstract void RemoveLootFrom(IItemStorage storage);
         public abstract void InitInteractiveZone(IMapZone mapZoneLogic);
 
         public Body body => _body;

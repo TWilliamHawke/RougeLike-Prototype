@@ -16,7 +16,7 @@ namespace Items
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
-        public string storageName { get; private set; }
+        public string storageName { get; init; }
         public bool isIdentified { get; private set; } = false;
 
         protected ItemSection _itemsSection;
@@ -28,22 +28,25 @@ namespace Items
         public int filledSlotsCount => _itemsSection.filledSlotsCount;
         public bool isEmpty => _itemsSection.isEmpty;
         public bool isInfinity => _itemsSection.isInfinity;
-        public string sectionName => storageName;
+        public string sectionName => _itemsSection.sectionName;
 
-        public ItemContainer(string name, LootTable lootTable)
+        public ItemContainer(ItemSection itemsSection) : this(itemsSection.sectionName, itemsSection)
         {
-            _itemsSection = new ItemSection(name);
+        }
+
+        public ItemContainer(string name, ItemSection itemsSection)
+        {
+            _itemsSection = itemsSection;
             _itemsSection.OnSectionDataChange += HandleSectionChangeEvent;
             storageName = name;
-            lootTable.FillItemSection(ref _itemsSection);
         }
 
-        public ItemContainer(ItemContainerData template) : this(template.storageName, template.loot)
+        public ItemContainer(ItemContainerData template)
         {
-        }
-
-        protected ItemContainer()
-        {
+            storageName = template.storageName;
+            _itemsSection = new(template.storageName);
+            _itemsSection.AddItemsFrom(template.loot);
+            _itemsSection.OnSectionDataChange += HandleSectionChangeEvent;
         }
 
         public void Unlock()

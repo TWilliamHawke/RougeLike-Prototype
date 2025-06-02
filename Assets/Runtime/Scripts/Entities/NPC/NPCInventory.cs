@@ -15,23 +15,34 @@ namespace Entities.NPC
             public Dictionary<DamageType, int> resists { get; init; } = new();
 
             public Weapon weapon { get; init; }
-            public LootTable loot { get; init; }
-            public ItemContainer equipment { get; init; }
+            public ItemContainer equipmentContainer { get; init; }
+            ItemSection _equipment;
 
             public virtual int sectionsCount => 1;
-            public virtual ItemContainer this[int idx] => equipment;
+            public virtual ItemContainer this[int idx] => equipmentContainer;
 
             public NPCInventory(NPCInventoryTemplate template)
             {
                 weapon = template.weapon;
-                loot = template.inventory;
+                _equipment = new();
+                _equipment.AddItemsFrom(template.inventory);
 
-                equipment = new("Equipment", loot);
+                equipmentContainer = new("Equipment", _equipment);
+            }
+
+            public void AddItem(Item item)
+            {
+                _equipment.AddItem(item);
+            }
+
+            public int FindItemCount(Item item)
+            {
+                return _equipment.FindItemCount(item);
             }
 
             public virtual IEnumerator<ItemContainer> GetEnumerator()
             {
-                yield return equipment;
+                yield return equipmentContainer;
             }
 
             IEnumerator IEnumerable.GetEnumerator()

@@ -17,7 +17,6 @@ namespace Entities
 
         public override AudioClip[] deathSounds => _template.sounds.deathSounds;
 
-        public override LootTable lootTable => _template.lootTable;
         public override IDamageSource damageSource => _template;
         public override ITemplateWithBaseStats template => _template;
 
@@ -41,12 +40,12 @@ namespace Entities
             body.PlaySound(_template.attackSounds.GetRandom());
         }
 
-        public override void AddLoot(IItemStorage storage)
+        public override void AddLootTo(IItemStorage storage)
         {
-            storage.AddItems(_template.lootTable);
+            storage.AddItemsFrom(_template.lootTable);
         }
 
-        public override void RemoveLoot(IItemStorage storage)
+        public override void RemoveLootFrom(IItemStorage storage)
         {
 
         }

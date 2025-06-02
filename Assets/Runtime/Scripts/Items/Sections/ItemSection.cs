@@ -84,9 +84,7 @@ namespace Items
         //UNDONE this code can create slots over _maxSlotsCount!!!
         //should return int
         public void AddItems(Item item, int count)
-        {
-            if(item is null) return;
-            
+        {            
             if (_activeSlotsByItem.TryGetValue(item, out var itemSlot))
             {
                 int freeSpace = item.maxStackSize - itemSlot.count;
@@ -123,12 +121,23 @@ namespace Items
             return itemsCount;
         }
 
+        public void AddItemsFrom(LootTable lootTable)
+        {
+            lootTable.FillItemSection(this);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            var itemSlot = _activeSlotsByItem[item];
+            itemSlot.RemoveOneItem();
+        }
+
         public void Refresh()
         {
-            _activeSlotsByItem =_activeSlotsByItem
+            _activeSlotsByItem = _activeSlotsByItem
                 .Where(pair => pair.Value.count > 0)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
-            
+
             _itemsList = _itemsList
                 .Where(slotData => slotData.count > 0)
                 .ToList();

@@ -20,7 +20,7 @@ namespace Items
 
         protected override void HandleDeath(Entity target)
         {
-            target.AddLoot(this);
+            target.AddLootTo(this);
         }
     }
 }

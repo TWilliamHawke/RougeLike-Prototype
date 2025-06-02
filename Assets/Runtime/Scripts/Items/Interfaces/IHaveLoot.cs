@@ -6,9 +6,8 @@ namespace Items
 {
 	public interface IHaveLoot
 	{
-	    LootTable lootTable { get; }
-        void AddLoot(IItemStorage container);
-        void RemoveLoot(IItemStorage container);
+        void AddLootTo(IItemStorage container);
+        void RemoveLootFrom(IItemStorage container);
 	}
 }
 

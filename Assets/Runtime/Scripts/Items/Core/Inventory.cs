@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Inventory : ScriptableObject, IPermanentDependency
+    public class Inventory : ScriptableObject, IInventory, IPermanentDependency
     {
         [SerializeField] Item[] _testItems;
         [SerializeField] Resource[] _startResources;

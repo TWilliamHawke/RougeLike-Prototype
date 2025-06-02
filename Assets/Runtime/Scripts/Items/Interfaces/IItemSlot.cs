@@ -1,6 +1,6 @@
 namespace Items
 {
-    public interface IItemSlot
+	public interface IItemSlot
 	{
 		void BindData(ItemSlotData slotData);
 		void Clear();

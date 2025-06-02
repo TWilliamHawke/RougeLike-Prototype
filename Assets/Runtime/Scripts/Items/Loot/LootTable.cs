@@ -33,6 +33,11 @@ namespace Items
             _dataListGenerator.FillDataList(ref loot);
         }
 
+        public void FillItemSection<T>(T loot) where T : ILootStorage
+        {
+            _dataListGenerator.FillDataList(ref loot);
+        }
+
         public ItemSection GetLoot()
         {
             var section = new ItemSection(new LootSectionTemplate());

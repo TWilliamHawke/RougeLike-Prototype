@@ -7,7 +7,7 @@ namespace Abilities
 {
     public class ItemAbilityContainer : IAbilityContainer
     {
-        Inventory _inventory;
+        IInventory _inventory;
 
         public Sprite icon => _item.icon;
         public bool canBeUsed => _inventory.FindItemCount(_item) > 0;
@@ -16,7 +16,7 @@ namespace Abilities
 
         Item _item;
 
-        public ItemAbilityContainer(Item item, Inventory inventory)
+        public ItemAbilityContainer(Item item, IInventory inventory)
         {
             _item = item;
             _inventory = inventory;
