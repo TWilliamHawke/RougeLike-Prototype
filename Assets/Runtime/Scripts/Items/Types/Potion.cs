@@ -7,32 +7,18 @@ using Abilities;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource, IUsableItem
+	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource
 	{
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
 
         public Sprite abilityIcon => icon;
-
-        public bool triggerModalWindow => false;
         public bool destroyAfterUse => true;
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
-            return factory.CreateItemAbility(this);
-        }
-
-        public void UseItem(AbilityController controller)
-        {
-            UseAbility(controller);
-        }
-
-        public void UseAbility(AbilityController controller)
-        {
-            foreach (var effectData in _effects)
-			{
-				controller.ApplyToSelf(effectData, this);
-			}
+            SelfAbility ability = new SelfAbility(this, _effects);
+            return factory.CreateItemAbility(this, ability);
         }
 
         public override string GetDescription()
@@ -43,6 +29,11 @@ namespace Items
         public override string GetItemType()
         {
             return "Potion";
+        }
+
+        public IAbility CreateAbility()
+        {
+            return new SelfAbility(this, _effects);
         }
     }
 }

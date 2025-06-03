@@ -7,6 +7,8 @@ namespace Abilities
         public Sprite abilityIcon => template.icon;
         public string abilityName => template.displayName;
 
-        protected abstract AbilityTemplate template { get; }
+        protected abstract IIconData template { get; }
+
+        public abstract void Use(AbilityController abilityController);
     }
 }

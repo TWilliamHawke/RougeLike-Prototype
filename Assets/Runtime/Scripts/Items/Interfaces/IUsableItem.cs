@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace Items
 {
-    public interface IUsableItem
+	public interface IUsableItem
 	{
-	    void UseItem(AbilityController abilityController);
 		AudioClip useSound { get; }
 		bool destroyAfterUse { get; }
+		void Use();
 	}
 }

@@ -1,0 +1,54 @@
+using Abilities;
+using Core;
+
+namespace Items.Actions
+{
+    public class UseAbility : RadialActionFactory<ItemSlotData>
+    {
+        IAbilitiesFactory _abilitiesFactory;
+        AbilityController _abilityController;
+
+        public UseAbility(IAbilitiesFactory abilitiesFactory, AbilityController abilityController)
+        {
+            _abilitiesFactory = abilitiesFactory;
+            _abilityController = abilityController;
+        }
+
+        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        {
+            return new UseAbilityAction(itemSlot, _abilitiesFactory, _abilityController);
+        }
+
+        protected override bool ElementIsValid(ItemSlotData itemSlot)
+        {
+            return (itemSlot.slotContainer == ItemStorageType.inventory ||
+                itemSlot.slotContainer == ItemStorageType.storage) &&
+                itemSlot?.item is IItemWithAbility;
+        }
+
+        class UseAbilityAction : IRadialMenuAction
+        {
+            public string actionTitle => "Use";
+            IAbilityContainer _abilityContainer;
+            AbilityController _abilityController;
+
+            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
+
+            public UseAbilityAction(ItemSlotData itemSlot,
+                IAbilitiesFactory abilitiesFactory, AbilityController abilityController)
+            {
+                var item = itemSlot.item as IAbilitySource;
+                if (item is null) return;
+                _abilityController = abilityController;
+                _abilityContainer = item.CreateAbilityContainer(abilitiesFactory);
+            }
+
+            public void DoAction()
+            {
+                if (_abilityContainer is null) return;
+                _abilityContainer.UseAbility(_abilityController);
+            }
+
+        }
+    }
+}

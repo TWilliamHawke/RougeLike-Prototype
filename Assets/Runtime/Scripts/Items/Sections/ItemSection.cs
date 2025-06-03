@@ -126,8 +126,14 @@ namespace Items
             lootTable.FillItemSection(this);
         }
 
+        public bool HasItem(Item item)
+        {
+            return _activeSlotsByItem.ContainsKey(item);
+        }
+
         public void RemoveItem(Item item)
         {
+            if (!_activeSlotsByItem.ContainsKey(item)) return;
             var itemSlot = _activeSlotsByItem[item];
             itemSlot.RemoveOneItem();
         }

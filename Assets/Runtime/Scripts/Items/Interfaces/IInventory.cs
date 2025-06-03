@@ -4,5 +4,6 @@ namespace Items
     {
         void AddItem(Item item);
         int FindItemCount(Item item);
+        void RemoveOneItem(Item item);
 	}
 }

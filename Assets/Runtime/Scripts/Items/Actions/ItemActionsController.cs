@@ -29,13 +29,17 @@ namespace Items.Actions
 
         protected override void FillFactory(FactoryList factory)
         {
-            factory.Add(new Use(_player.GetComponent<AbilityController>()));
+            var abilityController = _player.GetComponent<AbilityController>();
+            var abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
+
+            factory.Add(new Use(abilityController));
+            factory.Add(new UseAbility(abilitiesFactory, abilityController));
             factory.Add(new Buy());
             factory.Add(new Sell());
             factory.Add(new Equip());
             factory.Add(new MoveToStorage());
             factory.Add(new BindToQuickbar<ItemSlotData>(
-                _player.GetComponent<PlayerAbilitiesFactory>(), _quickBarSetupController));
+                abilitiesFactory, _quickBarSetupController));
             factory.Add(new Destroy(_inventory, _modalWindowController));
             factory.Add(new Drop());
         }

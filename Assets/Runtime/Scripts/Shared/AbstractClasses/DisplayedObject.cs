@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DisplayedObject : ScriptableObject
+public abstract class DisplayedObject : ScriptableObject, IIconData
 {
     [LocalisationKey]
     [SerializeField] string _displayName;

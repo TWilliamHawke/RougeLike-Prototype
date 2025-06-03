@@ -35,7 +35,7 @@ namespace Items
             return "SpellTome";
         }
 
-        public void UseItem(AbilityController abilityController)
+        public void Use()
         {
             _spellHasBeenAdded = _spellBook.TryAddSpell(_spell);
         }

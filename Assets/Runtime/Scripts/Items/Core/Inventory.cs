@@ -100,6 +100,16 @@ namespace Items
             return _sectionsByTemplate[template];
         }
 
+        public void RemoveOneItem(Item item)
+        {
+            foreach(var section in _sections)
+            {
+                if (!section.HasItem(item)) continue;
+                section.RemoveItem(item);
+                break;
+            }
+        }
+
         private void CreateSections()
         {
             _sections = new List<IItemSection>(_sectionsOrder.Length + 1);

@@ -8,8 +8,10 @@ namespace Items
         // void RemoveItemFromSlot(ItemSlotData itemSlotData);
         void AddItem(Item item);
         void AddItems(Item item, int count);
-		bool ItemMeet(Item item);
+        bool ItemMeet(Item item);
         void Clear();
         int FindItemCount(Item item);
+        void RemoveItem(Item item);
+        bool HasItem(Item item);
     }
 }

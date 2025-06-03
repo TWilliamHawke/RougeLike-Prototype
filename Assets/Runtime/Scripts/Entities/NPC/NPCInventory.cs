@@ -45,6 +45,11 @@ namespace Entities.NPC
                 yield return equipmentContainer;
             }
 
+            public void RemoveOneItem(Item item)
+            {
+                _equipment.RemoveItem(item);
+            }
+
             IEnumerator IEnumerable.GetEnumerator()
             {
                 return GetEnumerator();

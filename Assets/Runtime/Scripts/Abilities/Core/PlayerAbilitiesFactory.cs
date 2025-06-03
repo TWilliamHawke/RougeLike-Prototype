@@ -20,9 +20,9 @@ namespace Abilities
             _manaStorage = _playerStats.FindStorage(_mana);
         }
 
-        public IAbilityContainer CreateItemAbility(Item item)
+        public IAbilityContainer CreateItemAbility(Item item, IAbility ability)
         {
-            return new ItemAbilityContainer(item, _inventory);
+            return new ItemAbilityContainer(item, _inventory, ability);
         }
 
         public IAbilityContainer CreateSpellAbility(KnownSpellData spell)
