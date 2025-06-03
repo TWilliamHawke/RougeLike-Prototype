@@ -27,6 +27,8 @@ namespace Magic
         public bool spellHasMaxRank => rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
         public AbilityTemplate spellEffect => _spell.GetEffectAt(rank);
+        public int baseManaCost => _spell.GetCostAt(rank);
+        public IEffectsIterator activeEffects => _activeStrings;
 
         public bool waitForAllDependencies => false;
 
@@ -53,6 +55,15 @@ namespace Magic
             KnownSpellData data = new(_spell);
             data.displayName = name;
             data._playerSpellController = _playerSpellController;
+            return data;
+        }
+
+        public KnownSpellData CreateDeepCopy()
+        {
+            KnownSpellData data = new(_spell);
+            data.displayName = displayName;
+            data.rank = rank;
+            data._activeStrings = _activeStrings.Clone();
             return data;
         }
 

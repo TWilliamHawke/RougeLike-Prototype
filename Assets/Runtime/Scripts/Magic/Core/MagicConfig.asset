@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d672e0e4d75685944a5e3eac32329176, type: 3}
+  m_Name: MagicConfig
+  m_EditorClassIdentifier: 
+  _spellCostFactor: {fileID: 11400000, guid: 9358d9a57f4fe7b439649e51d76d201b, type: 2}
+  _spellPower: {fileID: 11400000, guid: 2bd9ac40914d2e3409edb5e1c3eb709e, type: 2}
+  _mana: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
+  _minSpellCostOfBase: 0.1
