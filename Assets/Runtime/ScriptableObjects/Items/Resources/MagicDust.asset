@@ -18,6 +18,6 @@ MonoBehaviour:
   _maxStackSize: 10000
   _value: 0
   _soundKit: {fileID: 0}
-  _resourceType: 0
+  _resourceType: 2
   _startCount: 5000
   _description: 

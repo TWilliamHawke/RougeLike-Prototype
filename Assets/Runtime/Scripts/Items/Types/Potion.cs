@@ -18,7 +18,7 @@ namespace Items
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
             SelfAbility ability = new SelfAbility(this, _effects);
-            return factory.CreateItemAbility(this, ability);
+            return factory.CreateItemAbilityContainer(this, ability);
         }
 
         public override string GetDescription()

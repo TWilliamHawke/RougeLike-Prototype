@@ -392,7 +392,6 @@ GameObject:
   - component: {fileID: 7746625641524832713}
   - component: {fileID: 3181854499066711308}
   - component: {fileID: 1727609378632740904}
-  - component: {fileID: 7255645199260307820}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -434,7 +433,6 @@ MonoBehaviour:
   _stats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
   _body: {fileID: 1921085457}
   _testResists: {fileID: 11400000, guid: 8cf33a657405d484494447d5578ff8aa, type: 2}
-  _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
 --- !u!114 &1257288472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,8 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-  _mana: {fileID: 11400000, guid: 065711b265f38a14eb19b6fdd9a3d4e8, type: 2}
-  _playerStats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
+  _magicConfig: {fileID: 11400000, guid: 9bdf7a99e86688c468d831d335b28055, type: 2}
 --- !u!114 &6603279187782306258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 7328594240612423248}
   _injector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _readyTrigger: 2
 --- !u!114 &3181854499066711308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dependency: {fileID: 4189106966660664010}
   _injector: {fileID: 11400000, guid: b5019c50cbfb7bf4e80953e609e3d903, type: 2}
+  _readyTrigger: 2
 --- !u!114 &1727609378632740904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,34 +709,6 @@ MonoBehaviour:
       - m_Target: {fileID: 7328594240612423248}
         m_TargetAssemblyTypeName: Entities.PlayerScripts.Player, Project
         m_MethodName: StartTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7255645199260307820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7328594240612423254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _customEvent: {fileID: 11400000, guid: 1d689219d7ebd9444a3862439a991c1f, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2007208757649129885}
-        m_TargetAssemblyTypeName: Abilities.AbilitiesFactory, Project
-        m_MethodName: FindManaStorage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

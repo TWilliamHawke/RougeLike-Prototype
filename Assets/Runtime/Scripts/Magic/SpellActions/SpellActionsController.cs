@@ -10,10 +10,10 @@ using Abilities;
 
 namespace Magic.Actions
 {
-    using FactoryList = List<IActionFactory<KnownSpellData>>;
+    using FactoryList = List<IActionFactory<SpellContainer>>;
 
     [RequireComponent(typeof(ComponentInjector))]
-    public class SpellActionsController : ActionController<KnownSpellData>, IObserver<KnownSpellSlot>
+    public class SpellActionsController : ActionController<SpellContainer>, IObserver<KnownSpellSlot>
     {
         [SerializeField] Spellbook _spellbook;
         [SerializeField] SpellPage _spellEditor;
@@ -32,8 +32,8 @@ namespace Magic.Actions
 
         protected override void FillFactory(FactoryList factory)
         {
-            factory.Add(new ShowInfo<KnownSpellData>());
-            factory.Add(new BindToQuickbar<KnownSpellData>(
+            factory.Add(new ShowInfo<SpellContainer>());
+            factory.Add(new BindToQuickbar<SpellContainer>(
                 _player.GetComponent<PlayerAbilitiesFactory>(), _quickBarSetupController));
             factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
             factory.Add(new EditSpell(_spellEditor));

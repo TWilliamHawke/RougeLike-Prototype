@@ -6,11 +6,13 @@ public class MultBonusValue : IBonusValueLogic
 
     public void AddBonusValue(float value)
     {
+        value = value >= 10 ? value / 100 : value;
         bonusValue *= value;
     }
 
     public void RemoveBonusValue(float value)
     {
+        value = value >= 10 ? value / 100 : value;
         bonusValue /= value;
     }
 

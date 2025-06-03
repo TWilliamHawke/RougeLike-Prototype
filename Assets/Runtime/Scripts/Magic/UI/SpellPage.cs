@@ -88,7 +88,7 @@ namespace Magic.UI
 
         private void OpenIncreaseRankPanel(int _)
         {
-            SelectSlot(-1);
+            SelectSlot(RANK_UP_IDX);
         }
 
         private void SelectSlot(int idx)

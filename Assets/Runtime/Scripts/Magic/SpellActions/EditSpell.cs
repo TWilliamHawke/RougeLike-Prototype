@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Magic.Actions
 {
-    public class EditSpell : RadialActionFactory<KnownSpellData>
+    public class EditSpell : RadialActionFactory<SpellContainer>
     {
         SpellPage _spellPage;
 
@@ -15,12 +15,12 @@ namespace Magic.Actions
             _spellPage = spellPage;
         }
 
-        protected override IRadialMenuAction CreateAction(KnownSpellData element)
+        protected override IRadialMenuAction CreateAction(SpellContainer element)
         {
-            return new EditSpellAction(element, _spellPage);
+            return new EditSpellAction(element.spellData, _spellPage);
         }
 
-        protected override bool ElementIsValid(KnownSpellData element)
+        protected override bool ElementIsValid(SpellContainer element)
         {
             return true;
         }

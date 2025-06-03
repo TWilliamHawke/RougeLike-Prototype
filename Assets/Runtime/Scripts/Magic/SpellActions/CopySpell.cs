@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Magic.Actions
 {
-    public class CopySpell : RadialActionFactory<KnownSpellData>
+    public class CopySpell : RadialActionFactory<SpellContainer>
     {
         Spellbook _spellbook;
 
@@ -15,12 +15,12 @@ namespace Magic.Actions
             _spellbook = spellbook;
         }
 
-        protected override IRadialMenuAction CreateAction(KnownSpellData element)
+        protected override IRadialMenuAction CreateAction(SpellContainer element)
         {
-            return new CopySpellAction(_spellbook, element);
+            return new CopySpellAction(_spellbook, element.spellData);
         }
 
-        protected override bool ElementIsValid(KnownSpellData element)
+        protected override bool ElementIsValid(SpellContainer element)
         {
             return true;
         }
