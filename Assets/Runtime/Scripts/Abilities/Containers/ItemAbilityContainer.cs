@@ -15,16 +15,19 @@ namespace Abilities
         public int numOfUses => _inventory.FindItemCount(_item);
 
         Item _item;
+        IAbility _ability;
 
-        public ItemAbilityContainer(Item item, IInventory inventory)
+        public ItemAbilityContainer(Item item, IInventory inventory, IAbility ability)
         {
             _item = item;
             _inventory = inventory;
+            _ability = ability;
         }
 
         public void UseAbility(AbilityController controller)
         {
-            (_item as IItemWithAbility)?.UseAbility(controller);
+            _ability.Use(controller);
+            _inventory.RemoveOneItem(_item);
             controller.PlaySound(_item.useSound);
         }
     }

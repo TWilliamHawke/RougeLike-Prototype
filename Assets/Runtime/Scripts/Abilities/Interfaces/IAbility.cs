@@ -6,5 +6,6 @@ namespace Abilities
     {
         Sprite abilityIcon { get; }
         string abilityName { get; }
+        void Use(AbilityController abilityController);
     }
 }

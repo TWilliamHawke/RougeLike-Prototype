@@ -1,8 +1,4 @@
-using System.Collections.Generic;
 using Core;
-using Core.UI;
-using Effects;
-using System.Linq;
 using Abilities;
 
 namespace Items.Actions
@@ -46,7 +42,7 @@ namespace Items.Actions
 
             public void DoAction()
             {
-                _item.UseItem(_playerAbilityController);
+                _item.Use();
                 _playerAbilityController.PlaySound(_item.useSound);
 
                 if(_item.destroyAfterUse)

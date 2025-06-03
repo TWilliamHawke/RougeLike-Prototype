@@ -11,13 +11,15 @@ namespace Abilities
     public class SelfAbilityTemplate : AbilityTemplate, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;
+        
+        public IEnumerable<SourceEffectData> effects => _effects;
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             var sb = new StringBuilder();
             string pattern1 = @"%m";
 
-            foreach(var effectData in _effects)
+            foreach (var effectData in _effects)
             {
                 var magnitude = effectData.power * abilityModifiers.magnitudeMult;
                 var realDescription = Regex.Replace(effectData.effect.description, pattern1, magnitude.ToString());

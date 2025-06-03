@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Effects
 {
-    public interface IEffectSource : IBonusValueSource
+    public interface IEffectSource : IIconData, IBonusValueSource
 	{
-	    string displayName { get; }
 	}
 
     public interface IStaticEffectData

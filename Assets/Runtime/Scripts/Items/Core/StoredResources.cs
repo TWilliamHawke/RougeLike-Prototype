@@ -68,7 +68,19 @@ namespace Items
             }
         }
 
+        public void RemoveItem(Item item)
+        {
+        }
 
+        public bool HasItem(Item item)
+        {
+            if (item is not Resource resource)
+            {
+                return false;
+            }
+
+            return _resources[resource.type] > 0;
+        }
 
 
         void IItemSection.AddItem(Item item)
