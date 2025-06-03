@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f71dbfde04137bf449d9045cd00b3a90, type: 3}
-  m_Name: SpellCast
+  m_Name: SpellCost
   m_EditorClassIdentifier: 
   _displayName: effect_name_spell_cast
   _description: effect_descr_spell_cast

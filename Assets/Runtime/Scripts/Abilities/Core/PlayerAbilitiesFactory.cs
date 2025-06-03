@@ -9,15 +9,19 @@ namespace Abilities
     public class PlayerAbilitiesFactory : MonoBehaviour, IAbilitiesFactory
     {
         [SerializeField] Inventory _inventory;
-        [SerializeField] StoredResource _mana;
-        [SerializeField] PlayerStats _playerStats;
+        [SerializeField] MagicConfig _magicConfig;
 
-        ResourceStorage _manaStorage;
+        StatsContainer _statsContainer;
+
+        void Awake()
+        {
+            _statsContainer = GetComponent<StatsContainer>();
+        }
 
         // used in editor
         public void FindManaStorage()
         {
-            _manaStorage = _playerStats.FindStorage(_mana);
+
         }
 
         public IAbilityContainer CreateItemAbility(Item item, IAbility ability)
@@ -27,7 +31,7 @@ namespace Abilities
 
         public IAbilityContainer CreateSpellAbility(KnownSpellData spell)
         {
-            return new SpellAbilityContainer(spell, _manaStorage);
+            return new SpellContainer(spell, _statsContainer, _magicConfig);
         }
     }
 }

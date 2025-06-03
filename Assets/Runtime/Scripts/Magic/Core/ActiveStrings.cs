@@ -40,6 +40,17 @@ namespace Magic
             }
         }
 
+        public ActiveStrings Clone()
+        {
+            var clone = new ActiveStrings();
+            for (int i = 0; i < _activeStrings.Length; i++)
+            {
+                clone.SetActiveString(i, _activeStrings[i].spellString);
+            }
+
+            return clone;
+        }
+
         public AbilityModifiers GetSpellModifiersWith(SpellUsageController _playerSpellController, SpellString spellString)
         {
             StringSlotData slot = new(spellString, 99);

@@ -24,7 +24,7 @@ effect_name_damage_lightning	Lightning Damage	Урон от молнии
 effect_descr_damage_lightning	Takes %m fire damage	Наносит %m урона молнией
 effect_name_damage_physical	Physical Damage	Physical Damage
 effect_descr_damage_physical	Takes %m physical damage	Наносит %m физического урона
-effect_name_spell_cast	Spell Cast	Произнесение заклинания
+effect_name_spell_cast	Spell Cost	Произнесение заклинания
 effect_descr_spell_cast	Reduce Mana by %m	Снижает ману на %m
 effect_name_effect_duration_flat	Effect Duration Mod	Продолжительность эффекта
 effect_name_spell_duration_flat	Spell duration	Длительность заклинаний

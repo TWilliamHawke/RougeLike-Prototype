@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 namespace Magic
 {
-    [RequireComponent(typeof(EffectsStorage))]
     [RequireComponent(typeof(StatsContainer))]
     public class SpellUsageController : MonoBehaviour
     {
@@ -17,17 +16,12 @@ namespace Magic
 
         public event UnityAction OnMonoDestroy; 
 
-        ResourceStorage _manaStorage;
-
         StatsContainer _statsContainer;
-        EffectsStorage _effectsStorage;
         StaticStatStorage _spellPowerStorage;
 
         void Awake()
         {
             _statsContainer = GetComponent<StatsContainer>();
-            _effectsStorage = GetComponent<EffectsStorage>();
-            _manaStorage = _statsContainer.FindStorage(_spellCostFactor.targetResource);
             _spellPowerStorage = _statsContainer.FindStorage(_spellPower);
             _spellPowerStorage.SetNewValue(100);
         }
