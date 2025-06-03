@@ -13,7 +13,6 @@ namespace Items
         [InjectField] Player _player;
 
         AbilityController _abilityController;
-        PlayerAbilitiesFactory _abilityFactory;
 
         public void AddToObserve(KnownSpellSlot target)
         {
@@ -29,13 +28,11 @@ namespace Items
         public void FindPlayerComponents()
         {
             _abilityController = _player.GetComponent<AbilityController>();
-            _abilityFactory = _player.GetComponent<PlayerAbilitiesFactory>();
         }
 
-        private void CastSpell(KnownSpellData spell)
+        private void CastSpell(SpellContainer spell)
         {
-            var ability = spell.CreateAbilityContainer(_abilityFactory);
-            ability.UseAbility(_abilityController);
+            spell.UseAbility(_abilityController);
         }
     }
 }

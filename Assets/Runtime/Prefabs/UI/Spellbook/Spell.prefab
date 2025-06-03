@@ -2075,6 +2075,7 @@ GameObject:
   - component: {fileID: 1277243765521226379}
   - component: {fileID: 6960654905013145766}
   - component: {fileID: 2212771237958250085}
+  - component: {fileID: 4953457732678843694}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Untagged
@@ -2157,8 +2158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultColor: {r: 0.26666668, g: 0.46274513, b: 0.3254902, a: 0.5686275}
   _hoveredColor: {r: 1, g: 0.80166054, b: 0, a: 0.5803922}
-  _spellBook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
-  _activeAbilities: {fileID: 11400000, guid: 1bad4e5760eb518449940e1bd3caf536, type: 2}
   _draggedSpellPrefab: {fileID: 6674437339021031832, guid: d96aa58c452cfb84d8214d3975a09484, type: 3}
   _frame: {fileID: 7578599437005814571}
   _spellIcon: {fileID: 6100198704502638988}
@@ -2202,3 +2201,35 @@ MonoBehaviour:
   _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
   _onDragStart: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
   _onDragEnd: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
+--- !u!114 &4953457732678843694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9151770125419673200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1277243765521226379}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1277243765521226379}
+        m_TargetAssemblyTypeName: Magic.UI.KnownSpellSlot, Project
+        m_MethodName: TryCreateSpellContainer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

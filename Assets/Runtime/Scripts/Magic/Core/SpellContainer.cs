@@ -18,6 +18,7 @@ namespace Magic
         public bool canBeUsed => _manaStorage.currentValue >= _spellData.manaCost;
         public string displayName => _spellData.displayName;
         public int numOfUses => -1;
+        public KnownSpellData spellData => _spellData;
 
         public SpellContainer(KnownSpellData spellData, StatsContainer statsContainer, MagicConfig magicConfig)
         {
@@ -56,7 +57,7 @@ namespace Magic
             return _spellData.spellEffect.GetDescription(oldAbilityMods) + "->\n" + newSpellData.spellEffect.GetDescription(newAbilityMods);
         }
 
-        private int CalculateManaCost()
+        public int CalculateManaCost()
         {
             int baseManaCost = _spellData.baseManaCost;
             var activeEffects = _spellData.activeEffects;
@@ -67,6 +68,7 @@ namespace Magic
         AbilityModifiers GetSpellModifiers(IEffectsIterator spellData)
         {
             int rawSpellPower = _spellPowerStorage.GetAdjustedValue(spellData);
+            Debug.Log(rawSpellPower);
 
             return new AbilityModifiers
             {

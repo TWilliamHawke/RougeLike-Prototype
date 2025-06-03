@@ -18,18 +18,12 @@ namespace Abilities
             _statsContainer = GetComponent<StatsContainer>();
         }
 
-        // used in editor
-        public void FindManaStorage()
-        {
-
-        }
-
-        public IAbilityContainer CreateItemAbility(Item item, IAbility ability)
+        public IAbilityContainer CreateItemAbilityContainer(Item item, IAbility ability)
         {
             return new ItemAbilityContainer(item, _inventory, ability);
         }
 
-        public IAbilityContainer CreateSpellAbility(KnownSpellData spell)
+        public SpellContainer CreateSpellAbilityContainer(KnownSpellData spell)
         {
             return new SpellContainer(spell, _statsContainer, _magicConfig);
         }

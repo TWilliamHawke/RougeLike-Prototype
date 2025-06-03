@@ -29,7 +29,10 @@ namespace Magic.UI
         [SerializeField] CustomEvent _onSpellDragStart;
         [SerializeField] CustomEvent _onSpellDragEnd;
 
+        [InjectField] Player _player;
+
         KnownSpellData _knownSpell;
+        SpellContainer _spellContainer;
 
         public bool waitForAllDependencies => false;
         //drag spell
@@ -39,9 +42,9 @@ namespace Magic.UI
 
         DragController<KnownSpellData> _dragDataHandler;
 
-        public event UnityAction<KnownSpellData> OnDragStart;
+        public event UnityAction<SpellContainer> OnDragStart;
         public event UnityAction<KnownSpellData> OnEditButtonClick;
-        public event UnityAction<KnownSpellData> OnSpellSelect;
+        public event UnityAction<SpellContainer> OnSpellSelect;
 
         void Awake()
         {
@@ -52,7 +55,7 @@ namespace Magic.UI
 
         public void OnPointerClick(PointerEventData _)
         {
-            OnSpellSelect?.Invoke(_knownSpell);
+            OnSpellSelect?.Invoke(_spellContainer);
         }
 
         public void OnPointerEnter(PointerEventData _)
@@ -73,7 +76,15 @@ namespace Magic.UI
 
             _spellName.text = data.displayName;
             _spellRank.text = "Rank: " + data.rank.ToString();
-            _spellCost.text = data.manaCost.ToString();
+            TryCreateSpellContainer();
+        }
+
+        public void TryCreateSpellContainer()
+        {
+            if (_knownSpell is null || _player is null) return;
+            var abilityFactory = _player.GetComponent<PlayerAbilitiesFactory>();
+            _spellContainer = abilityFactory.CreateSpellAbilityContainer(_knownSpell);
+            _spellCost.text = _spellContainer.CalculateManaCost().ToString();
         }
 
         public void TriggerSpellEditEvent()
@@ -85,7 +96,7 @@ namespace Magic.UI
         private void TriggerDragEvent()
         {
             if (_knownSpell is null) return;
-            OnDragStart?.Invoke(_knownSpell);
+            OnDragStart?.Invoke(_spellContainer);
         }
     }
 }
