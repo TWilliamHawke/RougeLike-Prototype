@@ -41,11 +41,11 @@ namespace Abilities
 
         private void RemoveSpellFromQuickBar(KnownSpellData data)
         {
-            foreach (var instruction in _activeSpells)
+            foreach (var container in _activeSpells)
             {
-                if (instruction.HasSpell(data))
+                if (container.HasSpell(data))
                 {
-                    _quickBarDataStorage.RemoveAbility(instruction);
+                    _quickBarDataStorage.RemoveAbility(container);
                     //everything else will be done in RemoveFromObserve
                 }
             }

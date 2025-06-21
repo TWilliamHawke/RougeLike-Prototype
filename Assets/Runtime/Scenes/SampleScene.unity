@@ -3554,8 +3554,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157, y: -180.60205}
-  m_SizeDelta: {x: 989, y: 102.9132}
+  m_AnchoredPosition: {x: 80.462524, y: -180.60205}
+  m_SizeDelta: {x: 835.925, y: 102.9132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &150187884
 MonoBehaviour:
@@ -3571,7 +3571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 75
-    m_Right: 75
+    m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
@@ -12578,7 +12578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 452.8782, y: -51.4566}
+  m_AnchoredPosition: {x: 452.88, y: -51.4566}
   m_SizeDelta: {x: 100, y: 102.9132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &493876560
@@ -76105,6 +76105,7 @@ GameObject:
   - component: {fileID: 1017936330}
   - component: {fileID: 1017936331}
   - component: {fileID: 1017936332}
+  - component: {fileID: 1017936333}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -76179,6 +76180,38 @@ MonoBehaviour:
   _stringList: {fileID: 600778859}
   _frame: {fileID: 1268480889}
   _buttons: {fileID: 483414432}
+--- !u!114 &1017936333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017936329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1017936331}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1017936331}
+        m_TargetAssemblyTypeName: Magic.UI.SpellPage, Project
+        m_MethodName: FindAbilitiesFactory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1018180441
 GameObject:
   m_ObjectHideFlags: 0
@@ -91143,7 +91176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99
+  m_text: 999 -> 999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 327ca85d868d05446ab9a5cab80e5899, type: 2}
   m_sharedMaterial: {fileID: -347898130027253204, guid: 327ca85d868d05446ab9a5cab80e5899, type: 2}
@@ -91177,7 +91210,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -91206,7 +91239,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -2.9329834, z: 0, w: 0}
+  m_margin: {x: 16.978455, y: -2.9329834, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -91236,8 +91269,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 502.8782, y: -51.455}
-  m_SizeDelta: {x: 111.3023, y: 102.91}
+  m_AnchoredPosition: {x: 502.88, y: -51.455}
+  m_SizeDelta: {x: 322.5893, y: 102.91}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &1734787431
 GameObject:
@@ -102463,7 +102496,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 75, y: -49.655}
-  m_SizeDelta: {x: 327.8782, y: 99.31}
+  m_SizeDelta: {x: 327.88, y: 99.31}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2142272700
 MonoBehaviour:
