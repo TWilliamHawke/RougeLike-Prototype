@@ -11,7 +11,7 @@ using Abilities;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IInjectionTarget, IContextMenuData
+    public class KnownSpellData : IAbilitySource, IContextMenuData
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;
@@ -23,38 +23,27 @@ namespace Magic
 
         public int rank { get; private set; }
         
-        public int manaCost => CalculateManaCost();
         public bool spellHasMaxRank => rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
         public AbilityTemplate spellEffect => _spell.GetEffectAt(rank);
         public int baseManaCost => _spell.GetCostAt(rank);
         public IEffectsIterator activeEffects => _activeStrings;
 
-        public bool waitForAllDependencies => false;
-
         Spell _spell { get; init; }
-
         ActiveStrings _activeStrings = new();
 
-        [InjectField] SpellUsageController _playerSpellController;
-
-        public KnownSpellData(Spell spell, Injector injector) : this(spell)
-        {
-            injector.AddInjectionTarget(this);
-        }
-
-        private KnownSpellData(Spell spell)
+        public KnownSpellData(Spell spell)
         {
             _spell = spell;
             rank = spell.startRank;
             displayName = spell.displayName;
         }
 
+        //without rank and spell slots
         public KnownSpellData CreateCopy(string name)
         {
             KnownSpellData data = new(_spell);
             data.displayName = name;
-            data._playerSpellController = _playerSpellController;
             return data;
         }
 
@@ -83,21 +72,6 @@ namespace Magic
 
             rank++;
             OnDataChange?.Invoke();
-        }
-
-        public string ConstructDescription()
-        {
-            var abilityMods = _playerSpellController.GetSpellModifiers(_activeStrings);
-            return spellEffect.GetDescription(abilityMods);
-        }
-
-        public string ConstructDescriptionWith(SpellString spellString)
-        {
-            var oldAbilityMods = _playerSpellController.GetSpellModifiers(_activeStrings);
-            var newAbilityMods = _activeStrings.GetSpellModifiersWith(_playerSpellController, spellString);
-
-            //TODO replace with ability progress description like [1-2] => [2-3]
-            return spellEffect.GetDescription(oldAbilityMods) + "->\n" + spellEffect.GetDescription(newAbilityMods);
         }
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
@@ -131,22 +105,6 @@ namespace Magic
         public StringSlotData GetSpellSlotAt(int slotIndex)
         {
             return _activeStrings.GetSpellSlotAt(slotIndex);
-        }
-
-        public void FinalizeInjection()
-        {
-            _playerSpellController.OnMonoDestroy += RemoveSpellController;
-        }
-
-        private int CalculateManaCost()
-        {
-            int baseManaCost = _spell.GetCostAt(rank);
-            return _playerSpellController?.GetSpellCost(baseManaCost, _activeStrings) ?? baseManaCost;
-        }
-
-        private void RemoveSpellController()
-        {
-            _playerSpellController = null;
         }
     }
 }

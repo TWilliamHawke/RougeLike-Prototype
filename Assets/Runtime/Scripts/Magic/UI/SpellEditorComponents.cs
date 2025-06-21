@@ -21,19 +21,19 @@ namespace Magic.UI
         [SerializeField] Image _frame;
         [SerializeField] SpellEditorButtons _buttons;
 
-        public void ShowDefaultEffects(KnownSpellData spellData)
+        public void ShowDefaultEffects(SpellContainer spell)
         {
             HideAllComponents();
-            SetSpellCost(spellData.manaCost);
-            SetDescriptionText(spellData.ConstructDescription());
+            SetSpellCost(spell.spellCost);
+            SetDescriptionText(spell.ConstructDescription());
         }
 
-        public void ShowRankUpEffects(KnownSpellData spellData)
+        public void ShowRankUpEffects(SpellContainer spellContainer)
         {
             HideAllComponents();
             SetHeaderText("Upgrade Spell");
-            SetSpellCost(spellData.manaCost);
-            SetDescriptionText("Rank up effects [UNDONE]");
+            SetSpellCost(spellContainer.GetRankUpSpellCost());
+            SetDescriptionText(spellContainer.GetRankUpDescription());
             _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
         }
 
@@ -55,35 +55,40 @@ namespace Magic.UI
             _buttons.ShowCloseButton();
         }
 
-        public void ShowSpellLineEffect(KnownSpellData spellData, SpellString spellString)
+        public void ShowSpellLineEffect(SpellContainer spellContainer, SpellString spellString, int slotIndex)
         {
             HideAllComponents();
             SetHeaderText(spellString.displayName);
-            SetSpellCost(spellData.manaCost);
-            SetDescriptionText(spellData.ConstructDescriptionWith(spellString));
+            SetSpellCost(spellContainer.GetSpellCostWith(slotIndex, spellString));
+            SetDescriptionText(spellContainer.ConstructDescriptionWith(slotIndex,spellString));
             _buttons.ShowConfirmButton();
         }
 
-        void SetHeaderText(string text)
+        private void SetHeaderText(string text)
         {
             _frame.Show();
             _header.Show();
             _header.text = text;
         }
 
-        void SetDescriptionText(string text)
+        private void SetDescriptionText(string text)
         {
             _spellDescription.Show();
             _spellDescription.text = text;
         }
 
-        void SetSpellCost(int cost)
+        private void SetSpellCost(string cost)
         {
             _spellCostWrapper.Show();
             _spellCost.text = cost.ToString();
         }
 
-        void HideAllComponents()
+        private void SetSpellCost(int cost)
+        {
+            SetSpellCost(cost.ToString());
+        }
+
+        private void HideAllComponents()
         {
             _spellCostWrapper.Hide();
             _spellDescription.Hide();

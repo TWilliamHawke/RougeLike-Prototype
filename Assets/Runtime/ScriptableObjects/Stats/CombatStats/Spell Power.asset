@@ -17,5 +17,5 @@ MonoBehaviour:
   _applyMultFirst: 1
   _capMin: 0
   _capMax: 2147483647
-  _defaultValue: 0
+  _defaultValue: 100
   _minReductionMod: 0.2

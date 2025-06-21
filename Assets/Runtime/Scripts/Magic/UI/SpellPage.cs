@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using Entities.PlayerScripts;
 using Items;
+using Abilities;
 
 namespace Magic.UI
 {
@@ -31,8 +32,12 @@ namespace Magic.UI
         [SerializeField] SpellEditorComponents _editorComponents;
         [SerializeField] SpellEditorButtons _buttons;
 
+        [InjectField] Player _player;
+        IAbilitiesFactory _abilitiesFactory;
+
         int _activeSlotIdx = EMPTY_IDX;
         KnownSpellData _spellData;
+        SpellContainer _spellContainer;
         SpellString _selectedString;
 
         public void Start()
@@ -55,10 +60,16 @@ namespace Magic.UI
         public void Open(KnownSpellData spellData)
         {
             _spellData = spellData;
+            _spellContainer = _abilitiesFactory.CreateSpellAbilityContainer(spellData);
             spellData.OnDataChange += UpdateUIData;
             UpdateUIData();
             _editorScreen.Open();
             ShowDefaultEffects();
+        }
+
+        public void FindAbilitiesFactory()
+        {
+            _abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
         }
 
         private void UpdateUIData()
@@ -102,7 +113,7 @@ namespace Magic.UI
 
             if (idx == RANK_UP_IDX)
             {
-                _editorComponents.ShowRankUpEffects(_spellData);
+                _editorComponents.ShowRankUpEffects(_spellContainer);
             }
             else if (_spellData.StringSlotIsEmpty(idx))
             {
@@ -127,7 +138,7 @@ namespace Magic.UI
 
         private void ShowDefaultEffects()
         {
-            _editorComponents.ShowDefaultEffects(_spellData);
+            _editorComponents.ShowDefaultEffects(_spellContainer);
             UpdateSlotSelection(EMPTY_IDX);
             _activeSlotIdx = EMPTY_IDX;
         }
@@ -135,7 +146,7 @@ namespace Magic.UI
         private void SelectSpellLine(SpellString spellString)
         {
             _selectedString = spellString;
-            _editorComponents.ShowSpellLineEffect(_spellData, spellString);
+            _editorComponents.ShowSpellLineEffect(_spellContainer, spellString, _activeSlotIdx);
         }
 
         private void HandleConfirmClick()

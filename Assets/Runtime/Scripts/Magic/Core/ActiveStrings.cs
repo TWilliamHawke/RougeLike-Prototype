@@ -20,6 +20,10 @@ namespace Magic
         {
             if (!IndexIsCorrect(slotIndex)) return;
             StringSlotData slot = new(spellString, slotIndex);
+            if (_activeStrings[slotIndex].spellString is not null)
+            {
+                _effectContainer.RemoveEffect(_activeStrings[slotIndex]);
+            }
             _activeStrings[slotIndex] = slot;
             slot.ForEach(effect => _effectContainer.AddEffect(slot, effect));
         }
@@ -36,6 +40,7 @@ namespace Magic
         {
             for (int i = 0; i < _activeStrings.Length; i++)
             {
+                if (StringSlotIsEmpty(i)) continue;
                 ClearStringSlot(i, inventory);
             }
         }
@@ -45,20 +50,11 @@ namespace Magic
             var clone = new ActiveStrings();
             for (int i = 0; i < _activeStrings.Length; i++)
             {
+                if (StringSlotIsEmpty(i)) continue;
                 clone.SetActiveString(i, _activeStrings[i].spellString);
             }
 
             return clone;
-        }
-
-        public AbilityModifiers GetSpellModifiersWith(SpellUsageController _playerSpellController, SpellString spellString)
-        {
-            StringSlotData slot = new(spellString, 99);
-            slot.ForEach(effect => _effectContainer.AddEffect(slot, effect));
-            var newAbilityMods = _playerSpellController.GetSpellModifiers(this);
-            _effectContainer.RemoveEffect(slot);
-
-            return newAbilityMods;
         }
 
         public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
