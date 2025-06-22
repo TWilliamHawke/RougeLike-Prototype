@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Fireball 3
   m_EditorClassIdentifier: 
   _displayName: Fireball
+  _icon: {fileID: 0}
+  <AbilityController>k__BackingField: {fileID: 11400000, guid: e15700aad2e93294396d2584bddd030b, type: 2}
   _projectile: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
   _minDamage: 30
   _maxDamage: 40

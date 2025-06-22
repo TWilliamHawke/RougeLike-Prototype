@@ -8,14 +8,12 @@ using Entities;
 
 namespace Abilities
 {
-    public class MovementController : MonoBehaviour, IInjectionTarget
+    public class MovementController : MonoBehaviour
     {
         public event UnityAction OnStepEnd;
 
         [SerializeField] GlobalSettings _settings;
         [SerializeField] Body _body;
-        [SerializeField] Injector _inputControllerInjector;
-        [SerializeField] Injector _tileGridInjector;
         [SerializeField] StepSoundKit _stepSounds;
 
         [InjectField] InputController _inputController;
@@ -33,13 +31,10 @@ namespace Abilities
         TileNode _currentNode;
         public int pathLength => _path?.Count ?? 0;
 
-        bool IInjectionTarget.waitForAllDependencies => false;
 
         public void Init(TileNode spawnNode)
         {
             _currentNode = spawnNode;
-            _inputControllerInjector.AddInjectionTarget(this);
-            _tileGridInjector.AddInjectionTarget(this);
         }
 
         public void ClearPath()
@@ -115,11 +110,6 @@ namespace Abilities
         {
             float z = transform.position.z;
             return new Vector3(node.x, node.y, z);
-        }
-
-        void IInjectionTarget.FinalizeInjection()
-        {
-            
         }
     }
 }

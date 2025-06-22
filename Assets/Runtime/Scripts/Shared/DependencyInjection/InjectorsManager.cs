@@ -7,7 +7,7 @@ namespace Core
     {
         private void OnDestroy()
         {
-            string[] assetNames = AssetDatabase.FindAssets("t:Injector", new[] { "Assets/Runtime/Scripts/Injectors" });
+            string[] assetNames = AssetDatabase.FindAssets("t:Injector", new[] { "Assets/Runtime/Injectors" });
             foreach (string assetName in assetNames)
             {
                 var path = AssetDatabase.GUIDToAssetPath(assetName);
