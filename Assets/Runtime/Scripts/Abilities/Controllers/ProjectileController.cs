@@ -9,7 +9,7 @@ using Entities.Combat;
 
 namespace Abilities
 {
-    public class ProjectileController : MonoBehaviour, IInjectionTarget
+    public class ProjectileController : MonoBehaviour
     {
         static ObjectPool<Projectile> _projectiles;
         static ObjectPool<AoeAnimation> _aoeEffects;
@@ -18,7 +18,6 @@ namespace Abilities
         [SerializeField] ProjectileTemplate _testTemplate;
         [SerializeField] Projectile _projectilePrefab;
         [SerializeField] AoeAnimation _aoeEffectPrefab;
-        [SerializeField] Injector _tilesGridInjector;
 
         [InjectField] TilesGrid _tilesGrid;
 
@@ -37,7 +36,6 @@ namespace Abilities
 
         private void Awake()
         {
-            _tilesGridInjector.AddInjectionTarget(this);
             FillProjectilesPool();
         }
 
@@ -166,10 +164,6 @@ namespace Abilities
             if (_startedAoeEffect is null) return;
             _aoeEffects.Release(_startedAoeEffect);
             _startedAoeEffect = null;
-        }
-
-        void IInjectionTarget.FinalizeInjection()
-        {
         }
     }
 }

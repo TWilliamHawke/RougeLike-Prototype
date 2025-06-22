@@ -3,7 +3,9 @@ guid: c5b0e48b71b65b54aa8ce16e8c840b68
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _icon: {instanceID: 0}
+  - <AbilityController>k__BackingField: {fileID: 11400000, guid: 2e7bdd5c7a874854382e7ce65df31fea, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

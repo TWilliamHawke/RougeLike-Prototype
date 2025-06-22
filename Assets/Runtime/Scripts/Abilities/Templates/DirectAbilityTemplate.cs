@@ -1,16 +1,34 @@
+using System.Collections.Generic;
+using Effects;
 using UnityEngine;
 
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Direct")]
-    public class DirectAbilityTemplate : AbilityTemplate
+    public class DirectAbilityTemplate : AbilityTemplate, IAbilityWithTarget, IEffectSource
     {
-        public override string GetDescription(AbilityModifiers abilityModifiers)
+        [SerializeField] List<SourceEffectData> _effects;
+
+        public bool TargetIsValid(IAbilityTarget target)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public override void SelectAbilityController(AbilityController controller)
+        {
+            controller.StartTargetSelection(this);
+        }
+
+        public void UseOnTarget(AbilityController _, IAbilityTarget target)
+        {
+            var effectsStorage = target.GetComponent<EffectsStorage>();
+            foreach (var effect in _effects)
+            {
+                effect.ApplyEffect(effectsStorage, this);
+            }
+        }
+
+        public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             throw new System.NotImplementedException();
         }
