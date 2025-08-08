@@ -17,23 +17,18 @@ namespace Items
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
-            SelfAbility ability = new SelfAbility(this, _effects);
+            SelfAbility ability = new SelfAbility(this, _effects, factory.abilityUser);
             return factory.CreateItemAbilityContainer(this, ability);
         }
 
         public override string GetDescription()
         {
-            return "";
+            return "Potion description";
         }
 
         public override string GetItemType()
         {
             return "Potion";
-        }
-
-        public IAbility CreateAbility()
-        {
-            return new SelfAbility(this, _effects);
         }
     }
 }

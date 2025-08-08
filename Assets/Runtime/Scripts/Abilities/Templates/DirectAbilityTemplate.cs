@@ -9,6 +9,15 @@ namespace Abilities
     {
         [SerializeField] List<SourceEffectData> _effects;
 
+        public IEnumerable<SourceEffectData> effects => _effects;
+
+        public override IAbility CreateAbility(IAbilityUser user)
+        {
+            DirectAbility ability = new(this);
+            abilityController.AddInjectionTarget(ability);
+            return ability;
+        }
+
         public bool TargetIsValid(IAbilityTarget target)
         {
             return true;

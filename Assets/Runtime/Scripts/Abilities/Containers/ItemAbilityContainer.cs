@@ -26,7 +26,7 @@ namespace Abilities
 
         public void UseAbility(AbilityController controller)
         {
-            _ability.Use(controller);
+            _ability.UseBy(controller);
             _inventory.RemoveOneItem(_item);
             controller.PlaySound(_item.useSound);
         }

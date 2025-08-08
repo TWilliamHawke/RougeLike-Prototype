@@ -6,10 +6,12 @@ namespace Abilities
 {
     public abstract class AbilityTemplate : DisplayedObject
     {
-        [field: SerializeField]
-        protected Injector AbilityController { get; set; }
+        [SerializeField] Injector _abilityController;
+        
+        protected Injector abilityController => _abilityController;
 
         public abstract void SelectAbilityController(AbilityController controller);
         public abstract string GetDescription(AbilityModifiers abilityModifiers);
+        public abstract IAbility CreateAbility(IAbilityUser user);
 	}
 }

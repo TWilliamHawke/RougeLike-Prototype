@@ -7,5 +7,6 @@ namespace Abilities
     {
         IAbilityContainer CreateItemAbilityContainer(Item item, IAbility ability);
         SpellContainer CreateSpellAbilityContainer(KnownSpellData spellData);
+        IAbilityUser abilityUser { get; }
     }
 }
