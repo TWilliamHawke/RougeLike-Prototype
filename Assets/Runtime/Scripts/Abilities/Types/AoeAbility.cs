@@ -6,14 +6,26 @@ namespace Abilities
     {
         protected override IIconData template => _template;
 
-        AoeAbilityTemplate _template { get; init; }
+        AoeAbilityTemplate _template;
+
+        [InjectField] AoeAbilityController _controller;
 
         public AoeAbility(AoeAbilityTemplate template)
         {
             _template = template;
         }
 
-        public override void Use(AbilityController abilityController)
+        public override void UseBy(AbilityController abilityController)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Select()
+        {
+            //start target selection
+        }
+
+        public override void UseOn(IAbilityTarget target)
         {
             throw new System.NotImplementedException();
         }

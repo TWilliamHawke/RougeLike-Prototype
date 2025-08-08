@@ -6,16 +6,28 @@ namespace Abilities
     {
         protected override IIconData template => _template;
 
-        DirectAbilityTemplate _template { get; init; }
+        DirectAbilityTemplate _template;
+
+        [InjectField] DirectAbilityController _controller;
 
         public DirectAbility(DirectAbilityTemplate template)
         {
             _template = template;
         }
 
-        public override void Use(AbilityController abilityController)
+        public override void UseBy(AbilityController abilityController)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void Select()
+        {
+            //start target selection
+        }
+
+        public override void UseOn(IAbilityTarget target)
+        {
+            _controller.ApplyEffects(_template.effects, target, _template);
         }
     }
 }

@@ -12,6 +12,9 @@ namespace Abilities
         [SerializeField] MagicConfig _magicConfig;
 
         StatsContainer _statsContainer;
+        IAbilityUser _abilityUser;
+
+        public IAbilityUser abilityUser => _abilityUser;
 
         void Awake()
         {

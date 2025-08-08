@@ -5,6 +5,6 @@ namespace Items
 {
     public interface IItemWithAbility
     {
-        IAbility CreateAbility();
+        IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory);
     }
 }

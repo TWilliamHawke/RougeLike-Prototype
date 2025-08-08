@@ -6,7 +6,7 @@ namespace Abilities
     public class EquipmentAbilityContainer : IAbilityContainer
     {
         //UNDONE item is equipped
-        public bool canBeUsed => throw new System.NotImplementedException(); 
+        public bool canBeUsed => true; 
         public int numOfUses => -1;
         public string displayName => _item.displayName;
         public Sprite icon => _item.icon;

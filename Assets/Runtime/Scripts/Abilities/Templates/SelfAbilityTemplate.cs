@@ -14,6 +14,13 @@ namespace Abilities
         
         public IEnumerable<SourceEffectData> effects => _effects;
 
+        public override IAbility CreateAbility(IAbilityUser user)
+        {
+            SelfAbility ability = new(this, user);
+            abilityController.AddInjectionTarget(ability);
+            return ability;
+        }
+
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             var sb = new StringBuilder();

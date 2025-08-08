@@ -17,6 +17,15 @@ namespace Abilities
         [TextArea(5, 10)]
         [SerializeField] string _description;
 
+        public ProjectileTemplate projectile => _projectile;
+
+        public override IAbility CreateAbility(IAbilityUser user)
+        {
+            ProjectileAbility ability = new(this);
+            abilityController.AddInjectionTarget(ability);
+            return ability;
+        }
+
         public bool TargetIsValid(IAbilityTarget target)
         {
             return target.GetComponent<Health>() != null;

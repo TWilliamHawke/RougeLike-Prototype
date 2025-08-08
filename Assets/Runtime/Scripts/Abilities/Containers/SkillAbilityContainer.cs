@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts
 {
-	public class SkillUsageInstruction : MonoBehaviour
+	public class SkillAbilityContainer : MonoBehaviour
 	{
 	    void Awake()
 	    {

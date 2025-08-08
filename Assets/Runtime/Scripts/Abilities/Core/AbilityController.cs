@@ -29,11 +29,6 @@ namespace Abilities
             OnAbilityUse?.Invoke();
         }
 
-        public void AddToEffectStorage(IEffectSource effectSource)
-        {
-
-        }
-
         public void StartTargetSelection(IAbilityWithTarget ability)
         {
             _performedAbility = ability;
