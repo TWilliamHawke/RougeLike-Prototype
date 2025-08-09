@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Core;
 using Magic.UI;
-using UnityEngine;
 
 namespace Magic.Actions
 {

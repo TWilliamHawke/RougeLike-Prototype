@@ -1,22 +1,23 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Abilities
 {
-    [CreateAssetMenu(fileName = "QuickBarDataStorage", menuName = "Abilities/QuickBarDataStorage", order = 1)]
-    public class QuickBarDataStorage : ScriptableObject
+    public class QuickBarDataStorage : ScriptableObject, IEnumerable<IAbilityContainer>
     {
         const int MAX_QUICK_ABILITIES = 10;
 
         public event UnityAction OnQuickBarChange;
+        public event UnityAction<IAbilityContainer> OnAbilityAdded;
+        public event UnityAction<IAbilityContainer> OnAbilityRemoved;
 
         public IAbilityContainer mainAbility => _mainAbility;
 
         IAbilityContainer _mainAbility;
 
         IAbilityContainer[] _quickAbilities = new IAbilityContainer[MAX_QUICK_ABILITIES];
-        List<IObserver<IAbilityContainer>> _observers = new();
 
         private void OnEnable()
         {
@@ -27,40 +28,21 @@ namespace Abilities
             }
         }
 
-        public void AddSlotObserver(IObserver<IAbilityContainer> observer)
-        {
-            _observers.Add(observer);
-
-            for (int i = 0; i < _quickAbilities.Length; i++)
-            {
-                if (_quickAbilities[i] == null) continue;
-                observer.AddToObserve(_quickAbilities[i]);
-            }
-
-            if (_mainAbility == null) return;
-            observer.AddToObserve(_mainAbility);
-        }
-
-        public void RemoveSlotObserver(QuickBarSpellObserver quickBarSpellObserver)
-        {
-            _observers.Remove(quickBarSpellObserver);
-        }
-
         public void SetQuickAbility(int index, IAbilityContainer ability)
         {
             if (!IndexIsCorrect(index))return;
 
             TryRemoveQuickAbility(index);
-            _observers.ForEach(observer => observer.AddToObserve(ability));
             _quickAbilities[index] = ability;
+            OnAbilityAdded?.Invoke(ability);
             OnQuickBarChange?.Invoke();
         }
 
         public void SetMainAbility(IAbilityContainer ability)
         {
             TryRemoveMainAbility();
-            _observers.ForEach(observer => observer.AddToObserve(ability));
             _mainAbility = ability;
+            OnAbilityAdded?.Invoke(ability);
             OnQuickBarChange?.Invoke();
         }
 
@@ -95,7 +77,7 @@ namespace Abilities
         private bool TryRemoveQuickAbility(int index)
         {
             if (!IndexIsCorrect(index) || _quickAbilities[index] == null) return false;
-            _observers.ForEach(observer => observer.RemoveFromObserve(_quickAbilities[index]));
+            OnAbilityRemoved?.Invoke(_quickAbilities[index]);
             _quickAbilities[index] = null;
             return true;
         }
@@ -103,7 +85,7 @@ namespace Abilities
         private bool TryRemoveMainAbility()
         {
             if (_mainAbility == null) return false;
-            _observers.ForEach(observer => observer.RemoveFromObserve(_mainAbility));
+            OnAbilityRemoved?.Invoke(_mainAbility);
             _mainAbility = null;
             return true;
         }
@@ -113,5 +95,19 @@ namespace Abilities
             return index >= 0 && index < MAX_QUICK_ABILITIES;
         }
 
+        public IEnumerator<IAbilityContainer> GetEnumerator()
+        {
+            if(_mainAbility != null) yield return _mainAbility;
+            for (int i = 0; i < _quickAbilities.Length; i++)
+            {
+                if (_quickAbilities[i] == null) continue;
+                yield return _quickAbilities[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

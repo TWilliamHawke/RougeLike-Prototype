@@ -30,5 +30,10 @@ namespace Abilities
             _inventory.RemoveOneItem(_item);
             controller.PlaySound(_item.useSound);
         }
+
+        public void UpdateAbilityButton(IAbilityCounterHandler handler)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

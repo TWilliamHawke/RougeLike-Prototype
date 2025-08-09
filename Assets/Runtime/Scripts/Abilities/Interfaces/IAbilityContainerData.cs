@@ -4,6 +4,6 @@ namespace Abilities
 {
     public interface IAbilityContainerData : IIconData
     {
-        int numOfUses { get; }
+        void UpdateAbilityButton(IAbilityCounterHandler handler);
     }
 }

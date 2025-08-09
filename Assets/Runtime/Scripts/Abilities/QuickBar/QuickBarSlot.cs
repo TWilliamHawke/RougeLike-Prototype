@@ -13,7 +13,7 @@ using UnityEngine.Events;
 
 namespace Abilities
 {
-    public class QuickBarSlot : MonoBehaviour, IDropTarget<ItemSlotData>, IDropTarget<KnownSpellData>, IPointerClickHandler
+    public class QuickBarSlot : AbilityButton, IDropTarget<ItemSlotData>, IDropTarget<KnownSpellData>, IPointerClickHandler
     {
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _slotNumber;
@@ -50,13 +50,8 @@ namespace Abilities
 
         public void ClearSlot()
         {
-            _actionIcon.gameObject.SetActive(false);
-        }
-
-        public void UpdateSlotGraphic(IAbilityContainerData data)
-        {
-            _actionIcon.gameObject.SetActive(true);
-            _actionIcon.sprite = data.icon;
+            HideIcon();
+            HideAbilityCounter();
         }
 
         public void OnPointerClick(PointerEventData eventData)

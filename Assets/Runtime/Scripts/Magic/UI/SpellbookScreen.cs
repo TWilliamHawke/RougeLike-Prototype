@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Items;
 using UnityEngine.UI;
-using UI.DragAndDrop;
 using TMPro;
 
 namespace Magic.UI
@@ -25,7 +22,7 @@ namespace Magic.UI
 
         int _currentPage = 1;
 
-        private void Awake()
+        void Awake()
         {
             _spellList.AddObserver(this);
             _spellBook.OnUpdate += UpdatePage;
@@ -43,21 +40,25 @@ namespace Magic.UI
             }
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
-            _spellbookCanvas.OnScreenOpen -= PrepareBook;
             _spellBook.OnUpdate -= UpdatePage;
         }
 
-        void PrepareBook()
+        public void CloseScreen()
         {
-            UpdatePage();
-            _spellList.UpdateLayout(FindSpellsOnPage());
+            _spellbookCanvas.Close();
         }
 
         //use as unityEvent
         public void CloseSpellPage()
         {
+        }
+
+        private void PrepareBook()
+        {
+            UpdatePage();
+            _spellList.UpdateLayout(FindSpellsOnPage());
         }
 
         private void ShowPrevPage()

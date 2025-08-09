@@ -1,40 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UI.DragAndDrop;
-using Items;
-using Effects;
-using Entities.PlayerScripts;
-using Abilities;
 
 namespace Abilities
 {
     public class QuickBar : MonoBehaviour
-	{
-	    [SerializeField] QuickBarSlot[] _quickBarSlots;
+    {
+        [SerializeField] QuickBarSlot[] _quickBarSlots;
         [SerializeField] QuickBarSlot _mainSlot;
         [SerializeField] QuickBarDataStorage _quickBarDataStorage;
-
-        [InjectField] Player _player;
-
-        AbilityController _abilityController;
 
         void Awake()
         {
             SetUpSlotNumbers();
+            UpdateSlots();
             _quickBarDataStorage.OnQuickBarChange += UpdateSlots;
         }
 
         void OnDestroy()
         {
             _quickBarDataStorage.OnQuickBarChange -= UpdateSlots;
-        }
-
-        //Used in Unity Editor
-        public void FindAbilityController()
-        {
-            _abilityController = _player.GetComponent<AbilityController>();
-            UpdateSlots();
         }
 
         private void SetUpSlotNumbers()
@@ -47,24 +30,18 @@ namespace Abilities
 
         private void UpdateSlots()
         {
+            _mainSlot.ClearSlot();
             if (_quickBarDataStorage.mainAbility != null)
             {
-                _mainSlot.UpdateSlotGraphic(_quickBarDataStorage.mainAbility);
-            }
-            else
-            {
-                _mainSlot.ClearSlot();
+                _mainSlot.UpdateButtonGraphic(_quickBarDataStorage.mainAbility);
             }
 
             for (int i = 0; i < _quickBarSlots.Length; i++)
             {
+                _quickBarSlots[i].ClearSlot();
                 if (_quickBarDataStorage.TryGetQuickAbility(i, out var ability))
                 {
-                    _quickBarSlots[i].UpdateSlotGraphic(ability);
-                }
-                else
-                {
-                    _quickBarSlots[i].ClearSlot();
+                    _quickBarSlots[i].UpdateButtonGraphic(ability);
                 }
             }
         }

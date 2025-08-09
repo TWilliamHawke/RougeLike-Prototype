@@ -4,38 +4,38 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class QuickBarSpellObserver : MonoBehaviour, IObserver<IAbilityContainer>
+    public class QuickBarSpellCleaner : MonoBehaviour, IObserver<IAbilityContainer>
     {
         [SerializeField] Spellbook _spellbook;
         [SerializeField] QuickBarDataStorage _quickBarDataStorage;
+        [SerializeField] QuickBarObserversController _observersController;
 
         HashSet<SpellContainer> _activeSpells = new();
 
         void Awake()
         {
-            _quickBarDataStorage.AddSlotObserver(this);
+            _observersController.AddSlotObserver(this);
             _spellbook.OnSpellRemoved += RemoveSpellFromQuickBar;
         }
 
         void OnDestroy()
         {
             _spellbook.OnSpellRemoved -= RemoveSpellFromQuickBar;
-            _quickBarDataStorage.RemoveSlotObserver(this);
         }
 
         public void AddToObserve(IAbilityContainer target)
         {
-            if (target is SpellContainer instruction)
+            if (target is SpellContainer container)
             {
-                _activeSpells.Add(instruction);
+                _activeSpells.Add(container);
             }
         }
 
         public void RemoveFromObserve(IAbilityContainer target)
         {
-            if (target is SpellContainer instruction)
+            if (target is SpellContainer container)
             {
-                _activeSpells.Remove(instruction);
+                _activeSpells.Remove(container);
             }
         }
 
