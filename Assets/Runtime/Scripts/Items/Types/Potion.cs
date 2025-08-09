@@ -17,7 +17,7 @@ namespace Items
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
-            SelfAbility ability = new SelfAbility(this, _effects, factory.abilityUser);
+            var ability = CreateAbility(factory);
             return factory.CreateItemAbilityContainer(this, ability);
         }
 
@@ -30,5 +30,11 @@ namespace Items
         {
             return "Potion";
         }
+
+        private IAbility CreateAbility(IAbilitiesFactory factory)
+        {
+            return new SelfAbility(this, _effects, factory.abilityUser);
+        }
+
     }
 }

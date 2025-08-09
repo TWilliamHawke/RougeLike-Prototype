@@ -6,23 +6,24 @@ using Entities.PlayerScripts;
 
 namespace Core.Input
 {
-	public class ClickPlayer : IMouseClickState
+	public class ClickPlayer : IMouseClickAction
 	{
 
         InputController _inputController;
+        Player _player;
 
-        public ClickPlayer(InputController inputController)
+        public ClickPlayer(InputController inputController, Player player)
         {
             _inputController = inputController;
+            _player = player;
         }
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
-            //skip turn
-            
+            _player.EndTurn();
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
             return _inputController.hoveredTileHits.Any(hit => hit.collider.GetComponent<Player>());
         }

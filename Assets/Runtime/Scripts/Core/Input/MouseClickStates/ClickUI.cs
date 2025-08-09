@@ -7,17 +7,17 @@ using System.Linq;
 
 namespace Core.Input
 {
-	public class ClickUI : IMouseClickState
+	public class ClickUI : IMouseClickAction
 	{
 
 		const string IGNORE_RAYCAST_TAG = "IgnoreUIRaycast";
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
 			//do nothing
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
             var hits = Raycasts.UI();
 

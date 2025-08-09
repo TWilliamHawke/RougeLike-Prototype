@@ -8,7 +8,7 @@ using Abilities;
 
 namespace Core.Input
 {
-	public class ClickRangeAttackTarget : IMouseClickState
+	public class ClickRangeAttackTarget : IMouseClickAction
 	{
 		ProjectileController _player;
         InputController _inputController;
@@ -20,7 +20,7 @@ namespace Core.Input
             _player = player;
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
             foreach (var hit in _inputController.hoveredTileHits)
             {
@@ -32,7 +32,7 @@ namespace Core.Input
             return false;
         }
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
 			_player.ThrowProjectile(_target);
         }

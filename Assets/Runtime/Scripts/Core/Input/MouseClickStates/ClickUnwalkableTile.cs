@@ -5,7 +5,7 @@ using Map;
 
 namespace Core.Input
 {
-    public class ClickUnwalkableTile : IMouseClickState
+    public class ClickUnwalkableTile : IMouseClickAction
     {
         TilesGrid _tilemapController;
         InputController _inputController;
@@ -16,12 +16,12 @@ namespace Core.Input
             _inputController = inputController;
         }
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
 			//do nothing
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
         	Vector3Int position = _inputController.hoveredTilePos;
             if (_tilemapController.TryGetNode(position, out var node))

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core.Input
 {
-	public class ClickNextTileObject : IMouseClickState
+	public class ClickNextTileObject : IMouseClickAction
 	{
         InputController _inputController;
         Player _player;
@@ -19,12 +19,12 @@ namespace Core.Input
             _player = player;
         }
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
             _target?.Interact(_player);
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
             foreach (var hit in _inputController.hoveredTileHits)
             {
