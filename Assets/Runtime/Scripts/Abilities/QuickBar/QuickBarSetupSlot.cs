@@ -2,16 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Abilities
 {
-    public class QuickBarSetupSlot : MonoBehaviour, IPointerClickHandler
+    public class QuickBarSetupSlot : AbilityButton, IPointerClickHandler
     {
-        [SerializeField] Image _abilityIcon;
         [SerializeField] TextMeshProUGUI _abilityName;
-        [SerializeField] Image _abilityCountBg;
-        [SerializeField] TextMeshProUGUI _abilityCount;
 
         public event UnityAction<int> OnSlotClick;
         public int slotIndex { get; set; }
@@ -29,27 +25,15 @@ namespace Abilities
 
         private void SetSlotData(IAbilityContainerData data)
         {
-            _abilityIcon.Show();
-            _abilityIcon.sprite = data.icon;
             _abilityName.text = $"{slotIndex + 1} - {data.displayName}";
-
-            if (data.numOfUses > -1)
-            {
-                _abilityCountBg.gameObject.SetActive(true);
-                _abilityCount.text = data.numOfUses.ToString();
-            }
-            else
-            {
-                _abilityCountBg.gameObject.SetActive(false);
-            }
+            UpdateButtonGraphic(data);
         }
 
         private void SetEmptySlotData()
         {
-            _abilityIcon.Hide();
             _abilityName.text = $"{slotIndex + 1} - Empty";
-            _abilityCountBg.gameObject.SetActive(false);
-            _abilityCount.text = "";
+            HideIcon();
+            HideAbilityCounter();
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

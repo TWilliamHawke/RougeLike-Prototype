@@ -17,5 +17,10 @@ namespace Abilities
         {
             throw new System.NotImplementedException();
         }
+
+        public void UpdateAbilityButton(IAbilityCounterHandler handler)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

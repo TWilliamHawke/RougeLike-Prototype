@@ -1,11 +1,11 @@
-using Abilities;
 using Entities.Stats;
 using Items;
 using UnityEngine;
+using Abilities;
 
 namespace Magic
 {
-    public class SpellContainer : IAbilityContainer
+    public class SpellContainer : SpellAbilityContainer
     {
         ISafeStatController _manaStorage;
         KnownSpellData _spellData;
@@ -13,11 +13,10 @@ namespace Magic
         StatsContainer _statsContainer;
         SpellDescriptionConstructor _descriptionConstructor;
 
-        public Sprite icon => _spellData.icon;
+        public override Sprite icon => _spellData.icon;
         public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsContainer);
-        public bool canBeUsed => _manaStorage.currentValue >= spellCost;
-        public string displayName => _spellData.displayName;
-        public int numOfUses => -1;
+        public override bool canBeUsed => _manaStorage.currentValue >= spellCost;
+        public override string displayName => _spellData.displayName;
         public KnownSpellData spellData => _spellData;
 
         public SpellContainer(KnownSpellData spellData, StatsContainer statsContainer, MagicConfig magicConfig)
@@ -29,7 +28,7 @@ namespace Magic
             _descriptionConstructor = new(spellData, statsContainer, _magicConfig);
         }
 
-        public void UseAbility(AbilityController controller)
+        public override void UseAbility(AbilityController controller)
         {
             if (_manaStorage.TryReduceStat(spellCost))
             {

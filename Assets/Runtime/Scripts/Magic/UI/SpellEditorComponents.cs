@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Items;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Magic.UI
