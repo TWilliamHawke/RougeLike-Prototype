@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Input
 {
-	public interface IMouseClickState
+	public interface IMouseClickAction
 	{
 	    bool Condition();
 		void ProcessClick();

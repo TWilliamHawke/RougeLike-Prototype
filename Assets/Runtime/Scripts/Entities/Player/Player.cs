@@ -104,20 +104,20 @@ namespace Entities.PlayerScripts
         void InitComponents()
         {
             _meleeAttackController = GetComponent<MeleeAttackController>();
-            _meleeAttackController.OnAttackEnd += EndPlayerTurn;
+            _meleeAttackController.OnAttackEnd += EndTurn;
             _meleeAttackController.Init(this);
 
             _movementController = GetComponent<MovementController>();
-            _movementController.OnStepEnd += EndPlayerTurn;
+            _movementController.OnStepEnd += EndTurn;
 
             _health = GetComponent<Health>();
 
             GetComponent<VisibilityController>().ChangeViewingRange();
-            GetComponent<ProjectileController>().OnAttackEnd += EndPlayerTurn;
+            GetComponent<ProjectileController>().OnAttackEnd += EndTurn;
             GetComponent<AbilityController>().Init();
         }
 
-        void EndPlayerTurn()
+        public void EndTurn()
         {
             _onPlayerTurnEnd.Invoke();
         }

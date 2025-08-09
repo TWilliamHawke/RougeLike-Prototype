@@ -19,7 +19,7 @@ namespace Core.Input
         bool _infoMode = false;
         public bool infoMode => _infoMode;
         bool IInjectionTarget.waitForAllDependencies => true;
-        List<IMouseClickState> _clickStates = new List<IMouseClickState>();
+        List<IMouseClickAction> _clickStates = new List<IMouseClickAction>();
 
         public void Unsubscribe()
         {
@@ -44,7 +44,7 @@ namespace Core.Input
                 inputController: _inputController,
                 tilemapController: _tileGrid));
 
-            _clickStates.Add(new ClickPlayer(_inputController));
+            _clickStates.Add(new ClickPlayer(_inputController, _player));
 
             _clickStates.Add(new ClickRangeAttackTarget(
                 inputController: _inputController,

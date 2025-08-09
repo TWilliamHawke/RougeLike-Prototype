@@ -6,7 +6,7 @@ using Entities.PlayerScripts;
 
 namespace Core.Input
 {
-	public class ClickWalkableTile : IMouseClickState
+	public class ClickWalkableTile : IMouseClickAction
 	{
 		InputController _inputController;
 		TilesGrid _tileGrid;
@@ -20,12 +20,12 @@ namespace Core.Input
             _player = player;
         }
 
-        void IMouseClickState.ProcessClick()
+        void IMouseClickAction.ProcessClick()
         {
             _player.GotoNode(_targetNode);
         }
 
-        bool IMouseClickState.Condition()
+        bool IMouseClickAction.Condition()
         {
         	Vector3Int position = _inputController.hoveredTilePos;
             if (_tileGrid.TryGetNode(position, out var node))
