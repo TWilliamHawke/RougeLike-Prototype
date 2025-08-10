@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Items;
 using UnityEngine.Events;
 using Effects;
 using Core.UI;
-using Magic.UI;
 using Abilities;
 
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IContextMenuData, IAbility
+    public class KnownSpellData : IAbilitySource, IContextMenuData
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;
@@ -25,18 +22,20 @@ namespace Magic
         
         public bool spellHasMaxRank => rank >= MAX_SPELL_RANK;
         public Sprite icon => _spell.icon;
-        public AbilityTemplate spellEffect => _spell.GetEffectAt(rank);
+        public IAbility spellEffect => _spellEffect;
         public int baseManaCost => _spell.GetCostAt(rank);
         public IEffectsIterator activeEffects => _activeStrings;
 
         Spell _spell { get; init; }
         ActiveStrings _activeStrings = new();
+        IAbility _spellEffect;
 
         public KnownSpellData(Spell spell)
         {
             _spell = spell;
             rank = spell.startRank;
             displayName = spell.displayName;
+            _spellEffect = spell.GetEffectAt(rank).CreateAbility();
         }
 
         //without rank and spell slots
@@ -53,6 +52,7 @@ namespace Magic
             data.displayName = displayName;
             data.rank = rank;
             data._activeStrings = _activeStrings.Clone();
+            data._spellEffect = _spellEffect;
             return data;
         }
 
@@ -71,6 +71,7 @@ namespace Magic
             if (spellHasMaxRank) return;
 
             rank++;
+            _spellEffect = _spell.GetEffectAt(rank).CreateAbility();
             OnDataChange?.Invoke();
         }
 
@@ -105,21 +106,6 @@ namespace Magic
         public StringSlotData GetSpellSlotAt(int slotIndex)
         {
             return _activeStrings.GetSpellSlotAt(slotIndex);
-        }
-
-        public void UseBy(AbilityController abilityController)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UseOn(IAbilityTarget target)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Select(IAbilityTrigger trigger)
-        {
-            trigger.TriggerSelectionEvent();
         }
     }
 }

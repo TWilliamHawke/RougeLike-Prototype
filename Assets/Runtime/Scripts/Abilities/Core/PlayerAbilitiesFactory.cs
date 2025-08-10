@@ -1,5 +1,3 @@
-using Entities.PlayerScripts;
-using Entities.Stats;
 using Items;
 using Magic;
 using UnityEngine;
@@ -11,14 +9,13 @@ namespace Abilities
         [SerializeField] Inventory _inventory;
         [SerializeField] MagicConfig _magicConfig;
 
-        StatsContainer _statsContainer;
         IAbilityUser _abilityUser;
 
         public IAbilityUser abilityUser => _abilityUser;
 
         void Awake()
         {
-            _statsContainer = GetComponent<StatsContainer>();
+            _abilityUser = GetComponent<AbilityController>();
         }
 
         public IAbilityContainer CreateItemAbilityContainer(Item item, IAbility ability)
@@ -28,7 +25,7 @@ namespace Abilities
 
         public SpellContainer CreateSpellAbilityContainer(KnownSpellData spell)
         {
-            return new SpellContainer(spell, _statsContainer, _magicConfig);
+            return new SpellContainer(spell, abilityUser, _magicConfig);
         }
     }
 }

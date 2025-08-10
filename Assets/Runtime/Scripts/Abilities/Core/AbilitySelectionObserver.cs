@@ -1,4 +1,5 @@
 using Core.Input;
+using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
 
@@ -8,17 +9,14 @@ namespace Abilities
     {
         [InjectField] ITaskPanelController _taskPanelController;
         [InjectField] ClickStateMachine _clickStateMachine;
+        [InjectField] Player _player;
 
         [SerializeField] CustomEvent _targetSelectedEvent;
 
-        void Awake()
+        public void Subscribe()
         {
-            AbilityContainer.OnAbilitySelection += StartTargetSelection;
-        }
-
-        void OnDestroy()
-        {
-            AbilityContainer.OnAbilitySelection -= StartTargetSelection;
+            var abilityController = _player.GetComponent<AbilityController>();
+            abilityController.OnAbilitySelected += StartTargetSelection;
         }
 
         private void StartTargetSelection(IAbilityContainer ability)

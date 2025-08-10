@@ -5,6 +5,8 @@ namespace Abilities
     public class SimpleAbilityContainer : AbilityContainer
     {
         public override bool canBeUsed => true;
+        protected override IAbility ability => _ability;
+        IAbility _ability { get; init; }
 
         public SimpleAbilityContainer(IAbility ability)
         {
@@ -16,9 +18,9 @@ namespace Abilities
             handler.HideAbilityCounter();
         }
 
-        public override void UseAbility(AbilityController controller)
+        public override void UseAbility(IAbilityTarget target)
         {
-            _ability.UseBy(controller);
+            _ability.UseOn(target);
         }
     }
 

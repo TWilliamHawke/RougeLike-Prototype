@@ -11,8 +11,12 @@ namespace Abilities
 
         protected abstract IIconData template { get; }
 
-        public abstract void Select(IAbilityTrigger trigger);
-        public abstract void UseBy(AbilityController abilityController);
+        public abstract string GetDescription(AbilityModifiers abilityModifiers);
         public abstract void UseOn(IAbilityTarget target);
+
+        public virtual void Select(IAbilityUser user, IAbilityContainer container)
+        {
+            user.SelectAbility(container);
+        }
     }
 }

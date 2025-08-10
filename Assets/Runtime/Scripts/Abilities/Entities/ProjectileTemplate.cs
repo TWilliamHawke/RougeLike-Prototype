@@ -30,8 +30,8 @@ namespace Abilities
         public int radius => _AOERadius;
         public float aoeDamageMult => _AOEDamageMult;
 
-        int IDamageSource.minDamage => _minDamage;
-        int IDamageSource.maxDamage => _maxDamage;
-        DamageType IDamageSource.damageType => _damageType;
+        public int minDamage => _minDamage;
+        public int maxDamage => _maxDamage;
+        public DamageType damageType => _damageType;
     }
 }

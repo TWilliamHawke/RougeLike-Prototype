@@ -9,6 +9,7 @@ namespace Items
     public class KnownSpellCliickObserver : MonoBehaviour, IObserver<KnownSpellSlot>
     {
         [SerializeField] SpellList _spellList;
+        [InjectField] Player _player;
 
         void Awake()
         {
@@ -27,7 +28,8 @@ namespace Items
 
         private void CastSpell(SpellContainer spell)
         {
-            spell.Select();
+            var controller = _player.GetComponent<AbilityController>();
+            spell.SelectBy(controller);
         }
     }
 }

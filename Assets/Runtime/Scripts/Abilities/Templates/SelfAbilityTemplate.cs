@@ -14,34 +14,11 @@ namespace Abilities
         
         public IEnumerable<SourceEffectData> effects => _effects;
 
-        public override IAbility CreateAbility(IAbilityUser user)
+        public override IAbility CreateAbility()
         {
-            SelfAbility ability = new(this, user);
+            SelfAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);
             return ability;
-        }
-
-        public override string GetDescription(AbilityModifiers abilityModifiers)
-        {
-            var sb = new StringBuilder();
-            string pattern1 = @"%m";
-
-            foreach (var effectData in _effects)
-            {
-                var magnitude = effectData.power * abilityModifiers.magnitudeMult;
-                var realDescription = Regex.Replace(effectData.effect.description, pattern1, magnitude.ToString());
-                sb.AppendLine(realDescription);
-            }
-
-            return sb.ToString();
-        }
-
-        public override void SelectAbilityController(AbilityController controller)
-        {
-            foreach (var effectData in _effects)
-            {
-                controller.ApplyToSelf(effectData, this);
-            }
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 using Effects;
 using UnityEngine;
 
@@ -9,27 +11,25 @@ namespace Abilities
     {
         protected override IIconData template => _template;
         IEnumerable<SourceEffectData> _effects;
-        IAbilityUser _user;
-        IAbilityTarget _target;
 
         IEffectSource _template;
         [InjectField] SelfAbilityController _controller;
 
-        public SelfAbility(SelfAbilityTemplate template, IAbilityUser user) : this(template, template.effects, user)
+        public SelfAbility(SelfAbilityTemplate template) : this(template, template.effects)
         {
         }
 
-        public SelfAbility(IEffectSource template, IEnumerable<SourceEffectData> effects, IAbilityUser user)
+        public SelfAbility(IEffectSource template, IEnumerable<SourceEffectData> effects)
         {
             _template = template;
             _effects = effects;
-            _user = user;
-            _target = user as IAbilityTarget;
         }
 
-        public override void Select(IAbilityTrigger _)
+        public override void Select(IAbilityUser user, IAbilityContainer container)
         {
-            UseOn(_target);
+            IAbilityTarget target = user.GetComponent<IAbilityTarget>();
+            if (target is null) return;
+            container.UseAbility(target);
         }
 
         public override void UseOn(IAbilityTarget target)
@@ -37,12 +37,20 @@ namespace Abilities
             _controller.ApplyEffects(_effects, target, _template);
         }
 
-        public override void UseBy(AbilityController abilityController)
+        public override string GetDescription(AbilityModifiers abilityModifiers)
         {
-            foreach (var effect in _effects)
+            var sb = new StringBuilder();
+            string pattern1 = @"%m";
+
+            foreach (var effectData in _effects)
             {
-                abilityController.ApplyToSelf(effect, _template);
+                var magnitude = effectData.power * abilityModifiers.magnitudeMult;
+                var realDescription = Regex.Replace(effectData.effect.description, pattern1, magnitude.ToString());
+                sb.AppendLine(realDescription);
             }
+
+            return sb.ToString();
         }
+
     }
 }

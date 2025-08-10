@@ -15,19 +15,14 @@ namespace Abilities
             _template = template;
         }
 
-        public override void UseBy(AbilityController abilityController)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Select(IAbilityTrigger trigger)
-        {
-            trigger.TriggerSelectionEvent();
-        }
-
         public override void UseOn(IAbilityTarget target)
         {
             _controller.ApplyEffects(_template.effects, target, _template);
+        }
+
+        public override string GetDescription(AbilityModifiers abilityModifiers)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

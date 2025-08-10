@@ -11,7 +11,7 @@ namespace Abilities
 
         public IEnumerable<SourceEffectData> effects => _effects;
 
-        public override IAbility CreateAbility(IAbilityUser user)
+        public override IAbility CreateAbility()
         {
             DirectAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);
@@ -23,11 +23,6 @@ namespace Abilities
             return true;
         }
 
-        public override void SelectAbilityController(AbilityController controller)
-        {
-            controller.StartTargetSelection(this);
-        }
-
         public void UseOnTarget(AbilityController _, IAbilityTarget target)
         {
             var effectsStorage = target.GetComponent<EffectsStorage>();
@@ -35,11 +30,6 @@ namespace Abilities
             {
                 effect.ApplyEffect(effectsStorage, this);
             }
-        }
-
-        public override string GetDescription(AbilityModifiers abilityModifiers)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

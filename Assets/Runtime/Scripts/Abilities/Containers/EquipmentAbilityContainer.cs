@@ -7,10 +7,12 @@ namespace Abilities
     {
         //UNDONE item is equipped
         public override bool canBeUsed => true; 
+        protected override IAbility ability => _ability;
 
+        IAbility _ability { get; init; }
         Item _item;
 
-        public override void UseAbility(AbilityController controller)
+        public override void UseAbility(IAbilityTarget target)
         {
             throw new System.NotImplementedException();
         }

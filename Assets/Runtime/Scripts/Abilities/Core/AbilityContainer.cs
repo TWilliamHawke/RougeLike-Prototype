@@ -3,27 +3,20 @@ using UnityEngine.Events;
 
 namespace Abilities
 {
-    public abstract class AbilityContainer : IAbilityContainer, IAbilityTrigger
+    public abstract class AbilityContainer : IAbilityContainer
     {
-        public static event UnityAction<IAbilityContainer> OnAbilitySelection;
-
         public abstract bool canBeUsed { get; }
-        public virtual string displayName => _ability.displayName;
-        public virtual Sprite icon => _ability.icon;
+        public virtual string displayName => ability.displayName;
+        public virtual Sprite icon => ability.icon;
 
-        protected IAbility _ability { get; init; }
+        protected abstract IAbility ability { get; }
 
         public abstract void UpdateAbilityButton(IAbilityCounterHandler handler);
-        public abstract void UseAbility(AbilityController controller);
+        public abstract void UseAbility(IAbilityTarget target);
 
-        public void Select()
+        public void SelectBy(IAbilityUser user)
         {
-            _ability.Select(this);
-        }
-
-        public void TriggerSelectionEvent()
-        {
-            OnAbilitySelection?.Invoke(this);
+            ability.Select(user, this);
         }
     }
 }
