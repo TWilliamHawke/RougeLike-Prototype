@@ -10,8 +10,6 @@ namespace Abilities
         
         protected Injector abilityController => _abilityController;
 
-        public abstract void SelectAbilityController(AbilityController controller);
-        public abstract string GetDescription(AbilityModifiers abilityModifiers);
-        public abstract IAbility CreateAbility(IAbilityUser user);
+        public abstract IAbility CreateAbility();
 	}
 }

@@ -16,17 +16,12 @@ namespace Abilities
             _template = template;
         }
 
-        public override void UseBy(AbilityController abilityController)
+        public override void UseOn(IAbilityTarget target)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Select(IAbilityTrigger trigger)
-        {
-            trigger.TriggerSelectionEvent();
-        }
-
-        public override void UseOn(IAbilityTarget target)
+        public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             throw new System.NotImplementedException();
         }

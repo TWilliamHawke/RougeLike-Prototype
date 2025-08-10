@@ -13,27 +13,26 @@ namespace Magic
         StatsContainer _statsContainer;
         SpellDescriptionConstructor _descriptionConstructor;
 
-        public override Sprite icon => _spellData.icon;
         public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsContainer);
         public override bool canBeUsed => _manaStorage.currentValue >= spellCost;
         public override string displayName => _spellData.displayName;
         public KnownSpellData spellData => _spellData;
+        protected override IAbility ability => _spellData.spellEffect;
 
-        public SpellContainer(KnownSpellData spellData, StatsContainer statsContainer, MagicConfig magicConfig)
+        public SpellContainer(KnownSpellData spellData, IAbilityUser user, MagicConfig magicConfig)
         {
             _spellData = spellData;
             _magicConfig = magicConfig;
-            _statsContainer = statsContainer;
-            _manaStorage = magicConfig.FindManaStorage(statsContainer);
-            _descriptionConstructor = new(spellData, statsContainer, _magicConfig);
-            _ability = spellData;
+            _statsContainer = user.GetComponent<StatsContainer>();
+            _manaStorage = magicConfig.FindManaStorage(_statsContainer);
+            _descriptionConstructor = new(spellData, _statsContainer, _magicConfig);
         }
 
-        public override void UseAbility(AbilityController controller)
+        public override void UseAbility(IAbilityTarget target)
         {
             if (_manaStorage.TryReduceStat(spellCost))
             {
-                _spellData.spellEffect.SelectAbilityController(controller);
+                _spellData.spellEffect.UseOn(target);
             }
         }
 

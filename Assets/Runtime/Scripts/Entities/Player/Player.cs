@@ -114,7 +114,6 @@ namespace Entities.PlayerScripts
 
             GetComponent<VisibilityController>().ChangeViewingRange();
             GetComponent<ProjectileController>().OnAttackEnd += EndTurn;
-            GetComponent<AbilityController>().Init();
         }
 
         public void EndTurn()

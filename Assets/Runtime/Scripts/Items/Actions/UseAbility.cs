@@ -30,7 +30,7 @@ namespace Items.Actions
         {
             public string actionTitle => "Use";
             IAbilityContainer _abilityContainer;
-            AbilityController _abilityController;
+            IAbilityTarget _target;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
@@ -39,14 +39,14 @@ namespace Items.Actions
             {
                 var item = itemSlot.item as IAbilitySource;
                 if (item is null) return;
-                _abilityController = abilityController;
+                _target = abilityController.GetComponent<IAbilityTarget>();
                 _abilityContainer = item.CreateAbilityContainer(abilitiesFactory);
             }
 
             public void DoAction()
             {
                 if (_abilityContainer is null) return;
-                _abilityContainer.UseAbility(_abilityController);
+                _abilityContainer.UseAbility(_target);
             }
 
         }

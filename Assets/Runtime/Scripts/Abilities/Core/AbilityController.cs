@@ -8,42 +8,19 @@ using UnityEngine.Events;
 namespace Abilities
 {
     [RequireComponent(typeof(EffectsStorage))]
-    public class AbilityController : MonoBehaviour, IEntityComponent
+    public class AbilityController : MonoBehaviour, IEntityComponent, IAbilityUser
     {
         public Body _body;
-        public event UnityAction<IAbilityWithTarget> OnTargetSelectionStart;
-        public event UnityAction OnAbilityUse;
-
-        IAbilityWithTarget _performedAbility;
-
-        EffectsStorage _effectsStorage;
-
-        public void Init()
-        {
-            _effectsStorage = GetComponent<EffectsStorage>();
-        }
-
-        public void ApplyToSelf(SourceEffectData effect, IEffectSource effectSource)
-        {
-            effect.ApplyEffect(_effectsStorage, effectSource);
-            OnAbilityUse?.Invoke();
-        }
-
-        public void StartTargetSelection(IAbilityWithTarget ability)
-        {
-            _performedAbility = ability;
-            OnTargetSelectionStart?.Invoke(ability);
-        }
-
-        public void SelectTarget(IAbilityTarget target)
-        {
-            _performedAbility.UseOnTarget(this, target);
-            OnAbilityUse?.Invoke();
-        }
+        public event UnityAction<IAbilityContainer> OnAbilitySelected;
 
         public void PlaySound(AudioClip sound)
         {
             _body.PlaySound(sound);
+        }
+
+        public void SelectAbility(IAbilityContainer container)
+        {
+            OnAbilitySelected?.Invoke(container);
         }
     }
 }

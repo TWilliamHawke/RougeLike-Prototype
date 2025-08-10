@@ -11,6 +11,9 @@ namespace Abilities
 
         public override bool canBeUsed => _inventory.FindItemCount(_item) > 0;
 
+        protected override IAbility ability => _ability;
+        IAbility _ability { get; init; }
+
         Item _item;
 
         public ItemAbilityContainer(Item item, IInventory inventory, IAbility ability)
@@ -20,11 +23,10 @@ namespace Abilities
             _ability = ability;
         }
 
-        public override void UseAbility(AbilityController controller)
+        public override void UseAbility(IAbilityTarget target)
         {
-            _ability.UseBy(controller);
+            _ability.UseOn(target);
             _inventory.RemoveOneItem(_item);
-            controller.PlaySound(_item.useSound);
         }
 
         public override void UpdateAbilityButton(IAbilityCounterHandler handler)

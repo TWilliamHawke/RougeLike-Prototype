@@ -33,7 +33,7 @@ namespace Items
 
         private IAbility CreateAbility(IAbilitiesFactory factory)
         {
-            return new SelfAbility(this, _effects, factory.abilityUser);
+            return new SelfAbility(this, _effects);
         }
 
     }

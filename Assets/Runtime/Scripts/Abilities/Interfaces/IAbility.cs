@@ -6,8 +6,8 @@ namespace Abilities
     {
         Sprite icon { get; }
         string displayName { get; }
-        void UseBy(AbilityController abilityController);
         void UseOn(IAbilityTarget target);
-        void Select(IAbilityTrigger trigger);
+        void Select(IAbilityUser user, IAbilityContainer container);
+        string GetDescription(AbilityModifiers abilityModifiers);
     }
 }

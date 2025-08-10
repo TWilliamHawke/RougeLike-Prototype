@@ -18,8 +18,9 @@ namespace Abilities
         [SerializeField] string _description;
 
         public ProjectileTemplate projectile => _projectile;
+        public string description => _description;
 
-        public override IAbility CreateAbility(IAbilityUser user)
+        public override IAbility CreateAbility()
         {
             ProjectileAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);
@@ -31,29 +32,12 @@ namespace Abilities
             return target.GetComponent<Health>() != null;
         }
 
-        public override void SelectAbilityController(AbilityController controller)
-        {
-            controller.StartTargetSelection(this);
-        }
-
         public void UseOnTarget(AbilityController controller, IAbilityTarget target)
         {
             if (target is IRangeAttackTarget)
             {
                 controller.GetComponent<ProjectileController>()?.ThrowProjectile(target as IRangeAttackTarget, _projectile);
             }
-        }
-
-        public override string GetDescription(AbilityModifiers abilityModifiers)
-        {
-            float minDamage = _minDamage * abilityModifiers.magnitudeMult;
-            float maxDamage = _maxDamage * abilityModifiers.magnitudeMult;
-
-            var pattern1 = @"%m1";
-            var pattern2 = @"%m2";
-
-            var realDescription = Regex.Replace(_description, pattern1, minDamage.ToString());
-            return Regex.Replace(realDescription, pattern2, maxDamage.ToString());
         }
     }
 }
