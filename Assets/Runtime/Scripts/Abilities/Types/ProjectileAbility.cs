@@ -21,9 +21,9 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override void Select()
+        public override void Select(IAbilityTrigger trigger)
         {
-            //start target selection
+            trigger.TriggerSelectionEvent();
         }
 
         public override void UseOn(IAbilityTarget target)

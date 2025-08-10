@@ -10,6 +10,7 @@ namespace Abilities
         protected override IIconData template => _template;
         IEnumerable<SourceEffectData> _effects;
         IAbilityUser _user;
+        IAbilityTarget _target;
 
         IEffectSource _template;
         [InjectField] SelfAbilityController _controller;
@@ -23,12 +24,12 @@ namespace Abilities
             _template = template;
             _effects = effects;
             _user = user;
+            _target = user as IAbilityTarget;
         }
 
-        public override void Select()
+        public override void Select(IAbilityTrigger _)
         {
-            IAbilityTarget user = _user as IAbilityTarget;
-            UseOn(user);
+            UseOn(_target);
         }
 
         public override void UseOn(IAbilityTarget target)

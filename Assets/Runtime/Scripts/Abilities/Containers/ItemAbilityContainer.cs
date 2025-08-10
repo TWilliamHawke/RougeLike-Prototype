@@ -5,17 +5,13 @@ using Items;
 
 namespace Abilities
 {
-    public class ItemAbilityContainer : IAbilityContainer
+    public class ItemAbilityContainer : AbilityContainer
     {
         IInventory _inventory;
 
-        public Sprite icon => _item.icon;
-        public bool canBeUsed => _inventory.FindItemCount(_item) > 0;
-        public string displayName => _item.displayName;
-        public int numOfUses => _inventory.FindItemCount(_item);
+        public override bool canBeUsed => _inventory.FindItemCount(_item) > 0;
 
         Item _item;
-        IAbility _ability;
 
         public ItemAbilityContainer(Item item, IInventory inventory, IAbility ability)
         {
@@ -24,16 +20,17 @@ namespace Abilities
             _ability = ability;
         }
 
-        public void UseAbility(AbilityController controller)
+        public override void UseAbility(AbilityController controller)
         {
             _ability.UseBy(controller);
             _inventory.RemoveOneItem(_item);
             controller.PlaySound(_item.useSound);
         }
 
-        public void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
         {
-            throw new System.NotImplementedException();
+            int numOfUses = _inventory.FindItemCount(_item);
+            handler.ShowAbilityCounter(numOfUses);
         }
     }
 }
