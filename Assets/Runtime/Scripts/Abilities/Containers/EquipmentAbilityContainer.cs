@@ -3,22 +3,19 @@ using Items;
 
 namespace Abilities
 {
-    public class EquipmentAbilityContainer : IAbilityContainer
+    public class EquipmentAbilityContainer : AbilityContainer
     {
         //UNDONE item is equipped
-        public bool canBeUsed => true; 
-        public int numOfUses => -1;
-        public string displayName => _item.displayName;
-        public Sprite icon => _item.icon;
+        public override bool canBeUsed => true; 
 
         Item _item;
 
-        public void UseAbility(AbilityController controller)
+        public override void UseAbility(AbilityController controller)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
         {
             throw new System.NotImplementedException();
         }

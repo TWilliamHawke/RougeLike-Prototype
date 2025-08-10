@@ -2,20 +2,21 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class SimpleAbilityContainer : IAbilityContainer
+    public class SimpleAbilityContainer : AbilityContainer
     {
-        public bool canBeUsed => true;
-        public string displayName => _ability.abilityName;
-        public Sprite icon => _ability.abilityIcon;
+        public override bool canBeUsed => true;
 
-        IAbility _ability;
+        public SimpleAbilityContainer(IAbility ability)
+        {
+            _ability = ability;
+        }
 
-        public void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
         {
             handler.HideAbilityCounter();
         }
 
-        public void UseAbility(AbilityController controller)
+        public override void UseAbility(AbilityController controller)
         {
             _ability.UseBy(controller);
         }
