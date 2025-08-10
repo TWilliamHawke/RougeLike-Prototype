@@ -12283,7 +12283,6 @@ GameObject:
   m_Component:
   - component: {fileID: 464945234}
   - component: {fileID: 464945236}
-  - component: {fileID: 464945235}
   m_Layer: 0
   m_Name: SpellClickObserver
   m_TagString: Untagged
@@ -12306,38 +12305,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 829740739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &464945235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464945233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _injectionTarget: {fileID: 464945236}
-  _waitForAllDependencies: 0
-  _addTargetManualy: 0
-  _injectors:
-  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
-  _finalizeInjectionHandler:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 464945236}
-        m_TargetAssemblyTypeName: Items.KnownSpellCliickObserver, Project
-        m_MethodName: FindPlayerComponents
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &464945236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63055,6 +63022,131 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
   m_UseDelaunayMesh: 0
+--- !u!1 &507837458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507837459}
+  - component: {fileID: 507837461}
+  - component: {fileID: 507837460}
+  - component: {fileID: 507837463}
+  - component: {fileID: 507837462}
+  m_Layer: 0
+  m_Name: AbilitySelectionObserver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &507837459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507837458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 843137196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &507837460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507837458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 507837461}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8eb3f806886c1fe49ab96117ce2ae601, type: 2}
+  - {fileID: 11400000, guid: 351906b501303244b81b753f9877bc61, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &507837461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507837458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca3cdb780e91f94ebe7a433c3396201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetSelectedEvent: {fileID: 11400000, guid: df352ae99bfbce448a85b686d7214cef, type: 2}
+--- !u!114 &507837462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507837458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 507837461}
+        m_TargetAssemblyTypeName: Abilities.AbilitySelectionObserver, Project
+        m_MethodName: FinalizeSelection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &507837463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507837458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: df352ae99bfbce448a85b686d7214cef, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 507837461}
+        m_TargetAssemblyTypeName: Abilities.AbilitySelectionObserver, Project
+        m_MethodName: FinalizeSelection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &508076058
 GameObject:
   m_ObjectHideFlags: 0
@@ -72421,7 +72513,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1214718855}
   - {fileID: 280102874}
   - {fileID: 801443035}
   - {fileID: 1988466620}
@@ -72430,7 +72521,7 @@ Transform:
   - {fileID: 1916386862}
   - {fileID: 917099263}
   - {fileID: 288473598}
-  - {fileID: 1326132232}
+  - {fileID: 507837459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &843244710
@@ -80516,84 +80607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cb67e3a94a39e46b839bd658b151c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1214718854
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1214718855}
-  - component: {fileID: 1214718856}
-  - component: {fileID: 1214718857}
-  m_Layer: 0
-  m_Name: TargetSelectionHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1214718855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214718854}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 843137196}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1214718856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214718854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f246cc2c9c407bc44ba5f204a740445f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1214718857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214718854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _injectionTarget: {fileID: 1214718856}
-  _waitForAllDependencies: 1
-  _addTargetManualy: 0
-  _injectors:
-  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
-  - {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
-  _finalizeInjectionHandler:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1214718856}
-        m_TargetAssemblyTypeName: Abilities.TargetSelectionHandler, Project
-        m_MethodName: FindPlayerComponents
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1218510749
 GameObject:
   m_ObjectHideFlags: 0
@@ -84240,51 +84253,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be69db558b6a8e24d991cdfa33eb7a13, type: 3}
---- !u!1 &1326132231
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1326132232}
-  - component: {fileID: 1326132233}
-  m_Layer: 0
-  m_Name: PlayerAbilitySelector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1326132232
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326132231}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 843137196}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1326132233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326132231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1aa8fdd092a1204db28ee14e46bb125, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _quickBarDataStorage: {fileID: 11400000, guid: 614fd68ce7eaaac4bbfdd3147336e5c5, type: 2}
 --- !u!1 &1329410025
 GameObject:
   m_ObjectHideFlags: 0
@@ -97354,9 +97322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
-  _infoButtonInjector: {fileID: 11400000, guid: b2956307e2ceb504e95b6d218805d5a0, type: 2}
   _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
   _playerInjector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _stateMachineInjector: {fileID: 11400000, guid: 351906b501303244b81b753f9877bc61, type: 2}
 --- !u!114 &1866764017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106947,6 +106915,7 @@ GameObject:
   - component: {fileID: 3739933226695279393}
   - component: {fileID: 1769932474236868575}
   - component: {fileID: 5063955807801410165}
+  - component: {fileID: 6758698679929703224}
   m_Layer: 5
   m_Name: TopPanelsWrapper
   m_TagString: Untagged
@@ -106954,6 +106923,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6758698679929703224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6758698679929703223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8c4b678c881548a18849259a18727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dependency: {fileID: 3739933226695279393}
+  _injector: {fileID: 11400000, guid: 8eb3f806886c1fe49ab96117ce2ae601, type: 2}
+  _readyTrigger: 2
 --- !u!224 &6854535724097467544
 RectTransform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Map;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Core.Input
@@ -14,9 +10,9 @@ namespace Core.Input
         ClickStateMachine _clickStateMachine;
 
         [SerializeField] Injector _inputControllerInjector;
-        [SerializeField] Injector _infoButtonInjector;
         [SerializeField] Injector _tileGridInjector;
         [SerializeField] Injector _playerInjector;
+        [SerializeField] Injector _stateMachineInjector;
 
         void Update()
         {
@@ -34,11 +30,14 @@ namespace Core.Input
             _inputController = new InputController();
             _inputControllerInjector.SetDependency(_inputController);
 
-            _clickStateMachine = new ClickStateMachine();
-            _playerInjector.AddInjectionTarget(_clickStateMachine);
+            DefaultClickActions actionList = new();
+            _playerInjector.AddInjectionTarget(actionList);
+            _inputControllerInjector.AddInjectionTarget(actionList);
+            _tileGridInjector.AddInjectionTarget(actionList);
+
+            _clickStateMachine = new(actionList);
             _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
-            _tileGridInjector.AddInjectionTarget(_clickStateMachine);
-            _infoButtonInjector.AddInjectionTarget(_clickStateMachine);
+            _stateMachineInjector.SetDependency(_clickStateMachine);
         }
 
         //used in editor

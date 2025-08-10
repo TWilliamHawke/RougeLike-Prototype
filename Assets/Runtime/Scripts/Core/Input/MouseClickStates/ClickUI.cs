@@ -7,30 +7,30 @@ using System.Linq;
 
 namespace Core.Input
 {
-	public class ClickUI : IMouseClickAction
-	{
+    public class ClickUI : IMouseClickAction
+    {
 
-		const string IGNORE_RAYCAST_TAG = "IgnoreUIRaycast";
+        const string IGNORE_RAYCAST_TAG = "IgnoreUIRaycast";
 
         void IMouseClickAction.ProcessClick()
         {
-			//do nothing
+            //do nothing
         }
 
         bool IMouseClickAction.Condition()
         {
             var hits = Raycasts.UI();
 
-			if(hits.Any(hit => hit.gameObject.tag != IGNORE_RAYCAST_TAG))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+            if (hits.Any(hit => !hit.gameObject.CompareTag(IGNORE_RAYCAST_TAG)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
-	}
+    }
 }

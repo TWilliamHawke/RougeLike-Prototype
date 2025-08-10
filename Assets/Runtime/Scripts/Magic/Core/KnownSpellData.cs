@@ -11,7 +11,7 @@ using Abilities;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IContextMenuData
+    public class KnownSpellData : IAbilitySource, IContextMenuData, IAbility
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;
@@ -105,6 +105,21 @@ namespace Magic
         public StringSlotData GetSpellSlotAt(int slotIndex)
         {
             return _activeStrings.GetSpellSlotAt(slotIndex);
+        }
+
+        public void UseBy(AbilityController abilityController)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UseOn(IAbilityTarget target)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Select(IAbilityTrigger trigger)
+        {
+            trigger.TriggerSelectionEvent();
         }
     }
 }

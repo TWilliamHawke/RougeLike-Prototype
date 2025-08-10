@@ -6,10 +6,10 @@ using Entities.PlayerScripts;
 
 namespace Core.Input
 {
-	public class ClickWalkableTile : IMouseClickAction
-	{
-		InputController _inputController;
-		TilesGrid _tileGrid;
+    public class ClickWalkableTile : IMouseClickAction
+    {
+        InputController _inputController;
+        TilesGrid _tileGrid;
         Player _player;
         TileNode _targetNode;
 
@@ -27,7 +27,7 @@ namespace Core.Input
 
         bool IMouseClickAction.Condition()
         {
-        	Vector3Int position = _inputController.hoveredTilePos;
+            Vector3Int position = _inputController.hoveredTilePos;
             if (_tileGrid.TryGetNode(position, out var node))
             {
                 if (node.isWalkable)
@@ -37,9 +37,9 @@ namespace Core.Input
                 }
             }
 
-			return false;
+            return false;
 
         }
 
-	}
+    }
 }

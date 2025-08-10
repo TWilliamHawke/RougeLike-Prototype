@@ -3,7 +3,8 @@ using Map.Zones;
 
 namespace Map.UI
 {
-    public class TaskPanelController : MonoBehaviour
+
+    public class TaskPanelController : MonoBehaviour, ITaskPanelController
     {
         [SerializeField] TaskPanel _taskPanel;
 
@@ -29,7 +30,17 @@ namespace Map.UI
         //used in editor
         public void UpdateTaskPanel()
         {
-            _taskPanel.SetTask(_currentMapZone.currentTask);
+            ChangeTask(_currentMapZone.currentTask);
+        }
+
+        public void ResetTask()
+        {
+            ChangeTask(_currentMapZone.currentTask);
+        }
+
+        public void ChangeTask(TaskData task)
+        {
+            _taskPanel.SetTask(task);
         }
     }
 }
