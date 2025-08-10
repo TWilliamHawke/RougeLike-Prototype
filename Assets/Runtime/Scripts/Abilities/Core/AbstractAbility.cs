@@ -4,8 +4,8 @@ namespace Abilities
 {
     public abstract class AbstractAbility : IAbility, IInjectionTarget
     {
-        public Sprite abilityIcon => template.icon;
-        public string abilityName => template.displayName;
+        public Sprite icon => template.icon;
+        public string displayName => template.displayName;
 
         public bool waitForAllDependencies => false;
 

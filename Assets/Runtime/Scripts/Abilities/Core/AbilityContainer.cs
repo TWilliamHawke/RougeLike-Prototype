@@ -8,8 +8,8 @@ namespace Abilities
         public static event UnityAction<IAbilityContainer> OnAbilitySelection;
 
         public abstract bool canBeUsed { get; }
-        public virtual string displayName => _ability.abilityName;
-        public virtual Sprite icon => _ability.abilityIcon;
+        public virtual string displayName => _ability.displayName;
+        public virtual Sprite icon => _ability.icon;
 
         protected IAbility _ability { get; init; }
 

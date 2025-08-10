@@ -1,25 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using Entities.Combat;
-using Entities.PlayerScripts;
-using Map;
-using UnityEngine;
 using UnityEngine.InputSystem;
-using Abilities;
 
 namespace Core.Input
 {
-    public class ClickStateMachine : IInjectionTarget, IInfoModeState
+    public class ClickStateMachine : IInjectionTarget
     {
         [InjectField] InputController _inputController;
-        [InjectField] InfoButton _infoButton;
-        [InjectField] TilesGrid _tileGrid;
-        [InjectField] Player _player;
 
-        bool _infoMode = false;
-        public bool infoMode => _infoMode;
-        bool IInjectionTarget.waitForAllDependencies => true;
-        List<IMouseClickAction> _clickStates = new List<IMouseClickAction>();
+        IClickActionList _defaultClickActions;
+        IClickActionList _currentClickActions;
+
+        bool IInjectionTarget.waitForAllDependencies => false;
+
+        public ClickStateMachine(IClickActionList defaultClickActions)
+        {
+            _defaultClickActions = defaultClickActions;
+            _currentClickActions = defaultClickActions;
+        }
+
+        public void ReplaceAcionList(IClickActionList actionList)
+        {
+            _currentClickActions = actionList;
+        }
+
+        public void ResetActionList()
+        {
+            _currentClickActions = _defaultClickActions;
+        }
 
         public void Unsubscribe()
         {
@@ -29,45 +35,11 @@ namespace Core.Input
         void IInjectionTarget.FinalizeInjection()
         {
             _inputController.main.Click.started += CheckTileObjects;
-            _infoButton.OnClick += ToggleInfoMode;
-
-            FillStateMachine();
-        }
-
-        private void FillStateMachine()
-        {
-            //check ui click before tiles
-            _clickStates.Add(new ClickUI());
-            _clickStates.Add(new ClickObjectInfo(this, _inputController));
-            //check unwalkable before gameobjects
-            _clickStates.Add(new ClickUnwalkableTile(
-                inputController: _inputController,
-                tilemapController: _tileGrid));
-
-            _clickStates.Add(new ClickPlayer(_inputController, _player));
-
-            _clickStates.Add(new ClickRangeAttackTarget(
-                inputController: _inputController,
-                player: _player.GetComponent<ProjectileController>()));
-            _clickStates.Add(new ClickRemoteObject(_inputController, _player));
-            _clickStates.Add(new ClickNextTileObject(_inputController, _player));
-
-            //tile hasn't any objects
-            _clickStates.Add(new ClickWalkableTile(
-                inputController: _inputController,
-                tileGrid: _tileGrid,
-                player: _player));
-        }
-
-        private void ToggleInfoMode()
-        {
-            _infoMode = !_infoMode;
-            _infoButton.ToggleButton(infoMode);
         }
 
         void CheckTileObjects(InputAction.CallbackContext _)
         {
-            foreach (var state in _clickStates)
+            foreach (var state in _currentClickActions)
             {
                 if (!state.Condition()) continue;
 

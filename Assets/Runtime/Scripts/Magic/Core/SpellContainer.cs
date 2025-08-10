@@ -26,6 +26,7 @@ namespace Magic
             _statsContainer = statsContainer;
             _manaStorage = magicConfig.FindManaStorage(statsContainer);
             _descriptionConstructor = new(spellData, statsContainer, _magicConfig);
+            _ability = spellData;
         }
 
         public override void UseAbility(AbilityController controller)

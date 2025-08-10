@@ -6,13 +6,14 @@ using UnityEngine;
 
 namespace Items
 {
-    [RequireComponent(typeof(ComponentInjector))]
     public class KnownSpellCliickObserver : MonoBehaviour, IObserver<KnownSpellSlot>
     {
         [SerializeField] SpellList _spellList;
-        [InjectField] Player _player;
 
-        AbilityController _abilityController;
+        void Awake()
+        {
+            _spellList.AddObserver(this);
+        }
 
         public void AddToObserve(KnownSpellSlot target)
         {
@@ -24,15 +25,9 @@ namespace Items
             target.OnSpellSelect -= CastSpell;
         }
 
-        //Used in Unity Editor
-        public void FindPlayerComponents()
-        {
-            _abilityController = _player.GetComponent<AbilityController>();
-        }
-
         private void CastSpell(SpellContainer spell)
         {
-            spell.UseAbility(_abilityController);
+            spell.Select();
         }
     }
 }

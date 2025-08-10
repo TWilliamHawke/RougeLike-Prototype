@@ -4,8 +4,8 @@ namespace Abilities
 {
     public interface IAbility
     {
-        Sprite abilityIcon { get; }
-        string abilityName { get; }
+        Sprite icon { get; }
+        string displayName { get; }
         void UseBy(AbilityController abilityController);
         void UseOn(IAbilityTarget target);
         void Select(IAbilityTrigger trigger);
