@@ -12,7 +12,7 @@ namespace Core.Input
         [InjectField] TilesGrid _tileGrid;
         [InjectField] Player _player;
 
-        List<IMouseClickAction> _clickActions = new();
+        List<IClickAction> _clickActions = new();
 
         public bool waitForAllDependencies => true;
 
@@ -45,7 +45,7 @@ namespace Core.Input
                 player: _player));
         }
 
-        public IEnumerator<IMouseClickAction> GetEnumerator()
+        public IEnumerator<IClickAction> GetEnumerator()
         {
             return _clickActions.GetEnumerator();
         }

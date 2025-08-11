@@ -2,7 +2,7 @@ using Abilities;
 
 namespace Core.Input
 {
-    public class ClickAbilityTarget : IMouseClickAction
+    public class ClickAbilityTarget : IClickAction
     {
         public ClickAbilityTarget() { }
         IAbilityContainer _abilityContainer;
@@ -15,12 +15,12 @@ namespace Core.Input
             _targetSelectedEvent = targetSelectedEvent;
         }
 
-        bool IMouseClickAction.Condition()
+        bool IClickAction.Condition()
         {
             return true;
         }
 
-        void IMouseClickAction.ProcessClick()
+        void IClickAction.ProcessClick()
         {
             _targetSelectedEvent?.Invoke();
         }
