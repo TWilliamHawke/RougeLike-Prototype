@@ -1,8 +1,5 @@
-using System;
-using System.Linq;
 using Localisation;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EditLocalStringWindow : EditorWindow
@@ -43,8 +40,17 @@ public class EditLocalStringWindow : EditorWindow
         {
             _key = EditorGUILayout.TextField("Key: ", _key);
         }
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Value: ");
+        if (GUILayout.Button("Cut Text"))
+        {
+            EditorGUIUtility.systemCopyBuffer = _value;
+            _value = "";
+        }
+
+        EditorGUILayout.EndHorizontal();
         EditorStyles.textArea.wordWrap = true;
+
         _value = EditorGUILayout.TextArea(_value, GUILayout.Width(400), GUILayout.Height(150));
 
         DrawEnglishText();
@@ -82,13 +88,13 @@ public class EditLocalStringWindow : EditorWindow
 
     private void ValidateAndSave()
     {
-        if (String.IsNullOrEmpty(_parts[1]))
+        if (string.IsNullOrEmpty(_parts[1]))
         {
             _errorMessage = "English text is empty";
             return;
         }
 
-        if (String.IsNullOrEmpty(_key))
+        if (string.IsNullOrEmpty(_key))
         {
             _errorMessage = "Key is empty";
             return;
@@ -96,7 +102,7 @@ public class EditLocalStringWindow : EditorWindow
 
         for (int i = 2; i < _parts.Length; i++)
         {
-            if (String.IsNullOrEmpty(_parts[i]) || _parts[i] == _key)
+            if (string.IsNullOrEmpty(_parts[i]) || _parts[i] == _key)
             {
                 _parts[i] = _parts[1];
             }
@@ -115,7 +121,7 @@ public class EditLocalStringWindow : EditorWindow
     private void DrawEnglishText()
     {
         if (_gameLanguage == GameLanguages.english) return;
-        if (String.IsNullOrEmpty(_parts[1]))
+        if (string.IsNullOrEmpty(_parts[1]))
         {
             _errorMessage = "English text is empty";
             return;
@@ -126,7 +132,7 @@ public class EditLocalStringWindow : EditorWindow
         EditorGUILayout.LabelField("English Text:");
         if (GUILayout.Button("Copy to Value"))
         {
-            _parts[(int)_gameLanguage] = _parts[1];
+            _value = _parts[1];
         }
         EditorGUILayout.EndHorizontal();
 

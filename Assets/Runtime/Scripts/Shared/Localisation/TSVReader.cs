@@ -39,7 +39,7 @@ namespace Localisation
                 {
                     AddLineToDictionary(line);
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     Debug.LogError(e.Message);
                 }
@@ -54,6 +54,7 @@ namespace Localisation
 
             var lines = csv.text
                 .Split(_lineSeparator)
+                .Where(line => !string.IsNullOrEmpty(line))
                 .Select(line => line.Trim());
 
             return lines;
@@ -61,14 +62,14 @@ namespace Localisation
 
         private void AddLineToDictionary(string line)
         {
-            if (String.IsNullOrEmpty(line)) throw new Exception($"Line is empty: {line}");
+            if (string.IsNullOrEmpty(line)) throw new Exception($"Line is empty: {line}");
 
             var keyValues = line.Split(_cellSeparator);
             string key = keyValues[0];
             string value = keyValues[_gameLanguageIdx];
 
-            if (key == "") throw new Exception($"Found empty Key in line: {line}");
-            if (value == "") throw new Exception($"Value for {key} is empty");
+            if (string.IsNullOrEmpty(key)) throw new Exception($"Found empty Key in line: {line}");
+            if (string.IsNullOrEmpty(value)) throw new Exception($"Value for {key} is empty");
             if (_dictionary.ContainsKey(key)) throw new Exception($"Key {key} is already exist");
 
             _dictionary[key] = value;
