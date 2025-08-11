@@ -9,10 +9,9 @@ inventory_section_scrolls	Scrolls	Свитки
 inventory_section_main	Main Section	Общая сумка
 effect_name_accuracy	Accuracy	Точность
 effect_description_accuracy	Increace accuracy by %m	Точность : %m
-effect_description_accurac	qwerty	qwerty
-effect_name_damage_mod_all	Damage from all sources	Урон из всех источников
+effect_name_damage_mod_all	Damage from all sources	Урон от всех источников
 effect_description_damage_mod_all	Damage from all sources: %m%	Весь урон: %m%
-effect_name_spell_cost	Spell cost	Spell cost
+effect_name_spell_cost	Spell cost	Стоимость заклинаний
 effect_descr_spell_cost	Spell cost : %m%	Стоимость заклинаний : %m%
 effect_name_damage_bleeding	Bleeding Damage	Урон от кровотечения
 effect_descr_damage_bleeding	Takes %m bleeding damage	Наносит %m урона от кровотечения
@@ -22,7 +21,7 @@ effect_name_damage_frost	Frost damage	Ледяной урон
 effect_descr_damage_frost	Takes %m frost damage	Наносит %m урона холодом
 effect_name_damage_lightning	Lightning Damage	Урон от молнии
 effect_descr_damage_lightning	Takes %m fire damage	Наносит %m урона молнией
-effect_name_damage_physical	Physical Damage	Physical Damage
+effect_name_damage_physical	Physical Damage	Физический урон
 effect_descr_damage_physical	Takes %m physical damage	Наносит %m физического урона
 effect_name_spell_cast	Spell Cost	Произнесение заклинания
 effect_descr_spell_cast	Reduce Mana by %m	Снижает ману на %m
@@ -72,4 +71,5 @@ item_section_spell_strings	Spell Strings	Строки заклинаний
 item_section_main_section	Main Section	Главная секция
 item_section_temp_storage	Temporary Storage	Временное Хранилище
 item_section_main_storage	Storage	Хранилище
-base_sword_attack_name	Sword Attack	Атака мечём
+ability_name_walk	Movement	Перемещение
+ability_name_base_sword_attack	Sword Attack	Атака мечём

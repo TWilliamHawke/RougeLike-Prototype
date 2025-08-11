@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - _icon: {instanceID: 0}
-  - <AbilityController>k__BackingField: {fileID: 11400000, guid: 428de222f051a3a44bde2e262118ab00, type: 2}
+  - _abilityController: {fileID: 11400000, guid: 428de222f051a3a44bde2e262118ab00, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

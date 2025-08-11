@@ -37,12 +37,12 @@ namespace Localisation
         {
             if (values.Length < 2) return false;
             string key = values[0];
-            if (String.IsNullOrEmpty(key)) return false;
-            if (String.IsNullOrEmpty(values[1])) return false;
+            if (string.IsNullOrEmpty(key)) return false;
+            if (string.IsNullOrEmpty(values[1])) return false;
 
             for (int i = 2; i < values.Length; i++)
             {
-                if (!String.IsNullOrEmpty(values[i])) continue;
+                if (!string.IsNullOrEmpty(values[i])) continue;
                 values[i] = values[1];
             }
 
@@ -61,8 +61,8 @@ namespace Localisation
 
         private static void AppendLine(string[] line)
         {
-            string fullLine = String.Join("\t", line);
-            File.AppendAllText(targetPath, String.Concat('\n', fullLine));
+            string fullLine = string.Join("\t", line);
+            File.AppendAllText(targetPath, string.Concat('\n', fullLine));
             data.Add(line);
             _dataByKey[line[0]] = line;
         }
@@ -77,12 +77,14 @@ namespace Localisation
             }
 
             _dataByKey[key] = line;
-            File.WriteAllLines(targetPath, data.Select(values => String.Join("\t", values)));
+            File.WriteAllLines(targetPath, data.Select(values => string.Join("\t", values)));
         }
 
         private static void CreateData()
         {
-            data = GetLines().Select(line => SplitLine(line)).ToList();
+            data = GetLines()
+                .Select(line => SplitLine(line))
+                .ToList();
             data.ForEach(el => _dataByKey[el[0]] = el);
         }
 
