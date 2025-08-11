@@ -6,7 +6,7 @@ using Entities.PlayerScripts;
 
 namespace Core.Input
 {
-    public class ClickRemoteObject : IMouseClickAction
+    public class ClickRemoteObject : IClickAction
     {
         InputController _inputController;
         Player _player;
@@ -19,12 +19,12 @@ namespace Core.Input
             _player = player;
         }
 
-        void IMouseClickAction.ProcessClick()
+        void IClickAction.ProcessClick()
         {
             _player.GotoRemoteTarget(_target);
         }
 
-        bool IMouseClickAction.Condition()
+        bool IClickAction.Condition()
         {
             foreach (var hit in _inputController.hoveredTileHits)
             {

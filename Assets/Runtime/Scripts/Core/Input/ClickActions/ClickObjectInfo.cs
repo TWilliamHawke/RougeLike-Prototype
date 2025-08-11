@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.Input
 {
-    public class ClickObjectInfo : IMouseClickAction
+    public class ClickObjectInfo : IClickAction
     {
         IInfoModeState _infoModeState;
         InputController _inputController;

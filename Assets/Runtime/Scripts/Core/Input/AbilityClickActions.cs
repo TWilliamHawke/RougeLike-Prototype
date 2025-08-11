@@ -6,7 +6,7 @@ namespace Core.Input
 {
     public class AbilityClickActions : IClickActionList
     {
-        List<IMouseClickAction> _clickActions = new();
+        List<IClickAction> _clickActions = new();
         IAbilityContainer _abilityContainer;
 
         public AbilityClickActions(IAbilityContainer abilityContainer, CustomEvent targetSelectedEvent)
@@ -17,7 +17,7 @@ namespace Core.Input
                 abilityContainer, targetSelectedEvent));
         }
 
-        public IEnumerator<IMouseClickAction> GetEnumerator()
+        public IEnumerator<IClickAction> GetEnumerator()
         {
             return _clickActions.GetEnumerator();
         }
