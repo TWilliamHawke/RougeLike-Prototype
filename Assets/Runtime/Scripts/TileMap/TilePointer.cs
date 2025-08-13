@@ -5,37 +5,33 @@ using Core.Input;
 
 namespace Map
 {
-    public class TilePointer : MonoBehaviour, IInjectionTarget
+    public class TilePointer : MonoBehaviour
     {
-        [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Color _defaultColor = Color.yellow;
         [SerializeField] Color _enemyColor = Color.red;
         [SerializeField] SpriteRenderer _sprite;
 
-        [InjectField] InputController _inputController;
-
-        bool IInjectionTarget.waitForAllDependencies => false;
+        [InjectField] HoveredTileObserver _hoveredTileObserver;
 
         void Awake()
         {
             _sprite.color = _defaultColor;
-            _inputControllerInjector.AddInjectionTarget(this);
         }
 
         void OnDestroy()
         {
-            if(_inputController is null) return;
-            _inputController.OnHoveredTileChange -= ChangePosition;
+            if(_hoveredTileObserver is null) return;
+            _hoveredTileObserver.OnHoveredTileChange -= ChangePosition;
         }
 
-        void ChangePosition(Vector3Int position)
+        void ChangePosition(TileNode node)
         {
-            transform.position = transform.position.ReplaceXYFrom(position);
+            transform.position = transform.position.ReplaceXYFrom(node.position);
         }
 
         public void FinalizeInjection()
         {
-            _inputController.OnHoveredTileChange += ChangePosition;
+            _hoveredTileObserver.OnHoveredTileChange += ChangePosition;
         }
     }
 }

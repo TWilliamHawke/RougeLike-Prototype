@@ -44,6 +44,7 @@ namespace Entities
 
         public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }
+        public Vector3 position => transform.position;
 
         void IAttackTarget.TakeDamage(int damage)
         {
@@ -65,8 +66,6 @@ namespace Entities
         protected void InitComponents()
         {
             var meleeAttackController = GetComponent<MeleeAttackController>();
-            var movementController = GetComponent<MovementController>();
-            movementController.Init(new TileNode(0, 1, true));
             meleeAttackController.Init(this);
         }
 
@@ -85,6 +84,11 @@ namespace Entities
         public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
         }
     }
 }

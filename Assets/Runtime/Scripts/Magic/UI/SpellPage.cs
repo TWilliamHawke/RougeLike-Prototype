@@ -57,7 +57,7 @@ namespace Magic.UI
         public void Open(KnownSpellData spellData)
         {
             _spellData = spellData;
-            _spellContainer = _abilitiesFactory.CreateSpellAbilityContainer(spellData);
+            _spellContainer = _abilitiesFactory.CreateSpellContainer(spellData);
             spellData.OnDataChange += UpdateUIData;
             UpdateUIData();
             _editorScreen.Open();

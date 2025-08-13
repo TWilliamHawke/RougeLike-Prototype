@@ -2,43 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using Entities;
 using Entities.PlayerScripts;
+using Map;
 using UnityEngine;
 
 namespace Core.Input
 {
-	public class ClickNextTileObject : IClickAction
-	{
-        InputController _inputController;
+    public class ClickNextTileObject : IClickAction
+    {
         Player _player;
-        
-		IInteractive _target;
 
-        public ClickNextTileObject(InputController inputController, Player player)
+
+        public ClickNextTileObject(Player player)
         {
-            _inputController = inputController;
             _player = player;
         }
 
-        void IClickAction.ProcessClick()
+        public void ProcessClick(ITileClickData tile)
         {
-            _target?.Interact(_player);
+            if (TryFindTarget(tile, out var target))
+            {
+                target.Interact(_player);
+            }
         }
 
-        bool IClickAction.Condition()
+        public bool CanBeUsedOnTile(ITileClickData tile)
         {
-            foreach (var hit in _inputController.hoveredTileHits)
+            return TryFindTarget(tile, out _);
+        }
+        
+        private bool TryFindTarget(ITileClickData tile, out IInteractive target)
+        {
+            target = null;
+
+            foreach (var entity in tile.entitiesOnTile)
             {
-                if(hit.collider.TryGetComponent<IInteractive>(out var target))
+                target = entity as IInteractive;
+                if (target is not null)
                 {
                     var targetPos = target.transform.position;
                     var playerPos = _player.transform.position;
-                    _target = target;
 
                     return Vector3.SqrMagnitude(targetPos - playerPos) < 2.1;
                 }
             }
 
             return false;
+
         }
 	}
 }

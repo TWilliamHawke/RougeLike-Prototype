@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Effects;
+using Map;
 using UnityEngine;
 
 namespace Abilities
@@ -32,7 +34,7 @@ namespace Abilities
             container.UseAbility(target);
         }
 
-        public override void UseOn(IAbilityTarget target)
+        public override void Use(IAbilityUser _, IAbilityTarget target)
         {
             _controller.ApplyEffects(_effects, target, _template);
         }
@@ -52,5 +54,15 @@ namespace Abilities
             return sb.ToString();
         }
 
+        public override bool TileHasValidTarget(IAbilityUser _, ITileClickData __)
+        {
+            return true;
+        }
+
+        public override IAbilityTarget SelectTarget(ITileClickData tile)
+        {
+            var target = tile.entitiesOnTile.First(entity => entity is IAbilityTarget);
+            return target as IAbilityTarget;
+        }
     }
 }

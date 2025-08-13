@@ -1,3 +1,4 @@
+using Map;
 using UnityEngine;
 
 namespace Abilities
@@ -11,8 +12,10 @@ namespace Abilities
 
         protected abstract IIconData template { get; }
 
+        public abstract IAbilityTarget SelectTarget(ITileClickData tile);
+        public abstract void Use(IAbilityUser user, IAbilityTarget target);
         public abstract string GetDescription(AbilityModifiers abilityModifiers);
-        public abstract void UseOn(IAbilityTarget target);
+        public abstract bool TileHasValidTarget(IAbilityUser user, ITileClickData tile);
 
         public virtual void Select(IAbilityUser user, IAbilityContainer container)
         {

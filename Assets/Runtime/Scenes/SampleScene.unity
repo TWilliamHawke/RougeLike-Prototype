@@ -10202,6 +10202,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e56e6aea8096a449d72e5b0ed345d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &394845159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 394845160}
+  - component: {fileID: 394845161}
+  - component: {fileID: 394845162}
+  m_Layer: 0
+  m_Name: QuickBarInitController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &394845160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394845159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1801433002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394845161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394845159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13ea183ee4732045967492128e8520d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quickBarData: {fileID: 11400000, guid: 614fd68ce7eaaac4bbfdd3147336e5c5, type: 2}
+  _spellbook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
+  _movementAbility: {fileID: 11400000, guid: fe48c56e6283c7f41bffac0d76a3f255, type: 2}
+  _defaultAbility: {fileID: 11400000, guid: caf14fbe3a565b847b783c833c280892, type: 2}
+--- !u!114 &394845162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394845159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 394845161}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 394845161}
+        m_TargetAssemblyTypeName: Abilities.QuickBarInitController, Project
+        m_MethodName: InitQuickBar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &395310669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63233,8 +63314,8 @@ MonoBehaviour:
   _spellList: {fileID: 1609689038}
   _pageNumber: {fileID: 2086353741}
   _testSpells:
-  - {fileID: 11400000, guid: 7c7b75c1e4acaad4d85217c10af899aa, type: 2}
   - {fileID: 11400000, guid: caf14fbe3a565b847b783c833c280892, type: 2}
+  - {fileID: 11400000, guid: 7c7b75c1e4acaad4d85217c10af899aa, type: 2}
   _prevButton: {fileID: 601968898}
   _nextButton: {fileID: 2058997373}
 --- !u!114 &508076061
@@ -80627,7 +80708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dependency: {fileID: 1210188857}
-  _injector: {fileID: 11400000, guid: fae665e4def29914fb3306fb8fd2a8dc, type: 2}
+  _injector: {fileID: 11400000, guid: 30583dde89abbcb40adddb65ae671148, type: 2}
   _readyTrigger: 2
 --- !u!114 &1210188857
 MonoBehaviour:
@@ -80837,6 +80918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225828430}
   - component: {fileID: 1225828431}
+  - component: {fileID: 1225828432}
   m_Layer: 0
   m_Name: Pointer
   m_TagString: Untagged
@@ -80872,10 +80954,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f461441f350a1429680ce214e5762a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _defaultColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _enemyColor: {r: 1, g: 0, b: 0, a: 1}
   _sprite: {fileID: 1986284382}
+--- !u!114 &1225828432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225828429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1225828431}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 3b63e73c95cf0f9489e1ce574071d087, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1225828431}
+        m_TargetAssemblyTypeName: Map.TilePointer, Project
+        m_MethodName: FinalizeInjection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1246303795 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7654829013333994428, guid: 8cae8719fda677a42be94b91ef4037be, type: 3}
@@ -87431,7 +87544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa9a094d02244044a08c9b457b31618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _infoText: {fileID: 1344156900}
 --- !u!1 &1446389415
 GameObject:
@@ -88042,7 +88154,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1459821287}
-  - component: {fileID: 1459821291}
   - component: {fileID: 1459821290}
   - component: {fileID: 1459821289}
   - component: {fileID: 1459821288}
@@ -88099,7 +88210,6 @@ MonoBehaviour:
   _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
-  - {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
@@ -88117,20 +88227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _body: {fileID: 0}
   _stepSounds: {fileID: 11400000, guid: 9d8c96b3f1029cf4294def68d2d13bf3, type: 2}
---- !u!114 &1459821291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459821286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6481256518881a6488bbe9ee7c4224c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1468963373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93984,6 +94081,99 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4601654e821a1a4889b05628ef753f5, type: 3}
+--- !u!1 &1782334943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782334944}
+  - component: {fileID: 1782334946}
+  - component: {fileID: 1782334945}
+  - component: {fileID: 1782334947}
+  m_Layer: 0
+  m_Name: HoveredTileObserver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1782334944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782334943}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1866764015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1782334945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782334943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8c4b678c881548a18849259a18727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dependency: {fileID: 1782334946}
+  _injector: {fileID: 11400000, guid: 3b63e73c95cf0f9489e1ce574071d087, type: 2}
+  _readyTrigger: 1
+--- !u!114 &1782334946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782334943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bceb752cb3be2bc429b009fb25ee1712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1782334947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782334943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1782334946}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1782334946}
+        m_TargetAssemblyTypeName: Core.Input.HoveredTileObserver, Project
+        m_MethodName: SelectFirstTile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1783188351
 GameObject:
   m_ObjectHideFlags: 0
@@ -95015,6 +95205,7 @@ Transform:
   m_Children:
   - {fileID: 875341151}
   - {fileID: 1684910067}
+  - {fileID: 394845160}
   m_Father: {fileID: 952031286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1801511432
@@ -97340,7 +97531,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1782334944}
   m_Father: {fileID: 389726488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1866764016
@@ -97355,10 +97547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebed3577105cf8948913eb91fb4482f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _quickBarDataStorage: {fileID: 11400000, guid: 614fd68ce7eaaac4bbfdd3147336e5c5, type: 2}
   _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
-  _tileGridInjector: {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
   _playerInjector: {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
   _stateMachineInjector: {fileID: 11400000, guid: 351906b501303244b81b753f9877bc61, type: 2}
+  _hoveredTileInjector: {fileID: 11400000, guid: 3b63e73c95cf0f9489e1ce574071d087, type: 2}
 --- !u!114 &1866764017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100131,7 +100324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _inputControllerInjector: {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _body: {fileID: 0}
 --- !u!1 &1990140709
 GameObject:

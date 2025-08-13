@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Entities.PlayerScripts;
+using Map;
 
 namespace Core.Input
 {
 	public class ClickPlayer : IClickAction
 	{
 
-        InputController _inputController;
         Player _player;
 
-        public ClickPlayer(InputController inputController, Player player)
+        public ClickPlayer(Player player)
         {
-            _inputController = inputController;
             _player = player;
         }
 
-        void IClickAction.ProcessClick()
+        public void ProcessClick(ITileClickData tile)
         {
             _player.EndTurn();
         }
 
-        bool IClickAction.Condition()
+        public bool CanBeUsedOnTile(ITileClickData tile)
         {
-            return _inputController.hoveredTileHits.Any(hit => hit.collider.GetComponent<Player>());
+            return tile.entitiesOnTile.Any(entity => entity is Player);
         }
 
 	}

@@ -6,6 +6,7 @@ using UnityEngine.Pool;
 using UnityEngine.Events;
 using Map;
 using Entities.Combat;
+using System.Linq;
 
 namespace Abilities
 {
@@ -111,7 +112,8 @@ namespace Abilities
 
             foreach (var node in neightBorNodes)
             {
-                var target = node.entityInthisNode as IRangeAttackTarget;
+                var entity = node.entitiesOnTile.FirstOrDefault();
+                var target = entity as IAttackTarget;
                 if (target is null) continue;
                 AttackHandler.ProcessAttack(_startedAoeEffect.template, target);
             }

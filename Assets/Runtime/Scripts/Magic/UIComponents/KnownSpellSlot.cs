@@ -80,7 +80,7 @@ namespace Magic.UI
         {
             if (_knownSpell is null || _player is null) return;
             var abilityFactory = _player.GetComponent<PlayerAbilitiesFactory>();
-            _spellContainer = abilityFactory.CreateSpellAbilityContainer(_knownSpell);
+            _spellContainer = abilityFactory.CreateSpellContainer(_knownSpell);
             _spellCost.text = _spellContainer.spellCost.ToString();
         }
 

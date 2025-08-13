@@ -23,6 +23,14 @@ namespace Map
             return _pathFinder.FindPath(from, to);
         }
 
+        public Stack<TileNode> FindPath(Vector3Int posFrom, Vector3Int posTo)
+        {
+            bool foundFrom = TryGetNode(posFrom, out var from);
+            bool foundTo = TryGetNode(posTo, out var to);
+            if (!foundFrom || !foundTo) return new Stack<TileNode>();
+            return _pathFinder.FindPath(from, to);
+        }
+
         public bool TryGetNode(Vector3Int pos, out TileNode node)
         {
             return TryGetNodeAt(pos.x, pos.y, out node);
@@ -33,6 +41,13 @@ namespace Map
             bool insideGrid = PositionInsideGrid(x, y);
             node = insideGrid ? _grid[x, y] : _grid[0, 0];
             return insideGrid;
+        }
+
+        public TileNode GetNode(Vector3Int pos)
+        {
+            bool insideGrid = PositionInsideGrid(pos.x, pos.y);
+            var node = insideGrid ? _grid[pos.x, pos.y] : _grid[0, 0];
+            return node;
         }
 
         public List<TileNode> GetEmptyNeighbors(TileNode node)
@@ -46,7 +61,7 @@ namespace Map
                     if (!PositionInsideGrid(x, y)) continue;
                     var neighborNode = _grid[x, y];
                     if (neighborNode == node) continue;
-                    if (!neighborNode.isWalkableOrOccupied) continue;
+                    if (!neighborNode.isWalkableAndEmpty) continue;
                     neightBors.Add(neighborNode);
                 }
             }
@@ -65,7 +80,7 @@ namespace Map
                     if (!PositionInsideGrid(x, y)) continue;
                     var neighborNode = _grid[x, y];
                     if (neighborNode.position == position) continue;
-                    if (neighborNode.entityInthisNode is null) continue;
+                    if (neighborNode.isEmpty) continue;
                     neightBors.Add(neighborNode);
                 }
             }
@@ -79,8 +94,8 @@ namespace Map
             if (PositionInsideGrid(tilePos.x, tilePos.y))
             {
                 var node = _grid[tilePos.x, tilePos.y];
-                if (node.entityInthisNode is not null) return false;
-                node.entityInthisNode = entity;
+                if (!node.isEmpty) return false;
+                node.AddEntity(entity);
                 return true;
             }
 
@@ -103,6 +118,11 @@ namespace Map
             return x >= 0 && x <= _grid.GetUpperBound(0) && y >= 0 && y <= _grid.GetUpperBound(1);
         }
 
+        bool PositionInsideGrid(Vector3Int pos)
+        {
+            return PositionInsideGrid(pos.x, pos.y);
+        }
+
         void IObserver<Entity>.AddToObserve(Entity target)
         {
             TryAddEntityToTile(target);
@@ -110,7 +130,6 @@ namespace Map
 
         void IObserver<Entity>.RemoveFromObserve(Entity target)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

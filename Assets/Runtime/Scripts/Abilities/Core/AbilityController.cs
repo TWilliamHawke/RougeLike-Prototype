@@ -11,6 +11,9 @@ namespace Abilities
     public class AbilityController : MonoBehaviour, IEntityComponent, IAbilityUser
     {
         public Body _body;
+
+        public Vector3Int position => transform.position.ToInt();
+
         public event UnityAction<IAbilityContainer> OnAbilitySelected;
 
         public void PlaySound(AudioClip sound)

@@ -1,37 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using Core.Input;
+using Map;
 using UnityEngine;
 
 namespace Core.Input
 {
     public class ClickObjectInfo : IClickAction
     {
-        IInfoModeState _infoModeState;
-        InputController _inputController;
-
-
-        public ClickObjectInfo(IInfoModeState infoModeState, InputController inputController)
+        public bool CanBeUsedOnTile(ITileClickData tile)
         {
-            _infoModeState = infoModeState;
-            _inputController = inputController;
+            return true;
         }
 
-        public bool Condition()
+        public void ProcessClick(ITileClickData tile)
         {
-            return _infoModeState.infoMode == true;
-        }
-
-        public void ProcessClick()
-        {
-            if (_inputController.hoveredTileHits.Length > 0)
+            foreach (var obj in tile.entitiesOnTile)
             {
-                var hit = _inputController.hoveredTileHits[0];
-                Debug.Log(hit.collider.gameObject.name);
-            }
-            else
-            {
-                Debug.Log(_inputController.hoveredTilePos);
+                Debug.Log(obj);
+                return;
             }
         }
 

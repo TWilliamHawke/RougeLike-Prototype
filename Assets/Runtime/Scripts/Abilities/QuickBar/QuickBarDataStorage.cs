@@ -12,16 +12,29 @@ namespace Abilities
         public event UnityAction OnQuickBarChange;
         public event UnityAction<IAbilityContainer> OnAbilityAdded;
         public event UnityAction<IAbilityContainer> OnAbilityRemoved;
+        public event UnityAction OnInit;
 
         public IAbilityContainer mainAbility => _mainAbility;
+        public IAbilityContainer movementAbility => _movementAbility;
 
         IAbilityContainer _mainAbility;
+        IAbilityContainer _movementAbility;
 
         IAbilityContainer[] _quickAbilities = new IAbilityContainer[MAX_QUICK_ABILITIES];
 
-        private void OnEnable()
+        public void Init()
+        {
+            OnInit?.Invoke();
+        }
+
+        public void Reset()
         {
             _mainAbility = null;
+            _movementAbility = null;
+            OnInit = null;
+            OnAbilityAdded = null;
+            OnAbilityRemoved = null;
+            OnQuickBarChange = null;
             for (int i = 0; i < _quickAbilities.Length; i++)
             {
                 _quickAbilities[i] = null;
@@ -30,11 +43,17 @@ namespace Abilities
 
         public void SetQuickAbility(int index, IAbilityContainer ability)
         {
-            if (!IndexIsCorrect(index))return;
+            if (!IndexIsCorrect(index)) return;
 
             TryRemoveQuickAbility(index);
             _quickAbilities[index] = ability;
             OnAbilityAdded?.Invoke(ability);
+            OnQuickBarChange?.Invoke();
+        }
+
+        public void SetMovementAbility(IAbilityContainer ability)
+        {
+            _movementAbility = ability;
             OnQuickBarChange?.Invoke();
         }
 
@@ -97,7 +116,7 @@ namespace Abilities
 
         public IEnumerator<IAbilityContainer> GetEnumerator()
         {
-            if(_mainAbility != null) yield return _mainAbility;
+            if (_mainAbility != null) yield return _mainAbility;
             for (int i = 0; i < _quickAbilities.Length; i++)
             {
                 if (_quickAbilities[i] == null) continue;

@@ -1,3 +1,5 @@
+using Map;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Core.Input
@@ -5,6 +7,7 @@ namespace Core.Input
     public class ClickStateMachine : IInjectionTarget
     {
         [InjectField] InputController _inputController;
+        [InjectField] HoveredTileObserver _hoveredTileObserver;
 
         IClickActionList _defaultClickActions;
         IClickActionList _currentClickActions;
@@ -41,17 +44,11 @@ namespace Core.Input
         {
             foreach (var state in _currentClickActions)
             {
-                if (!state.Condition()) continue;
-
-                state.ProcessClick();
+                if (!state.CanBeUsedOnTile(_hoveredTileObserver.hoveredTile)) continue;
+                state.ProcessClick(_hoveredTileObserver.hoveredTile);
                 return;
             }
         }
 
-    }
-
-    public interface IInfoModeState
-    {
-        bool infoMode { get; }
     }
 }

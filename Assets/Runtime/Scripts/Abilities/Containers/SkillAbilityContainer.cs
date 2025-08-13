@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map;
 using UnityEngine;
 
 namespace Abilities
@@ -10,6 +11,11 @@ namespace Abilities
         protected override IAbility ability => _ability;
         
         IAbility _ability { get; init; }
+
+        public override bool TileHasValidTarget(ITileClickData tile)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override void UpdateAbilityButton(IAbilityCounterHandler handler)
         {

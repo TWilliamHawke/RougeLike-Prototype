@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Map;
 using UnityEngine;
 
 namespace Abilities
@@ -8,6 +11,8 @@ namespace Abilities
 
         MultistageAbilityTemplate _template;
 
+        List<IAbility> _abilities;
+
         [InjectField] MultistageAbilityController _controller;
 
         public MultistageAbility(MultistageAbilityTemplate template)
@@ -15,12 +20,22 @@ namespace Abilities
             _template = template;
         }
 
-        public override void UseOn(IAbilityTarget target)
+        public override void Use(IAbilityUser user, IAbilityTarget tile)
         {
             throw new System.NotImplementedException();
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        {
+            return _abilities.All(ability => ability.TileHasValidTarget(user, tile));
+        }
+
+        public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
             throw new System.NotImplementedException();
         }

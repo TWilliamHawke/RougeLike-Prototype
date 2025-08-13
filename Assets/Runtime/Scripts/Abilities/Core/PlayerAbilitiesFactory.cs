@@ -9,23 +9,30 @@ namespace Abilities
         [SerializeField] Inventory _inventory;
         [SerializeField] MagicConfig _magicConfig;
 
-        IAbilityUser _abilityUser;
+        IAbilityUser _player;
 
-        public IAbilityUser abilityUser => _abilityUser;
-
-        void Awake()
+        public IAbilityUser abilityUser
         {
-            _abilityUser = GetComponent<AbilityController>();
+            get
+            {
+                if (_player is null) _player = GetComponent<IAbilityUser>();
+                return _player;
+            }
         }
 
-        public IAbilityContainer CreateItemAbilityContainer(Item item, IAbility ability)
+        public IAbilityContainer CreateItemContainer(Item item, IAbility ability)
         {
-            return new ItemAbilityContainer(item, _inventory, ability);
+            return new ItemAbilityContainer(item, _inventory, ability, _player);
         }
 
-        public SpellContainer CreateSpellAbilityContainer(KnownSpellData spell)
+        public SpellContainer CreateSpellContainer(KnownSpellData spell)
         {
             return new SpellContainer(spell, abilityUser, _magicConfig);
+        }
+
+        public SimpleAbilityContainer CreateSimpleContainer(IAbility ability)
+        {
+            return new SimpleAbilityContainer(ability, abilityUser);
         }
     }
 }

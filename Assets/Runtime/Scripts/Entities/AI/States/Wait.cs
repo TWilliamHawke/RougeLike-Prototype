@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Map;
 using UnityEngine;
+using System.Linq;
 
 namespace Entities.AI
 {
@@ -36,9 +37,10 @@ namespace Entities.AI
             var neightBorNodes = _tilesGrid.GetNonEmptyNeighbors(postition, _agressionRadius);
             foreach (var node in neightBorNodes)
             {
-                var target = node.entityInthisNode.GetEntityComponent<IFactionMember>();
-                if (target is null) continue;
-                if(target.faction.IsAgressiveToward(_stateMachine.faction)) return false;
+                var target = node.entitiesOnTile.FirstOrDefault();
+                var factionLogic = target.GetEntityComponent<IFactionMember>();
+                if (factionLogic is null) continue;
+                if(factionLogic.faction.IsAgressiveToward(_stateMachine.faction)) return false;
             }
 
             return true;

@@ -2,6 +2,7 @@ using Entities.Stats;
 using Items;
 using UnityEngine;
 using Abilities;
+using Map;
 
 namespace Magic
 {
@@ -12,15 +13,18 @@ namespace Magic
         MagicConfig _magicConfig;
         StatsContainer _statsContainer;
         SpellDescriptionConstructor _descriptionConstructor;
+        IAbilityUser _user;
 
         public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsContainer);
         public override bool canBeUsed => _manaStorage.currentValue >= spellCost;
         public override string displayName => _spellData.displayName;
+        public override Sprite icon => _spellData.icon;
         public KnownSpellData spellData => _spellData;
         protected override IAbility ability => _spellData.spellEffect;
 
         public SpellContainer(KnownSpellData spellData, IAbilityUser user, MagicConfig magicConfig)
         {
+            _user = user;
             _spellData = spellData;
             _magicConfig = magicConfig;
             _statsContainer = user.GetComponent<StatsContainer>();
@@ -32,7 +36,7 @@ namespace Magic
         {
             if (_manaStorage.TryReduceStat(spellCost))
             {
-                _spellData.spellEffect.UseOn(target);
+                _spellData.spellEffect.Use(_user, target);
             }
         }
 
@@ -64,6 +68,11 @@ namespace Magic
         public string GetSpellCostWith(int slotIndex, SpellString spellString)
         {
             return _descriptionConstructor.GetSpellCostWith(slotIndex, spellString);
+        }
+
+        public override bool TileHasValidTarget(ITileClickData tile)
+        {
+            return ability.TileHasValidTarget(_user, tile);
         }
     }
 }
