@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Abilities;
 using Entities;
 using UnityEngine;
 
 namespace Map
 {
-    public class TileNode
+    public class TileNode : ITileClickData, IAbilityTarget
     {
         public static int maxNeightborDistance => 15;
         public bool isWalkable { get; init; }
@@ -14,19 +15,23 @@ namespace Map
         public float targetDist { get; set; }
         public float startDist { get; set; }
         public Vector3Int position { get; init; }
-        public IObstacleEntity entityInthisNode { get; set; }
 
+        List<IObstacleEntity> _entitiesInThisNode = new();
 
         //getters
-        public bool isWalkableOrOccupied => isWalkable && entityInthisNode is null;
+        public IEnumerable<IObstacleEntity> entitiesOnTile => _entitiesInThisNode;
+        public bool isEmpty => _entitiesInThisNode.Count == 0;
+        public bool isWalkableAndEmpty => isWalkable && isEmpty;
         public float totalDist => targetDist + startDist;
         public int x => position.x;
         public int y => position.y;
-		
+
+        Vector3 IAbilityTarget.position => position;
+
         public TileNode(int x, int y, bool isWalkableTile)
         {
             position = new Vector3Int(x, y, 0);
-            this.isWalkable = isWalkableTile;
+            isWalkable = isWalkableTile;
         }
 
 
@@ -45,9 +50,14 @@ namespace Map
             }
         }
 
-        public void RemoveEntity()
+        public void AddEntity(IObstacleEntity entity)
         {
-            entityInthisNode = null;
+            _entitiesInThisNode.Add(entity);
+        }
+
+        public void RemoveEntity(IObstacleEntity entity)
+        {
+            _entitiesInThisNode.Remove(entity);
         }
 
         public override string ToString()
@@ -55,5 +65,13 @@ namespace Map
             return $"Node at [{x}, {y}]";
         }
 
+        public T GetComponent<T>()
+        {
+            return default;
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+        }
     }
 }

@@ -8,13 +8,18 @@ namespace Core.Input
 {
     public class DefaultClickActions : IClickActionList, IInjectionTarget
     {
-        [InjectField] InputController _inputController;
-        [InjectField] TilesGrid _tileGrid;
         [InjectField] Player _player;
 
+        QuickBarDataStorage _quickBarDataStorage { get; init; }
         List<IClickAction> _clickActions = new();
 
         public bool waitForAllDependencies => true;
+
+        public DefaultClickActions(QuickBarDataStorage quickBarDataStorage)
+        {
+            _quickBarDataStorage = quickBarDataStorage;
+            _quickBarDataStorage.OnInit += FillActionList;
+        }
 
         void IInjectionTarget.FinalizeInjection()
         {
@@ -23,26 +28,18 @@ namespace Core.Input
 
         private void FillActionList()
         {
+            if(_quickBarDataStorage.movementAbility == null) return;
+            if(_player == null) return;
+
             //check ui click before tiles
             _clickActions.Add(new ClickUI());
-            //check unwalkable before gameobjects
-            _clickActions.Add(new ClickUnwalkableTile(
-                inputController: _inputController,
-                tilemapController: _tileGrid));
-
-            _clickActions.Add(new ClickPlayer(_inputController, _player));
-
-            _clickActions.Add(new ClickRangeAttackTarget(
-                inputController: _inputController,
-                player: _player.GetComponent<ProjectileController>()));
-            _clickActions.Add(new ClickRemoteObject(_inputController, _player));
-            _clickActions.Add(new ClickNextTileObject(_inputController, _player));
-
+            _clickActions.Add(new ClickNextTileObject(_player));
+            _clickActions.Add(new ClickPlayer(_player));
+            _clickActions.Add(new ClickAbilityTarget(_quickBarDataStorage.mainAbility));
             //tile hasn't any objects
-            _clickActions.Add(new ClickWalkableTile(
-                inputController: _inputController,
-                tileGrid: _tileGrid,
-                player: _player));
+            _clickActions.Add(new ClickAbilityTarget(_quickBarDataStorage.movementAbility));
+            _clickActions.Add(new ClickUnwalkableTile());
+
         }
 
         public IEnumerator<IClickAction> GetEnumerator()

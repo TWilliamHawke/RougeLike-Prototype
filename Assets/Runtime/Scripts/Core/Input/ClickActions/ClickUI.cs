@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using System.Linq;
+using Map;
 
 namespace Core.Input
 {
@@ -12,12 +8,12 @@ namespace Core.Input
 
         const string IGNORE_RAYCAST_TAG = "IgnoreUIRaycast";
 
-        void IClickAction.ProcessClick()
+        public void ProcessClick(ITileClickData _)
         {
             //do nothing
         }
 
-        bool IClickAction.Condition()
+        public bool CanBeUsedOnTile(ITileClickData _)
         {
             var hits = Raycasts.UI();
 

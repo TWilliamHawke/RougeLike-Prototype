@@ -1,6 +1,7 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 using Entities.Combat;
-using UnityEngine;
+using Map;
 
 namespace Abilities
 {
@@ -17,7 +18,7 @@ namespace Abilities
             _template = template;
         }
 
-        public override void UseOn(IAbilityTarget target)
+        public override void Use(IAbilityUser user, IAbilityTarget target)
         {
             if (target is not IRangeAttackTarget validTarget) return;
             _controller.ThrowProjectile(validTarget, _template.projectile);
@@ -33,6 +34,18 @@ namespace Abilities
 
             var realDescription = Regex.Replace(_template.description, pattern1, minDamage.ToString());
             return Regex.Replace(realDescription, pattern2, maxDamage.ToString());
+        }
+
+        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        {
+            //TODO add visibility check
+            return tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
+        }
+
+        public override IAbilityTarget SelectTarget(ITileClickData tile)
+        {
+            var target = tile.entitiesOnTile.First(entity => entity is IAbilityTarget);
+            return target as IAbilityTarget;
         }
     }
 }

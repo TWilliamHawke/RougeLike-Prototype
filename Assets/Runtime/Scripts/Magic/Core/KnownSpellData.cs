@@ -77,7 +77,7 @@ namespace Magic
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
-            return factory.CreateSpellAbilityContainer(this);
+            return factory.CreateSpellContainer(this);
         }
 
         public bool StringSlotIsEmpty(int idx)

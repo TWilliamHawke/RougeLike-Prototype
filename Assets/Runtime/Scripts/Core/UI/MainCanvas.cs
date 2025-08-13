@@ -20,7 +20,6 @@ namespace Core
 
 		public void Init()
 		{
-			_tileInfoPanel.Init();
 			_expBarController = new ExperienceBarController(_experienceBar);
 			_experienceStorageInjector.AddInjectionTarget(_expBarController);
 			_infoButtonInjector.SetDependency(_infoButton);

@@ -5,36 +5,45 @@ using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine;
 using Abilities;
+using Map;
 
 namespace Core.Input
 {
-	public class ClickRangeAttackTarget : IClickAction
-	{
-		ProjectileController _player;
-        InputController _inputController;
-        IRangeAttackTarget _target;
+    public class ClickRangeAttackTarget : IClickAction
+    {
+        ProjectileController _player;
 
-        public ClickRangeAttackTarget(InputController inputController, ProjectileController player)
+        public ClickRangeAttackTarget(ProjectileController player)
         {
-            _inputController = inputController;
             _player = player;
         }
 
-        bool IClickAction.Condition()
+        public bool CanBeUsedOnTile(ITileClickData tile)
         {
-            foreach (var hit in _inputController.hoveredTileHits)
+            return TryFindTarget(tile, out _);
+        }
+
+        public void ProcessClick(ITileClickData tile)
+        {
+            if (TryFindTarget(tile, out var target))
             {
-                if(!hit.collider.TryGetComponent<IRangeAttackTarget>(out _target)) continue;
-                var aggr = hit.collider.GetComponent<IFactionMember>()?.behavior;
-                if(aggr == BehaviorType.agressive) return true;
+                _player.ThrowProjectile(target);
+            }
+        }
+        
+        private bool TryFindTarget(ITileClickData tile, out IRangeAttackTarget target)
+        {
+            target = null;
+
+            foreach (var entity in tile.entitiesOnTile)
+            {
+                target = entity as IRangeAttackTarget;
+                if (target is null) continue;
+                var aggr = entity.GetEntityComponent<IFactionMember>()?.behavior;
+                if (aggr == BehaviorType.agressive) return true;
             }
 
             return false;
-        }
-
-        void IClickAction.ProcessClick()
-        {
-			_player.ThrowProjectile(_target);
         }
     }
 }

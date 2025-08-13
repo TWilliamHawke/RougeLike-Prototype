@@ -1,5 +1,6 @@
 using UnityEngine;
 using Items;
+using Map;
 
 namespace Abilities
 {
@@ -18,6 +19,11 @@ namespace Abilities
         }
 
         public override void UpdateAbilityButton(IAbilityCounterHandler handler)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             throw new System.NotImplementedException();
         }

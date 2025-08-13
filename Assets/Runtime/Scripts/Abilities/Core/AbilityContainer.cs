@@ -1,3 +1,4 @@
+using Map;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,10 +14,19 @@ namespace Abilities
 
         public abstract void UpdateAbilityButton(IAbilityCounterHandler handler);
         public abstract void UseAbility(IAbilityTarget target);
+        public abstract bool TileHasValidTarget(ITileClickData tile);
 
         public void SelectBy(IAbilityUser user)
         {
             ability.Select(user, this);
         }
+
+        public void UseAbility(ITileClickData tile)
+        {
+            var target = ability.SelectTarget(tile);
+            UseAbility(target);
+        }
+
+
     }
 }

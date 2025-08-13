@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Settings;
 using UnityEngine;
-using Core.Input;
 using UnityEngine.Events;
 using Entities.Combat;
 
 namespace Abilities
 {
-    public class MeleeAttackController : MonoBehaviour, IInjectionTarget
+    public class MeleeAttackController : MonoBehaviour
     {
         public event UnityAction OnAttackEnd;
 
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] Injector _inputControllerInjector;
         [SerializeField] AudioSource _body;
-
-        [InjectField] InputController _inputController;
 
         ICanAttack _attacker;
         IAttackTarget _target;
@@ -28,13 +24,6 @@ namespace Abilities
         float _directionMult = 1;
 
         public bool isAttack => _attackPhase != AttackPhases.none;
-
-        bool IInjectionTarget.waitForAllDependencies => false;
-
-        void Awake()
-        {
-            _inputControllerInjector.AddInjectionTarget(this);
-        }
 
         private void Update()
         {
@@ -75,17 +64,11 @@ namespace Abilities
             _attacker.PlayAttackSound();
 
             _attackPhase = AttackPhases.moveTo;
-            _inputController.DisableLeftClick();  //HACK this should be in entityController
         }
 
-        void DoDamage(IDamageSource damageSource, IAttackTarget target)
+        private void DoDamage(IDamageSource damageSource, IAttackTarget target)
         {
             AttackHandler.ProcessAttack(damageSource, target);
-        }
-
-        public void FinalizeInjection()
-        {
-            
         }
 
         enum AttackPhases

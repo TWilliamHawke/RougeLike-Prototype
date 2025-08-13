@@ -1,3 +1,5 @@
+using System.Linq;
+using Map;
 using UnityEngine;
 
 namespace Abilities
@@ -15,14 +17,25 @@ namespace Abilities
             _template = template;
         }
 
-        public override void UseOn(IAbilityTarget target)
+        public override string GetDescription(AbilityModifiers abilityModifiers)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool TileHasValidTarget(IAbilityUser _, ITileClickData tile)
+        {
+            return tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
+        }
+
+        public override void Use(IAbilityUser user, IAbilityTarget target)
         {
             _controller.ApplyEffects(_template.effects, target, _template);
         }
 
-        public override string GetDescription(AbilityModifiers abilityModifiers)
+        public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
-            throw new System.NotImplementedException();
+            return tile.entitiesOnTile
+                .First(entity => entity is IAbilityTarget) as IAbilityTarget;
         }
     }
 }

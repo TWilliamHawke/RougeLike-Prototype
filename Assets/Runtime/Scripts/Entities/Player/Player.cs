@@ -26,16 +26,15 @@ namespace Entities.PlayerScripts
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
-        MovementController _movementController;
         MeleeAttackController _meleeAttackController;
         Health _health;
-        IInteractive _target;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
         public Body body => _body;
 
         public AudioClip[] deathSounds => _deathSounds;
+        public Vector3 position => transform.position;
 
         public event UnityAction<IStatsController> OnStatsInit;
 
@@ -53,16 +52,7 @@ namespace Entities.PlayerScripts
         //used in editor
         public void StartTurn()
         {
-            if (_target != null && _movementController.pathLength <= 1)
-            {
-                _target.Interact(this);
-                _target = null;
-                _movementController.ClearPath();
-            }
-            else
-            {
-                _movementController.TakeAStep();
-            }
+
         }
 
         public void Attack(IAttackTarget target)
@@ -70,25 +60,9 @@ namespace Entities.PlayerScripts
             _meleeAttackController.StartAttack(target);
         }
 
-        public void GotoRemoteTarget(IInteractive target)
-        {
-            _target = target;
-            _movementController.SetDestination(target);
-            _movementController.TakeAStep();
-        }
-
-        public void GotoNode(TileNode node)
-        {
-            _movementController.SetDestination(node);
-            _movementController.TakeAStep();
-        }
-
         public void SpawnAt(TileNode node)
         {
-            _movementController = GetComponent<MovementController>();
-            Vector3 position = node.position;
-            transform.position = position;
-            _movementController.Init(node);
+            MoveTo(node.position);
         }
 
         public void PlayAttackSound()
@@ -107,9 +81,6 @@ namespace Entities.PlayerScripts
             _meleeAttackController.OnAttackEnd += EndTurn;
             _meleeAttackController.Init(this);
 
-            _movementController = GetComponent<MovementController>();
-            _movementController.OnStepEnd += EndTurn;
-
             _health = GetComponent<Health>();
 
             GetComponent<VisibilityController>().ChangeViewingRange();
@@ -124,6 +95,11 @@ namespace Entities.PlayerScripts
         public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            transform.position = position;
         }
     }
 }

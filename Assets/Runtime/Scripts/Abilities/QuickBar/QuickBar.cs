@@ -11,12 +11,21 @@ namespace Abilities
         void Awake()
         {
             SetUpSlotNumbers();
-            UpdateSlots();
+            _quickBarDataStorage.OnInit += UpdateSlots;
             _quickBarDataStorage.OnQuickBarChange += UpdateSlots;
+            if (_quickBarDataStorage.mainAbility == null)
+            {
+                _quickBarDataStorage.OnInit += UpdateSlots;
+            }
+            else
+            {
+                UpdateSlots();
+            }
         }
 
         void OnDestroy()
         {
+            _quickBarDataStorage.OnInit -= UpdateSlots;
             _quickBarDataStorage.OnQuickBarChange -= UpdateSlots;
         }
 

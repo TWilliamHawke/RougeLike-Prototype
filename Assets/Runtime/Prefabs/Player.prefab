@@ -702,7 +702,6 @@ MonoBehaviour:
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
-  - {fileID: 11400000, guid: e30e40a4521bb214196e7ddcd73a0e7f, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls: []

@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.Input;
+using Map;
 
 namespace Core.UI
 {
-    public class TileInfoPanel : MonoBehaviour, IInjectionTarget
+    public class TileInfoPanel : MonoBehaviour
     {
-        [InjectField] InputController _inputController;
+        [InjectField] HoveredTileObserver _inputController;
         
-        [SerializeField] Injector _inputControllerInjector;
 		[SerializeField] Text _infoText;
-
-        bool IInjectionTarget.waitForAllDependencies => false;
 
         void OnDestroy()
         {
 			_inputController.OnHoveredTileChange -= UpdateText;
         }
 
-        public void Init()
-        {
-            _inputControllerInjector.AddInjectionTarget(this);
-        }
-
-		void UpdateText(Vector3Int tilePosition)
+		void UpdateText(TileNode node)
 		{
-			_infoText.text = $"[x:{tilePosition.x}, y:{tilePosition.y}]";
+			_infoText.text = $"[x:{node.x}, y:{node.y}]";
 		}
 
         public void FinalizeInjection()

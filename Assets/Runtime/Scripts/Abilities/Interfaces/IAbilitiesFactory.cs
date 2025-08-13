@@ -5,8 +5,8 @@ namespace Abilities
 {
     public interface IAbilitiesFactory
     {
-        IAbilityContainer CreateItemAbilityContainer(Item item, IAbility ability);
-        SpellContainer CreateSpellAbilityContainer(KnownSpellData spellData);
+        IAbilityContainer CreateItemContainer(Item item, IAbility ability);
+        SpellContainer CreateSpellContainer(KnownSpellData spellData);
         IAbilityUser abilityUser { get; }
     }
 }

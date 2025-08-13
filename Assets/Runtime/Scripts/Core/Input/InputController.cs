@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,22 +10,16 @@ namespace Core.Input
 {
     public class InputController
     {
-        public event UnityAction<Vector3Int> OnHoveredTileChange;
         public event UnityAction<ActionMap> OnActionMapChange;
 
         NewInput _newInput;
-        Vector3Int _hoveredTilePos;
         ActionMap _currentActionMap = ActionMap.Disabled;
-        RaycastHit2D[] _hoveredTileHits;
 
         //action maps
         public UIActions ui => _newInput.UI;
         public MainActions main => _newInput.Main;
         public DisabledActions disabled => _newInput.Disabled;
         public TargetSelectionActions targetSelection => _newInput.TargetSelection;
-
-        public Vector3Int hoveredTilePos => _hoveredTilePos;
-        public RaycastHit2D[] hoveredTileHits => _hoveredTileHits;
 
         List<InputActionMap> _actionMaps = new List<InputActionMap>();
 
@@ -39,11 +34,6 @@ namespace Core.Input
 
             _newInput.Main.Enable();
             _currentActionMap = ActionMap.Main;
-        }
-
-        public void Clear()
-        {
-            OnHoveredTileChange = null;
         }
 
         public void SwitchToMainActionMap()
@@ -67,17 +57,6 @@ namespace Core.Input
             SwitchActionMap(ActionMap.Disabled);
         }
 
-        public void UpdatePointerPosition(Vector2 position)
-        {
-            Vector3Int newTilePos = position.Toint().AddZ(0);
-
-            if (newTilePos == _hoveredTilePos) return;
-
-            _hoveredTileHits = Physics2D.RaycastAll(position.Toint(), Vector2.zero);
-            _hoveredTilePos = newTilePos;
-            OnHoveredTileChange?.Invoke(newTilePos);
-        }
-
         public void DisableLeftClick()
         {
             _newInput.Main.Click.Disable();
@@ -88,7 +67,7 @@ namespace Core.Input
             _newInput.Main.Click.Enable();
         }
 
-        void SwitchActionMap(ActionMap newActionMap)
+        private void SwitchActionMap(ActionMap newActionMap)
         {
             if (_currentActionMap == newActionMap) return;
 
@@ -104,8 +83,6 @@ namespace Core.Input
                 actionMap.Disable();
             }
         }
-
-
     }
 
     public enum ActionMap
