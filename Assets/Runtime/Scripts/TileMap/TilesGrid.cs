@@ -79,7 +79,7 @@ namespace Map
                 {
                     if (!PositionInsideGrid(x, y)) continue;
                     var neighborNode = _grid[x, y];
-                    if (neighborNode.position == position) continue;
+                    if (neighborNode.intPosition == position) continue;
                     if (neighborNode.isEmpty) continue;
                     neightBors.Add(neighborNode);
                 }

@@ -26,7 +26,7 @@ namespace Map
 
         void ChangePosition(TileNode node)
         {
-            transform.position = transform.position.ReplaceXYFrom(node.position);
+            transform.position = transform.position.ReplaceXYFrom(node.intPosition);
         }
 
         public void FinalizeInjection()

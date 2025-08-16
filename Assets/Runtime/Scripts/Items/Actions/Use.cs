@@ -1,20 +1,22 @@
 using Core;
 using Abilities;
+using Entities;
 
 namespace Items.Actions
 {
     public class Use : RadialActionFactory<ItemSlotData>
     {
-        AbilityController _playerAbilityController;
+        AudioEffectsController _soundController;
 
-        public Use(AbilityController playerAbilityController)
+        public Use(AbilityController player)
         {
-            _playerAbilityController = playerAbilityController;
+            _soundController = player
+                .GetEntityComponent<AudioEffectsController>();
         }
 
         protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
         {
-            return new UseAction(itemSlot, _playerAbilityController);
+            return new UseAction(itemSlot, _soundController);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
@@ -29,21 +31,21 @@ namespace Items.Actions
             public string actionTitle => "Use";
             ItemSlotData _itemSlot;
             IUsableItem _item;
-            AbilityController _playerAbilityController;
+            AudioEffectsController _soundController;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
-            public UseAction(ItemSlotData itemSlot, AbilityController playerAbilityController)
+            public UseAction(ItemSlotData itemSlot, AudioEffectsController player)
             {
                 _itemSlot = itemSlot;
                 _item = itemSlot?.item as IUsableItem;
-                _playerAbilityController = playerAbilityController;
+                _soundController = player;
             }
 
             public void DoAction()
             {
                 _item.Use();
-                _playerAbilityController.PlaySound(_item.useSound);
+                _soundController.PlaySound(_item.useSound);
 
                 if(_item.destroyAfterUse)
                 {

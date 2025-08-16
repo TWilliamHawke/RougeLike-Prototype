@@ -29,7 +29,7 @@ namespace Abilities
 
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
-            _controller.ApplyEffects(_template.effects, target, _template);
+            _controller.ApplyEffects(_template.GetEffects(), target, _template);
         }
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)

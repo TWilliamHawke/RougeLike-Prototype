@@ -27,7 +27,7 @@ namespace Magic
             _user = user;
             _spellData = spellData;
             _magicConfig = magicConfig;
-            _statsContainer = user.GetComponent<StatsContainer>();
+            _statsContainer = user.GetEntityComponent<StatsContainer>();
             _manaStorage = magicConfig.FindManaStorage(_statsContainer);
             _descriptionConstructor = new(spellData, _statsContainer, _magicConfig);
         }

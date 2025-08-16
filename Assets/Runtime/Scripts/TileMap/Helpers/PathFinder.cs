@@ -105,8 +105,8 @@ namespace Map.Helpers
                 catch (System.Exception)
                 {
 
-                    Debug.Log(nearestNode?.position);
-                    Debug.Log(node?.position);
+                    Debug.Log(nearestNode?.intPosition);
+                    Debug.Log(node?.intPosition);
                 }
             }
             return nearestNode;

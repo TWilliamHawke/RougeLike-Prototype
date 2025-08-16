@@ -10,7 +10,7 @@ namespace Abilities
         float _progress = 0;
         Vector3 _currentNodePosition;
         Vector3 _targetNodePosition;
-        IAbilityTarget _target;
+        PositionController _target;
         bool _onPause = true;
 
         TileNode _targetNode;
@@ -43,11 +43,12 @@ namespace Abilities
 
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
-            _target = _template.useOnSelf ? user.GetComponent<IAbilityTarget>() : target;
-            _currentNode = _controller.FindNode(user.position);
-            var finalPos = target.position.ToInt();
+            var userPosition = user.GetEntityComponent<PositionController>();
+            _target = user.GetEntityComponent<PositionController>();
+            _currentNode = _controller.FindNode(userPosition.position);
+            var finalPos = (target as IPositionData).intPosition;
 
-            _path = _controller.FindPath(user.position, finalPos);
+            _path = _controller.FindPath(userPosition.intPosition, finalPos);
             StartNextStep();
         }
 
@@ -73,7 +74,7 @@ namespace Abilities
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
-            return _controller.FindNode(tile.position);
+            return _controller.FindNode(tile.intPosition);
         }
 
         private void StartNextStep()
@@ -82,8 +83,8 @@ namespace Abilities
 
             _targetNode = _path.Pop();
 
-            _targetNodePosition = _targetNode.position;
-            _currentNodePosition = _currentNode.position;
+            _targetNodePosition = _targetNode.intPosition;
+            _currentNodePosition = _currentNode.intPosition;
             _onPause = false;
             _controller.SelectActiveAbility(this);
         }

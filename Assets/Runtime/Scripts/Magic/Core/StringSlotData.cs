@@ -8,7 +8,7 @@ namespace Magic
 {
     public struct StringSlotData : IEffectSource, IEnumerable<SourceEffectData>
     {
-        public SpellString spellString { get; set; }
+        public SpellString spellString { get; private set; }
         public int slotIndex { get; init; }
 
         public string displayName => spellString.displayName;
@@ -18,6 +18,11 @@ namespace Magic
         {
             this.spellString = spellString;
             this.slotIndex = slotIndex;
+        }
+
+        public IEnumerable<SourceEffectData> GetEffects()
+        {
+            return spellString.effects;
         }
 
         public string GetDescription()

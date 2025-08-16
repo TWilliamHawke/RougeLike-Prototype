@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace Effects
 {
     public interface IEffectSource : IIconData, IBonusValueSource
-	{
+    {
+        IEnumerable<SourceEffectData> GetEffects();
 	}
 
     public interface IStaticEffectData

@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Map;
 using UnityEngine;
-using Entities.Behavior;
 using Entities.Combat;
 using UnityEngine.Events;
-using Effects;
 using Entities.Stats;
 using Abilities;
 
 namespace Entities.PlayerScripts
 {
     [RequireComponent(typeof(VisibilityController))]
-    [RequireComponent(typeof(ProjectileController))]
+    [RequireComponent(typeof(PositionController))]
+    [RequireComponent(typeof(AudioEffectsController))]
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(StatsContainer))]
@@ -62,7 +61,7 @@ namespace Entities.PlayerScripts
 
         public void SpawnAt(TileNode node)
         {
-            MoveTo(node.position);
+            MoveTo(node.intPosition);
         }
 
         public void PlayAttackSound()
@@ -84,7 +83,6 @@ namespace Entities.PlayerScripts
             _health = GetComponent<Health>();
 
             GetComponent<VisibilityController>().ChangeViewingRange();
-            GetComponent<ProjectileController>().OnAttackEnd += EndTurn;
         }
 
         public void EndTurn()
