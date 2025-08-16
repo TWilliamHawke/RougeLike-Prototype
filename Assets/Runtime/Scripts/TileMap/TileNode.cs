@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Map
 {
-    public class TileNode : ITileClickData, IAbilityTarget
+    public class TileNode : ITileClickData, IAbilityTarget, IPositionData
     {
         public static int maxNeightborDistance => 15;
         public bool isWalkable { get; init; }
@@ -14,7 +14,7 @@ namespace Map
         public TileNode parent { get; set; }
         public float targetDist { get; set; }
         public float startDist { get; set; }
-        public Vector3Int position { get; init; }
+        public Vector3Int intPosition { get; init; }
 
         List<IObstacleEntity> _entitiesInThisNode = new();
 
@@ -23,14 +23,14 @@ namespace Map
         public bool isEmpty => _entitiesInThisNode.Count == 0;
         public bool isWalkableAndEmpty => isWalkable && isEmpty;
         public float totalDist => targetDist + startDist;
-        public int x => position.x;
-        public int y => position.y;
+        public Vector3 position => intPosition;
+        public int x => intPosition.x;
+        public int y => intPosition.y;
 
-        Vector3 IAbilityTarget.position => position;
 
         public TileNode(int x, int y, bool isWalkableTile)
         {
-            position = new Vector3Int(x, y, 0);
+            intPosition = new Vector3Int(x, y, 0);
             isWalkable = isWalkableTile;
         }
 
@@ -65,13 +65,9 @@ namespace Map
             return $"Node at [{x}, {y}]";
         }
 
-        public T GetComponent<T>()
+        public T GetEntityComponent<T>() where T : IEntityComponent
         {
             return default;
-        }
-
-        public void MoveTo(Vector3 position)
-        {
         }
     }
 }

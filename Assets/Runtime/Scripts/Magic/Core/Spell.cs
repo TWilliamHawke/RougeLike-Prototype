@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Magic
 {
     [CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
-	public class Spell : ScriptableObject, ISpriteGetter, IEffectSource
+	public class Spell : ScriptableObject, ISpriteGetter
 	{
 		[UseFileName]
 		[SerializeField] string _displayName;

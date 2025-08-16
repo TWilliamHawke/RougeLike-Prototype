@@ -24,12 +24,12 @@ namespace Abilities
 
         public void PlayImpactSound()
         {
-            PlaySound(_template.impactSounds.GetRandom());
+            PlaySound(_template.impactSound);
         }
 
         public void PlayFireSound()
         {
-            PlaySound(_template.fireSounds.GetRandom());
+            PlaySound(_template.fireSound);
         }
 
         public void HideSprite() //but still play sound

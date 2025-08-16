@@ -10,15 +10,11 @@ namespace Abilities
     [RequireComponent(typeof(EffectsStorage))]
     public class AbilityController : MonoBehaviour, IEntityComponent, IAbilityUser
     {
-        public Body _body;
-
-        public Vector3Int position => transform.position.ToInt();
-
         public event UnityAction<IAbilityContainer> OnAbilitySelected;
 
-        public void PlaySound(AudioClip sound)
+        public T GetEntityComponent<T>()
         {
-            _body.PlaySound(sound);
+            return GetComponent<T>();
         }
 
         public void SelectAbility(IAbilityContainer container)

@@ -26,14 +26,19 @@ namespace Items
             return "Potion description";
         }
 
+        public IEnumerable<SourceEffectData> GetEffects()
+        {
+            return _effects;
+        }
+
         public override string GetItemType()
         {
             return "Potion";
         }
 
-        private IAbility CreateAbility(IAbilitiesFactory factory)
+        private IAbility CreateAbility(IAbilitiesFactory _)
         {
-            return new SelfAbility(this, _effects);
+            return new SelfAbility(this);
         }
 
     }

@@ -1,6 +1,6 @@
 using System.Linq;
-using System.Text.RegularExpressions;
-using Entities.Combat;
+using Effects;
+using Entities;
 using Map;
 
 namespace Abilities
@@ -10,6 +10,7 @@ namespace Abilities
         protected override IIconData template => _template;
 
         ProjectileAbilityTemplate _template;
+        IAbilityTarget _target;
 
         [InjectField] ProjectileController _controller;
 
@@ -18,22 +19,31 @@ namespace Abilities
             _template = template;
         }
 
+        public void ApplyEffect(IAbilityTarget target)
+        {
+            var effectsStorage = target.GetEntityComponent<EffectsStorage>();
+            var effects = _template.GetEffects();
+            foreach (var effect in effects)
+            {
+                effect.ApplyEffect(effectsStorage, _template);
+            }
+        }
+
+        public void PlayImpactSound()
+        {
+            var soundController = _target.GetEntityComponent<AudioEffectsController>();
+            soundController.PlaySound(_template.projectile.impactSound);
+        }
+
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
-            if (target is not IRangeAttackTarget validTarget) return;
-            _controller.ThrowProjectile(validTarget, _template.projectile);
+            _target = target;
+            _controller.ThrowProjectile(target, _template.projectile);
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {
-            float minDamage = _template.projectile.minDamage * abilityModifiers.magnitudeMult;
-            float maxDamage = _template.projectile.maxDamage * abilityModifiers.magnitudeMult;
-
-            var pattern1 = @"%m1";
-            var pattern2 = @"%m2";
-
-            var realDescription = Regex.Replace(_template.description, pattern1, minDamage.ToString());
-            return Regex.Replace(realDescription, pattern2, maxDamage.ToString());
+            return _template.GetDescription(abilityModifiers);
         }
 
         public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)

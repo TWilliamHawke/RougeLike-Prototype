@@ -11,7 +11,7 @@ namespace Abilities
         public int durationAdd { get; init; }
 		public DamageType newDamageType { get; init; }
 
-        public AbilityModifiers(float magnitudeMult) : this()
+        public AbilityModifiers(float magnitudeMult = 1) : this()
         {
             this.magnitudeMult = magnitudeMult;
         }

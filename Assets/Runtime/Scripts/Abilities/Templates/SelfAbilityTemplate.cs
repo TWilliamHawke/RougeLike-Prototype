@@ -12,13 +12,16 @@ namespace Abilities
     {
         [SerializeField] List<SourceEffectData> _effects;
         
-        public IEnumerable<SourceEffectData> effects => _effects;
-
         public override IAbility CreateAbility()
         {
             SelfAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);
             return ability;
+        }
+
+        public IEnumerable<SourceEffectData> GetEffects()
+        {
+            return _effects;
         }
     }
 }

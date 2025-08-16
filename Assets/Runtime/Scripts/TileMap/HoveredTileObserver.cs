@@ -14,7 +14,7 @@ namespace Map
         TileNode _hoveredTile;
 
         public IEnumerable<IObstacleEntity> entitiesOnTile => _hoveredTile.entitiesOnTile;
-        public Vector3Int tilePos => _hoveredTile.position;
+        public Vector3Int tilePos => _hoveredTile.intPosition;
         public ITileClickData hoveredTile => _hoveredTile;
 
         [InjectField] TilesGrid _tilemapController;

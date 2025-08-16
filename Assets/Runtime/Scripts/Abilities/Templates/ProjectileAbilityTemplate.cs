@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Entities;
+using Effects;
 using Entities.Combat;
 using UnityEngine;
 
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Projectile")]
-    public class ProjectileAbilityTemplate : AbilityTemplate, IAbilityWithTarget
+    public class ProjectileAbilityTemplate : AbilityTemplate,
+        IEffectSource
     {
         [SerializeField] ProjectileTemplate _projectile;
         [SerializeField] int _minDamage;
@@ -18,7 +19,6 @@ namespace Abilities
         [SerializeField] string _description;
 
         public ProjectileTemplate projectile => _projectile;
-        public string description => _description;
 
         public override IAbility CreateAbility()
         {
@@ -27,17 +27,22 @@ namespace Abilities
             return ability;
         }
 
-        public bool TargetIsValid(IAbilityTarget target)
+        public IEnumerable<SourceEffectData> GetEffects()
         {
-            return target.GetComponent<Health>() != null;
+            return default;
         }
 
-        public void UseOnTarget(AbilityController controller, IAbilityTarget target)
+        public  string GetDescription(AbilityModifiers abilityModifiers)
         {
-            if (target is IRangeAttackTarget)
-            {
-                controller.GetComponent<ProjectileController>()?.ThrowProjectile(target as IRangeAttackTarget, _projectile);
-            }
+            float minDamage = _projectile.minDamage * abilityModifiers.magnitudeMult;
+            float maxDamage = _projectile.maxDamage * abilityModifiers.magnitudeMult;
+
+            var pattern1 = @"%m1";
+            var pattern2 = @"%m2";
+
+            var realDescription = Regex.Replace(_description, pattern1, minDamage.ToString());
+            return Regex.Replace(realDescription, pattern2, maxDamage.ToString());
         }
+
     }
 }

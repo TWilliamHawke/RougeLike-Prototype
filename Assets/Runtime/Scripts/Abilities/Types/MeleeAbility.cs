@@ -1,3 +1,4 @@
+using Entities;
 using Map;
 using UnityEngine;
 
@@ -23,8 +24,10 @@ namespace Abilities
 
         public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
         {
-            float deltaX = user.position.x - tile.position.x;
-            float deltaY = user.position.y - tile.position.y;
+            var positionData = user.GetEntityComponent<PositionController>();
+            if (positionData == null) return false;
+            float deltaX = positionData.position.x - tile.intPosition.x;
+            float deltaY = positionData.position.y - tile.intPosition.y;
             return Mathf.Abs(deltaX) <= 1 && Mathf.Abs(deltaY) <= 1;
         }
 

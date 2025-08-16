@@ -1,17 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities.AI;
-using Entities.Behavior;
 using Entities.Combat;
 using Entities.PlayerScripts;
 using Map;
 using UnityEngine;
-using Effects;
 using UnityEngine.Events;
 using Items;
 using Entities.Stats;
 using Abilities;
-using Map.Zones;
 
 namespace Entities
 {
@@ -19,6 +16,8 @@ namespace Entities
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(StatsContainer))]
+    [RequireComponent(typeof(PositionController))]
+    [RequireComponent(typeof(AudioEffectsController))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
         IInteractive, IAbilityTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
@@ -53,7 +52,7 @@ namespace Entities
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
-            var statsContainer = GetEntityComponent<StatsContainer>();
+            var statsContainer = GetComponent<StatsContainer>();
             template.InitStats(statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
 

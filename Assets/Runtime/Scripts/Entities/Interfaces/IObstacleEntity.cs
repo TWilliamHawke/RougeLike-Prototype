@@ -6,8 +6,7 @@ namespace Entities
 {
     public interface IObstacleEntity : IEntityWithComponents
     {
-        Transform transform { get; }
-        void MoveTo(Vector3 position);
+
 	}
 }
 

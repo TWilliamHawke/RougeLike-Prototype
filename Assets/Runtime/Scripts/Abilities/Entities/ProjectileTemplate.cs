@@ -23,8 +23,8 @@ namespace Abilities
 
 		public string bodyChar => _char;
 		public float speedMult => _speedMult;
-		public AudioClip[] fireSounds => _fireSounds;
-		public AudioClip[] impactSounds => _impactSounds;
+		public AudioClip impactSound => _impactSounds.GetRandom();
+		public AudioClip fireSound => _fireSounds.GetRandom();
 		public Color color => _color;
 
         public int radius => _AOERadius;

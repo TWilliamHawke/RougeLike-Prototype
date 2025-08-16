@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Effects;
 using UnityEngine;
 using System.Text;
+using Abilities;
 
 namespace Items
 {
@@ -24,7 +25,8 @@ namespace Items
         public override string GetDescription()
         {
             var sb = new StringBuilder();
-            _effects.ForEach(effect => effect.AddDescription(ref sb));
+            AbilityModifiers abilityModifiers = new AbilityModifiers(1f);
+            _effects.ForEach(effect => effect.AddDescription(ref sb, abilityModifiers));
             return sb.ToString();
         }
 

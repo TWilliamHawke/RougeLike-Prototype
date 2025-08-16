@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
+using Abilities;
 
 namespace Effects
 {
     [System.Serializable]
-    public class SourceEffectData : IHaveDescription, IStaticEffectData
+    public class SourceEffectData : IStaticEffectData
     {
         [SerializeField] Effect _effect;
         [SerializeField] int _power;
@@ -40,27 +41,28 @@ namespace Effects
             }
 
             storage.AddStaticEffect(effectSource, this);
-
         }
 
-        public void AddDescription(ref StringBuilder sb)
+        public void AddDescription(ref StringBuilder sb, AbilityModifiers abilityMods)
         {
-            sb.AppendLine(CreateDescription());
+            sb.AppendLine(CreateDescription(abilityMods));
         }
 
-        public string CreateDescription()
+        public string CreateDescription(AbilityModifiers abilityModifiers)
         {
+            var magnitude = _power * abilityModifiers.magnitudeMult;
+
             string description = LocalDictionary.GetLocalisedString(effect.description, new TextReplacer
             {
                 pattern = MAGNITUDE_PATTERN,
-                replacer = _power.ToString()
+                replacer = magnitude.ToString()
             });
 
             if (duration > 0)
             {
                 string appendix = LocalDictionary.GetLocalisedString(DURATION_LOC_PATTERN, new TextReplacer
                 {
-                    pattern = DURATION_LOC_PATTERN,
+                    pattern = DURATION_PATTERN,
                     replacer = _duration.ToString()
                 });
                 description = $"{description} {appendix}";

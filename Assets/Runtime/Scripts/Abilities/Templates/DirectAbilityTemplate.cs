@@ -5,11 +5,9 @@ using UnityEngine;
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Direct")]
-    public class DirectAbilityTemplate : AbilityTemplate, IAbilityWithTarget, IEffectSource
+    public class DirectAbilityTemplate : AbilityTemplate, IEffectSource
     {
         [SerializeField] List<SourceEffectData> _effects;
-
-        public IEnumerable<SourceEffectData> effects => _effects;
 
         public override IAbility CreateAbility()
         {
@@ -18,18 +16,9 @@ namespace Abilities
             return ability;
         }
 
-        public bool TargetIsValid(IAbilityTarget target)
+        public IEnumerable<SourceEffectData> GetEffects()
         {
-            return true;
-        }
-
-        public void UseOnTarget(AbilityController _, IAbilityTarget target)
-        {
-            var effectsStorage = target.GetComponent<EffectsStorage>();
-            foreach (var effect in _effects)
-            {
-                effect.ApplyEffect(effectsStorage, this);
-            }
+            return _effects;
         }
     }
 }

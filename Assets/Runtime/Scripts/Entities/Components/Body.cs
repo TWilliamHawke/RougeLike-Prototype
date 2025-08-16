@@ -12,7 +12,7 @@ namespace Entities
         [SerializeField] AudioSource _audioSource;
         [SerializeField] TMP_Text _TMPSprite;
         [SerializeField] TMP_Text _remains;
-        [SerializeField] [Range(0, 1)] float _deathAnimationSpeed = .5f;
+        [SerializeField][Range(0, 1)] float _deathAnimationSpeed = .5f;
 
         public event UnityAction OnAnimationEnd;
         public Vector3 position => transform.position;
@@ -50,7 +50,7 @@ namespace Entities
             _animationProgress += Time.deltaTime * _deathAnimationSpeed;
 
             _TMPSprite.rectTransform.position = _defaultPosition + Vector3.up
-                * _animationProgress *(int)_animationState;
+                * _animationProgress * (int)_animationState;
 
             if (_animationState == AnimationState.death) {
                 var color = new Color(1, 1, 1, Mathf.Clamp01(_animationProgress));
@@ -64,7 +64,6 @@ namespace Entities
             }
 
         }
-
 
 
     }
