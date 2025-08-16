@@ -20,17 +20,16 @@ namespace Entities.PlayerScripts
         [SerializeField] CustomEvent _onPlayerTurnEnd;
 
         [SerializeField] PlayerStats _stats;
-        [SerializeField] Body _body;
         [SerializeField] ResistSet _testResists;
 
         AudioClip[] _deathSounds = new AudioClip[0];
 
         MeleeAttackController _meleeAttackController;
+        AudioEffectsController _audioEffectsController;
         Health _health;
 
         public Dictionary<DamageType, int> resists => _testResists.set;
         public IDamageSource damageSource => _stats.CalculateDamageData();
-        public Body body => _body;
 
         public AudioClip[] deathSounds => _deathSounds;
         public Vector3 position => transform.position;
@@ -61,12 +60,12 @@ namespace Entities.PlayerScripts
 
         public void SpawnAt(TileNode node)
         {
-            MoveTo(node.intPosition);
+            transform.position = node.position;
         }
 
         public void PlayAttackSound()
         {
-            _body.PlaySound(_stats.attackSounds.GetRandom());
+            _audioEffectsController.PlaySound(_stats.attackSounds.GetRandom());
         }
 
         void IAttackTarget.TakeDamage(int damage)
@@ -76,6 +75,7 @@ namespace Entities.PlayerScripts
 
         void InitComponents()
         {
+            _audioEffectsController = GetComponent<AudioEffectsController>();
             _meleeAttackController = GetComponent<MeleeAttackController>();
             _meleeAttackController.OnAttackEnd += EndTurn;
             _meleeAttackController.Init(this);
@@ -93,11 +93,6 @@ namespace Entities.PlayerScripts
         public U GetEntityComponent<U>() where U : IEntityComponent
         {
             return GetComponent<U>();
-        }
-
-        public void MoveTo(Vector3 position)
-        {
-            transform.position = position;
         }
     }
 }

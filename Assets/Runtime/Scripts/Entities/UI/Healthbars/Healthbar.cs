@@ -10,7 +10,7 @@ namespace Entities.UI
 {
     public class Healthbar : MonoBehaviour, IInjectionTarget, IObserver<IResourceStorageData>, IObserver<IFactionMember>
     {
-        IHavePosition _body;
+        PositionController _entity;
 
         [SerializeField] Injector _mainCameraInjector;
         [SerializeField] Image _fillImage;
@@ -35,20 +35,20 @@ namespace Entities.UI
         void LateUpdate()
         {
             if (_mainCamera is null) return;
-            if (_body is null)
+            if (_entity is null)
             {
                 DestroyImmediate(this);
             }
             else
             {
-                var entityPos = _mainCamera.WorldToScreenPoint(_body.position + _shift);
+                var entityPos = _mainCamera.WorldToScreenPoint(_entity.position + _shift);
                 transform.position = entityPos;
             }
         }
 
-        public void FollowTheBody(IHavePosition entity)
+        public void Observe(PositionController entity)
         {
-            _body = entity;
+            _entity = entity;
         }
 
         public void AddToObserve(IResourceStorageData target)

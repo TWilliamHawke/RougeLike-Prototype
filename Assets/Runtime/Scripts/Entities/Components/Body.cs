@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace Entities
 {
     [RequireComponent(typeof(AudioSource))]
-    public class Body : MonoBehaviour, IAudioSource, IHavePosition
+    public class Body : MonoBehaviour
     {
         [SerializeField] AudioSource _audioSource;
         [SerializeField] TMP_Text _TMPSprite;
@@ -15,7 +15,6 @@ namespace Entities
         [SerializeField][Range(0, 1)] float _deathAnimationSpeed = .5f;
 
         public event UnityAction OnAnimationEnd;
-        public Vector3 position => transform.position;
 
         enum AnimationState {
             death = -1,

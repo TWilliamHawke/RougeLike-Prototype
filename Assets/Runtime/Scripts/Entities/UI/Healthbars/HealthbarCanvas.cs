@@ -31,7 +31,8 @@ namespace Entities.UI
             var healthStorage = statsContainer.FindStorage(_statList.health);
 
             var healthbar = Instantiate(_healthbarPrefab, transform);
-            healthbar.FollowTheBody(target.body);
+            var controller = target.GetEntityComponent<PositionController>();
+            healthbar.Observe(controller);
             healthbar.AddToObserve(healthStorage);
             healthbar.AddToObserve(target.GetEntityComponent<IFactionMember>());
 
@@ -47,7 +48,7 @@ namespace Entities.UI
         public void ObserveEntities()
         {
             _entitiesManager.AddObserver(this);
-            _playerHealthbar.FollowTheBody(_player.body);
+            _playerHealthbar.Observe(_player.GetEntityComponent<PositionController>());
         }
 
         //Used in Unity Editor
