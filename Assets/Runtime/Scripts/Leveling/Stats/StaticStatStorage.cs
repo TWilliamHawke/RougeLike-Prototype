@@ -51,7 +51,7 @@ namespace Entities.Stats
 
             foreach (var effect in effects.GetEffects(_stat))
             {
-                AddBonusValue(effect.bonusType, effect.power);
+                AddBonusValue(effect.bonusType, effect.magnitude);
             }
 
             return GetFinalValue();

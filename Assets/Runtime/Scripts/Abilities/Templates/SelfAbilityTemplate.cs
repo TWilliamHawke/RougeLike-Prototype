@@ -19,7 +19,7 @@ namespace Abilities
             return ability;
         }
 
-        public IEnumerable<SourceEffectData> GetEffects()
+        public IEnumerable<ISourceEffectData> GetEffects()
         {
             return _effects;
         }

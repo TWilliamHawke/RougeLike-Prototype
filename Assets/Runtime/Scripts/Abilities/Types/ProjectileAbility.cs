@@ -2,6 +2,7 @@ using System.Linq;
 using Effects;
 using Entities;
 using Map;
+using UnityEngine;
 
 namespace Abilities
 {
@@ -11,8 +12,12 @@ namespace Abilities
 
         ProjectileAbilityTemplate _template;
         IAbilityTarget _target;
+        PositionController _userPosition;
 
         [InjectField] ProjectileController _controller;
+        public Vector3 userPosition => _userPosition.position;
+        public ProjectileTemplate projectileTemplate => _template.projectile;
+        public ProjectileAbilityTemplate abilityTemplate => _template;
 
         public ProjectileAbility(ProjectileAbilityTemplate template)
         {
@@ -38,7 +43,8 @@ namespace Abilities
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
             _target = target;
-            _controller.ThrowProjectile(target, _template.projectile);
+            _userPosition = user.GetEntityComponent<PositionController>();
+            _controller.UseAbility(target, this);
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)

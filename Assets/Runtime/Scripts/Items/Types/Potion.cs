@@ -26,7 +26,7 @@ namespace Items
             return "Potion description";
         }
 
-        public IEnumerable<SourceEffectData> GetEffects()
+        public IEnumerable<ISourceEffectData> GetEffects()
         {
             return _effects;
         }

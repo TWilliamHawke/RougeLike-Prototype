@@ -35,7 +35,7 @@ namespace Map.Generator
                 _rawMapData.width = _config.totalWidth;
                 _rawMapData.height = roadLength;
                 _rawMapData.walkabilityMap = new int[_rawMapData.width, roadLength];
-                _rawMapData.playerSpawnPos = new Vector3Int(_rawMapData.width / 2, 0, 0);
+                _rawMapData.playerSpawnPos = new Vector3Int(_rawMapData.width * 3 / 4, 10, 0);
 
 
                 for (int y = 0; y < _rawMapData.height; y++)

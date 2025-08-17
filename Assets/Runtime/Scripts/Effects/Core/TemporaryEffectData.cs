@@ -18,7 +18,7 @@ namespace Effects
 		public void UpdateEffectData(SourceEffectData sourceEffectData)
 		{
 			effect = sourceEffectData.effect;
-			magnitude = sourceEffectData.power;
+			magnitude = sourceEffectData.magnitude;
 			remainingDuration = sourceEffectData.duration;
 		}
 	}

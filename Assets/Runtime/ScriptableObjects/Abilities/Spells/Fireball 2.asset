@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8df7315fc6e97546bc1e76109b3f73d, type: 3}
   m_Name: Fireball 2
   m_EditorClassIdentifier: 
-  _displayName: Fireball
+  _displayName: ability_name_fireball
   _icon: {fileID: 21300000, guid: 3d075a9741cd6c845be338c56ffbf0cd, type: 3}
   _abilityController: {fileID: 11400000, guid: e15700aad2e93294396d2584bddd030b, type: 2}
   _projectile: {fileID: 11400000, guid: c35a7c4b16ba21044ba67a311bd277aa, type: 2}
-  _minDamage: 20
-  _maxDamage: 30
-  _damageType: 2
-  _description: Magic projectile that causes from %m1 to %m2 fire damage
+  _damage:
+    _minValue: 20
+    _maxValue: 30
+    _isRandom: 1
+  _damageType: {fileID: 11400000, guid: e15f8180cfd29794e95040a39f39d676, type: 2}
+  _description: ability_descr_fireball

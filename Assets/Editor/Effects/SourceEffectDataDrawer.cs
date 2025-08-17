@@ -19,7 +19,7 @@ public class SourceEffectDataDrawer : PropertyDrawer
 
         EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_effect"));
         singleLine.y += _lineHeight;
-        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_power"));
+        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_magnitude"));
         singleLine.y += _lineHeight;
         singleLine.width -= _buttonWidth * 2;
         EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_duration"));

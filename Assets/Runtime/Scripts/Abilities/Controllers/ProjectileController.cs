@@ -40,43 +40,38 @@ namespace Abilities
             if (_progress < _targetProgress)
             {
                 _progress += Time.deltaTime * BASE_SPEED * _launchedProjectile.speed;
-                var newPos = Vector3.Lerp(transform.position, _targetPosition, _progress / _targetProgress);
-                _launchedProjectile.transform.position = newPos;
+                var newPos = Vector3.Lerp(_selectedAbility.userPosition, _targetPosition, _progress / _targetProgress);
+                _launchedProjectile.MoveTo(newPos);
             }
             else
             {
-                DoDamage();
+                ApplyProjectileEffect();
                 _target = null;
             }
         }
 
-        public void ThrowProjectile(IAbilityTarget target, ProjectileTemplate template)
+        public void UseAbility(IAbilityTarget target, ProjectileAbility ability)
         {
             TryReleaseProjectile();
-            var positionController = target.GetEntityComponent<PositionController>();
+            var targetPos = target.GetEntityComponent<PositionController>();
             _target = target;
-            _targetPosition = positionController.position;
-            _targetProgress = Vector3.Distance(transform.position, _targetPosition);
+            _selectedAbility = ability;
+            _targetPosition = targetPos.position;
+            _targetProgress = Vector3.Distance(ability.userPosition, _targetPosition);
 
             _launchedProjectile = _projectiles.Get();
-            _launchedProjectile.transform.position = transform.position;
-            _launchedProjectile.transform.right = positionController.position - transform.position;
-            _launchedProjectile.SetTemplate(template);
+            _launchedProjectile.MoveTo(ability.userPosition);
+            _launchedProjectile.RotateTo(targetPos.position - ability.userPosition);
+            _launchedProjectile.SetTemplate(ability.projectileTemplate);
             _launchedProjectile.PlayFireSound();
         }
 
-        public void ThrowProjectile(IAbilityTarget target)
-        {
-            ThrowProjectile(target, _testTemplate);
-        }
-
-        private void DoDamage()
+        private void ApplyProjectileEffect()
         {
             _progress = 0;
             _selectedAbility.ApplyEffect(_target);
             _selectedAbility.PlayImpactSound();
             _launchedProjectile.HideSprite();
-            TryReleaseProjectile();
 
             if (_launchedProjectile.template.radius < 1)
             {
@@ -84,8 +79,10 @@ namespace Abilities
             }
             else
             {
-                _aoeController.StartAoeAnimation(_launchedProjectile.template, _target);
+                _aoeController.StartAoeAnimation(_selectedAbility.abilityTemplate, _target);
             }
+
+            TryReleaseProjectile();
         }
 
         private void FillProjectilesPool()

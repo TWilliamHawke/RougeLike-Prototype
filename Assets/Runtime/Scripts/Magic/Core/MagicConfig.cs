@@ -32,7 +32,7 @@ namespace Magic
             int minCost = Mathf.CeilToInt(_minSpellCostOfBase * manaCost);
 
             //UNDONE it should iterate trough all effect containers
-            manaCost = _spellCostFactor.ApplyStatsToValue(manaCost, statsContainer, activeEffects);
+            manaCost = _spellCostFactor.AdjustValue(manaCost, statsContainer, activeEffects);
             return Mathf.Max(minCost, manaCost);
         }
     }

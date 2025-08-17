@@ -26,5 +26,16 @@ namespace Effects
             return true;
         }
 
+        public virtual void ApplyEffect(EffectsStorage storage, IEffectSource source, SourceEffectData effectData)
+        { 
+            if (effectData.duration > 0)
+            {
+                storage.AddTemporaryEffect(effectData);
+            }
+            else
+            {
+                storage.AddStaticEffect(source, effectData);
+            }
+        }
     }
 }

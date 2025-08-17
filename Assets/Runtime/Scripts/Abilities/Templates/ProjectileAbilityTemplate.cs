@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Effects;
-using Entities.Combat;
 using UnityEngine;
 
 namespace Abilities
@@ -12,10 +11,9 @@ namespace Abilities
         IEffectSource
     {
         [SerializeField] ProjectileTemplate _projectile;
-        [SerializeField] int _minDamage;
-        [SerializeField] int _maxDamage;
-        [SerializeField] DamageType _damageType;
-        [TextArea(5, 10)]
+        [SerializeField] IntValue _damage;
+        [SerializeField] ResourceChangeFactor _damageType;
+        [LocalisationKey]
         [SerializeField] string _description;
 
         public ProjectileTemplate projectile => _projectile;
@@ -27,15 +25,15 @@ namespace Abilities
             return ability;
         }
 
-        public IEnumerable<SourceEffectData> GetEffects()
+        public IEnumerable<ISourceEffectData> GetEffects()
         {
-            return default;
+            yield return new SourceEffectData(_damageType, _damage, 0);
         }
 
         public  string GetDescription(AbilityModifiers abilityModifiers)
         {
-            float minDamage = _projectile.minDamage * abilityModifiers.magnitudeMult;
-            float maxDamage = _projectile.maxDamage * abilityModifiers.magnitudeMult;
+            float minDamage = _damage.minValue * abilityModifiers.magnitudeMult;
+            float maxDamage = _damage.maxValue * abilityModifiers.magnitudeMult;
 
             var pattern1 = @"%m1";
             var pattern2 = @"%m2";
