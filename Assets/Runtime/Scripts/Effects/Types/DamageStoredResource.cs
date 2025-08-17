@@ -10,9 +10,15 @@ namespace Effects
     {
         [SerializeField] StaticStat _resist;
 
-        protected override void ChangeResource(ResourceContainer container, int value)
+        protected override int AdjustValue(EffectsStorage storage, StatsStorage statsStorage, int value)
         {
-            container.ChangeStat(-value);
+            if (value <= 0) return 0;
+
+            var resistContainer = statsStorage.FindContainer(_resist);
+            int resistValue = resistContainer.GetAdjustedValue(storage);
+            float resistEfficiency = 1 + (float)resistValue / value;
+            value = Mathf.FloorToInt(value / resistEfficiency);
+            return -value;
         }
     }
 
