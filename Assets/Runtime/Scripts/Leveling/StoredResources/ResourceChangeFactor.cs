@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using Entities.Stats;
 using UnityEngine;
 
 namespace Effects
 {
-    [CreateAssetMenu(fileName = "Damage", menuName = "Effects/Damage Type")]
-    public class ResourceChangeFactor : Effect, IEffectSignature
+    public abstract class ResourceChangeFactor : Effect, IEffectSignature
     {
         [SerializeField] BonusValueType _type;
         [SerializeField] StoredResource _targetStat;
-        [SerializeField] StaticStat _resist;
 
         [SerializeField] StaticStat[] _factormods;
+
+        protected abstract void ChangeResource(ResourceContainer container, int value);
 
         public int AdjustValue(int baseValue, StatsStorage statsContainer, IEffectsIterator effects)
         {
@@ -41,12 +39,9 @@ namespace Effects
             else
             {
                 var targetStatData = statsStorage.FindContainer(_targetStat);
-                if (!isPositiveValueGood)
-                {
-                    statChange *= -1;
-                }
-                targetStatData.ChangeStat(statChange);
+                ChangeResource(targetStatData, statChange);
             }
         }
     }
+
 }

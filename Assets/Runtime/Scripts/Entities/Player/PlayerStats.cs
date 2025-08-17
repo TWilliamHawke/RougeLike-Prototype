@@ -17,7 +17,7 @@ namespace Entities.PlayerScripts
         [SerializeField] StatValues _defaultStats;
         [SerializeField] CustomEvent _onPlayerStatsInit;
 
-        Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
+        Dictionary<Combat.DamageType, int> _resists = new Dictionary<Combat.DamageType, int>(5);
         StatsStorage _statsContainer;
 
         public AudioClip[] attackSounds => _weaponSounds;
@@ -33,13 +33,13 @@ namespace Entities.PlayerScripts
         public IDamageSource CalculateDamageData()
         {
             //HACK this code should return weapon or skill stats
-            return new DamageSource(10, 20, DamageType.physical);
+            return new DamageSource(10, 20, Combat.DamageType.physical);
         }
 
-        public Dictionary<DamageType, int> CalculateCurrentResists()
+        public Dictionary<Combat.DamageType, int> CalculateCurrentResists()
         {
             //apply effects, armour, etc...
-            _resists[DamageType.physical] = 10;
+            _resists[Combat.DamageType.physical] = 10;
 
             return _resists;
         }

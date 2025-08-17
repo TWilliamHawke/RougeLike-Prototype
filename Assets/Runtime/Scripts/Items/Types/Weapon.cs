@@ -8,7 +8,7 @@ namespace Items
     [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapon")]
     public class Weapon : Item, IEquipment
     {
-        [SerializeField] ResourceChangeFactor _damageType;
+        [SerializeField] DamageStoredResource _damageType;
         [SerializeField] IntValue _damage;
         [Min(1)]
         [SerializeField] int _accuracy;
