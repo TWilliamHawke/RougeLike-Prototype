@@ -11,9 +11,9 @@ namespace Magic
         KnownSpellData _spellData { get; init; }
         StaticStatStorage _spellPowerStorage { get; init; }
         MagicConfig _magicConfig { get; init; }
-        StatsContainer _statsContainer { get; init; }
+        StatsStorage _statsContainer { get; init; }
 
-        public SpellDescriptionConstructor(KnownSpellData spellData, StatsContainer statsContainer, MagicConfig magicConfig)
+        public SpellDescriptionConstructor(KnownSpellData spellData, StatsStorage statsContainer, MagicConfig magicConfig)
         {
             _spellData = spellData;
             _statsContainer = statsContainer;

@@ -6,36 +6,36 @@ using Type = System.Type;
 
 namespace Entities.Stats
 {
-    public class StatsContainer : MonoBehaviour, IEntityComponent, IStatContainer, IResourceContainer, IStatsController
+    public class StatsStorage : MonoBehaviour, IEntityComponent, IStatStorage, IResourceStorage, IStatsController
     {
         public Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; } = new();
-        public Dictionary<StoredResource, ResourceStorage> cappedStatStorage { get; } = new();
+        public Dictionary<StoredResource, ResourceContainer> cappedStatStorage { get; } = new();
 
         public void InitStat(StaticStat stat, int baseValue)
         {
-            var storage = FindStorage(stat);
+            var storage = FindContainer(stat);
             storage.SetBaseStatValue(baseValue);
         }
 
         public void InitStat(StoredResource resource, int baseValue)
         {
-            var storage = FindStorage(resource);
+            var storage = FindContainer(resource);
             storage.SetBaseStatValue(baseValue);
         }
 
         public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat) 
         {
-            StaticStatStorage storage = FindStorage(stat);
+            StaticStatStorage storage = FindContainer(stat);
             observer.AddToObserve(storage);
         }
 
-        public void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat)
+        public void AddObserver(IObserver<ResourceContainer> observer, StoredResource stat)
         {
-            ResourceStorage storage = FindStorage(stat);
+            ResourceContainer storage = FindContainer(stat);
             observer.AddToObserve(storage);
         }
 
-        public ResourceStorage FindStorage(StoredResource stat)
+        public ResourceContainer FindContainer(StoredResource stat)
         {
             if (!cappedStatStorage.TryGetValue(stat, out var storage))
             {
@@ -46,7 +46,7 @@ namespace Entities.Stats
             return storage;
         }
 
-        public StaticStatStorage FindStorage(StaticStat stat)
+        public StaticStatStorage FindContainer(StaticStat stat)
         {
             if (!staticStatStorage.TryGetValue(stat, out var storage))
             {

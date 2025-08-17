@@ -15,7 +15,7 @@ namespace Entities.Stats
         [SerializeField]
         List<StatValue> _staticStats;
 
-        public void InitStats(IResourceContainer controller)
+        public void InitStats(IResourceStorage controller)
         {
             controller.InitStat(_statList.health, _health);
             controller.InitStat(_statList.mana, _mana);

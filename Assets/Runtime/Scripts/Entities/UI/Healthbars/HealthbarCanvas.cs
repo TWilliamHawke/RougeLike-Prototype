@@ -27,8 +27,8 @@ namespace Entities.UI
 
         public void AddToObserve(Entity target)
         {
-            var statsContainer = target.GetComponent<StatsContainer>();
-            var healthStorage = statsContainer.FindStorage(_statList.health);
+            var statsContainer = target.GetComponent<StatsStorage>();
+            var healthStorage = statsContainer.FindContainer(_statList.health);
 
             var healthbar = Instantiate(_healthbarPrefab, transform);
             var controller = target.GetEntityComponent<PositionController>();
@@ -54,7 +54,7 @@ namespace Entities.UI
         //Used in Unity Editor
         public void CreatePlayerHealthbar()
         {
-            var health = _playerStats.FindStorage(_statList.health);
+            var health = _playerStats.FindContainer(_statList.health);
             _playerHealthbar.AddToObserve(health);
         }
     }

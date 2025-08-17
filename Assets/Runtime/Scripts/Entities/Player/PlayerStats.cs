@@ -18,14 +18,14 @@ namespace Entities.PlayerScripts
         [SerializeField] CustomEvent _onPlayerStatsInit;
 
         Dictionary<DamageType, int> _resists = new Dictionary<DamageType, int>(5);
-        StatsContainer _statsContainer;
+        StatsStorage _statsContainer;
 
         public AudioClip[] attackSounds => _weaponSounds;
 
 
         public void Init(Player player)
         {
-            _statsContainer = player.GetEntityComponent<StatsContainer>();
+            _statsContainer = player.GetEntityComponent<StatsStorage>();
             _defaultStats.InitStats(_statsContainer);
             _onPlayerStatsInit.Invoke();
         }
@@ -49,19 +49,19 @@ namespace Entities.PlayerScripts
             _statsContainer.AddObserver(observer, stat);
         }
 
-        public void AddObserver(IObserver<ResourceStorage> observer, StoredResource stat)
+        public void AddObserver(IObserver<ResourceContainer> observer, StoredResource stat)
         {
             _statsContainer.AddObserver(observer, stat);
         }
 
-        public StaticStatStorage FindStorage(StaticStat stat)
+        public StaticStatStorage FindContainer(StaticStat stat)
         {
-            return _statsContainer.FindStorage(stat);
+            return _statsContainer.FindContainer(stat);
         }
 
-        public ResourceStorage FindStorage(StoredResource stat)
+        public ResourceContainer FindContainer(StoredResource stat)
         {
-            return _statsContainer.FindStorage(stat);
+            return _statsContainer.FindContainer(stat);
         }
     }
 }

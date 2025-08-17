@@ -22,7 +22,7 @@ namespace Entities.Stats
         public float minReductionMod => _minReductionMod;
 
 
-        public StaticStatStorage CreateStorage(IStatContainer controller)
+        public StaticStatStorage CreateStorage(IStatStorage controller)
         {
             var storage = new StaticStatStorage(this);
             return storage;

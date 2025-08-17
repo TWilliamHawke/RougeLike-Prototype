@@ -15,7 +15,7 @@ namespace Entities
     [RequireComponent(typeof(StateMachine))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(FactionHandler))]
-    [RequireComponent(typeof(StatsContainer))]
+    [RequireComponent(typeof(StatsStorage))]
     [RequireComponent(typeof(PositionController))]
     [RequireComponent(typeof(AudioEffectsController))]
     public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
@@ -52,11 +52,11 @@ namespace Entities
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
-            var statsContainer = GetComponent<StatsContainer>();
+            var statsContainer = GetComponent<StatsStorage>();
             template.InitStats(statsContainer);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
 
-            var healthStorage = statsContainer.FindStorage(_statList.health);
+            var healthStorage = statsContainer.FindContainer(_statList.health);
             healthStorage.OnReachMin += ProceedDeath;
             _health = healthStorage;
             OnStatsInit?.Invoke(statsContainer);
