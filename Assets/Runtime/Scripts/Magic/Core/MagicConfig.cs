@@ -15,17 +15,17 @@ namespace Magic
 
         public float minCostOfBase => _minSpellCostOfBase;
 
-        public ISafeStatController FindManaStorage(StatsContainer statsContainer)
+        public ISafeStatController FindManaStorage(StatsStorage statsContainer)
         {
-            return statsContainer.FindStorage(_mana);
+            return statsContainer.FindContainer(_mana);
         }
 
-        public StaticStatStorage FindSpellPowerStorage(StatsContainer statsContainer)
+        public StaticStatStorage FindSpellPowerStorage(StatsStorage statsContainer)
         {
-            return statsContainer.FindStorage(_spellPower);
+            return statsContainer.FindContainer(_spellPower);
         }
 
-        public int GetSpellCost(KnownSpellData spellData, StatsContainer statsContainer)
+        public int GetSpellCost(KnownSpellData spellData, StatsStorage statsContainer)
         {
             int manaCost = spellData.baseManaCost;
             var activeEffects = spellData.activeEffects;

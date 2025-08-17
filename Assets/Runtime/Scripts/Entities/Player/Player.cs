@@ -14,7 +14,7 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(AudioEffectsController))]
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(Health))]
-    [RequireComponent(typeof(StatsContainer))]
+    [RequireComponent(typeof(StatsStorage))]
     public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IAbilityTarget, IObstacleEntity, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;

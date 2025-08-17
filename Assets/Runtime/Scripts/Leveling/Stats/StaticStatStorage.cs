@@ -1,13 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Effects;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public class StaticStatStorage : ValueStorage, IStatStorage, IParentStat, IStatValueController
+    public class StaticStatStorage : ValueStorage, IStatContainer, IParentStat, IStatValueController
     {
         StaticStat _stat;
 
@@ -34,11 +30,6 @@ namespace Entities.Stats
 
         //     return finalValue;
         // }
-
-        private void SetStatValue(int newValue)
-        {
-            SetNewValue(newValue);
-        }
 
         public void SetBaseStatValue(int value)
         {

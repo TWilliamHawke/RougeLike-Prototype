@@ -13,7 +13,7 @@ namespace Entities
     {
         [SerializeField] StoredResource _health;
 
-        ResourceStorage _healthStorage;
+        ResourceContainer _healthStorage;
 
         public bool isDead => _healthStorage.currentValue <= 0;
 
@@ -42,7 +42,7 @@ namespace Entities
 
         private void ObserveHealth(IStatsController controller)
         {
-            _healthStorage = controller.FindStorage(_health);
+            _healthStorage = controller.FindContainer(_health);
         }
     }
 }

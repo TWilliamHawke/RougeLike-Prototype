@@ -2,7 +2,7 @@ using UnityEngine.Events;
 
 namespace Entities.Stats
 {
-    public interface IParentStat : IStatStorage
+    public interface IParentStat : IStatContainer
     {
         int currentValue { get; }
         int minValue { get; }

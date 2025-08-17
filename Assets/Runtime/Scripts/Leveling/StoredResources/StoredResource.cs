@@ -16,10 +16,10 @@ namespace Entities.Stats
 
         public bool useParentStat => _useParentStat;
 
-        public ResourceStorage CreateStorage(IStatContainer controller)
+        public ResourceContainer CreateStorage(IStatStorage controller)
         {
             //TODO works only for init, should be ajusted for save/load
-            var storage = new ResourceStorage();
+            var storage = new ResourceContainer();
         
             if (_useParentStat && _parentStat)
             {

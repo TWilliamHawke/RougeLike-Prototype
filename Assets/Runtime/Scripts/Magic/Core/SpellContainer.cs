@@ -11,7 +11,7 @@ namespace Magic
         ISafeStatController _manaStorage;
         KnownSpellData _spellData;
         MagicConfig _magicConfig;
-        StatsContainer _statsContainer;
+        StatsStorage _statsContainer;
         SpellDescriptionConstructor _descriptionConstructor;
         IAbilityUser _user;
 
@@ -27,7 +27,7 @@ namespace Magic
             _user = user;
             _spellData = spellData;
             _magicConfig = magicConfig;
-            _statsContainer = user.GetEntityComponent<StatsContainer>();
+            _statsContainer = user.GetEntityComponent<StatsStorage>();
             _manaStorage = magicConfig.FindManaStorage(_statsContainer);
             _descriptionConstructor = new(spellData, _statsContainer, _magicConfig);
         }

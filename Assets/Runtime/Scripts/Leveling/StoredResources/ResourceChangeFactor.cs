@@ -14,13 +14,13 @@ namespace Effects
 
         [SerializeField] StaticStat[] _factormods;
 
-        public int AdjustValue(int baseValue, StatsContainer statsContainer, IEffectsIterator effects)
+        public int AdjustValue(int baseValue, StatsStorage statsContainer, IEffectsIterator effects)
         {
             float updatedValue = baseValue;
 
             foreach (var stat in _factormods)
             {
-                var storage = statsContainer.FindStorage(stat);
+                var storage = statsContainer.FindContainer(stat);
                 int statValue = storage.GetAdjustedValue(effects);
                 updatedValue = updatedValue * (1 + statValue * 0.01f);
             }
@@ -30,22 +30,22 @@ namespace Effects
 
         public override void ApplyEffect(EffectsStorage storage, IEffectSource source, SourceEffectData effectData)
         {
-            var statsStorage = storage.GetComponent<StatsContainer>();
-            int newValue = effectData.magnitude;
+            var statsStorage = storage.GetComponent<StatsStorage>();
+            int statChange = effectData.magnitude;
 
             if (effectData.duration > 0)
             {
-                var updatedEffect = effectData.Clone(newValue);
+                var updatedEffect = effectData.Clone(statChange);
                 storage.AddTemporaryEffect(updatedEffect);
             }
             else
             {
-                var targetStatData = statsStorage.FindStorage(_targetStat);
+                var targetStatData = statsStorage.FindContainer(_targetStat);
                 if (!isPositiveValueGood)
                 {
-                    newValue *= -1;
+                    statChange *= -1;
                 }
-                targetStatData.ChangeStat(newValue);
+                targetStatData.ChangeStat(statChange);
             }
         }
     }
