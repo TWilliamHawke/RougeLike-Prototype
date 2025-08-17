@@ -19,7 +19,7 @@ MonoBehaviour:
   _value: 25
   _soundKit: {fileID: 11400000, guid: 8b62b06b117fa644c8dd2b5b8b1934aa, type: 2}
   _effects:
-  - _effect: {fileID: 11400000, guid: 443e952df19c3d446b41912e9db9e6ba, type: 2}
+  - _effect: {fileID: 11400000, guid: d7852abb299a47d478af59e88ba38251, type: 2}
     _magnitude:
       _minValue: 50
       _maxValue: 50

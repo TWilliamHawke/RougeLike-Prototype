@@ -77,3 +77,5 @@ ability_name_base_sword_attack	Sword Attack	Атака мечём
 ability_descr_fireball	Magic projectile that causes from %m1 to %m2 fire damage	Магический снаряд, наносящий от %m1 до %m2 урона
 ability_name_fireball	Fireball	Огненный шар
 resource_factor_health_restoration	Health restoration	Восстановление здоровья
+effect_name_max_health	Max health bonus	Max health bonus
+effect_descr_max_health	Changes max health by %m	Изменяет максимальное здороье на %m

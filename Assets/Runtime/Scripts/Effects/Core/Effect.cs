@@ -8,8 +8,6 @@ namespace Effects
     public class Effect : ScriptableObject, IEffect, IEffectSignature
     {
         [LocalisationKey]
-        [SerializeField] string _displayName;
-        [LocalisationKey]
         [SerializeField] string _description;
         [SpritePreview]
         [SerializeField] Sprite _icon;
