@@ -32,7 +32,12 @@ namespace Effects
             _duration = duration;
         }
 
-        public SourceEffectData Clone(int newMagnitude = 0)
+        public SourceEffectData Clone()
+        {
+            return new SourceEffectData(_effect, _magnitude, _duration);
+        }
+
+        public SourceEffectData Clone(int newMagnitude)
         {
             return new SourceEffectData(_effect, newMagnitude, _duration);
         }

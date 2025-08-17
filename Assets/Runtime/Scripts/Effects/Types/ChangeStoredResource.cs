@@ -10,17 +10,19 @@ namespace Effects
 
         [SerializeField] StaticStat[] _factormods;
 
-        protected abstract void ChangeResource(ResourceContainer container, int value);
+        protected abstract int AdjustValue(EffectsStorage storage, StatsStorage statsStorage, int value);
 
-        public int AdjustValue(int baseValue, StatsStorage statsContainer, IEffectsIterator effects)
+        public int ApplyEffectsToValue(int baseValue, StatsStorage statsStorage, IEffectsIterator effects)
         {
             float updatedValue = baseValue;
 
             foreach (var stat in _factormods)
             {
-                var storage = statsContainer.FindContainer(stat);
-                int statValue = storage.GetAdjustedValue(effects);
-                updatedValue = updatedValue * (1 + statValue * 0.01f);
+                var container = statsStorage.FindContainer(stat);
+                //get the value of stat that can change baseValue
+                //with all bonuses from effect list
+                int statValue = container.GetAdjustedValue(effects);
+                updatedValue *= 1 + statValue * 0.01f;
             }
 
             return Mathf.FloorToInt(updatedValue);
@@ -28,18 +30,19 @@ namespace Effects
 
         public override void ApplyEffect(EffectsStorage storage, IEffectSource source, SourceEffectData effectData)
         {
-            var statsStorage = storage.GetComponent<StatsStorage>();
-            int statChange = effectData.magnitude;
 
             if (effectData.duration > 0)
             {
-                var updatedEffect = effectData.Clone(statChange);
+                var updatedEffect = effectData.Clone();
                 storage.AddTemporaryEffect(updatedEffect);
             }
             else
             {
-                var targetStatData = statsStorage.FindContainer(_targetStat);
-                ChangeResource(targetStatData, statChange);
+                var statsStorage = storage.GetComponent<StatsStorage>();
+                int newValue = AdjustValue(storage, statsStorage, effectData.magnitude);
+                if (newValue == 0) return;
+                var container = statsStorage.FindContainer(_targetStat);
+                container.ChangeStat(newValue);
             }
         }
     }
