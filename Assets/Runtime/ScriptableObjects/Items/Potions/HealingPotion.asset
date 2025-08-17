@@ -20,5 +20,8 @@ MonoBehaviour:
   _soundKit: {fileID: 11400000, guid: 8b62b06b117fa644c8dd2b5b8b1934aa, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: b7b0eb9394087bd489770e5b6cd8d261, type: 2}
-    _power: 25
+    _magnitude:
+      _minValue: 25
+      _maxValue: 25
+      _isRandom: 0
     _duration: -1

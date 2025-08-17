@@ -6,15 +6,12 @@ using UnityEngine;
 namespace Abilities
 {
 	[CreateAssetMenu(fileName = " ProjectileTemplate", menuName = "Entities/ProjectileTemplate")]
-	public class ProjectileTemplate : ScriptableObject, IDamageSource
+	public class ProjectileTemplate : ScriptableObject
 	{
 	    [SerializeField] string _char = "o";
 		[SerializeField] Color _color = Color.red;
 		[SerializeField] float _speedMult = 1f;
 		[Header("Damage Data")]
-		[SerializeField] DamageType _damageType;
-		[SerializeField] int _minDamage;
-		[SerializeField] int _maxDamage;
 		[SerializeField] int _AOERadius = 0;
 		[SerializeField] float _AOEDamageMult = 1f;
 		[Space(10)]
@@ -29,9 +26,5 @@ namespace Abilities
 
         public int radius => _AOERadius;
         public float aoeDamageMult => _AOEDamageMult;
-
-        public int minDamage => _minDamage;
-        public int maxDamage => _maxDamage;
-        public DamageType damageType => _damageType;
     }
 }

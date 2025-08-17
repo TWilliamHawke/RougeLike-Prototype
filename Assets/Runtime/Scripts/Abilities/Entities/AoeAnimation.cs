@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using Effects;
 
 namespace Abilities
 {
@@ -21,10 +22,10 @@ namespace Abilities
         public event UnityAction OnAnimationEnd;
         public event UnityAction<int> OnDamageFrame;
 
-        public ProjectileTemplate template => _template;
+        public ProjectileTemplate template => _template.projectile;
         public Vector3Int tilepos => transform.position.ToTilePos();
 
-        ProjectileTemplate _template;
+        ProjectileAbilityTemplate _template;
         float _animationProgress = 0;
         bool _isFinished = false;
         bool _damageFrameIsHappened = false;
@@ -32,9 +33,9 @@ namespace Abilities
 
 
         const float BASE_SCALE = .25f;
-        int maxRadius => _template?.radius ?? 1;
+        int maxRadius => template?.radius ?? 1;
 
-        private void Awake()
+        void Awake()
         {
             _defaultPositions = new Vector3[_AOE_parts.Length];
 
@@ -44,7 +45,7 @@ namespace Abilities
             }
         }
 
-        private void Update()
+        void Update()
         {
             if (_isFinished) return;
 
@@ -82,6 +83,16 @@ namespace Abilities
             }
         }
 
+        public void ApplyEffect(IAbilityTarget target)
+        {
+            var effectsStorage = target.GetEntityComponent<EffectsStorage>();
+            var effects = _template.GetEffects();
+            foreach (var effect in effects)
+            {
+                effect.ApplyEffect(effectsStorage, _template);
+            }
+        }
+
         public void Reset()
         {
             _isFinished = false;
@@ -100,12 +111,12 @@ namespace Abilities
             gameObject.SetActive(false);
         }
 
-        public void SetTemplate(ProjectileTemplate template)
+        public void SetTemplate(ProjectileAbilityTemplate template)
         {
             _template = template;
             foreach (TMP_Text part in _AOE_parts)
             {
-                part.color = template.color;
+                part.color = template.projectile.color;
             }
 
         }

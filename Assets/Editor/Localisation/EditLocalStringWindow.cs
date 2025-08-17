@@ -42,7 +42,10 @@ public class EditLocalStringWindow : EditorWindow
         }
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Value: ");
-        if (GUILayout.Button("Cut Text"))
+
+        GUIContent buttonText = new("Delete Text", "Text will bee saved in buffer");
+
+        if (GUILayout.Button(buttonText))
         {
             EditorGUIUtility.systemCopyBuffer = _value;
             _value = "";

@@ -20,7 +20,7 @@ namespace Magic
             this.slotIndex = slotIndex;
         }
 
-        public IEnumerable<SourceEffectData> GetEffects()
+        public IEnumerable<ISourceEffectData> GetEffects()
         {
             return spellString.effects;
         }

@@ -17,5 +17,8 @@ MonoBehaviour:
   _abilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: b7b0eb9394087bd489770e5b6cd8d261, type: 2}
-    _power: 75
+    _magnitude:
+      _minValue: 75
+      _maxValue: 75
+      _isRandom: 0
     _duration: -1

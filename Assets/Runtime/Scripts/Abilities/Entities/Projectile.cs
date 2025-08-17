@@ -22,9 +22,14 @@ namespace Abilities
             _TMPSprite.enabled = true;
         }
 
-        public void PlayImpactSound()
+        public void MoveTo(Vector3 position)
         {
-            PlaySound(_template.impactSound);
+            transform.position = position;
+        }
+
+        public void RotateTo(Vector3 direction)
+        {
+            transform.right = direction;
         }
 
         public void PlayFireSound()
@@ -32,12 +37,12 @@ namespace Abilities
             PlaySound(_template.fireSound);
         }
 
-        public void HideSprite() //but still play sound
+        public void HideSprite()
         {
             _TMPSprite.enabled = false;
         }
 
-        void PlaySound(AudioClip sound)
+        private void PlaySound(AudioClip sound)
         {
             _audioSource.Stop();
             _audioSource.PlayOneShot(sound);

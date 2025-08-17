@@ -19,12 +19,12 @@ namespace Abilities
 
         [InjectField] TilesGrid _tilesGrid;
 
-        private void Awake()
+        void Awake()
         {
             FillAoePool();
         }
 
-        public void StartAoeAnimation(ProjectileTemplate template, IAbilityTarget target)
+        public void StartAoeAnimation(ProjectileAbilityTemplate template, IAbilityTarget target)
         {
             _target = target;
             var positionController = _target.GetEntityComponent<PositionController>();
@@ -57,9 +57,9 @@ namespace Abilities
             foreach (var node in neightBorNodes)
             {
                 var entity = node.entitiesOnTile.FirstOrDefault();
-                var target = entity as IAttackTarget;
+                var target = entity as IAbilityTarget;
                 if (target is null) continue;
-                AttackHandler.ProcessAttack(_startedAoeEffect.template, target);
+                _startedAoeEffect.ApplyEffect(target);
             }
         }
 

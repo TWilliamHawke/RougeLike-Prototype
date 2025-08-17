@@ -23,6 +23,7 @@ namespace CustomEditors
             var minValueField = property.FindPropertyRelative("_minValue");
             var maxValueField = property.FindPropertyRelative("_maxValue");
             var isRandomField = property.FindPropertyRelative("_isRandom");
+            label.tooltip = "Use checkbox to toggle minmax value";
 
             var fullLine = EditorHelpers.RectToSingleLine(position);
             var restRect = EditorGUI.PrefixLabel(fullLine, label);
