@@ -7,20 +7,15 @@ namespace Abilities
 {
     public class MovementAbility : AbstractAbility
     {
-        float _progress = 0;
-        Vector3 _currentNodePosition;
-        Vector3 _targetNodePosition;
         PositionController _target;
         bool _onPause = true;
-
-        TileNode _targetNode;
-        TileNode _currentNode;
 
         Stack<TileNode> _path = new Stack<TileNode>();
 
         public bool onPause => _onPause;
-        public float progress => _progress;
         protected override IIconData template => _template;
+        public Vector3Int targetPosition => _target.intPosition;
+        public Stack<TileNode> path => _path;
 
         MovementAbilityTemplate _template { get; init; }
 
@@ -36,6 +31,18 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
+        public void MoveTarget(Vector3 position)
+        {
+            _target.MoveTo(position);
+        }
+
+        public void UpdateTargetNode(TileNode from, TileNode to)
+        {
+            var entity = _target.GetComponent<IObstacleEntity>();
+            from.RemoveEntity(entity);
+            to.AddEntity(entity);
+        }
+
         public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
         {
             return tile.isWalkableAndEmpty;
@@ -43,32 +50,19 @@ namespace Abilities
 
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
-            var userPosition = user.GetEntityComponent<PositionController>();
+            var start = user.GetEntityComponent<PositionController>();
             _target = user.GetEntityComponent<PositionController>();
-            _currentNode = _controller.FindNode(userPosition.position);
-            var finalPos = (target as IPositionData).intPosition;
+            var destination = target as IPositionData;
 
-            _path = _controller.FindPath(userPosition.intPosition, finalPos);
+            if (start == null || destination == null) return;
+
+            _path = _controller.FindPath(start, destination);
             StartNextStep();
-        }
-
-        public void UpdateProgress(float deltaTime)
-        {
-            _progress += deltaTime;
-            var updatedPosition = Vector3
-                .Lerp(_currentNodePosition, _targetNodePosition, _progress);
-            _target.MoveTo(updatedPosition);
         }
 
         public void FinalizeStep()
         {
             _onPause = true;
-            _progress = 0;
-            var entity = _target.GetComponent<IObstacleEntity>();
-            _currentNode.RemoveEntity(entity);
-            _targetNode.AddEntity(entity);
-            _target.MoveTo(_targetNodePosition);
-            _currentNode = _targetNode;
             StartNextStep();
         }
 
@@ -80,11 +74,6 @@ namespace Abilities
         private void StartNextStep()
         {
             if (_path.Count == 0) return;
-
-            _targetNode = _path.Pop();
-
-            _targetNodePosition = _targetNode.intPosition;
-            _currentNodePosition = _currentNode.intPosition;
             _onPause = false;
             _controller.SelectActiveAbility(this);
         }
