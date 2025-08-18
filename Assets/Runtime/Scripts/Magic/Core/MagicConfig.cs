@@ -7,7 +7,7 @@ namespace Magic
     [CreateAssetMenu(fileName = "MagicConfig", menuName = "Magic/MagicConfig")]
     public class MagicConfig : ScriptableObject
     {
-        [SerializeField] ResourceChangeFactor _spellCostFactor;
+        [SerializeField] ChangeStoredResource _spellCostFactor;
         [SerializeField] StaticStat _spellPower;
         [SerializeField] StoredResource _mana;
         [Range(0, 1)]
@@ -32,7 +32,7 @@ namespace Magic
             int minCost = Mathf.CeilToInt(_minSpellCostOfBase * manaCost);
 
             //UNDONE it should iterate trough all effect containers
-            manaCost = _spellCostFactor.AdjustValue(manaCost, statsContainer, activeEffects);
+            manaCost = _spellCostFactor.ApplyEffectsToValue(manaCost, statsContainer, activeEffects);
             return Mathf.Max(minCost, manaCost);
         }
     }
