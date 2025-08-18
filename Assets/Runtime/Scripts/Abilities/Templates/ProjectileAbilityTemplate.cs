@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Effects;
+using Entities.Combat;
 using UnityEngine;
 
 namespace Abilities
@@ -12,7 +13,7 @@ namespace Abilities
     {
         [SerializeField] ProjectileTemplate _projectile;
         [SerializeField] IntValue _damage;
-        [SerializeField] ResourceChangeFactor _damageType;
+        [SerializeField] DamageStoredResource _damageType;
         [LocalisationKey]
         [SerializeField] string _description;
 
