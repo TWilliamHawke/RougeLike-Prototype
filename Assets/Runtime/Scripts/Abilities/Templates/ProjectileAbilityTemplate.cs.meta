@@ -6,7 +6,9 @@ MonoImporter:
   defaultReferences:
   - _icon: {instanceID: 0}
   - _abilityController: {fileID: 11400000, guid: e15700aad2e93294396d2584bddd030b, type: 2}
+  - _effectsHandler: {fileID: 11400000, guid: de564d1d19f08fd40836b28598790948, type: 2}
   - _projectile: {instanceID: 0}
+  - _damageType: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

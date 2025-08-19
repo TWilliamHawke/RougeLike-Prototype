@@ -39,14 +39,11 @@ namespace Abilities
 
             if (_progress < _targetProgress)
             {
-                _progress += Time.deltaTime * BASE_SPEED * _launchedProjectile.speed;
-                var newPos = Vector3.Lerp(_selectedAbility.userPosition, _targetPosition, _progress / _targetProgress);
-                _launchedProjectile.MoveTo(newPos);
+                UpdateProgress();
             }
             else
             {
-                ApplyProjectileEffect();
-                _target = null;
+                FinishAbility();
             }
         }
 
@@ -66,12 +63,18 @@ namespace Abilities
             _launchedProjectile.PlayFireSound();
         }
 
-        private void ApplyProjectileEffect()
+        private void UpdateProgress()
+        {
+            _progress += Time.deltaTime * BASE_SPEED * _launchedProjectile.speed;
+            var newPos = Vector3.Lerp(_selectedAbility.userPosition, _targetPosition, _progress / _targetProgress);
+            _launchedProjectile.MoveTo(newPos);
+        }
+
+        private void FinishAbility()
         {
             _progress = 0;
             _selectedAbility.ApplyEffect(_target);
             _selectedAbility.PlayImpactSound();
-            _launchedProjectile.HideSprite();
 
             if (_launchedProjectile.template.radius < 1)
             {
@@ -83,6 +86,7 @@ namespace Abilities
             }
 
             TryReleaseProjectile();
+            _target = null;
         }
 
         private void FillProjectilesPool()
@@ -98,6 +102,7 @@ namespace Abilities
         private void TryReleaseProjectile()
         {
             if (_launchedProjectile is null) return;
+            _launchedProjectile.HideSprite();
             _projectiles.Release(_launchedProjectile);
             _launchedProjectile = null;
         }

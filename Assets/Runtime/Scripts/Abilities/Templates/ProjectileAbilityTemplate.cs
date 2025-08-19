@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Effects;
-using Entities.Combat;
 using UnityEngine;
 
 namespace Abilities
 {
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/Projectile")]
-    public class ProjectileAbilityTemplate : AbilityTemplate,
-        IEffectSource
+    public class ProjectileAbilityTemplate : AbilityTemplate, IEffectSource
     {
+        [SerializeField] Injector _effectsHandler;
         [SerializeField] ProjectileTemplate _projectile;
         [SerializeField] IntValue _damage;
         [SerializeField] DamageStoredResource _damageType;
@@ -23,6 +22,7 @@ namespace Abilities
         {
             ProjectileAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);
+            _effectsHandler.AddInjectionTarget(ability);
             return ability;
         }
 
@@ -31,7 +31,7 @@ namespace Abilities
             yield return new SourceEffectData(_damageType, _damage, 0);
         }
 
-        public  string GetDescription(AbilityModifiers abilityModifiers)
+        public string GetDescription(AbilityModifiers abilityModifiers)
         {
             float minDamage = _damage.minValue * abilityModifiers.magnitudeMult;
             float maxDamage = _damage.maxValue * abilityModifiers.magnitudeMult;

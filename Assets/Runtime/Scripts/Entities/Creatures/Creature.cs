@@ -13,11 +13,9 @@ namespace Entities
     {
         [SerializeField] CreatureTemplate _template;
 
-        public override Dictionary<DamageType, int> resists => _template.resists.set;
 
         public override AudioClip[] deathSounds => _template.sounds.deathSounds;
 
-        public override IDamageSource damageSource => _template;
         public override ITemplateWithBaseStats template => _template;
 
         public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
@@ -25,19 +23,13 @@ namespace Entities
         public void BindTemplate(CreatureTemplate template)
         {
             _template = template;
-            InitComponents();
             ApplyStartStats(template);
             OnTemplateApplied?.Invoke(template);
         }
 
         public override void Interact(Player player)
         {
-            player.Attack(this);
-        }
-
-        public override void PlayAttackSound()
-        {
-            body.PlaySound(_template.attackSounds.GetRandom());
+            player.UseMainAbility(this);
         }
 
         public override void AddLootTo(IItemStorage storage)
