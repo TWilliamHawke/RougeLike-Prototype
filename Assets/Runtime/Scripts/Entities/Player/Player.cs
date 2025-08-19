@@ -15,21 +15,14 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(FactionHandler))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(StatsStorage))]
-    public class Player : MonoBehaviour, IAttackTarget, ICanAttack, IAbilityTarget, IObstacleEntity, IEntityWithComponents
+    public class Player : MonoBehaviour, IAbilityTarget, IObstacleEntity, IEntityWithComponents
     {
         [SerializeField] CustomEvent _onPlayerTurnEnd;
 
         [SerializeField] PlayerStats _stats;
-        [SerializeField] ResistSet _testResists;
+        [SerializeField] QuickBarDataStorage _quickBarData;
 
         AudioClip[] _deathSounds = new AudioClip[0];
-
-        MeleeAttackController _meleeAttackController;
-        AudioEffectsController _audioEffectsController;
-        Health _health;
-
-        public Dictionary<DamageType, int> resists => _testResists.set;
-        public IDamageSource damageSource => _stats.CalculateDamageData();
 
         public AudioClip[] deathSounds => _deathSounds;
         public Vector3 position => transform.position;
@@ -53,9 +46,9 @@ namespace Entities.PlayerScripts
 
         }
 
-        public void Attack(IAttackTarget target)
+        public void UseMainAbility(IAbilityTarget target)
         {
-            _meleeAttackController.StartAttack(target);
+            _quickBarData.mainAbility.UseAbility(target);
         }
 
         public void SpawnAt(TileNode node)
@@ -63,25 +56,8 @@ namespace Entities.PlayerScripts
             transform.position = node.position;
         }
 
-        public void PlayAttackSound()
-        {
-            _audioEffectsController.PlaySound(_stats.attackSounds.GetRandom());
-        }
-
-        void IAttackTarget.TakeDamage(int damage)
-        {
-            _health.DamageHealth(damage);
-        }
-
         void InitComponents()
         {
-            _audioEffectsController = GetComponent<AudioEffectsController>();
-            _meleeAttackController = GetComponent<MeleeAttackController>();
-            _meleeAttackController.OnAttackEnd += EndTurn;
-            _meleeAttackController.Init(this);
-
-            _health = GetComponent<Health>();
-
             GetComponent<VisibilityController>().ChangeViewingRange();
         }
 

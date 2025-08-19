@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Settings;
 using UnityEngine;
 using UnityEngine.Events;
-using Entities.Combat;
+using Entities;
 
 namespace Abilities
 {
@@ -12,65 +12,67 @@ namespace Abilities
         public event UnityAction OnAttackEnd;
 
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] AudioSource _body;
 
-        ICanAttack _attacker;
-        IAttackTarget _target;
+        IAbilityTarget _target;
 
-        Vector3 _defaultPosition;
-        Vector3 _attackPosition;
+        Vector3 _attackerPosition => _selectedAbility.userPosition;
+        Vector3 _turnBackPosition;
         AttackPhases _attackPhase = AttackPhases.none;
         float _attackProgress;
         float _directionMult = 1;
+        MeleeAbility _selectedAbility;
 
         public bool isAttack => _attackPhase != AttackPhases.none;
 
         private void Update()
         {
             if (_attackPhase == AttackPhases.none) return;
+            if (_selectedAbility == null) return;
 
-            _attackProgress += Time.deltaTime * (int)_attackPhase * _settings.animationSpeed * _directionMult;
-            _body.transform.position = Vector3.Lerp(_defaultPosition, _attackPosition, _attackProgress);
+            UpdateProgress();
+            TryApplyEffect();
+            TryFinishAbility();
+        }
 
+        public void UseAbility(IAbilityTarget target, MeleeAbility ability)
+        {
+            _selectedAbility = ability;
+            var targetPos = target.GetEntityComponent<PositionController>();
+            _target = target;
+            _turnBackPosition = (_attackerPosition + targetPos.position) * 0.5f;
+
+            var distance = Vector3.Distance(_attackerPosition, _turnBackPosition);
+            _directionMult = 1 / distance; //diagonal 1.4 times faster
+
+            _attackPhase = AttackPhases.moveTo;
+        }
+
+        private void TryApplyEffect()
+        {
             if (_attackProgress >= 1 && _attackPhase == AttackPhases.moveTo)
             {
                 _attackPhase = AttackPhases.moveAway;
-                DoDamage(_attacker.damageSource, _target);
+                _selectedAbility.ApplyEffect(_target);
             }
+        }
 
+        private void TryFinishAbility()
+        {
             if (_attackProgress <= 0 && _attackPhase == AttackPhases.moveAway)
             {
                 _attackProgress = 0;
-                _body.transform.position = _defaultPosition;
+                _selectedAbility.MoveUserBody(_attackerPosition);
                 _attackPhase = AttackPhases.none;
                 OnAttackEnd?.Invoke();
             }
         }
 
-        public void Init(ICanAttack attacker)
+        private void UpdateProgress()
         {
-            _attacker = attacker;
+            _attackProgress += Time.deltaTime * (int)_attackPhase * _settings.animationSpeed * _directionMult;
+            var newBodyPosition = Vector3.Lerp(_attackerPosition, _turnBackPosition, _attackProgress);
+            _selectedAbility.MoveUserBody(newBodyPosition);
         }
-
-        public void StartAttack(IAttackTarget target)
-        {
-            _target = target;
-            _attackPosition = (transform.position + target.transform.position) * 0.5f;
-            _defaultPosition = transform.position;
-
-            var distance = Vector3.Distance(transform.position, _attackPosition);
-            _directionMult = 1 / distance; //diagonal 1.4 times faster
-
-            _attacker.PlayAttackSound();
-
-            _attackPhase = AttackPhases.moveTo;
-        }
-
-        private void DoDamage(IDamageSource damageSource, IAttackTarget target)
-        {
-            AttackHandler.ProcessAttack(damageSource, target);
-        }
-
         enum AttackPhases
         {
             none = 0,

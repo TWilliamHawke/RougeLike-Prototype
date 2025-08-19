@@ -1,3 +1,4 @@
+using Effects;
 using Entities;
 using Map;
 using UnityEngine;
@@ -9,12 +10,24 @@ namespace Abilities
         protected override IIconData template => _template;
 
         MeleeAbilityTemplate _template;
+        IEffectSource _effectSource;
+
+        PositionController _userPosition;
+        IAbilityUser _abilityUser;
 
         [InjectField] MeleeAttackController _controller;
+        [InjectField] AbilityEfffectsHandler _effectsHandler;
 
-        public MeleeAbility(MeleeAbilityTemplate template)
+        public Vector3 userPosition => _userPosition.position;
+
+        public MeleeAbility(MeleeAbilityTemplate template, IEffectSource effectSource)
         {
+            _effectSource = effectSource;
             _template = template;
+        }
+
+        public MeleeAbility(MeleeAbilityTemplate template) : this(template, template)
+        {
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
@@ -33,12 +46,24 @@ namespace Abilities
 
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
-            throw new System.NotImplementedException();
+            _abilityUser = user;
+            _userPosition = user.GetEntityComponent<PositionController>();
+            _controller.UseAbility(target, this);
         }
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void MoveUserBody(Vector3 position)
+        {
+            _userPosition.UpdateBodyPosition(position);
+        }
+
+        public void ApplyEffect(IAbilityTarget target)
+        {
+            _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);
         }
     }
 }

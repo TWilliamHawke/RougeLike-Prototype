@@ -13,25 +13,29 @@ namespace Abilities
         ProjectileAbilityTemplate _template;
         IAbilityTarget _target;
         PositionController _userPosition;
+        IAbilityUser _abilityUser;
+        IEffectSource _effectSource;
 
         [InjectField] ProjectileController _controller;
+        [InjectField] AbilityEfffectsHandler _effectsHandler;
+
         public Vector3 userPosition => _userPosition.position;
         public ProjectileTemplate projectileTemplate => _template.projectile;
         public ProjectileAbilityTemplate abilityTemplate => _template;
 
-        public ProjectileAbility(ProjectileAbilityTemplate template)
+        public ProjectileAbility(ProjectileAbilityTemplate template) : this(template, template)
         {
+        }
+
+        public ProjectileAbility(ProjectileAbilityTemplate template, IEffectSource effectSource)
+        {
+            _effectSource = effectSource;
             _template = template;
         }
 
         public void ApplyEffect(IAbilityTarget target)
         {
-            var effectsStorage = target.GetEntityComponent<EffectsStorage>();
-            var effects = _template.GetEffects();
-            foreach (var effect in effects)
-            {
-                effect.ApplyEffect(effectsStorage, _template);
-            }
+            _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);
         }
 
         public void PlayImpactSound()
@@ -42,6 +46,7 @@ namespace Abilities
 
         public override void Use(IAbilityUser user, IAbilityTarget target)
         {
+            _abilityUser = user;
             _target = target;
             _userPosition = user.GetEntityComponent<PositionController>();
             _controller.UseAbility(target, this);

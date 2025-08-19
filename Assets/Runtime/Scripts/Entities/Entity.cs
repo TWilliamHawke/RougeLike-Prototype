@@ -18,14 +18,11 @@ namespace Entities
     [RequireComponent(typeof(StatsStorage))]
     [RequireComponent(typeof(PositionController))]
     [RequireComponent(typeof(AudioEffectsController))]
-    public abstract class Entity : MonoBehaviour, ICanAttack, IRangeAttackTarget, IAttackTarget,
+    public abstract class Entity : MonoBehaviour,
         IInteractive, IAbilityTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
         [SerializeField] Body _body;
         [SerializeField] StatList _statList;
-
-
-        IStatValueController _health;
 
         public event UnityAction<Entity> OnDeath;
         public event UnityAction<IStatsController> OnStatsInit;
@@ -34,9 +31,7 @@ namespace Entities
         public StateMachine stateMachine => GetComponent<StateMachine>();
         public int expForKill => template.expForKill;
 
-        public abstract Dictionary<DamageType, int> resists { get; }
         public abstract AudioClip[] deathSounds { get; }
-        public abstract IDamageSource damageSource { get; }
         public abstract void AddLootTo(IItemStorage storage);
         public abstract void RemoveLootFrom(IItemStorage storage);
         public abstract void InitInteractiveZone(IMapZone mapZoneLogic);
@@ -44,11 +39,6 @@ namespace Entities
         public Body body => _body;
         public abstract ITemplateWithBaseStats template { get; }
         public Vector3 position => transform.position;
-
-        void IAttackTarget.TakeDamage(int damage)
-        {
-            _health.ChangeStat(-damage);
-        }
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
@@ -58,14 +48,7 @@ namespace Entities
 
             var healthStorage = statsContainer.FindContainer(_statList.health);
             healthStorage.OnReachMin += ProceedDeath;
-            _health = healthStorage;
             OnStatsInit?.Invoke(statsContainer);
-        }
-
-        protected void InitComponents()
-        {
-            var meleeAttackController = GetComponent<MeleeAttackController>();
-            meleeAttackController.Init(this);
         }
 
         private void ProceedDeath()
@@ -77,7 +60,6 @@ namespace Entities
             OnDeath = null;
         }
 
-        public abstract void PlayAttackSound();
         public abstract void Interact(Player player);
 
         public U GetEntityComponent<U>() where U : IEntityComponent

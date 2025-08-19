@@ -19,12 +19,10 @@ namespace Entities.NPC
 
         NPCTemplate _template;
 
-        public override Dictionary<DamageType, int> resists => inventory.resists;
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
         public override ITemplateWithBaseStats template => _template;
 
         public InteractionZone interactionZone => _interactionZone;
-        public override IDamageSource damageSource => throw new System.NotImplementedException();
 
         public INPCInventory inventory { get; private set;}
 
@@ -34,7 +32,6 @@ namespace Entities.NPC
         {
             _template = template;
             inventory = template.CreateInventory();
-            InitComponents();
             ApplyStartStats(template);
             OnTemplateApplied?.Invoke(template);
         }
@@ -49,17 +46,12 @@ namespace Entities.NPC
             var behavior = GetComponent<FactionHandler>().antiPlayerBehavior;
             if (behavior == BehaviorType.agressive)
             {
-                player.Attack(this);
+                player.UseMainAbility(this);
             }
             else
             {
                 OnLocationPanelClick.Invoke();
             }
-        }
-
-        public override void PlayAttackSound()
-        {
-            body.PlaySound(inventory.weapon.attackSound);
         }
 
         public override void AddLootTo(IItemStorage storage)

@@ -6,8 +6,7 @@ using UnityEngine;
 
 namespace Entities
 {
-	public abstract class EntityTemplate : ScriptableObject, ITemplateWithBaseStats, IEntityTemplate,
-	 IDamageSource
+	public abstract class EntityTemplate : ScriptableObject, ITemplateWithBaseStats, IEntityTemplate
 	{
 		[SerializeField] string _bodyChar = "-";
 		[SerializeField] Color _bodyColor = Color.white;

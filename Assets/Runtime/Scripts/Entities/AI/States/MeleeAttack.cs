@@ -10,13 +10,13 @@ namespace Entities.AI
     {
         MeleeAttackController _meleeAttackController;
 
-        IAttackTarget _target;
+        IAbilityTarget _target;
         StateMachine _stateMachine;
 
         const float _maxTargetDistance = 1.5f;
 
 
-        public MeleeAttack(IAttackTarget target, StateMachine stateMachine)
+        public MeleeAttack(IAbilityTarget target, StateMachine stateMachine)
         {
             _meleeAttackController = stateMachine.GetComponent<MeleeAttackController>();
             _target = target;
@@ -26,7 +26,7 @@ namespace Entities.AI
 
         public void StartTurn()
         {
-            _meleeAttackController.StartAttack(_target);
+            //_meleeAttackController.StartAttack(_target);
         }
 
         void EndTurn()
@@ -37,7 +37,7 @@ namespace Entities.AI
         public bool Condition()
         {
             var enetityPos = _meleeAttackController.transform.position;
-            var targetPos = _target.transform.position;
+            var targetPos = _target.GetEntityComponent<PositionController>().position;
 
             return Vector3.Distance(enetityPos, targetPos) < _maxTargetDistance;
         }
