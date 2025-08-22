@@ -19,7 +19,7 @@ namespace Entities
     [RequireComponent(typeof(PositionController))]
     [RequireComponent(typeof(AudioEffectsController))]
     public abstract class Entity : MonoBehaviour,
-        IInteractive, IAbilityTarget, IEntityWithAI, IHaveLoot, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
+        IInteractive, IAbilityTarget, IEntityWithAI, IObstacleEntity, IEntityWithComponents, IEntityWithTemplate
     {
         [SerializeField] Body _body;
         [SerializeField] StatList _statList;

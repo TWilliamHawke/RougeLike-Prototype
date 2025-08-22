@@ -42,6 +42,16 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
         return new Vector2Int(1, _layout.gameObject.transform.childCount);
     }
 
+    public void ShowLayout()
+    {
+        SetLayoutVisibility(true);
+    }
+
+    public void HideLayout()
+    {
+        SetLayoutVisibility(false);
+    }
+
     protected virtual void ClearLayout()
     {
         foreach (Transform children in _layout.transform)

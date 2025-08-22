@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Items;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +11,7 @@ namespace Items
         ItemStorageType storageType { get; }
     }
 
-    public class ItemContainer : IItemContainer, IInventorySectionData
+    public class ItemContainer : IItemContainer, IUISectionData<ItemSlotData>
     {
         public int lockLevel { get; private set; } = 0;
         public int trapLevel { get; private set; } = 0;
@@ -27,7 +26,6 @@ namespace Items
         public int capacity => _itemsSection.capacity;
         public int filledSlotsCount => _itemsSection.filledSlotsCount;
         public bool isEmpty => _itemsSection.isEmpty;
-        public bool isInfinity => _itemsSection.isInfinity;
         public string sectionName => _itemsSection.sectionName;
 
         public ItemContainer(ItemSection itemsSection) : this(itemsSection.sectionName, itemsSection)
