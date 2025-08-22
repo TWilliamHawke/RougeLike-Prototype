@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UI.DragAndDrop;
-using UnityEngine.UI;
-using UnityEngine.Events;
 
 namespace Items.UI
 {
@@ -43,20 +40,20 @@ namespace Items.UI
             _sections.ForEach(s => s.Collapse());
         }
 
-        private void ToggleSection(InventorySection selectedSection)
+        private void ToggleSection(IUISection selectedSection)
         {
             foreach (var section in _sections)
             {
-                if (section == selectedSection)
+                if (section as IUISection == selectedSection)
                 {
                     section.Toggle();
-                    return;
+                    continue;
                 }
                 section.Collapse();
             }
         }
 
-        private IEnumerable<IInventorySectionData> GetVisibleSections()
+        private IEnumerable<IUISectionData<ItemSlotData>> GetVisibleSections()
         {
             foreach (var template in _visibleSections)
             {

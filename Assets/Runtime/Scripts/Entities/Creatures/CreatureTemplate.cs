@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Entities
 {
     [CreateAssetMenu(fileName = "EnemyTemplate", menuName = "Entities/EnemyTemplate")]
-    public class CreatureTemplate : EntityTemplate, IHaveLoot
+    public class CreatureTemplate : EntityTemplate
     {
         [SerializeField] CreatureSoundKit _sounds;
         [SerializeField] int _minDamage;
@@ -29,16 +29,5 @@ namespace Entities
         {
             return spawner.SpawnCreature(this, position);
         }
-
-        public void AddLootTo(IItemStorage storage)
-        {
-            storage.AddItemsFrom(lootTable);
-        }
-
-        public void RemoveLootFrom(IItemStorage storage)
-        {
-
-        }
-
     }
 }

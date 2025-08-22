@@ -29,8 +29,8 @@ namespace Core
         class BindToQuickbarAction<U> : IRadialMenuAction
         {
             U _element;
-        PlayerAbilitiesFactory _abilitiesFactory;
-        QuickBarSetupController _quickBarSetupController;
+            PlayerAbilitiesFactory _abilitiesFactory;
+            QuickBarSetupController _quickBarSetupController;
 
             public RadialButtonPosition preferedPosition => RadialButtonPosition.topRight;
             public string actionTitle => "Bind To Quickbar";

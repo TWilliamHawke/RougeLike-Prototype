@@ -7,7 +7,7 @@ using System.Linq;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection : IInventorySectionData, IItemSection, ILootStorage, IItemSectionInfo
+    public class ItemSection : IUISectionData<ItemSlotData>, IItemSection, ILootStorage, IItemSectionInfo
     {
 
         List<ItemSlotData> _itemsList;
@@ -16,6 +16,7 @@ namespace Items
         string _sectionName;
 
         int maxSlotsCount => _itemSectionTemplate.startCapacity;
+        int _sectionSize => maxSlotsCount >= 0 ? maxSlotsCount : 10;
 
         public event UnityAction OnSectionDataChange;
 
@@ -23,24 +24,23 @@ namespace Items
         public string sectionName => _sectionName;
 
         public ItemStorageType itemStorage => _itemSectionTemplate.storageType;
-        public int capacity => maxSlotsCount >= 0 ? maxSlotsCount : 10;
+        public int capacity => _itemSectionTemplate.startCapacity;
         public bool isEmpty => _itemsList.Count == 0;
-        public bool isInfinity => maxSlotsCount < 0;
 
         public ItemSection(string sectionName = "Default")
         {
             _sectionName = sectionName;
             _itemSectionTemplate = new DefaultSection();
-            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(capacity);
-            _itemsList = new List<ItemSlotData>(capacity);
+            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(_sectionSize);
+            _itemsList = new List<ItemSlotData>(_sectionSize);
         }
 
         public ItemSection(IItemSectionTemplate template)
         {
             _sectionName = template.sectionName;
             _itemSectionTemplate = template;
-            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(capacity);
-            _itemsList = new List<ItemSlotData>(capacity);
+            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(_sectionSize);
+            _itemsList = new List<ItemSlotData>(_sectionSize);
         }
 
         public virtual bool ItemMeet(Item item)

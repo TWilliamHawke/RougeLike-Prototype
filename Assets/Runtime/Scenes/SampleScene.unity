@@ -101583,8 +101583,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sectionStateText: {fileID: 2022382068}
   _sectionTitle: {fileID: 2022382068}
-  _sectionName:
-    _locKey: 
 --- !u!1 &2033090639
 GameObject:
   m_ObjectHideFlags: 0

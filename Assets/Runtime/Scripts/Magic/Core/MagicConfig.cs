@@ -15,24 +15,24 @@ namespace Magic
 
         public float minCostOfBase => _minSpellCostOfBase;
 
-        public ISafeStatController FindManaStorage(StatsStorage statsContainer)
+        public ISafeStatController FindManaStorage(StatsStorage statsStorage)
         {
-            return statsContainer.FindContainer(_mana);
+            return statsStorage.FindContainer(_mana);
         }
 
-        public StaticStatStorage FindSpellPowerStorage(StatsStorage statsContainer)
+        public StaticStatStorage FindSpellPowerStorage(StatsStorage statsStorage)
         {
-            return statsContainer.FindContainer(_spellPower);
+            return statsStorage.FindContainer(_spellPower);
         }
 
-        public int GetSpellCost(KnownSpellData spellData, StatsStorage statsContainer)
+        public int GetSpellCost(KnownSpellData spellData, StatsStorage statsStorage)
         {
             int manaCost = spellData.baseManaCost;
             var activeEffects = spellData.activeEffects;
             int minCost = Mathf.CeilToInt(_minSpellCostOfBase * manaCost);
 
             //UNDONE it should iterate trough all effect containers
-            manaCost = _spellCostFactor.ApplyEffectsToValue(manaCost, statsContainer, activeEffects);
+            manaCost = _spellCostFactor.ApplyEffectsToValue(manaCost, statsStorage, activeEffects);
             return Mathf.Max(minCost, manaCost);
         }
     }
