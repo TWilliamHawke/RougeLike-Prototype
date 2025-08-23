@@ -38,9 +38,10 @@ namespace Abilities
 
             var pattern1 = @"%m1";
             var pattern2 = @"%m2";
-
-            var realDescription = Regex.Replace(_description, pattern1, minDamage.ToString());
-            return Regex.Replace(realDescription, pattern2, maxDamage.ToString());
+            string description = LocalDictionary.GetLocalisedString(_description,
+                new TextReplacer(pattern1, minDamage.ToString()),
+                new TextReplacer(pattern2, maxDamage.ToString()));
+            return description;
         }
 
     }

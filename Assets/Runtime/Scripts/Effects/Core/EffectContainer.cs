@@ -60,7 +60,6 @@ namespace Effects
                         {
                             if (pairs[i].source.Equals(source))
                             {
-                                Debug.Log("Removed effect at: " + i);
                                 pairs.RemoveAt(i);
                             }
                         }

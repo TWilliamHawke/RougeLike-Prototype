@@ -6,6 +6,7 @@ using Entities.PlayerScripts;
 using UI.DragAndDrop;
 using UnityEngine.Events;
 using Abilities;
+using Entities.Stats;
 
 namespace Magic.UI
 {
@@ -16,6 +17,7 @@ namespace Magic.UI
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
         [SerializeField] DraggedSpell _draggedSpellPrefab;
+        [SerializeField] MagicConfig _magicConfig;
         [Header("UI Elements")]
         [SerializeField] Image _frame;
         [SerializeField] Image _spellIcon;
@@ -29,7 +31,6 @@ namespace Magic.UI
         [InjectField] Player _player;
 
         KnownSpellData _knownSpell;
-        SpellContainer _spellContainer;
 
         public bool waitForAllDependencies => false;
         //drag spell
@@ -39,9 +40,9 @@ namespace Magic.UI
 
         DragController<KnownSpellData> _dragDataHandler;
 
-        public event UnityAction<SpellContainer> OnDragStart;
+        public event UnityAction<KnownSpellData> OnDragStart;
         public event UnityAction<KnownSpellData> OnEditButtonClick;
-        public event UnityAction<SpellContainer> OnSpellSelect;
+        public event UnityAction<KnownSpellData> OnSpellSelect;
 
         void Awake()
         {
@@ -52,7 +53,7 @@ namespace Magic.UI
 
         public void OnPointerClick(PointerEventData _)
         {
-            OnSpellSelect?.Invoke(_spellContainer);
+            OnSpellSelect?.Invoke(_knownSpell);
         }
 
         public void OnPointerEnter(PointerEventData _)
@@ -73,15 +74,15 @@ namespace Magic.UI
 
             _spellName.text = data.displayName;
             _spellRank.text = "Rank: " + data.rank.ToString();
-            TryCreateSpellContainer();
+            TrySetSpellCost();
         }
 
-        public void TryCreateSpellContainer()
+        public void TrySetSpellCost()
         {
             if (_knownSpell is null || _player is null) return;
-            var abilityFactory = _player.GetComponent<PlayerAbilitiesFactory>();
-            _spellContainer = abilityFactory.CreateSpellContainer(_knownSpell);
-            _spellCost.text = _spellContainer.spellCost.ToString();
+            var statsStorage = _player.GetEntityComponent<StatsStorage>();
+            int spellCost = _magicConfig.GetSpellCost(_knownSpell, statsStorage);
+            _spellCost.text = spellCost.ToString();
         }
 
         public void TriggerSpellEditEvent()
@@ -93,7 +94,7 @@ namespace Magic.UI
         private void TriggerDragEvent()
         {
             if (_knownSpell is null) return;
-            OnDragStart?.Invoke(_spellContainer);
+            OnDragStart?.Invoke(_knownSpell);
         }
     }
 }

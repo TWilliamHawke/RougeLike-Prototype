@@ -16,7 +16,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 69628a86a45e5ff4d8301baebf881044, type: 3}
   _abilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
   _effects:
-  - _effect: {fileID: 11400000, guid: b7b0eb9394087bd489770e5b6cd8d261, type: 2}
+  - _effect: {fileID: 11400000, guid: 89d4095c55e6397409e15eaf62e8a612, type: 2}
     _magnitude:
       _minValue: 25
       _maxValue: 25

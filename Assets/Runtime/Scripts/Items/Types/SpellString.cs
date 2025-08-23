@@ -12,12 +12,8 @@ namespace Items
 	{
 		[UseFileName]
 	    [SerializeField] Color _previewColor = Color.red;
-		[SerializeField] int _spellPowerMod;
-		[SerializeField] int _manaCostMod;
         [SerializeField] SourceEffectData[] _effects;
 
-		public int spellPowerMod => _spellPowerMod;
-		public int manaCostMod => _manaCostMod;
         public IEnumerable<SourceEffectData> effects => _effects;
 
         const string _itemType = "SpellString";
@@ -26,7 +22,11 @@ namespace Items
         {
             var sb = new StringBuilder();
             AbilityModifiers abilityModifiers = new AbilityModifiers(1f);
-            _effects.ForEach(effect => effect.AddDescription(ref sb, abilityModifiers));
+            foreach (var effect in _effects)
+            {
+                string description = effect.GetDescription(abilityModifiers);
+                sb.AppendLine(description);
+            }
             return sb.ToString();
         }
 

@@ -92,11 +92,6 @@ namespace Magic.UI
             }
         }
 
-        private void CloseScreen(SpellContainer _)
-        {
-            _spellbookCanvas.Close();
-        }
-
         private void CloseScreen(KnownSpellData _)
         {
             _spellbookCanvas.Close();

@@ -4,7 +4,7 @@ using Items;
 
 namespace Magic.Actions
 {
-    public class DeleteSpell : RadialActionFactory<SpellContainer>
+    public class DeleteSpell : RadialActionFactory<KnownSpellData>
     {
         Spellbook _spellbook;
         Inventory _inventory;
@@ -21,14 +21,14 @@ namespace Magic.Actions
             _modalWindow = modalWindow;
         }
 
-        protected override IRadialMenuAction CreateAction(SpellContainer element)
+        protected override IRadialMenuAction CreateAction(KnownSpellData element)
         {
             ModalWindowData modalWindowData = new()
             {
                 title = TITLE,
                 mainText = MAIN_TEXT,
                 mainImage = element.icon,
-                action = new DeleteSpellAction(_spellbook, element.spellData, _inventory)
+                action = new DeleteSpellAction(_spellbook, element, _inventory)
             };
 
             return new OpenModalWindowRadial(
@@ -39,9 +39,9 @@ namespace Magic.Actions
             );
         }
 
-        protected override bool ElementIsValid(SpellContainer element)
+        protected override bool ElementIsValid(KnownSpellData element)
         {
-            return _spellbook.GetCountSpellsOfType(element.spellData) > 1;
+            return _spellbook.GetCountSpellsOfType(element) > 1;
         }
 
         class DeleteSpellAction : IContextAction

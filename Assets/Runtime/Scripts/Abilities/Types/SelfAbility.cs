@@ -38,7 +38,7 @@ namespace Abilities
 
             foreach (var effectData in _template.GetEffects())
             {
-                throw new System.NotImplementedException();
+                sb.AppendLine(effectData.GetDescription(abilityModifiers));
             }
 
             return sb.ToString();
