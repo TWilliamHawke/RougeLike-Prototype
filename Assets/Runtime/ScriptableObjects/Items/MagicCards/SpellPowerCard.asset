@@ -19,12 +19,16 @@ MonoBehaviour:
   _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
   _previewColor: {r: 0.90196085, g: 0.4784314, b: 0.20000002, a: 1}
-  _spellPowerMod: 25
-  _manaCostMod: 30
   _effects:
   - _effect: {fileID: 11400000, guid: ddf9feb01bfddf4438fd9b85843476ae, type: 2}
-    _power: 125
-    _duration: 0
+    _magnitude:
+      _minValue: 125
+      _maxValue: 125
+      _isRandom: 0
+    _duration: -1
   - _effect: {fileID: 11400000, guid: cc758ecd9f55ca84788be9da48220e59, type: 2}
-    _power: 30
-    _duration: 0
+    _magnitude:
+      _minValue: 30
+      _maxValue: 30
+      _isRandom: 0
+    _duration: -1

@@ -16,20 +16,20 @@ public static class LocalDictionary
 
     public static string GetLocalisedString(string key, params TextReplacer[] replacers)
     {
-        if (_dictionary.TryGetValue(key, out var value))
-        {
-            for(int i = 0; i < replacers.Length; i++)
-            {
-                var data = replacers[i];
-                value = ReplaceText(value, data.pattern, data.replacer);
-            }
-            return value;
-        }
-        else
+        //trygetvalue causes error if key not found
+        if (!_dictionary.ContainsKey(key))
         {
             Debug.LogWarning($"{key} not found in localisation file");
             return key;
         }
+
+        string localString = _dictionary[key];
+        for (int i = 0; i < replacers.Length; i++)
+        {
+            var data = replacers[i];
+            localString = ReplaceText(localString, data.pattern, data.replacer);
+        }
+        return localString;
     }
 
     static string ReplaceText(string original, string regexp, string replacer)

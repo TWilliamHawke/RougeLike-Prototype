@@ -77154,6 +77154,10 @@ MonoBehaviour:
   _stringList: {fileID: 600778859}
   _frame: {fileID: 1268480889}
   _buttons: {fileID: 483414432}
+  _upgradeHeaderText:
+    _locKey: upgrade_spell_header
+  _emptySlotHeaderText:
+    _locKey: select_spell_string_header
 --- !u!114 &1017936333
 MonoBehaviour:
   m_ObjectHideFlags: 0

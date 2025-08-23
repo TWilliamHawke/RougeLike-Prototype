@@ -26,10 +26,12 @@ namespace Items
             target.OnSpellSelect -= CastSpell;
         }
 
-        private void CastSpell(SpellContainer spell)
+        private void CastSpell(KnownSpellData spell)
         {
+            var abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
+            var container = spell.CreateAbilityContainer(abilitiesFactory);
             var controller = _player.GetComponent<AbilityController>();
-            spell.SelectBy(controller);
+            container.SelectBy(controller);
         }
     }
 }

@@ -47,11 +47,6 @@ namespace Effects
             _effect.ApplyEffect(storage, effectSource, this);
         }
 
-        public void AddDescription(ref StringBuilder sb, AbilityModifiers abilityMods)
-        {
-            sb.AppendLine(GetDescription(abilityMods));
-        }
-
         public string GetDescription(AbilityModifiers abilityModifiers)
         {
             var magnitude = _magnitude * abilityModifiers.magnitudeMult;

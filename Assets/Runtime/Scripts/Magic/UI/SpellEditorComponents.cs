@@ -17,6 +17,8 @@ namespace Magic.UI
         [SerializeField] SpellStringList _stringList;
         [SerializeField] Image _frame;
         [SerializeField] SpellEditorButtons _buttons;
+        [SerializeField] LocalString _upgradeHeaderText;
+        [SerializeField] LocalString _emptySlotHeaderText;
 
         public void ShowDefaultEffects(SpellContainer spell)
         {
@@ -28,7 +30,7 @@ namespace Magic.UI
         public void ShowRankUpEffects(SpellContainer spellContainer)
         {
             HideAllComponents();
-            SetHeaderText("Upgrade Spell");
+            SetHeaderText(_upgradeHeaderText);
             SetSpellCost(spellContainer.GetRankUpSpellCost());
             SetDescriptionText(spellContainer.GetRankUpDescription());
             _buttons.ShowRankUpButton(_spellbook.increaseRankCost);
@@ -46,7 +48,7 @@ namespace Magic.UI
         public void ShowEmptySlotOptions()
         {
             HideAllComponents();
-            SetHeaderText("Select new Spell String");
+            SetHeaderText(_emptySlotHeaderText);
             _stringList.Show();
             _stringList.UpdateLayout(_inventory.GetSection(_spellStringSection));
             _buttons.ShowCloseButton();
@@ -87,7 +89,6 @@ namespace Magic.UI
 
         private void HideAllComponents()
         {
-            _spellCostWrapper.Hide();
             _spellDescription.Hide();
             _header.Hide();
             _stringList.Hide();

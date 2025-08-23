@@ -2159,6 +2159,7 @@ MonoBehaviour:
   _defaultColor: {r: 0.26666668, g: 0.46274513, b: 0.3254902, a: 0.5686275}
   _hoveredColor: {r: 1, g: 0.80166054, b: 0, a: 0.5803922}
   _draggedSpellPrefab: {fileID: 6674437339021031832, guid: d96aa58c452cfb84d8214d3975a09484, type: 3}
+  _magicConfig: {fileID: 11400000, guid: 9bdf7a99e86688c468d831d335b28055, type: 2}
   _frame: {fileID: 7578599437005814571}
   _spellIcon: {fileID: 6100198704502638988}
   _spellName: {fileID: 8522159695227966775}
@@ -2223,7 +2224,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1277243765521226379}
         m_TargetAssemblyTypeName: Magic.UI.KnownSpellSlot, Project
-        m_MethodName: TryCreateSpellContainer
+        m_MethodName: TrySetSpellCost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

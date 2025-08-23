@@ -79,3 +79,5 @@ ability_name_fireball	Fireball	Огненный шар
 resource_factor_health_restoration	Health restoration	Восстановление здоровья
 effect_name_max_health	Max health bonus	Max health bonus
 effect_descr_max_health	Changes max health by %m	Изменяет максимальное здороье на %m
+upgrade_spell_header	Upgrade Spell	Улучшить заклинание
+select_spell_string_header	Select new Spell String	Выберите строку заклинания
