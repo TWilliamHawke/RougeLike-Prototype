@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.UI
 {
-    public class BindToQuickbar<T> : ContextActionFactory<T>
+    public abstract class BindToQuickbar<T> : ContextActionFactory<T>
     {
         PlayerAbilitiesFactory _abilitiesFactory;
         QuickBarSetupController _quickBarSetupController;
@@ -16,22 +16,10 @@ namespace Core.UI
             _quickBarSetupController = quickBarSetupController;
         }
 
-        protected override ContextActionContainer CreateAction(T element)
+        protected ContextActionContainer CreateAction(IAbilitySource abilitySource)
         {
-            var container = default(IAbilityContainer);
-
-            if (element is IAbilitySource abilitySource)
-            {
-                container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
-                _quickBarSetupController.OpenSetupScreen(container);
-            }
-
+            var container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
             return new BindToQuickbarAction(container, _quickBarSetupController);
-        }
-
-        protected override bool ElementIsValid(T element)
-        {
-            return element is IAbilitySource;
         }
 
         class BindToQuickbarAction : ContextActionContainer

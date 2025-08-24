@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe, IContextActionSource
+    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe
     {
         [SerializeField] Item _item;
         [SerializeField] int _count;
@@ -54,11 +54,6 @@ namespace Items
         {
             _count = item.maxStackSize;
             OnSlotDataChanged?.Invoke();
-        }
-
-        public IEnumerable<ContextActionTemplate> GetActions()
-        {
-            yield break;
         }
 
         void IItemSlotDataUnsafe.IncreaseCountBy(int num)

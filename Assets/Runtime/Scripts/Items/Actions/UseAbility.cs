@@ -1,49 +1,24 @@
 using Abilities;
 using Core;
+using Core.UI;
 
 namespace Items.Actions
 {
-    public class UseAbility : ContextActionFactory<ItemSlotData>
+    public class UseAbility : UseAbility<ItemSlotData>
     {
-        IAbilitiesFactory _abilitiesFactory;
-        AbilityController _abilityController;
-
-        public UseAbility(IAbilitiesFactory abilitiesFactory, AbilityController abilityController)
+        public UseAbility(IAbilitiesFactory abilitiesFactory, AbilityController abilityController) : base(abilitiesFactory, abilityController)
         {
-            _abilitiesFactory = abilitiesFactory;
-            _abilityController = abilityController;
         }
 
         protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
-            return new UseAbilityAction(itemSlot, _abilitiesFactory, _abilityController);
+            var item = itemSlot.item as IAbilitySource;
+            return CreateAction(item);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot?.item is IItemWithAbility;
-        }
-
-        class UseAbilityAction : ContextActionContainer
-        {
-            IAbilityContainer _abilityContainer;
-            IAbilityTarget _target;
-
-            public UseAbilityAction(ItemSlotData itemSlot,
-                IAbilitiesFactory abilitiesFactory, AbilityController abilityController)
-            {
-                var item = itemSlot.item as IAbilitySource;
-                if (item is null) return;
-                _target = abilityController.GetComponent<IAbilityTarget>();
-                _abilityContainer = item.CreateAbilityContainer(abilitiesFactory);
-            }
-
-            public override void DoAction()
-            {
-                if (_abilityContainer is null) return;
-                _abilityContainer.UseAbility(_target);
-            }
-
+            return itemSlot?.item is IAbilitySource;
         }
     }
 }

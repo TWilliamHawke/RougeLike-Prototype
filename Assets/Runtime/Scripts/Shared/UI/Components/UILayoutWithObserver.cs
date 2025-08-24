@@ -21,16 +21,10 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
         }
     }
 
-    public virtual void UpdateLayout(IEnumerable<T> data)
+    public virtual void UpdateLayout(IEnumerable<T> templates)
     {
-        ClearLayout();
-
-        foreach (var template in data)
-        {
-            var uiElement = _layout.CreateChild(_layoutElementPrefab);
-            uiElement.BindData(template);
-            _observers.ForEach(observer => observer.AddToObserve(uiElement));
-        }
+        CleanLayout();
+        templates.ForEach(template => CreateLayoutElement(template));
     }
 
     public Vector2Int GetLayoutSize()
@@ -52,7 +46,15 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
         SetLayoutVisibility(false);
     }
 
-    protected virtual void ClearLayout()
+    protected U CreateLayoutElement(T template)
+    {
+        U uiElement = _layout.CreateChild(_layoutElementPrefab);
+        uiElement.BindData(template);
+        _observers.ForEach(observer => observer.AddToObserve(uiElement));
+        return uiElement;
+    }
+
+    protected virtual void CleanLayout()
     {
         foreach (Transform children in _layout.transform)
         {

@@ -10,13 +10,15 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class ItemActionsController : ActionController<ItemSlotData>, IObserver<ItemSlot>
+    public class ItemActionsController : ActionController<ItemSlotData>, IObserver<InventorySection>
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] InventoryScreen _inventoryScreen;
         [SerializeField] QuickBarSetupController _quickBarSetupController;
         [Header("Item Actions")]
         [SerializeField] ContextActionTemplate _useAbility;
+        [SerializeField] ContextActionTemplate _showInfo;
+        [SerializeField] ContextActionTemplate _use;
         [SerializeField] ContextActionTemplate _buy;
         [SerializeField] ContextActionTemplate _sell;
         [SerializeField] ContextActionTemplate _equip;
@@ -30,7 +32,7 @@ namespace Items.Actions
 
         void Start()
         {
-            _inventoryScreen.AddSlotObservers(this);
+            _inventoryScreen.AddSectionObservers(this);
         }
 
         protected override void FillFactory()
@@ -38,30 +40,45 @@ namespace Items.Actions
             var abilityController = _player.GetComponent<AbilityController>();
             var abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
 
+            AddFactory(_use, new Use(abilityController));
             AddFactory(_useAbility, new UseAbility(abilitiesFactory, abilityController));
+            AddFactory(_showInfo, new ShowInfo<ItemSlotData>());
             AddFactory(_buy, new Buy());
             AddFactory(_sell, new Sell());
             AddFactory(_equip, new Equip());
             AddFactory(_moveToStorage, new MoveToStorage());
-            AddFactory(_bindToQuickbar, new BindToQuickbar<ItemSlotData>(
+            AddFactory(_bindToQuickbar, new BindToQuickbar(
                 abilitiesFactory, _quickBarSetupController));
             AddFactory(_destroy, new Destroy(_inventory, _modalWindowController));
             AddFactory(_drop, new Drop());
         }
 
-        public void AddToObserve(ItemSlot target)
+        public void AddToObserve(InventorySection target)
         {
-            target.OnClick += FillContextMenu;
+            target.OnItemSlotClick += FillContextMenu;
         }
 
-        public void RemoveFromObserve(ItemSlot target)
+        public void RemoveFromObserve(InventorySection target)
         {
-            target.OnClick -= FillContextMenu;
+            target.OnItemSlotClick -= FillContextMenu;
         }
 
-        private void FillContextMenu(ItemSlotData actionSource)
+        private void FillContextMenu(ItemSlotData itemSlot, ItemSectionTemplate sectionTemplate)
         {
-            FillContextMenu(actionSource, actionSource);
+            FillContextMenu(itemSlot, GetActions(itemSlot, sectionTemplate));
+        }
+
+        private IEnumerable<ContextActionTemplate> GetActions(ItemSlotData itemSlot, ItemSectionTemplate sectionTemplate)
+        {
+            foreach (var action in sectionTemplate.GetActions())
+            {
+                yield return action;
+            }
+
+            foreach (var action in itemSlot.item.GetActions())
+            {
+                yield return action;
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Magic.Actions
         [SerializeField] ModalWindowController _modalWindow;
         [SerializeField] QuickBarSetupController _quickBarSetupController;
         [Header("Actions")]
-        //[SerializeField] ContextActionTemplate _useAbility;
+        [SerializeField] ContextActionTemplate _useAbility;
         [SerializeField] ContextActionTemplate _showInfo;
         [SerializeField] ContextActionTemplate _bindToQuickbar;
         [SerializeField] ContextActionTemplate _deleteSpell;
@@ -38,14 +38,15 @@ namespace Magic.Actions
 
         protected override void FillFactory()
         {
-            var abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
+            var abilitiesFactory = _player.GetEntityComponent<PlayerAbilitiesFactory>();
+            var abilitiesController = _player.GetEntityComponent<AbilityController>();
             AddFactory(_showInfo, new ShowInfo<KnownSpellData>());
-            AddFactory(_bindToQuickbar, new BindToQuickbar<KnownSpellData>(
+            AddFactory(_bindToQuickbar, new BindToQuickSlot(
                abilitiesFactory, _quickBarSetupController));
             AddFactory(_deleteSpell, new DeleteSpell(_spellbook, _inventory, _modalWindow));
             AddFactory(_editSpell, new EditSpell(_spellEditor));
             AddFactory(_copySpell, new CopySpell(_spellbook));
-            //factory.Add(new UseAbility(abilitiesFactory, abilityController,   
+            AddFactory(_useAbility, new UseSpell(abilitiesFactory, abilitiesController));   
         }
 
         public void AddToObserve(KnownSpellSlot target)
@@ -65,7 +66,7 @@ namespace Magic.Actions
 
         private void FillContextMenu(KnownSpellData actionSource)
         {
-            FillContextMenu(actionSource, this);
+            FillContextMenu(actionSource, _actionList);
         }
     }
 }

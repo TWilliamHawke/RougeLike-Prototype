@@ -13213,6 +13213,8 @@ MonoBehaviour:
   _inventoryScreen: {fileID: 285033831}
   _quickBarSetupController: {fileID: 1488402152}
   _useAbility: {fileID: 11400000, guid: b6fcc0195aba44f489b91883a6fcdec8, type: 2}
+  _showInfo: {fileID: 11400000, guid: 6fe035d93f24b904e92cb1ae30572c10, type: 2}
+  _use: {fileID: 11400000, guid: 22ec4c635f44a4c4ab55b9c4ec55b6ea, type: 2}
   _buy: {fileID: 11400000, guid: 1532a741ae8593247a3fcf1323458079, type: 2}
   _sell: {fileID: 11400000, guid: b7de6c51225d0b54a97d6f541e80a1da, type: 2}
   _equip: {fileID: 11400000, guid: 3c5896808936ff54d963ed2929e57b98, type: 2}
@@ -64143,6 +64145,38 @@ PrefabInstance:
       propertyPath: m_Colors.m_PressedColor.r
       value: 0.6037736
       objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 541893281}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIScreen, Project
+      objectReference: {fileID: 0}
+    - target: {fileID: 648205163247968277, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4553911764565061481, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
+      propertyPath: m_text
+      value: Cancel
+      objectReference: {fileID: 0}
     - target: {fileID: 4553911764565061481, guid: 2363cbb69018ea9428cde42acf9fb54e, type: 3}
       propertyPath: m_fontColor.b
       value: 0.20754719
@@ -104637,6 +104671,7 @@ MonoBehaviour:
   - {fileID: 1701656651}
   - {fileID: 201663770}
   _grid: {fileID: 1078569804}
+  _menu: {fileID: 541893281}
 --- !u!114 &2089133116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104668,9 +104703,9 @@ MonoBehaviour:
   _unityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 541893281}
-        m_TargetAssemblyTypeName: UIScreen, Project
-        m_MethodName: Open
+      - m_Target: {fileID: 2089133115}
+        m_TargetAssemblyTypeName: Core.UI.GridContextMenu, Project
+        m_MethodName: OpenMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -104696,9 +104731,9 @@ MonoBehaviour:
   _unityEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 541893281}
-        m_TargetAssemblyTypeName: UIScreen, Project
-        m_MethodName: Open
+      - m_Target: {fileID: 2089133115}
+        m_TargetAssemblyTypeName: Core.UI.GridContextMenu, Project
+        m_MethodName: OpenMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
