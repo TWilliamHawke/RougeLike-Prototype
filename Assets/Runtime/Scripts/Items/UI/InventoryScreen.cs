@@ -26,12 +26,17 @@ namespace Items.UI
             _inventoryScreen.OnScreenOpen += SetDefaultScreenView;
             _inventoryScreen.OnScreenClose += _inventory.ClearTempStorage;
 
-            _sectionsLayout.UpdateLayout(GetVisibleSections());
+            CreateSections();
         }
 
         public void AddSlotObservers(IObserver<ItemSlot> observer)
         {
             _sections.ForEach(s => s.AddObserver(observer));
+        }
+
+        public void AddSectionObservers(IObserver<InventorySection> observer)
+        {
+            _sectionsLayout.AddObserver(observer);
         }
 
         private void SetDefaultScreenView()
@@ -53,14 +58,16 @@ namespace Items.UI
             }
         }
 
-        private IEnumerable<ItemSection> GetVisibleSections()
+        private void CreateSections()
         {
+            _sectionsLayout.CleanLayout();
+
             foreach (var template in _visibleSections)
             {
                 var section = _inventory.GetSection(template);
                 if (section == null) continue;
                 if (template.hideifEmpty && section.isEmpty) continue;
-                yield return section;
+                _sectionsLayout.CreateSection(template, section);
             }
         }
 

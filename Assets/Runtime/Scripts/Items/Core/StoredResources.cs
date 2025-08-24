@@ -104,7 +104,8 @@ namespace Items
 
         int IItemSection.FindItemCount(Item item)
         {
-            var type = (item as Resource)?.type ?? ResourceType.none;
+            if (item is not Resource resource) return 0;
+            var type = resource.type;
             return _resources[type];
         }
 

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Tooltips;
 using Core;
+using Core.UI;
+using System.Linq;
 
 namespace Items
 {
-    public abstract class Item : ScriptableObject, IIconData
+    public abstract class Item : ScriptableObject, IIconData, IContextActionSource
     {
         [UseFileName]
         [SerializeField] string _displayName;
@@ -38,8 +40,10 @@ namespace Items
 
             return tooltipData;
         }
-        
-        public ContextActionList actions => _itemType.actions;
 
+        public IEnumerable<ContextActionTemplate> GetActions()
+        {
+            return _itemType.actions;
+        }
 	}
 }

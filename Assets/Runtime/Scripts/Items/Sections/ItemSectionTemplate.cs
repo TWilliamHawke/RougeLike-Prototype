@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using Core;
+using Core.UI;
 using UnityEngine;
 
 namespace Items
 {
     [CreateAssetMenu(fileName = "ItemSectionTemplate", menuName = "Items/ItemSectionTemplate")]
-    public class ItemSectionTemplate : ScriptableObject, IItemSectionTemplate
+    public class ItemSectionTemplate : ScriptableObject, IItemSectionTemplate, IContextActionSource
     {
         [SerializeField] LocalString _sectionName;
         [SerializeField] ItemStorageType _storageType;
@@ -19,6 +21,11 @@ namespace Items
         public ItemStorageType storageType => _storageType;
         public string sectionName => _sectionName;
         public bool hideifEmpty => _hideifEmpty;
+
+        public IEnumerable<ContextActionTemplate> GetActions()
+        {
+            return _actions;
+        }
 
         public bool ItemTypeIsMeet(Item someItem)
         {

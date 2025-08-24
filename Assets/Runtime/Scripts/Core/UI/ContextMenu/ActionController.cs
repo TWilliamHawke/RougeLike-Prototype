@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Core;
-using Core.UI;
 using UnityEngine;
 
 namespace Core.UI
@@ -26,11 +24,11 @@ namespace Core.UI
             _factories.Add(template, factory);
         }
 
-        public void FillContextMenu(T target, IContextActionSource actionSourse)
+        public void FillContextMenu(T target, IEnumerable<ContextActionTemplate> actions)
         {
             _contextActions.Clear();
 
-            foreach (var template in actionSourse.GetActions())
+            foreach (var template in actions)
             {
                 if (_factories.TryGetValue(template, out var factory))
                 {

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ namespace Core.UI
         [SerializeField] Color _inactiveColor = Color.gray;
         [SerializeField] Color _buttonColor = Color.yellow;
 
+        public event UnityAction OnClick;
+
         IContextAction _buttonAction;
 
         public void ClearAction()
@@ -24,7 +27,9 @@ namespace Core.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _buttonAction?.DoAction();
+            if (_buttonAction is null) return;
+            _buttonAction.DoAction();
+            OnClick?.Invoke();
         }
 
         public void BindAction(IContextAction action)

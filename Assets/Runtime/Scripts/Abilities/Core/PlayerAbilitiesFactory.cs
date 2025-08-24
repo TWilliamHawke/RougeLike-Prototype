@@ -1,10 +1,11 @@
+using Entities;
 using Items;
 using Magic;
 using UnityEngine;
 
 namespace Abilities
 {
-    public class PlayerAbilitiesFactory : MonoBehaviour, IAbilitiesFactory
+    public class PlayerAbilitiesFactory : MonoBehaviour, IAbilitiesFactory, IEntityComponent
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] MagicConfig _magicConfig;

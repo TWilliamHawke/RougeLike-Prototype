@@ -26,7 +26,7 @@ namespace Items.Actions
 
             public override void DoAction()
             {
-                Debug.Log("Buy");
+                Debug.Log("MoveToStorage");
             }
         }
     }
