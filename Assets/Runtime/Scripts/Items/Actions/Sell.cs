@@ -3,31 +3,28 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Sell : RadialActionFactory<ItemSlotData>
+    public class Sell : ContextActionFactory<ItemSlotData>
     {
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new SellAction(itemSlot);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer != ItemStorageType.trader && false;
+            return true;
         }
 
-        class SellAction : IRadialMenuAction
+        class SellAction : ContextActionContainer
         {
-            public string actionTitle => "Cell";
             ItemSlotData _itemSlot;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottom;
 
             public SellAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 Debug.Log("Buy");
             }

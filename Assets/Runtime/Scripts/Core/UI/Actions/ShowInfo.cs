@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace Core.UI
 {
-    public class ShowInfo<T> : RadialActionFactory<T>
+    public class ShowInfo<T> : ContextActionFactory<T>
     {
-        protected override IRadialMenuAction CreateAction(T element)
+        protected override ContextActionContainer CreateAction(T element)
         {
             return new ShowInfoAction<T>(element);
         }
@@ -16,19 +16,16 @@ namespace Core
             return true;
         }
 
-        class ShowInfoAction<U> : IRadialMenuAction
+        class ShowInfoAction<U> : ContextActionContainer
         {
             U _element;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.topLeft;
-            public string actionTitle => "ShowInfo";
 
             public ShowInfoAction(U element)
             {
                 _element = element;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 Debug.Log(actionTitle);
             }

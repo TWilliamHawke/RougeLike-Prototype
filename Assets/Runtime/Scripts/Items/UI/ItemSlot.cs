@@ -6,8 +6,6 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UI.Tooltips;
 using UnityEngine.Events;
-using MouseButton = UnityEngine.EventSystems.PointerEventData.InputButton;
-using Items.Actions;
 
 namespace Items
 {
@@ -57,6 +55,12 @@ namespace Items
             _count.gameObject.SetActive(false);
         }
 
+        protected void TriggerClickEvent()
+        {
+            if (_slotData is null) return;
+            OnClick?.Invoke(_slotData);
+        }
+
         private void TriggerDragEvent()
         {
             if (_slotData is null) return;
@@ -78,8 +82,7 @@ namespace Items
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (_slotData is null) return;
-            OnClick?.Invoke(_slotData);
+            TriggerClickEvent();
         }
 
         ItemTooltipData IHaveItemTooltip.GetTooltipData()

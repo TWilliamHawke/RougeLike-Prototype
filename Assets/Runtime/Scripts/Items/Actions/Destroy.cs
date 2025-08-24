@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Destroy : RadialActionFactory<ItemSlotData>
+    public class Destroy : ContextActionFactory<ItemSlotData>
     {
         Inventory _inventory;
         ModalWindowController _modalWindow;
@@ -17,7 +17,7 @@ namespace Items.Actions
             _modalWindow = modalWindow;
         }
 
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             _itemsList.Clear();
             var item = itemSlot.item as IDestroyable;
@@ -36,16 +36,11 @@ namespace Items.Actions
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.slotContainer == ItemStorageType.inventory ||
-                itemSlot.slotContainer == ItemStorageType.storage) &&
-                itemSlot.item is IDestroyable;
+            return itemSlot.item is IDestroyable;
         }
 
-        class OpenDestroyWindow : IRadialMenuAction
+        class OpenDestroyWindow : ContextActionContainer
         {
-            public string actionTitle => "Destroy";
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
-
             ModalWindowController _modalWindowController;
             ModalWindowData _modalWindowData;
 
@@ -55,20 +50,21 @@ namespace Items.Actions
                 _modalWindowData = modalWindowData;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 _modalWindowController.OpenWindow(_modalWindowData);
             }
         }
 
-        class ConfirmDestroy : IRadialMenuAction
+        class ConfirmDestroy : IContextAction
         {
             public string actionTitle => "Confirm";
             Inventory _inventory;
             ItemSlotData _itemSlot;
             ItemSection _items;
 
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomLeft;
+            public int preferedPosition => 7;
+
 
             public ConfirmDestroy(ItemSlotData itemSlot, Inventory inventory, ItemSection itemsList)
             {

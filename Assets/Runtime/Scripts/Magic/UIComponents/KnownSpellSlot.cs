@@ -10,9 +10,8 @@ using Entities.Stats;
 
 namespace Magic.UI
 {
-    [RequireComponent(typeof(DragHandler))]
     public class KnownSpellSlot : UIDataElement<KnownSpellData>, IPointerEnterHandler,
-        IPointerExitHandler, IPointerClickHandler, IDragDataSource<KnownSpellData>, IInjectionTarget
+        IPointerExitHandler, IPointerClickHandler, IInjectionTarget
     {
         [SerializeField] Color _defaultColor = Color.red;
         [SerializeField] Color _hoveredColor = Color.red;
@@ -24,9 +23,7 @@ namespace Magic.UI
         [SerializeField] TextMeshProUGUI _spellName;
         [SerializeField] TextMeshProUGUI _spellRank;
         [SerializeField] TextMeshProUGUI _spellCost;
-        [Header("Events")]
-        [SerializeField] CustomEvent _onSpellDragStart;
-        [SerializeField] CustomEvent _onSpellDragEnd;
+        [SerializeField] CustomEvent _onSpellSelect;
 
         [InjectField] Player _player;
 
@@ -34,26 +31,13 @@ namespace Magic.UI
 
         public bool waitForAllDependencies => false;
         //drag spell
-        public KnownSpellData dragData => _knownSpell;
-        public IDragController dataHandler => _dragDataHandler;
-        public bool allowToDrag => _knownSpell is not null;
-
-        DragController<KnownSpellData> _dragDataHandler;
-
-        public event UnityAction<KnownSpellData> OnDragStart;
         public event UnityAction<KnownSpellData> OnEditButtonClick;
         public event UnityAction<KnownSpellData> OnSpellSelect;
-
-        void Awake()
-        {
-            _dragDataHandler = new(this, _draggedSpellPrefab);
-            var dragHandler = GetComponent<DragHandler>();
-            dragHandler.OnDragStart += TriggerDragEvent;
-        }
 
         public void OnPointerClick(PointerEventData _)
         {
             OnSpellSelect?.Invoke(_knownSpell);
+            _onSpellSelect.Invoke();
         }
 
         public void OnPointerEnter(PointerEventData _)
@@ -89,12 +73,6 @@ namespace Magic.UI
         {
             if (_knownSpell is null) return;
             OnEditButtonClick?.Invoke(_knownSpell);
-        }
-
-        private void TriggerDragEvent()
-        {
-            if (_knownSpell is null) return;
-            OnDragStart?.Invoke(_knownSpell);
         }
     }
 }

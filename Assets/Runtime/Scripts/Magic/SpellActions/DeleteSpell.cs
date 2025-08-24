@@ -4,7 +4,7 @@ using Items;
 
 namespace Magic.Actions
 {
-    public class DeleteSpell : RadialActionFactory<KnownSpellData>
+    public class DeleteSpell : ContextActionFactory<KnownSpellData>
     {
         Spellbook _spellbook;
         Inventory _inventory;
@@ -21,21 +21,20 @@ namespace Magic.Actions
             _modalWindow = modalWindow;
         }
 
-        protected override IRadialMenuAction CreateAction(KnownSpellData element)
+        protected override ContextActionContainer CreateAction(KnownSpellData element)
         {
             ModalWindowData modalWindowData = new()
             {
                 title = TITLE,
                 mainText = MAIN_TEXT,
                 mainImage = element.icon,
-                action = new DeleteSpellAction(_spellbook, element, _inventory)
+                action = new DeleteSpellAction(
+                    _spellbook, element, _inventory),
             };
 
-            return new OpenModalWindowRadial(
+            return new OpenModalWindow(
                 modalWindow: _modalWindow,
-                modalWindowData: modalWindowData,
-                preferedPosition: RadialButtonPosition.bottom,
-                actionTitle: ACTION_TITLE
+                modalWindowData: modalWindowData
             );
         }
 
@@ -44,13 +43,11 @@ namespace Magic.Actions
             return _spellbook.GetCountSpellsOfType(element) > 1;
         }
 
-        class DeleteSpellAction : IContextAction
+        class DeleteSpellAction : ContextActionContainer
         {
             Spellbook _spellbook;
             KnownSpellData _spellData;
             Inventory _inventory;
-
-            public string actionTitle => "Confirm";
 
             public DeleteSpellAction(Spellbook spellbook, KnownSpellData spellData, Inventory inventory)
             {
@@ -59,7 +56,7 @@ namespace Magic.Actions
                 _inventory = inventory;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 _spellData.ClearAllSlots(_inventory);
                 _spellbook.DeleteSpell(_spellData);

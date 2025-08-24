@@ -3,23 +3,20 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Buy : RadialActionFactory<ItemSlotData>
+    public class Buy : ContextActionFactory<ItemSlotData>
     {
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlotData)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlotData)
         {
             return new BuyAction(itemSlotData);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlotitemSlotData)
         {
-            return itemSlotitemSlotData.slotContainer == ItemStorageType.trader;
+            return true;
         }
 
-        class BuyAction : IRadialMenuAction
-        {
-            public string actionTitle => "Buy";
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
-            
+        class BuyAction : ContextActionContainer
+        {            
             ItemSlotData _itemSlotData;
 
             public BuyAction(ItemSlotData itemSlotData)
@@ -27,7 +24,7 @@ namespace Items.Actions
                 _itemSlotData = itemSlotData;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 Debug.Log("Buy");
             }

@@ -3,7 +3,7 @@ using Core;
 
 namespace Items.Actions
 {
-    public class UseAbility : RadialActionFactory<ItemSlotData>
+    public class UseAbility : ContextActionFactory<ItemSlotData>
     {
         IAbilitiesFactory _abilitiesFactory;
         AbilityController _abilityController;
@@ -14,25 +14,20 @@ namespace Items.Actions
             _abilityController = abilityController;
         }
 
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new UseAbilityAction(itemSlot, _abilitiesFactory, _abilityController);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.slotContainer == ItemStorageType.inventory ||
-                itemSlot.slotContainer == ItemStorageType.storage) &&
-                itemSlot?.item is IItemWithAbility;
+            return itemSlot?.item is IItemWithAbility;
         }
 
-        class UseAbilityAction : IRadialMenuAction
+        class UseAbilityAction : ContextActionContainer
         {
-            public string actionTitle => "Use";
             IAbilityContainer _abilityContainer;
             IAbilityTarget _target;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
             public UseAbilityAction(ItemSlotData itemSlot,
                 IAbilitiesFactory abilitiesFactory, AbilityController abilityController)
@@ -43,7 +38,7 @@ namespace Items.Actions
                 _abilityContainer = item.CreateAbilityContainer(abilitiesFactory);
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 if (_abilityContainer is null) return;
                 _abilityContainer.UseAbility(_target);

@@ -1,61 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using Core.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe, IContextMenuData
+    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe, IContextActionSource
     {
         [SerializeField] Item _item;
         [SerializeField] int _count;
 
-        IItemSectionInfo _itemSection;
         public int slotPrice { get; set; }
         
-        public ItemStorageType slotContainer => _itemSection.itemStorage;
+        public Item item => _item;
+        public int count => _count;
+        public event UnityAction OnSlotDataChanged;
+        Item IDataCount<Item>.element => _item;
 
         public ItemSlotData()
         {
             
         }
 
-        public ItemSlotData(Item item, int count,
-            IItemSectionInfo itemSectionInfo, int slotPrice = -1)
+        public ItemSlotData(Item item, int count, int slotPrice = -1)
         {
             _item = item;
             _count = count;
-            _itemSection = itemSectionInfo;
             this.slotPrice = slotPrice;
         }
-
-        public Item item => _item;
-        public int count => _count;
-        Item IDataCount<Item>.element => _item;
 
         public void AddOneItem()
         {
             _count++;
-            _itemSection.Refresh();
+            OnSlotDataChanged?.Invoke();
         }
 
         public void RemoveOneItem()
         {
             _count--;
-            _itemSection.Refresh();
+            OnSlotDataChanged?.Invoke();
         }
 
         public void RemoveAllItems()
         {
             _count = 0;
-            _itemSection.Refresh();
+            OnSlotDataChanged?.Invoke();
         }
 
         public void FillToMaxSize()
         {
             _count = item.maxStackSize;
-            _itemSection.Refresh();
+            OnSlotDataChanged?.Invoke();
+        }
+
+        public IEnumerable<ContextActionTemplate> GetActions()
+        {
+            yield break;
         }
 
         void IItemSlotDataUnsafe.IncreaseCountBy(int num)
@@ -66,7 +69,7 @@ namespace Items
         void IItemSlotDataUnsafe.DecreaseCountBy(int num)
         {
             _count = Mathf.Max(0, _count - num);
-            _itemSection.Refresh();
+            OnSlotDataChanged?.Invoke();
         }
 
         void IItemSlotDataUnsafe.SetCount(int count)

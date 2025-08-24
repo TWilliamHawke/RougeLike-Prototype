@@ -2,32 +2,28 @@ using Core;
 
 namespace Items.Actions
 {
-    public class Drop : RadialActionFactory<ItemSlotData>
+    public class Drop : ContextActionFactory<ItemSlotData>
     {
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new DropAction(itemSlot);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer == ItemStorageType.inventory ||
-                itemSlot.slotContainer == ItemStorageType.storage;
+            return true;
         }
 
-        class DropAction : IRadialMenuAction
+        class DropAction : ContextActionContainer
         {
-            public string actionTitle => "Drop";
             ItemSlotData _itemSlot;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
 
             public DropAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 _itemSlot.RemoveAllItems();
             }

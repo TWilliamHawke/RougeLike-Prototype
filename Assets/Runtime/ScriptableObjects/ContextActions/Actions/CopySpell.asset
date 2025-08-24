@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032bbb0a2a7b75941af7885d37162036, type: 3}
+  m_Name: CopySpell
+  m_EditorClassIdentifier: 
+  _actionTitle:
+    _locKey: context_action_copy_spell
+  _preferedPosition: 5
+  _buttonColor: {r: 0, g: 0, b: 0, a: 0}
+  _borderColor: {r: 0.5188679, g: 0.36822766, b: 0.06608224, a: 0.69411767}
+  _textColor: {r: 0, g: 0, b: 0, a: 1}

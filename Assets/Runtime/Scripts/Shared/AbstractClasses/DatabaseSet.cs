@@ -52,11 +52,13 @@ public abstract class DatabaseSet<T> : DatabaseSet, IEnumerable<T> where T : Scr
 
     IEnumerator<T> IEnumerable<T>.GetEnumerator()
     {
+        Init();
         return _elementsSet.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
+        Init();
         return _elementsSet.GetEnumerator();
     }
 }

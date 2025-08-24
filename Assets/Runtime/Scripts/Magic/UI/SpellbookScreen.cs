@@ -100,13 +100,11 @@ namespace Magic.UI
         void IObserver<KnownSpellSlot>.AddToObserve(KnownSpellSlot target)
         {
             target.OnSpellSelect += CloseScreen;
-            target.OnEditButtonClick += CloseScreen;
         }
 
         void IObserver<KnownSpellSlot>.RemoveFromObserve(KnownSpellSlot target)
         {
             target.OnSpellSelect -= CloseScreen;
-            target.OnEditButtonClick -= CloseScreen;
         }
     }
 }

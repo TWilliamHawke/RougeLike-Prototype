@@ -7,8 +7,9 @@ namespace Core.UI
     public class OpenScreen : IContextAction
     {
         public string actionTitle => _actionTitle;
+        public int preferedPosition => 7;
 
-		string _actionTitle;
+        string _actionTitle;
 		UIScreen _screen;
 
         public OpenScreen(UIScreen screen, string actionTitle = "Open Screen")

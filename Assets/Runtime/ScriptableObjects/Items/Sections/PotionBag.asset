@@ -16,6 +16,7 @@ MonoBehaviour:
     _locKey: item_section_potions
   _storageType: 1
   _startCapacity: 3
+  _hideifEmpty: 0
   _allItemsAreMeet: 0
+  _actions: {fileID: 11400000, guid: 4a480aaa6c1eee249ad23b5f5692d1da, type: 2}
   _itemType: {fileID: 11400000, guid: 34b55875fe07d38419a7d7a92b230f64, type: 2}
-  _visibleInInventory: 1

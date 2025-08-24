@@ -5,30 +5,40 @@ using UnityEngine;
 
 namespace Core.UI
 {
+
     public abstract class ActionController<T> : MonoBehaviour
     {
         [InjectField] IContextMenu _contextMenu;
 
-        protected List<IActionFactory<T>> _factory = new();
-        List<IContextAction> _contextActions = new();
+        List<ContextActionContainer> _contextActions = new();
+        Dictionary<ContextActionTemplate, IActionFactory<T>> _factories = new();
 
-        protected abstract void FillFactory(List<IActionFactory<T>> factory);
+        protected abstract void FillFactory();
 
         //event handler in editor
         public void CreateFactory()
         {
-            FillFactory(_factory);
+            FillFactory();
         }
 
-        public void FillContextMenu(T actionSource)
+        protected void AddFactory(ContextActionTemplate template, IActionFactory<T> factory)
+        {
+            _factories.Add(template, factory);
+        }
+
+        public void FillContextMenu(T target, IContextActionSource actionSourse)
         {
             _contextActions.Clear();
 
-            foreach (var factory in _factory)
+            foreach (var template in actionSourse.GetActions())
             {
-                if (factory.TryCreateAction(actionSource, out var action))
+                if (_factories.TryGetValue(template, out var factory))
                 {
-                    _contextActions.Add(action);
+                    if (factory.TryCreateAction(target, out var action))
+                    {
+                        action.SetActionTemplate(template);
+                        _contextActions.Add(action);
+                    }
                 }
             }
 
