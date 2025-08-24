@@ -4,7 +4,8 @@ using Entities;
 
 namespace Items.Actions
 {
-    public class Use : RadialActionFactory<ItemSlotData>
+    //requires for spell tomes etc
+    public class Use : ContextActionFactory<ItemSlotData>
     {
         AudioEffectsController _soundController;
 
@@ -14,26 +15,21 @@ namespace Items.Actions
                 .GetEntityComponent<AudioEffectsController>();
         }
 
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new UseAction(itemSlot, _soundController);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.slotContainer == ItemStorageType.inventory ||
-                itemSlot.slotContainer == ItemStorageType.storage) &&
-                itemSlot?.item is IUsableItem;
+            return itemSlot?.item is IUsableItem;
         }
 
-        class UseAction : IRadialMenuAction
+        class UseAction : ContextActionContainer
         {
-            public string actionTitle => "Use";
             ItemSlotData _itemSlot;
             IUsableItem _item;
             AudioEffectsController _soundController;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
             public UseAction(ItemSlotData itemSlot, AudioEffectsController player)
             {
@@ -42,12 +38,12 @@ namespace Items.Actions
                 _soundController = player;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 _item.Use();
                 _soundController.PlaySound(_item.useSound);
 
-                if(_item.destroyAfterUse)
+                if (_item.destroyAfterUse)
                 {
                     _itemSlot.RemoveOneItem();
                 }

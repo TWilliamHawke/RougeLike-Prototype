@@ -2,7 +2,7 @@ using Core;
 
 namespace Magic.Actions
 {
-    public class CopySpell : RadialActionFactory<KnownSpellData>
+    public class CopySpell : ContextActionFactory<KnownSpellData>
     {
         Spellbook _spellbook;
 
@@ -11,7 +11,7 @@ namespace Magic.Actions
             _spellbook = spellbook;
         }
 
-        protected override IRadialMenuAction CreateAction(KnownSpellData element)
+        protected override ContextActionContainer CreateAction(KnownSpellData element)
         {
             return new CopySpellAction(_spellbook, element);
         }
@@ -21,12 +21,8 @@ namespace Magic.Actions
             return true;
         }
 
-        class CopySpellAction : IRadialMenuAction
+        class CopySpellAction : ContextActionContainer
         {
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottomRight;
-
-            public string actionTitle => "Copy Spell";
-
             Spellbook _spellbook;
             KnownSpellData _spellData;
 
@@ -36,7 +32,7 @@ namespace Magic.Actions
                 _spellData = spellData;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 _spellbook.AddSpellCopy(_spellData);
             }

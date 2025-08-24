@@ -4,7 +4,7 @@ namespace Core.UI
 {
     public interface IContextMenu
 	{
-		void Fill(IEnumerable<IContextAction> actions);
+		void Fill(IEnumerable<ContextActionContainer> actions);
 	}
 }
 

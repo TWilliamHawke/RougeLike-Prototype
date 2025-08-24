@@ -3,31 +3,28 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class MoveToStorage : RadialActionFactory<ItemSlotData>
+    public class MoveToStorage : ContextActionFactory<ItemSlotData>
     {
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new MoveToStorageAction(itemSlot);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return itemSlot.slotContainer == ItemStorageType.inventory;
+            return true;
         }
 
-        class MoveToStorageAction : IRadialMenuAction
+        class MoveToStorageAction : ContextActionContainer
         {
-            public string actionTitle => "MoveToStorage";
             ItemSlotData _itemSlot;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.bottom;
 
             public MoveToStorageAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 Debug.Log("Buy");
             }

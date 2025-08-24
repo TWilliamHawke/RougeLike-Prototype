@@ -3,7 +3,7 @@ using Magic.UI;
 
 namespace Magic.Actions
 {
-    public class EditSpell : RadialActionFactory<KnownSpellData>
+    public class EditSpell : ContextActionFactory<KnownSpellData>
     {
         SpellPage _spellPage;
 
@@ -12,7 +12,7 @@ namespace Magic.Actions
             _spellPage = spellPage;
         }
 
-        protected override IRadialMenuAction CreateAction(KnownSpellData element)
+        protected override ContextActionContainer CreateAction(KnownSpellData element)
         {
             return new EditSpellAction(element, _spellPage);
         }
@@ -22,7 +22,7 @@ namespace Magic.Actions
             return true;
         }
 
-        class EditSpellAction : IRadialMenuAction
+        class EditSpellAction : ContextActionContainer
         {
             KnownSpellData _spellData;
             SpellPage _spellPage;
@@ -33,11 +33,7 @@ namespace Magic.Actions
                 _spellPage = spellPage;
             }
 
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
-
-            public string actionTitle => "Edit Spell";
-
-            public void DoAction()
+            public override void DoAction()
             {
                 _spellPage.Open(_spellData);
             }

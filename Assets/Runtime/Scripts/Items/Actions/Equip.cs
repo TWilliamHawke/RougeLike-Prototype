@@ -3,33 +3,28 @@ using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Equip : RadialActionFactory<ItemSlotData>
+    public class Equip : ContextActionFactory<ItemSlotData>
     {
-        protected override IRadialMenuAction CreateAction(ItemSlotData itemSlot)
+        protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
             return new EquipAction(itemSlot);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
         {
-            return (itemSlot.slotContainer == ItemStorageType.inventory ||
-                itemSlot.slotContainer == ItemStorageType.storage) &&
-                itemSlot.item is IEquipment;
+            return itemSlot.item is IEquipment;
         }
 
-        class EquipAction : IRadialMenuAction
+        class EquipAction : ContextActionContainer
         {
-            public string actionTitle => "Equip";
             ItemSlotData _itemSlot;
-
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.top;
 
             public EquipAction(ItemSlotData itemSlot)
             {
                 _itemSlot = itemSlot;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
                 Debug.Log("Buy");
             }

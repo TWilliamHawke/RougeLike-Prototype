@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Abilities;
 using UnityEngine;
 
-namespace Core
+namespace Core.UI
 {
-    public class BindToQuickbar<T> : RadialActionFactory<T>
+    public class BindToQuickbar<T> : ContextActionFactory<T>
     {
         PlayerAbilitiesFactory _abilitiesFactory;
         QuickBarSetupController _quickBarSetupController;
@@ -16,9 +16,17 @@ namespace Core
             _quickBarSetupController = quickBarSetupController;
         }
 
-        protected override IRadialMenuAction CreateAction(T element)
+        protected override ContextActionContainer CreateAction(T element)
         {
-            return new BindToQuickbarAction<T>(element, _abilitiesFactory, _quickBarSetupController);
+            var container = default(IAbilityContainer);
+
+            if (element is IAbilitySource abilitySource)
+            {
+                container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
+                _quickBarSetupController.OpenSetupScreen(container);
+            }
+
+            return new BindToQuickbarAction(container, _quickBarSetupController);
         }
 
         protected override bool ElementIsValid(T element)
@@ -26,29 +34,20 @@ namespace Core
             return element is IAbilitySource;
         }
 
-        class BindToQuickbarAction<U> : IRadialMenuAction
+        class BindToQuickbarAction : ContextActionContainer
         {
-            U _element;
-            PlayerAbilitiesFactory _abilitiesFactory;
             QuickBarSetupController _quickBarSetupController;
+            IAbilityContainer _container;
 
-            public RadialButtonPosition preferedPosition => RadialButtonPosition.topRight;
-            public string actionTitle => "Bind To Quickbar";
-
-            public BindToQuickbarAction(U element, PlayerAbilitiesFactory abilitiesFactory, QuickBarSetupController quickBarSetupController)
+            public BindToQuickbarAction(IAbilityContainer container, QuickBarSetupController quickBarSetupController)
             {
-                _element = element;
-                _abilitiesFactory = abilitiesFactory;
+                _container = container;
                 _quickBarSetupController = quickBarSetupController;
             }
 
-            public void DoAction()
+            public override void DoAction()
             {
-                if(_element is IAbilitySource abilitySource)
-                {
-                    var container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
-                    _quickBarSetupController.OpenSetupScreen(container);
-                }
+                _quickBarSetupController.OpenSetupScreen(_container);
             }
         }
 

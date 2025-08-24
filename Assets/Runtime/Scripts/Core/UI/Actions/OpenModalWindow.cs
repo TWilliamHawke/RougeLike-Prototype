@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Core.UI
 {
-    public class OpenModalWindow : IContextAction
+    public class OpenModalWindow : ContextActionContainer
     {
-        public string actionTitle => _actionTitle;
-
-		ModalWindowController _modalWindow;
+        ModalWindowController _modalWindow;
         ModalWindowData _modalWindowData;
         protected string _actionTitle = "Open Modal Window";
 
@@ -18,7 +16,7 @@ namespace Core.UI
             _modalWindowData = modalWindowData;
         }
 
-        public void DoAction()
+        public override void DoAction()
 		{
             _modalWindow.OpenWindow(_modalWindowData);
 		}

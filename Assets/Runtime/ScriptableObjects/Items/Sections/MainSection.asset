@@ -16,6 +16,7 @@ MonoBehaviour:
     _locKey: item_section_main_section
   _storageType: 1
   _startCapacity: 12
+  _hideifEmpty: 0
   _allItemsAreMeet: 1
+  _actions: {fileID: 11400000, guid: 4a480aaa6c1eee249ad23b5f5692d1da, type: 2}
   _itemType: {fileID: 11400000, guid: 734abc3024d24014da28d46e216a563b, type: 2}
-  _visibleInInventory: 1

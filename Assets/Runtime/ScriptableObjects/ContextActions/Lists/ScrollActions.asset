@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cf486a5c2d4184d8369a6fab4806bb, type: 3}
+  m_Name: ScrollActions
+  m_EditorClassIdentifier: 
+  _elements:
+  - {fileID: 11400000, guid: 709087a7ff924c443996813f847f9a06, type: 2}
+  - {fileID: 11400000, guid: 0f4bfe0045ea10a4fada1f27a8b2439e, type: 2}
+  - {fileID: 11400000, guid: 6fe035d93f24b904e92cb1ae30572c10, type: 2}
+  - {fileID: 11400000, guid: b6fcc0195aba44f489b91883a6fcdec8, type: 2}

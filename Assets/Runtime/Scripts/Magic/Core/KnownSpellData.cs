@@ -8,7 +8,7 @@ using Abilities;
 namespace Magic
 {
     [System.Serializable]
-    public class KnownSpellData : IAbilitySource, IContextMenuData
+    public class KnownSpellData : IAbilitySource
     {
         delegate int SelectSpellLinesBuff(SpellString spellString);
         public event UnityAction OnDataChange;

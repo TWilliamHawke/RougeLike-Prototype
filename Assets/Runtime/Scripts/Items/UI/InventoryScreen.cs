@@ -53,7 +53,7 @@ namespace Items.UI
             }
         }
 
-        private IEnumerable<IUISectionData<ItemSlotData>> GetVisibleSections()
+        private IEnumerable<ItemSection> GetVisibleSections()
         {
             foreach (var template in _visibleSections)
             {

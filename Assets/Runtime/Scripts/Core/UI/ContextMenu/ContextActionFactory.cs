@@ -1,11 +1,11 @@
 namespace Core
 {
-	public abstract class RadialActionFactory<T> : IActionFactory<T>
+	public abstract class ContextActionFactory<T> : IActionFactory<T>
     {
-		protected abstract IRadialMenuAction CreateAction(T element);
+		protected abstract ContextActionContainer CreateAction(T element);
 		protected abstract bool ElementIsValid(T element);
 
-        public bool TryCreateAction(T element, out IRadialMenuAction action)
+        public bool TryCreateAction(T element, out ContextActionContainer action)
         {
             action = default;
             if (ElementIsValid(element))

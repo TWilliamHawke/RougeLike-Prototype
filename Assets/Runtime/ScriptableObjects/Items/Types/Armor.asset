@@ -15,3 +15,4 @@ MonoBehaviour:
   _displayName:
     _locKey: item_type_armor
   _icon: {fileID: 21300000, guid: 7e771154419e631418cf355402d9d712, type: 3}
+  _actions: {fileID: 11400000, guid: dfedfd5f0e7283744aa076f461ee10df, type: 2}

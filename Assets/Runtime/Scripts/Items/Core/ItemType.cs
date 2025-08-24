@@ -1,3 +1,4 @@
+using Core;
 using UnityEngine;
 
 namespace Items
@@ -8,8 +9,10 @@ namespace Items
         [SerializeField] LocalString _displayName;
         [SpritePreview]
         [SerializeField] Sprite _icon;
+        [SerializeField] ContextActionList _actions;
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
+        public ContextActionList actions => _actions;
     }
 }

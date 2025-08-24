@@ -9,10 +9,9 @@ using Abilities;
 
 namespace Magic.Actions
 {
-    using FactoryList = List<IActionFactory<KnownSpellData>>;
-
     [RequireComponent(typeof(ComponentInjector))]
-    public class SpellActionsController : ActionController<KnownSpellData>, IObserver<KnownSpellSlot>
+    public class SpellActionsController : ActionController<KnownSpellData>, IObserver<KnownSpellSlot>,
+        IContextActionSource
     {
         [SerializeField] Spellbook _spellbook;
         [SerializeField] SpellPage _spellEditor;
@@ -20,6 +19,14 @@ namespace Magic.Actions
         [SerializeField] Inventory _inventory;
         [SerializeField] ModalWindowController _modalWindow;
         [SerializeField] QuickBarSetupController _quickBarSetupController;
+        [Header("Actions")]
+        //[SerializeField] ContextActionTemplate _useAbility;
+        [SerializeField] ContextActionTemplate _showInfo;
+        [SerializeField] ContextActionTemplate _bindToQuickbar;
+        [SerializeField] ContextActionTemplate _deleteSpell;
+        [SerializeField] ContextActionTemplate _editSpell;
+        [SerializeField] ContextActionTemplate _copySpell;
+        [SerializeField] ContextActionList _actionList;
 
         [InjectField] Player _player;
 
@@ -29,25 +36,36 @@ namespace Magic.Actions
             CreateFactory();
         }
 
-        protected override void FillFactory(FactoryList factory)
+        protected override void FillFactory()
         {
-            factory.Add(new ShowInfo<KnownSpellData>());
-            factory.Add(new BindToQuickbar<KnownSpellData>(
-                _player.GetComponent<PlayerAbilitiesFactory>(), _quickBarSetupController));
-            factory.Add(new DeleteSpell(_spellbook, _inventory, _modalWindow));
-            factory.Add(new EditSpell(_spellEditor));
-            factory.Add(new CopySpell(_spellbook));
+            var abilitiesFactory = _player.GetComponent<PlayerAbilitiesFactory>();
+            AddFactory(_showInfo, new ShowInfo<KnownSpellData>());
+            AddFactory(_bindToQuickbar, new BindToQuickbar<KnownSpellData>(
+               abilitiesFactory, _quickBarSetupController));
+            AddFactory(_deleteSpell, new DeleteSpell(_spellbook, _inventory, _modalWindow));
+            AddFactory(_editSpell, new EditSpell(_spellEditor));
+            AddFactory(_copySpell, new CopySpell(_spellbook));
+            //factory.Add(new UseAbility(abilitiesFactory, abilityController,   
         }
 
         public void AddToObserve(KnownSpellSlot target)
         {
-            target.OnDragStart += FillContextMenu;
+            target.OnSpellSelect += FillContextMenu;
         }
 
         public void RemoveFromObserve(KnownSpellSlot target)
         {
-            target.OnDragStart -= FillContextMenu;
+            target.OnSpellSelect -= FillContextMenu;
         }
 
+        public IEnumerable<ContextActionTemplate> GetActions()
+        {
+            return _actionList;
+        }
+
+        private void FillContextMenu(KnownSpellData actionSource)
+        {
+            FillContextMenu(actionSource, this);
+        }
     }
 }

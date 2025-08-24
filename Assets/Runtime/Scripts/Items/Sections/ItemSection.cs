@@ -7,7 +7,7 @@ using System.Linq;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection : IUISectionData<ItemSlotData>, IItemSection, ILootStorage, IItemSectionInfo
+    public class ItemSection : IUISectionData<ItemSlotData>, IItemSection, ILootStorage
     {
 
         List<ItemSlotData> _itemsList;
@@ -138,7 +138,7 @@ namespace Items
             itemSlot.RemoveOneItem();
         }
 
-        public void Refresh()
+        private void Refresh()
         {
             _activeSlotsByItem = _activeSlotsByItem
                 .Where(pair => pair.Value.count > 0)
@@ -151,9 +151,10 @@ namespace Items
             OnSectionDataChange?.Invoke();
         }
 
-        void CreateNewItemSlot(Item item, int count)
+        private void CreateNewItemSlot(Item item, int count)
         {
-            var itemSlotData = new ItemSlotData(item, count, this);
+            var itemSlotData = new ItemSlotData(item, count);
+            itemSlotData.OnSlotDataChanged += Refresh;
             _activeSlotsByItem[item] = itemSlotData;
             _itemsList.Add(itemSlotData);
         }

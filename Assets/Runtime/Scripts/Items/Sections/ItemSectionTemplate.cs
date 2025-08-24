@@ -1,3 +1,4 @@
+using Core;
 using UnityEngine;
 
 namespace Items
@@ -10,6 +11,7 @@ namespace Items
         [SerializeField] int _startCapacity;
         [SerializeField] bool _hideifEmpty;
         [SerializeField] bool _allItemsAreMeet;
+        [SerializeField] ContextActionList _actions;
         [HideIf("_allItemsAreMeet", true)]
         [SerializeField] ItemType _itemType;
 

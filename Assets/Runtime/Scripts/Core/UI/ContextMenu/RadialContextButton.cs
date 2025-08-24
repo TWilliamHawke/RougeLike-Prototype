@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Core.UI
 {
 
-    public class RadialContextButton : MonoBehaviour, IDropTarget<IContextMenuData>
+    public class RadialContextButton : MonoBehaviour, IDropTarget<IContextActionSource>
     {
         [SerializeField] RadialButtonPosition _buttonPosition;
         [SerializeField] TextMeshProUGUI _buttonText;
@@ -27,19 +27,19 @@ namespace Core.UI
         IContextAction _buttonAction;
         public bool checkImageAlpha => _checkAlpha;
 
-        public RadialButtonPosition buttonPosition => _buttonPosition;
+        public int buttonPosition => (int)_buttonPosition;
 
         void Start()
         {
             _coloredMask.color = _buttonColor;
         }
 
-        public bool DataIsMeet(IContextMenuData _)
+        public bool DataIsMeet(IContextActionSource _)
         {
             return _buttonPosition == RadialButtonPosition.middle || _buttonAction is not null;
         }
 
-        public void DropData(IContextMenuData _)
+        public void DropData(IContextActionSource _)
         {
             _buttonAction?.DoAction();
         }
@@ -73,10 +73,6 @@ namespace Core.UI
             _buttonAction = null;
             _buttonText.text = "";
         }
-    }
-
-    public interface IContextMenuData
-    {
     }
 }
 

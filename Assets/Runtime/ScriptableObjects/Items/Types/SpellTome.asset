@@ -15,3 +15,4 @@ MonoBehaviour:
   _displayName:
     _locKey: item_type_spell_tome
   _icon: {fileID: 21300000, guid: 1a20e8fe145316b43ac480425fe38547, type: 3}
+  _actions: {fileID: 11400000, guid: b494c1bdb0220db4a8a73cec30f5cec0, type: 2}

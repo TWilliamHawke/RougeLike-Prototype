@@ -2074,7 +2074,6 @@ GameObject:
   - component: {fileID: 7578599437005814571}
   - component: {fileID: 1277243765521226379}
   - component: {fileID: 6960654905013145766}
-  - component: {fileID: 2212771237958250085}
   - component: {fileID: 4953457732678843694}
   m_Layer: 0
   m_Name: Spell
@@ -2165,8 +2164,7 @@ MonoBehaviour:
   _spellName: {fileID: 8522159695227966775}
   _spellRank: {fileID: 8483161230507123079}
   _spellCost: {fileID: 4671572753469447948}
-  _onSpellDragStart: {fileID: 11400000, guid: 7b1f4806793bff34494956aac5fdc8dd, type: 2}
-  _onSpellDragEnd: {fileID: 11400000, guid: 80363ed9cc3378e40aa8d73c1e10f110, type: 2}
+  _onSpellSelect: {fileID: 11400000, guid: f62ac6cfb87dfeb43872533f374f0251, type: 2}
 --- !u!114 &6960654905013145766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2187,21 +2185,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2212771237958250085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9151770125419673200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce1d12f5f0516b4182f2c532e0bcca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dragCanvasInjector: {fileID: 11400000, guid: fdc08720d7f804f49811571cf2377c98, type: 2}
-  _onDragStart: {fileID: 11400000, guid: e6dff140411cf284a8fd35dc658bce2b, type: 2}
-  _onDragEnd: {fileID: 11400000, guid: 6992617d542dcc742b88ff46e5116dae, type: 2}
 --- !u!114 &4953457732678843694
 MonoBehaviour:
   m_ObjectHideFlags: 0

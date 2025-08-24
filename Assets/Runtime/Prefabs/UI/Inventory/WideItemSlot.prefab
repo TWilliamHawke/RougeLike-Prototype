@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floatingItemPrefab: {fileID: 6022572275920406395, guid: 63e4c51acc3fd5e428448c9a41acba85, type: 3}
+  _disabled: 0
 --- !u!1 &1957400404804812413
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   _countText: {fileID: 5956373636952381042}
   _dragLogic: {fileID: 6694309622732365697}
   _itemName: {fileID: 2462557912827464424}
+  _onItemSlotSelect: {fileID: 11400000, guid: 78ae62349b6231447baa46a809717ef0, type: 2}
 --- !u!1 &2450298527575000209
 GameObject:
   m_ObjectHideFlags: 0
