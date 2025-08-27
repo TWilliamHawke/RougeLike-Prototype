@@ -8,6 +8,9 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
     public event UnityAction OnScreenOpen;
     public event UnityAction OnScreenClose;
 
+    public UnityEvent OnOpen;
+    public UnityEvent OnClose;
+
     [SerializeField] bool CloseOnStart;
 
     private void Start()
@@ -21,6 +24,7 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
         if (!gameObject.activeSelf) return;
         gameObject.SetActive(false);
         OnScreenClose?.Invoke();
+        OnClose?.Invoke();
     }
 
     public void Open()
@@ -29,6 +33,7 @@ public sealed class UIScreen : MonoBehaviour, IUIScreen
         if (gameObject.activeSelf) return;
         gameObject.SetActive(true);
         OnScreenOpen?.Invoke();
+        OnOpen?.Invoke();
     }
 
     //should invoke events so setActive(!gameObject.activeSelf) doesn't meet

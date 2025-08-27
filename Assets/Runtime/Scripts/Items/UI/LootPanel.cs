@@ -9,6 +9,7 @@ namespace Items.UI
     public class LootPanel : MonoBehaviour
     {
         [SerializeField] Inventory _inventory;
+        [SerializeField] ItemSectionTemplate _lootSectionTemplate;
         [SerializeField] InventorySection _lootSection;
 
         [SerializeField] UIScreen _canvas;
@@ -27,8 +28,8 @@ namespace Items.UI
         {
             _loot = loot;
             _selectedContainerIdx = 0;
-            _lootSection.BindData(_selectedContainer);
-            _lootSection.UpdateSectionView();
+            _lootSection.BindData(_selectedContainer, _lootSectionTemplate);
+            _lootSection.UpdateSectionLayout();
             UpdateTakeAllText();
             _canvas.Open();
         }
