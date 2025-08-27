@@ -1,37 +1,19 @@
 using UnityEngine.Events;
+using UnityEngine;
 
-public interface IUISection
+public abstract class UISection<U> : MonoBehaviour, IUISection where U : MonoBehaviour
 {
-    event UnityAction<IUISection> OnSectionSelect;
-    void Collapse();
-    void Toggle();
-    void UpdateSectionView();
-}
-
-public abstract class UISection<T, U> : UIDataElement<IUISectionData<T>>, IUISection where U : UIDataElement<T>
-{
-    IUISectionData<T> _sectionData;
     bool _isCollapsed = true;
     public event UnityAction<IUISection> OnSectionSelect;
 
+    protected abstract bool _sectionDataIsEmpty { get; }
     protected abstract UISectionHeader _header { get; }
-    protected abstract UILayoutWithObserver<T, U> _layout { get; }
+    protected abstract UILayoutWithObserver<U> _layout { get; }
+    protected abstract void UpdateSectionLayout(IUILayout<U> parent);
 
     void Start()
     {
         _header.OnClick += SelectSection;
-    }
-
-    void OnDestroy()
-    {
-        if (_sectionData == null) return;
-        _sectionData.OnSectionDataChange -= UpdateSectionView;
-    }
-
-    public override void BindData(IUISectionData<T> sectionData)
-    {
-        _sectionData = sectionData;
-        _sectionData.OnSectionDataChange += UpdateSectionView;
     }
 
     public void Collapse()
@@ -58,10 +40,10 @@ public abstract class UISection<T, U> : UIDataElement<IUISectionData<T>>, IUISec
         Collapse();
     }
 
-    public void UpdateSectionView()
+    public void UpdateSectionLayout()
     {
-        _layout.UpdateLayout(_sectionData);
-        _header.ReplaceTitle(_sectionData);
+        _layout.ClearLayout();
+        UpdateSectionLayout(_layout);
     }
 
     public void AddObserver(IObserver<U> observer)
@@ -69,9 +51,14 @@ public abstract class UISection<T, U> : UIDataElement<IUISectionData<T>>, IUISec
         _layout.AddObserver(observer);
     }
 
+    protected void UpdateSectionTitle(IUISectionData sectionData)
+    {
+        _header.ReplaceTitle(sectionData);
+    }
+
     private void SelectSection()
     {
-        if (_sectionData?.filledSlotsCount == 0) return;
+        if (_sectionDataIsEmpty) return;
         OnSectionSelect?.Invoke(this);
     }
 }

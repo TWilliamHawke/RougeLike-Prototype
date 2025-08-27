@@ -2,29 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataElement<T>
+public abstract class UILayoutWithObserver<T> : UIElement, IUILayout<T>, IObserversController<T> where T : MonoBehaviour
 {
-    [SerializeField] U _layoutElementPrefab;
     [SerializeField] LayoutGroup _layout;
 
-    HashSet<IObserver<U>> _observers = new();
+    ObserversController<T> _observers = new();
 
-    public void AddObserver(IObserver<U> observer)
+    public void AddObserver(IObserver<T> observer)
     {
-        _observers.Add(observer);
-        foreach (Transform children in _layout.transform)
-        {
-            if (children.TryGetComponent<U>(out var element))
-            {
-                observer.AddToObserve(element);
-            }
-        }
+        _observers.AddObserver(observer);
     }
 
-    public virtual void UpdateLayout(IEnumerable<T> templates)
+    public void RemoveObserver(IObserver<T> observer)
     {
-        CleanLayout();
-        templates.ForEach(template => CreateLayoutElement(template));
+        _observers.RemoveObserver(observer);
     }
 
     public Vector2Int GetLayoutSize()
@@ -38,36 +29,51 @@ public abstract class UILayoutWithObserver<T, U> : UIElement where U : UIDataEle
 
     public void ShowLayout()
     {
-        SetLayoutVisibility(true);
+        _layout.gameObject.SetActive(true);
     }
 
     public void HideLayout()
     {
-        SetLayoutVisibility(false);
+        _layout.gameObject.SetActive(false);
     }
 
-    protected U CreateLayoutElement(T template)
+    public U CreateLayoutElement<U>(U prefab) where U : T
     {
-        U uiElement = _layout.CreateChild(_layoutElementPrefab);
-        uiElement.BindData(template);
-        _observers.ForEach(observer => observer.AddToObserve(uiElement));
-        return uiElement;
+        var element = _layout.CreateChild(prefab);
+        AddLayoutElement(element);
+        return element;
     }
 
-    protected virtual void CleanLayout()
+    public void AddLayoutElement(T uiElement)
     {
+        uiElement.SetParent(_layout);
+        _observers.AddTarget(uiElement);
+    }
+
+    public virtual void ClearLayout()
+    {
+        _observers.ClearTargets();
         foreach (Transform children in _layout.transform)
         {
-            if (children.TryGetComponent<U>(out var element))
-            {
-                _observers.ForEach(observer => observer.RemoveFromObserve(element));
-            }
             Destroy(children.gameObject);
         }
     }
+}
 
-    protected void SetLayoutVisibility(bool active)
+public abstract class UILayoutWithObserver<T, U> : UILayoutWithObserver<U> where U : UIDataElement<T>
+{
+    [SerializeField] U _layoutElementPrefab;
+
+    public virtual void UpdateLayout(IEnumerable<T> templates)
     {
-        _layout.gameObject.SetActive(active);
+        ClearLayout();
+        templates.ForEach(template => CreateDataElement(template));
+    }
+
+    protected U CreateDataElement(T template)
+    {
+        U uiElement = CreateLayoutElement(_layoutElementPrefab);
+        uiElement.BindData(template);
+        return uiElement;
     }
 }

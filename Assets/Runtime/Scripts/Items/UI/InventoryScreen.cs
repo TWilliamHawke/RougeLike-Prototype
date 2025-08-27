@@ -1,86 +1,32 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.UI
 {
-    public class InventoryScreen : MonoBehaviour, IObserver<InventorySection>
+    public class InventoryScreen : ScreenWithSections<InventorySection>
     {
         [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] Inventory _inventory;
         [SerializeField] ItemSectionTemplate[] _visibleSections;
+        [SerializeField] InventorySection _sectionPrefab;
         [Header("UI Elements")]
-        [SerializeField] SectionsLayout _sectionsLayout;
+        [SerializeField] ItemSectionsLayout _sectionsLayout;
 
-        HashSet<InventorySection> _sections = new();
+        protected override IObserversController<InventorySection> _layout => _sectionsLayout;
 
-        void Awake()
+        protected override void CreateSections()
         {
-            _sectionsLayout.AddObserver(this);
-
-            _sections.ForEach(s => s.OnSectionSelect += ToggleSection);
-        }
-
-        void Start()
-        {
-            _inventoryScreen.OnScreenOpen += SetDefaultScreenView;
-            _inventoryScreen.OnScreenClose += _inventory.ClearTempStorage;
-
-            CreateSections();
-        }
-
-        public void AddSlotObservers(IObserver<ItemSlot> observer)
-        {
-            _sections.ForEach(s => s.AddObserver(observer));
-        }
-
-        public void AddSectionObservers(IObserver<InventorySection> observer)
-        {
-            _sectionsLayout.AddObserver(observer);
-        }
-
-        private void SetDefaultScreenView()
-        {
-            _sections.ForEach(s => s.UpdateSectionView());
-            _sections.ForEach(s => s.Collapse());
-        }
-
-        private void ToggleSection(IUISection selectedSection)
-        {
-            foreach (var section in _sections)
-            {
-                if (section as IUISection == selectedSection)
-                {
-                    section.Toggle();
-                    continue;
-                }
-                section.Collapse();
-            }
-        }
-
-        private void CreateSections()
-        {
-            _sectionsLayout.CleanLayout();
+            _sectionsLayout.ClearLayout();
 
             foreach (var template in _visibleSections)
             {
-                var section = _inventory.GetSection(template);
-                if (section == null) continue;
-                if (template.hideifEmpty && section.isEmpty) continue;
-                _sectionsLayout.CreateSection(template, section);
+                var sectionData = _inventory.GetSection(template);
+                if (sectionData == null) continue;
+                if (template.hideifEmpty && sectionData.isEmpty) continue;
+
+                var section = _sectionsLayout.CreateLayoutElement(_sectionPrefab);
+                section.BindData(sectionData, template);
             }
-        }
-
-        void IObserver<InventorySection>.AddToObserve(InventorySection target)
-        {
-            target.OnSectionSelect += ToggleSection;
-            _sections.Add(target);
-        }
-
-        void IObserver<InventorySection>.RemoveFromObserve(InventorySection target)
-        {
-            target.OnSectionSelect -= ToggleSection;
-            _sections.Remove(target);
         }
     }
 }
