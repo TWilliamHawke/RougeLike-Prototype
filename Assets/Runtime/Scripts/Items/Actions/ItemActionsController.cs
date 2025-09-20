@@ -32,7 +32,7 @@ namespace Items.Actions
 
         void Start()
         {
-            _inventoryScreen.AddSectionObservers(this);
+            _inventoryScreen.AddSectionObserver(this);
         }
 
         protected override void FillFactory()
@@ -65,20 +65,7 @@ namespace Items.Actions
 
         private void FillContextMenu(ItemSlotData itemSlot, ItemSectionTemplate sectionTemplate)
         {
-            FillContextMenu(itemSlot, GetActions(itemSlot, sectionTemplate));
-        }
-
-        private IEnumerable<ContextActionTemplate> GetActions(ItemSlotData itemSlot, ItemSectionTemplate sectionTemplate)
-        {
-            foreach (var action in sectionTemplate.GetActions())
-            {
-                yield return action;
-            }
-
-            foreach (var action in itemSlot.item.GetActions())
-            {
-                yield return action;
-            }
+            FillContextMenu(itemSlot, itemSlot.GetActions(sectionTemplate));
         }
     }
 }

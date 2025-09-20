@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Abilities
 {
+    [RequireComponent(typeof(AbilityButton))]
     public class AbilitySlot : UIDataElement<IAbilityContainer>, IPointerClickHandler
     {
         [SerializeField] TextMeshProUGUI _abilityName;

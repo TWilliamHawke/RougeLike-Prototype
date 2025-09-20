@@ -5,7 +5,6 @@ namespace Items.UI
 {
     public class InventoryScreen : ScreenWithSections<InventorySection>
     {
-        [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] Inventory _inventory;
         [SerializeField] ItemSectionTemplate[] _visibleSections;
         [SerializeField] InventorySection _sectionPrefab;

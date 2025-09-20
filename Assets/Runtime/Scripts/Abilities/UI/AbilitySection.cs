@@ -10,38 +10,22 @@ namespace Abilities
         [SerializeField] AbilitySlotsLayout _abilitySlotsLayout;
         [SerializeField] AbilitySlot _abilitySlotPrefab;
 
-        List<IAbilityContainer> _abilityContainers = new();
-
-        protected override bool _sectionDataIsEmpty => _abilityContainers.Count == 0;
         protected override UISectionHeader _header => _sectionHeader;
         protected override IUILayout _layout => _abilitySlotsLayout;
         protected override UILayoutWithObserver<AbilitySlot> _observerLayout => _abilitySlotsLayout;
 
+        protected override AbilitySlot _slotPrefab => _abilitySlotPrefab;
+
         public event UnityAction<IAbilityContainer> OnAbilitySlotClick;
 
-
-        public void AddToObserve(AbilitySlot target)
+        public override void AddToObserve(AbilitySlot target)
         {
             target.OnAbilitySelected += HandleSlotClick;
         }
 
-        public void RemoveFromObserve(AbilitySlot target)
+        public override void RemoveFromObserve(AbilitySlot target)
         {
             target.OnAbilitySelected -= HandleSlotClick;
-        }
-
-        protected override void FillLayout()
-        {
-            foreach (var ability in _abilityContainers)
-            {
-                var slot = _observerLayout.CreateLayoutElement(_abilitySlotPrefab);
-                slot.BindData(ability);
-            }
-        }
-
-        protected override void UpdateSectionLayout(IUILayout<AbilitySlot> parent)
-        {
-            throw new System.NotImplementedException();
         }
 
         private void HandleSlotClick(IAbilityContainer slotData)

@@ -20,12 +20,22 @@ public abstract class ScreenWithSections<T> : MonoBehaviour, IObserver<T> where 
         CreateSections();
     }
 
-    public void AddSectionObservers(IObserver<T> observer)
+    public void AddSectionObserver(IObserver<T> observer)
     {
         _layout.AddObserver(observer);
     }
 
-    protected void SetDefaultScreenView()
+    public virtual void OpenScreen()
+    {
+        _screen.Open();
+    }
+
+    public virtual void CloseScreen()
+    {
+        _screen.Open();
+    }
+
+    protected virtual void SetDefaultScreenView()
     {
         _sections.ForEach(s => s.UpdateSectionLayout());
         _sections.ForEach(s => s.Collapse());

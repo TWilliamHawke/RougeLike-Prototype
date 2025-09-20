@@ -56,6 +56,19 @@ namespace Items
             OnSlotDataChanged?.Invoke();
         }
 
+    public IEnumerable<ContextActionTemplate> GetActions(ItemSectionTemplate section)
+    {
+        foreach (var action in section.GetActions())
+        {
+            yield return action;
+        }
+
+        foreach (var action in item.GetActions())
+        {
+            yield return action;
+        }
+    }
+
         void IItemSlotDataUnsafe.IncreaseCountBy(int num)
         {
             _count += num;
