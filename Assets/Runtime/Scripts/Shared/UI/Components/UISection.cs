@@ -58,15 +58,43 @@ public abstract class UISection : MonoBehaviour, IUISection
     }
 }
 
-public abstract class UISection<T, U> : UISection where U : UIDataElement<T>
+public abstract class UISection<T, U> : UISection, IObserver<U> where U : UIDataElement<T>
 {
     protected abstract UILayoutWithObserver<U> _observerLayout { get; }
-    protected abstract void UpdateSectionLayout(IUILayout<U> parent);
+    protected abstract U _slotPrefab { get; }
+    public abstract void AddToObserve(U target);
+    public abstract void RemoveFromObserve(U target);
+
+    IUISectionData<T> _sectionData;
+
+    protected override bool _sectionDataIsEmpty => _sectionData.filledSlotsCount == 0;
+
+    void OnDestroy()
+    {
+        if (_sectionData == null) return;
+        _sectionData.OnSectionDataChange -= UpdateSectionLayout;
+    }
+
+    public void BindData(IUISectionData<T> sectionData)
+    {
+        _sectionData = sectionData;
+        _sectionData.OnSectionDataChange += UpdateSectionLayout;
+        AddObserver(this);
+    }
 
     public void AddObserver(IObserver<U> observer)
     {
         _observerLayout.AddObserver(observer);
     }
 
+    protected override void FillLayout()
+    {
+        UpdateSectionTitle(_sectionData);
+        foreach (var ability in _sectionData)
+        {
+            var slot = _observerLayout.CreateLayoutElement(_slotPrefab);
+            slot.BindData(ability);
+        }
+    }
 
 }

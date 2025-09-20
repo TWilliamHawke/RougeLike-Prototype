@@ -94,3 +94,6 @@ context_action_open_screen	Open Screen	Открыть экран
 context_action_cell	Sell	Продать
 context_action_show_info	Show Info	Описание
 context_action_use	Use	Исполизовать
+
+ability_section_name_items	Items	Предметы
+ability_section_name_spells	Spells	Заклинания
