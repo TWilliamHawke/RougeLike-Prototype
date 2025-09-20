@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Abilities
 {
-    public abstract class AbilityButton : MonoBehaviour, IAbilityCounterHandler
+    public class AbilityButton : MonoBehaviour, IAbilityCounterHandler
     {
         [SerializeField] Image _abilityIcon;
         [SerializeField] LayoutGroup _abilityCount;

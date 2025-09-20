@@ -1,15 +1,15 @@
 using UnityEngine.Events;
 using UnityEngine;
 
-public abstract class UISection<U> : MonoBehaviour, IUISection where U : MonoBehaviour
+public abstract class UISection : MonoBehaviour, IUISection
 {
     bool _isCollapsed = true;
     public event UnityAction<IUISection> OnSectionSelect;
 
     protected abstract bool _sectionDataIsEmpty { get; }
     protected abstract UISectionHeader _header { get; }
-    protected abstract UILayoutWithObserver<U> _layout { get; }
-    protected abstract void UpdateSectionLayout(IUILayout<U> parent);
+    protected abstract IUILayout _layout { get; }
+    protected abstract void FillLayout();
 
     void Start()
     {
@@ -43,12 +43,7 @@ public abstract class UISection<U> : MonoBehaviour, IUISection where U : MonoBeh
     public void UpdateSectionLayout()
     {
         _layout.ClearLayout();
-        UpdateSectionLayout(_layout);
-    }
-
-    public void AddObserver(IObserver<U> observer)
-    {
-        _layout.AddObserver(observer);
+        FillLayout();
     }
 
     protected void UpdateSectionTitle(IUISectionData sectionData)
@@ -61,4 +56,17 @@ public abstract class UISection<U> : MonoBehaviour, IUISection where U : MonoBeh
         if (_sectionDataIsEmpty) return;
         OnSectionSelect?.Invoke(this);
     }
+}
+
+public abstract class UISection<T, U> : UISection where U : UIDataElement<T>
+{
+    protected abstract UILayoutWithObserver<U> _observerLayout { get; }
+    protected abstract void UpdateSectionLayout(IUILayout<U> parent);
+
+    public void AddObserver(IObserver<U> observer)
+    {
+        _observerLayout.AddObserver(observer);
+    }
+
+
 }

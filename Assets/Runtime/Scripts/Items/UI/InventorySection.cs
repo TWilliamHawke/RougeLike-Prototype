@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Items.UI
 {
-    public class InventorySection : UISection<ItemSlot>, IObserver<ItemSlot>
+    public class InventorySection : UISection< ItemSlotData, ItemSlot>, IObserver<ItemSlot>
     {
         [SerializeField] UISectionHeader _sectionHeader;
         [SerializeField] ItemSlotsLayout _itemSlotList;
@@ -13,8 +13,10 @@ namespace Items.UI
         ItemSectionTemplate _template;
 
         protected override UISectionHeader _header => _sectionHeader;
-        protected override UILayoutWithObserver<ItemSlot> _layout => _itemSlotList;
+        protected override IUILayout _layout => _itemSlotList;
         protected override bool _sectionDataIsEmpty => _sectionData.filledSlotsCount == 0;
+
+        protected override UILayoutWithObserver<ItemSlot> _observerLayout => _itemSlotList;
 
         public event UnityAction<ItemSlotData, ItemSectionTemplate> OnItemSlotClick;
 
@@ -49,14 +51,19 @@ namespace Items.UI
             target.OnClick -= HandleSlotClick;
         }
 
-        protected override void UpdateSectionLayout(IUILayout<ItemSlot> parent)
+        protected override void FillLayout()
         {
             UpdateSectionTitle(_sectionData);
             foreach (var itemSlot in _sectionData)
             {
-                var slot = parent.CreateLayoutElement(_itemSlotPrefab);
+                var slot = _itemSlotList.CreateLayoutElement(_itemSlotPrefab);
                 slot.BindData(itemSlot);
             }
+        }
+
+        protected override void UpdateSectionLayout(IUILayout<ItemSlot> parent)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
