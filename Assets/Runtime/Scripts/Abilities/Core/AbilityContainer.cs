@@ -1,6 +1,5 @@
 using Map;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Abilities
 {
@@ -9,6 +8,7 @@ namespace Abilities
         public abstract bool canBeUsed { get; }
         public virtual string displayName => ability.displayName;
         public virtual Sprite icon => ability.icon;
+        public bool fitForMainSlot => ability.fitForMainSlot;
 
         protected abstract IAbility ability { get; }
 

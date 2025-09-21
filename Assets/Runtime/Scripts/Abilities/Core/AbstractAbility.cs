@@ -12,6 +12,7 @@ namespace Abilities
 
         protected abstract IIconData template { get; }
 
+        public abstract bool fitForMainSlot { get; }
         public abstract IAbilityTarget SelectTarget(ITileClickData tile);
         public abstract void Use(IAbilityUser user, IAbilityTarget target);
         public abstract string GetDescription(AbilityModifiers abilityModifiers);

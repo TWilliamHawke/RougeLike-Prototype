@@ -16,6 +16,7 @@ namespace Abilities
         protected override IIconData template => _template;
         public Vector3Int targetPosition => _target.intPosition;
         public Stack<TileNode> path => _path;
+        public override bool fitForMainSlot => false;
 
         MovementAbilityTemplate _template { get; init; }
 

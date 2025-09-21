@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Map;
-using UnityEngine;
 
 namespace Abilities
 {
     public class MultistageAbility : AbstractAbility
     {
         protected override IIconData template => _template;
+        public override bool fitForMainSlot => false;
 
         MultistageAbilityTemplate _template;
 

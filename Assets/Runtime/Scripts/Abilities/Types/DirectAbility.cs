@@ -1,12 +1,12 @@
 using System.Linq;
 using Map;
-using UnityEngine;
 
 namespace Abilities
 {
     public class DirectAbility : AbstractAbility
     {
         protected override IIconData template => _template;
+        public override bool fitForMainSlot => true;
 
         DirectAbilityTemplate _template;
 

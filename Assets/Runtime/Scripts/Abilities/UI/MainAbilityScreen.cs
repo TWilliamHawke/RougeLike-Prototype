@@ -43,16 +43,15 @@ namespace Abilities
             if (_abilitiesFactory == null) return;
             _sectionsLayout.ClearLayout();
 
-            AbilitySectionData _spells = new(_spellsSectionName);
+            AbilitySectionData spells = new(_spellsSectionName);
 
             foreach (var knownSpell in _spellbook.knownSpells)
             {
                 var ability = knownSpell.CreateAbilityContainer(_abilitiesFactory);
-                _spells.AddAbility(ability);
+                spells.AddMainSlotAbility(ability);
             }
 
-            var section = _sectionsLayout.CreateLayoutElement(_abilitySectionPrefab);
-            section.BindData(_spells);
+            CreateSection(spells);
 
             foreach (var sectionTemplate in _inventorySections)
             {
@@ -64,8 +63,7 @@ namespace Abilities
         {
             var itemSection = _inventory.GetSection(sectionTemplate);
             if (itemSection == null) return;
-            var section = _sectionsLayout.CreateLayoutElement(_abilitySectionPrefab);
-            AbilitySectionData abilities = new(sectionTemplate.name);
+            AbilitySectionData abilitiesList = new(sectionTemplate.name);
 
             foreach (ItemSlotData slot in itemSection)
             {
@@ -74,10 +72,17 @@ namespace Abilities
                 var item = slot.item as IAbilitySource;
                 if (item == null) continue;
                 var container = item.CreateAbilityContainer(_abilitiesFactory);
-                abilities.AddAbility(container);
+                abilitiesList.AddMainSlotAbility(container);
             }
 
-            section.BindData(abilities);
+            CreateSection(abilitiesList);
+        }
+
+        private void CreateSection(AbilitySectionData abilitiesList)
+        {
+            if (abilitiesList.isEmpty) return;
+            var section = _sectionsLayout.CreateLayoutElement(_abilitySectionPrefab);
+            section.BindData(abilitiesList);
         }
     }
 }

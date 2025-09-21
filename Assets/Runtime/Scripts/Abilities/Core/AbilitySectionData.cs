@@ -9,20 +9,21 @@ namespace Abilities
         public int filledSlotsCount => _abilities.Count;
         public int capacity => -1;
         public string sectionName => _sectionName;
+        public bool isEmpty => _abilities.Count == 0;
+
+        public event UnityAction OnSectionDataChange;
 
         string _sectionName;
+        List<IAbilityContainer> _abilities = new();
 
         public AbilitySectionData(string sectionName)
         {
             _sectionName = sectionName;
         }
 
-        List<IAbilityContainer> _abilities = new();
-
-        public event UnityAction OnSectionDataChange;
-
-        public void AddAbility(IAbilityContainer abilityContainer)
+        public void AddMainSlotAbility(IAbilityContainer abilityContainer)
         {
+            if (!abilityContainer.fitForMainSlot) return;
             _abilities.Add(abilityContainer);
             OnSectionDataChange?.Invoke();
         }

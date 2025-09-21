@@ -22,6 +22,7 @@ namespace Abilities
         public Vector3 userPosition => _userPosition.position;
         public ProjectileTemplate projectileTemplate => _template.projectile;
         public ProjectileAbilityTemplate abilityTemplate => _template;
+        public override bool fitForMainSlot => true;
 
         public ProjectileAbility(ProjectileAbilityTemplate template) : this(template, template)
         {
