@@ -33,7 +33,6 @@ namespace Magic.UI
             _nextButton.onClick.AddListener(ShowNextPage);
             _prevButton.onClick.AddListener(ShowPrevPage);
 
-            _spellBook.Clear(); //only for tests
             foreach (var spell in _testSpells)
             {
                 _spellBook.TryAddSpell(spell);
@@ -43,6 +42,7 @@ namespace Magic.UI
         void OnDestroy()
         {
             _spellBook.OnUpdate -= UpdatePage;
+            _spellBook.Clear(); //only for tests
         }
 
         public void CloseScreen()

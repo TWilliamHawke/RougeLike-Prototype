@@ -12,6 +12,7 @@ namespace Abilities
         public event UnityAction OnQuickBarChange;
         public event UnityAction<IAbilityContainer> OnAbilityAdded;
         public event UnityAction<IAbilityContainer> OnAbilityRemoved;
+        public event UnityAction OnMainAbilityChanged;
         public event UnityAction OnInit;
 
         public IAbilityContainer mainAbility => _mainAbility;
@@ -63,6 +64,7 @@ namespace Abilities
             _mainAbility = ability;
             OnAbilityAdded?.Invoke(ability);
             OnQuickBarChange?.Invoke();
+            OnMainAbilityChanged?.Invoke();
         }
 
         public bool TryGetQuickAbility(int index, out IAbilityContainer ability)

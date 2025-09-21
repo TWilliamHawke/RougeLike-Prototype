@@ -1,11 +1,11 @@
 using Map;
-using UnityEngine;
 
 namespace Abilities
 {
     public class AoeAbility : AbstractAbility
     {
         protected override IIconData template => _template;
+        public override bool fitForMainSlot => true;
 
         AoeAbilityTemplate _template;
 

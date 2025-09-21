@@ -33,6 +33,8 @@ namespace Core.Input
         public void Unsubscribe()
         {
             _inputController.main.Click.started -= CheckTileObjects;
+            _currentClickActions.CleanUp();
+            _defaultClickActions.CleanUp();
         }
 
         void IInjectionTarget.FinalizeInjection()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Abilities;
 using Entities.PlayerScripts;
 using Map;
@@ -19,6 +20,13 @@ namespace Core.Input
         {
             _quickBarDataStorage = quickBarDataStorage;
             _quickBarDataStorage.OnInit += FillActionList;
+            _quickBarDataStorage.OnMainAbilityChanged += FillActionList;
+        }
+
+        public void CleanUp()
+        {
+            _quickBarDataStorage.OnInit -= FillActionList;
+            _quickBarDataStorage.OnMainAbilityChanged -= FillActionList;
         }
 
         void IInjectionTarget.FinalizeInjection()
@@ -29,7 +37,8 @@ namespace Core.Input
         private void FillActionList()
         {
             if(_quickBarDataStorage.movementAbility == null) return;
-            if(_player == null) return;
+            if (_player == null) return;
+            _clickActions.Clear();
 
             //check ui click before tiles
             _clickActions.Add(new ClickUI());

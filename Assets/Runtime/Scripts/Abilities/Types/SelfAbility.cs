@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Effects;
 using Map;
-using UnityEngine;
 
 namespace Abilities
 {
     public class SelfAbility : AbstractAbility
     {
         protected override IIconData template => _template;
+        public override bool fitForMainSlot => false;
 
         IEffectSource _template;
         [InjectField] SelfAbilityController _controller;

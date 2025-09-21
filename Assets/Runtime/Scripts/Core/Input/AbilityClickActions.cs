@@ -17,6 +17,10 @@ namespace Core.Input
                 abilityContainer, targetSelectedEvent));
         }
 
+        public void CleanUp()
+        {
+        }
+
         public IEnumerator<IClickAction> GetEnumerator()
         {
             return _clickActions.GetEnumerator();

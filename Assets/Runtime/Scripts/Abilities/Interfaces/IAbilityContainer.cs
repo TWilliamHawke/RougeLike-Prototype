@@ -9,5 +9,6 @@ namespace Abilities
         void SelectBy(IAbilityUser user);
         bool canBeUsed { get; }
         bool TileHasValidTarget(ITileClickData tile);
+        bool fitForMainSlot { get; }
     }
 }

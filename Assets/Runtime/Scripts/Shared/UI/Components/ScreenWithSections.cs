@@ -32,16 +32,16 @@ public abstract class ScreenWithSections<T> : MonoBehaviour, IObserver<T> where 
 
     public virtual void CloseScreen()
     {
-        _screen.Open();
+        _screen.Close();
     }
 
-    protected virtual void SetDefaultScreenView()
+    private void SetDefaultScreenView()
     {
         _sections.ForEach(s => s.UpdateSectionLayout());
         _sections.ForEach(s => s.Collapse());
     }
 
-    protected void ToggleSection(IUISection selectedSection)
+    private void ToggleSection(IUISection selectedSection)
     {
         foreach (var section in _sections)
         {

@@ -4,44 +4,48 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 namespace Map.UI
 {
     public class TaskPanel : MonoBehaviour, IPointerClickHandler
     {
-		[SerializeField] Sprite _activeBg;
-		[SerializeField] Sprite _inactiveBg;
-		[SerializeField] CustomEvent _event;
-		[Header("UI Elements")]
+        [SerializeField] Sprite _activeBg;
+        [SerializeField] Sprite _inactiveBg;
+        [SerializeField] CustomEvent _event;
+        [Header("UI Elements")]
         [SerializeField] Image _locationIcon;
         [SerializeField] Image _background;
         [SerializeField] TextMeshProUGUI _locationName;
         [SerializeField] TextMeshProUGUI _locationTask;
 
-		public void SetLocationIcon(Sprite sprite)
-		{
-			_locationIcon.sprite = sprite;
-		}
+        public event UnityAction OnPanelClick;
 
-		public void SetLocationName(string text)
-		{
-			_locationName.text = text;
-		}
+        public void SetLocationIcon(Sprite sprite)
+        {
+            _locationIcon.sprite = sprite;
+        }
 
-		public void SetTask(TaskData task)
-		{
+        public void SetLocationName(string text)
+        {
+            _locationName.text = text;
+        }
+
+        public void SetTask(TaskData task)
+        {
             //onTriggerExit2d invokes then scene was destroyed
             if (_locationIcon.IsDestroyed()) return;
-            
-			_locationTask.text = task.taskText;
-			_locationIcon.sprite = task.icon;
-			_locationName.text = task.displayName;
-			_background.sprite = task.isDone ? _activeBg : _inactiveBg;
-		}
+
+            _locationTask.text = task.taskText;
+            _locationIcon.sprite = task.icon;
+            _locationName.text = task.displayName;
+            _background.sprite = task.isDone ? _activeBg : _inactiveBg;
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-			_event?.Invoke();
+            _event?.Invoke();
+            OnPanelClick?.Invoke();
         }
     }
 }

@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using Map;
-using UnityEngine;
 
 namespace Abilities
 {
     public class SummonAbility : AbstractAbility
     {
         protected override IIconData template => _template;
+        public override bool fitForMainSlot => false;
 
         SummonAbilityTemplate _template;
         [InjectField] SummonController _controller;

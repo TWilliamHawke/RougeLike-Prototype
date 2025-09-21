@@ -19,6 +19,7 @@ namespace Abilities
         [InjectField] AbilityEfffectsHandler _effectsHandler;
 
         public Vector3 userPosition => _userPosition.position;
+        public override bool fitForMainSlot => true;
 
         public MeleeAbility(MeleeAbilityTemplate template, IEffectSource effectSource)
         {

@@ -9,5 +9,6 @@ namespace Abilities
         IAbilityTarget SelectTarget(ITileClickData tile);
         string GetDescription(AbilityModifiers abilityModifiers);
         bool TileHasValidTarget(IAbilityUser user, ITileClickData tile);
+        bool fitForMainSlot { get; }
     }
 }
