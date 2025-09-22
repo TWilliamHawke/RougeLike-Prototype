@@ -5,12 +5,14 @@ using Magic;
 using TMPro;
 using UI.DragAndDrop;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Core.UI
 {
 
-    public class RadialContextButton : MonoBehaviour, IDropTarget<IContextActionSource>
+    public class RadialContextButton : MonoBehaviour, IDropTarget<IContextActionSource>, IContextActionButton
     {
         [SerializeField] RadialButtonPosition _buttonPosition;
         [SerializeField] TextMeshProUGUI _buttonText;
@@ -25,8 +27,10 @@ namespace Core.UI
         [SerializeField] Image[] _coloredFrameParts;
 
         IContextAction _buttonAction;
-        public bool checkImageAlpha => _checkAlpha;
 
+        public event UnityAction<IContextAction> OnButtonActivation;
+
+        public bool checkImageAlpha => _checkAlpha;
         public int buttonPosition => (int)_buttonPosition;
 
         void Start()
@@ -41,7 +45,7 @@ namespace Core.UI
 
         public void DropData(IContextActionSource _)
         {
-            _buttonAction?.DoAction();
+            OnButtonActivation?.Invoke(_buttonAction);
         }
 
         public void Highlight()
@@ -72,6 +76,11 @@ namespace Core.UI
             if (_buttonPosition == RadialButtonPosition.middle) return;
             _buttonAction = null;
             _buttonText.text = "";
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

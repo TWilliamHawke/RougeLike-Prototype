@@ -18,3 +18,4 @@ MonoBehaviour:
   _buttonColor: {r: 0, g: 0, b: 0, a: 0}
   _borderColor: {r: 0.5188679, g: 0.36822766, b: 0.06608224, a: 0.69411767}
   _textColor: {r: 0, g: 0, b: 0, a: 1}
+  _closeActiveScreen: 0

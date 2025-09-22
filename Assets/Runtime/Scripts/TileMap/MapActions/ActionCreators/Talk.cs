@@ -21,6 +21,7 @@ namespace Map.Actions
             public string actionTitle => _template.displayName;
 
             public bool isHidden => false;
+            public bool closeBackgroundScreen => false;
 
             public TalkAction(IIconData template)
             {

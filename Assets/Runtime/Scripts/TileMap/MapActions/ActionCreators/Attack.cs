@@ -30,6 +30,8 @@ namespace Map.Actions
             public string actionTitle => _template.displayName;
 
             public bool isHidden => false;
+            public bool closeBackgroundScreen => true;
+
             IActionScreenController _actionScreenController;
 
             public AttackAction(IAttackActionData action, IMapActionLocation target, IActionScreenController actionScreenController)

@@ -8,7 +8,8 @@ namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
 	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource
-	{
+    {
+        [SerializeField] Injector _selfAbilityController;
 		[Header("Potion Effects")]
 	    [SerializeField] SourceEffectData[] _effects;
 
@@ -17,7 +18,7 @@ namespace Items
 
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
-            var ability = CreateAbility(factory);
+            var ability = CreateAbility();
             return factory.CreateItemContainer(this, ability);
         }
 
@@ -36,9 +37,11 @@ namespace Items
             return "Potion";
         }
 
-        private IAbility CreateAbility(IAbilitiesFactory _)
+        private IAbility CreateAbility()
         {
-            return new SelfAbility(this);
+            SelfAbility ability = new(this);
+            _selfAbilityController.AddInjectionTarget(ability);
+            return ability;
         }
 
     }

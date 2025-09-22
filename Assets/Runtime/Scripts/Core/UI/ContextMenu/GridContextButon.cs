@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Core.UI
 {
-    public class GridContextButon : MonoBehaviour, IPointerClickHandler
+    public class GridContextButon : MonoBehaviour, IPointerClickHandler, IContextActionButton
     {
         [SerializeField] TextMeshProUGUI _buttonText;
         [SerializeField] Image _buttonBorder;
@@ -14,7 +14,7 @@ namespace Core.UI
         [SerializeField] Color _inactiveColor = Color.gray;
         [SerializeField] Color _buttonColor = Color.yellow;
 
-        public event UnityAction OnClick;
+        public event UnityAction<IContextAction> OnButtonActivation;
 
         IContextAction _buttonAction;
 
@@ -28,8 +28,7 @@ namespace Core.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             if (_buttonAction is null) return;
-            _buttonAction.DoAction();
-            OnClick?.Invoke();
+            OnButtonActivation?.Invoke(_buttonAction);
         }
 
         public void BindAction(IContextAction action)

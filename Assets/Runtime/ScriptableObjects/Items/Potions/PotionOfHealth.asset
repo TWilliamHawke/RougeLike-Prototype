@@ -18,6 +18,7 @@ MonoBehaviour:
   _maxStackSize: 25
   _value: 25
   _soundKit: {fileID: 11400000, guid: 8b62b06b117fa644c8dd2b5b8b1934aa, type: 2}
+  _selfAbilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: d7852abb299a47d478af59e88ba38251, type: 2}
     _magnitude:

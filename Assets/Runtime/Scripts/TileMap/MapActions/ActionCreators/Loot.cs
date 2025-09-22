@@ -46,6 +46,7 @@ namespace Map.Actions
             IActionScreenController _actionScreenController;
             public bool isEnable => !_loot.IsEmpty();
             public bool isHidden => false;
+            public bool closeBackgroundScreen => false;
 
             public LootAction(ILootActionData template, IContainersList loot, LootPanel lootPanel, IActionScreenController actionScreenController)
             {

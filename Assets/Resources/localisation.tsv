@@ -82,7 +82,7 @@ upgrade_spell_header	Upgrade Spell	Улучшить заклинание
 select_spell_string_header	Select new Spell String	Выберите строку заклинания
 context_action_bind_to_quickbar	Bind To Quickbar	На панель быстрого доступа
 context_action_buy	Buy	Купить
-context_action_copy_spell	Copy Spell	Создать копию
+context_action_copy_spell	Create a Copy	Создать копию
 context_action_delete_spell	Delete Spell	Удалить заклинание
 context_action_destroy	Destroy Item	Разрушить предмет
 context_action_drop	Drop	Выбросить
@@ -94,6 +94,5 @@ context_action_open_screen	Open Screen	Открыть экран
 context_action_cell	Sell	Продать
 context_action_show_info	Show Info	Описание
 context_action_use	Use	Исполизовать
-
 ability_section_name_items	Items	Предметы
 ability_section_name_spells	Spells	Заклинания
