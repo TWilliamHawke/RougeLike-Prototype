@@ -8,6 +8,7 @@ namespace Core.UI
     {
         public string actionTitle => _actionTitle;
         public int preferedPosition => 7;
+        public bool closeBackgroundScreen => true;
 
         string _actionTitle;
 		UIScreen _screen;

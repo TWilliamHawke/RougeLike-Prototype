@@ -15,19 +15,16 @@ namespace Core.UI
 
         bool _gridSizeUpdated = false;
 
-        void Awake()
-        {
-            foreach (var button in _buttons)
-            {
-                button.OnClick += CloseMenu;
-            }
-        }
-
         //used in editor
         public void OpenMenu()
         {
             _menu.Open();
             UpdateGridSize();
+        }
+
+        public void AddButtonsObserver(IObserver<IContextActionButton> observer)
+        {
+            _buttons.ForEach(button => observer.AddToObserve(button));
         }
 
         public void Fill(IEnumerable<ContextActionContainer> actionsList)
@@ -46,7 +43,7 @@ namespace Core.UI
 
         }
 
-        private void CloseMenu()
+        public void CloseMenu()
         {
             _menu.Close();
         }

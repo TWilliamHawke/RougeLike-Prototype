@@ -33,6 +33,16 @@ namespace Core.UI
             }
         }
 
+        public void AddButtonsObserver(IObserver<IContextActionButton> observer)
+        {
+            _buttons.ForEach(button => observer.AddToObserve(button));
+        }
+
+        public void CloseMenu()
+        {
+            _menu.Close();
+        }
+
         private void BindAction(ContextActionContainer action)
         {
             var preferedPosition = action.preferedPosition;

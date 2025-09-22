@@ -22,18 +22,18 @@ namespace Core.UI
         class UseAbilityAction : ContextActionContainer
         {
             IAbilityContainer _abilityContainer;
-            AbilityController _abilityController;
+            IAbilityUser _abilityUser;
 
             public UseAbilityAction(AbilityController abilityController, IAbilityContainer abilityContainer)
             {
-                _abilityController = abilityController;
+                _abilityUser = abilityController;
                 _abilityContainer = abilityContainer;
             }
 
             public override void DoAction()
             {
                 if (_abilityContainer is null) return;
-                _abilityController.SelectAbility(_abilityContainer);
+                _abilityContainer.SelectBy(_abilityUser);
             }
 
         }

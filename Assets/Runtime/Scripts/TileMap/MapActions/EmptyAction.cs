@@ -10,7 +10,8 @@ namespace Map.Actions
         MapActionTemplate _template;
         public Sprite icon => _template.icon;
         public string actionTitle => _template.displayName;
-
+        public bool closeBackgroundScreen => false;
+        
         public bool isHidden => true;
 
         public event UnityAction<IMapAction> OnCompletion;

@@ -4,6 +4,7 @@ namespace Core
     {
         public string actionTitle => _actionTemplate.actionTitle;
         public int preferedPosition => _actionTemplate.preferedPosition;
+        public bool closeBackgroundScreen => _actionTemplate.closeBackgroundScreen;
 
         ContextActionTemplate _actionTemplate;
 

@@ -64,7 +64,7 @@ namespace Items.Actions
             ItemSection _items;
 
             public int preferedPosition => 7;
-
+            public bool closeBackgroundScreen => true;
 
             public ConfirmDestroy(ItemSlotData itemSlot, Inventory inventory, ItemSection itemsList)
             {

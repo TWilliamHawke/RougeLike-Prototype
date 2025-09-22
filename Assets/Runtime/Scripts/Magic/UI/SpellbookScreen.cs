@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Magic.UI
 {
-    public class SpellbookScreen : MonoBehaviour, IObserver<KnownSpellSlot>
+    public class SpellbookScreen : MonoBehaviour
     {
         [SerializeField] int _spellsPerPage = 6;
         [SerializeField] Spellbook _spellBook;
@@ -24,7 +24,6 @@ namespace Magic.UI
 
         void Awake()
         {
-            _spellList.AddObserver(this);
             _spellBook.OnUpdate += UpdatePage;
             _spellbookCanvas.OnScreenOpen += PrepareBook;
 
@@ -90,21 +89,6 @@ namespace Magic.UI
             {
                 yield return _spellBook[i];
             }
-        }
-
-        private void CloseScreen(KnownSpellData _)
-        {
-            _spellbookCanvas.Close();
-        }
-
-        void IObserver<KnownSpellSlot>.AddToObserve(KnownSpellSlot target)
-        {
-            target.OnSpellSelect += CloseScreen;
-        }
-
-        void IObserver<KnownSpellSlot>.RemoveFromObserve(KnownSpellSlot target)
-        {
-            target.OnSpellSelect -= CloseScreen;
         }
     }
 }

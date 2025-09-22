@@ -27,6 +27,7 @@ namespace Map.Actions
             public bool isHidden => false;
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
+            public bool closeBackgroundScreen => true;
 
             readonly IIconData _template;
             readonly IStealingController _controller;

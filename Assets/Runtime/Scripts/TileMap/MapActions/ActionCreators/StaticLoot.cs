@@ -33,6 +33,7 @@ namespace Map.Actions
             public string actionTitle => _template.displayName;
             public bool isEnable => _loot.count > 0;
             public bool isHidden => false;
+            public bool closeBackgroundScreen => false;
 
             IActionScreenController _actionScreenController;
 

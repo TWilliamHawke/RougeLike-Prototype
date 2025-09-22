@@ -17,8 +17,9 @@ namespace Map.Actions
             public bool isHidden => false;
             public Sprite icon => _template.icon;
             public string actionTitle => _template.displayName;
+            public bool closeBackgroundScreen => false;
 
-			IIconData _template;
+            IIconData _template;
 
             public TradeAction(IIconData template)
             {
