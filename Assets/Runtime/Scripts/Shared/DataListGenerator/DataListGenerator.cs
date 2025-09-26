@@ -83,7 +83,7 @@ public class DataListGenerator<T>
         else
         {
             var itemSlot = dataListSource.dataItems[index];
-            dataList.AddElements(itemSlot.element, itemSlot.count);
+            dataList.AddElements(itemSlot);
         }
     }
 
@@ -96,7 +96,7 @@ public class DataListGenerator<T>
 
         foreach (var itemSlot in dataListSource.dataItems)
         {
-            dataList.AddElements(itemSlot.element, itemSlot.count);
+            dataList.AddElements(itemSlot);
         }
     }
 }

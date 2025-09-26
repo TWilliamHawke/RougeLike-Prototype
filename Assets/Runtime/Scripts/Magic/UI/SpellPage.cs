@@ -35,7 +35,7 @@ namespace Magic.UI
         int _activeSlotIdx = EMPTY_IDX;
         KnownSpellData _spellData;
         SpellContainer _spellContainer;
-        SpellStringTemplate _selectedString;
+        SpellString _selectedString;
 
         public void Start()
         {
@@ -140,7 +140,7 @@ namespace Magic.UI
             _activeSlotIdx = EMPTY_IDX;
         }
 
-        private void SelectSpellLine(SpellStringTemplate spellString)
+        private void SelectSpellLine(SpellString spellString)
         {
             _selectedString = spellString;
             _editorComponents.ShowSpellLineEffect(_spellContainer, spellString, _activeSlotIdx);

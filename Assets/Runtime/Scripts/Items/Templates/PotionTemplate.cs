@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Effects;
@@ -7,19 +6,18 @@ using Abilities;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class PotionTemplate : ItemTemplate, IAbilitySource, IItemWithAbility, IEffectSource
+    public class PotionTemplate : ItemTemplate, IEffectSource
     {
         [SerializeField] Injector _selfAbilityController;
-		[Header("Potion Effects")]
-	    [SerializeField] SourceEffectData[] _effects;
+        [Header("Potion Effects")]
+        [SerializeField] SourceEffectData[] _effects;
 
         public Sprite abilityIcon => icon;
         public bool destroyAfterUse => true;
 
-        public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
+        public override IItem CreateItem(int rarity = 0)
         {
-            var ability = CreateAbility();
-            return factory.CreateItemContainer(this, ability);
+            return new Potion(this);
         }
 
         public override string GetDescription()
@@ -32,12 +30,9 @@ namespace Items
             return _effects;
         }
 
-        private IAbility CreateAbility()
+        public void BindController(SelfAbility ability)
         {
-            SelfAbility ability = new(this);
             _selfAbilityController.AddInjectionTarget(ability);
-            return ability;
         }
-
     }
 }

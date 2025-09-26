@@ -16,6 +16,11 @@ namespace Items
         public AudioClip attackSound => useSound;
         public EquipmentTypes equipmentType => EquipmentTypes.weapon;
 
+        public override IItem CreateItem(int rarity = 0)
+        {
+            return new Weapon(this);
+        }
+
         public override string GetDescription()
         {
             return $"Damage: {_damage}\nAccuracy: {_accuracy}";

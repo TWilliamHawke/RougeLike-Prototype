@@ -6,6 +6,11 @@ namespace Items
 {
     public class MagicScrollTemplate : ItemTemplate
     {
+        public override IItem CreateItem(int rarity = 0)
+        {
+            return new MagicScroll(this);
+        }
+
         public override string GetDescription()
         {
             throw new System.NotImplementedException();

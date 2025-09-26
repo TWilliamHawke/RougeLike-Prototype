@@ -10,5 +10,11 @@ namespace Items
 
         public int count => _count;
         public ItemTemplate element => _item;
+
+        public LootItemsData(ItemTemplate item, int count)
+        {
+            _item = item;
+            _count = count;
+        }
     }
 }

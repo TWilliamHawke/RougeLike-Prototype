@@ -54,7 +54,7 @@ namespace Magic.UI
             _buttons.ShowCloseButton();
         }
 
-        public void ShowSpellLineEffect(SpellContainer spellContainer, SpellStringTemplate spellString, int slotIndex)
+        public void ShowSpellLineEffect(SpellContainer spellContainer, SpellString spellString, int slotIndex)
         {
             HideAllComponents();
             SetHeaderText(spellString.displayName);

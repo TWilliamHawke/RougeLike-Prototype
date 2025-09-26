@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Abilities;
-using Effects;
 using Magic;
 using UnityEngine;
 
@@ -33,6 +29,11 @@ namespace Items
         public void Use()
         {
             _spellHasBeenAdded = _spellBook.TryAddSpell(_spell);
+        }
+
+        public override IItem CreateItem(int rarity = 0)
+        {
+            return new SpellTome(this);
         }
     }
 }

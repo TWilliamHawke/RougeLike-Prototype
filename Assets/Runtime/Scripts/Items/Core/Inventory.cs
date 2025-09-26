@@ -32,9 +32,9 @@ namespace Items
 
             CreateSections();
 
-            foreach (var item in _testItems)
+            foreach (var template in _testItems)
             {
-                AddItems(item, item.maxStackSize);
+                AddItems(template.CreateItem(), template.maxStackSize);
             }
 
             _selfInjector.SetDependency(this);
