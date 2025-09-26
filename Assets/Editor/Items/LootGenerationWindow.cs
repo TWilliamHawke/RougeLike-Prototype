@@ -40,7 +40,7 @@ public class LootGenerationWindow : EditorWindow
         {
             _selectedLootTable.CheckErrors();
             _loot.Clear();
-            _selectedLootTable.FillItemSection(ref _loot);
+            _selectedLootTable.FillItemSection(_loot);
         }
         if (GUILayout.Button("Check Errors"))
         {
@@ -94,7 +94,7 @@ public class LootGenerationWindow : EditorWindow
             EditorGUILayout.BeginVertical();
 
             EditorGUILayout.LabelField($"Item: {slotData.item.displayName}");
-            EditorGUILayout.LabelField($"Count: {slotData.count.ToString()}");
+            EditorGUILayout.LabelField($"Count: {slotData.count}");
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();

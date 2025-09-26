@@ -43,5 +43,10 @@ namespace Items
         {
             return _itemType.actions;
         }
+
+        public bool HasItemType(ItemType itemType)
+        {
+            return _itemType == itemType;
+        }
     }
 }

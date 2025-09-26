@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "LootTable", menuName = "Items/Loot Table")]
-    public class LootTable : ScriptableObject, IDataListSource<IItem>
+    public class LootTable : ScriptableObject, IDataListSource<ItemTemplate>
     {
         [SerializeField] bool _getOnlyOneElenemt;
         [Range(0, 1)]
@@ -11,35 +11,32 @@ namespace Items
 
         [ContextMenuItem("CheckChildren", "CheckChildren")]
         [SerializeField] LootTable[] _childLootTables;
-        [SerializeField] ItemSlotData[] _lootItems;
+        [SerializeField] LootItemsData[] _lootItems;
 
-        IDataListSource<IItem>[] IDataListSource<IItem>.childTables => _childLootTables;
-        IDataCount<IItem>[] IDataListSource<IItem>.dataItems => _lootItems;
-        bool IDataListSource<IItem>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListSource<IItem>.chanceOfNone => _chanceOfNone;
-        DataListGenerator<IItem> IDataListSource<IItem>.dataListGenerator => _dataListGenerator;
+        IDataListSource<ItemTemplate>[] IDataListSource<ItemTemplate>.childTables => _childLootTables;
+        IDataCount<ItemTemplate>[] IDataListSource<ItemTemplate>.dataItems => _lootItems;
+        bool IDataListSource<ItemTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListSource<ItemTemplate>.chanceOfNone => _chanceOfNone;
+        DataListGenerator<ItemTemplate> IDataListSource<ItemTemplate>.dataListGenerator => _dataListGenerator;
 
-        DataListGenerator<IItem> _dataListGenerator;
+        DataListGenerator<ItemTemplate> _dataListGenerator;
 
         private void OnEnable()
         {
-            _dataListGenerator = new DataListGenerator<IItem>(this);
+            _dataListGenerator = new DataListGenerator<ItemTemplate>(this);
         }
 
-        public void FillItemSection<T>(ref T loot) where T : ILootStorage
+        public void FillItemSection<T>(T lootStorage) where T : ILootStorage
         {
-            _dataListGenerator.FillDataList(ref loot);
-        }
-
-        public void FillItemSection<T>(T loot) where T : ILootStorage
-        {
-            _dataListGenerator.FillDataList(ref loot);
+            LoootItemsList itemsList = new(lootStorage);
+            _dataListGenerator.FillDataList(ref itemsList);
+            itemsList.Flush();
         }
 
         public ItemSection GetLoot()
         {
             var section = new ItemSection(new LootSectionTemplate());
-            FillItemSection(ref section);
+            FillItemSection(section);
             return section;
         }
 

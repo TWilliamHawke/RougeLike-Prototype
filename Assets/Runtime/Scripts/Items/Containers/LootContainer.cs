@@ -13,7 +13,7 @@ namespace Items
 
         public void AddItemsFrom(LootTable lootTable)
         {
-            lootTable.FillItemSection(ref _itemsSection);
+            lootTable.FillItemSection(_itemsSection);
         }
 
         public void AddItems(IEnumerable<ItemSlotData> itemSlots)

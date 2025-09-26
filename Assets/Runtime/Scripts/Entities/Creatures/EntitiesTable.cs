@@ -65,7 +65,7 @@ namespace Entities
             List<EntityTemplate> _creaturesList = new List<EntityTemplate>();
             public List<EntityTemplate> creaturesList => _creaturesList;
 
-            public void AddItems(EntityTemplate item, int count)
+            public void AddElements(EntityTemplate item, int count)
             {
                 if (count <= 0) return;
 

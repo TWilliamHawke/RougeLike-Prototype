@@ -29,7 +29,7 @@ namespace Items
 
         public bool ItemTypeIsMeet(IItem someItem)
         {
-            return _allItemsAreMeet || _itemType == someItem.itemType;
+            return _allItemsAreMeet || someItem.HasItemType(_itemType);
         }
     }
 
