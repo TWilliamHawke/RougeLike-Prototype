@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Items
@@ -13,7 +12,7 @@ namespace Items
         public override void BindData(ItemSlotData slotData)
         {
             base.BindData(slotData);
-            _itemName.text = slotData.item.name;
+            _itemName.text = slotData.item.displayName;
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

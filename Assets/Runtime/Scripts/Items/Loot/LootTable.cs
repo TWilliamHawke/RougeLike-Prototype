@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items
 {
     [CreateAssetMenu(fileName = "LootTable", menuName = "Items/Loot Table")]
-    public class LootTable : ScriptableObject, IDataListSource<Item>
+    public class LootTable : ScriptableObject, IDataListSource<IItem>
     {
         [SerializeField] bool _getOnlyOneElenemt;
         [Range(0, 1)]
@@ -15,17 +13,17 @@ namespace Items
         [SerializeField] LootTable[] _childLootTables;
         [SerializeField] ItemSlotData[] _lootItems;
 
-        IDataListSource<Item>[] IDataListSource<Item>.childTables => _childLootTables;
-        IDataCount<Item>[] IDataListSource<Item>.dataItems => _lootItems;
-        bool IDataListSource<Item>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListSource<Item>.chanceOfNone => _chanceOfNone;
-        DataListGenerator<Item> IDataListSource<Item>.dataListGenerator => _dataListGenerator;
+        IDataListSource<IItem>[] IDataListSource<IItem>.childTables => _childLootTables;
+        IDataCount<IItem>[] IDataListSource<IItem>.dataItems => _lootItems;
+        bool IDataListSource<IItem>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListSource<IItem>.chanceOfNone => _chanceOfNone;
+        DataListGenerator<IItem> IDataListSource<IItem>.dataListGenerator => _dataListGenerator;
 
-        DataListGenerator<Item> _dataListGenerator;
+        DataListGenerator<IItem> _dataListGenerator;
 
         private void OnEnable()
         {
-            _dataListGenerator = new DataListGenerator<Item>(this);
+            _dataListGenerator = new DataListGenerator<IItem>(this);
         }
 
         public void FillItemSection<T>(ref T loot) where T : ILootStorage

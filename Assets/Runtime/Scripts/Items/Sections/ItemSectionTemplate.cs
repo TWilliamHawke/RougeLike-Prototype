@@ -27,7 +27,7 @@ namespace Items
             return _actions;
         }
 
-        public bool ItemTypeIsMeet(Item someItem)
+        public bool ItemTypeIsMeet(IItem someItem)
         {
             return _allItemsAreMeet || _itemType == someItem.itemType;
         }

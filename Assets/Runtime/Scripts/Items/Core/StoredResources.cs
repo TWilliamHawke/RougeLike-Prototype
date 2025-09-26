@@ -68,11 +68,11 @@ namespace Items
             }
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(IItem item)
         {
         }
 
-        public bool HasItem(Item item)
+        public bool HasItem(IItem item)
         {
             if (item is not Resource resource)
             {
@@ -83,17 +83,17 @@ namespace Items
         }
 
 
-        void IItemSection.AddItem(Item item)
+        void IItemSection.AddItem(IItem item)
         {
             AddItems(item, 1);
         }
 
-        public void AddItems(Item item, int count)
+        public void AddItems(IItem item, int count)
         {
             AddResource((item as Resource)?.type ?? ResourceType.none, count);
         }
 
-        bool IItemSection.ItemMeet(Item item)
+        bool IItemSection.ItemMeet(IItem item)
         {
             return item is Resource;
         }
@@ -102,7 +102,7 @@ namespace Items
         {
         }
 
-        int IItemSection.FindItemCount(Item item)
+        int IItemSection.FindItemCount(IItem item)
         {
             if (item is not Resource resource) return 0;
             var type = resource.type;

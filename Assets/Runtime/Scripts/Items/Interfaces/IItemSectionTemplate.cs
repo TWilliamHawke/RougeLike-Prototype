@@ -5,7 +5,7 @@ namespace Items
         string sectionName { get; }
         ItemStorageType storageType { get; }
         int startCapacity { get; }
-        bool ItemTypeIsMeet(Item someItem);
+        bool ItemTypeIsMeet(IItem someItem);
     }
 
 }

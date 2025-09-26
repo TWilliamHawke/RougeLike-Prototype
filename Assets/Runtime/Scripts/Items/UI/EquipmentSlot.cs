@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UI.DragAndDrop;
 using UnityEngine.UI;
-using Core;
 
 namespace Items.UI
 {
@@ -15,7 +12,7 @@ namespace Items.UI
 		[SerializeField] Image _itemIcon;
 		[SerializeField] Image _slotTypeIcon;
 
-		Item _itemInSlot;
+		IItem _itemInSlot;
 
         public bool checkImageAlpha => false;
 

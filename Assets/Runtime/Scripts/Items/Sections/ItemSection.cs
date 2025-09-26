@@ -11,7 +11,7 @@ namespace Items
     {
 
         List<ItemSlotData> _itemsList;
-        Dictionary<Item, ItemSlotData> _activeSlotsByItem;
+        Dictionary<IItem, ItemSlotData> _activeSlotsByItem;
         IItemSectionTemplate _itemSectionTemplate;
         string _sectionName;
 
@@ -31,7 +31,7 @@ namespace Items
         {
             _sectionName = sectionName;
             _itemSectionTemplate = new DefaultSection();
-            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(_sectionSize);
+            _activeSlotsByItem = new Dictionary<IItem, ItemSlotData>(_sectionSize);
             _itemsList = new List<ItemSlotData>(_sectionSize);
         }
 
@@ -39,11 +39,11 @@ namespace Items
         {
             _sectionName = template.sectionName;
             _itemSectionTemplate = template;
-            _activeSlotsByItem = new Dictionary<Item, ItemSlotData>(_sectionSize);
+            _activeSlotsByItem = new Dictionary<IItem, ItemSlotData>(_sectionSize);
             _itemsList = new List<ItemSlotData>(_sectionSize);
         }
 
-        public virtual bool ItemMeet(Item item)
+        public virtual bool ItemMeet(IItem item)
         {
             //item doesnt fit a section
             if (!_itemSectionTemplate.ItemTypeIsMeet(item)) return false;
@@ -65,7 +65,7 @@ namespace Items
             return false;
         }
 
-        public void AddItem(Item someItem)
+        public void AddItem(IItem someItem)
         {
             AddItems(someItem, 1);
         }
@@ -83,7 +83,7 @@ namespace Items
 
         //UNDONE this code can create slots over _maxSlotsCount!!!
         //should return int
-        public void AddItems(Item item, int count)
+        public void AddItems(IItem item, int count)
         {            
             if (_activeSlotsByItem.TryGetValue(item, out var itemSlot))
             {
@@ -109,7 +109,7 @@ namespace Items
             OnSectionDataChange?.Invoke();
         }
 
-        public int FindItemCount(Item item)
+        public int FindItemCount(IItem item)
         {
             int itemsCount = 0;
             foreach (var slot in _itemsList)
@@ -126,12 +126,12 @@ namespace Items
             lootTable.FillItemSection(this);
         }
 
-        public bool HasItem(Item item)
+        public bool HasItem(IItem item)
         {
             return _activeSlotsByItem.ContainsKey(item);
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(IItem item)
         {
             if (!_activeSlotsByItem.ContainsKey(item)) return;
             var itemSlot = _activeSlotsByItem[item];
@@ -151,7 +151,7 @@ namespace Items
             OnSectionDataChange?.Invoke();
         }
 
-        private void CreateNewItemSlot(Item item, int count)
+        private void CreateNewItemSlot(IItem item, int count)
         {
             var itemSlotData = new ItemSlotData(item, count);
             itemSlotData.OnSlotDataChanged += Refresh;

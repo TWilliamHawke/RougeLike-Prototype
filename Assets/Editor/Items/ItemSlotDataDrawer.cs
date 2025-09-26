@@ -18,7 +18,7 @@ public class ItemSlotDataDrawer : PropertyDrawer
         singleLine.width -= 26;
         var item = property.FindPropertyRelative("_item");
 
-        var icon = (item.objectReferenceValue as Item)?.icon;
+        var icon = (item.objectReferenceValue as IIconData)?.icon;
 
         var iconRect = new Rect(position.x - 8, position.y, 32, 32);
         if (icon != null)

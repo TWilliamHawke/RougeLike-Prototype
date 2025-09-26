@@ -6,12 +6,12 @@ namespace Items
     {
         // event UnityAction OnItemRemove;
         // void RemoveItemFromSlot(ItemSlotData itemSlotData);
-        void AddItem(Item item);
-        void AddItems(Item item, int count);
-        bool ItemMeet(Item item);
+        void AddItem(IItem item);
+        void AddItems(IItem item, int count);
+        bool ItemMeet(IItem item);
         void Clear();
-        int FindItemCount(Item item);
-        void RemoveItem(Item item);
-        bool HasItem(Item item);
+        int FindItemCount(IItem item);
+        void RemoveItem(IItem item);
+        bool HasItem(IItem item);
     }
 }

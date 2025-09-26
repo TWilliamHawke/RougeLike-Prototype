@@ -11,7 +11,6 @@ namespace Abilities
         protected override IAbility ability => _ability;
 
         IAbility _ability { get; init; }
-        Item _item;
 
         public override void UseAbility(IAbilityTarget target)
         {

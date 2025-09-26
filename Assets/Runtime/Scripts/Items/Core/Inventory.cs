@@ -17,12 +17,12 @@ namespace Items
         ItemSection _storage;
 
         public StoredResources resources { get; private set; }
-        public IEnumerable<Item> equipment => _equipment;
+        public IEnumerable<IItem> equipment => _equipment;
 
         List<IItemSection> _sections;
         Dictionary<IItemSectionTemplate, ItemSection> _sectionsByTemplate;
 
-        List<Item> _equipment;
+        List<IItem> _equipment;
 
         bool _isInit;
 
@@ -40,7 +40,7 @@ namespace Items
             _selfInjector.SetDependency(this);
         }
 
-        public void AddItem(Item item)
+        public void AddItem(IItem item)
         {
             foreach (var section in _sections)
             {
@@ -52,12 +52,12 @@ namespace Items
             }
         }
 
-        public Item GetEquipment(EquipmentTypes type)
+        public IItem GetEquipment(EquipmentTypes type)
         {
             return _equipment[(int)type];
         }
 
-        public void AddEquipment(EquipmentTypes type, Item item)
+        public void AddEquipment(EquipmentTypes type, IItem item)
         {
             _equipment[(int)type] = item;
         }
@@ -70,7 +70,7 @@ namespace Items
             }
         }
 
-        public void AddItems(Item item, int count)
+        public void AddItems(IItem item, int count)
         {
             foreach (var section in _sections)
             {
@@ -82,7 +82,7 @@ namespace Items
             }
         }
 
-        public int FindItemCount(Item item)
+        public int FindItemCount(IItem item)
         {
             var count = 0;
 
@@ -100,7 +100,7 @@ namespace Items
             return _sectionsByTemplate[template];
         }
 
-        public void RemoveOneItem(Item item)
+        public void RemoveOneItem(IItem item)
         {
             foreach(var section in _sections)
             {

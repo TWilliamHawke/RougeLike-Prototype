@@ -11,7 +11,7 @@ namespace Items
             this.sectionName = sectionName;
         }
 
-        public bool ItemTypeIsMeet(Item someItem)
+        public bool ItemTypeIsMeet(IItem someItem)
         {
             return true;
         }
