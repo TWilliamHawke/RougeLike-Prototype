@@ -4,7 +4,7 @@ namespace Items
 {
     public interface ILootStorage: IEnumerable<ItemSlotData>
     {
-        void AddItem(IItem someItem);
+        void AddItems(IItem someItem, int count);
         bool isEmpty { get; }
         void Clear();
     }

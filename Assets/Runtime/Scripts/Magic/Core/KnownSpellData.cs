@@ -85,7 +85,7 @@ namespace Magic
             return _activeStrings.StringSlotIsEmpty(idx);
         }
 
-        public void SetActiveString(int slotIndex, SpellStringTemplate spellString)
+        public void SetActiveString(int slotIndex, SpellString spellString)
         {
             _activeStrings.SetActiveString(slotIndex, spellString);
             OnDataChange?.Invoke();

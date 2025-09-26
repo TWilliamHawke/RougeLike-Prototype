@@ -16,6 +16,8 @@ namespace Items
         public AudioClip useSound => _template.useSound;
         public AudioClip dragSound => _template.dragSound;
 
+        public abstract string GetDescription();
+
         public IEnumerable<ContextActionTemplate> GetActions()
         {
             return _template.GetActions();
@@ -23,12 +25,19 @@ namespace Items
 
         public ItemTooltipData GetTooltipData()
         {
-            return _template.GetTooltipData();
+            var tooltipData = new ItemTooltipData();
+            tooltipData.icon = icon;
+            tooltipData.title = displayName;
+            tooltipData.itemType = displayName;
+            tooltipData.description = GetDescription();
+
+            return tooltipData;
         }
 
         public bool HasItemType(ItemType itemType)
         {
             return _template.HasItemType(itemType);
         }
+
     }
 }

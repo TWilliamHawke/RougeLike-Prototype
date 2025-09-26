@@ -16,6 +16,11 @@ namespace Items
 
         public IEnumerable<SourceEffectData> effects => _effects;
 
+        public override IItem CreateItem(int rarity = 0)
+        {
+            return new SpellString(this);
+        }
+
         public override string GetDescription()
         {
             var sb = new StringBuilder();

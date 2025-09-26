@@ -30,7 +30,7 @@ namespace Items
         {
             LoootItemsList itemsList = new(lootStorage);
             _dataListGenerator.FillDataList(ref itemsList);
-            itemsList.Flush();
+            itemsList.CreateItems();
         }
 
         public ItemSection GetLoot()

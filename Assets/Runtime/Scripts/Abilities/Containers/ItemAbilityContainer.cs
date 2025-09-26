@@ -16,10 +16,10 @@ namespace Abilities
         protected override IAbility ability => _ability;
 
         IAbility _ability { get; init; }
-        ItemTemplate _item { get; init; }
+        IItem _item { get; init; }
         IAbilityUser _user { get; init; }
 
-        public ItemAbilityContainer(ItemTemplate item, IInventory inventory, IAbility ability, IAbilityUser user)
+        public ItemAbilityContainer(IItem item, IInventory inventory, IAbility ability, IAbilityUser user)
         {
             _item = item;
             _inventory = inventory;

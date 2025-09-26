@@ -12,6 +12,7 @@ namespace Items
         AudioClip useSound { get; }
         AudioClip dragSound { get; }
         bool HasItemType(ItemType itemType);
+        string GetDescription();
         IEnumerable<ContextActionTemplate> GetActions();
         ItemTooltipData GetTooltipData();
     }

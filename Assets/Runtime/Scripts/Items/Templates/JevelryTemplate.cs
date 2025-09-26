@@ -11,6 +11,11 @@ namespace Items
 
         public EquipmentTypes equipmentType => _equipmentType;
 
+        public override IItem CreateItem(int rarity = 0)
+        {
+            return new Jevelry(this);
+        }
+
         public override string GetDescription()
         {
             return "Description";

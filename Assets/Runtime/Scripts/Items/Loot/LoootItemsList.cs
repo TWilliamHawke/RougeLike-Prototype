@@ -4,7 +4,7 @@ namespace Items
 {
     public class LoootItemsList : IDataList<ItemTemplate>
     {
-        List<ItemTemplate> _itemsList;
+        List<IDataCount<ItemTemplate>> _itemsList = new();
         ILootStorage _storage;
 
         public LoootItemsList(ILootStorage storage)
@@ -12,19 +12,16 @@ namespace Items
             _storage = storage;
         }
 
-        public void AddElements(ItemTemplate item, int count)
+        public void AddElements(IDataCount<ItemTemplate> element)
         {
-            for (int i = 0; i < count; i++)
-            {
-                _itemsList.Add(item);
-            }
+            _itemsList.Add(element);
         }
 
-        public void Flush()
+        public void CreateItems(int rarity = 0)
         {
-            foreach (var item in _itemsList)
+            foreach (var itemData in _itemsList)
             {
-                _storage.AddItem(item);
+                _storage.AddItems(itemData.element.CreateItem(rarity), itemData.count);
             }
 
             _itemsList.Clear();

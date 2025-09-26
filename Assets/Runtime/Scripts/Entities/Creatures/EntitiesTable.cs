@@ -65,13 +65,13 @@ namespace Entities
             List<EntityTemplate> _creaturesList = new List<EntityTemplate>();
             public List<EntityTemplate> creaturesList => _creaturesList;
 
-            public void AddElements(EntityTemplate item, int count)
+            public void AddElements(IDataCount<EntityTemplate> elements)
             {
-                if (count <= 0) return;
+                if (elements.count <= 0) return;
 
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < elements.count; i++)
                 {
-                    _creaturesList.Add(item);
+                    _creaturesList.Add(elements.element);
                 }
             }
         }

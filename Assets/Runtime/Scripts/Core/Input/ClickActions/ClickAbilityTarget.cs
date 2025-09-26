@@ -29,7 +29,6 @@ namespace Core.Input
 
         public void ProcessClick(ITileClickData tile)
         {
-            Debug.Log(_abilityContainer.displayName);
             _abilityContainer.UseAbility(tile);
             _targetSelectedEvent?.Invoke();
         }
