@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "SpellTome", menuName = "Items/Spell Tome")]
-    public class SpellTome : Item, IDestroyable, IUsableItem
+    public class SpellTomeTemplate : ItemTemplate, IDestroyable, IUsableItem
     {
         [SpritePreview]
         [SerializeField] Spell _spell;
@@ -28,11 +28,6 @@ namespace Items
         public override string GetDescription()
         {
             return _spell.displayName;
-        }
-
-        public override string GetItemType()
-        {
-            return "SpellTome";
         }
 
         public void Use()

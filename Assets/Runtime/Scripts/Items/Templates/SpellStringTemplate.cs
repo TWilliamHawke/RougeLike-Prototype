@@ -8,15 +8,13 @@ using Abilities;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "Magic Card", menuName = "Items/Magic Card")]
-	public class SpellString : Item
+	public class SpellStringTemplate : ItemTemplate
 	{
 		[UseFileName]
 	    [SerializeField] Color _previewColor = Color.red;
         [SerializeField] SourceEffectData[] _effects;
 
         public IEnumerable<SourceEffectData> effects => _effects;
-
-        const string _itemType = "SpellString";
 
         public override string GetDescription()
         {
@@ -28,11 +26,6 @@ namespace Items
                 sb.AppendLine(description);
             }
             return sb.ToString();
-        }
-
-        public override string GetItemType()
-        {
-            return _itemType;
         }
     }
 }

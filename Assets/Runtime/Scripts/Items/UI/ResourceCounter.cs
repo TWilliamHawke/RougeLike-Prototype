@@ -8,7 +8,7 @@ namespace Items
     public class ResourceCounter : MonoBehaviour
     {
         [SerializeField] Inventory _inventory;
-        [SerializeField] Resource _resource;
+        [SerializeField] ResourceTemplate _resource;
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _counter;
 

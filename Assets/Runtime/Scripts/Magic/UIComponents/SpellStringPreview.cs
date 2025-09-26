@@ -21,7 +21,7 @@ namespace Magic.UI
         [SerializeField] CustomEvent _onSpellLineDragStart;
         [SerializeField] CustomEvent _onSpellLineDragEnd;
 
-        public event UnityAction<SpellString> OnClick;
+        public event UnityAction<SpellStringTemplate> OnClick;
 
         ItemSlotData _itemSlotData;
         DragController<ItemSlotData> _dragHandler;
@@ -50,7 +50,7 @@ namespace Magic.UI
 
         void IPointerClickHandler.OnPointerClick(PointerEventData _)
         {
-            if (_itemSlotData?.item is SpellString spellString)
+            if (_itemSlotData?.item is SpellStringTemplate spellString)
             {
                 OnClick?.Invoke(spellString);
             }

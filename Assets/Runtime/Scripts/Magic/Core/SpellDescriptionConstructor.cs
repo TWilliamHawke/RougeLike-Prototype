@@ -27,7 +27,7 @@ namespace Magic
             return _spellData.spellEffect.GetDescription(abilityMods);
         }
 
-        public string ConstructDescriptionWith(int slotIndex, SpellString spellString)
+        public string ConstructDescriptionWith(int slotIndex, SpellStringTemplate spellString)
         {
             var newSpellData = _spellData.CreateDeepCopy();
             newSpellData.SetActiveString(slotIndex, spellString);
@@ -41,7 +41,7 @@ namespace Magic
             return ConstructDescription(_spellData, newSpellData);
         }
 
-        public string GetSpellCostWith(int slotIndex, SpellString spellString)
+        public string GetSpellCostWith(int slotIndex, SpellStringTemplate spellString)
         {
             var newSpellData = _spellData.CreateDeepCopy();
             newSpellData.SetActiveString(slotIndex, spellString);

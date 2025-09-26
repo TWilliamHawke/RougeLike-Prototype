@@ -50,7 +50,7 @@ namespace Magic.UI
 
         public bool DataIsMeet(ItemSlotData data)
         {
-            return data != null && data.item is SpellString;
+            return data != null && data.item is SpellStringTemplate;
         }
 
         public void SetIcon(StringSlotData slot)

@@ -55,7 +55,7 @@ namespace Magic
             return _descriptionConstructor.GetRankUpDescription();
         }
 
-        public string ConstructDescriptionWith(int slotIndex, SpellString spellString)
+        public string ConstructDescriptionWith(int slotIndex, SpellStringTemplate spellString)
         {
             return _descriptionConstructor.ConstructDescriptionWith(slotIndex, spellString);
         }
@@ -65,7 +65,7 @@ namespace Magic
             return _descriptionConstructor.GetRankUpSpellCost();
         }
 
-        public string GetSpellCostWith(int slotIndex, SpellString spellString)
+        public string GetSpellCostWith(int slotIndex, SpellStringTemplate spellString)
         {
             return _descriptionConstructor.GetSpellCostWith(slotIndex, spellString);
         }
