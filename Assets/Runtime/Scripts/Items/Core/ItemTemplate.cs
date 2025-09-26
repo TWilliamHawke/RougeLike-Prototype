@@ -7,7 +7,7 @@ using Core.UI;
 
 namespace Items
 {
-    public abstract class Item : ScriptableObject, IItem, IContextActionSource
+    public abstract class ItemTemplate : ScriptableObject, IItem, IContextActionSource
     {
         [UseFileName]
         [SerializeField] string _displayName;
@@ -27,14 +27,13 @@ namespace Items
         public AudioClip dragSound => _soundKit.dragSound;
 
         public abstract string GetDescription();
-        public abstract string GetItemType();
 
         public ItemTooltipData GetTooltipData()
         {
             var tooltipData = new ItemTooltipData();
             tooltipData.icon = _icon;
             tooltipData.title = _displayName;
-            tooltipData.itemType = GetItemType();
+            tooltipData.itemType = _itemType.name;
             tooltipData.description = GetDescription();
 
             return tooltipData;

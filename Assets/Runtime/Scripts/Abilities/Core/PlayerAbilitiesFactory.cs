@@ -21,7 +21,7 @@ namespace Abilities
             }
         }
 
-        public IAbilityContainer CreateItemContainer(Item item, IAbility ability)
+        public IAbilityContainer CreateItemContainer(ItemTemplate item, IAbility ability)
         {
             return new ItemAbilityContainer(item, _inventory, ability, _player);
         }

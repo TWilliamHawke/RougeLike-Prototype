@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "Resource", menuName ="Musc/Resourse")]
-	public class Resource : Item
+	public class ResourceTemplate : ItemTemplate
 	{
 		[SerializeField] ResourceType _resourceType;
 		[SerializeField] int _startCount;
@@ -19,11 +19,6 @@ namespace Items
         public override string GetDescription()
         {
             return _description;
-        }
-
-        public override string GetItemType()
-        {
-            return "Resource";
         }
     }
 

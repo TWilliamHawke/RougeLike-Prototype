@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapon")]
-    public class Weapon : Item, IEquipment
+    public class WeaponTemplate : ItemTemplate, IEquipment
     {
         [SerializeField] DamageStoredResource _damageType;
         [SerializeField] IntValue _damage;
@@ -19,11 +19,6 @@ namespace Items
         public override string GetDescription()
         {
             return $"Damage: {_damage}\nAccuracy: {_accuracy}";
-        }
-
-        public override string GetItemType()
-        {
-            return "Weapon";
         }
     }
 }

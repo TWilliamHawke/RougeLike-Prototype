@@ -10,7 +10,7 @@ namespace Magic
     [System.Serializable]
     public class KnownSpellData : IAbilitySource
     {
-        delegate int SelectSpellLinesBuff(SpellString spellString);
+        delegate int SelectSpellLinesBuff(SpellStringTemplate spellString);
         public event UnityAction OnDataChange;
 
         const int MAX_SPELL_RANK = 6;
@@ -85,7 +85,7 @@ namespace Magic
             return _activeStrings.StringSlotIsEmpty(idx);
         }
 
-        public void SetActiveString(int slotIndex, SpellString spellString)
+        public void SetActiveString(int slotIndex, SpellStringTemplate spellString)
         {
             _activeStrings.SetActiveString(slotIndex, spellString);
             OnDataChange?.Invoke();

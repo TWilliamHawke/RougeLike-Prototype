@@ -7,7 +7,7 @@ using Abilities;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-	public class Potion : Item, IAbilitySource, IItemWithAbility, IEffectSource
+	public class PotionTemplate : ItemTemplate, IAbilitySource, IItemWithAbility, IEffectSource
     {
         [SerializeField] Injector _selfAbilityController;
 		[Header("Potion Effects")]
@@ -30,11 +30,6 @@ namespace Items
         public IEnumerable<ISourceEffectData> GetEffects()
         {
             return _effects;
-        }
-
-        public override string GetItemType()
-        {
-            return "Potion";
         }
 
         private IAbility CreateAbility()

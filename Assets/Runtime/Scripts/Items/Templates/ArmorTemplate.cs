@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor")]
-    public class Armor : Item, IEquipment
+    public class ArmorTemplate : ItemTemplate, IEquipment
     {
 		[SerializeField] EquipmentTypes _equipmentType;
 		[SerializeField] int _physicalResist;
@@ -15,11 +15,6 @@ namespace Items
         public override string GetDescription()
         {
             return $"Physical resistance: {_physicalResist}";
-        }
-
-        public override string GetItemType()
-        {
-            return "Armor";
         }
     }
 }

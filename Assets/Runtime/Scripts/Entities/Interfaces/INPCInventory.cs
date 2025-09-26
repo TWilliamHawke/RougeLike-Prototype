@@ -7,7 +7,7 @@ namespace Entities.NPC
     //TODO split interface
     public interface INPCInventory : IInventory, IEnumerable<ItemContainer>
     {
-        Weapon weapon { get; }
+        WeaponTemplate weapon { get; }
         Dictionary<DamageType, int> resists { get; }
     }
 }

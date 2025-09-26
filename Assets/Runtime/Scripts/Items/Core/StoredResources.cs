@@ -8,14 +8,14 @@ namespace Items
     public class StoredResources : IItemSection
     {
         Dictionary<ResourceType, int> _resources = new Dictionary<ResourceType, int>();
-        Dictionary<ResourceType, Resource> _types = new Dictionary<ResourceType, Resource>();
+        Dictionary<ResourceType, ResourceTemplate> _types = new Dictionary<ResourceType, ResourceTemplate>();
 
         public event UnityAction<ResourceType> OnResourceChange;
 
         public int this[ResourceType type] => _resources[type];
         public int gold => _resources[ResourceType.gold];
 
-        public StoredResources(Resource[] resources)
+        public StoredResources(ResourceTemplate[] resources)
         {
             SetStartResources(resources);
         }
@@ -58,7 +58,7 @@ namespace Items
             return _resources[type];
         }
 
-        private void SetStartResources(Resource[] resources)
+        private void SetStartResources(ResourceTemplate[] resources)
         {
             foreach (var resource in resources)
             {
@@ -74,7 +74,7 @@ namespace Items
 
         public bool HasItem(IItem item)
         {
-            if (item is not Resource resource)
+            if (item is not ResourceTemplate resource)
             {
                 return false;
             }
@@ -90,12 +90,12 @@ namespace Items
 
         public void AddItems(IItem item, int count)
         {
-            AddResource((item as Resource)?.type ?? ResourceType.none, count);
+            AddResource((item as ResourceTemplate)?.type ?? ResourceType.none, count);
         }
 
         bool IItemSection.ItemMeet(IItem item)
         {
-            return item is Resource;
+            return item is ResourceTemplate;
         }
 
         void IItemSection.Clear()
@@ -104,7 +104,7 @@ namespace Items
 
         int IItemSection.FindItemCount(IItem item)
         {
-            if (item is not Resource resource) return 0;
+            if (item is not ResourceTemplate resource) return 0;
             var type = resource.type;
             return _resources[type];
         }
@@ -112,7 +112,7 @@ namespace Items
         [System.Serializable]
         class ResourceData
         {
-            public Resource resource;
+            public ResourceTemplate resource;
             public int count;
         }
     }

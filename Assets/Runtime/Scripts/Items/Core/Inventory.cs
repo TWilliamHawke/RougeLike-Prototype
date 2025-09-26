@@ -6,8 +6,8 @@ namespace Items
 {
     public class Inventory : ScriptableObject, IInventory, IPermanentDependency
     {
-        [SerializeField] Item[] _testItems;
-        [SerializeField] Resource[] _startResources;
+        [SerializeField] ItemTemplate[] _testItems;
+        [SerializeField] ResourceTemplate[] _startResources;
         [SerializeField] ItemSectionTemplate _storageTemplate;
         [SerializeField] ItemSectionTemplate _tempStorageTemplate;
         [SerializeField] ItemSectionTemplate[] _sectionsOrder;

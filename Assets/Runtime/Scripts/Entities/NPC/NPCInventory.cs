@@ -14,7 +14,7 @@ namespace Entities.NPC
         {
             public Dictionary<DamageType, int> resists { get; init; } = new();
 
-            public Weapon weapon { get; init; }
+            public WeaponTemplate weapon { get; init; }
             public ItemContainer equipmentContainer { get; init; }
             ItemSection _equipment;
 
