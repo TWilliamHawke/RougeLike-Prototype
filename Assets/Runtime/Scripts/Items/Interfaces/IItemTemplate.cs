@@ -5,14 +5,14 @@ using Core;
 
 namespace Items
 {
-    public interface IItem : IIconData
+    public interface IItemTemplate : IIconData
     {
         int maxStackSize { get; }
-        int value { get; }
         AudioClip useSound { get; }
         AudioClip dragSound { get; }
-        bool HasItemType(ItemType itemType);
-        IEnumerable<ContextActionTemplate> GetActions();
+        string GetDescription();
         ItemTooltipData GetTooltipData();
+        IEnumerable<ContextActionTemplate> GetActions();
+        bool HasItemType(ItemType itemType);
     }
 }

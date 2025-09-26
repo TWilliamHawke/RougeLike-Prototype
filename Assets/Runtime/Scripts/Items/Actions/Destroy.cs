@@ -21,7 +21,7 @@ namespace Items.Actions
         {
             _itemsList.Clear();
             var item = itemSlot.item as IDestroyable;
-            item?.resourcesData?.FillItemSection(ref _itemsList);
+            item?.resourcesData?.FillItemSection(_itemsList);
 
             var modalWindowData = new ModalWindowData
             {

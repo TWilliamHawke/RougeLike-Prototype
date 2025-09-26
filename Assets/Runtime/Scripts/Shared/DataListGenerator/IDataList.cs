@@ -1,7 +1,5 @@
-using System.Collections;
-
 public interface IDataList<T>
 {
-    void AddItems(T item, int count);
+    void AddElements(T element, int count);
 }
 

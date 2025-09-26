@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Items;
 
-[CustomPropertyDrawer(typeof(ItemSlotData))]
+[CustomPropertyDrawer(typeof(LootItemsData))]
 public class ItemSlotDataDrawer : PropertyDrawer
 {
     float _fieldHeight = EditorGUIUtility.singleLineHeight;
@@ -20,7 +20,7 @@ public class ItemSlotDataDrawer : PropertyDrawer
 
         var icon = (item.objectReferenceValue as IIconData)?.icon;
 
-        var iconRect = new Rect(position.x - 8, position.y, 32, 32);
+        var iconRect = new Rect(position.x - 12, position.y, 36, 36);
         if (icon != null)
         {
             EditorGUI.LabelField(iconRect, new GUIContent(icon.texture));
