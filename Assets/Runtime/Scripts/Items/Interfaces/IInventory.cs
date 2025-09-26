@@ -2,8 +2,8 @@ namespace Items
 {
     public interface IInventory
     {
-        void AddItem(Item item);
-        int FindItemCount(Item item);
-        void RemoveOneItem(Item item);
+        void AddItem(IItem item);
+        int FindItemCount(IItem item);
+        void RemoveOneItem(IItem item);
 	}
 }

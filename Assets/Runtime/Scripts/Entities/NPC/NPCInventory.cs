@@ -30,12 +30,12 @@ namespace Entities.NPC
                 equipmentContainer = new("Equipment", _equipment);
             }
 
-            public void AddItem(Item item)
+            public void AddItem(IItem item)
             {
                 _equipment.AddItem(item);
             }
 
-            public int FindItemCount(Item item)
+            public int FindItemCount(IItem item)
             {
                 return _equipment.FindItemCount(item);
             }
@@ -45,7 +45,7 @@ namespace Entities.NPC
                 yield return equipmentContainer;
             }
 
-            public void RemoveOneItem(Item item)
+            public void RemoveOneItem(IItem item)
             {
                 _equipment.RemoveItem(item);
             }

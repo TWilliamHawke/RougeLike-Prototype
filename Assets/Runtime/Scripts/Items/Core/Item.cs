@@ -4,11 +4,10 @@ using UnityEngine;
 using UI.Tooltips;
 using Core;
 using Core.UI;
-using System.Linq;
 
 namespace Items
 {
-    public abstract class Item : ScriptableObject, IIconData, IContextActionSource
+    public abstract class Item : ScriptableObject, IItem, IContextActionSource
     {
         [UseFileName]
         [SerializeField] string _displayName;
@@ -45,5 +44,5 @@ namespace Items
         {
             return _itemType.actions;
         }
-	}
+    }
 }

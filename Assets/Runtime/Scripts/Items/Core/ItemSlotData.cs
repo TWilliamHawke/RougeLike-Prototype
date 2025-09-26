@@ -8,24 +8,24 @@ using UnityEngine.Events;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<Item>, IItemSlotDataUnsafe
+    public class ItemSlotData : IDataCount<IItem>, IItemSlotDataUnsafe
     {
-        [SerializeField] Item _item;
+        [SerializeField] IItem _item;
         [SerializeField] int _count;
 
         public int slotPrice { get; set; }
         
-        public Item item => _item;
+        public IItem item => _item;
         public int count => _count;
         public event UnityAction OnSlotDataChanged;
-        Item IDataCount<Item>.element => _item;
+        IItem IDataCount<IItem>.element => _item;
 
         public ItemSlotData()
         {
             
         }
 
-        public ItemSlotData(Item item, int count, int slotPrice = -1)
+        public ItemSlotData(IItem item, int count, int slotPrice = -1)
         {
             _item = item;
             _count = count;
