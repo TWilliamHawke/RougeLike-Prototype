@@ -96,3 +96,31 @@ context_action_show_info	Show Info	Описание
 context_action_use	Use	Исполизовать
 ability_section_name_items	Items	Предметы
 ability_section_name_spells	Spells	Заклинания
+item_quality_level_studded	Studded	Клепан.
+item_quality_level_luxury	Luxury	Роскошн.
+item_quality_level_reinforced	Reinforced	Усиленн.
+item_quality_level_armored	Armored	Укрепленн.
+item_quality_level_rough	Rough	Груб.
+item_quality_level_worn	Worn	Изношенный
+item_quality_level_well_made	Well made	Добротный
+item_quality_level_splintered	Splintered	Разваливающ.
+item_quality_level_masterwork	Masterwork	Мастерски сделанн.
+item_quality_level_thick	Thick	Плотный
+item_quality_level_quality	Quality	Качественный
+item_quality_level_cracked	Cracked	Треснувший
+item_quality_level_loose	Loose	Просторный
+item_quality_level_bent	Bent	Погнутый
+item_quality_level_rusty	Rusty	Ржавый
+item_quality_level_dull	Dull	Тупой
+item_quality_level_ripped	Ripped	Разорванный
+item_quality_level_dented	Dented	Помятый
+item_quality_level_battered	Battered	Подранный
+item_quality_level_lordly	Lordly	Роскошн.
+item_quality_level_unbalsnced	Unbalanced	Несбалансированный
+item_quality_level_tuned	Tuned	Подогнанный
+item_quality_level_fine	Fine	Изящный
+item_quality_level_old	Old	Старый
+item_quality_level_waxed	Waxed	Вощеный
+item_quality_level_excellent	Excellent	Превосходный
+item_quality_level_perfect	Perfect	Идеальн.
+item_quality_level_balanced	Balanced	Сбалансированный
