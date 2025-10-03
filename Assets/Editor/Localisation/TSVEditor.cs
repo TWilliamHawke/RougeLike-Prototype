@@ -62,7 +62,7 @@ namespace Localisation
         private static void AppendLine(string[] line)
         {
             string fullLine = string.Join("\t", line);
-            File.AppendAllText(targetPath, fullLine);
+            File.AppendAllText(targetPath, fullLine + "\n");
             data.Add(line);
             _dataByKey[line[0]] = line;
         }
