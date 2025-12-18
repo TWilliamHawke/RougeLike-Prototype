@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410e4490e20bf474a83c6847487c3af2, type: 3}
+  m_Name: IronSword
+  m_EditorClassIdentifier: 
+  _baseValue: 50
+  _baseRarity: 0
+  _rarityStep: 10
+  _qualities:
+  - _levelName: {fileID: 11400000, guid: ece045b312f9eba478245e737014af1d, type: 2}
+    _damage:
+      _minValue: 5
+      _maxValue: 10
+      _isRandom: 1
+    _criticalDamage: 5
+  - _levelName: {fileID: 11400000, guid: 740e157d82441d949b646b784a87b4d1, type: 2}
+    _damage:
+      _minValue: 7
+      _maxValue: 14
+      _isRandom: 1
+    _criticalDamage: 7
+  - _levelName: {fileID: 11400000, guid: ea6f9f934acf6d34180b1abbb974e4ef, type: 2}
+    _damage:
+      _minValue: 8
+      _maxValue: 16
+      _isRandom: 1
+    _criticalDamage: 8
+  - _levelName: {fileID: 11400000, guid: e8c2e79c806ccc7498161648c8f26962, type: 2}
+    _damage:
+      _minValue: 10
+      _maxValue: 20
+      _isRandom: 1
+    _criticalDamage: 10
+  - _levelName: {fileID: 11400000, guid: 2a0484c65c2b2f948b65ee95e5e315f1, type: 2}
+    _damage:
+      _minValue: 12
+      _maxValue: 24
+      _isRandom: 1
+    _criticalDamage: 12
+  - _levelName: {fileID: 11400000, guid: 091960bca8ffdb042838fa3242cdbc3d, type: 2}
+    _damage:
+      _minValue: 15
+      _maxValue: 30
+      _isRandom: 1
+    _criticalDamage: 15
+  - _levelName: {fileID: 11400000, guid: dc0c4b4ff21f8c84ca55343ed9f9d203, type: 2}
+    _damage:
+      _minValue: 18
+      _maxValue: 36
+      _isRandom: 1
+    _criticalDamage: 17
+  - _levelName: {fileID: 11400000, guid: bc8e93dd250474a4fbfdbd49c3c74ca2, type: 2}
+    _damage:
+      _minValue: 22
+      _maxValue: 45
+      _isRandom: 1
+    _criticalDamage: 22

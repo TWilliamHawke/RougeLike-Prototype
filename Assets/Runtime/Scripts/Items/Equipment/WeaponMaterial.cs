@@ -11,5 +11,9 @@ namespace Items
 		[SerializeField] int _rarityStep = 1;
 
 		[SerializeField] List<WeaponQualityData> _qualities = new List<WeaponQualityData>();
+
+		public int baseValue => _baseValue;
+		public int baseRarity => _baseRarity;
+		public int maxRarity => _qualities.Count * _rarityStep + _baseRarity;
 	}
 }
