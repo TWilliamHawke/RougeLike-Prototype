@@ -9,7 +9,7 @@ namespace Magic
     public class SpellDescriptionConstructor
     {
         KnownSpellData _spellData { get; init; }
-        StaticStatStorage _spellPowerStorage { get; init; }
+        StatContainer _spellPowerStorage { get; init; }
         MagicConfig _magicConfig { get; init; }
         StatsStorage _statsStorage { get; init; }
 

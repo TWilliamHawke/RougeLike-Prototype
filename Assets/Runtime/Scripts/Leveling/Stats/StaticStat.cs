@@ -22,9 +22,9 @@ namespace Entities.Stats
         public IBonusValuesOrder bonusesOrder => _bonusesOrder;
 
 
-        public StaticStatStorage CreateStorage(IStatStorage controller)
+        public StatContainer CreateStorage(IStatStorage controller)
         {
-            var storage = new StaticStatStorage(this);
+            var storage = new StatContainer(this);
             return storage;
         }
     }

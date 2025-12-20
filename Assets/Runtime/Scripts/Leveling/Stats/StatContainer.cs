@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Entities.Stats
 {
-    public class StaticStatStorage : ValueStorage, IStatContainer, IParentStat, IStatValueController
+    public class StatContainer : ValueStorage, IStatContainer, IParentStat, IStatValueController
     {
         StaticStat _stat;
 
-        public StaticStatStorage(StaticStat stat) : base(stat.minValue, stat.maxValue, stat.defaultValue, stat.bonusesOrder)
+        public StatContainer(StaticStat stat) : base(stat.minValue, stat.maxValue, stat.defaultValue, stat.bonusesOrder)
         {
             _stat = stat;
         }

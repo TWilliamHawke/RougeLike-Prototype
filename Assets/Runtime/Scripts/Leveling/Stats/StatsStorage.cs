@@ -8,7 +8,7 @@ namespace Entities.Stats
 {
     public class StatsStorage : MonoBehaviour, IEntityComponent, IStatStorage, IResourceStorage, IStatsController
     {
-        public Dictionary<StaticStat, StaticStatStorage> staticStatStorage { get; } = new();
+        public Dictionary<StaticStat, StatContainer> staticStatStorage { get; } = new();
         public Dictionary<StoredResource, ResourceContainer> cappedStatStorage { get; } = new();
 
         public void InitStat(StaticStat stat, int baseValue)
@@ -23,10 +23,10 @@ namespace Entities.Stats
             storage.SetBaseStatValue(baseValue);
         }
 
-        public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat) 
+        public void AddObserver(IObserver<StatContainer> observer, StaticStat stat) 
         {
-            StaticStatStorage storage = FindContainer(stat);
-            observer.AddToObserve(storage);
+            StatContainer container = FindContainer(stat);
+            observer.AddToObserve(container);
         }
 
         public void AddObserver(IObserver<ResourceContainer> observer, StoredResource stat)
@@ -46,7 +46,7 @@ namespace Entities.Stats
             return storage;
         }
 
-        public StaticStatStorage FindContainer(StaticStat stat)
+        public StatContainer FindContainer(StaticStat stat)
         {
             if (!staticStatStorage.TryGetValue(stat, out var storage))
             {

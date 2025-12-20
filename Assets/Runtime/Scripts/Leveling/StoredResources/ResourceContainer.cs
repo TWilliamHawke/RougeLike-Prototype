@@ -71,6 +71,7 @@ namespace Entities.Stats
 
         public void RemoveFromObserve(IParentStat target)
         {
+            target.OnValueChange -= AjustValueToParent;
         }
 
         private void SetStatValue(float value)
