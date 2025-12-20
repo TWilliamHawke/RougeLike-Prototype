@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
-using ReduceCallback = System.Func<float, float, float>;
 
 public class ValueStorage : IValueStorage
 {
@@ -21,18 +19,18 @@ public class ValueStorage : IValueStorage
     int _maxValue;
     int _currentValue;
     int _minValue;
-    bool _flatFirst = true;
+    IBonusValuesOrder _order;
 
     public event UnityAction<int> OnValueChange;
     public event UnityAction OnReachMax;
     public event UnityAction OnReachMin;
 
-    public ValueStorage(int minValue, int maxValue, int startValue, bool flatFirst = true)
+    public ValueStorage(int minValue, int maxValue, int startValue, IBonusValuesOrder order = null)
     {
         _maxValue = Mathf.Max(minValue, maxValue);
         _minValue = Mathf.Min(minValue, maxValue);
         SetNewValue(startValue);
-        _flatFirst = flatFirst;
+        _order = order ?? new DefaultBonusValuesOrder();
     }
 
     public ValueStorage() : this(0, int.MaxValue, 0) { }
@@ -88,13 +86,16 @@ public class ValueStorage : IValueStorage
 
     public virtual int GetFinalValue()
     {
-        float flatBonus = _bonusValues[BonusValueType.flat].bonusValue;
-        float pctBonus = _bonusValues[BonusValueType.percentage].bonusValue;
-        float multBonus = _bonusValues[BonusValueType.mult].bonusValue;
+        float adjustedValue = _currentValue;
+        foreach (var bonusType in _order.GetOrder())
+        {
+            if (_bonusValues.TryGetValue(bonusType, out IBonusValueLogic bonusValue))
+            {
+                bonusValue.ApplyBonus(adjustedValue);
+            }
+        }
 
-        float finalValue = _flatFirst ? (_currentValue + flatBonus) * pctBonus : _currentValue * pctBonus + flatBonus;
-
-        return NormalizeValue(finalValue * multBonus);
+        return NormalizeValue(adjustedValue);
     }
 
     public void ResetBonusValues()

@@ -11,13 +11,13 @@ namespace Magic
         KnownSpellData _spellData { get; init; }
         StaticStatStorage _spellPowerStorage { get; init; }
         MagicConfig _magicConfig { get; init; }
-        StatsStorage _statsContainer { get; init; }
+        StatsStorage _statsStorage { get; init; }
 
-        public SpellDescriptionConstructor(KnownSpellData spellData, StatsStorage statsContainer, MagicConfig magicConfig)
+        public SpellDescriptionConstructor(KnownSpellData spellData, StatsStorage statsStorage, MagicConfig magicConfig)
         {
             _spellData = spellData;
-            _statsContainer = statsContainer;
-            _spellPowerStorage = magicConfig.FindSpellPowerStorage(statsContainer);
+            _statsStorage = statsStorage;
+            _spellPowerStorage = magicConfig.FindSpellPowerStorage(statsStorage);
             _magicConfig = magicConfig;
         }
 
@@ -64,8 +64,8 @@ namespace Magic
 
         private string GetSpellCostText(KnownSpellData oldSpell, KnownSpellData newSpell)
         {
-            int oldSpellCost = _magicConfig.GetSpellCost(oldSpell, _statsContainer);
-            int newSpellCost = _magicConfig.GetSpellCost(newSpell, _statsContainer);
+            int oldSpellCost = _magicConfig.GetSpellCost(oldSpell, _statsStorage);
+            int newSpellCost = _magicConfig.GetSpellCost(newSpell, _statsStorage);
             if (oldSpellCost == newSpellCost)
             {
                 return oldSpellCost.ToString();

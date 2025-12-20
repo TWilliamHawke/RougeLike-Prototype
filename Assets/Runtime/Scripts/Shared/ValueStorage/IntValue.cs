@@ -50,7 +50,7 @@ public struct IntValue
         return _minValue;
     }
 
-    public int GetAjustedValue(int ajMin, int ajMax)
+    public int GetAdjustedValue(int ajMin, int ajMax)
     {
         ajMin += _minValue;
         ajMax += _maxValue;

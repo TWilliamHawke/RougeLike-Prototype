@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Effect Duration
   _icon: {fileID: 21300000, guid: 9f987fa80e1b69b43abf46d6acf7b645, type: 3}
-  _applyMultFirst: 0
-  _capMin: 1
-  _capMax: 2147483647
+  _bonusesOrder: {fileID: 0}
+  _minValue: 0
+  _maxValue: 2147483647
   _defaultValue: 0
   _minReductionMod: 0.2

@@ -11,11 +11,11 @@ namespace Magic
         ISafeStatController _manaStorage;
         KnownSpellData _spellData;
         MagicConfig _magicConfig;
-        StatsStorage _statsContainer;
+        StatsStorage _statsStorage;
         SpellDescriptionConstructor _descriptionConstructor;
         IAbilityUser _user;
 
-        public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsContainer);
+        public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsStorage);
         public override bool canBeUsed => _manaStorage.currentValue >= spellCost;
         public override string displayName => _spellData.displayName;
         public override Sprite icon => _spellData.icon;
@@ -27,9 +27,9 @@ namespace Magic
             _user = user;
             _spellData = spellData;
             _magicConfig = magicConfig;
-            _statsContainer = user.GetEntityComponent<StatsStorage>();
-            _manaStorage = magicConfig.FindManaStorage(_statsContainer);
-            _descriptionConstructor = new(spellData, _statsContainer, _magicConfig);
+            _statsStorage = user.GetEntityComponent<StatsStorage>();
+            _manaStorage = magicConfig.FindManaStorage(_statsStorage);
+            _descriptionConstructor = new(spellData, _statsStorage, _magicConfig);
         }
 
         public override void UseAbility(IAbilityTarget target)

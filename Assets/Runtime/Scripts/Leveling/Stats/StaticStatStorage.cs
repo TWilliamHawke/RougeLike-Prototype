@@ -7,7 +7,7 @@ namespace Entities.Stats
     {
         StaticStat _stat;
 
-        public StaticStatStorage(StaticStat stat) : base(stat.capMin, stat.capMax, stat.defaultValue, !stat.applyMultFirst)
+        public StaticStatStorage(StaticStat stat) : base(stat.minValue, stat.maxValue, stat.defaultValue, stat.bonusesOrder)
         {
             _stat = stat;
         }
