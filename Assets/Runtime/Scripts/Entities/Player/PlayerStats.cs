@@ -29,7 +29,7 @@ namespace Entities.PlayerScripts
             _onPlayerStatsInit.Invoke();
         }
 
-        public void AddObserver(IObserver<StaticStatStorage> observer, StaticStat stat)
+        public void AddObserver(IObserver<StatContainer> observer, StaticStat stat)
         {
             _statsStorage.AddObserver(observer, stat);
         }
@@ -39,7 +39,7 @@ namespace Entities.PlayerScripts
             _statsStorage.AddObserver(observer, stat);
         }
 
-        public StaticStatStorage FindContainer(StaticStat stat)
+        public StatContainer FindContainer(StaticStat stat)
         {
             return _statsStorage.FindContainer(stat);
         }

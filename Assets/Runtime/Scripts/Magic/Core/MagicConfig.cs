@@ -20,7 +20,7 @@ namespace Magic
             return statsStorage.FindContainer(_mana);
         }
 
-        public StaticStatStorage FindSpellPowerStorage(StatsStorage statsStorage)
+        public StatContainer FindSpellPowerStorage(StatsStorage statsStorage)
         {
             return statsStorage.FindContainer(_spellPower);
         }
