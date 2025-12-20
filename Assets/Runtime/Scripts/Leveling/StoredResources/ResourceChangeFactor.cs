@@ -12,13 +12,13 @@ namespace Effects
 
         protected abstract void ChangeResource(ResourceContainer container, int value);
 
-        public int AdjustValue(int baseValue, StatsStorage statsContainer, IEffectsIterator effects)
+        public int AdjustValue(int baseValue, StatsStorage statsStorage, IEffectsIterator effects)
         {
             float updatedValue = baseValue;
 
             foreach (var stat in _factormods)
             {
-                var storage = statsContainer.FindContainer(stat);
+                var storage = statsStorage.FindContainer(stat);
                 int statValue = storage.GetAdjustedValue(effects);
                 updatedValue = updatedValue * (1 + statValue * 0.01f);
             }

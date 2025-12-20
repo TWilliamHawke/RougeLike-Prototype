@@ -42,13 +42,13 @@ namespace Entities
 
         protected void ApplyStartStats(ITemplateWithBaseStats template)
         {
-            var statsContainer = GetComponent<StatsStorage>();
-            template.InitStats(statsContainer);
+            var statsStorage = GetComponent<StatsStorage>();
+            template.InitStats(statsStorage);
             _body.UpdateSkin(template.bodyChar, template.bodyColor);
 
-            var healthStorage = statsContainer.FindContainer(_statList.health);
+            var healthStorage = statsStorage.FindContainer(_statList.health);
             healthStorage.OnReachMin += ProceedDeath;
-            OnStatsInit?.Invoke(statsContainer);
+            OnStatsInit?.Invoke(statsStorage);
         }
 
         private void ProceedDeath()

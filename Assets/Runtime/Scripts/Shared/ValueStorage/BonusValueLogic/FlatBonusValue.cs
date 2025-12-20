@@ -2,20 +2,25 @@ public class FlatBonusValue : IBonusValueLogic
 {
     const float BASE_VALUE = 0f;
 
-    public float bonusValue { get; private set; } = BASE_VALUE;
+    float _bonusValue = BASE_VALUE;
 
     public void AddBonusValue(float value)
     {
-        bonusValue += value;
+        _bonusValue += value;
+    }
+
+    public float ApplyBonus(float value)
+    {
+        return value + _bonusValue;
     }
 
     public void RemoveBonusValue(float value)
     {
-        bonusValue -= value;
+        _bonusValue -= value;
     }
 
     public void ResetValue()
     {
-        bonusValue = BASE_VALUE;
+        _bonusValue = BASE_VALUE;
     }
 }

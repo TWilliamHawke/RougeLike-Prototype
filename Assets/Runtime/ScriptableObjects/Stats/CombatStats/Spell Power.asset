@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Spell Power
   m_EditorClassIdentifier: 
   _displayName: stat_name_spell_power
-  _icon: {fileID: 0}
-  _applyMultFirst: 1
-  _capMin: 0
-  _capMax: 2147483647
+  _icon: {fileID: 21300000, guid: c6d11a2b59c27994999cfabc915ee9e4, type: 3}
+  _bonusesOrder: {fileID: 11400000, guid: b1de4ce2c091386468ae83cd586e393c, type: 2}
+  _minValue: 0
+  _maxValue: 2147483647
   _defaultValue: 100
   _minReductionMod: 0.2

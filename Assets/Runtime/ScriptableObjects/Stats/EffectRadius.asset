@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Effect Radius
   _icon: {fileID: 21300000, guid: e6721d9b95a017747aa14018c16be887, type: 3}
-  _applyMultFirst: 1
-  _capMin: 0
-  _capMax: 2147483647
+  _bonusesOrder: {fileID: 0}
+  _minValue: 0
+  _maxValue: 2147483647
   _defaultValue: 0
   _minReductionMod: 0.2

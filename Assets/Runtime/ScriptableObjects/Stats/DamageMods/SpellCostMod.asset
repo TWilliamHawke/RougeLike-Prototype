@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: stat_name_spell_cost_mod
   _icon: {fileID: 21300000, guid: da22a3e485805254d8d80f6b6b234a88, type: 3}
-  _applyMultFirst: 1
-  _capMin: -80
-  _capMax: 2147483647
+  _bonusesOrder: {fileID: 11400000, guid: b1de4ce2c091386468ae83cd586e393c, type: 2}
+  _minValue: -80
+  _maxValue: 2147483647
   _defaultValue: 0
   _minReductionMod: 0.2

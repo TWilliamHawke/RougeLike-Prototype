@@ -1,21 +1,34 @@
+using UnityEngine;
+
 public class PercentageBonusValue : IBonusValueLogic
 {
-    const float BASE_VALUE = 1f;
+    const float BASE_VALUE = 0f;
+    const float MIN_VALUE = -100f;
 
-    public float bonusValue { get; private set; } = BASE_VALUE;
+    float _bonusValue = BASE_VALUE;
 
     public void AddBonusValue(float value)
     {
-        bonusValue += value * 0.01f;
+        _bonusValue = NormalizeValue(_bonusValue + value);
+    }
+
+    public float ApplyBonus(float value)
+    {
+        return value * (1f + (_bonusValue / 100f));
     }
 
     public void RemoveBonusValue(float value)
     {
-        bonusValue -= value * 0.01f;
+        _bonusValue = NormalizeValue(_bonusValue - value);
     }
 
     public void ResetValue()
     {
-        bonusValue = BASE_VALUE;
+        _bonusValue = BASE_VALUE;
+    }
+
+    private float NormalizeValue(float value)
+    {
+        return Mathf.Max(value, MIN_VALUE);
     }
 }
