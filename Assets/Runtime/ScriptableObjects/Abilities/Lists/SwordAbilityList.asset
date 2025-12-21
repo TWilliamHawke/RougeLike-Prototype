@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 996cf75757f788846982eed9ff4c9353, type: 3}
-  m_Name: (-3)Bent
+  m_Script: {fileID: 11500000, guid: 6c32bac92969c5c4bbaee94c104f133a, type: 3}
+  m_Name: SwordAbilityList
   m_EditorClassIdentifier: 
-  _displayName:
-    _locKey: item_quality_level_bent
-  _priceMult: 0.4
+  _baseAbility: {fileID: 11400000, guid: b86584cc72e7bf3478e03319391dc247, type: 2}
+  _skillBasedAbilities: []

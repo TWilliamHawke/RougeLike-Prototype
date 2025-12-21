@@ -6,7 +6,7 @@ using Abilities;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-    public class PotionTemplate : ItemTemplate, IEffectSource
+    public class PotionTemplate : StaticItemTemplate, IEffectSource
     {
         [SerializeField] Injector _selfAbilityController;
         [Header("Potion Effects")]

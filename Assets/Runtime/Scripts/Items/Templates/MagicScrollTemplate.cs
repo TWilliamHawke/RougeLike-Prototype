@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class MagicScrollTemplate : ItemTemplate
+    public class MagicScrollTemplate : StaticItemTemplate
     {
         public override IItem CreateItem(int rarity = 0)
         {

@@ -8,7 +8,7 @@ using Abilities;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "Magic Card", menuName = "Items/Magic Card")]
-	public class SpellStringTemplate : ItemTemplate
+	public class SpellStringTemplate : StaticItemTemplate
 	{
 		[UseFileName]
 	    [SerializeField] Color _previewColor = Color.red;

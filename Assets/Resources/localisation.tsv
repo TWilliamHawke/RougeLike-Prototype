@@ -102,7 +102,7 @@ item_quality_level_armored	Armored	Укрепленн.
 item_quality_level_rough	Rough	Груб.
 item_quality_level_worn	Worn	Изношенный
 item_quality_level_well_made	Well made	Добротный
-item_quality_level_splintered	Splintered	Разваливающ.
+item_quality_level_splintered	Splintered	Расколовш.
 item_quality_level_masterwork	Masterwork	Мастерски сделанн.
 item_quality_level_thick	Thick	Плотный
 item_quality_level_quality	Quality	Качественный
@@ -121,3 +121,5 @@ item_quality_level_waxed	Waxed	Вощеный
 item_quality_level_excellent	Excellent	Превосходный
 item_quality_level_perfect	Perfect	Идеальн.
 item_quality_level_balanced	Balanced	Сбалансированный
+weapon_name_iron_sword	Iron Sword	Железный меч
+weapon_name_elm_short_bow	Elm Short Bow	Вязовый короткий лук

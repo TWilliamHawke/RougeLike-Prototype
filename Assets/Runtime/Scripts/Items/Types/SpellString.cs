@@ -3,12 +3,12 @@ using Effects;
 
 namespace Items
 {
-    public class SpellString : AbstractItem
+    public class SpellString : StaticItem
     {
         public override int value => _spellStringTemplate.value;
         public IEnumerable<SourceEffectData> effects => _spellStringTemplate.effects;
 
-        protected override IItemTemplate _template => _spellStringTemplate;
+         protected override StaticItemTemplate _staticTemplate => _spellStringTemplate;
 
         SpellStringTemplate _spellStringTemplate;
 

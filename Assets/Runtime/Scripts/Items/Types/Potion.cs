@@ -4,11 +4,11 @@ using Effects;
 
 namespace Items
 {
-    public class Potion : AbstractItem, IAbilitySource, IItemWithAbility, IEffectSource
+    public class Potion : StaticItem, IAbilitySource, IItemWithAbility, IEffectSource
     {
         public override int value => _potionTemplate.value;
 
-        protected override IItemTemplate _template => _potionTemplate;
+         protected override StaticItemTemplate _staticTemplate => _potionTemplate;
 
         PotionTemplate _potionTemplate;
 

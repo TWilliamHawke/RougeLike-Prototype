@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Items
 {
 	[CreateAssetMenu(fileName = "Resource", menuName ="Musc/Resourse")]
-	public class ResourceTemplate : ItemTemplate, IItem
+	public class ResourceTemplate : StaticItemTemplate, IItem
 	{
 		[SerializeField] ResourceType _resourceType;
 		[SerializeField] int _startCount;

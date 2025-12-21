@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "Jevelry", menuName = "Items/Jevelry")]
-    public class JevelryTemplate : ItemTemplate, IEquipment
+    public class JevelryTemplate : StaticItemTemplate, IEquipment
     {
 		[SerializeField] EquipmentTypes _equipmentType;
 
