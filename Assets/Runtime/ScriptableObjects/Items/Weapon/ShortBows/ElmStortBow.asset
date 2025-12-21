@@ -15,12 +15,11 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 46f8266fdb7b88b469913cc1b395f2b0, type: 3}
   _itemType: {fileID: 11400000, guid: bfc93a35a2a6919449f9fe913780829f, type: 2}
   _soundKit: {fileID: 11400000, guid: 9622238d6861cbb4fafabaee39dfecb8, type: 2}
-  _weaponName:
+  _displayName:
     _locKey: weapon_name_elm_short_bow
   _baseValue: 100
   _baseRarity: 0
   _rarityStep: 10
-  _abilities: {fileID: 11400000, guid: bda976ca8faef0d4da6566c94e640d97, type: 2}
   _qualities:
   - _levelName: {fileID: 11400000, guid: 90ed21a493f39514ab31b200b1baa59f, type: 2}
     _damage:
@@ -70,3 +69,4 @@ MonoBehaviour:
       _maxValue: 32
       _isRandom: 1
     _criticalDamage: 16
+  _abilities: {fileID: 11400000, guid: bda976ca8faef0d4da6566c94e640d97, type: 2}

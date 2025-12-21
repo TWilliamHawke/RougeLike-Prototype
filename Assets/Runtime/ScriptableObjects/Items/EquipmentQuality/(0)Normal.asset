@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: (0)Normal
   m_EditorClassIdentifier: 
   _displayName:
-    _locKey: item_quality_level_normal
+    _locKey: 
   _priceMult: 1

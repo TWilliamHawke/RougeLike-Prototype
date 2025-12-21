@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName:
     _locKey: item_quality_level_bent
-  _priceMult: 0.4
+  _priceMult: 0.8
