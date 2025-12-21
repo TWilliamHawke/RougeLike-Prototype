@@ -31,8 +31,6 @@ public class LootTableDataDrawer : PropertyDrawer
         {
             property.FindPropertyRelative("chanceOfNone").floatValue += 0.1f;
         }
-
-
     }
 
 
@@ -40,12 +38,4 @@ public class LootTableDataDrawer : PropertyDrawer
     {
         return EditorHelpers.lineHeight * 2 + 10;
     }
-}
-
-namespace CustomEditors
-{
-    [CustomPropertyDrawer(typeof(WeaponQualityData))]
-    public class WeaponQualityDrawer : SimplePropertyDrawer
-    { }
-
 }

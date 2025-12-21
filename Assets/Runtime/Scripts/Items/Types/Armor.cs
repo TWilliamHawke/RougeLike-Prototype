@@ -1,18 +1,20 @@
 namespace Items
 {
-    public class Armor : AbstractItem
+    public class Armor : AbstractItem, IEquipment
     {
-        public override int value => 100;
-
         protected override ItemTemplate _template => _armorTemplate;
+        public override int value => _armorTemplate.CalcValue(_armorQualityData);
+        public override string displayName => _armorTemplate.ConstructName(_armorQualityData);
 
-        public override string displayName => throw new System.NotImplementedException();
+        public EquipmentTypes equipmentType => _armorTemplate.equipmentType;
 
         ArmorTemplate _armorTemplate;
+        ArmorQualityData _armorQualityData;
 
-        public Armor(ArmorTemplate armorTemplate)
+        public Armor(ArmorTemplate armorTemplate, ArmorQualityData armorQualityData)
         {
             _armorTemplate = armorTemplate;
+            _armorQualityData = armorQualityData;
         }
 
         public override string GetDescription()

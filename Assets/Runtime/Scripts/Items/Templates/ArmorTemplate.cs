@@ -5,18 +5,16 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor")]
-    public class ArmorTemplate : ItemTemplate, IEquipment, IItemTemplate
+    public class ArmorTemplate : EquipmentTemplate<ArmorQualityData>
     {
         [SerializeField] EquipmentTypes _equipmentType;
-        [SerializeField] int _physicalResist;
 
-        EquipmentTypes IEquipment.equipmentType => _equipmentType;
-
-        public string displayName => "Qwerty";
+        public EquipmentTypes equipmentType => _equipmentType;
 
         public override IItem CreateItem(int rarity = 0)
         {
-            return new Armor(this);
+            var qualityData = GetQualityData(rarity);
+            return new Armor(this, qualityData);
         }
     }
 }
