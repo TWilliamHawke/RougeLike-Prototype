@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a94757aa4ec1e4eb380d5e5b7b31cd, type: 3}
+  m_Name: ElmStortBow
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: 46f8266fdb7b88b469913cc1b395f2b0, type: 3}
+  _itemType: {fileID: 11400000, guid: bfc93a35a2a6919449f9fe913780829f, type: 2}
+  _soundKit: {fileID: 11400000, guid: 9622238d6861cbb4fafabaee39dfecb8, type: 2}
+  _weaponName:
+    _locKey: weapon_name_elm_short_bow
+  _baseValue: 100
+  _baseRarity: 0
+  _rarityStep: 10
+  _abilities: {fileID: 11400000, guid: bda976ca8faef0d4da6566c94e640d97, type: 2}
+  _qualities:
+  - _levelName: {fileID: 11400000, guid: 90ed21a493f39514ab31b200b1baa59f, type: 2}
+    _damage:
+      _minValue: 5
+      _maxValue: 10
+      _isRandom: 1
+    _criticalDamage: 5
+  - _levelName: {fileID: 11400000, guid: 2af6fe1080278c941be5fdba54de960f, type: 2}
+    _damage:
+      _minValue: 6
+      _maxValue: 12
+      _isRandom: 1
+    _criticalDamage: 6
+  - _levelName: {fileID: 11400000, guid: 18415cbef22038145a391736e71b3324, type: 2}
+    _damage:
+      _minValue: 7
+      _maxValue: 14
+      _isRandom: 1
+    _criticalDamage: 7
+  - _levelName: {fileID: 11400000, guid: e8c2e79c806ccc7498161648c8f26962, type: 2}
+    _damage:
+      _minValue: 8
+      _maxValue: 16
+      _isRandom: 1
+    _criticalDamage: 8
+  - _levelName: {fileID: 11400000, guid: 2a0484c65c2b2f948b65ee95e5e315f1, type: 2}
+    _damage:
+      _minValue: 10
+      _maxValue: 20
+      _isRandom: 1
+    _criticalDamage: 10
+  - _levelName: {fileID: 11400000, guid: 1d4ad7d3cddd89043a4f65760ca236ba, type: 2}
+    _damage:
+      _minValue: 12
+      _maxValue: 24
+      _isRandom: 1
+    _criticalDamage: 12
+  - _levelName: {fileID: 11400000, guid: d32eec406038e414ba9ab7ce9c573090, type: 2}
+    _damage:
+      _minValue: 14
+      _maxValue: 28
+      _isRandom: 1
+    _criticalDamage: 14
+  - _levelName: {fileID: 11400000, guid: bc8e93dd250474a4fbfdbd49c3c74ca2, type: 2}
+    _damage:
+      _minValue: 16
+      _maxValue: 32
+      _isRandom: 1
+    _criticalDamage: 16

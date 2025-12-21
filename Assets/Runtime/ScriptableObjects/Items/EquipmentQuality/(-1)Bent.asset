@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 996cf75757f788846982eed9ff4c9353, type: 3}
-  m_Name: (-1)Battered
+  m_Name: (-1)Bent
   m_EditorClassIdentifier: 
   _displayName:
-    _locKey: item_quality_level_battered
-  _priceMult: 0.8
+    _locKey: item_quality_level_bent
+  _priceMult: 0.4

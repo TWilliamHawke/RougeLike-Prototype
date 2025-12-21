@@ -1,10 +1,10 @@
 namespace Items
 {
-    public class SpellTome : AbstractItem
+    public class SpellTome : StaticItem
     {
         public override int value => _spellTomeTemplate.value;
 
-        protected override IItemTemplate _template => _spellTomeTemplate;
+         protected override StaticItemTemplate _staticTemplate => _spellTomeTemplate;
 
         SpellTomeTemplate _spellTomeTemplate;
 

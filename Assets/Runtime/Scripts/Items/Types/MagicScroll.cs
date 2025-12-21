@@ -1,10 +1,10 @@
 namespace Items
 {
-    public class MagicScroll : AbstractItem
+    public class MagicScroll : StaticItem
     {
         public override int value => _magicScrollTemplate.value;
 
-        protected override IItemTemplate _template => _magicScrollTemplate;
+         protected override StaticItemTemplate _staticTemplate => _magicScrollTemplate;
 
         MagicScrollTemplate _magicScrollTemplate;
 
