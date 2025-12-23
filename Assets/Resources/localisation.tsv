@@ -126,3 +126,17 @@ weapon_name_elm_short_bow	Elm Short Bow	Вязовый короткий лук
 armor_name_iron_armor	Iron Armor	Железная броня
 armor_name_iron_gauntlets	Iron Gauntlets	Железные перчатки
 armor_name_iron_boots	Iron Boots	Железные Сапоги
+item_section_name_equipment	Equipment	Снаряжение
+equipment_slot_weapon	Weapon	Оружие
+empty_slot_text	Empty	Пусто
+equipment_slot_name_weapon	Weapon	Оружие
+equipment_slot_name_right_hand	Right Hand	Правая рука
+equipment_slot_name_left_hand	Left Hand	Левая рука
+equipment_slot_name_head	Head	Голова
+equipment_slot_name_arms	Arms	Руки
+equipment_slot_name_chest	Chest	Грудь
+equipment_slot_name_legs	Legs	Ноги
+equipment_slot_name_back	Back	Спина
+equipment_slot_name_neck	Neck	Шея
+equipment_slot_name_left_finger	Left finger	Левый палец
+equipment_slot_name_right_finger	Right Finger	Правый палец

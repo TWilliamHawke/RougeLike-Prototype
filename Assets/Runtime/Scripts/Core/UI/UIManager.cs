@@ -23,6 +23,7 @@ namespace Core
         [SerializeField] MainCanvas _mainCanvas;
         [SerializeField] UIScreen _inventoryScreen;
         [SerializeField] UIScreen _spellbookScreen;
+        [SerializeField] UIScreen _equipmentScreen;
         [Header("Injectors")]
         [SerializeField] Injector _inputControllerInjector;
         [Header("Data Objects")]
@@ -39,6 +40,7 @@ namespace Core
 
             _screens.Add(_inventoryScreen);
             _screens.Add(_spellbookScreen);
+            _screens.Add(_equipmentScreen);
             //_screens.Add(_lootPanel);
 
             _inputControllerInjector.AddInjectionTarget(this);
@@ -49,12 +51,14 @@ namespace Core
             if (_inputController is null) return;
             _inputController.main.Spellbook.performed -= ToggleSpellbook;
             _inputController.main.Inventory.performed -= ToggleInventory;
+            _inputController.main.Inventory.performed -= ToggleEquipment;
         }
 
         public void FinalizeInjection()
         {
             _inputController.main.Spellbook.performed += ToggleSpellbook;
             _inputController.main.Inventory.performed += ToggleInventory;
+            _inputController.main.Equipment.performed += ToggleEquipment;
         }
 
 
@@ -76,6 +80,7 @@ namespace Core
 
         void ToggleSpellbook(X _) => ToggleScreen(_spellbookScreen);
         void ToggleInventory(X _) => ToggleScreen(_inventoryScreen);
+        void ToggleEquipment(X _) => ToggleScreen(_equipmentScreen);
 
     }
 }

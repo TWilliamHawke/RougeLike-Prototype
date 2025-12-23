@@ -6,6 +6,7 @@ namespace Items
 		inventory,
 		storage,
 		loot,
-		trader
+		trader,
+		equipment
 	}
 }

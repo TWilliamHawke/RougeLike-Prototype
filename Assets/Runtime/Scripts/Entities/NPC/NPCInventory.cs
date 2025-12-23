@@ -7,53 +7,47 @@ using System.Linq;
 
 namespace Entities.NPC
 {
-    public partial class NPCInventoryTemplate : ScriptableObject
+
+    public class NPCInventory : INPCInventory
     {
+        public Dictionary<DamageType, int> resists { get; init; } = new();
 
-        protected class NPCInventory : INPCInventory
+        public WeaponTemplate weapon { get; init; }
+        protected NPCEquipment _equipmentContainer { get; init; }
+        ItemSection _equipment;
+
+        public NPCInventory(NPCInventoryTemplate template)
         {
-            public Dictionary<DamageType, int> resists { get; init; } = new();
+            weapon = template.weapon;
+            _equipment = new(template.equipmentSection);
+            _equipment.AddItemsFrom(template.inventoryTable);
 
-            public WeaponTemplate weapon { get; init; }
-            public ItemContainer equipmentContainer { get; init; }
-            ItemSection _equipment;
+            _equipmentContainer = new(_equipment);
+        }
 
-            public virtual int sectionsCount => 1;
-            public virtual ItemContainer this[int idx] => equipmentContainer;
+        public void AddItem(IItem item)
+        {
+            _equipment.AddItem(item);
+        }
 
-            public NPCInventory(NPCInventoryTemplate template)
-            {
-                weapon = template.weapon;
-                _equipment = new();
-                _equipment.AddItemsFrom(template.inventory);
+        public int FindItemCount(IItem item)
+        {
+            return _equipment.FindItemCount(item);
+        }
 
-                equipmentContainer = new("Equipment", _equipment);
-            }
+        public virtual IEnumerator<ItemContainer> GetEnumerator()
+        {
+            yield return _equipmentContainer;
+        }
 
-            public void AddItem(IItem item)
-            {
-                _equipment.AddItem(item);
-            }
+        public void RemoveOneItem(IItem item)
+        {
+            _equipment.RemoveItem(item);
+        }
 
-            public int FindItemCount(IItem item)
-            {
-                return _equipment.FindItemCount(item);
-            }
-
-            public virtual IEnumerator<ItemContainer> GetEnumerator()
-            {
-                yield return equipmentContainer;
-            }
-
-            public void RemoveOneItem(IItem item)
-            {
-                _equipment.RemoveItem(item);
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

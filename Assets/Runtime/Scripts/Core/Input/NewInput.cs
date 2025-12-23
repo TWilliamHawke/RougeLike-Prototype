@@ -97,7 +97,7 @@ namespace Core.Input
                     ""name"": ""Click"",
                     ""type"": ""Button"",
                     ""id"": ""e1b7f3ed-a348-4a50-9e38-413a94b9fef5"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -115,7 +115,16 @@ namespace Core.Input
                     ""name"": ""Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""e6d41680-ba18-4e48-9b41-ad3b717e7218"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equipment"",
+                    ""type"": ""Button"",
+                    ""id"": ""11b8540e-7028-43d1-a68a-60bc5c80b562"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -152,6 +161,17 @@ namespace Core.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1707be6-b1eb-4be4-94bf-e587adedb9d4"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equipment"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -280,6 +300,7 @@ namespace Core.Input
             m_Main_Click = m_Main.FindAction("Click", throwIfNotFound: true);
             m_Main_Spellbook = m_Main.FindAction("Spellbook", throwIfNotFound: true);
             m_Main_Inventory = m_Main.FindAction("Inventory", throwIfNotFound: true);
+            m_Main_Equipment = m_Main.FindAction("Equipment", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -376,6 +397,7 @@ namespace Core.Input
         private readonly InputAction m_Main_Click;
         private readonly InputAction m_Main_Spellbook;
         private readonly InputAction m_Main_Inventory;
+        private readonly InputAction m_Main_Equipment;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -399,6 +421,10 @@ namespace Core.Input
             /// Provides access to the underlying input action "Main/Inventory".
             /// </summary>
             public InputAction @Inventory => m_Wrapper.m_Main_Inventory;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/Equipment".
+            /// </summary>
+            public InputAction @Equipment => m_Wrapper.m_Main_Equipment;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -434,6 +460,9 @@ namespace Core.Input
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @Equipment.started += instance.OnEquipment;
+                @Equipment.performed += instance.OnEquipment;
+                @Equipment.canceled += instance.OnEquipment;
             }
 
             /// <summary>
@@ -454,6 +483,9 @@ namespace Core.Input
                 @Inventory.started -= instance.OnInventory;
                 @Inventory.performed -= instance.OnInventory;
                 @Inventory.canceled -= instance.OnInventory;
+                @Equipment.started -= instance.OnEquipment;
+                @Equipment.performed -= instance.OnEquipment;
+                @Equipment.canceled -= instance.OnEquipment;
             }
 
             /// <summary>
@@ -814,6 +846,13 @@ namespace Core.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnInventory(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Equipment" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnEquipment(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
