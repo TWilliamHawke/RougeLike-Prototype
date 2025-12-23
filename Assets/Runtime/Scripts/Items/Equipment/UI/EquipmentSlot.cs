@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-namespace Items.UI
+namespace Items.Equipment.UI
 {
 	public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 	{

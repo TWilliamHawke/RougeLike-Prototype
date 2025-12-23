@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment
 {
     public class PlayerEquipment : ScriptableObject, IEquipmentController, IEquipmentStorage
     {

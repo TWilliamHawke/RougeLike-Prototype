@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Items.Equipment;
 using UnityEngine;
 
 namespace Items

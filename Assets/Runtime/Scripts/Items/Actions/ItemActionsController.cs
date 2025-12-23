@@ -4,6 +4,7 @@ using Abilities;
 using Core;
 using Core.UI;
 using Entities.PlayerScripts;
+using Items.Equipment;
 using Items.UI;
 using UnityEngine;
 

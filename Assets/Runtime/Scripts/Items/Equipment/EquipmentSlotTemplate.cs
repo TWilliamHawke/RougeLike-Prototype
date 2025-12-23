@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment
 {
 	[CreateAssetMenu(fileName = "EquipmentSlotTemplate", menuName = "Items/EquipmentSlotTemplate")]
     public class EquipmentSlotTemplate : DisplayedObject

@@ -1,6 +1,7 @@
 using Core;
 using Entities;
 using Entities.PlayerScripts;
+using Items.Equipment;
 using UnityEngine;
 
 namespace Items.Actions
