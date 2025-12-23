@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Items.UI
+namespace Items.Equipment.UI
 {
     public class EquipmentScreen : MonoBehaviour, IObserversController<EquipmentSlot>
 	{

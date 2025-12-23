@@ -1,3 +1,5 @@
+using Items.Equipment;
+
 namespace Items
 {
     public class Armor : AbstractItem, IEquipment

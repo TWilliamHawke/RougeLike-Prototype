@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment
 {
     [System.Serializable]
 	public class WeaponQualityData : IEquipmentQualityData

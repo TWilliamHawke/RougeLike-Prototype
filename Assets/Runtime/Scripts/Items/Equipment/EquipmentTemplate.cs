@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment
 {
     public abstract class EquipmentTemplate<T> : ItemTemplate where T : IEquipmentQualityData
 	{

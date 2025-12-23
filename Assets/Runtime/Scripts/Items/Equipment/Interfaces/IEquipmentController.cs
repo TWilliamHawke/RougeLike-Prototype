@@ -1,4 +1,4 @@
-namespace Items
+namespace Items.Equipment
 {
     public interface IEquipmentController
     {

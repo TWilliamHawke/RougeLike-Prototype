@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Items
+namespace Items.Equipment
 {
 	public enum EquipmentTypes
 	{

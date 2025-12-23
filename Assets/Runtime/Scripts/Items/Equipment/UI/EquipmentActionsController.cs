@@ -3,10 +3,9 @@ using Core;
 using Core.UI;
 using Entities.PlayerScripts;
 using Items.Actions;
-using Items.UI;
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment.UI
 {
     public class EquipmentActionsController : ActionController<ItemSlotData>, IObserver<EquipmentSlot>
     {

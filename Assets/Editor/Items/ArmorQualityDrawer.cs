@@ -1,5 +1,6 @@
 using UnityEditor;
 using Items;
+using Items.Equipment;
 
 namespace CustomEditors
 {

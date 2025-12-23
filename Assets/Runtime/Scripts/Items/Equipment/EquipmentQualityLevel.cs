@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Items
+namespace Items.Equipment
 {
 	[CreateAssetMenu(fileName = "Equipment Quality", menuName = "Items/Equipment Quality")]
 	public class EquipmentQualityLevel : ScriptableObject
