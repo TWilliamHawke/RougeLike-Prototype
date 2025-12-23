@@ -1,16 +1,15 @@
 using Core;
 using Entities;
 using Entities.PlayerScripts;
-using UnityEngine;
 
 namespace Items.Actions
 {
-    public class Equip : ContextActionFactory<ItemSlotData>
+    public class Unequip : ContextActionFactory<ItemSlotData>
     {
-        IEquipmentController _equipmentController;
-        AudioEffectsController _soundController;
+        protected IEquipmentController _equipmentController;
+        protected AudioEffectsController _soundController;
 
-        public Equip(IEquipmentController equipmentController, Player player)
+        public Unequip(IEquipmentController equipmentController, Player player)
         {
             _equipmentController = equipmentController;
             _soundController = player
@@ -19,7 +18,7 @@ namespace Items.Actions
 
         protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
-            return new EquipAction(itemSlot, _equipmentController, _soundController);
+            return new UnequipAction(itemSlot, _equipmentController, _soundController);
         }
 
         protected override bool ElementIsValid(ItemSlotData itemSlot)
@@ -27,13 +26,13 @@ namespace Items.Actions
             return itemSlot.item is IEquipment;
         }
 
-        class EquipAction : ContextActionContainer
+        protected class UnequipAction : ContextActionContainer
         {
             ItemSlotData _itemSlot;
             IEquipmentController _equipmentController;
             AudioEffectsController _soundController;
 
-            public EquipAction(ItemSlotData itemSlot, IEquipmentController equipmentController, AudioEffectsController soundController)
+            public UnequipAction(ItemSlotData itemSlot, IEquipmentController equipmentController, AudioEffectsController soundController)
             {
                 _itemSlot = itemSlot;
                 _equipmentController = equipmentController;
@@ -42,7 +41,7 @@ namespace Items.Actions
 
             public override void DoAction()
             {
-                _equipmentController.Equip(_itemSlot);
+                _equipmentController.Unequip(_itemSlot.GetEquipmentSlot());
                 _soundController.PlaySound(_itemSlot.item.dragSound);
             }
         }

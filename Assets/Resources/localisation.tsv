@@ -140,3 +140,5 @@ equipment_slot_name_back	Back	Спина
 equipment_slot_name_neck	Neck	Шея
 equipment_slot_name_left_finger	Left finger	Левый палец
 equipment_slot_name_right_finger	Right Finger	Правый палец
+context_action_unequip	Unequip	Снять
+context_action_replace	Replace	Сменить
