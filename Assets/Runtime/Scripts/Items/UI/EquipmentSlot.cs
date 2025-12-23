@@ -9,6 +9,7 @@ namespace Items.UI
 	public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 	{
 		[SerializeField] EquipmentSlotTemplate _equipmentSlot;
+		[SerializeField] CustomEvent _onSlotSelected;
 		[Header("UI Elements")]
 		[SerializeField] Image _itemIcon;
 		[SerializeField] TextMeshProUGUI _slotName;
@@ -52,6 +53,7 @@ namespace Items.UI
         public void OnPointerClick(PointerEventData eventData)
         {
 			if (_itemInSlot is null) return;
+			_onSlotSelected.Invoke();
             OnSlotSelected?.Invoke(_itemInSlot);
         }
     }

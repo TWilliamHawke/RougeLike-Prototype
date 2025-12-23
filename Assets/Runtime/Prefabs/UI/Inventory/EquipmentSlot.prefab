@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _equipmentSlot: {fileID: 11400000, guid: 5a8cc820bc0f10d4c884daf2d0f064ee, type: 2}
+  _onSlotSelected: {fileID: 11400000, guid: 6a2583d0135a66e4684baa732a2909b5, type: 2}
   _itemIcon: {fileID: 7821588282823320026}
   _slotName: {fileID: 7446311365590578811}
   _itemName: {fileID: 2019248923146805521}
