@@ -9,9 +9,10 @@
                     "name": "Click",
                     "type": "Button",
                     "id": "e1b7f3ed-a348-4a50-9e38-413a94b9fef5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Spellbook",
@@ -19,15 +20,26 @@
                     "id": "c6916c92-398c-4ddb-92ff-a28a88aa7cce",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "e6d41680-ba18-4e48-9b41-ad3b717e7218",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Equipment",
+                    "type": "Button",
+                    "id": "11b8540e-7028-43d1-a68a-60bc5c80b562",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -63,6 +75,17 @@
                     "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1707be6-b1eb-4be4-94bf-e587adedb9d4",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equipment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -76,7 +99,8 @@
                     "id": "413e866a-ab0f-4bc2-870c-8aa731d34237",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -103,7 +127,8 @@
                     "id": "e14b0937-1f2d-4ece-9f96-167d3624c04b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -130,7 +155,8 @@
                     "id": "eb24aeeb-0062-4657-94d4-de3448744448",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Return",
@@ -138,7 +164,8 @@
                     "id": "b088e9aa-361c-4e9e-bfaf-2984999a6a93",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

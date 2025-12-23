@@ -17,16 +17,13 @@ namespace Items
         ItemSection _storage;
 
         public StoredResources resources { get; private set; }
-        public IEnumerable<IItem> equipment => _equipment;
 
         List<IItemSection> _sections;
         Dictionary<IItemSectionTemplate, ItemSection> _sectionsByTemplate;
 
-        List<IItem> _equipment;
-
         bool _isInit;
 
-        private void OnEnable()
+        void OnEnable()
         {
             if (resources is not null) return;
 
@@ -50,16 +47,6 @@ namespace Items
                     break;
                 }
             }
-        }
-
-        public IItem GetEquipment(EquipmentTypes type)
-        {
-            return _equipment[(int)type];
-        }
-
-        public void AddEquipment(EquipmentTypes type, IItem item)
-        {
-            _equipment[(int)type] = item;
         }
 
         public void AddItems(IEnumerable<ItemSlotData> itemSlots)

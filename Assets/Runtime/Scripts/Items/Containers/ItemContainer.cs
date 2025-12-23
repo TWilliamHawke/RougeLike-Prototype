@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Items
 {
-    public interface IItemContainer : IEnumerable<ItemSlotData>
-    {
-        ItemStorageType storageType { get; }
-    }
-
     public class ItemContainer : IItemContainer, IUISectionData<ItemSlotData>
     {
         public int lockLevel { get; private set; } = 0;
@@ -62,7 +56,7 @@ namespace Items
             OnSectionDataChange?.Invoke();
         }
 
-        public IEnumerator<ItemSlotData> GetEnumerator()
+        public virtual IEnumerator<ItemSlotData> GetEnumerator()
         {
             return _itemsSection.GetEnumerator();
         }

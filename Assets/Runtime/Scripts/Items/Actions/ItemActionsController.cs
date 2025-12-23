@@ -14,6 +14,7 @@ namespace Items.Actions
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] InventoryScreen _inventoryScreen;
+        [SerializeField] PlayerEquipment _playerEquipment;
         [SerializeField] QuickBarSetupController _quickBarSetupController;
         [Header("Item Actions")]
         [SerializeField] ContextActionTemplate _useAbility;
@@ -45,7 +46,7 @@ namespace Items.Actions
             AddFactory(_showInfo, new ShowInfo<ItemSlotData>());
             AddFactory(_buy, new Buy());
             AddFactory(_sell, new Sell());
-            AddFactory(_equip, new Equip());
+            AddFactory(_equip, new Equip(_playerEquipment, _player));
             AddFactory(_moveToStorage, new MoveToStorage());
             AddFactory(_bindToQuickbar, new BindToQuickbar(
                 abilitiesFactory, _quickBarSetupController));

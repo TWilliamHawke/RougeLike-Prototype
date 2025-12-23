@@ -11,6 +11,7 @@ using Map;
 
 namespace Entities.NPC
 {
+    [RequireComponent(typeof(FactionHandler))]
     public class NPC : Entity
     {
         [SerializeField] NPCSoundKit _soundKit;

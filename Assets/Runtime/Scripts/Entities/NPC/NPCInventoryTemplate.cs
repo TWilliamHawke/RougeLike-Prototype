@@ -6,16 +6,18 @@ using Items;
 namespace Entities.NPC
 {
     [CreateAssetMenu(fileName = "NPCInventory", menuName = "Entities/NPCInventory", order = 0)]
-    public partial class NPCInventoryTemplate : ScriptableObject
+    public class NPCInventoryTemplate : ScriptableObject
     {
 		[SerializeField] WeaponTemplate _weapon;
 
+        [SerializeField] LootTable _equipmentTable;
         [SerializeField] LootTable _inventory;
-        [SerializeField] ItemContainerData[] _tradeGoods;
+        [SerializeField] ItemSectionTemplate _equipmentSection;
 
         public WeaponTemplate weapon => _weapon;
+        public ItemSectionTemplate equipmentSection => _equipmentSection;
 
-        public LootTable inventory => _inventory;
+        public LootTable inventoryTable => _inventory;
 
         public virtual INPCInventory CreateInventory()
         {

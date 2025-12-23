@@ -11,7 +11,7 @@ namespace Localisation
         private void Start()
         {
 			var textComp = GetComponent<Text>();
-			textComp.SelLocalisedText(_localisationKey);
+			textComp.SetLocalisedText(_localisationKey);
         }
 	}
 }

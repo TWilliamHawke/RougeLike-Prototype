@@ -10,6 +10,7 @@ namespace Items
     [System.Serializable]
     public class ItemSlotData : IDataCount<IItem>, IItemSlotDataUnsafe
     {
+        //[SerializeField] requires for show inventory in inspector
         [SerializeField] IItem _item;
         [SerializeField] int _count;
 
@@ -56,18 +57,33 @@ namespace Items
             OnSlotDataChanged?.Invoke();
         }
 
-    public IEnumerable<ContextActionTemplate> GetActions(ItemSectionTemplate section)
-    {
-        foreach (var action in section.GetActions())
+        public EquipmentTypes GetEquipmentSlot()
         {
-            yield return action;
+            EquipmentTypes type = EquipmentTypes.none;
+            if (item is IEquipment equipmentTemplate)
+            {
+                type = equipmentTemplate.equipmentType;
+            }
+            return type;
         }
 
-        foreach (var action in item.GetActions())
+        public ItemSlotData Clone()
         {
-            yield return action;
+            return new ItemSlotData(_item, _count, slotPrice);
         }
-    }
+
+        public IEnumerable<ContextActionTemplate> GetActions(ItemSectionTemplate section)
+        {
+            foreach (var action in section.GetActions())
+            {
+                yield return action;
+            }
+
+            foreach (var action in item.GetActions())
+            {
+                yield return action;
+            }
+        }
 
         void IItemSlotDataUnsafe.IncreaseCountBy(int num)
         {
