@@ -8,9 +8,9 @@ namespace Items
     [CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor")]
     public class ArmorTemplate : EquipmentTemplate<ArmorQualityData>
     {
-        [SerializeField] EquipmentTypes _equipmentType;
+        [SerializeField] EquipmentSlotTemplate _equipmentSlot;
 
-        public EquipmentTypes equipmentType => _equipmentType;
+        public EquipmentSlotTemplate equipmentSlot => _equipmentSlot;
 
         public override IItem CreateItem(int rarity = 0)
         {

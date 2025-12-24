@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public sealed class UIScreen : MonoBehaviour, IUIScreen
 {
+    [SerializeField] bool CloseOnStart;
     public event UnityAction OnScreenOpen;
     public event UnityAction OnScreenClose;
 
     public UnityEvent OnOpen;
     public UnityEvent OnClose;
 
-    [SerializeField] bool CloseOnStart;
 
     private void Start()
     {

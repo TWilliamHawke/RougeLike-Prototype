@@ -24,7 +24,7 @@ namespace Items.Equipment.UI
             _equipmentSlots.ForEach(slot => observer.RemoveFromObserve(slot));
         }
 
-		private void ShowEquipmentInSlots()
+		public void ShowEquipmentInSlots()
 		{
 			_equipmentSlots.ForEach(slot => slot.Clear());
 			_equipmentSlots.ForEach(slot => slot.SelectEquipment(_playerEquipment));
