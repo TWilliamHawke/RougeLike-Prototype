@@ -14,21 +14,21 @@ namespace Items.Equipment
             _equipmentStorage = new();
         }
 
-        public ItemSlotData GetEquipment(EquipmentTypes type)
+        public ItemSlotData GetEquipment(IEquipmentSlotTemplate slot)
         {
-            return _equipmentStorage.GetEquipment(type);
+            return _equipmentStorage.GetEquipment(slot);
         }
 
         public void Equip(ItemSlotData itemSlotData)
         {
             var slot = itemSlotData.GetEquipmentSlot();
-            if (slot.equipmentType == EquipmentTypes.none) return;
+            if (slot.index == 0) return;
             _equipmentStorage.AddEquipment(slot, itemSlotData.Clone());
             itemSlotData.RemoveOneItem();
             _onEquipmentChanged.Invoke();
         }
 
-        public void Unequip(EquipmentSlotTemplate slot)
+        public void Unequip(IEquipmentSlotTemplate slot)
         {
             if (_equipmentStorage.TryRemoveEquipment(slot, out var itemSlotData))
             {
@@ -37,9 +37,9 @@ namespace Items.Equipment
             }
         }
 
-        public bool HasEquipment(EquipmentTypes type)
+        public bool HasEquipment(IEquipmentSlotTemplate slot)
         {
-            return _equipmentStorage.HasEquipment(type);
+            return _equipmentStorage.HasEquipment(slot);
         }
     }
 }

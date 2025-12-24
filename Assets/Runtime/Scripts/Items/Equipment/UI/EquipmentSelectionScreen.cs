@@ -30,7 +30,7 @@ namespace Items.Equipment.UI
             target.OnEmptySlotClick -= ShowMainItems;
         }
 
-        public void ShowMainItems(EquipmentSlotTemplate slotTemplate)
+        public void ShowMainItems(IEquipmentSlotTemplate slotTemplate)
         {
 			_equipmentSlotName.SetLocalisedText(slotTemplate.displayName);
 			_screen.Open();
@@ -38,13 +38,13 @@ namespace Items.Equipment.UI
             ShowItemsInSection(slotTemplate, _mainSection);
         }
 
-        public void ShowStorageItems(EquipmentSlotTemplate slotTemplate)
+        public void ShowStorageItems(IEquipmentSlotTemplate slotTemplate)
         {
             ShowMainItems(slotTemplate);
             ShowItemsInSection(slotTemplate, _storageSection);
         }
 
-        private void ShowItemsInSection(EquipmentSlotTemplate slotTemplate, ItemSectionTemplate sectionTemplate)
+        private void ShowItemsInSection(IEquipmentSlotTemplate slotTemplate, ItemSectionTemplate sectionTemplate)
         {
             var mainSection = _inventory.GetSection(sectionTemplate);
 			Debug.Log("Search for " + slotTemplate.displayName);

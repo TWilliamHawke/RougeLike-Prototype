@@ -22,7 +22,7 @@ namespace Items.Equipment.UI
 		ItemSlotData _itemInSlot;
 
 		public event UnityAction<ItemSlotData> OnSlotSelected;
-		public event UnityAction<EquipmentSlotTemplate> OnEmptySlotClick;
+		public event UnityAction<IEquipmentSlotTemplate> OnEmptySlotClick;
 
 		public void Init()
 		{
@@ -31,8 +31,8 @@ namespace Items.Equipment.UI
 
 		public void SelectEquipment(IEquipmentStorage storage)
 		{
-			if(!storage.HasEquipment(_equipmentSlot.equipmentType)) return;
-			BindData(storage.GetEquipment(_equipmentSlot.equipmentType));
+			if(!storage.HasEquipment(_equipmentSlot)) return;
+			BindData(storage.GetEquipment(_equipmentSlot));
 		}
 
 		public void Clear()

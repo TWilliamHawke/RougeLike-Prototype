@@ -10,7 +10,7 @@ namespace Items
     {
         [SerializeField] EquipmentSlotTemplate _slot;
 
-        public EquipmentSlotTemplate equipmentSlot => _slot;
+        public IEquipmentSlotTemplate equipmentSlot => _slot;
 
         public override IItem CreateItem(int rarity = 0)
         {

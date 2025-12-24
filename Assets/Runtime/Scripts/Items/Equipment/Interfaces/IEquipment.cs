@@ -2,6 +2,6 @@ namespace Items.Equipment
 {
     public interface IEquipment
 	{
-		EquipmentSlotTemplate equipmentSlot { get; }
+		IEquipmentSlotTemplate equipmentSlot { get; }
 	}
 }
