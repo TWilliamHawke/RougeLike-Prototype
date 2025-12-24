@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Items.Equipment
 {
     [Serializable]
-    public class EquipmentStorage
+    public class EquipmentStorage : IEquipmentStorage
     {
         static readonly int _size = Enum.GetValues(typeof(EquipmentTypes)).Length;
         [SerializeField] List<ItemSlotData> _equipment;
@@ -25,8 +25,9 @@ namespace Items.Equipment
             return _equipment[slot.index];
         }
 
-        public void AddEquipment(IEquipmentSlotTemplate slot, ItemSlotData item)
+        public void AddEquipment(ItemSlotData item)
         {
+            IEquipmentSlotTemplate slot = item.GetEquipmentSlot();
             _equipment[slot.index] = item;
         }
 

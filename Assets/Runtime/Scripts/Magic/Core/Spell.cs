@@ -10,7 +10,7 @@ namespace Magic
     [CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
 	public class Spell : ScriptableObject, ISpriteGetter
 	{
-		[UseFileName]
+		[LocalisationKey]
 		[SerializeField] string _displayName;
 		[SpritePreview]
 		[SerializeField] Sprite _icon;

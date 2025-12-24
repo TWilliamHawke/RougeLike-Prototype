@@ -19,7 +19,7 @@ namespace Abilities
         {
             _abilityContainer = data;
             _abilityButton.UpdateButtonGraphic(data);
-            _abilityName.text = data.displayName;
+            _abilityName.SetLocalisedText(data.displayName);
         }
 
         public void OnPointerClick(PointerEventData eventData)

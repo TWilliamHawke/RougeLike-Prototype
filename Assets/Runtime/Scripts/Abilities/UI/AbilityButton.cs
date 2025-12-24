@@ -14,7 +14,7 @@ namespace Abilities
         {
             _abilityIcon.gameObject.SetActive(true);
             _abilityIcon.sprite = data.icon;
-            data.UpdateAbilityButton(this);
+            data.UpdateAbilityCounter(this);
         }
 
         protected void HideIcon()

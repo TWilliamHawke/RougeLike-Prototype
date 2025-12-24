@@ -27,7 +27,7 @@ namespace Items
             
         }
 
-        public ItemSlotData(IItem item, int count, int slotPrice = -1)
+        public ItemSlotData(IItem item, int count = 1, int slotPrice = -1)
         {
             _item = item;
             _count = count;

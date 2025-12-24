@@ -5153,6 +5153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185999350}
   - component: {fileID: 185999351}
+  - component: {fileID: 185999352}
   m_Layer: 0
   m_Name: MainAbilitySelector
   m_TagString: Untagged
@@ -5189,6 +5190,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityScreen: {fileID: 261160687}
   _quickBar: {fileID: 11400000, guid: 614fd68ce7eaaac4bbfdd3147336e5c5, type: 2}
+--- !u!114 &185999352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185999349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1424681932}
+        m_TargetAssemblyTypeName: UIScreen, Project
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &195622895
 GameObject:
   m_ObjectHideFlags: 0
@@ -8534,9 +8563,12 @@ MonoBehaviour:
   _screen: {fileID: 1424681932}
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
   _spellbook: {fileID: 11400000, guid: a84c62cddaa89d7458fbd06cd7da07fa, type: 2}
+  _equipment: {fileID: 11400000, guid: 0a19610342455d341a1277d68b6e141e, type: 2}
   _abilitySectionPrefab: {fileID: -7504315053192271222, guid: 0156b54638edbb948b327bc034e544f2, type: 3}
   _spellsSectionName:
     _locKey: ability_section_name_spells
+  _equipmentSectionName:
+    _locKey: ability_section_name_equipment
   _inventorySections:
   - {fileID: 11400000, guid: 2197976f36bad7f4bbfbf19d8b50585a, type: 2}
   - {fileID: 11400000, guid: d09b492e9ba36954ea61f7dd7e078e10, type: 2}
@@ -94998,6 +95030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1488402151}
   - component: {fileID: 1488402152}
+  - component: {fileID: 1488402153}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -95046,6 +95079,34 @@ MonoBehaviour:
   - {fileID: 301150703}
   _quickBarSetupScreen: {fileID: 2119469642}
   _quickBarDataStorage: {fileID: 11400000, guid: 614fd68ce7eaaac4bbfdd3147336e5c5, type: 2}
+--- !u!114 &1488402153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488402150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0249077b69edf7346a8aeb3b0e5127d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _customEvent: {fileID: 11400000, guid: 382c8c1764cad2644bb52382a5088b4f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2119469642}
+        m_TargetAssemblyTypeName: UIScreen, Project
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1490744991
 PrefabInstance:
   m_ObjectHideFlags: 0

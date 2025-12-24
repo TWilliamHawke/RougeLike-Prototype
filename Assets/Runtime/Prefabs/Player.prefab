@@ -723,7 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onPlayerTurnEnd: {fileID: 11400000, guid: adf8980e5685cb741935668bbd700de1, type: 2}
   _stats: {fileID: 11400000, guid: 1180ddb6d05018e43a31f4df3854cd3e, type: 2}
-  _testResists: {fileID: 11400000, guid: 8cf33a657405d484494447d5578ff8aa, type: 2}
+  _quickBarData: {fileID: 0}
 --- !u!114 &1257288472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +766,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _body: {fileID: 1261394877}
 --- !u!114 &9206173401267896131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,6 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _equipment: {fileID: 11400000, guid: 0a19610342455d341a1277d68b6e141e, type: 2}
   _magicConfig: {fileID: 11400000, guid: 9bdf7a99e86688c468d831d335b28055, type: 2}
 --- !u!114 &6603279187782306258
 MonoBehaviour:
