@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425b3cfc9c5b58a4d8192a71d1d7b51a, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  _displayName: Fireball
+  _displayName: ability_name_fireball
   _icon: {fileID: 21300000, guid: 3d075a9741cd6c845be338c56ffbf0cd, type: 3}
   _startRank: 1
   _levels:

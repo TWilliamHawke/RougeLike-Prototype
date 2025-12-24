@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8df7315fc6e97546bc1e76109b3f73d, type: 3}
   m_Name: ShortBowShot
   m_EditorClassIdentifier: 
-  _displayName: 
-  _icon: {fileID: 0}
+  _displayName: ability_name_bow_shot
+  _icon: {fileID: 21300000, guid: 46f8266fdb7b88b469913cc1b395f2b0, type: 3}
   _abilityController: {fileID: 11400000, guid: e15700aad2e93294396d2584bddd030b, type: 2}
   _effectsHandler: {fileID: 11400000, guid: de564d1d19f08fd40836b28598790948, type: 2}
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 11400000, guid: 24a9c0557409182478fcd930307670d7, type: 2}
   _damage:
     _minValue: 0
     _maxValue: 0

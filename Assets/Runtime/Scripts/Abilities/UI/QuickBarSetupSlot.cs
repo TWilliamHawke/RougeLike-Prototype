@@ -26,6 +26,7 @@ namespace Abilities
         private void SetSlotData(IAbilityContainerData data)
         {
             _abilityName.text = $"{slotIndex + 1} - {data.displayName}";
+            data.UpdateAbilityCounter(this);
             UpdateButtonGraphic(data);
         }
 

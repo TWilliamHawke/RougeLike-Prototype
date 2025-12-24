@@ -16,7 +16,7 @@ namespace Abilities
             _user = user;
         }
 
-        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityCounter(IAbilityCounterHandler handler)
         {
             handler.HideAbilityCounter();
         }

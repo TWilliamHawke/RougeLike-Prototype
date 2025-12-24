@@ -33,7 +33,7 @@ namespace Abilities
             _inventory.RemoveOneItem(_item);
         }
 
-        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityCounter(IAbilityCounterHandler handler)
         {
             int numOfUses = _inventory.FindItemCount(_item);
             handler.ShowAbilityCounter(numOfUses);

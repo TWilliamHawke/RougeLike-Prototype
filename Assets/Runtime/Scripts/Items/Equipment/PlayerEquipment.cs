@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Equipment
@@ -6,12 +8,19 @@ namespace Items.Equipment
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] CustomEvent _onEquipmentChanged;
+        [SerializeField] ItemTemplate[] _testEquipment;
 
         EquipmentStorage _equipmentStorage = new();
 
         void OnEnable()
         {
             _equipmentStorage = new();
+
+            foreach (var equipment in _testEquipment)
+            {
+                ItemSlotData slot = new(equipment.CreateItem(30));
+                _equipmentStorage.AddEquipment(slot);
+            }
         }
 
         public ItemSlotData GetEquipment(IEquipmentSlotTemplate slot)
@@ -23,7 +32,7 @@ namespace Items.Equipment
         {
             var slot = itemSlotData.GetEquipmentSlot();
             if (slot.index == 0) return;
-            _equipmentStorage.AddEquipment(slot, itemSlotData.Clone());
+            _equipmentStorage.AddEquipment(itemSlotData.Clone());
             itemSlotData.RemoveOneItem();
             _onEquipmentChanged.Invoke();
         }
@@ -32,6 +41,7 @@ namespace Items.Equipment
         {
             if (_equipmentStorage.TryRemoveEquipment(slot, out var itemSlotData))
             {
+                itemSlotData.RemoveAllItems();
                 _inventory.AddItem(itemSlotData.item);
                 _onEquipmentChanged.Invoke();
             }
@@ -40,6 +50,11 @@ namespace Items.Equipment
         public bool HasEquipment(IEquipmentSlotTemplate slot)
         {
             return _equipmentStorage.HasEquipment(slot);
+        }
+
+        public IEnumerable<ItemSlotData> GetAllItems()
+        {
+            return _equipmentStorage.GetItems();
         }
     }
 }

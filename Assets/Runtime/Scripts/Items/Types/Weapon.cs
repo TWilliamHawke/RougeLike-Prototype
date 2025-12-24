@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using Abilities;
+using Effects;
 using Items.Equipment;
 
 namespace Items
 {
-    public class Weapon : AbstractItem, IEquipment
+    public class Weapon : AbstractItem, IEquipment, IAbilitySource, IEffectSource
     {
         public IEquipmentSlotTemplate equipmentSlot => _weaponTemplate.equipmentSlot;
 
@@ -21,6 +24,17 @@ namespace Items
         }
 
         public override string GetDescription()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
+        {
+            var ability = _weaponTemplate.CreateAbility();
+            return factory.CreateEquipmentContainer(equipmentSlot, ability);
+        }
+
+        public IEnumerable<ISourceEffectData> GetEffects()
         {
             throw new System.NotImplementedException();
         }

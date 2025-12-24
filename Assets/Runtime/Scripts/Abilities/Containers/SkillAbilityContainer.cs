@@ -17,7 +17,7 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override void UpdateAbilityButton(IAbilityCounterHandler handler)
+        public override void UpdateAbilityCounter(IAbilityCounterHandler handler)
         {
             throw new System.NotImplementedException();
         }

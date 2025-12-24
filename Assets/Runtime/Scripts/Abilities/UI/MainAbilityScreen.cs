@@ -5,6 +5,7 @@ using Items;
 using Magic;
 using UnityEngine;
 using System.Linq;
+using Items.Equipment;
 
 namespace Abilities
 {
@@ -12,8 +13,10 @@ namespace Abilities
     {
         [SerializeField] Inventory _inventory;
         [SerializeField] Spellbook _spellbook;
+        [SerializeField] PlayerEquipment _equipment;
         [SerializeField] AbilitySection _abilitySectionPrefab;
         [SerializeField] LocalString _spellsSectionName;
+        [SerializeField] LocalString _equipmentSectionName;
         [SerializeField] List<ItemSectionTemplate> _inventorySections;
 
         [InjectField] Player _player;
@@ -43,20 +46,39 @@ namespace Abilities
             if (_abilitiesFactory == null) return;
             _sectionsLayout.ClearLayout();
 
-            AbilitySectionData spells = new(_spellsSectionName);
-
-            foreach (var knownSpell in _spellbook.knownSpells)
-            {
-                var ability = knownSpell.CreateAbilityContainer(_abilitiesFactory);
-                spells.AddMainSlotAbility(ability);
-            }
-
-            CreateSection(spells);
+            CreateEquipmentSection();
+            CreateSpellSection();
 
             foreach (var sectionTemplate in _inventorySections)
             {
                 CreateItemAbilitySection(sectionTemplate);
             }
+        }
+
+        private void CreateEquipmentSection()
+        {
+            AbilitySectionData equipmentSection = new(_equipmentSectionName);
+            foreach (var itemSlot in _equipment.GetAllItems())
+            {
+                if (itemSlot.item is not IAbilitySource abilitySource) continue;
+                var container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
+                equipmentSection.AddMainSlotAbility(container);
+            }
+
+            CreateSection(equipmentSection);
+        }
+
+        private void CreateSpellSection()
+        {
+            AbilitySectionData spellsSection = new(_spellsSectionName);
+
+            foreach (var knownSpell in _spellbook.knownSpells)
+            {
+                var ability = knownSpell.CreateAbilityContainer(_abilitiesFactory);
+                spellsSection.AddMainSlotAbility(ability);
+            }
+
+            CreateSection(spellsSection);
         }
 
         private void CreateItemAbilitySection(ItemSectionTemplate sectionTemplate)
@@ -69,9 +91,8 @@ namespace Abilities
             {
                 var slotActions = slot.GetActions(sectionTemplate);
                 if (slotActions.All(action => action != _useAction)) continue;
-                var item = slot.item as IAbilitySource;
-                if (item == null) continue;
-                var container = item.CreateAbilityContainer(_abilitiesFactory);
+                if (slot.item is not IAbilitySource abilitySource) continue;
+                var container = abilitySource.CreateAbilityContainer(_abilitiesFactory);
                 abilitiesList.AddMainSlotAbility(container);
             }
 

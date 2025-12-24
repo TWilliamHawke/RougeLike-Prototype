@@ -14,11 +14,8 @@ namespace Items.Equipment
 
 		public string ConstructName(T qualityData)
 		{
-            if (string.IsNullOrEmpty(qualityData.displayName))
-            {
-                return _displayName;
-            }
-			return qualityData.displayName + " " + _displayName;
+			string name = qualityData.displayName + " " + _displayName;
+			return name.Replace("%rm ", "");
 		}
 
 		public int CalcValue(T qualityData)

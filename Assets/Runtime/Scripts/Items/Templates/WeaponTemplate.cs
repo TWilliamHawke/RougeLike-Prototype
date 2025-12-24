@@ -18,5 +18,10 @@ namespace Items
             var qualityData = GetQualityData(rarity);
             return new Weapon(this, qualityData);
         }
+
+        public IAbility CreateAbility()
+        {
+            return _abilities.baseAbility.CreateAbility();
+        }
     }
 }

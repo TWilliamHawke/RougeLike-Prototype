@@ -12,7 +12,7 @@ namespace Abilities
 
         protected abstract IAbility ability { get; }
 
-        public abstract void UpdateAbilityButton(IAbilityCounterHandler handler);
+        public abstract void UpdateAbilityCounter(IAbilityCounterHandler handler);
         public abstract void UseAbility(IAbilityTarget target);
         public abstract bool TileHasValidTarget(ITileClickData tile);
 

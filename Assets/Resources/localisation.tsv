@@ -142,3 +142,6 @@ equipment_slot_name_left_finger	Left finger	Левый палец
 equipment_slot_name_right_finger	Right Finger	Правый палец
 context_action_unequip	Unequip	Снять
 context_action_replace	Replace	Сменить
+ability_section_name_equipment	Equipment	Снаряжение
+ability_name_bow_shot	Bow shot	Выстрел из лука
+empty_string	%rm	%rm
