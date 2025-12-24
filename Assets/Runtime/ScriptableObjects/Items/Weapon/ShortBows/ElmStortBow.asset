@@ -69,4 +69,5 @@ MonoBehaviour:
       _maxValue: 32
       _isRandom: 1
     _criticalDamage: 16
+  _equipmentSlot: {fileID: 11400000, guid: 5a8cc820bc0f10d4c884daf2d0f064ee, type: 2}
   _abilities: {fileID: 11400000, guid: bda976ca8faef0d4da6566c94e640d97, type: 2}

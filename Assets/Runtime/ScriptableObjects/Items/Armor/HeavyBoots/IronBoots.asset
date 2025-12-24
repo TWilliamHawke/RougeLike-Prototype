@@ -45,4 +45,4 @@ MonoBehaviour:
   - _levelName: {fileID: 11400000, guid: 96ade534b79eb264ca623257f8f8c1d4, type: 2}
     _armor: 10
     _heaviness: 5
-  _equipmentType: 6
+  _equipmentSlot: {fileID: 11400000, guid: e797952053c36e942bbca79215c0a208, type: 2}

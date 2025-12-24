@@ -4,7 +4,7 @@ namespace Items
 {
     public class Weapon : AbstractItem, IEquipment
     {
-        public EquipmentTypes equipmentType => EquipmentTypes.weapon;
+        public EquipmentSlotTemplate equipmentSlot => _weaponTemplate.equipmentSlot;
 
         protected override ItemTemplate _template => _weaponTemplate;
 

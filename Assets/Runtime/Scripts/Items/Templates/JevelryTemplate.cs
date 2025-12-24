@@ -8,9 +8,9 @@ namespace Items
     [CreateAssetMenu(fileName = "Jevelry", menuName = "Items/Jevelry")]
     public class JevelryTemplate : StaticItemTemplate, IEquipment
     {
-		[SerializeField] EquipmentTypes _equipmentType;
+        [SerializeField] EquipmentSlotTemplate _slot;
 
-        public EquipmentTypes equipmentType => _equipmentType;
+        public EquipmentSlotTemplate equipmentSlot => _slot;
 
         public override IItem CreateItem(int rarity = 0)
         {

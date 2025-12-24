@@ -22,6 +22,7 @@ namespace Items.Equipment.UI
 		ItemSlotData _itemInSlot;
 
 		public event UnityAction<ItemSlotData> OnSlotSelected;
+		public event UnityAction<EquipmentSlotTemplate> OnEmptySlotClick;
 
 		public void Init()
 		{
@@ -52,9 +53,15 @@ namespace Items.Equipment.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-			if (_itemInSlot is null) return;
-			_onSlotSelected.Invoke();
-            OnSlotSelected?.Invoke(_itemInSlot);
+			if (_itemInSlot is null)
+			{
+				OnEmptySlotClick?.Invoke(_equipmentSlot);
+			}
+			else
+			{
+				_onSlotSelected.Invoke();
+				OnSlotSelected?.Invoke(_itemInSlot);				
+			}
         }
     }
 }

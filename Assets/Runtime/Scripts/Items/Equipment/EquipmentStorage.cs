@@ -25,8 +25,9 @@ namespace Items.Equipment
             return _equipment[(int)type];
         }
 
-        public void AddEquipment(EquipmentTypes type, ItemSlotData item)
+        public void AddEquipment(EquipmentSlotTemplate slot, ItemSlotData item)
         {
+            EquipmentTypes type = slot.equipmentType;
             _equipment[(int)type] = item;
         }
 
@@ -35,8 +36,9 @@ namespace Items.Equipment
             _equipment[(int)type] = null;
         }
 
-        public bool TryRemoveEquipment(EquipmentTypes type, out ItemSlotData item)
+        public bool TryRemoveEquipment(EquipmentSlotTemplate slot, out ItemSlotData item)
         {
+            EquipmentTypes type = slot.equipmentType;
             item = _equipment[(int)type];
             _equipment[(int)type] = null;
             return item != null;

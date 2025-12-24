@@ -113,6 +113,7 @@ namespace Items
             }
 
             _storage = new ItemSection(_storageTemplate);
+            _sectionsByTemplate[_storageTemplate] = _storage;
         }
 
         public void ClearTempStorage()

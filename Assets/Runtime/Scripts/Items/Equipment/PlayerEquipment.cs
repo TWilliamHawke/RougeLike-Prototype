@@ -5,6 +5,7 @@ namespace Items.Equipment
     public class PlayerEquipment : ScriptableObject, IEquipmentController, IEquipmentStorage
     {
         [SerializeField] Inventory _inventory;
+        [SerializeField] CustomEvent _onEquipmentChanged;
 
         EquipmentStorage _equipmentStorage = new();
 
@@ -21,16 +22,18 @@ namespace Items.Equipment
         public void Equip(ItemSlotData itemSlotData)
         {
             var slot = itemSlotData.GetEquipmentSlot();
-            if (slot == EquipmentTypes.none) return;
+            if (slot.equipmentType == EquipmentTypes.none) return;
             _equipmentStorage.AddEquipment(slot, itemSlotData.Clone());
             itemSlotData.RemoveOneItem();
+            _onEquipmentChanged.Invoke();
         }
 
-        public void Unequip(EquipmentTypes type)
+        public void Unequip(EquipmentSlotTemplate slot)
         {
-            if (_equipmentStorage.TryRemoveEquipment(type, out var itemSlotData))
+            if (_equipmentStorage.TryRemoveEquipment(slot, out var itemSlotData))
             {
                 _inventory.AddItem(itemSlotData.item);
+                _onEquipmentChanged.Invoke();
             }
         }
 

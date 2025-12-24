@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44865f49cc8437e4ba313a484b2b0cc9, type: 3}
-  m_Name: PlayerEquipment
+  m_Script: {fileID: 11500000, guid: 4bc931dc58a2d2b438f4e43cb61a4834, type: 3}
+  m_Name: OnEquipmentChanged
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-  _onEquipmentChanged: {fileID: 11400000, guid: 2a09ea1ede9bf9f4782aa78fdcdbfc1b, type: 2}
