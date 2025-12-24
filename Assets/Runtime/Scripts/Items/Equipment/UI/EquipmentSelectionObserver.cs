@@ -15,18 +15,18 @@ namespace Items.Equipment.UI
 
 		public void AddToObserve(EquipmentSelectionButton target)
 		{
-			target.OnClick += SelectEquipment;
+			target.OnClick += Equip;
 		}
 
 		public void RemoveFromObserve(EquipmentSelectionButton target)
 		{
-			target.OnClick -= SelectEquipment;
+			target.OnClick -= Equip;
 		}
 
-		private void SelectEquipment(ItemSlotData data)
+		private void Equip(ItemSlotData data)
 		{
 			var itemSlot = data.GetEquipmentSlot();
-			if (itemSlot.equipmentType == EquipmentTypes.none) return;
+			if (itemSlot.index == 0) return;
 			_equipment.Equip(data);
 			_screen.Close();
 		}

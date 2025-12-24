@@ -2,7 +2,7 @@ namespace Items.Equipment
 {
     public interface IEquipmentStorage
 	{
-        ItemSlotData GetEquipment(EquipmentTypes type);
-		bool HasEquipment(EquipmentTypes type);
+        ItemSlotData GetEquipment(IEquipmentSlotTemplate slot);
+		bool HasEquipment(IEquipmentSlotTemplate slot);
 	}
 }

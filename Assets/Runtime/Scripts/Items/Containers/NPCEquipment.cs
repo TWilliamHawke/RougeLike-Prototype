@@ -9,12 +9,12 @@ namespace Items
             
         }
 
-        public ItemSlotData GetEquipment(EquipmentTypes type)
+        public ItemSlotData GetEquipment(IEquipmentSlotTemplate slot)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool HasEquipment(EquipmentTypes type)
+        public bool HasEquipment(IEquipmentSlotTemplate slot)
         {
             throw new System.NotImplementedException();
         }

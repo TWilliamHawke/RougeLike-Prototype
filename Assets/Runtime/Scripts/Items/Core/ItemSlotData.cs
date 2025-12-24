@@ -58,14 +58,13 @@ namespace Items
             OnSlotDataChanged?.Invoke();
         }
 
-        public EquipmentSlotTemplate GetEquipmentSlot()
+        public IEquipmentSlotTemplate GetEquipmentSlot()
         {
-            EquipmentSlotTemplate slot = null;
             if (item is IEquipment equipment)
             {
-                slot = equipment.equipmentSlot;
+                return equipment.equipmentSlot;
             }
-            return slot;
+            return new DummyEquipmentSlot(_item);
         }
 
         public ItemSlotData Clone()

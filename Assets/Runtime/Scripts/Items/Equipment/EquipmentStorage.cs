@@ -20,34 +20,32 @@ namespace Items.Equipment
             }
         }
 
-        public ItemSlotData GetEquipment(EquipmentTypes type)
+        public ItemSlotData GetEquipment(IEquipmentSlotTemplate slot)
         {
-            return _equipment[(int)type];
+            return _equipment[slot.index];
         }
 
-        public void AddEquipment(EquipmentSlotTemplate slot, ItemSlotData item)
+        public void AddEquipment(IEquipmentSlotTemplate slot, ItemSlotData item)
         {
-            EquipmentTypes type = slot.equipmentType;
-            _equipment[(int)type] = item;
+            _equipment[slot.index] = item;
         }
 
-        public void RemoveEquipment(EquipmentTypes type)
+        public void RemoveEquipment(IEquipmentSlotTemplate slot)
         {
-            _equipment[(int)type] = null;
+            _equipment[slot.index] = null;
         }
 
-        public bool TryRemoveEquipment(EquipmentSlotTemplate slot, out ItemSlotData item)
+        public bool TryRemoveEquipment(IEquipmentSlotTemplate slot, out ItemSlotData item)
         {
-            EquipmentTypes type = slot.equipmentType;
-            item = _equipment[(int)type];
-            _equipment[(int)type] = null;
+            item = _equipment[slot.index];
+            _equipment[slot.index] = null;
             return item != null;
         }
 
-        public bool HasEquipment(EquipmentTypes type)
+        public bool HasEquipment(IEquipmentSlotTemplate slot)
         {
-            if (type == EquipmentTypes.none) return false;
-            var slotContent = _equipment[(int)type];
+            if (slot.index == 0) return false;
+            var slotContent = _equipment[slot.index];
             return slotContent != null && slotContent.item != null;
         }
 
@@ -61,6 +59,7 @@ namespace Items.Equipment
             //skip EquipmentTypes.none
             for (int i = 1; i < _size; i++)
             {
+                if (_equipment[i] == null) continue;
                 yield return _equipment[i];
             }
         }
