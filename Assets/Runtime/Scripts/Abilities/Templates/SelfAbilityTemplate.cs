@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using Effects;
 using UnityEngine;
 
@@ -12,9 +10,10 @@ namespace Abilities
     {
         [SerializeField] List<SourceEffectData> _effects;
         
-        public override IAbility CreateAbility()
+        public override AbstractAbility CreateAbility()
         {
             SelfAbility ability = new(this);
+            ability.BindEffectSource(this);
             abilityController.AddInjectionTarget(ability);
             return ability;
         }

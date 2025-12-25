@@ -1,5 +1,4 @@
 using System.Linq;
-using Effects;
 using Entities;
 using Map;
 using UnityEngine;
@@ -14,7 +13,6 @@ namespace Abilities
         IAbilityTarget _target;
         PositionController _userPosition;
         IAbilityUser _abilityUser;
-        IEffectSource _effectSource;
 
         [InjectField] ProjectileController _controller;
         [InjectField] AbilityEfffectsHandler _effectsHandler;
@@ -24,16 +22,12 @@ namespace Abilities
         public ProjectileAbilityTemplate abilityTemplate => _template;
         public override bool fitForMainSlot => true;
 
-        public ProjectileAbility(ProjectileAbilityTemplate template) : this(template, template)
+        public ProjectileAbility(ProjectileAbilityTemplate template)
         {
-        }
-
-        public ProjectileAbility(ProjectileAbilityTemplate template, IEffectSource effectSource)
-        {
-            _effectSource = effectSource;
             _template = template;
         }
 
+        //TODO fix infinity loop if IEffectSource.GetEffects is not implemented
         public void ApplyEffect(IAbilityTarget target)
         {
             _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);

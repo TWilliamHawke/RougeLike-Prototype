@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Abilities;
 using Effects;
 using Items.Equipment;
+using UnityEngine;
 
 namespace Items
 {
@@ -31,12 +32,14 @@ namespace Items
         public IAbilityContainer CreateAbilityContainer(IAbilitiesFactory factory)
         {
             var ability = _weaponTemplate.CreateAbility();
+            ability.BindEffectSource(this);
             return factory.CreateEquipmentContainer(equipmentSlot, ability);
         }
 
         public IEnumerable<ISourceEffectData> GetEffects()
         {
-            throw new System.NotImplementedException();
+            int damage = Random.Range(_qualityData.minDamage, _qualityData.maxDamage + 1);
+            yield return new SourceEffectData(_weaponTemplate.damageType, damage, 0);
         }
     }
 }

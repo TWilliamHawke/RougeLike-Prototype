@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Effects;
 using UnityEngine;
 
@@ -11,16 +10,24 @@ namespace Abilities
     {
         [SerializeField] Injector _effectsHandler;
         [SerializeField] ProjectileTemplate _projectile;
+        [SerializeField] bool _useWeaponStats = true;
+        [HideIf("_useWeaponStats", true)]
         [SerializeField] IntValue _damage;
-        [SerializeField] DamageStoredResource _damageType;
+        [HideIf("_useWeaponStats", true)]
+		[SerializeField] DamageStoredResource _damageType;
+        [HideIf("_useWeaponStats", false)]
+        [Range(0f, 3f)]
         [LocalisationKey]
         [SerializeField] string _description;
 
         public ProjectileTemplate projectile => _projectile;
 
-        public override IAbility CreateAbility()
+        protected bool useWeaponStats => _useWeaponStats;
+
+        public override AbstractAbility CreateAbility()
         {
             ProjectileAbility ability = new(this);
+            ability.BindEffectSource(this);
             abilityController.AddInjectionTarget(ability);
             _effectsHandler.AddInjectionTarget(ability);
             return ability;

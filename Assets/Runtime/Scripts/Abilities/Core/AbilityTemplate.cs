@@ -8,6 +8,6 @@ namespace Abilities
 
         protected Injector abilityController => _abilityController;
 
-        public abstract IAbility CreateAbility();
+        public abstract AbstractAbility CreateAbility();
     }
 }

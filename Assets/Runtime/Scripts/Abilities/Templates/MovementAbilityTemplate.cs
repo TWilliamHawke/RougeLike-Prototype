@@ -9,7 +9,7 @@ namespace Abilities
 
         public bool useOnSelf => _useOnSelf;
 
-        public override IAbility CreateAbility()
+        public override AbstractAbility CreateAbility()
         {
             MovementAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Abilities;
+using Effects;
 using Items.Equipment;
 using UnityEngine;
 
@@ -10,8 +11,10 @@ namespace Items
     public class WeaponTemplate : EquipmentTemplate<WeaponQualityData>
     {
 		[SerializeField] WeaponAbilityList _abilities;
+		[SerializeField] DamageStoredResource _damageType;
 
         public IEquipmentSlotTemplate equipmentSlot => new WeaponEquipmentSlot(this);
+        public DamageStoredResource damageType => _damageType;
 
         public override IItem CreateItem(int rarity = 0)
         {
@@ -19,7 +22,7 @@ namespace Items
             return new Weapon(this, qualityData);
         }
 
-        public IAbility CreateAbility()
+        public AbstractAbility CreateAbility()
         {
             return _abilities.baseAbility.CreateAbility();
         }

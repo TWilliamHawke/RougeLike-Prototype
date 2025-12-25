@@ -9,7 +9,7 @@ namespace Abilities
     {
         [SerializeField] List<SourceEffectData> _effects;
 
-        public override IAbility CreateAbility()
+        public override AbstractAbility CreateAbility()
         {
             DirectAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);

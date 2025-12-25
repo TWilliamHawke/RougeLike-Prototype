@@ -1,4 +1,4 @@
-using Effects;
+using System.Linq;
 using Entities;
 using Map;
 using UnityEngine;
@@ -10,7 +10,6 @@ namespace Abilities
         protected override IIconData template => _template;
 
         MeleeAbilityTemplate _template;
-        IEffectSource _effectSource;
 
         PositionController _userPosition;
         IAbilityUser _abilityUser;
@@ -21,14 +20,9 @@ namespace Abilities
         public Vector3 userPosition => _userPosition.position;
         public override bool fitForMainSlot => true;
 
-        public MeleeAbility(MeleeAbilityTemplate template, IEffectSource effectSource)
+        public MeleeAbility(MeleeAbilityTemplate template)
         {
-            _effectSource = effectSource;
             _template = template;
-        }
-
-        public MeleeAbility(MeleeAbilityTemplate template) : this(template, template)
-        {
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
@@ -38,6 +32,8 @@ namespace Abilities
 
         public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
         {
+            bool hasAnyTarget = tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
+            if (!hasAnyTarget) return false;
             var positionData = user.GetEntityComponent<PositionController>();
             if (positionData == null) return false;
             float deltaX = positionData.position.x - tile.intPosition.x;
@@ -54,7 +50,8 @@ namespace Abilities
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
-            throw new System.NotImplementedException();
+            var target = tile.entitiesOnTile.FirstOrDefault(entity => entity is IAbilityTarget);
+            return target as IAbilityTarget;
         }
 
         public void MoveUserBody(Vector3 position)
