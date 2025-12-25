@@ -5,7 +5,7 @@ namespace Abilities
     [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/AOE")]
     public class AoeAbilityTemplate : AbilityTemplate
     {
-        public override IAbility CreateAbility()
+        public override AbstractAbility CreateAbility()
         {
             AoeAbility ability = new(this);
             abilityController.AddInjectionTarget(ability);

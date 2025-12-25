@@ -11,5 +11,8 @@ namespace Items.Equipment
 
 		public float priceMult => _levelName.priceMult;
         public string displayName => _levelName.displayName;
+		public int maxDamage => _damage.maxValue;
+		public int minDamage => _damage.minValue;
+		public int criticalDamage => _criticalDamage;
     }
 }

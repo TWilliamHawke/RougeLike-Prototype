@@ -1,3 +1,4 @@
+using Effects;
 using Map;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Abilities
         public bool waitForAllDependencies => false;
 
         protected abstract IIconData template { get; }
+        protected IEffectSource _effectSource;
 
         public abstract bool fitForMainSlot { get; }
         public abstract IAbilityTarget SelectTarget(ITileClickData tile);
@@ -21,6 +23,11 @@ namespace Abilities
         public virtual void Select(IAbilityUser user, IAbilityContainer container)
         {
             user.SelectAbility(container);
+        }
+
+        public void BindEffectSource(IEffectSource effectSource)
+        {
+            _effectSource = effectSource;
         }
     }
 }
