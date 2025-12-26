@@ -27,6 +27,7 @@ namespace Items.Equipment.UI
 		{
 			var itemSlot = data.GetEquipmentSlot();
 			if (itemSlot.index == 0) return;
+			_equipment.Unequip(itemSlot);
 			_equipment.Equip(data);
 			_screen.Close();
 		}

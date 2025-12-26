@@ -12,6 +12,7 @@ namespace Items.Equipment.UI
 		[SerializeField] EquipmentScreen _equipmentScreen;
         [SerializeField] PlayerEquipment _playerEquipment;
         [SerializeField] EquipmentSelectionScreen _equipmentSelectionScreen;
+        [SerializeField] InventoryIterator _inventoryIterator;
         [Header("Item Actions")]
         [SerializeField] ContextActionTemplate _showInfo;
         [SerializeField] ContextActionTemplate _unequip;
@@ -46,12 +47,11 @@ namespace Items.Equipment.UI
         {
             AddFactory(_showInfo, new ShowInfo<ItemSlotData>());
 			AddFactory(_unequip, new Unequip(_playerEquipment, _player));
-			AddFactory(_replace, new Replace(_equipmentSelectionScreen));
+			AddFactory(_replace, new Replace(_equipmentSelectionScreen, _inventoryIterator));
         }
 
 		private void FillContextMenu(ItemSlotData itemSlot)
 		{
-			Debug.Log("FillContextMenu");
 			FillContextMenu(itemSlot, _actions);
 		}
     }

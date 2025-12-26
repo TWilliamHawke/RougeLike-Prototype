@@ -15,7 +15,7 @@ namespace Abilities
             _template = template;
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget tile)
+        public override void Use(IAbilityTarget tile)
         {
             throw new System.NotImplementedException();
         }
@@ -25,7 +25,7 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser _, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             return tile.isWalkableAndEmpty;
         }

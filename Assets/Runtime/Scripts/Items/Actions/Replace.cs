@@ -1,6 +1,5 @@
+using System.Linq;
 using Core;
-using Entities;
-using Entities.PlayerScripts;
 using Items.Equipment;
 using UnityEngine;
 
@@ -9,10 +8,12 @@ namespace Items.Actions
     public class Replace : ContextActionFactory<ItemSlotData>
     {
         IEquipmentSelectior _equipmentSelectior;
+        InventoryIterator _iterator;
 
-        public Replace(IEquipmentSelectior equipmentSelectior)
+        public Replace(IEquipmentSelectior equipmentSelectior, InventoryIterator iterator)
         {
             _equipmentSelectior = equipmentSelectior;
+            _iterator = iterator;
         }
 
         protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
@@ -22,7 +23,9 @@ namespace Items.Actions
 
         protected override bool ElementIsValid(ItemSlotData element)
         {
-            return element.item is IEquipment;
+            return element.item is IEquipment
+                && _iterator.GetMainItems()
+                .Any(slot => slot.GetEquipmentSlot().index == element.GetEquipmentSlot().index);
         }
 
         class ReplaceAction : ContextActionContainer
@@ -41,8 +44,8 @@ namespace Items.Actions
                 if (_itemSlot.item is IEquipment equipment)
                 {
                     var slotTemplate = equipment.equipmentSlot;
+                    _equipmentSelectior.ShowMainItems(slotTemplate);
                 }
-                Debug.Log("Replace");
             }
         }
     }

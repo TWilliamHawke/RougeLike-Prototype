@@ -13,21 +13,27 @@ namespace Abilities
 
         protected abstract IIconData template { get; }
         protected IEffectSource _effectSource;
+        protected IAbilityUser _abilityUser;
 
         public abstract bool fitForMainSlot { get; }
         public abstract IAbilityTarget SelectTarget(ITileClickData tile);
-        public abstract void Use(IAbilityUser user, IAbilityTarget target);
         public abstract string GetDescription(AbilityModifiers abilityModifiers);
-        public abstract bool TileHasValidTarget(IAbilityUser user, ITileClickData tile);
+        public abstract bool TileHasValidTarget(ITileClickData tile);
+        public abstract void Use(IAbilityTarget target);
 
-        public virtual void Select(IAbilityUser user, IAbilityContainer container)
+        public virtual void Select(IAbilityContainer container)
         {
-            user.SelectAbility(container);
+            _abilityUser.SelectAbility(container);
         }
 
         public void BindEffectSource(IEffectSource effectSource)
         {
             _effectSource = effectSource;
+        }
+
+        public virtual void BindAbilityUser(IAbilityUser user)
+        {
+            _abilityUser = user;
         }
     }
 }

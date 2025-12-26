@@ -44,15 +44,15 @@ namespace Abilities
             to.AddEntity(entity);
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             return tile.isWalkableAndEmpty;
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
-            var start = user.GetEntityComponent<PositionController>();
-            _target = user.GetEntityComponent<PositionController>();
+            var start = _abilityUser.GetEntityComponent<PositionController>();
+            _target = _abilityUser.GetEntityComponent<PositionController>();
             var destination = target as IPositionData;
 
             if (start == null || destination == null) return;

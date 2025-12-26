@@ -1,5 +1,4 @@
 using Entities;
-using Entities.PlayerScripts;
 using Items;
 using Items.Equipment;
 using Magic;
@@ -14,35 +13,34 @@ namespace Abilities
         [SerializeField] PlayerEquipment _equipment;
         [SerializeField] MagicConfig _magicConfig;
 
-        AbilityController _player;
+        AbilityController _abilityUser;
 
-        public IAbilityUser abilityUser
+        void Awake()
         {
-            get
-            {
-                if (_player is null) _player = GetComponent<AbilityController>();
-                return _player;
-            }
+            _abilityUser = GetComponent<AbilityController>();
         }
 
         public IAbilityContainer CreateItemContainer(IItem item, IAbility ability)
         {
-            return new ItemAbilityContainer(item, _inventory, ability, _player);
+            ability.BindAbilityUser(_abilityUser);
+            return new ItemAbilityContainer(item, _inventory, ability);
         }
 
         public SpellContainer CreateSpellContainer(KnownSpellData spell)
         {
-            return new SpellContainer(spell, abilityUser, _magicConfig);
+            return new SpellContainer(spell, _abilityUser, _magicConfig);
         }
 
         public SimpleAbilityContainer CreateSimpleContainer(IAbility ability)
         {
-            return new SimpleAbilityContainer(ability, abilityUser);
+            ability.BindAbilityUser(_abilityUser);
+            return new SimpleAbilityContainer(ability);
         }
 
         public IAbilityContainer CreateEquipmentContainer(IEquipmentSlotTemplate slot, IAbility ability)
         {
-            return new EquipmentAbilityContainer(ability, abilityUser, _equipment, slot);
+            ability.BindAbilityUser(_abilityUser);
+            return new EquipmentAbilityContainer(ability, _equipment, slot);
         }
     }
 }

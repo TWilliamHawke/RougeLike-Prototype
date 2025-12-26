@@ -11,15 +11,13 @@ namespace Abilities
         public override bool canBeUsed => _canBeUsed; 
         protected override IAbility ability => _ability;
 
-        IAbilityUser _user { get; init; }
         IAbility _ability { get; init; }
         ItemSlotData _itemSlot { get; init; }
         bool _canBeUsed { get; set; }
 
-        public EquipmentAbilityContainer(IAbility ability, IAbilityUser user, IEquipmentStorage storage, IEquipmentSlotTemplate slot)
+        public EquipmentAbilityContainer(IAbility ability, IEquipmentStorage storage, IEquipmentSlotTemplate slot)
         {
             _ability = ability;
-            _user = user;
             _itemSlot = storage.GetEquipment(slot);
             _canBeUsed = _itemSlot.count > 0;
             _itemSlot.OnSlotDataChanged += CheckItemSlot;
@@ -27,7 +25,7 @@ namespace Abilities
 
         public override void UseAbility(IAbilityTarget target)
         {
-            _ability.Use(_user, target);
+            _ability.Use(target);
         }
 
         public override void UpdateAbilityCounter(IAbilityCounterHandler handler)
@@ -37,7 +35,7 @@ namespace Abilities
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            return _ability.TileHasValidTarget(_user, tile);
+            return _ability.TileHasValidTarget(tile);
         }
 
         private void CheckItemSlot()

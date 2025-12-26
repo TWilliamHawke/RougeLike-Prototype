@@ -12,7 +12,6 @@ namespace Abilities
         MeleeAbilityTemplate _template;
 
         PositionController _userPosition;
-        IAbilityUser _abilityUser;
 
         [InjectField] MeleeAttackController _controller;
         [InjectField] AbilityEfffectsHandler _effectsHandler;
@@ -25,26 +24,35 @@ namespace Abilities
             _template = template;
         }
 
+        public void PlayAttackSound()
+        {
+            var soundController = _abilityUser.GetEntityComponent<AudioEffectsController>();
+            soundController.PlaySound(_template.useSound);
+        }
+
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        public override void BindAbilityUser(IAbilityUser user)
+        {
+            base.BindAbilityUser(user);
+            _userPosition = _abilityUser.GetEntityComponent<PositionController>();
+        }
+
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             bool hasAnyTarget = tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
             if (!hasAnyTarget) return false;
-            var positionData = user.GetEntityComponent<PositionController>();
-            if (positionData == null) return false;
-            float deltaX = positionData.position.x - tile.intPosition.x;
-            float deltaY = positionData.position.y - tile.intPosition.y;
+            if (_userPosition == null) return false;
+            float deltaX = userPosition.x - tile.intPosition.x;
+            float deltaY = userPosition.y - tile.intPosition.y;
             return Mathf.Abs(deltaX) <= 1 && Mathf.Abs(deltaY) <= 1;
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
-            _abilityUser = user;
-            _userPosition = user.GetEntityComponent<PositionController>();
             _controller.UseAbility(target, this);
         }
 

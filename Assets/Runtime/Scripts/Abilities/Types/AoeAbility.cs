@@ -21,12 +21,12 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
             throw new System.NotImplementedException();
         }

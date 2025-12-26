@@ -20,7 +20,7 @@ namespace Abilities
             _template = template;
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget tile)
+        public override void Use(IAbilityTarget tile)
         {
             throw new System.NotImplementedException();
         }
@@ -30,9 +30,9 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
-            return _abilities.All(ability => ability.TileHasValidTarget(user, tile));
+            return _abilities.All(ability => ability.TileHasValidTarget(tile));
         }
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)

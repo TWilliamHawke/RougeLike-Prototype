@@ -22,12 +22,12 @@ namespace Abilities
             throw new System.NotImplementedException();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser _, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             return tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
             _controller.ApplyEffects(_template.GetEffects(), target, _template);
         }
