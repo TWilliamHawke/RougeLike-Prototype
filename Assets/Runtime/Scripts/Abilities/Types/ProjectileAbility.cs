@@ -12,7 +12,6 @@ namespace Abilities
         ProjectileAbilityTemplate _template;
         IAbilityTarget _target;
         PositionController _userPosition;
-        IAbilityUser _abilityUser;
 
         [InjectField] ProjectileController _controller;
         [InjectField] AbilityEfffectsHandler _effectsHandler;
@@ -39,11 +38,10 @@ namespace Abilities
             soundController.PlaySound(_template.projectile.impactSound);
         }
 
-        public override void Use(IAbilityUser user, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
-            _abilityUser = user;
             _target = target;
-            _userPosition = user.GetEntityComponent<PositionController>();
+            _userPosition = _abilityUser.GetEntityComponent<PositionController>();
             _controller.UseAbility(target, this);
         }
 
@@ -52,7 +50,7 @@ namespace Abilities
             return _template.GetDescription(abilityModifiers);
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData tile)
+        public override bool TileHasValidTarget(ITileClickData tile)
         {
             //TODO add visibility check
             return tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);

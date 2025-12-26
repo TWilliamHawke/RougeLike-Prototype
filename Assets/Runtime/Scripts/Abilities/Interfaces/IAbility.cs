@@ -4,11 +4,12 @@ namespace Abilities
 {
     public interface IAbility : IIconData
     {
-        void Use(IAbilityUser user, IAbilityTarget target);
-        void Select(IAbilityUser user, IAbilityContainer container);
+        void Use(IAbilityTarget target);
+        void Select(IAbilityContainer container);
         IAbilityTarget SelectTarget(ITileClickData tile);
         string GetDescription(AbilityModifiers abilityModifiers);
-        bool TileHasValidTarget(IAbilityUser user, ITileClickData tile);
+        bool TileHasValidTarget(ITileClickData tile);
         bool fitForMainSlot { get; }
+        public void BindAbilityUser(IAbilityUser user);
     }
 }

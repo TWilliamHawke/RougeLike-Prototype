@@ -36,7 +36,9 @@ namespace Magic
         {
             if (_manaStorage.TryReduceStat(spellCost))
             {
-                _spellData.spellEffect.Use(_user, target);
+                //HACK find proper place for this
+                ability.BindAbilityUser(_user);
+                ability.Use(target);
             }
         }
 
@@ -72,7 +74,9 @@ namespace Magic
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            return ability.TileHasValidTarget(_user, tile);
+            //HACK find proper place for this (2)
+            ability.BindAbilityUser(_user);
+            return ability.TileHasValidTarget(tile);
         }
     }
 }

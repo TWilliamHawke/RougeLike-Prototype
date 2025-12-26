@@ -36,6 +36,7 @@ namespace Abilities
 
         public void UseAbility(IAbilityTarget target, MeleeAbility ability)
         {
+            ability.PlayAttackSound();
             _selectedAbility = ability;
             var targetPos = target.GetEntityComponent<PositionController>();
             _target = target;

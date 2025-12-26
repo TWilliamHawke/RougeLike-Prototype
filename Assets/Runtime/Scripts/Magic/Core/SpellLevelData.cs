@@ -11,5 +11,10 @@ namespace Magic
 	{
 		public AbilityTemplate spellEffect;
 		public int manaCost;
+
+		public IAbility CreateAbility()
+		{
+			return spellEffect.CreateAbility();
+		}
 	}
 }

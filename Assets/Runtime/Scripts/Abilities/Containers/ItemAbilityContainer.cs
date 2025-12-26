@@ -17,19 +17,17 @@ namespace Abilities
 
         IAbility _ability { get; init; }
         IItem _item { get; init; }
-        IAbilityUser _user { get; init; }
 
-        public ItemAbilityContainer(IItem item, IInventory inventory, IAbility ability, IAbilityUser user)
+        public ItemAbilityContainer(IItem item, IInventory inventory, IAbility ability)
         {
             _item = item;
             _inventory = inventory;
             _ability = ability;
-            _user = user;
         }
 
         public override void UseAbility(IAbilityTarget target)
         {
-            _ability.Use(_user, target);
+            _ability.Use(target);
             _inventory.RemoveOneItem(_item);
         }
 
@@ -41,7 +39,7 @@ namespace Abilities
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            return _ability.TileHasValidTarget(_user, tile);
+            return _ability.TileHasValidTarget(tile);
         }
 
     }

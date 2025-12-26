@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Effects;
+using Items;
 using UnityEngine;
 
 namespace Abilities
@@ -9,6 +10,7 @@ namespace Abilities
     public class MeleeAbilityTemplate : AbilityTemplate, IEffectSource
     {
         [SerializeField] Injector _effectsHandler;
+        [SerializeField] ItemSoundKit _soundKit;
         [SerializeField] bool _useWeaponStats = true;
         [HideIf("_useWeaponStats", true)]
         [SerializeField] IntValue _damage;
@@ -19,6 +21,7 @@ namespace Abilities
         [SerializeField] float _damageMultiplier = 1f;
 
         protected bool useWeaponStats => _useWeaponStats;
+        public AudioClip useSound => _soundKit.useSound;
 
         public override AbstractAbility CreateAbility()
         {

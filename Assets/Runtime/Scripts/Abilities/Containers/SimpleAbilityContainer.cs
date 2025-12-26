@@ -8,12 +8,10 @@ namespace Abilities
         public override bool canBeUsed => true;
         protected override IAbility ability => _ability;
         IAbility _ability { get; init; }
-        IAbilityUser _user { get; init; }
 
-        public SimpleAbilityContainer(IAbility ability, IAbilityUser user)
+        public SimpleAbilityContainer(IAbility ability)
         {
             _ability = ability;
-            _user = user;
         }
 
         public override void UpdateAbilityCounter(IAbilityCounterHandler handler)
@@ -23,12 +21,12 @@ namespace Abilities
 
         public override void UseAbility(IAbilityTarget target)
         {
-            _ability.Use(_user, target);
+            _ability.Use(target);
         }
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            return _ability.TileHasValidTarget(_user, tile);
+            return _ability.TileHasValidTarget(tile);
         }
     }
 

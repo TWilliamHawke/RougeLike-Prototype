@@ -18,14 +18,14 @@ namespace Abilities
             _template = template;
         }
 
-        public override void Select(IAbilityUser user, IAbilityContainer container)
+        public override void Select(IAbilityContainer container)
         {
-            IAbilityTarget target = user.GetEntityComponent<IAbilityTarget>();
+            IAbilityTarget target = _abilityUser.GetEntityComponent<IAbilityTarget>();
             if (target is null) return;
             container.UseAbility(target);
         }
 
-        public override void Use(IAbilityUser _, IAbilityTarget target)
+        public override void Use(IAbilityTarget target)
         {
             _controller.ApplyEffects(_template.GetEffects(), target, _template);
         }
@@ -42,9 +42,9 @@ namespace Abilities
             return sb.ToString();
         }
 
-        public override bool TileHasValidTarget(IAbilityUser user, ITileClickData _)
+        public override bool TileHasValidTarget(ITileClickData _)
         {
-            return user is IAbilityTarget;
+            return _abilityUser is IAbilityTarget;
         }
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)

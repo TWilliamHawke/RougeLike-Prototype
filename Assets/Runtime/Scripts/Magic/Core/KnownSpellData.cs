@@ -2,7 +2,6 @@ using UnityEngine;
 using Items;
 using UnityEngine.Events;
 using Effects;
-using Core.UI;
 using Abilities;
 
 namespace Magic
@@ -35,7 +34,7 @@ namespace Magic
             _spell = spell;
             rank = spell.startRank;
             displayName = spell.displayName;
-            _spellEffect = spell.GetEffectAt(rank).CreateAbility();
+            _spellEffect = spell.CreateAbility(rank);
         }
 
         //without rank and spell slots
@@ -71,7 +70,7 @@ namespace Magic
             if (spellHasMaxRank) return;
 
             rank++;
-            _spellEffect = _spell.GetEffectAt(rank).CreateAbility();
+            _spellEffect = _spell.CreateAbility(rank);
             OnDataChange?.Invoke();
         }
 

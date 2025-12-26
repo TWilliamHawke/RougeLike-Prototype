@@ -34,11 +34,11 @@ namespace Magic
             return levelData.manaCost;
         }
 
-        public AbilityTemplate GetEffectAt(int rank)
-        {
-            var levelData = GetLevelData(rank);
-            return levelData.spellEffect;
-        }
+		public IAbility CreateAbility(int rank)
+		{
+			var levelData = GetLevelData(rank);
+			return levelData.CreateAbility();
+		}
 
         private SpellLevelData GetLevelData(int idx)
         {

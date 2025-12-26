@@ -18,7 +18,7 @@ namespace Abilities
 
         public void SelectBy(IAbilityUser user)
         {
-            ability.Select(user, this);
+            ability.Select(this);
         }
 
         public void UseAbility(ITileClickData tile)

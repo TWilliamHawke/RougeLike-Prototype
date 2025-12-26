@@ -39,14 +39,7 @@ namespace Items
 
         public void AddItem(IItem item)
         {
-            foreach (var section in _sections)
-            {
-                if (section.ItemMeet(item))
-                {
-                    section.AddItem(item);
-                    break;
-                }
-            }
+            AddItems(item, 1);
         }
 
         public void AddItems(IEnumerable<ItemSlotData> itemSlots)

@@ -3297,9 +3297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e36a9b0be0f9f41994e6b952d5c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainSection: {fileID: 11400000, guid: d09b492e9ba36954ea61f7dd7e078e10, type: 2}
-  _storageSection: {fileID: 11400000, guid: 8bb721454cbe41540a366a32d8355922, type: 2}
-  _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
+  _iterator: {fileID: 11400000, guid: a6c167f42ce207b4eaec1226e432412a, type: 2}
   _buttonPrefab: {fileID: 2110827009399129941, guid: 13ec624ea83309548a55203ccadf7fb1, type: 3}
   _equipmentSlotName: {fileID: 1748148541}
   _layout: {fileID: 1100939348}
@@ -84203,7 +84201,7 @@ MonoBehaviour:
     m_Top: 180
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -91863,6 +91861,7 @@ MonoBehaviour:
   _equipmentScreen: {fileID: 1621082459}
   _playerEquipment: {fileID: 11400000, guid: 0a19610342455d341a1277d68b6e141e, type: 2}
   _equipmentSelectionScreen: {fileID: 117397397}
+  _inventoryIterator: {fileID: 11400000, guid: a6c167f42ce207b4eaec1226e432412a, type: 2}
   _showInfo: {fileID: 11400000, guid: 6fe035d93f24b904e92cb1ae30572c10, type: 2}
   _unequip: {fileID: 11400000, guid: ebc2a11065a1ca64699c95fa45c374a2, type: 2}
   _replace: {fileID: 11400000, guid: c6b8a72248e66224f9fdc070601254c2, type: 2}
