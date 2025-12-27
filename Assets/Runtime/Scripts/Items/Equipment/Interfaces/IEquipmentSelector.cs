@@ -2,7 +2,6 @@ namespace Items.Equipment
 {
     public interface IEquipmentSelectior
     {
-        void ShowMainItems(IEquipmentSlotTemplate slotTemplate);
-        void ShowStorageItems(IEquipmentSlotTemplate slotTemplate);
+        void ShowEquipmentInSection(IEquipmentSlotTemplate slotTemplate, IInventoryIterator iterator);
     }
 }

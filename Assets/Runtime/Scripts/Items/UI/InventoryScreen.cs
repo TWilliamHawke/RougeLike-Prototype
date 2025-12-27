@@ -6,7 +6,7 @@ namespace Items.UI
     public class InventoryScreen : ScreenWithSections<InventorySection>
     {
         [SerializeField] Inventory _inventory;
-        [SerializeField] ItemSectionTemplate[] _visibleSections;
+        [SerializeField] InventoryIterator _iterator;
         [SerializeField] InventorySection _sectionPrefab;
         [Header("UI Elements")]
         [SerializeField] ItemSectionsLayout _sectionsLayout;
@@ -17,7 +17,7 @@ namespace Items.UI
         {
             _sectionsLayout.ClearLayout();
 
-            foreach (var template in _visibleSections)
+            foreach (var template in _iterator.GetVisibleSections())
             {
                 var sectionData = _inventory.GetSection(template);
                 if (sectionData == null) continue;

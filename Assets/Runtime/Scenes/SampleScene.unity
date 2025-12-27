@@ -3297,7 +3297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e36a9b0be0f9f41994e6b952d5c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _iterator: {fileID: 11400000, guid: a6c167f42ce207b4eaec1226e432412a, type: 2}
+  _iterator: {fileID: 11400000, guid: d2690f61af8adbc4386e224abc7ddd82, type: 2}
   _buttonPrefab: {fileID: 2110827009399129941, guid: 13ec624ea83309548a55203ccadf7fb1, type: 3}
   _equipmentSlotName: {fileID: 1748148541}
   _layout: {fileID: 1100939348}
@@ -9191,11 +9191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _screen: {fileID: 92711540}
   _inventory: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-  _visibleSections:
-  - {fileID: 11400000, guid: 5fa5adcbf7924474a84a8c712803601b, type: 2}
-  - {fileID: 11400000, guid: b3b6675feef7e224785e3654b8971a66, type: 2}
-  - {fileID: 11400000, guid: 2197976f36bad7f4bbfbf19d8b50585a, type: 2}
-  - {fileID: 11400000, guid: d09b492e9ba36954ea61f7dd7e078e10, type: 2}
+  _iterator: {fileID: 11400000, guid: d2690f61af8adbc4386e224abc7ddd82, type: 2}
   _sectionPrefab: {fileID: 1361967202520776791, guid: f646f39cbe8b786479a932c331306b0d, type: 3}
   _sectionsLayout: {fileID: 219065170}
 --- !u!1 &287030783
@@ -91861,7 +91857,7 @@ MonoBehaviour:
   _equipmentScreen: {fileID: 1621082459}
   _playerEquipment: {fileID: 11400000, guid: 0a19610342455d341a1277d68b6e141e, type: 2}
   _equipmentSelectionScreen: {fileID: 117397397}
-  _inventoryIterator: {fileID: 11400000, guid: a6c167f42ce207b4eaec1226e432412a, type: 2}
+  _inventoryIterator: {fileID: 11400000, guid: d2690f61af8adbc4386e224abc7ddd82, type: 2}
   _showInfo: {fileID: 11400000, guid: 6fe035d93f24b904e92cb1ae30572c10, type: 2}
   _unequip: {fileID: 11400000, guid: ebc2a11065a1ca64699c95fa45c374a2, type: 2}
   _replace: {fileID: 11400000, guid: c6b8a72248e66224f9fdc070601254c2, type: 2}
