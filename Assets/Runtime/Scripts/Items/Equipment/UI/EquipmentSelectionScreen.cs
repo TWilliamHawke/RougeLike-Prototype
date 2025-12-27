@@ -22,31 +22,26 @@ namespace Items.Equipment.UI
 
         public void AddToObserve(EquipmentSlot target)
         {
-            target.OnEmptySlotClick += ShowMainItems;
+            target.OnEmptySlotClick += ShowItemsInSection;
         }
 
         public void RemoveFromObserve(EquipmentSlot target)
         {
-            target.OnEmptySlotClick -= ShowMainItems;
+            target.OnEmptySlotClick -= ShowItemsInSection;
         }
 
-        public void ShowMainItems(IEquipmentSlotTemplate slotTemplate)
+        public void ShowItemsInSection(IEquipmentSlotTemplate slotTemplate)
+        {
+            ShowEquipmentInSection(slotTemplate, _iterator);
+        }
+
+        public void ShowEquipmentInSection(IEquipmentSlotTemplate slotTemplate, IInventoryIterator iterator)
         {
 			_equipmentSlotName.text = slotTemplate.displayName;
 			_screen.Open();
             _layout.ClearLayout();
-            ShowItemsInSection(slotTemplate, _iterator.GetMainItems());
-        }
 
-        public void ShowStorageItems(IEquipmentSlotTemplate slotTemplate)
-        {
-            ShowMainItems(slotTemplate);
-            ShowItemsInSection(slotTemplate, _iterator.GetStorageItems());
-        }
-
-        private void ShowItemsInSection(IEquipmentSlotTemplate slotTemplate, IEnumerable<ItemSlotData> section)
-        {
-            foreach (var slot in section)
+            foreach (var slot in iterator.GetMainItems())
             {
                 if (slot.GetEquipmentSlot().index != slotTemplate.index) continue;
 

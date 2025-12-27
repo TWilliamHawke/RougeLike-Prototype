@@ -1,16 +1,14 @@
-using System.Linq;
 using Core;
 using Items.Equipment;
-using UnityEngine;
 
 namespace Items.Actions
 {
     public class Replace : ContextActionFactory<ItemSlotData>
     {
         IEquipmentSelectior _equipmentSelectior;
-        InventoryIterator _iterator;
+        IInventoryIterator _iterator;
 
-        public Replace(IEquipmentSelectior equipmentSelectior, InventoryIterator iterator)
+        public Replace(IEquipmentSelectior equipmentSelectior, IInventoryIterator iterator)
         {
             _equipmentSelectior = equipmentSelectior;
             _iterator = iterator;
@@ -18,25 +16,26 @@ namespace Items.Actions
 
         protected override ContextActionContainer CreateAction(ItemSlotData itemSlot)
         {
-            return new ReplaceAction(itemSlot, _equipmentSelectior);
+            return new ReplaceAction(itemSlot, _equipmentSelectior, _iterator);
         }
 
         protected override bool ElementIsValid(ItemSlotData element)
         {
             return element.item is IEquipment
-                && _iterator.GetMainItems()
-                .Any(slot => slot.GetEquipmentSlot().index == element.GetEquipmentSlot().index);
+                && _iterator.HasEquipmentForSlot(element);
         }
 
         class ReplaceAction : ContextActionContainer
         {
             IEquipmentSelectior _equipmentSelectior;
             ItemSlotData _itemSlot;
+            IInventoryIterator _iterator;
 
-            public ReplaceAction(ItemSlotData itemSlot, IEquipmentSelectior equipmentSelectior)
+            public ReplaceAction(ItemSlotData itemSlot, IEquipmentSelectior equipmentSelectior, IInventoryIterator iterator)
             {
                 _itemSlot = itemSlot;
                 _equipmentSelectior = equipmentSelectior;
+                _iterator = iterator;
             }
 
             public override void DoAction()
@@ -44,7 +43,7 @@ namespace Items.Actions
                 if (_itemSlot.item is IEquipment equipment)
                 {
                     var slotTemplate = equipment.equipmentSlot;
-                    _equipmentSelectior.ShowMainItems(slotTemplate);
+                    _equipmentSelectior.ShowEquipmentInSection(slotTemplate, _iterator);
                 }
             }
         }
