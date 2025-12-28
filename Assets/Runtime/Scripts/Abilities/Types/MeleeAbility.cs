@@ -43,12 +43,11 @@ namespace Abilities
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            bool hasAnyTarget = tile.entitiesOnTile.Any(entity => entity is IAbilityTarget);
+            bool hasAnyTarget = tile.entitiesOnTile
+                .Any(entity => entity is IAbilityTarget);
             if (!hasAnyTarget) return false;
             if (_userPosition == null) return false;
-            float deltaX = userPosition.x - tile.intPosition.x;
-            float deltaY = userPosition.y - tile.intPosition.y;
-            return Mathf.Abs(deltaX) <= 1 && Mathf.Abs(deltaY) <= 1;
+            return _template.HitTargetIsValid(userPosition, tile.intPosition);
         }
 
         public override void Use(IAbilityTarget target)
@@ -56,6 +55,7 @@ namespace Abilities
             _controller.UseAbility(target, this);
         }
 
+        //TODO add faction check and corpse check
         public override IAbilityTarget SelectTarget(ITileClickData tile)
         {
             var target = tile.entitiesOnTile.FirstOrDefault(entity => entity is IAbilityTarget);
@@ -70,6 +70,21 @@ namespace Abilities
         public void ApplyEffect(IAbilityTarget target)
         {
             _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);
+        }
+
+        public void ApplyEffect(Vector3 hitPosition, IMapNodeStorage mapNodeStorage)
+        {
+            Vector3 relativePosition = hitPosition - userPosition;
+            foreach(Vector3Int targetPosition in _template.GetTargetPositions(relativePosition))
+            {
+                Vector3Int nodePosition = _userPosition.intPosition + targetPosition;
+                if (mapNodeStorage.TryGetNode(nodePosition, out var node))
+                {
+                    var target = SelectTarget(node);
+                    if (target is null) continue;
+                    ApplyEffect(target);
+                }
+            }
         }
     }
 }
