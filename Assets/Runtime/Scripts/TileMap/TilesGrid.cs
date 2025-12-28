@@ -6,7 +6,8 @@ using Map.Helpers;
 
 namespace Map
 {
-    public class TilesGrid : IObserver<Entity>
+
+    public class TilesGrid : IObserver<Entity>, IMapNodeStorage
     {
         TileNode[,] _grid;
         PathFinder _pathFinder;

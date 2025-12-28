@@ -24,3 +24,4 @@ MonoBehaviour:
     _isRandom: 0
   _damageType: {fileID: 0}
   _damageMultiplier: 1
+  _attackPatterns: {fileID: 11400000, guid: e98408e91433b4841a1e67792539b3ac, type: 2}

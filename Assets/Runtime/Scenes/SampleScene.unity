@@ -108611,6 +108611,7 @@ GameObject:
   - component: {fileID: 1988466620}
   - component: {fileID: 1988466622}
   - component: {fileID: 1988466621}
+  - component: {fileID: 1988466623}
   m_Layer: 0
   m_Name: MeleeAttackController
   m_TagString: Untagged
@@ -108661,6 +108662,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
+--- !u!114 &1988466623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988466619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a4676cf4bc28408a9413fe98c1706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _injectionTarget: {fileID: 1988466622}
+  _waitForAllDependencies: 0
+  _addTargetManualy: 0
+  _injectors:
+  - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
+  _finalizeInjectionHandler:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1988679100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1286321622798536465, guid: 8cae8719fda677a42be94b91ef4037be, type: 3}
