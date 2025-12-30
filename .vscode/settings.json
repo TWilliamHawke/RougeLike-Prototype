@@ -72,8 +72,7 @@
             ]
         }
     },
-    "dotnet.defaultSolution": "RougeLike Prototype.sln",
+    "dotnet.defaultSolution": "RougeLike Prototype.slnx",
     "chat.agent.enabled": false,
-      "chat.editor.fontSize": 24,
-
+    "chat.editor.fontSize": 24
 }

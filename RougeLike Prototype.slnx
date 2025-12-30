@@ -1,0 +1,7 @@
+﻿<Solution>
+  <Project Path="Project.csproj" />
+  <Project Path="Unity.2D.Tilemap.Extras.Editor.csproj" />
+  <Project Path="Unity.2D.Tilemap.Extras.csproj" />
+  <Project Path="EditorScripts.csproj" />
+  <Project Path="Unity.2D.Tilemap.Extras.Placeholder.EditorTests.csproj" />
+</Solution>
