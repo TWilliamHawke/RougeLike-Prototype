@@ -26,13 +26,22 @@ namespace Map
 
         private void Awake()
         {
+            CreateLocation();
+
+        }
+
+        [ContextMenu("Create Location")]
+        public void CreateLocation()
+        {
             var rawMapData = _location.Create(_tileMap);
 
             _grid = new TilesGrid(rawMapData);
             _tileGridInjector.SetDependency(_grid);
 
+            int playerX = rawMapData.playerSpawnPos.x;
+            int playerY = rawMapData.playerSpawnPos.y;
 
-            if (_grid.TryGetNodeAt(rawMapData.playerSpawnPos.x, rawMapData.playerSpawnPos.y, out var node))
+            if (_grid.TryGetNodeAt(playerX, playerY, out var node))
             {
                 _player.SpawnAt(node);
             }
@@ -40,7 +49,6 @@ namespace Map
             {
                 throw new System.Exception("node for player spawn not found");
             }
-
         }
 
         //for editor

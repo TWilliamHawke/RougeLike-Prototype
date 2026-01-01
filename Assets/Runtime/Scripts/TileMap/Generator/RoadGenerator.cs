@@ -10,7 +10,7 @@ namespace Map.Generator
 {
     public partial class RoadConfig : GeneratorConfig
     {
-        public class RoadGeneratorr : IGenerationLogic
+        public class RoadGenerator : IGenerationLogic
         {
             delegate IZoneWithCenterTiles MapZoneCreator(int x, int y);
             MapZonesManager _mapZonesManager;
@@ -20,7 +20,7 @@ namespace Map.Generator
             Rng _rng;
             LocationMapData _rawMapData;
 
-            public RoadGeneratorr(Tilemap tileMap, RoadConfig config)
+            public RoadGenerator(Tilemap tileMap, RoadConfig config)
             {
                 _config = config;
                 _tileMap = tileMap;
@@ -42,9 +42,7 @@ namespace Map.Generator
                 {
                     FillWithDefaultTile(y);
                     SetBorderTile(_config._voidWidth, y);
-                    SetBorderTile(_config._voidWidth + 1, y);
                     SetBorderTile(_rawMapData.width - _config._voidWidth - 1, y);
-                    SetBorderTile(_rawMapData.width - _config._voidWidth - 2, y);
                 }
 
                 CreateRoad();

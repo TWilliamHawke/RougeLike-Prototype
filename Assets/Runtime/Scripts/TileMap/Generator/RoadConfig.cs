@@ -16,7 +16,7 @@ namespace Map.Generator
 		[SerializeField] int _roadWidth = 5;
 		[SerializeField] int _emptyWidth = 5;
 		[SerializeField] int _siteWidth = 10;
-		[SerializeField] int _borderWidth = 2;
+		[SerializeField] int _borderWidth = 1;
 		[SerializeField] int _voidWidth = 2;
 		[Header("Generation")]
 		// [Range(0,1)] [SerializeField] float _obstacleChance = .1f;
@@ -39,7 +39,7 @@ namespace Map.Generator
 
         public override IGenerationLogic GetLogic(Tilemap tilemap)
         {
-            return new RoadGeneratorr(tilemap, this);
+            return new RoadGenerator(tilemap, this);
         }
     }
 }
