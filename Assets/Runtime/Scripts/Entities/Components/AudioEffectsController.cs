@@ -4,13 +4,13 @@ namespace Entities
 {
     public class AudioEffectsController : MonoBehaviour, IEntityComponent
     {
-        [SerializeField] AudioSource[] _audioSources;
+        [SerializeField] AudioSource _audioSource;
 
         int _selectedIndex = 0;
 
         public void PlaySound(AudioClip sound)
         {
-            _audioSources[_selectedIndex].PlayOneShot(sound);
+            _audioSource.PlayOneShot(sound);
             IncrementSourceIndex();
         }
 
@@ -18,10 +18,10 @@ namespace Entities
         {
             _selectedIndex++;
 
-            if (_selectedIndex >= _audioSources.Length)
-            {
-                _selectedIndex = 0;
-            }
+            // if (_selectedIndex >= _audioSources.Length)
+            // {
+            //     _selectedIndex = 0;
+            // }
         }
     }
 }
