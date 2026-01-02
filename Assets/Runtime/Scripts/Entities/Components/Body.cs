@@ -12,6 +12,7 @@ namespace Entities
         [SerializeField] AudioSource _audioSource;
         [SerializeField] TMP_Text _TMPSprite;
         [SerializeField] TMP_Text _remains;
+        [SerializeField] SpriteMask _mask;
         [SerializeField][Range(0, 1)] float _deathAnimationSpeed = .5f;
 
         public event UnityAction OnAnimationEnd;
@@ -41,15 +42,16 @@ namespace Entities
         {
             _animationState = AnimationState.death;
             _defaultPosition = _TMPSprite.rectTransform.position;
+            _mask.enabled = true;
         }
-
 
         private void Update() {
             if (_animationState == AnimationState.none) return;
             _animationProgress += Time.deltaTime * _deathAnimationSpeed;
+            _mask.transform.localScale = Vector3.one * (1 - _animationProgress);
 
-            _TMPSprite.rectTransform.position = _defaultPosition + Vector3.up
-                * _animationProgress * (int)_animationState;
+            _TMPSprite.rectTransform.position = _defaultPosition 
+                + _animationProgress * (int)_animationState * Vector3.up;
 
             if (_animationState == AnimationState.death) {
                 var color = new Color(1, 1, 1, Mathf.Clamp01(_animationProgress));
@@ -60,10 +62,8 @@ namespace Entities
                 OnAnimationEnd?.Invoke();
                 _animationProgress = 0;
                 _animationState = AnimationState.none;
+                _mask.enabled = false;
             }
-
         }
-
-
     }
 }
