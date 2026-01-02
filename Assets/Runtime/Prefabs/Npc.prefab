@@ -320,6 +320,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5691333116864966465
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -363,8 +364,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 762080211
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 59d83f81ae66eeb4ab92b441ed6cc650, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -374,7 +376,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &9181421266046930977
 GameObject:
@@ -475,6 +476,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5691333115397552404}
     m_Modifications:
+    - target: {fileID: 1582808970076206698, guid: 4563453e9d93f744eb5b1b2c058869c5, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1582808970076206698, guid: 4563453e9d93f744eb5b1b2c058869c5, type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6992985383896853972, guid: 4563453e9d93f744eb5b1b2c058869c5, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
