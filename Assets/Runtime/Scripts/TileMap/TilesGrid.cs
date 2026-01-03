@@ -11,10 +11,14 @@ namespace Map
     {
         TileNode[,] _grid;
         PathFinder _pathFinder;
+        Vector2Int _gridSize;
+
+        public Vector2Int gridSize => _gridSize;
 
         public TilesGrid(LocationMapData mapData)
         {
             _grid = new TileNode[mapData.width, mapData.height];
+            _gridSize = new Vector2Int(mapData.width, mapData.height);
             FillGrid(mapData.walkabilityMap);
             _pathFinder = new PathFinder(this);
         }
@@ -39,14 +43,14 @@ namespace Map
 
         public bool TryGetNodeAt(int x, int y, out TileNode node)
         {
-            bool insideGrid = PositionInsideGrid(x, y);
+            bool insideGrid = _grid.IndexIsInsideBounds(x, y);
             node = insideGrid ? _grid[x, y] : _grid[0, 0];
             return insideGrid;
         }
 
         public TileNode GetNode(Vector3Int pos)
         {
-            bool insideGrid = PositionInsideGrid(pos.x, pos.y);
+            bool insideGrid = _grid.IndexIsInsideBounds(pos.x, pos.y);
             var node = insideGrid ? _grid[pos.x, pos.y] : _grid[0, 0];
             return node;
         }
@@ -59,7 +63,7 @@ namespace Map
             {
                 for (int y = node.y - 1; y <= node.y + 1; y++)
                 {
-                    if (!PositionInsideGrid(x, y)) continue;
+                    if (!_grid.IndexIsInsideBounds(x, y)) continue;
                     var neighborNode = _grid[x, y];
                     if (neighborNode == node) continue;
                     if (!neighborNode.isWalkableAndEmpty) continue;
@@ -78,7 +82,7 @@ namespace Map
             {
                 for (int y = position.y - radius; y <= position.y + radius; y++)
                 {
-                    if (!PositionInsideGrid(x, y)) continue;
+                    if (!_grid.IndexIsInsideBounds(x, y)) continue;
                     var neighborNode = _grid[x, y];
                     if (neighborNode.intPosition == position) continue;
                     if (neighborNode.isEmpty) continue;
@@ -92,7 +96,7 @@ namespace Map
         bool TryAddEntityToTile(Entity entity)
         {
             var tilePos = entity.transform.position.ToTilePos();
-            if (PositionInsideGrid(tilePos.x, tilePos.y))
+            if (_grid.IndexIsInsideBounds(tilePos.x, tilePos.y))
             {
                 var node = _grid[tilePos.x, tilePos.y];
                 if (!node.isEmpty) return false;
@@ -112,16 +116,6 @@ namespace Map
                     _grid[x, y] = new TileNode(x, y, intMap[x, y] == 1);
                 }
             }
-        }
-
-        bool PositionInsideGrid(int x, int y)
-        {
-            return x >= 0 && x <= _grid.GetUpperBound(0) && y >= 0 && y <= _grid.GetUpperBound(1);
-        }
-
-        bool PositionInsideGrid(Vector3Int pos)
-        {
-            return PositionInsideGrid(pos.x, pos.y);
         }
 
         void IObserver<Entity>.AddToObserve(Entity target)

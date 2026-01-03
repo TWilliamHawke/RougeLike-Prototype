@@ -38,6 +38,21 @@ public static class CollectionsExtension
         }
     }
 
+    public static bool IndexIsInsideBounds<T>(this T[] array, int index)
+    {
+        return index >= 0 && index < array.Length;
+    }
+
+    public static bool IndexIsInsideBounds<T>(this List<T> list, int index)
+    {
+        return index >= 0 && index < list.Count;
+    }
+
+    public static bool IndexIsInsideBounds<T>(this T[,] array, int x, int y)
+    {
+        return x >= 0 && x < array.GetLength(0) && y >= 0 && y < array.GetLength(1);
+    }
+
     public static T GetRandonByWeight<T>(this IEnumerable<T> list, System.Func<T, int> selector)
     {
         var result = list.FirstOrDefault();
