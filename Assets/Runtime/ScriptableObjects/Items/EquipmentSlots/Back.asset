@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Back
   m_EditorClassIdentifier: 
   _displayName: equipment_slot_name_back
-  _icon: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
+  _icon: {fileID: 8249986229367578957, guid: df3be64568fc0874c826980588b48a06, type: 3}
   _equipmentType: 7

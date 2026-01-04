@@ -70,6 +70,7 @@ namespace Items.UI
             Sprite sprite = storage.storageType switch
             {
                 ItemStorageType.inventory => _equipmentSprite,
+                ItemStorageType.equipment => _equipmentSprite,
                 _ => _chestSprite
             };
 

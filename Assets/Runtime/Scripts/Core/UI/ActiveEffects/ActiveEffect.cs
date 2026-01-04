@@ -13,12 +13,16 @@ namespace Core.UI
 		[SerializeField] Color _negativeEffectColor = Color.red;
 		[SerializeField] Image _effectIcon;
 		[SerializeField] Image _effectFrame;
+		[SerializeField] Image _timerFrame;
 		[SerializeField] TextMeshProUGUI _turnsText;
 
         public override void BindData(TemporaryEffectData data)
         {
             _effectIcon.sprite = data.effect.icon;
 			_turnsText.text = data.remainingDuration.ToString();
+			Color frameColor = data.IsPositive() ? _positiveEffectColor : _negativeEffectColor;
+			_effectFrame.color = frameColor;
+			_timerFrame.color = frameColor;
         }
 
         

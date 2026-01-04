@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1329261298420222615, guid: fa2c17382cfb49048b0ac54923165cbd, type: 3}
       propertyPath: m_Name
-      value: StealedItem Variant
+      value: StealedItem Down
       objectReference: {fileID: 0}
     - target: {fileID: 2951684170556047102, guid: fa2c17382cfb49048b0ac54923165cbd, type: 3}
       propertyPath: m_Pivot.x
@@ -190,6 +190,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7257091754270036192, guid: fa2c17382cfb49048b0ac54923165cbd, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209756155706954300, guid: fa2c17382cfb49048b0ac54923165cbd, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8577203955823581986, guid: fa2c17382cfb49048b0ac54923165cbd, type: 3}

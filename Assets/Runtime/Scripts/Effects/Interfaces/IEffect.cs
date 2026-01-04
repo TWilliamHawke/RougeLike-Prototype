@@ -9,6 +9,7 @@ namespace Effects
         IEffectSignature effectType { get; }
         string description { get; }
         Sprite icon { get; }
+        bool isPositiveValueGood { get; }
         bool CanApply(IEffectSource source, IAbilityTarget target);
     }
 

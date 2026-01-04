@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
+  m_Sprite: {fileID: 4796264166980554153, guid: 7a081401bd0de1c4aa17ede3506e7f06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -175,10 +175,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0.4245283, b: 0.36731416, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.31132078, b: 0.27096438, a: 1}
-    m_PressedColor: {r: 0, g: 0.42352942, b: 0.36862746, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.47058824, g: 0.3764706, b: 0.3019608, a: 1}
+    m_HighlightedColor: {r: 0.5660378, g: 0.45427075, b: 0.36578855, a: 1}
+    m_PressedColor: {r: 0.47058824, g: 0.3764706, b: 0.3019608, a: 1}
+    m_SelectedColor: {r: 0.5647059, g: 0.45490196, b: 0.3647059, a: 1}
     m_DisabledColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.8666667}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -212,7 +212,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionIcon: {fileID: 8921665441876602940}
   _actionTitle: {fileID: 5066929566410913032}
-  _buttonBg: {fileID: 6750728485135746649}
   _button: {fileID: 953114929586467093}
 --- !u!1 &8611598957811799067
 GameObject:
@@ -317,20 +316,23 @@ MonoBehaviour:
   m_VerticalAlignment: 8192
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

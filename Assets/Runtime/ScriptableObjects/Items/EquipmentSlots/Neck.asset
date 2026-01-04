@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Neck
   m_EditorClassIdentifier: 
   _displayName: equipment_slot_name_neck
-  _icon: {fileID: 21300000, guid: b40abdb92f7ec9145ac22182839d2ace, type: 3}
+  _icon: {fileID: 142919420388032118, guid: c55b0d03c4d9fac48a0b10a15fa3a3ad, type: 3}
   _equipmentType: 10

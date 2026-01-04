@@ -21,5 +21,17 @@ namespace Effects
 			magnitude = sourceEffectData.magnitude;
 			remainingDuration = sourceEffectData.duration;
 		}
+
+		public bool IsPositive()
+		{
+			if (effect.isPositiveValueGood)
+			{
+				return magnitude > 0;
+			}
+			else
+			{
+				return magnitude < 0;
+			}
+		}
 	}
 }

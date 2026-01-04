@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Loot
   m_EditorClassIdentifier: 
   _displayName: Loot
-  _icon: {fileID: 21300000, guid: 7f6e895dbc6d9194d9d1453f1d35eb54, type: 3}
+  _icon: {fileID: 4796264166980554153, guid: 7a081401bd0de1c4aa17ede3506e7f06, type: 3}
   _actionType: 1
   _lootTable: {fileID: 11400000, guid: d62a5ed306e2da94daf247473cf3a771, type: 2}
   _lootDescription: 
+  _enemyFaction: {fileID: 0}

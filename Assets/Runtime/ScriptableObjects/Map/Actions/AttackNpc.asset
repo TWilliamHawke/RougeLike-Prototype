@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackNpc
   m_EditorClassIdentifier: 
   _displayName: Attack
-  _icon: {fileID: 21300000, guid: 6f376ae79923956438fab1c322fc9dde, type: 3}
+  _icon: {fileID: 852928365244996250, guid: d60d83401442ccf4cb47333d51f67edd, type: 3}
   _actionType: 4
   _lootTable: {fileID: 0}
   _lootDescription: 

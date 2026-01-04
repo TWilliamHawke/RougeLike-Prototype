@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LeftFinger
   m_EditorClassIdentifier: 
   _displayName: equipment_slot_name_left_finger
-  _icon: {fileID: 21300000, guid: 474e951bf7f931145b7c7c42d69209a3, type: 3}
+  _icon: {fileID: -4676093299339909737, guid: 9c8e1fda8407fd14aa9721098489edc5, type: 3}
   _equipmentType: 9

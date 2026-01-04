@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   _displayName: equipment_slot_name_chest
-  _icon: {fileID: 21300000, guid: 4b824eefe7200da4a892cad442dc8011, type: 3}
+  _icon: {fileID: 4243732674375338582, guid: 87f37863253999a4b9d8549d19d72894, type: 3}
   _equipmentType: 4

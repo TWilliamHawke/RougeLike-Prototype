@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Healing
   m_EditorClassIdentifier: 
   _displayName: ability_name_healing
-  _icon: {fileID: 21300000, guid: 69628a86a45e5ff4d8301baebf881044, type: 3}
+  _icon: {fileID: 21300000, guid: f33cdaec8684a134db47183f07703fb8, type: 3}
   _startRank: 1
   _levels:
   - spellEffect: {fileID: 11400000, guid: 3a3534d8217ba794e87b00e64b337509, type: 2}

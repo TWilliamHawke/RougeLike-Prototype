@@ -10,8 +10,8 @@ namespace Map.UI
 {
     public class TaskPanel : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] Sprite _activeBg;
-        [SerializeField] Sprite _inactiveBg;
+        [SerializeField] Color _activeColor = Color.olive;
+        [SerializeField] Color _inactiveColor = Color.magenta;
         [SerializeField] CustomEvent _event;
         [Header("UI Elements")]
         [SerializeField] Image _locationIcon;
@@ -39,7 +39,7 @@ namespace Map.UI
             _locationTask.text = task.taskText;
             _locationIcon.sprite = task.icon;
             _locationName.text = task.displayName;
-            _background.sprite = task.isDone ? _activeBg : _inactiveBg;
+            _background.color = task.isDone ? _activeColor : _inactiveColor;
         }
 
         public void OnPointerClick(PointerEventData eventData)

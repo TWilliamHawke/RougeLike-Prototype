@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aeeb8e817e750409eb1c5de9f37628, type: 3}
   m_Name: PotionOfHealth
   m_EditorClassIdentifier: 
-  _displayName: Potion Of Health
-  _icon: {fileID: 21300000, guid: 3bc420254a2fd5a42a8715e796da8770, type: 3}
+  _icon: {fileID: 21300000, guid: f91cc4ddf4275f74f850e1be017e4c3d, type: 3}
   _itemType: {fileID: 11400000, guid: 34b55875fe07d38419a7d7a92b230f64, type: 2}
-  _maxStackSize: 25
-  _value: 25
   _soundKit: {fileID: 11400000, guid: 8b62b06b117fa644c8dd2b5b8b1934aa, type: 2}
+  _displayName: Potion Of Health
+  _value: 25
   _selfAbilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: d7852abb299a47d478af59e88ba38251, type: 2}

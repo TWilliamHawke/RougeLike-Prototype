@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Arms
   m_EditorClassIdentifier: 
   _displayName: equipment_slot_name_arms
-  _icon: {fileID: 21300000, guid: d674c5436594613498511f4acc7abc7c, type: 3}
+  _icon: {fileID: -7458768769889181306, guid: 96b19349db425ea40a6d1bec0ef3026d, type: 3}
   _equipmentType: 5

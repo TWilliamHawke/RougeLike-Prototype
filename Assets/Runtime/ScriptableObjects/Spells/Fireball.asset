@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   _displayName: ability_name_fireball
-  _icon: {fileID: 21300000, guid: 3d075a9741cd6c845be338c56ffbf0cd, type: 3}
+  _icon: {fileID: 21300000, guid: f74c66f1d5c17874c864c31ef6e925f1, type: 3}
   _startRank: 1
   _levels:
   - spellEffect: {fileID: 11400000, guid: 9484d58bf67a233449651983b436aeb7, type: 2}

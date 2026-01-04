@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TravelingTrader
   m_EditorClassIdentifier: 
   _displayName: Traveled Trader
-  _icon: {fileID: 21300000, guid: abb8372e40fcede4589e948ed8d5e992, type: 3}
+  _icon: {fileID: 9221234044764412887, guid: 363729e1e22efc5499ce94d055eaed42, type: 3}
   _interactionDescription: You meet the trader
   _possibleActions:
   - {fileID: 11400000, guid: d1e50fd6b07b4f24096339038544a8b6, type: 2}

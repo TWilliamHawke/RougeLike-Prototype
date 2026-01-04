@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WolfLair
   m_EditorClassIdentifier: 
   _displayName: Wolf Lair
-  _icon: {fileID: 21300000, guid: 8d53c923c3176734f96470e153c50bd6, type: 3}
+  _icon: {fileID: -6947337267990653189, guid: 28096cb95cdfccd4087324c88878e7cb, type: 3}
   _interactionDescription: 
   _possibleActions:
   - {fileID: 11400000, guid: e764b70b79a3f394692d5efb567510d7, type: 2}
