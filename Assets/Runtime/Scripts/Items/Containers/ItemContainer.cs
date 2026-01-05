@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Items
@@ -49,6 +48,11 @@ namespace Items
         public void DisarmTrap()
         {
             trapLevel = 0;
+        }
+
+        public void Clear()
+        {
+            _itemsSection.Clear();
         }
 
         private void HandleSectionChangeEvent()

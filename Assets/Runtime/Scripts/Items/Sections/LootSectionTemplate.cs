@@ -6,7 +6,7 @@ namespace Items
         public ItemStorageType storageType => ItemStorageType.loot;
         public string sectionName { get; init; }
 
-        public LootSectionTemplate(string sectionName = "Loot")
+        public LootSectionTemplate(string sectionName)
         {
             this.sectionName = sectionName;
         }

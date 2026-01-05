@@ -45,6 +45,15 @@ public class Injector : ScriptableObject
         dependency = _dependency as T ?? dependency;
     }
 
+    public void SetDependency<T>(ref T dependency, DependencyReadyTrigger trigger) where T : class, IPermanentDependency
+    {
+        if (_dependency is null)
+        {
+            SetDependency(dependency, trigger);
+        }
+        dependency = _dependency as T ?? dependency;
+    }
+
     public void SetDependency(object dependency,
         DependencyReadyTrigger trigger = DependencyReadyTrigger.allInjectFieldsIsFull)
     {

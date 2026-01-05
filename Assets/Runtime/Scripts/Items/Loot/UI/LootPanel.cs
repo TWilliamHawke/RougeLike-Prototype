@@ -48,6 +48,7 @@ namespace Items.UI
                 inventory.AddItems(slotData.item, slotData.count);
             }
 
+            _selectedContainer.Clear();
             _selectedContainerIdx++;
             OnTakeAll?.Invoke();
             UpdateTakeAllText();

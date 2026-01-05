@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Items
 {
@@ -7,7 +8,7 @@ namespace Items
         public override ItemStorageType storageType => ItemStorageType.loot;
         public int count => 1;
 
-        public LootContainer() : base(new ItemSection(new LootSectionTemplate()))
+        public LootContainer() : base(new ItemSection(new LootSectionTemplate("Loot")))
         {
         }
 

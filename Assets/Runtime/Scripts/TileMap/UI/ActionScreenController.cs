@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using Map.Zones;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Map.UI
 {
     public class ActionScreenController : MonoBehaviour, IActionScreenController
     {
-        [SerializeField] ActionsScreen _actionsScreen;
+        [SerializeField] UIScreen _actionsScreen;
         [SerializeField] Injector _thisInjector;
+        [Header("UI Elements")]
+        [SerializeField] TextMeshProUGUI _title;
+        [SerializeField] Image _zoneIcon;
+        [SerializeField] ActionButtonsPanel _actionButtonsPanel;
+
 
         [InjectField] MapZonesObserver _mapZonesObserver;
 
@@ -30,10 +37,10 @@ namespace Map.UI
         public void OpenActionScreen()
         {
             if (_currentZone is null || _currentZone.actionList.count == 0) return;
-            _actionsScreen.SetTitle(_currentZone.displayName);
-            _actionsScreen.SetIcon(_currentZone.icon);
+            _zoneIcon.sprite = _currentZone.icon;
+            _title.text = _currentZone.displayName;
+            _actionButtonsPanel.SetActions(_currentZone.actionList);
 
-            _actionsScreen.SetActions(_currentZone.actionList);
             _actionsScreen.Open();
         }
 

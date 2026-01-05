@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weapon: {fileID: 11400000, guid: a30bb1ba01adbfa41b659e865efc35ee, type: 2}
   _equipmentTable: {fileID: 0}
-  _inventory: {fileID: 11400000, guid: ccca15f3f4dd3954eb733aa5d2177c5c, type: 2}
+  _inventory: {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
   _equipmentSection: {fileID: 11400000, guid: 76cdc35b462ce2a438699a2f7dceffb8, type: 2}
   _tradeItems:
   - storageName: Box With goods
