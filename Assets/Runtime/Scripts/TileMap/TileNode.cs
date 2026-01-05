@@ -9,31 +9,31 @@ namespace Map
     public class TileNode : ITileClickData, IAbilityTarget, IPositionData
     {
         public static int maxNeightborDistance => 15;
-        public bool isWalkable { get; init; }
 
         public TileNode parent { get; set; }
         public float targetDist { get; set; }
         public float startDist { get; set; }
         public Vector3Int intPosition { get; init; }
 
-        List<IObstacleEntity> _entitiesInThisNode = new();
+        HashSet<IObstacleEntity> _entitiesInThisNode = new();
+        TileTemplate _template;
 
         //getters
+        public bool isWalkable => _template.isWalkable;
         public IEnumerable<IObstacleEntity> entitiesOnTile => _entitiesInThisNode;
         public bool isEmpty => _entitiesInThisNode.Count == 0;
         public bool isWalkableAndEmpty => isWalkable && isEmpty;
         public float totalDist => targetDist + startDist;
         public Vector3 position => intPosition;
+        public AudioClip stepSound => _template.stepSound;
         public int x => intPosition.x;
         public int y => intPosition.y;
 
-
-        public TileNode(int x, int y, bool isWalkableTile)
+        public TileNode(int x, int y, TileTemplate template)
         {
             intPosition = new Vector3Int(x, y, 0);
-            isWalkable = isWalkableTile;
+            _template = template;
         }
-
 
         public float GetDistanceFrom(TileNode node)
         {

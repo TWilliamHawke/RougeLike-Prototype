@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06dba3ea559dbe44ad291f771e3d29f, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: Project::Map.TileTemplate
+  _tile: {fileID: 11400000, guid: a46e7c187b0952849b2925e926bca1cc, type: 2}
+  _isWalkable: 1
+  _stepSounds:
+  - {fileID: 8300000, guid: e03626ca9a395034ba2afb9c3354bf46, type: 3}
+  - {fileID: 8300000, guid: b7faa7215a50db44b99155f55f037d8f, type: 3}
+  - {fileID: 8300000, guid: caa9e3e69b0dbf84c896df0b36183b17, type: 3}
+  - {fileID: 8300000, guid: acf717b8cad72874aaa0cbb45d1677cb, type: 3}
+  - {fileID: 8300000, guid: d3830e01dcbc8364da660f884da92469, type: 3}
+  - {fileID: 8300000, guid: b176e5501967f1a4c8860c182fb218d1, type: 3}

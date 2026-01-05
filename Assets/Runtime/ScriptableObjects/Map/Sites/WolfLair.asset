@@ -22,5 +22,5 @@ MonoBehaviour:
   _enemies: {fileID: 11400000, guid: c3b38d8dc1961a84ab39946fcfb08516, type: 2}
   _tilesWidth: 3
   _tilesHeight: 3
-  _siteTile: {fileID: 11400000, guid: 265c43963ca08624e9ed3526891bb243, type: 2}
+  _siteTile: {fileID: 11400000, guid: 8ec7ae2cbea2522468724467a1fcf2cf, type: 2}
   _tilesIsWalkable: 1

@@ -25,9 +25,9 @@ namespace Map.Generator
 		[SerializeField] int _maxDistanceBetweenSites = 15;
 		[SerializeField] int _roadCurvesCount = 6;
 		[Header("Tiles")]
-		[SerializeField] TileBase _defaultTile;
-		[SerializeField] TileBase _borderTile;
-		[SerializeField] TileBase _roadTile;
+		[SerializeField] TileTemplate _defaultTile;
+		[SerializeField] TileTemplate _borderTile;
+		[SerializeField] TileTemplate _roadTile;
 		[SerializeField] TileBase[] _randomTiles;
 		[SerializeField] TileBase[] _randomObstacles;
 		[Header("Map Zones")]

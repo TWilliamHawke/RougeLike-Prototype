@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06dba3ea559dbe44ad291f771e3d29f, type: 3}
+  m_Name: SoilOverGrass
+  m_EditorClassIdentifier: Project::Map.TileTemplate
+  _tile: {fileID: 11400000, guid: 265c43963ca08624e9ed3526891bb243, type: 2}
+  _isWalkable: 1
+  _stepSounds:
+  - {fileID: 8300000, guid: 380162fc0b6cfdd41b1546bf95f398ca, type: 3}
+  - {fileID: 8300000, guid: bcfc8b8e225960248bee679bf0f0cdc8, type: 3}
+  - {fileID: 8300000, guid: 1c086cd4bdb185e4db98a67e7f5b535a, type: 3}
+  - {fileID: 8300000, guid: 2335a6af5ccc6384fb5a8c767d2c9d4c, type: 3}
+  - {fileID: 8300000, guid: feeeb3340dcf62c4dbe9a2c1b523233a, type: 3}
+  - {fileID: 8300000, guid: d040bd9cb36ea4344ad86cadb6fa7d09, type: 3}

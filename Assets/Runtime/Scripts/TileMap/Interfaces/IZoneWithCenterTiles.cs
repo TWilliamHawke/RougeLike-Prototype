@@ -8,7 +8,7 @@ namespace Map
 	public interface IZoneWithCenterTiles
 	{
         Vector2Int centerZoneSize { get; }
-        TileBase centerZoneTile { get; }
+        TileTemplate centerZoneTile { get; }
 		bool centerZoneIsWalkable { get; }
 	}
 }

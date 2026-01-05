@@ -19,7 +19,7 @@ namespace Map
         {
             _grid = new TileNode[mapData.width, mapData.height];
             _gridSize = new Vector2Int(mapData.width, mapData.height);
-            FillGrid(mapData.walkabilityMap);
+            FillGrid(mapData.tiles);
             _pathFinder = new PathFinder(this);
         }
 
@@ -107,13 +107,13 @@ namespace Map
             return false;
         }
 
-        void FillGrid(int[,] intMap)
+        void FillGrid(TileTemplate[,] tiles)
         {
-            for (int x = 0; x <= intMap.GetUpperBound(0); x++)
+            for (int x = 0; x <= tiles.GetUpperBound(0); x++)
             {
-                for (int y = 0; y <= intMap.GetUpperBound(1); y++)
+                for (int y = 0; y <= tiles.GetUpperBound(1); y++)
                 {
-                    _grid[x, y] = new TileNode(x, y, intMap[x, y] == 1);
+                    _grid[x, y] = new TileNode(x, y, tiles[x, y]);
                 }
             }
         }

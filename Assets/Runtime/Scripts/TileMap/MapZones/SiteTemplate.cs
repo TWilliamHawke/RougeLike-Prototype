@@ -26,7 +26,7 @@ namespace Map.Zones
 		[Header("Tiles")]
 		[SerializeField] int _tilesWidth = 3;
 		[SerializeField] int _tilesHeight = 3;
-		[SerializeField] TileBase _siteTile;
+		[SerializeField] TileTemplate _siteTile;
 		[SerializeField] bool _tilesIsWalkable;
 
         public string displayName => _displayName;
@@ -35,7 +35,7 @@ namespace Map.Zones
         public EntitiesTable enemies => _enemies; 
         public Vector2Int size => new Vector2Int(_width, _height);
         public Vector2Int centerZoneSize => new Vector2Int(_tilesWidth, _tilesHeight);
-        public TileBase centerZoneTile => _siteTile; 
+        public TileTemplate centerZoneTile => _siteTile; 
         public bool centerZoneIsWalkable => _tilesIsWalkable;
     }
 }

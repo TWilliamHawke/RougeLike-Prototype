@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Map
 {
-    public struct LocationMapData
+    public class LocationMapData
     {
-        public int[,] walkabilityMap;
-        public Vector3Int playerSpawnPos;
-        public int width;
-        public int height;
+        public TileTemplate[,] tiles { get; init; }
+        public Vector3Int playerSpawnPos { get; init; }
+        public int width { get; init; }
+        public int height { get; init; }
     }
 }
 

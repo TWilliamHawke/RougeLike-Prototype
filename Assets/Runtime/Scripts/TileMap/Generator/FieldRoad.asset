@@ -23,9 +23,9 @@ MonoBehaviour:
   _minDistanceBetweenSites: 10
   _maxDistanceBetweenSites: 15
   _roadCurvesCount: 12
-  _defaultTile: {fileID: 11400000, guid: a46e7c187b0952849b2925e926bca1cc, type: 2}
-  _borderTile: {fileID: 11400000, guid: 5bb81cbfa73fba947acb6209d9dc0b06, type: 2}
-  _roadTile: {fileID: 11400000, guid: 265c43963ca08624e9ed3526891bb243, type: 2}
+  _defaultTile: {fileID: 11400000, guid: 09e62e1001758004594d797a66e9c767, type: 2}
+  _borderTile: {fileID: 11400000, guid: 85006614d29c43d4b94261b9619b47f6, type: 2}
+  _roadTile: {fileID: 11400000, guid: 8ec7ae2cbea2522468724467a1fcf2cf, type: 2}
   _randomTiles: []
   _randomObstacles: []
   _siteTemplates:

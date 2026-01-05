@@ -11,12 +11,12 @@ namespace Map.Generator
         [SerializeField] int _seed;
         [SerializeField] int _maxWidth;
         [SerializeField] int _maxHeight;
-		[SerializeField] TileBase[] _tiles;
+		[SerializeField] TileTemplate[] _tiles;
 
         public int seed => _seed;
         public int maxWidth => _maxWidth;
         public int maxHeight => _maxHeight;
-		public TileBase[] tiles => _tiles;
+		public TileTemplate[] tiles => _tiles;
 
         public override IGenerationLogic GetLogic(Tilemap tilemap)
 		{

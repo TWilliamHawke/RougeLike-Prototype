@@ -9,6 +9,7 @@ namespace Abilities
     {
         PositionController _target;
         bool _onPause = true;
+        AudioEffectsController _soundController;
 
         Stack<TileNode> _path = new Stack<TileNode>();
 
@@ -53,6 +54,8 @@ namespace Abilities
         {
             var start = _abilityUser.GetEntityComponent<PositionController>();
             _target = _abilityUser.GetEntityComponent<PositionController>();
+            _soundController = _abilityUser.GetEntityComponent<AudioEffectsController>();
+
             var destination = target as IPositionData;
 
             if (start == null || destination == null) return;
@@ -65,6 +68,11 @@ namespace Abilities
         {
             _onPause = true;
             StartNextStep();
+        }
+
+        public void PlayStepSound(TileNode targetNode)
+        {
+            _soundController.PlaySound(targetNode.stepSound);
         }
 
         public override IAbilityTarget SelectTarget(ITileClickData tile)

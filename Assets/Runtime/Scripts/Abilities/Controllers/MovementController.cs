@@ -2,16 +2,12 @@ using System.Collections.Generic;
 using Core.Settings;
 using Map;
 using UnityEngine;
-using Core.Input;
-using UnityEngine.Events;
-using Entities;
 
 namespace Abilities
 {
     public class MovementController : MonoBehaviour
     {
         [SerializeField] GlobalSettings _settings;
-        [SerializeField] StepSoundKit _stepSounds;
 
         [InjectField] TilesGrid _tileGrid;
 
@@ -47,6 +43,7 @@ namespace Abilities
             _activeAbility = ability;
             _currentNode = _tileGrid.GetNode(ability.targetPosition);
             _targetNode = ability.path.Pop();
+            ability.PlayStepSound(_targetNode);
         }
 
         public Stack<TileNode> FindPath(IPositionData from, IPositionData to)
@@ -57,12 +54,6 @@ namespace Abilities
         public TileNode FindNode(Vector3 position)
         {
             return _tileGrid.GetNode(position.ToInt());
-        }
-
-        void PlayStepSound()
-        {
-            var clip = _stepSounds.GetRandom();
-            //_body.PlaySound(clip);
         }
     }
 }

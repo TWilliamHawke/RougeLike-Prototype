@@ -11,7 +11,7 @@ namespace Map.Generator
     {
         TestConfig _config;
         Rng _rng;
-        int[,] _intMap;
+        TileTemplate[,] _tiles;
         CellInfo[,] _grid;
 
         CellInfo _startCell;
@@ -34,35 +34,35 @@ namespace Map.Generator
 
         public LocationMapData StartGeneration()
         {
-            var mapData = new LocationMapData();
+            var mapData = new LocationMapData()
+            {
+                tiles = Create2dArray(),
+                width = _config.maxWidth,
+                height = _config.maxHeight,
+                playerSpawnPos = GetSpawnPoint(),
+            };
 
-			mapData.walkabilityMap = Create2dArray();
-            mapData.width = _config.maxWidth;
-            mapData.height = _config.maxHeight;
-
-			mapData.playerSpawnPos = GetSpawnPoint();
-
-			for (int x = 0; x <= mapData.walkabilityMap.GetUpperBound(0); x++)
+			for (int x = 0; x <= mapData.tiles.GetUpperBound(0); x++)
 			{
-				for(int y = 0; y <= mapData.walkabilityMap.GetUpperBound(1); y++)
+				for(int y = 0; y <= mapData.tiles.GetUpperBound(1); y++)
 				{
 					var position = new Vector3Int(x,y,0);
-					_tilemap.SetTile(position, _config.tiles[mapData.walkabilityMap[x,y]]);
+					_tilemap.SetTile(position, _config.tiles[1].tile);
 				}
 			}
 
             return mapData;
         }
 
-        int[,] Create2dArray()
+        TileTemplate[,] Create2dArray()
         {
-            _intMap = new int[_config.maxWidth, _config.maxHeight];
+            _tiles = new TileTemplate[_config.maxWidth, _config.maxHeight];
 
             CreateGrid();
             CreateBridges();
             ClearWalls();
 
-            return _intMap;
+            return _tiles;
         }
 
         public Vector3Int GetSpawnPoint()
@@ -74,26 +74,6 @@ namespace Map.Generator
 
         private void ClearWalls()
         {
-            for (int x = 1; x < _intMap.GetUpperBound(0); x++)
-            {
-                for (int y = 1; y < _intMap.GetUpperBound(1); y++)
-                {
-                    int tileType = _intMap[x, y];
-
-                    if (tileType != 2) continue; //wall check
-
-                    //if left and right tiles are walkable
-                    if (_intMap[x - 1, y] == 1 && _intMap[x + 1, y] == 1)
-                    {
-                        _intMap[x, y] = 1;
-                    }
-                    //if top and down tiles are walkable
-                    if (_intMap[x, y - 1] == 1 && _intMap[x, y + 1] == 1)
-                    {
-                        _intMap[x, y] = 1;
-                    }
-                }
-            }
         }
 
         private void CreateBridges()
@@ -235,13 +215,11 @@ namespace Map.Generator
             int middleX = FindMiddleLine(cell.gridX);
             int middleY = FindMiddleLine(cell.gridY);
 
-
             cell.x1 = middleX - _rng.Next(1, 3);
             cell.x2 = middleX + _rng.Next(1, 3);
             cell.y1 = middleY - _rng.Next(1, 3);
             cell.y2 = middleY + _rng.Next(1, 3);
             cell.isHall = false;
-
         }
 
         private void CreateHall(ref CellInfo cell)
@@ -254,7 +232,6 @@ namespace Map.Generator
             cell.y1 = middleY - 5;
             cell.y2 = middleY + 5;
             cell.isHall = true;
-
         }
 
         private static int FindMiddleLine(int x)
@@ -281,11 +258,11 @@ namespace Map.Generator
                 {
                     if (x == startX || x == maxX || y == startY || y == maxY)
                     {
-                        _intMap[x, y] = 2;
+                        _tiles[x, y] = _config.tiles[2];
                     }
                     else
                     {
-                        _intMap[x, y] = 1;
+                        _tiles[x, y] = _config.tiles[2];
                     }
                 }
             }
