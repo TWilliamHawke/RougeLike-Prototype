@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41ce104dfb8b1f4fbf3f59093c6e423, type: 3}
+  m_Name: Travelers Cloack
+  m_EditorClassIdentifier: Assembly-CSharp::Items.ArmorTemplate
+  _icon: {fileID: 8249986229367578957, guid: df3be64568fc0874c826980588b48a06, type: 3}
+  _itemType: {fileID: 11400000, guid: 5e97da6d649d8754baa729d6183b3213, type: 2}
+  _soundKit: {fileID: 11400000, guid: 335037fffc6c51f4c9f4302804592c16, type: 2}
+  _displayName:
+    _locKey: clothing_name_traveler_cloack
+  _baseValue: 1
+  _baseRarity: 0
+  _rarityStep: 10
+  _qualities:
+  - _levelName: {fileID: 11400000, guid: e8c2e79c806ccc7498161648c8f26962, type: 2}
+    _armor: 0
+    _heaviness: 0
+  _equipmentSlot: {fileID: 11400000, guid: 3117ca30f917c814e927221aedf43197, type: 2}

@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de424e0ca2edddb438fa033399231d57, type: 3}
   m_Name: TravelingTrader
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 11400000, guid: a30bb1ba01adbfa41b659e865efc35ee, type: 2}
-  _equipmentTable: {fileID: 0}
-  _inventory: {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  _equipmentSection: {fileID: 11400000, guid: 76cdc35b462ce2a438699a2f7dceffb8, type: 2}
+  _equipmentTable: {fileID: 11400000, guid: d33a5ea72a698f24ab57cf4b76e96a34, type: 2}
+  _inventory: {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}
+  _inventorySection: {fileID: 11400000, guid: 28afbcceaee975b47b5585ccf77f5756, type: 2}
   _tradeItems:
-  - storageName: Box With goods
+  - storageName:
+      _locKey: container_name_goods_box
     security: 0
     loot: {fileID: 11400000, guid: d62a5ed306e2da94daf247473cf3a771, type: 2}
-  - storageName: Small chest with potions
+  - storageName:
+      _locKey: container_name_potion_casket
     security: 15
     loot: {fileID: 11400000, guid: ccca15f3f4dd3954eb733aa5d2177c5c, type: 2}

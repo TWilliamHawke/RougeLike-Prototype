@@ -1,15 +1,11 @@
 using System.Collections.Generic;
 using Items;
-using Entities.Combat;
+using Abilities;
 
 namespace Entities.NPC
 {
-    //TODO split interface
     public interface INPCInventory : IInventory, IEnumerable<ItemContainer>
     {
-        WeaponTemplate weapon { get; }
-        Dictionary<DamageType, int> resists { get; }
+        IEnumerable<IAbilityContainer> GetItemAbilities(IAbilitiesFactory factory);
     }
 }
-
-

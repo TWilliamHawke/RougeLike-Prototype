@@ -11,8 +11,6 @@ namespace Items
 
         public int count => _NPCItems.Count + (_creaturesLoot.isEmpty ? 0 : 1);
 
-        public ItemContainer this[int idx] => throw new System.NotImplementedException();
-
         public abstract bool isStealingTarget { get; set; }
         public abstract void AddToObserve(Entity target);
         public abstract void RemoveFromObserve(Entity target);

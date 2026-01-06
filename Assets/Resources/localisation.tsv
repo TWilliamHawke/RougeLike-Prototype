@@ -145,3 +145,10 @@ context_action_replace	Replace	Сменить
 ability_section_name_equipment	Equipment	Снаряжение
 ability_name_bow_shot	Bow shot	Выстрел из лука
 empty_string	%rm	%rm
+item_section_inventory	Inventory	Инвентарь
+clothin_name_blue_shirt	Blue Shirt	Синяя рубашка
+clothing_name_boots	Boots	Сапоги
+clothing_name_traveler_cloack	Traveler's Cloack	Плащ путешественника
+item_section_pockets	Pockets	Карманы
+container_name_goods_box	Box with Goods	Ящик с товарами
+container_name_potion_casket	Casket with Potions	Шкатулка с зельями

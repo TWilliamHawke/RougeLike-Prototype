@@ -2,52 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Items;
-using Entities.Combat;
-using System.Linq;
+using Items.Equipment;
+using Abilities;
 
 namespace Entities.NPC
 {
-
     public class NPCInventory : INPCInventory
     {
-        public Dictionary<DamageType, int> resists { get; init; } = new();
-
-        public WeaponTemplate weapon { get; init; }
-        protected NPCEquipment _equipmentContainer { get; init; }
-        ItemSection _equipment;
+        protected ItemContainer _npcItems { get; init; }
+        ItemSection _inventorySection;
+        EquipmentStorage _equipment = new();
 
         public NPCInventory(NPCInventoryTemplate template)
         {
-            weapon = template.weapon;
-            _equipment = new(template.equipmentSection);
-            _equipment.AddItemsFrom(template.inventoryTable);
+            _inventorySection = template.CreateInventorySection();
+            _npcItems = new(_inventorySection);
+            var equipmentItems = template.GetEquipmentItems();
 
-            _equipmentContainer = new(_equipment);
+            foreach (var itemSlot in equipmentItems)
+            {
+                _equipment.AddEquipment(itemSlot);
+            }
         }
 
         public void AddItem(IItem item)
         {
-            _equipment.AddItem(item);
+            _inventorySection.AddItem(item);
         }
 
         public int FindItemCount(IItem item)
         {
-            return _equipment.FindItemCount(item);
+            return _inventorySection.FindItemCount(item);
         }
 
         public virtual IEnumerator<ItemContainer> GetEnumerator()
         {
-            yield return _equipmentContainer;
+            yield return _npcItems;
         }
 
         public void RemoveOneItem(IItem item)
         {
-            _equipment.RemoveItem(item);
+            _inventorySection.RemoveItem(item);
+        }
+
+        public IEnumerable<IAbilityContainer> GetItemAbilities(IAbilitiesFactory factory)
+        {
+            foreach(var item in GetAllItems())
+            {
+                if (item is not IAbilitySource abilitySource) continue;
+                yield return abilitySource.CreateAbilityContainer(factory);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private IEnumerable<IItem> GetAllItems()
+        {
+            foreach (var itemSlot in _inventorySection)
+            {
+                yield return itemSlot.item;
+            }
+
+            foreach (var itemSlot in _equipment.GetItems())
+            {
+                yield return itemSlot.item;
+            }
         }
     }
 }

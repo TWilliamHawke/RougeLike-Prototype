@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items.Equipment
 {
-    public abstract class EquipmentTemplate<T> : ItemTemplate where T : IEquipmentQualityData
+    public abstract class EquipmentTemplate<T> : ItemTemplate, IIconData where T : IEquipmentQualityData
 	{
 		[SerializeField] LocalString _displayName;
 		[SerializeField] int _baseValue = 1;
@@ -12,7 +12,9 @@ namespace Items.Equipment
 
 		[SerializeField] List<T> _qualities;
 
-		public string ConstructName(T qualityData)
+        public string displayName => _displayName;
+
+        public string ConstructName(T qualityData)
 		{
 			string name = qualityData.displayName + " " + _displayName;
 			return name.Replace("%rm ", "");
