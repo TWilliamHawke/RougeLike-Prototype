@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public interface IUISectionData<T> : IUISectionData, IEnumerable<T>
+public interface IUISectionData<T> : IUISectionData
 {
+    IEnumerable<T> GetElements();
 }
 
 public interface IUISectionData

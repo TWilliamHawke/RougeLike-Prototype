@@ -19,20 +19,18 @@ namespace Entities.NPC
         [SerializeField] InteractionZone _interactionZone;
 
         NPCTemplate _template;
+        INPCInventory _inventory;
 
         public override AudioClip[] deathSounds => _soundKit.deathSounds;
         public override ITemplateWithBaseStats template => _template;
-
         public InteractionZone interactionZone => _interactionZone;
-
-        public INPCInventory inventory { get; private set;}
 
         public override event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public void BindTemplate(NPCTemplate template)
         {
             _template = template;
-            inventory = template.CreateInventory();
+            _inventory = template.CreateInventory();
             ApplyStartStats(template);
             OnTemplateApplied?.Invoke(template);
         }
@@ -57,12 +55,12 @@ namespace Entities.NPC
 
         public override void AddLootTo(IItemStorage storage)
         {
-            inventory.ForEach(container => storage.AddItemsFrom(container));
+            _inventory.AddItemsTo(storage);
         }
 
         public override void RemoveLootFrom(IItemStorage storage)
         {
-            inventory.ForEach(container => storage.RemoveItems(container));
+            _inventory.RemoveItemsFrom(storage);
         }
     }
 }

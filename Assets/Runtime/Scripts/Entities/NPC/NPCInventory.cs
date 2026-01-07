@@ -19,7 +19,7 @@ namespace Entities.NPC
             _npcItems = new(_inventorySection);
             var equipmentItems = template.GetEquipmentItems();
 
-            foreach (var itemSlot in equipmentItems)
+            foreach (var itemSlot in equipmentItems.GetItems())
             {
                 _equipment.AddEquipment(itemSlot);
             }
@@ -33,11 +33,6 @@ namespace Entities.NPC
         public int FindItemCount(IItem item)
         {
             return _inventorySection.FindItemCount(item);
-        }
-
-        public virtual IEnumerator<ItemContainer> GetEnumerator()
-        {
-            yield return _npcItems;
         }
 
         public void RemoveOneItem(IItem item)
@@ -54,14 +49,21 @@ namespace Entities.NPC
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public virtual void AddItemsTo(IItemStorage storage)
         {
-            return GetEnumerator();
+            storage.AddItemsFrom(_npcItems);
+            storage.AddItemsFrom(_equipment.GetItems());
+        }
+
+        public virtual void RemoveItemsFrom(IItemStorage storage)
+        {
+            storage.RemoveItems(_npcItems);
+            storage.RemoveItems(_equipment.GetItems());
         }
 
         private IEnumerable<IItem> GetAllItems()
         {
-            foreach (var itemSlot in _inventorySection)
+            foreach (var itemSlot in _inventorySection.GetItems())
             {
                 yield return itemSlot.item;
             }

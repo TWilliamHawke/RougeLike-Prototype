@@ -18,27 +18,16 @@ namespace Entities.NPC
             }
         }
 
-        public override IEnumerator<ItemContainer> GetEnumerator()
+        public override void AddItemsTo(IItemStorage storage)
         {
-            yield return _npcItems;
-
-            for (int i = 0; i < _tradeItems.Count; i++)
-            {
-                yield return _tradeItems[i];
-            }
+            base.AddItemsTo(storage);
+            _tradeItems.ForEach(container => storage.AddItemsFrom(container));
         }
 
-        ItemContainer FindContainer(int idx)
+        public override void RemoveItemsFrom(IItemStorage storage)
         {
-            if (idx == 0)
-            {
-                return _npcItems;
-            }
-            else
-            {
-                return _tradeItems[idx - 1];
-            }
+            base.RemoveItemsFrom(storage);
+            _tradeItems.ForEach(container => storage.RemoveItems(container));
         }
-
     }
 }

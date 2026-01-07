@@ -7,7 +7,7 @@ public abstract class DatabaseSet : ScriptableObject
     public abstract bool Has(ScriptableObject element);
 }
 
-public abstract class DatabaseSet<T> : DatabaseSet, IEnumerable<T> where T : ScriptableObject
+public abstract class DatabaseSet<T> : DatabaseSet where T : ScriptableObject
 {
     [SerializeField] T[] _elements;
 
@@ -43,22 +43,16 @@ public abstract class DatabaseSet<T> : DatabaseSet, IEnumerable<T> where T : Scr
         _elementsSet.Remove(element);
     }
 
+    public IEnumerable<T> GetElements()
+    {
+        Init();
+        return _elementsSet;
+    }
+
     private void Init()
     {
         if (_elementsSet is not null) return;
         _elementsSet = new(_elements.Length);
         _elements.ForEach(element => _elementsSet.Add(element));
-    }
-
-    IEnumerator<T> IEnumerable<T>.GetEnumerator()
-    {
-        Init();
-        return _elementsSet.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        Init();
-        return _elementsSet.GetEnumerator();
     }
 }

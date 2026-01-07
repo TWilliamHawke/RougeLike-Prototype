@@ -51,7 +51,7 @@ namespace Items
         {
             var loot = GetLoot();
 
-            foreach (var itemSlot in loot)
+            foreach (var itemSlot in loot.GetItems())
             {
                 Debug.Log($"{itemSlot.item.displayName}: {itemSlot.count}");
             }

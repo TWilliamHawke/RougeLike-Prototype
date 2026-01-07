@@ -63,12 +63,12 @@ namespace Items.UI
             if (_storage.isIdentified)
             {
                 _listView.Show();
-                _listView.ShowUnselectedItems(_storage, _selectedItems);
+                _listView.ShowUnselectedItems(_storage.GetItems(), _selectedItems);
                 return;
             }
 
             _gridView.Show();
-            _gridView.ShowUnselectedItems(_storage, _selectedItems);
+            _gridView.ShowUnselectedItems(_storage.GetItems(), _selectedItems);
         }
 
         private void HideAllPanels()

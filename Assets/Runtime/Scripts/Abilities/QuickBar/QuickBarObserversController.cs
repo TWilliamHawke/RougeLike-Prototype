@@ -35,12 +35,12 @@ namespace Abilities
         public void RemoveSlotObserver(IObserver<IAbilityContainer> observer)
         {
             _observers.Remove(observer);
-            _quickBarDataStorage.ForEach(ability => observer.RemoveFromObserve(ability));
+            _quickBarDataStorage.GetAbilities().ForEach(ability => observer.RemoveFromObserve(ability));
         }
 
         private void ObserveSlots(IObserver<IAbilityContainer> observer)
         {
-            _quickBarDataStorage.ForEach(ability => observer.AddToObserve(ability));
+            _quickBarDataStorage.GetAbilities().ForEach(ability => observer.AddToObserve(ability));
         }
 
         private void AddAbilityToObservers(IAbilityContainer ability)

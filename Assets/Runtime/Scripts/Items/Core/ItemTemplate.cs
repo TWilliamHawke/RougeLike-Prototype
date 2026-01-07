@@ -23,7 +23,7 @@ namespace Items
 
         public IEnumerable<ContextActionTemplate> GetActions()
         {
-            return _itemType.actions;
+            return _itemType.GetActions();
         }
 
         public bool HasItemType(ItemType itemType)

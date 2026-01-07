@@ -61,12 +61,12 @@ namespace Magic.Actions
 
         public IEnumerable<ContextActionTemplate> GetActions()
         {
-            return _actionList;
+            return _actionList.GetElements();
         }
 
         private void FillContextMenu(KnownSpellData actionSource)
         {
-            FillContextMenu(actionSource, _actionList);
+            FillContextMenu(actionSource, _actionList.GetElements());
         }
     }
 }

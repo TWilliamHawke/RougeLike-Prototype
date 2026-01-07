@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,14 @@ namespace Items
             lootTable.FillItemSection(_itemsSection);
         }
 
-        public void AddItems(IEnumerable<ItemSlotData> itemSlots)
+        public void AddItemsFrom(IEnumerable<ItemSlotData> itemSlots)
         {
             itemSlots.ForEach(itemSlot => _itemsSection.AddItems(itemSlot));
+        }
+
+        public void RemoveItems(IEnumerable<ItemSlotData> itemSlots)
+        {
+            //UNDONE add itemSection.removeitems() logic
         }
 
         public ItemContainer ContainerAt(int idx)

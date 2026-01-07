@@ -93968,7 +93968,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _stepSounds: {fileID: 11400000, guid: 9d8c96b3f1029cf4294def68d2d13bf3, type: 2}
 --- !u!114 &1468815625 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7347269942699947423, guid: a6bbc476df1ac9647bcf3f557eadbfb4, type: 3}
@@ -101652,12 +101651,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1962507303}
-        m_TargetAssemblyTypeName: Items.UI.LootPanel, Project
+        m_TargetAssemblyTypeName: Items.UI.LootPanel, Assembly-CSharp
         m_MethodName: TakeAll
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 7718f156716c3ad49b8ee7f96a07ba6b, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Items.Inventory, Project
+          m_ObjectArgumentAssemblyTypeName: Items.Inventory, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

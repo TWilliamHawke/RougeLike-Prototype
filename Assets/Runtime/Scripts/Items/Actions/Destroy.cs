@@ -28,7 +28,7 @@ namespace Items.Actions
                 title = "Destoy Item",
                 mainText = "You will receive resources:",
                 action = new ConfirmDestroy(itemSlot, _inventory, _itemsList),
-                resourcesData = _itemsList
+                resourcesData = _itemsList.GetElements()
             };
 
             return new OpenDestroyWindow(_modalWindow, modalWindowData);
@@ -61,7 +61,7 @@ namespace Items.Actions
             public string actionTitle => "Confirm";
             Inventory _inventory;
             ItemSlotData _itemSlot;
-            ItemSection _items;
+            ItemSection _itemList;
 
             public int preferedPosition => 7;
             public bool closeBackgroundScreen => true;
@@ -70,12 +70,12 @@ namespace Items.Actions
             {
                 _itemSlot = itemSlot;
                 _inventory = inventory;
-                _items = itemsList;
+                _itemList = itemsList;
             }
 
             public void DoAction()
             {
-                _inventory.AddItems(_items);
+                _inventory.AddItems(_itemList.GetItems());
                 _itemSlot.RemoveOneItem();
             }
         }

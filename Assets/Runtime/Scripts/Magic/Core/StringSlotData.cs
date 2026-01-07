@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Magic
 {
-    public struct StringSlotData : IEffectSource, IEnumerable<SourceEffectData>
+    public struct StringSlotData : IEffectSource
     {
         public SpellString spellString { get; private set; }
         public int slotIndex { get; init; }
@@ -71,14 +71,9 @@ namespace Magic
             return other.slotIndex == this.slotIndex;
         }
 
-        public IEnumerator<SourceEffectData> GetEnumerator()
+        public IEnumerable<IStaticEffectData> GetStaticEffects()
         {
-            return spellString.effects.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return spellString.effects.GetEnumerator();
+            return spellString.effects;
         }
     }
 }

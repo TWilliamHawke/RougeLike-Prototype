@@ -20,7 +20,7 @@ namespace Items
             for (int i = 0; i < inventory.count; i++)
             {
                 var container = inventory.ContainerAt(i);
-                foreach (var item in container)
+                foreach (var item in container.GetItems())
                 {
                     SetItemPrice(container, item);
                 }

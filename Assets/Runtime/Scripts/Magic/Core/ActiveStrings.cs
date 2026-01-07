@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Abilities;
 using Effects;
 using Items;
 
@@ -25,7 +24,7 @@ namespace Magic
                 _effectContainer.RemoveEffect(_activeStrings[slotIndex]);
             }
             _activeStrings[slotIndex] = slot;
-            slot.ForEach(effect => _effectContainer.AddEffect(slot, effect));
+            slot.GetStaticEffects().ForEach(effect => _effectContainer.AddEffect(slot, effect));
         }
 
         public void ClearStringSlot(int idx, Inventory inventory)

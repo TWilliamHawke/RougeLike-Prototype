@@ -43,7 +43,7 @@ namespace Items.UI
         //used as click handler in editor
         public void TakeAll(Inventory inventory)
         {
-            foreach (var slotData in _selectedContainer)
+            foreach (var slotData in _selectedContainer.GetItems())
             {
                 inventory.AddItems(slotData.item, slotData.count);
             }

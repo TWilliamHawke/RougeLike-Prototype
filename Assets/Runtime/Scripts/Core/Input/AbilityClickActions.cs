@@ -21,14 +21,9 @@ namespace Core.Input
         {
         }
 
-        public IEnumerator<IClickAction> GetEnumerator()
+        public IEnumerable<IClickAction> GetActions()
         {
-            return _clickActions.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return _clickActions;
         }
     }
 }

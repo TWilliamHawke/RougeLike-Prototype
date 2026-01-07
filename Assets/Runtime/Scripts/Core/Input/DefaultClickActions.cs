@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Abilities;
 using Entities.PlayerScripts;
-using Map;
 
 namespace Core.Input
 {
@@ -48,17 +46,11 @@ namespace Core.Input
             //tile hasn't any objects
             _clickActions.Add(new ClickAbilityTarget(_quickBarDataStorage.movementAbility));
             _clickActions.Add(new ClickUnwalkableTile());
-
         }
 
-        public IEnumerator<IClickAction> GetEnumerator()
+        public IEnumerable<IClickAction> GetActions()
         {
-            return _clickActions.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return _clickActions;
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Items.UI
         public void FinalizeStealing()
         {
             LootContainer loot = new();
-            loot.AddItems(_selectedItems);
+            loot.AddItemsFrom(_selectedItems);
             _selectedItems.ForEach(slot => slot.RemoveAllItems());
             _selectedItemsSet.Clear();
             _selectedItems.Clear();

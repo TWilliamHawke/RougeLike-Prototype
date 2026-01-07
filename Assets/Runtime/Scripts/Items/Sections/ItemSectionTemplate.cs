@@ -24,7 +24,7 @@ namespace Items
 
         public IEnumerable<ContextActionTemplate> GetActions()
         {
-            return _actions;
+            return _actions.GetElements();
         }
 
         public bool ItemTypeIsMeet(IItem someItem)

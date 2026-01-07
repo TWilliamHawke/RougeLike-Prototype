@@ -159,19 +159,15 @@ namespace Items
             _itemsList.Add(itemSlotData);
         }
 
-        public IEnumerator<ItemSlotData> GetEnumerator()
+        public IEnumerable<ItemSlotData> GetElements()
         {
-            for (int i = 0; i < _itemsList.Count; i++)
-            {
-                yield return _itemsList[i];
-            }
+            return _itemsList;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerable<ItemSlotData> GetItems()
         {
-            return GetEnumerator();
+            return _itemsList;
         }
-
     }
 
 }

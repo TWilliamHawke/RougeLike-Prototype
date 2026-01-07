@@ -34,14 +34,9 @@ namespace Abilities
             OnSectionDataChange?.Invoke();
         }
 
-        public IEnumerator<IAbilityContainer> GetEnumerator()
+        public IEnumerable<IAbilityContainer> GetElements()
         {
-            return _abilities.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _abilities.GetEnumerator();
+            return _abilities;
         }
     }
 }

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4873462259980676172}
   - component: {fileID: 6508884322144999056}
   m_Layer: 0
-  m_Name: CouuntText
+  m_Name: CountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -914,9 +914,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1004957669790869042}
+  - {fileID: 2698756990022685826}
   - {fileID: 1509329545932301421}
   - {fileID: 7679976080962532186}
-  - {fileID: 2698756990022685826}
   - {fileID: 6515504166619151107}
   m_Father: {fileID: 2951684170556047102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

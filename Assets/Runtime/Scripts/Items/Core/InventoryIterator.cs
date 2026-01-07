@@ -24,7 +24,7 @@ namespace Items
             {
                 var section = _inventory.GetSection(template);
                 if (section is null) continue;
-                foreach (var item in section)
+                foreach (var item in section.GetItems())
                 {
                     yield return item;
                 }

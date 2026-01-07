@@ -90,7 +90,7 @@ public abstract class UISection<T, U> : UISection, IObserver<U> where U : UIData
     protected override void FillLayout()
     {
         UpdateSectionTitle(_sectionData);
-        foreach (var ability in _sectionData)
+        foreach (var ability in _sectionData.GetElements())
         {
             var slot = _observerLayout.CreateLayoutElement(_slotPrefab);
             slot.BindData(ability);

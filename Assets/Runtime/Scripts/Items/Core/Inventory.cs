@@ -113,7 +113,7 @@ namespace Items
         {
             var tempStorage = GetSection(_tempStorageTemplate);
             if (tempStorage is null || tempStorage.isEmpty) return;
-            tempStorage.ForEach(item => _storage.AddItems(item));
+            tempStorage.GetItems().ForEach(item => _storage.AddItems(item));
             tempStorage.Clear();
         }
 

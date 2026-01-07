@@ -86,7 +86,7 @@ public class LootGenerationWindow : EditorWindow
     {
         if(_buggedLootTable != null) return;
 
-        foreach (var slotData in _loot)
+        foreach (var slotData in _loot.GetItems())
         {
             EditorGUILayout.BeginHorizontal();
 

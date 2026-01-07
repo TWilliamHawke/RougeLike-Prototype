@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Abilities
 {
-    public class QuickBarDataStorage : ScriptableObject, IEnumerable<IAbilityContainer>
+    public class QuickBarDataStorage : ScriptableObject
     {
         const int MAX_QUICK_ABILITIES = 10;
 
@@ -116,7 +116,7 @@ namespace Abilities
             return index >= 0 && index < MAX_QUICK_ABILITIES;
         }
 
-        public IEnumerator<IAbilityContainer> GetEnumerator()
+        public IEnumerable<IAbilityContainer> GetAbilities()
         {
             if (_mainAbility != null) yield return _mainAbility;
             for (int i = 0; i < _quickAbilities.Length; i++)
@@ -124,11 +124,6 @@ namespace Abilities
                 if (_quickAbilities[i] == null) continue;
                 yield return _quickAbilities[i];
             }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

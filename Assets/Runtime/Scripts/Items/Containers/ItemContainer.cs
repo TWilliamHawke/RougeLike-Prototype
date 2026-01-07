@@ -60,14 +60,14 @@ namespace Items
             OnSectionDataChange?.Invoke();
         }
 
-        public virtual IEnumerator<ItemSlotData> GetEnumerator()
+        public IEnumerable<ItemSlotData> GetItems()
         {
-            return _itemsSection.GetEnumerator();
+            return _itemsSection.GetItems();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerable<ItemSlotData> GetElements()
         {
-            return _itemsSection.GetEnumerator();
+            return _itemsSection.GetItems();
         }
     }
 }

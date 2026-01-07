@@ -50,7 +50,8 @@ namespace Magic.UI
             HideAllComponents();
             SetHeaderText(_emptySlotHeaderText);
             _stringList.Show();
-            _stringList.UpdateLayout(_inventory.GetSection(_spellStringSection));
+            var section = _inventory.GetSection(_spellStringSection);
+            _stringList.UpdateLayout(section.GetItems());
             _buttons.ShowCloseButton();
         }
 

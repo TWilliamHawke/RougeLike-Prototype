@@ -87,7 +87,7 @@ namespace Abilities
             if (itemSection == null) return;
             AbilitySectionData abilitiesList = new(sectionTemplate.name);
 
-            foreach (ItemSlotData slot in itemSection)
+            foreach (ItemSlotData slot in itemSection.GetItems())
             {
                 var slotActions = slot.GetActions(sectionTemplate);
                 if (slotActions.All(action => action != _useAction)) continue;

@@ -44,7 +44,7 @@ namespace Core.Input
 
         void CheckTileObjects(InputAction.CallbackContext _)
         {
-            foreach (var state in _currentClickActions)
+            foreach (var state in _currentClickActions.GetActions())
             {
                 if (!state.CanBeUsedOnTile(_hoveredTileObserver.hoveredTile)) continue;
                 state.ProcessClick(_hoveredTileObserver.hoveredTile);

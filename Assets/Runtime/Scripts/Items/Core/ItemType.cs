@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Core;
 using UnityEngine;
 
@@ -14,7 +16,11 @@ namespace Items
 
         public string displayName => _displayName;
         public Sprite icon => _icon;
-        public ContextActionList actions => _actions;
         public int maxStackSize => _maxStackSize;
+
+        public IEnumerable<ContextActionTemplate> GetActions()
+        {
+            return _actions.GetElements();
+        }
     }
 }
