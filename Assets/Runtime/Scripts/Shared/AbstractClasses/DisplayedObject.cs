@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class DisplayedObject : ScriptableObject, IIconData
 {
-    [LocalisationKey]
-    [SerializeField] string _displayName;
+    [SerializeField] LocalString _displayName;
     [SpritePreview]
     [SerializeField] Sprite _icon;
 

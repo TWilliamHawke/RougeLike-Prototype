@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4a1909a556c7649b08998613f50f65, type: 3}
   m_Name: SpellRadiusCard
   m_EditorClassIdentifier: 
-  _displayName: Spell Radius Card
   _icon: {fileID: 21300000, guid: e6721d9b95a017747aa14018c16be887, type: 3}
   _itemType: {fileID: 11400000, guid: 734abc3024d24014da28d46e216a563b, type: 2}
-  _maxStackSize: 999
-  _value: 150
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
+  _displayName:
+    _locKey: item_name_spell_string_radius
+  _value: 150
   _previewColor: {r: 0.9921569, g: 0.03529412, b: 0, a: 1}
   _effects:
   - _effect: {fileID: 11400000, guid: 2fe6e7ee50c5c31409cca61f5b35fee2, type: 2}

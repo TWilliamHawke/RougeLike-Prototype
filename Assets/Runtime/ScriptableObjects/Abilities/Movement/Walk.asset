@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80991740f5e101546a516b8618b49dc1, type: 3}
   m_Name: Walk
   m_EditorClassIdentifier: 
-  _displayName: ability_name_walk
+  _displayName:
+    _locKey: ability_name_walk
   _icon: {fileID: 21300000, guid: 501c32fadc678524c8134b41ba3a65ca, type: 3}
   _abilityController: {fileID: 11400000, guid: fae665e4def29914fb3306fb8fd2a8dc, type: 2}
+  _useOnSelf: 1

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38ba93453218d843bb0c556dff2b0ca, type: 3}
   m_Name: LeftHand
   m_EditorClassIdentifier: 
-  _displayName: equipment_slot_name_left_hand
+  _displayName:
+    _locKey: equipment_slot_name_left_hand
   _icon: {fileID: 1988466239424195437, guid: aa7e2f1ea53b33742866c6c585bb3378, type: 3}
   _equipmentType: 2

@@ -15,7 +15,8 @@ MonoBehaviour:
   _icon: {fileID: 3843231544584785974, guid: a06a4313408e4c44a82b484a7ae4a448, type: 3}
   _itemType: {fileID: 11400000, guid: 1ec9c01af23b978489de7be9d85a60dc, type: 2}
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
-  _displayName: Spell Tome - Fireball
+  _displayName:
+    _locKey: item_name_spelltome_fireball
   _value: 100
   _spell: {fileID: 11400000, guid: caf14fbe3a565b847b783c833c280892, type: 2}
   _resourcesData: {fileID: 11400000, guid: f29bf9877fc42e84ca8a8e233974eb01, type: 2}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38ba93453218d843bb0c556dff2b0ca, type: 3}
   m_Name: Neck
   m_EditorClassIdentifier: 
-  _displayName: equipment_slot_name_neck
+  _displayName:
+    _locKey: equipment_slot_name_neck
   _icon: {fileID: 142919420388032118, guid: c55b0d03c4d9fac48a0b10a15fa3a3ad, type: 3}
   _equipmentType: 10

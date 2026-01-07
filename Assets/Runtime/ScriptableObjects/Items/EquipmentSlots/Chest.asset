@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38ba93453218d843bb0c556dff2b0ca, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
-  _displayName: equipment_slot_name_chest
+  _displayName:
+    _locKey: equipment_slot_name_chest
   _icon: {fileID: 4243732674375338582, guid: 87f37863253999a4b9d8549d19d72894, type: 3}
   _equipmentType: 4

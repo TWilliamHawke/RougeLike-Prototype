@@ -152,3 +152,14 @@ clothing_name_traveler_cloack	Traveler's Cloack	Плащ путешествен�
 item_section_pockets	Pockets	Карманы
 container_name_goods_box	Box with Goods	Ящик с товарами
 container_name_potion_casket	Casket with Potions	Шкатулка с зельями
+ability_name_healing	Healing	Лечение
+resource_name_magic_powder	Magic Powder	Волшебный порошок
+item_name_spell_string_accuracy	Spell String - Accuracy	Строка заклинания - точность
+item_name_spell_string_cost	Spell String - cost	Строка заклинания - стоимость
+item_name_spell_string_duration	Spell String - Duration	Строка заклинания - продолжительность
+item_name_spell_string_power	Spell String - power	Строка заклинания - сила
+item_name_spell_string_radius	Spell String - radius	Строка заклинания - радиус
+item_name_healing_potion	Healing Potion	Лечебное зелье
+item_name_health_potion	Potion of Health	Зелье здоровья
+item_name_spelltome_fireball	Spell Tome - Fireball	Том заклинаний - Огненный шар
+item_name_spelltome_healing	Spell Tome - Healing	Том заклинаний - Лечение

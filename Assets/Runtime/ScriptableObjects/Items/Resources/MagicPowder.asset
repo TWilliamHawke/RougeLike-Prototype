@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35ab59dde726ba249897429802eecb23, type: 3}
-  m_Name: MagicDust
+  m_Script: {fileID: 11500000, guid: 2dda7c9d89d4c8f4283b4647e70ea534, type: 3}
+  m_Name: MagicPowder
   m_EditorClassIdentifier: 
-  _displayName: resource_name_dust
   _icon: {fileID: 1378292898705350079, guid: 6b8c5134f815c4b4b9bc6f4591413a9f, type: 3}
-  _useParentStat: 0
-  _parentStat: {fileID: 0}
+  _itemType: {fileID: 11400000, guid: cedbd8853d1a8e7408bfde755bfb4ba0, type: 2}
+  _soundKit: {fileID: 0}
+  _displayName:
+    _locKey: resource_name_magic_powder
+  _value: 0
+  _resourceType: 2
+  _startCount: 5000
+  _description: 

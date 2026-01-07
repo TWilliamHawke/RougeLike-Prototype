@@ -26,7 +26,7 @@ namespace Items.Equipment.UI
 
 		public void Init()
 		{
-			_slotName.SetLocalisedText(_equipmentSlot.displayName);
+			_slotName.text = _equipmentSlot.name;
 		}
 
 		public void SelectEquipment(IEquipmentStorage storage)

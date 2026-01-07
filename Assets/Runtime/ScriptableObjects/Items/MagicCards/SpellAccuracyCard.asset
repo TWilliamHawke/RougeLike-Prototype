@@ -15,7 +15,8 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: c122f27f001ff954cb32267ecaac560b, type: 3}
   _itemType: {fileID: 11400000, guid: 734abc3024d24014da28d46e216a563b, type: 2}
   _soundKit: {fileID: 11400000, guid: 7ed07aa20f1f4f14a8c702ef58f34464, type: 2}
-  _displayName: Spell Radius Card
+  _displayName:
+    _locKey: item_name_spell_string_accuracy
   _value: 150
   _previewColor: {r: 0.7372549, g: 0.2627451, b: 1, a: 1}
   _effects:

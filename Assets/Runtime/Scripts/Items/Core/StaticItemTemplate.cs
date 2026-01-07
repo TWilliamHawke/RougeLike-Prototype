@@ -4,9 +4,7 @@ namespace Items
 {
     public abstract class StaticItemTemplate : ItemTemplate, IItemTemplate
     {
-        [UseFileName]
-        [SerializeField] string _displayName;
-        [UseFileName]
+        [SerializeField] LocalString _displayName;
         [SerializeField] int _value;
 
         public virtual int value => _value;

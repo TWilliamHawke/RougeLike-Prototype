@@ -15,7 +15,8 @@ MonoBehaviour:
   _icon: {fileID: 8003260396191338441, guid: 76164ee011fe10d4f89381d846e8eedc, type: 3}
   _itemType: {fileID: 11400000, guid: cedbd8853d1a8e7408bfde755bfb4ba0, type: 2}
   _soundKit: {fileID: 0}
-  _displayName: Gold
+  _displayName:
+    _locKey: resource_name_gold
   _value: 0
   _resourceType: 1
   _startCount: 500

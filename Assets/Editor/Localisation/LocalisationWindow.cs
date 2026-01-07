@@ -57,6 +57,10 @@ public class LocalisationWindow : EditorWindow
         {
             EditLocalStringWindow.Open(key, _gameLanguage, EditLocalStringWindow.WindowMode.edit);
         }
+        if (GUILayout.Button("Copy Key", GUILayout.MaxWidth(50)))
+        {
+            EditorGUIUtility.systemCopyBuffer = key;
+        }
 
         EditorGUILayout.LabelField(key);
         EditorGUILayout.LabelField(elements[(int)_gameLanguage]);

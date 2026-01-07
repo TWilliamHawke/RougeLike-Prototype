@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38ba93453218d843bb0c556dff2b0ca, type: 3}
   m_Name: Legs
   m_EditorClassIdentifier: 
-  _displayName: equipment_slot_name_legs
+  _displayName:
+    _locKey: equipment_slot_name_legs
   _icon: {fileID: -5940199283796955675, guid: 1937a5268ca3b7a4eae7c5fd83b30b0a, type: 3}
   _equipmentType: 6
