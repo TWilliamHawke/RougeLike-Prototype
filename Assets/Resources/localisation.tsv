@@ -163,3 +163,15 @@ item_name_healing_potion	Healing Potion	Лечебное зелье
 item_name_health_potion	Potion of Health	Зелье здоровья
 item_name_spelltome_fireball	Spell Tome - Fireball	Том заклинаний - Огненный шар
 item_name_spelltome_healing	Spell Tome - Healing	Том заклинаний - Лечение
+task_text_kill_all_emenies	Kill all enemies ({0}  remains)	Убейте всех врагов (осталось: {0})
+task_text_click_to_loot	Click To Loot	Нажмите для обыска
+site_name_wolf_lair	Wolf lair	Волчье логово
+task_text_click_to_interact	Click to interact	Нажмите для взаймодействия
+encounter_name_traveled_trader	Traveled Trader	Странствующий торговец
+encounter_descr_traveled_trader	You encounter a traveled trader	Вы встретили странствующего торговца
+map_acrion_name_attack_npc	Attack	Атаковать
+map_action_name_loot	Loot	Обыскать
+map_action_name_loot_bodies	Loot Bodies	Обыскать тела
+map_action_name_rob	Rob	Обокрасть
+map_action_name_talk	Talk	Поговорить
+map_action_name_trade	Trade	Торовать

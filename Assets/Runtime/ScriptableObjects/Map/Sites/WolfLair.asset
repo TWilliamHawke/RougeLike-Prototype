@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3054b5c18e6074b86b1c1212ca1295, type: 3}
   m_Name: WolfLair
   m_EditorClassIdentifier: 
-  _displayName: Wolf Lair
+  _displayName:
+    _locKey: site_name_wolf_lair
   _icon: {fileID: -6947337267990653189, guid: 28096cb95cdfccd4087324c88878e7cb, type: 3}
-  _interactionDescription: 
+  _interactionDescription:
+    _locKey: 
   _possibleActions:
   - {fileID: 11400000, guid: e764b70b79a3f394692d5efb567510d7, type: 2}
+  _taskTemplate: {fileID: 11400000, guid: d0883175a0e66a94a9caeaf08085390d, type: 2}
+  _taskText:
+    _locKey: task_text_click_to_loot
   _width: 5
   _height: 5
   _enemies: {fileID: 11400000, guid: c3b38d8dc1961a84ab39946fcfb08516, type: 2}
   _tilesWidth: 3
   _tilesHeight: 3
   _siteTile: {fileID: 11400000, guid: 8ec7ae2cbea2522468724467a1fcf2cf, type: 2}
-  _tilesIsWalkable: 1

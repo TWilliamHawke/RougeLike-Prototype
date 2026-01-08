@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: Talk
   m_EditorClassIdentifier: 
-  _displayName: Talk
+  _displayName:
+    _locKey: map_action_name_talk
   _icon: {fileID: -2576023137440582333, guid: 7687db0446c12ca4cb95d50da4b535ba, type: 3}
   _actionType: 2
   _lootTable: {fileID: 0}

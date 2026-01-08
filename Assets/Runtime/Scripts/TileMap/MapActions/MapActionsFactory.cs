@@ -14,15 +14,9 @@ namespace Map.Actions
         [InjectField] ActionScreenController _actionScreenController;
         [InjectField] StealingController _stealingController;
 
-        [SerializeField] Injector _thisInjector;
-
         Loot _lootActionCreator;
 
         Dictionary<MapActionType, IMapActionCreator> _mapActionCreators = new();
-
-        private void Awake()
-        {
-        }
 
         //used in editor
         public void CreateFactory()

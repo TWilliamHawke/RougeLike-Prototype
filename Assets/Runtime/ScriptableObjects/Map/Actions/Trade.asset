@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: Trade
   m_EditorClassIdentifier: 
-  _displayName: Trade
+  _displayName:
+    _locKey: map_action_name_trade
   _icon: {fileID: 9221234044764412887, guid: 363729e1e22efc5499ce94d055eaed42, type: 3}
   _actionType: 3
   _lootTable: {fileID: 0}

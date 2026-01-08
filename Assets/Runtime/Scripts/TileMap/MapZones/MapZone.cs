@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
-using Entities.PlayerScripts;
 using Items;
 using Map.Actions;
 using UnityEngine;
@@ -23,9 +22,9 @@ namespace Map.Zones
         [InjectField] IMapActionsFactory _mapActionsFactory;
         [InjectField] MapZonesObserver _mapZonesObserver;
 
-        IIconData _template;
-        KillEnemiesTask _taskController;
-        ZoneSpawnQueue _spawnQueue;
+        IMapZoneTemplate _template;
+        ITaskController _taskController;
+        ISpawnQueue _spawnQueue;
         IMapActionsController _actionsController;
 
         AliveEntitiesStorage _aliveEntitiesStorage = new();
@@ -45,12 +44,12 @@ namespace Map.Zones
             _template = template;
 
             _spawnQueue = new ZoneSpawnQueue(template, this);
-            _taskController = new KillEnemiesTask(template, _onLocalTaskChange);
-            _spawnQueue.AddObserver(_taskController);
+            _taskController = template.CreateTaskController();
+            _taskController.HandleSpawnQueue(_spawnQueue);
             _spawnQueue.AddObserver(_aliveEntitiesStorage);
             _spawnQueue.AddObserver(_deadEntitiesStorage);
             _spawnQueue.AddObserver(this);
-            _spawnQueue.AddToQueue(template.enemies, rng);
+            template.FillSpawnQueue(_spawnQueue, rng);
             this.StartInjection();
         }
 

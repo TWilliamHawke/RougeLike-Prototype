@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Map.Zones;
 using UnityEngine;
 
 namespace Map
@@ -11,6 +12,11 @@ namespace Map
         public StaticTask(TaskData currentTask)
         {
             this.currentTask = currentTask;
+        }
+
+        public void HandleSpawnQueue(ISpawnQueue spawnQueue)
+        {
+            //do nothing
         }
     }
 }

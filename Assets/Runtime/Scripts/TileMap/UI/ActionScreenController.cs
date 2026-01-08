@@ -10,21 +10,14 @@ namespace Map.UI
     public class ActionScreenController : MonoBehaviour, IActionScreenController
     {
         [SerializeField] UIScreen _actionsScreen;
-        [SerializeField] Injector _thisInjector;
         [Header("UI Elements")]
         [SerializeField] TextMeshProUGUI _title;
         [SerializeField] Image _zoneIcon;
         [SerializeField] ActionButtonsPanel _actionButtonsPanel;
 
-
         [InjectField] MapZonesObserver _mapZonesObserver;
 
         IMapZone _currentZone;
-
-        private void Awake()
-        {
-            _thisInjector.SetDependency(this);
-        }
 
         //used in editor
         public void FinalizeInjection()
@@ -37,11 +30,15 @@ namespace Map.UI
         public void OpenActionScreen()
         {
             if (_currentZone is null || _currentZone.actionList.count == 0) return;
+            UpdateScreen();
+
+            _actionsScreen.Open();
+        }
+        public void UpdateScreen()
+        {
             _zoneIcon.sprite = _currentZone.icon;
             _title.text = _currentZone.displayName;
             _actionButtonsPanel.SetActions(_currentZone.actionList);
-
-            _actionsScreen.Open();
         }
 
         public void CloseActionScreen()

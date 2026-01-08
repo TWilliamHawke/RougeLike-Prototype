@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d949d7f7092694a8549dcf06897db2, type: 3}
   m_Name: TravelingTrader
   m_EditorClassIdentifier: 
-  _displayName: Traveled Trader
+  _displayName:
+    _locKey: encounter_name_traveled_trader
   _icon: {fileID: 9221234044764412887, guid: 363729e1e22efc5499ce94d055eaed42, type: 3}
-  _interactionDescription: You meet the trader
+  _encounterDescription:
+    _locKey: encounter_descr_traveled_trader
+  _taskText:
+    _locKey: task_text_click_to_interact
+  _taskTemplate: {fileID: 11400000, guid: 1909d25581495644d93729016f52c168, type: 2}
   _possibleActions:
   - {fileID: 11400000, guid: d1e50fd6b07b4f24096339038544a8b6, type: 2}
   - {fileID: 11400000, guid: 034a26d4c2abbd9499da562cdccd7ba8, type: 2}
@@ -25,5 +30,4 @@ MonoBehaviour:
   _tilesWidth: 3
   _tilesHeight: 3
   _centerTile: {fileID: 0}
-  _tilesIsWalkable: 1
   _entities: {fileID: 11400000, guid: a80216c1fdac30c44bdab0e4e82c0790, type: 2}

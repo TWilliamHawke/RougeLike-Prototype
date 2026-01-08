@@ -8,63 +8,68 @@ namespace Map
     public class KillEnemiesTask : ITaskController, IObserver<Entity>
     {
         public TaskData currentTask { get; private set;}
-        public HashSet<Entity> enemiesFromLocation { get; private set; } = new();
 
-        IIconData _locationTemplate;
-        CustomEvent _onLocalTaskChange;
+        ItaskData _locationTemplate;
+        IDynamicTaskData _taskTemplate;
+        HashSet<Entity> _enemiesFromLocation { get; init; } = new();
 
-        public KillEnemiesTask(IIconData locationTemplate, CustomEvent onLocalTaskChange)
+        public KillEnemiesTask(ItaskData locationTemplate, IDynamicTaskData taskTemplate)
         {
             _locationTemplate = locationTemplate;
-            _onLocalTaskChange = onLocalTaskChange;
-            CreateLootTask();
+            _taskTemplate = taskTemplate;
+            currentTask = CreateLootTask();
         }
 
         public void AddToObserve(Entity entity)
         {
-            enemiesFromLocation.Add(entity);
+            //TODO add faction check
+            _enemiesFromLocation.Add(entity);
             entity.OnDeath += RemoveFromObserve;
-            CreateKillTask();
+            currentTask = CreateKillTask();
+        }
+
+        public void HandleSpawnQueue(ISpawnQueue spawnQueue)
+        {
+            spawnQueue.AddObserver(this);
         }
 
         public void RemoveFromObserve(Entity enemy)
         {
-            if (!enemiesFromLocation.Contains(enemy)) return;
-            enemiesFromLocation.Remove(enemy);
+            if (!_enemiesFromLocation.Contains(enemy)) return;
+            _enemiesFromLocation.Remove(enemy);
 
-            if (enemiesFromLocation.Count > 0)
+            if (_enemiesFromLocation.Count > 0)
             {
-                CreateKillTask();
+                currentTask = CreateKillTask();
             }
             else
             {
-                CreateLootTask();
+                currentTask = CreateLootTask();
             }
 
-            _onLocalTaskChange?.Invoke();
+            _taskTemplate.TriggerTaskChangeEvent();
         }
 
-        private void CreateKillTask()
+        private TaskData CreateKillTask()
         {
-            currentTask = new TaskData
+            return new TaskData
             {
                 displayName = _locationTemplate.displayName,
                 icon = _locationTemplate.icon,
-                //HACK always is Kill all wolves
-                taskText = $"Kill all wolves ({enemiesFromLocation.Count} remains)",
+                taskText = _taskTemplate.CreateTaskText(_enemiesFromLocation.Count),
                 isDone = false,
             };
         }
 
-        private void CreateLootTask()
+        private TaskData CreateLootTask()
         {
-                currentTask = new TaskData
-                {
-                    displayName = _locationTemplate.displayName,
-                    icon = _locationTemplate.icon,
-                    taskText = "Click to loot",
-                    isDone = true,
-                };
+            return new TaskData
+            {
+                displayName = _locationTemplate.displayName,
+                icon = _locationTemplate.icon,
+                taskText = _locationTemplate.taskText,
+                isDone = true,
+            };
         }
     }
 }

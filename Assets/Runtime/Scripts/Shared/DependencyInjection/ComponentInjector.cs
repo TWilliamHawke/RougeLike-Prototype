@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Reflection;
-using Map.Actions;
 
 public sealed class ComponentInjector : MonoBehaviour, IInjectionTarget, IManualInjector
 {
     [SerializeField] MonoBehaviour _injectionTarget;
-    [SerializeField] bool _waitForAllDependencies;
     [SerializeField] bool _addTargetManualy;
     [SerializeField] Injector[] _injectors;
 

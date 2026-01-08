@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: Rob
   m_EditorClassIdentifier: 
-  _displayName: Rob
+  _displayName:
+    _locKey: map_action_name_rob
   _icon: {fileID: 4796264166980554153, guid: 7a081401bd0de1c4aa17ede3506e7f06, type: 3}
   _actionType: 5
   _lootTable: {fileID: 0}

@@ -6,6 +6,7 @@ using Entities.Stats;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using Map.UI;
 
 namespace Items.UI
 {
@@ -25,6 +26,7 @@ namespace Items.UI
         [SerializeField] TextMeshProUGUI _targetSecurityText;
 
         [InjectField] LootPanel _lootPanel;
+        [InjectField] ActionScreenController _actionScreen;
 
         int _playerSkill = 69;
         int _targetSecurity = 42;
@@ -76,10 +78,14 @@ namespace Items.UI
             _selectedItemsSet.Clear();
             _selectedItems.Clear();
             _stealingScreen.Close();
-            if (loot.IsEmpty()) return;
 
-            _NPCInventory.isStealingTarget = false;
-            _lootPanel.Open(loot);
+            if (!loot.IsEmpty())
+            {
+                _NPCInventory.isStealingTarget = false;
+                _lootPanel.Open(loot);
+            }
+
+            _actionScreen.UpdateScreen();
         }
 
         private void ShowStorage(int storageNumber)

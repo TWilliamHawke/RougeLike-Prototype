@@ -1636,7 +1636,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 47631059}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -1820,7 +1819,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 52292508}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
@@ -9205,7 +9203,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 261160687}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -9768,7 +9765,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 280102876}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
@@ -11936,7 +11932,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 370339923}
-  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
@@ -11969,7 +11964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936f6f93b8013f245a5097492cb1044c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisInjector: {fileID: 11400000, guid: 438cb52d50b733a4c903d97684e13293, type: 2}
 --- !u!1 &374470779
 GameObject:
   m_ObjectHideFlags: 0
@@ -12780,7 +12774,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 394845161}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -13515,10 +13508,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 412659625}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: b0561a270de879f4a9f3e477cee967d8, type: 2}
+  - {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
   _finalizeInjectionHandler:
     m_PersistentCalls:
       m_Calls: []
@@ -15484,7 +15477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 497878641}
-  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -63158,7 +63150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 507837461}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8eb3f806886c1fe49ab96117ce2ae601, type: 2}
@@ -64787,7 +64778,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 536295375}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -66396,6 +66386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 582680838}
   - component: {fileID: 582680839}
+  - component: {fileID: 582680842}
   - component: {fileID: 582680841}
   - component: {fileID: 582680840}
   m_Layer: 0
@@ -66433,7 +66424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionsScreen: {fileID: 1315345899}
-  _thisInjector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
   _title: {fileID: 453158868}
   _zoneIcon: {fileID: 453158867}
   _actionButtonsPanel: {fileID: 1347059331}
@@ -66478,7 +66468,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 582680839}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
@@ -66497,6 +66486,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &582680842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582680837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b8c4b678c881548a18849259a18727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DependencyCreator
+  _dependency: {fileID: 582680839}
+  _injector: {fileID: 11400000, guid: 97e640a4a3149c14a93cde56900a9f08, type: 2}
+  _readyTrigger: 1
 --- !u!224 &590625613 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 52420950367545518, guid: 63786a1a72e49504f8c1975f15b892e2, type: 3}
@@ -73703,7 +73707,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Project::ComponentInjector
   _injectionTarget: {fileID: 822809685}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 42e3083a0d497a541b44ee2c7f695db7, type: 2}
@@ -75913,7 +75916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Project::ComponentInjector
   _injectionTarget: {fileID: 866956284}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -81193,7 +81195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1017936331}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -82149,7 +82150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1049520608}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -82332,7 +82332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1056370676}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -82847,7 +82846,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1081761063}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
@@ -82914,7 +82912,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1084460784}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
@@ -85446,7 +85443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1225828431}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 3b63e73c95cf0f9489e1ce574071d087, type: 2}
@@ -91095,7 +91091,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1406293217}
-  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 328f2ddad5357544bbd8386b35888d1f, type: 2}
@@ -93948,7 +93943,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1459821290}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
@@ -95420,7 +95414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1560857163}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -98310,7 +98303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1709729481}
-  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8501e2e744498784fb08014dc4e05489, type: 2}
@@ -100766,7 +100758,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1782334946}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}
@@ -102485,7 +102476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1819180731}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -106437,7 +106427,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1916386864}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 2ae608f84a2bf434ebb50191c121ddb9, type: 2}
@@ -106990,7 +106979,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1951007504}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: bbbec1c9fa8159a439add125edbe5c83, type: 2}
@@ -108173,7 +108161,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 1988466622}
-  _waitForAllDependencies: 0
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: 8180256895908024a8c6217ea0f24aa0, type: 2}

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b930625d833deb04a9d722360e04339d, type: 3}
   m_Name: AttackNpc
   m_EditorClassIdentifier: 
-  _displayName: Attack
+  _displayName:
+    _locKey: map_acrion_name_attack_npc
   _icon: {fileID: 852928365244996250, guid: d60d83401442ccf4cb47333d51f67edd, type: 3}
   _actionType: 4
   _lootTable: {fileID: 0}

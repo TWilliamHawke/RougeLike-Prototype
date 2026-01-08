@@ -10,7 +10,7 @@ namespace Map.Actions
     public class MapActionTemplate : ScriptableObject, ILootActionData, IAttackActionData
     {
         [UseFileName]
-        [SerializeField] string _displayName;
+        [SerializeField] LocalString _displayName;
         [SpritePreview]
         [SerializeField] Sprite _icon;
 

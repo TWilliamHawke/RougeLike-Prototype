@@ -4,10 +4,9 @@ using Entities;
 using UnityEngine;
 using Rng = System.Random;
 
-
 namespace Map.Zones
 {
-    public class ZoneSpawnQueue
+    public class ZoneSpawnQueue : ISpawnQueue
     {
         ISpawnZoneTemplate _template;
         Vector3Int _center;
