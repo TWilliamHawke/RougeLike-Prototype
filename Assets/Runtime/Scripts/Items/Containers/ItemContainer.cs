@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Items
@@ -38,6 +39,7 @@ namespace Items
             _itemsSection = new(template.storageName);
             _itemsSection.AddItemsFrom(template.loot);
             _itemsSection.OnSectionDataChange += HandleSectionChangeEvent;
+            lockLevel = Mathf.FloorToInt(template.security / 10f);
         }
 
         public void Unlock()

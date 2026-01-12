@@ -7,6 +7,7 @@ namespace Core
     {
         private void OnDestroy()
         {
+#if UNITY_EDITOR
             string[] assetNames = AssetDatabase.FindAssets("t:Injector", new[] { "Assets/Runtime/Injectors" });
             foreach (string assetName in assetNames)
             {
@@ -14,6 +15,7 @@ namespace Core
                 var injector = AssetDatabase.LoadAssetAtPath<Injector>(path);
                 injector?.ClearDependency();
             }
+#endif
         }
     }
 }

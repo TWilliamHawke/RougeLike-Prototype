@@ -482,7 +482,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _stepSounds: {fileID: 11400000, guid: 9d8c96b3f1029cf4294def68d2d13bf3, type: 2}
 --- !u!114 &746439970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1939b9a375d5c254e8e8a85a4c94b540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 1261394877}
+  _audioSources:
+  - {fileID: 1261394877}
 --- !u!114 &3672314956627158254
 MonoBehaviour:
   m_ObjectHideFlags: 0

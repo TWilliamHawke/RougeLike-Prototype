@@ -175,3 +175,6 @@ map_action_name_loot_bodies	Loot Bodies	Обыскать тела
 map_action_name_rob	Rob	Обокрасть
 map_action_name_talk	Talk	Поговорить
 map_action_name_trade	Trade	Торовать
+lockpicking_lock_text	Lock Difficulty	Сложность замка
+lockpicking_skill_text	Your Skill	Ваш навык взлома
+lockpicking_pick_text	Picks left	Отмычек осталось

@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class AudioEffectsController : MonoBehaviour, IEntityComponent
+    public class AudioEffectsController : MonoBehaviour, IEntityComponent, IAudioController
     {
-        [SerializeField] AudioSource _audioSource;
+        [SerializeField] AudioSource[] _audioSources;
 
         int _selectedIndex = 0;
 
         public void PlaySound(AudioClip sound)
         {
-            _audioSource.PlayOneShot(sound);
+            _audioSources[_selectedIndex].PlayOneShot(sound);
             IncrementSourceIndex();
         }
 
@@ -18,10 +18,15 @@ namespace Entities
         {
             _selectedIndex++;
 
-            // if (_selectedIndex >= _audioSources.Length)
-            // {
-            //     _selectedIndex = 0;
-            // }
+            if (_selectedIndex >= _audioSources.Length)
+            {
+                _selectedIndex = 0;
+            }
         }
     }
+
 }
+    public interface IAudioController
+    {
+        void PlaySound(AudioClip sound);
+    }

@@ -17,7 +17,7 @@ namespace Items.UI
         [SerializeField] TextMeshProUGUI _levelText;
         [SerializeField] TextMeshProUGUI _warningText;
 
-        public event UnityAction OnDisable;
+        public event UnityAction OnButtonClick;
 
         void Start()
         {
@@ -46,7 +46,7 @@ namespace Items.UI
 
         private void DisableProtection()
         {
-            OnDisable?.Invoke();
+            OnButtonClick?.Invoke();
         }
 
     }

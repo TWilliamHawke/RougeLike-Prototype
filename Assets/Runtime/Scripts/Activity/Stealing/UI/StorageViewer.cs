@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lockpicking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ namespace Items.UI
 
         [SerializeField] StorageProtectionPanel _lockPanel;
         [SerializeField] StorageProtectionPanel _trapPanel;
+        [SerializeField] LockpickingPanel _lockpickingPanel;
 
         public event UnityAction<ItemSlotData> OnItemSelection;
 
@@ -25,8 +27,9 @@ namespace Items.UI
 
         void Start()
         {
-            _lockPanel.OnDisable += UnlockChest;
-            _trapPanel.OnDisable += DisarmTrap;
+            _lockPanel.OnButtonClick += ShowLockpickingPanel;
+            _trapPanel.OnButtonClick += DisarmTrap;
+            _lockpickingPanel.OnUnlock += UnlockChest;
             _listView.AddObserver(this);
             _gridView.AddObserver(this);
         }
@@ -77,9 +80,10 @@ namespace Items.UI
             _gridView.Hide();
             _lockPanel.Hide();
             _trapPanel.Hide();
+            _lockpickingPanel.Hide();
         }
 
-        private void ProcessClick(ItemSlotData item)
+        private void SelectItem(ItemSlotData item)
         {
             OnItemSelection?.Invoke(item);
         }
@@ -94,6 +98,12 @@ namespace Items.UI
         {
             _storage.DisarmTrap();
             UpdatePanels();
+        }
+
+        private void ShowLockpickingPanel()
+        {
+            _lockPanel.Hide();
+            _lockpickingPanel.OpenScreen(_storage.lockLevel);
         }
 
         private void ShowLockPanel()
@@ -114,13 +124,13 @@ namespace Items.UI
 
         void IObserver<ItemSlotWithPrice>.AddToObserve(ItemSlotWithPrice target)
         {
-            target.OnClick += ProcessClick;
+            target.OnClick += SelectItem;
             target.SetValueStorage(_actionPoints);
         }
 
         void IObserver<ItemSlotWithPrice>.RemoveFromObserve(ItemSlotWithPrice target)
         {
-            target.OnClick -= ProcessClick;
+            target.OnClick -= SelectItem;
         }
 
     }

@@ -522,7 +522,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: e142f257eb9135e46a28dbc3c91b874a, type: 2}
-  _stepSounds: {fileID: 11400000, guid: 9d8c96b3f1029cf4294def68d2d13bf3, type: 2}
 --- !u!114 &4004828713780835684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +624,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _injectionTarget: {fileID: 9091438730925311529}
-  _waitForAllDependencies: 1
   _addTargetManualy: 0
   _injectors:
   - {fileID: 11400000, guid: ca854607869c5e040a8399ec90db4052, type: 2}
@@ -657,7 +655,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1939b9a375d5c254e8e8a85a4c94b540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 1805417028}
+  _audioSources:
+  - {fileID: 8040943823288648039}
+  - {fileID: 6446113039026716081}
+  - {fileID: 4690779402472330630}
+  - {fileID: 6958946052040246922}
 --- !u!114 &6136352898669126336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,11 +1033,6 @@ PrefabInstance:
 --- !u!224 &1347058715 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7508890241796821748, guid: 4563453e9d93f744eb5b1b2c058869c5, type: 3}
-  m_PrefabInstance: {fileID: 7508890242606706415}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1805417028 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7508890241875596459, guid: 4563453e9d93f744eb5b1b2c058869c5, type: 3}
   m_PrefabInstance: {fileID: 7508890242606706415}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1875642537 stripped
