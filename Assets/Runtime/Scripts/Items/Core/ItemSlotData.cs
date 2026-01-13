@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSlotData : IDataCount<IItem>, IItemSlotDataUnsafe
+    public class ItemSlotData : IItemSlotDataUnsafe
     {
         //[SerializeField] requires for show inventory in inspector
         [SerializeField] IItem _item;
@@ -20,7 +20,6 @@ namespace Items
         public IItem item => _item;
         public int count => _count;
         public event UnityAction OnSlotDataChanged;
-        IItem IDataCount<IItem>.element => _item;
 
         public ItemSlotData()
         {

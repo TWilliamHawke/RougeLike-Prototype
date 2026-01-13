@@ -5,10 +5,10 @@ using Rng = System.Random;
 
 public class DataListGenerator<T>
 {
-    IDataListSource<T> dataListSource;
+    IDataListTable<T> dataListSource;
     Rng _rng;
 
-    public DataListGenerator(IDataListSource<T> dataListSource)
+    public DataListGenerator(IDataListTable<T> dataListSource)
     {
         this.dataListSource = dataListSource;
     }

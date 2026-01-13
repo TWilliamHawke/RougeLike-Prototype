@@ -4,15 +4,15 @@ namespace Items
 {
     public class LoootItemsList : IDataList<ItemTemplate>
     {
-        List<IDataCount<ItemTemplate>> _itemsList = new();
-        ILootStorage _storage;
+        List<IDataListElement<ItemTemplate>> _itemsList = new();
+        ILootSection _storage;
 
-        public LoootItemsList(ILootStorage storage)
+        public LoootItemsList(ILootSection storage)
         {
             _storage = storage;
         }
 
-        public void AddElements(IDataCount<ItemTemplate> element)
+        public void AddElements(IDataListElement<ItemTemplate> element)
         {
             _itemsList.Add(element);
         }

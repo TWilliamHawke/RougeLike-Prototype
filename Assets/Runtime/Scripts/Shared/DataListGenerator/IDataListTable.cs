@@ -1,8 +1,8 @@
-public interface IDataListSource<T>
+public interface IDataListTable<T>
 {
     DataListGenerator<T> dataListGenerator { get; }
-    IDataListSource<T>[] childTables { get; }
-    IDataCount<T>[] dataItems { get; }
+    IDataListTable<T>[] childTables { get; }
+    IDataListElement<T>[] dataItems { get; }
     bool getOnlyOneElenemt { get; }
     float chanceOfNone { get; }
 }

@@ -7,7 +7,7 @@ using Rng = System.Random;
 namespace Entities
 {
     [CreateAssetMenu(fileName ="CreaturesTable", menuName ="Entities/Creatures Table")]
-    public class EntitiesTable : ScriptableObject, IDataListSource<EntityTemplate>
+    public class EntitiesTable : ScriptableObject, IDataListTable<EntityTemplate>
     {
         [SerializeField] bool _getOnlyOneElenemt;
         [Range(0, 1)]
@@ -18,10 +18,10 @@ namespace Entities
 
         public DataListGenerator<EntityTemplate> dataListGenerator { get; private set; }
         
-        IDataListSource<EntityTemplate>[] IDataListSource<EntityTemplate>.childTables => _childTables;
-        IDataCount<EntityTemplate>[] IDataListSource<EntityTemplate>.dataItems => _entities;
-        bool IDataListSource<EntityTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListSource<EntityTemplate>.chanceOfNone => _chanceOfNone;
+        IDataListTable<EntityTemplate>[] IDataListTable<EntityTemplate>.childTables => _childTables;
+        IDataListElement<EntityTemplate>[] IDataListTable<EntityTemplate>.dataItems => _entities;
+        bool IDataListTable<EntityTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListTable<EntityTemplate>.chanceOfNone => _chanceOfNone;
 
         private void OnEnable()
         {
@@ -50,7 +50,7 @@ namespace Entities
 
         #region Supporting classes
         [System.Serializable]
-        public class EntityData : IDataCount<EntityTemplate>
+        public class EntityData : IDataListElement<EntityTemplate>
         {
             [SerializeField] EntityTemplate _template;
             [PlusMinusBtn]
@@ -65,7 +65,7 @@ namespace Entities
             List<EntityTemplate> _creaturesList = new List<EntityTemplate>();
             public List<EntityTemplate> creaturesList => _creaturesList;
 
-            public void AddElements(IDataCount<EntityTemplate> elements)
+            public void AddElements(IDataListElement<EntityTemplate> elements)
             {
                 if (elements.count <= 0) return;
 

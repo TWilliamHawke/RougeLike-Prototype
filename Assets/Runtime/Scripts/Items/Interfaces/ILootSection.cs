@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Items
 {
-    public interface ILootStorage
+    public interface ILootSection
     {
         IEnumerable<ItemSlotData> GetItems();
         void AddItems(IItem someItem, int count);

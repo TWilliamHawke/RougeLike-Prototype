@@ -7,7 +7,7 @@ using System.Linq;
 namespace Items
 {
     [System.Serializable]
-    public class ItemSection : IUISectionData<ItemSlotData>, IItemSection, ILootStorage
+    public class ItemSection : IUISectionData<ItemSlotData>, IItemSection, ILootSection
     {
 
         List<ItemSlotData> _itemsList;

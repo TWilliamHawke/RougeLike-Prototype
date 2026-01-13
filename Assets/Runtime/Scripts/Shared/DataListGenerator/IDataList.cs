@@ -1,5 +1,5 @@
 public interface IDataList<T>
 {
-    void AddElements(IDataCount<T> element);
+    void AddElements(IDataListElement<T> element);
 }
 

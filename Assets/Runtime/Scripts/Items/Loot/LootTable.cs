@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "LootTable", menuName = "Items/Loot Table")]
-    public class LootTable : ScriptableObject, IDataListSource<ItemTemplate>
+    public class LootTable : ScriptableObject, IDataListTable<ItemTemplate>
     {
         [SerializeField] bool _getOnlyOneElenemt;
         [Range(0, 1)]
@@ -13,11 +13,11 @@ namespace Items
         [SerializeField] LootTable[] _childLootTables;
         [SerializeField] LootItemsData[] _lootItems;
 
-        IDataListSource<ItemTemplate>[] IDataListSource<ItemTemplate>.childTables => _childLootTables;
-        IDataCount<ItemTemplate>[] IDataListSource<ItemTemplate>.dataItems => _lootItems;
-        bool IDataListSource<ItemTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListSource<ItemTemplate>.chanceOfNone => _chanceOfNone;
-        DataListGenerator<ItemTemplate> IDataListSource<ItemTemplate>.dataListGenerator => _dataListGenerator;
+        IDataListTable<ItemTemplate>[] IDataListTable<ItemTemplate>.childTables => _childLootTables;
+        IDataListElement<ItemTemplate>[] IDataListTable<ItemTemplate>.dataItems => _lootItems;
+        bool IDataListTable<ItemTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
+        float IDataListTable<ItemTemplate>.chanceOfNone => _chanceOfNone;
+        DataListGenerator<ItemTemplate> IDataListTable<ItemTemplate>.dataListGenerator => _dataListGenerator;
 
         DataListGenerator<ItemTemplate> _dataListGenerator;
 
@@ -26,7 +26,7 @@ namespace Items
             _dataListGenerator = new DataListGenerator<ItemTemplate>(this);
         }
 
-        public void FillItemSection<T>(T lootStorage) where T : ILootStorage
+        public void FillItemSection<T>(T lootStorage) where T : ILootSection
         {
             LoootItemsList itemsList = new(lootStorage);
             _dataListGenerator.FillDataList(ref itemsList);
