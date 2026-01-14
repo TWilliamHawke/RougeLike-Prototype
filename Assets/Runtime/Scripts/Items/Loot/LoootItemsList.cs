@@ -5,11 +5,16 @@ namespace Items
     public class LoootItemsList : IDataList<ItemTemplate>
     {
         List<IDataListElement<ItemTemplate>> _itemsList = new();
-        ILootSection _storage;
+        int _rarity;
 
-        public LoootItemsList(ILootSection storage)
+        public LoootItemsList(int rarity)
         {
-            _storage = storage;
+            _rarity = rarity;
+        }
+
+        public void AddRawLoot(IEnumerable<IDataListElement<ItemTemplate>> rawLoot)
+        {
+            _itemsList.AddRange(rawLoot);
         }
 
         public void AddElements(IDataListElement<ItemTemplate> element)
@@ -17,14 +22,18 @@ namespace Items
             _itemsList.Add(element);
         }
 
-        public void CreateItems(int rarity = 0)
+        public void Clear()
+        {
+            _itemsList.Clear();
+        }
+
+        public void TransferItemsToSection(ILootSection section)
         {
             foreach (var itemData in _itemsList)
             {
-                _storage.AddItems(itemData.element.CreateItem(rarity), itemData.count);
+                section.AddItems(itemData.element.CreateItem(_rarity), itemData.count);
             }
-
-            _itemsList.Clear();
         }
+
     }
 }

@@ -1,10 +1,12 @@
+using Items;
+
 public class DataListGeneratorException<T> : System.Exception
 {
-    DataListGenerator<T> _buggedLootTable;
+    T _buggedLootTable;
 
-    public DataListGenerator<T> lootTable => _buggedLootTable;
+    public T lootTable => _buggedLootTable;
 
-    public DataListGeneratorException(DataListGenerator<T> lootTable)
+    public DataListGeneratorException(T lootTable)
     {
         _buggedLootTable = lootTable;
     }

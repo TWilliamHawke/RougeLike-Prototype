@@ -71,7 +71,7 @@ public static class CollectionsExtension
             result = element;
             totalWeight += selector(element);
 
-            if (totalWeight >= randomWeight) break;
+            if (totalWeight > randomWeight) break;
         }
 
         return result;

@@ -12,15 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT03-travelerEquipment
   m_EditorClassIdentifier: Assembly-CSharp::Items.LootTable
-  _getOnlyOneElenemt: 0
-  _chanceOfNone: 0
-  _childLootTables: []
+  _selectionMode: 1
+  _lootTables: []
   _lootItems:
   - _item: {fileID: 11400000, guid: a30bb1ba01adbfa41b659e865efc35ee, type: 2}
-    _count: 1
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
   - _item: {fileID: 11400000, guid: b7e7e0f36d456eb44938973ad665bbc4, type: 2}
-    _count: 1
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
   - _item: {fileID: 11400000, guid: 93644885a0f082243889cb7af8181e12, type: 2}
-    _count: 1
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
   - _item: {fileID: 11400000, guid: a3c504335fbe631409e0f4c99010819a, type: 2}
-    _count: 1
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1

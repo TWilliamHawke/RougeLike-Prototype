@@ -12,9 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT02-Potions50
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 1
-  _chanceOfNone: 0.5
-  _childLootTables:
-  - {fileID: 11400000, guid: 7d841d71cb98c4a4bb98103f5bcf029c, type: 2}
-  - {fileID: 11400000, guid: 47c0f7307dbb3e546bbc4ca93a29adb7, type: 2}
+  _selectionMode: 0
+  _lootTables:
+  - _table: {fileID: 11400000, guid: 7d841d71cb98c4a4bb98103f5bcf029c, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
+  - _table: {fileID: 11400000, guid: 47c0f7307dbb3e546bbc4ca93a29adb7, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
+  - _table: {fileID: 11400000, guid: e077a0782403d9c4f9e1930331f3e193, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 2
   _lootItems: []

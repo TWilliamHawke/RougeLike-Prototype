@@ -6,6 +6,8 @@ namespace CustomEditors
 {
     [CustomPropertyDrawer(typeof(WeaponQualityData))]
     public class WeaponQualityDrawer : SimplePropertyDrawer
-    { }
+    {
+        
 
+    }
 }

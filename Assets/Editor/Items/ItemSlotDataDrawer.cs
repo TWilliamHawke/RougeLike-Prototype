@@ -4,13 +4,9 @@ using UnityEngine;
 using UnityEditor;
 using Items;
 
-[CustomPropertyDrawer(typeof(LootItemsData))]
+[CustomPropertyDrawer(typeof(LootTable.LootItemsData))]
 public class ItemSlotDataDrawer : PropertyDrawer
 {
-    float _fieldHeight = EditorGUIUtility.singleLineHeight;
-    float _buttonWidth = 20;
-
-
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         var singleLine = EditorHelpers.RectToSingleLine(position);
@@ -30,30 +26,20 @@ public class ItemSlotDataDrawer : PropertyDrawer
             EditorGUI.LabelField(iconRect, "", GUI.skin.box);
         }
 
-
         EditorGUI.PropertyField(singleLine, item);
-        singleLine.y += EditorHelpers.lineHeight;
-        singleLine.width -= _buttonWidth * 2;
-        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative("_count"));
-
-        var buttonRect = new Rect(singleLine.x + singleLine.width, singleLine.y, _buttonWidth, _fieldHeight);
-        if (GUI.Button(buttonRect, "-"))
-        {
-            property.FindPropertyRelative("_count").intValue--;
-        }
-        buttonRect.x += _buttonWidth;
-
-        if (GUI.Button(buttonRect, "+"))
-        {
-            property.FindPropertyRelative("_count").intValue++;
-        }
-
+        DrawProperty(property, ref singleLine, "_count");
+        DrawProperty(property, ref singleLine, "_weight");
 
     }
 
+    private void DrawProperty(SerializedProperty property, ref Rect singleLine, string propertyName)
+    {
+        singleLine.y += EditorHelpers.lineHeight;
+        EditorGUI.PropertyField(singleLine, property.FindPropertyRelative(propertyName));
+    }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return EditorHelpers.lineHeight * 2 + 5;
+        return EditorHelpers.lineHeight * 3 + 5;
     }
 }

@@ -1,83 +1,86 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rng = System.Random;
-
 
 namespace Entities
 {
-    [CreateAssetMenu(fileName ="CreaturesTable", menuName ="Entities/Creatures Table")]
-    public class EntitiesTable : ScriptableObject, IDataListTable<EntityTemplate>
+    [CreateAssetMenu(fileName = "CreaturesTable", menuName = "Entities/Creatures Table")]
+    public class EntitiesTable : DataListTable<EntityTemplate>
     {
-        [SerializeField] bool _getOnlyOneElenemt;
-        [Range(0, 1)]
-        [SerializeField] float _chanceOfNone;
+        [SerializeField] List<EntityTableData> _tables = new();
+        [SerializeField] List<EntityData> _entities = new();
 
-        [SerializeField] EntitiesTable[] _childTables;
-        [SerializeField] EntityData[] _entities;
+        protected override IEnumerable<IDataListElementSource<EntityTemplate>> childTables => _tables;
+        protected override IEnumerable<IDataListElementSource<EntityTemplate>> childElements => _entities;
 
-        public DataListGenerator<EntityTemplate> dataListGenerator { get; private set; }
-        
-        IDataListTable<EntityTemplate>[] IDataListTable<EntityTemplate>.childTables => _childTables;
-        IDataListElement<EntityTemplate>[] IDataListTable<EntityTemplate>.dataItems => _entities;
-        bool IDataListTable<EntityTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListTable<EntityTemplate>.chanceOfNone => _chanceOfNone;
-
-        private void OnEnable()
+        public IEnumerable<EntityTemplate> GetTemplates()
         {
-            if (dataListGenerator != null) return;
-            dataListGenerator = new DataListGenerator<EntityTemplate>(this);
-        }
-
-        public IEnumerable<EntityTemplate> GetTemplates(Rng rng)
-        {
-            var creatures = new CreaturesList();
-            dataListGenerator.FillDataList(rng, ref creatures);
-            return creatures.creaturesList;
+            var templatesList = GetElements();
+            foreach (var templateData in templatesList)
+            {
+                for (int i = 0; i < templateData.count; i++)
+                {
+                    yield return templateData.element;
+                }
+            }
         }
 
         [ContextMenu("Check Generation")]
         void Generate()
         {
-            var creatures = GetTemplates(new Rng());
+            var templates = GetTemplates();
 
-            foreach (var itemSlot in creatures)
+            foreach (var tempplate in templates)
             {
-                Debug.Log($"{itemSlot.name}");
+                Debug.Log($"{tempplate.name}");
             }
         }
 
-
         #region Supporting classes
         [System.Serializable]
-        public class EntityData : IDataListElement<EntityTemplate>
+        public class EntityData : IDataListElementSource<EntityTemplate>
         {
             [SerializeField] EntityTemplate _template;
+            [SerializeField] IntValue _count = 1;
             [PlusMinusBtn]
-            [SerializeField] int _count = 1;
+            [SerializeField] int _weight = 1;
 
             public EntityTemplate element => _template;
             public int count => _count;
+            public int weight => _weight;
+
+            public IEnumerable<IDataListElement<EntityTemplate>> GetElements()
+            {
+                yield return new DataListElement<EntityTemplate>
+                {
+                    element = _template,
+                    count = _count
+                };
+            }
         }
 
-        public class CreaturesList : IDataList<EntityTemplate>
+        [System.Serializable]
+        public class EntityTableData : IDataListElementSource<EntityTemplate>
         {
-            List<EntityTemplate> _creaturesList = new List<EntityTemplate>();
-            public List<EntityTemplate> creaturesList => _creaturesList;
+            [SerializeField] EntitiesTable _table;
+            [PlusMinusBtn]
+            [SerializeField] IntValue _count = 1;
+            [PlusMinusBtn]
+            [SerializeField] int _weight = 1;
 
-            public void AddElements(IDataListElement<EntityTemplate> elements)
+            public int weight => _weight;
+
+            public IEnumerable<IDataListElement<EntityTemplate>> GetElements()
             {
-                if (elements.count <= 0) return;
-
-                for (int i = 0; i < elements.count; i++)
+                for (int i = 0; i < _count.minValue; i++)
                 {
-                    _creaturesList.Add(elements.element);
+                    foreach (var element in _table.GetElements())
+                    {
+                        yield return element;
+                    }
                 }
             }
         }
         #endregion
     }
-
-
 }
 

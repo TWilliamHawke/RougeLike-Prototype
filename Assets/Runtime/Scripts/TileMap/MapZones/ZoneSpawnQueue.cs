@@ -31,7 +31,7 @@ namespace Map.Zones
 
         public void AddToQueue(EntitiesTable entitiesTable, Rng rng)
         {
-            var templates = entitiesTable.GetTemplates(rng);
+            var templates = entitiesTable.GetTemplates();
             templates.ForEach(template => AddToQueue(template, rng));
         }
 

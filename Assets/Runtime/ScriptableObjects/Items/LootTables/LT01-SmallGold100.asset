@@ -12,27 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT01-SmallGold100
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 1
-  _chanceOfNone: 0
-  _childLootTables: []
+  _selectionMode: 0
+  _lootTables: []
   _lootItems:
   - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 1
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 2
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 3
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 4
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 5
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 6
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 7
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 8
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 9
-  - _item: {fileID: 11400000, guid: 98d683c08b2a8444f8381ce179784bb4, type: 2}
-    _count: 10
+    _count:
+      _minValue: 1
+      _maxValue: 10
+      _isRandom: 1
+    _weight: 1

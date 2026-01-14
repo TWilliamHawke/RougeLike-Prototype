@@ -12,11 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT03-chestItem
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 0
-  _chanceOfNone: 0
-  _childLootTables:
-  - {fileID: 11400000, guid: 009684fe00fef1b4ba998797b8cbf10f, type: 2}
-  - {fileID: 11400000, guid: e2e692acb4b664a4f810259254074ec5, type: 2}
-  - {fileID: 11400000, guid: 533f0dd4e3e5a594aba1b7cb489561a5, type: 2}
-  - {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}
+  _selectionMode: 1
+  _lootTables:
+  - _table: {fileID: 11400000, guid: 009684fe00fef1b4ba998797b8cbf10f, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 1
+    _weight: 1
+  - _table: {fileID: 11400000, guid: e2e692acb4b664a4f810259254074ec5, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 1
+    _weight: 1
+  - _table: {fileID: 11400000, guid: 533f0dd4e3e5a594aba1b7cb489561a5, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 1
+    _weight: 1
+  - _table: {fileID: 11400000, guid: 9d0e055d973dcd949b1faaf83f57c7bb, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 1
+    _weight: 1
   _lootItems: []

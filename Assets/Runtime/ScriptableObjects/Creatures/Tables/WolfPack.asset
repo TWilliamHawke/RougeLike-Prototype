@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f54bbdae2ac442a8cd6c6eb828c5d, type: 3}
   m_Name: WolfPack
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 1
-  _chanceOfNone: 0
-  _childTables: []
+  _selectionMode: 0
+  _tables: []
   _entities:
   - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 3
-  - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 4
-  - _template: {fileID: 11400000, guid: 558f15b2ef540c44ebedcc3bf91ddcfe, type: 2}
-    _count: 5
+    _count:
+      _minValue: 3
+      _maxValue: 4
+      _isRandom: 1
+    _weight: 1

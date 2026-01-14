@@ -58,6 +58,7 @@ namespace Map.Generator
 
             public void CreateMapZones(MapZonesManager mapZonesManager)
             {
+                Random.InitState(_config._seed);
                 for (int i = 0; i < _sitePositions.Count; i++)
                 {
                     Vector3 positions =_sitePositions[i];

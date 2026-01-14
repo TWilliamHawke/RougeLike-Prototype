@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT01-HealingPotions
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 1
-  _chanceOfNone: 0
-  _childLootTables: []
+  _selectionMode: 0
+  _lootTables: []
   _lootItems:
   - _item: {fileID: 11400000, guid: 07bd6ebacadd062428aa0ac54a82c460, type: 2}
-    _count: 4
-  - _item: {fileID: 11400000, guid: 07bd6ebacadd062428aa0ac54a82c460, type: 2}
-    _count: 3
-  - _item: {fileID: 11400000, guid: 07bd6ebacadd062428aa0ac54a82c460, type: 2}
-    _count: 2
+    _count:
+      _minValue: 1
+      _maxValue: 3
+      _isRandom: 1
+    _weight: 1

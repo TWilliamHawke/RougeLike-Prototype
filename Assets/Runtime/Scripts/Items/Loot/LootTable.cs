@@ -1,36 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items
 {
     [CreateAssetMenu(fileName = "LootTable", menuName = "Items/Loot Table")]
-    public class LootTable : ScriptableObject, IDataListTable<ItemTemplate>
+    public class LootTable : DataListTable<ItemTemplate>
     {
-        [SerializeField] bool _getOnlyOneElenemt;
-        [Range(0, 1)]
-        [SerializeField] float _chanceOfNone;
-
         [ContextMenuItem("CheckChildren", "CheckChildren")]
-        [SerializeField] LootTable[] _childLootTables;
-        [SerializeField] LootItemsData[] _lootItems;
+        [SerializeField] List<LootTableData> _lootTables = new();
+        [SerializeField] List<LootItemsData> _lootItems = new();
 
-        IDataListTable<ItemTemplate>[] IDataListTable<ItemTemplate>.childTables => _childLootTables;
-        IDataListElement<ItemTemplate>[] IDataListTable<ItemTemplate>.dataItems => _lootItems;
-        bool IDataListTable<ItemTemplate>.getOnlyOneElenemt => _getOnlyOneElenemt;
-        float IDataListTable<ItemTemplate>.chanceOfNone => _chanceOfNone;
-        DataListGenerator<ItemTemplate> IDataListTable<ItemTemplate>.dataListGenerator => _dataListGenerator;
+        protected override IEnumerable<IDataListElementSource<ItemTemplate>> childTables => _lootTables;
+        protected override IEnumerable<IDataListElementSource<ItemTemplate>> childElements => _lootItems;
 
-        DataListGenerator<ItemTemplate> _dataListGenerator;
-
-        private void OnEnable()
+        public void FillItemSection<T>(T lootSection) where T : ILootSection
         {
-            _dataListGenerator = new DataListGenerator<ItemTemplate>(this);
-        }
-
-        public void FillItemSection<T>(T lootStorage) where T : ILootSection
-        {
-            LoootItemsList itemsList = new(lootStorage);
-            _dataListGenerator.FillDataList(ref itemsList);
-            itemsList.CreateItems();
+            int rarity = 10;
+            LoootItemsList itemsList = new(rarity);
+            var rawLoot = GetElements();
+            itemsList.AddRawLoot(rawLoot);
+            itemsList.TransferItemsToSection(lootSection);
+            itemsList.Clear();
         }
 
         public ItemSection GetLoot()
@@ -43,7 +33,25 @@ namespace Items
         [ContextMenu("CheckChildren")]
         public void CheckErrors()
         {
-            _dataListGenerator.CheckErrors();
+            HashSet<LootTable> tables = new();
+            CheckErrors(tables);
+        }
+
+        private void CheckErrors(HashSet<LootTable> existingTables)
+        {
+            if (existingTables.Contains(this))
+            {
+                Debug.Log("Loop detected in " + name);
+                throw new DataListGeneratorException<LootTable>(this);
+            }
+            existingTables.Add(this);
+
+            _lootTables ??= new();
+            foreach (var tableData in _lootTables)
+            {
+                HashSet<LootTable> clone = new(existingTables);
+                tableData.CheckErrors(clone);
+            }
         }
 
         [ContextMenu("Check Generation")]
@@ -56,5 +64,57 @@ namespace Items
                 Debug.Log($"{itemSlot.item.displayName}: {itemSlot.count}");
             }
         }
+
+        #region Supporting classes
+        [System.Serializable]
+        public class LootTableData : IDataListElementSource<ItemTemplate>
+        {
+            [SerializeField] LootTable _table;
+            [PlusMinusBtn]
+            [SerializeField] IntValue _count = 1;
+            [PlusMinusBtn]
+            [SerializeField] int _weight = 1;
+
+            public int weight => _weight;
+            public LootTable table => _table;
+
+            public void CheckErrors(HashSet<LootTable> existingTables)
+            {
+                if (!_table) return;
+                _table.CheckErrors(existingTables);
+            }
+
+            public IEnumerable<IDataListElement<ItemTemplate>> GetElements()
+            {
+                for (int i = 0; i < _count.minValue; i++)
+                {
+                    foreach (var element in _table.GetElements())
+                    {
+                        yield return element;
+                    }
+                }
+            }
+        }
+
+        [System.Serializable]
+        public class LootItemsData : IDataListElementSource<ItemTemplate>
+        {
+            [SerializeField] ItemTemplate _item;
+            [SerializeField] IntValue _count = 1;
+            [PlusMinusBtn]
+            [SerializeField] int _weight = 1;
+
+            public int weight => _weight;
+
+            public IEnumerable<IDataListElement<ItemTemplate>> GetElements()
+            {
+                yield return new DataListElement<ItemTemplate>
+                {
+                    element = _item,
+                    count = _count
+                };
+            }
+        }
+        #endregion
     }
 }

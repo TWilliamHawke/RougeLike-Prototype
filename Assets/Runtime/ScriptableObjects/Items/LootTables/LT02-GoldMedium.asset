@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT02-GoldMedium
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 0
-  _chanceOfNone: 0
-  _childLootTables:
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
-  - {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
+  _selectionMode: 1
+  _lootTables:
+  - _table: {fileID: 11400000, guid: b863630abf7dd224a82b2131673016f7, type: 2}
+    _count:
+      _minValue: 6
+      _maxValue: 6
+      _isRandom: 0
+    _weight: 1
   _lootItems: []

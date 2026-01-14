@@ -11,6 +11,8 @@ public class LootGenerationWindow : EditorWindow
     LootTable _selectedLootTable;
     ItemSection _loot = new ItemSection();
     LootTable _buggedLootTable;
+    string _searchString = "";
+    Vector2 _scrollPosition;
 
     [MenuItem("Window/Loot Generation Window")]
     public static void Open()
@@ -22,12 +24,13 @@ public class LootGenerationWindow : EditorWindow
     void OnGUI()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(150), GUILayout.ExpandHeight(true));
         DrawSidebar();
 
-        EditorGUILayout.EndVertical();
-
-        if (_selectedLootTable == null) return;
+        if (_selectedLootTable == null)
+        {
+            EditorGUILayout.EndHorizontal();
+            return;
+        }
 
         EditorGUILayout.BeginVertical();
 
@@ -38,13 +41,13 @@ public class LootGenerationWindow : EditorWindow
         EditorGUILayout.BeginHorizontal(GUILayout.MaxWidth(300));
         if (GUILayout.Button("Generate Loot"))
         {
-            _selectedLootTable.CheckErrors();
+            TryCheckErors();
             _loot.Clear();
             _selectedLootTable.FillItemSection(_loot);
         }
         if (GUILayout.Button("Check Errors"))
         {
-            _selectedLootTable.CheckErrors();
+            TryCheckErors();
         }
         if (GUILayout.Button("Open in Inpector"))
         {
@@ -82,9 +85,21 @@ public class LootGenerationWindow : EditorWindow
         _lootTables = EditorHelpers.GetAllInstances<LootTable>();
     }
 
+    private void TryCheckErors()
+    {
+        try
+        {
+            _selectedLootTable.CheckErrors();
+        }
+        catch (System.Exception)
+        {
+            _buggedLootTable = _selectedLootTable;
+        }
+    }
+
     private void RenderLoot()
     {
-        if(_buggedLootTable != null) return;
+        if (_buggedLootTable != null) return;
 
         foreach (var slotData in _loot.GetItems())
         {
@@ -104,11 +119,16 @@ public class LootGenerationWindow : EditorWindow
 
     void DrawSidebar()
     {
+        EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(220), GUILayout.ExpandHeight(true));
+
+        _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
         GUIStyle style = new GUIStyle(GUI.skin.button);
+
+        _searchString = EditorGUILayout.TextField(_searchString, GUILayout.MaxWidth(200));
 
         foreach (var lootTable in _lootTables)
         {
-            if (GUILayout.Button(lootTable.name, style))
+            if (lootTable.name.ToLower().Contains(_searchString.ToLower()) && GUILayout.Button(lootTable.name, style))
             {
                 _selectedLootTable = lootTable;
             }
@@ -132,6 +152,7 @@ public class LootGenerationWindow : EditorWindow
             }
         }
 
+        EditorGUILayout.EndScrollView();
+        EditorGUILayout.EndVertical();
     }
-
 }

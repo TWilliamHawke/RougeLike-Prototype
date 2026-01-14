@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
   m_Name: LT02-SpellBookItems
   m_EditorClassIdentifier: 
-  _getOnlyOneElenemt: 1
-  _chanceOfNone: 0
-  _childLootTables:
-  - {fileID: 11400000, guid: f29bf9877fc42e84ca8a8e233974eb01, type: 2}
-  - {fileID: 11400000, guid: 1e8a0fcefdd96564d8049362e26cead1, type: 2}
+  _selectionMode: 0
+  _lootTables:
+  - _table: {fileID: 11400000, guid: 1e8a0fcefdd96564d8049362e26cead1, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
+  - _table: {fileID: 11400000, guid: f29bf9877fc42e84ca8a8e233974eb01, type: 2}
+    _count:
+      _minValue: 1
+      _maxValue: 1
+      _isRandom: 0
+    _weight: 1
   _lootItems: []

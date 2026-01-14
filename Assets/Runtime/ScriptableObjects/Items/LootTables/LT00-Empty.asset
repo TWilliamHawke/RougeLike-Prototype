@@ -10,14 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d421562355bba304b83728b5131a9438, type: 3}
-  m_Name: LT01-HealthPotions
-  m_EditorClassIdentifier: 
-  _selectionMode: 0
+  m_Name: LT00-Empty
+  m_EditorClassIdentifier: Assembly-CSharp::Items.LootTable
+  _selectionMode: 1
   _lootTables: []
-  _lootItems:
-  - _item: {fileID: 11400000, guid: 3f344b9867f96dc4693c67c775364b4d, type: 2}
-    _count:
-      _minValue: 1
-      _maxValue: 3
-      _isRandom: 1
-    _weight: 1
+  _lootItems: []
