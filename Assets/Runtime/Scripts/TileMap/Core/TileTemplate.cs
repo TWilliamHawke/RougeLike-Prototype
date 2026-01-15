@@ -8,11 +8,13 @@ namespace Map
     public class TileTemplate : ScriptableObject
     {
         [SerializeField] TileBase _tile;
-        [SerializeField] bool _isWalkable;
+        [SerializeField] TileWalkability _walkability = TileWalkability.walkable;
+        [SerializeField] TileBlockVision _vision = TileBlockVision.notBlock;
         [SerializeField] List<AudioClip> _stepSounds;
 
         public TileBase tile => _tile;
-        public bool isWalkable => _isWalkable;
+        public bool isWalkable => _walkability == TileWalkability.walkable;
+        public bool blockVision => _vision == TileBlockVision.blocked;
         public AudioClip stepSound => _stepSounds.GetRandom();
     }
 }
