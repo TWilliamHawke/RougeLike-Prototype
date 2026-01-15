@@ -18,14 +18,28 @@ namespace Abilities
         //Used in Unity Editor
         public void InitQuickBar()
         {
+            var abilityController = _palyer.GetComponent<AbilityController>();
             var abilitiesFactory = _palyer.GetComponent<PlayerAbilitiesFactory>();
-            var movementAbility = abilitiesFactory.CreateSimpleContainer(_movementAbility.CreateAbility());
+
+            CreateMovementAbility(abilitiesFactory, abilityController);
+            CreateMainAbility(abilitiesFactory, abilityController);
+
+            _quickBarData.Init();
+        }
+
+        private void CreateMainAbility(PlayerAbilitiesFactory abilitiesFactory, IAbilityUser abilityUser)
+        {
             _spellbook.TryAddSpell(_defaultAbility);
             var spell = _spellbook.knownSpells.FirstOrDefault(spell => spell.SpellIsTheSame(_defaultAbility));
             var spellContainer = abilitiesFactory.CreateSpellContainer(spell);
-            _quickBarData.SetMovementAbility(movementAbility);
-            _quickBarData.SetMainAbility(spellContainer);
-            _quickBarData.Init();
+            _quickBarData.SetMainAbility(spellContainer, abilityUser);
+        }
+
+        private void CreateMovementAbility(PlayerAbilitiesFactory abilitiesFactory, IAbilityUser abilityUser)
+        {
+            var ability = _movementAbility.CreateAbility();
+            var container = abilitiesFactory.CreateSimpleContainer(ability);
+            _quickBarData.SetMovementAbility(container, abilityUser);
         }
 
         void OnDestroy()

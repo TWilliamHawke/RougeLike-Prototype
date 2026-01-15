@@ -8,7 +8,7 @@ namespace Items
     {
         public override int value => _potionTemplate.value;
 
-         protected override StaticItemTemplate _staticTemplate => _potionTemplate;
+        protected override StaticItemTemplate _staticTemplate => _potionTemplate;
 
         PotionTemplate _potionTemplate;
 
@@ -30,7 +30,8 @@ namespace Items
 
         private IAbility CreateAbility()
         {
-            SelfAbility ability = new(this);
+            SelfAbility ability = new(_potionTemplate);
+            ability.BindEffectSource(this);
             _potionTemplate.BindController(ability);
             return ability;
         }

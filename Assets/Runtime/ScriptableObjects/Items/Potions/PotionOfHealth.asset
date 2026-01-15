@@ -19,6 +19,7 @@ MonoBehaviour:
     _locKey: item_name_health_potion
   _value: 25
   _selfAbilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
+  _effectsHandler: {fileID: 11400000, guid: de564d1d19f08fd40836b28598790948, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: d7852abb299a47d478af59e88ba38251, type: 2}
     _magnitude:

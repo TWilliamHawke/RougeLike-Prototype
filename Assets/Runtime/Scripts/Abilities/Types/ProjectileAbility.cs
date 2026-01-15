@@ -14,7 +14,7 @@ namespace Abilities
         PositionController _userPosition;
 
         [InjectField] ProjectileController _controller;
-        [InjectField] AbilityEfffectsHandler _effectsHandler;
+        [InjectField] AbilityEfffectsController _effectsController;
 
         public Vector3 userPosition => _userPosition.position;
         public ProjectileTemplate projectileTemplate => _template.projectile;
@@ -29,7 +29,7 @@ namespace Abilities
         //TODO fix infinity loop if IEffectSource.GetEffects is not implemented
         public void ApplyEffect(IAbilityTarget target)
         {
-            _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);
+            _effectsController.ApplyEffects(_abilityUser, target, _effectSource);
         }
 
         public void PlayImpactSound()

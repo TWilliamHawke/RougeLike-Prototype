@@ -11,7 +11,7 @@ namespace Abilities
             var effectsStorage = target.GetEntityComponent<EffectsStorage>();
             foreach (var effect in effects)
             {
-                //effect.ApplyEffect(effectsStorage, effectSource);
+                effect.ApplyEffect(effectsStorage, effectSource);
             }
 
         }

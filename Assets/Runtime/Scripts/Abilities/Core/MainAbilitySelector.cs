@@ -1,3 +1,4 @@
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Abilities
@@ -6,6 +7,8 @@ namespace Abilities
     {
         [SerializeField] MainAbilityScreen _abilityScreen;
         [SerializeField] QuickBarDataStorage _quickBar;
+
+        [InjectField] Player _player;
 
         void Awake()
         {
@@ -24,7 +27,8 @@ namespace Abilities
 
         private void SelectAbility(IAbilityContainer container)
         {
-            _quickBar.SetMainAbility(container);
+            var abilityController = _player.GetComponent<AbilityController>();
+            _quickBar.SetMainAbility(container, abilityController);
             _abilityScreen.CloseScreen();
         }
 

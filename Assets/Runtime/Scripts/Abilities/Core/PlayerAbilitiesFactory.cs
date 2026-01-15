@@ -22,7 +22,6 @@ namespace Abilities
 
         public IAbilityContainer CreateItemContainer(IItem item, IAbility ability)
         {
-            ability.BindAbilityUser(_abilityUser);
             return new ItemAbilityContainer(item, _inventory, ability);
         }
 
@@ -33,13 +32,11 @@ namespace Abilities
 
         public SimpleAbilityContainer CreateSimpleContainer(IAbility ability)
         {
-            ability.BindAbilityUser(_abilityUser);
             return new SimpleAbilityContainer(ability);
         }
 
         public IAbilityContainer CreateEquipmentContainer(IEquipmentSlotTemplate slot, IAbility ability)
         {
-            ability.BindAbilityUser(_abilityUser);
             return new EquipmentAbilityContainer(ability, _equipment, slot);
         }
     }

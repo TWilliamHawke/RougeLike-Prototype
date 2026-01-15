@@ -52,16 +52,18 @@ namespace Abilities
             OnQuickBarChange?.Invoke();
         }
 
-        public void SetMovementAbility(IAbilityContainer ability)
+        public void SetMovementAbility(IAbilityContainer ability, IAbilityUser user)
         {
             _movementAbility = ability;
+            _movementAbility.SelectBy(user);
             OnQuickBarChange?.Invoke();
         }
 
-        public void SetMainAbility(IAbilityContainer ability)
+        public void SetMainAbility(IAbilityContainer ability, IAbilityUser user)
         {
             TryRemoveMainAbility();
             _mainAbility = ability;
+            _mainAbility.SelectBy(user);
             OnAbilityAdded?.Invoke(ability);
             OnQuickBarChange?.Invoke();
             OnMainAbilityChanged?.Invoke();

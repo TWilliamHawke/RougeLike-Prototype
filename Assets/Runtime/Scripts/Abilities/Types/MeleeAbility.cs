@@ -14,7 +14,7 @@ namespace Abilities
         PositionController _userPosition;
 
         [InjectField] MeleeAttackController _controller;
-        [InjectField] AbilityEfffectsHandler _effectsHandler;
+        [InjectField] AbilityEfffectsController _effectsController;
 
         public Vector3 userPosition => _userPosition.position;
         public override bool fitForMainSlot => true;
@@ -69,7 +69,7 @@ namespace Abilities
 
         public void ApplyEffect(IAbilityTarget target)
         {
-            _effectsHandler.ApplyEffects(_abilityUser, target, _effectSource);
+            _effectsController.ApplyEffects(_abilityUser, target, _effectSource);
         }
 
         public void ApplyEffect(Vector3 hitPosition, IMapNodeStorage mapNodeStorage)

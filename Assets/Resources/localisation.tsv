@@ -178,3 +178,4 @@ map_action_name_trade	Trade	Торовать
 lockpicking_lock_text	Lock Difficulty	Сложность замка
 lockpicking_skill_text	Your Skill	Ваш навык взлома
 lockpicking_pick_text	Picks left	Отмычек осталось
+task_text_select_ability_target	Select ability Target	Выберите цель для способности

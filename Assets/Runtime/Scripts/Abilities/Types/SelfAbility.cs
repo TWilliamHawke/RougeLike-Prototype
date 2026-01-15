@@ -10,31 +10,34 @@ namespace Abilities
         protected override IIconData template => _template;
         public override bool fitForMainSlot => false;
 
-        IEffectSource _template;
+        IAbilityTemplate _template;
         [InjectField] SelfAbilityController _controller;
+        [InjectField] AbilityEfffectsController _effectsController;
 
-        public SelfAbility(IEffectSource template)
+        public SelfAbility(IAbilityTemplate template)
         {
             _template = template;
         }
 
         public override void Select(IAbilityContainer container)
         {
-            IAbilityTarget target = _abilityUser.GetEntityComponent<IAbilityTarget>();
+            IAbilityTarget target = _abilityUser
+                .GetEntityComponent<IAbilityTarget>();
             if (target is null) return;
             container.UseAbility(target);
         }
 
         public override void Use(IAbilityTarget target)
         {
-            _controller.ApplyEffects(_template.GetEffects(), target, _template);
+            _audioEffectsController.PlaySound(_template.useSound);
+            _effectsController.ApplyEffects(_abilityUser, target, _effectSource);
         }
 
         public override string GetDescription(AbilityModifiers abilityModifiers)
         {
             var sb = new StringBuilder();
 
-            foreach (var effectData in _template.GetEffects())
+            foreach (var effectData in _effectSource.GetEffects())
             {
                 sb.AppendLine(effectData.GetDescription(abilityModifiers));
             }

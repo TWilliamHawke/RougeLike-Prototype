@@ -1,4 +1,5 @@
 using Effects;
+using Entities;
 using Map;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Abilities
         protected abstract IIconData template { get; }
         protected IEffectSource _effectSource;
         protected IAbilityUser _abilityUser;
+        protected AudioEffectsController _audioEffectsController;
 
         public abstract bool fitForMainSlot { get; }
         public abstract IAbilityTarget SelectTarget(ITileClickData tile);
@@ -34,6 +36,7 @@ namespace Abilities
         public virtual void BindAbilityUser(IAbilityUser user)
         {
             _abilityUser = user;
+            _audioEffectsController = user.GetEntityComponent<AudioEffectsController>();
         }
     }
 }

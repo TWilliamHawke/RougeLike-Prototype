@@ -6,9 +6,10 @@ using Abilities;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewPotion", menuName = "Items/Potion")]
-    public class PotionTemplate : StaticItemTemplate, IEffectSource
+    public class PotionTemplate : StaticItemTemplate, IEffectSource, IAbilityTemplate
     {
         [SerializeField] Injector _selfAbilityController;
+        [SerializeField] Injector _effectsHandler;
         [Header("Potion Effects")]
         [SerializeField] SourceEffectData[] _effects;
 
@@ -33,6 +34,7 @@ namespace Items
         public void BindController(SelfAbility ability)
         {
             _selfAbilityController.AddInjectionTarget(ability);
+            _effectsHandler.AddInjectionTarget(ability);
         }
     }
 }

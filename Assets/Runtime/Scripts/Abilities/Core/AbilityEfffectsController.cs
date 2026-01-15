@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Abilities
 {
-    public class AbilityEfffectsHandler : MonoBehaviour
+    public class AbilityEfffectsController : MonoBehaviour
     {
         public void ApplyEffects(IAbilityUser user, IAbilityTarget target, IEffectSource effectSource)
         {

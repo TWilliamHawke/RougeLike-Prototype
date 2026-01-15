@@ -10,8 +10,7 @@ namespace Magic
     [CreateAssetMenu(fileName = "Spell", menuName = "EffectHandlers/Spell")]
 	public class Spell : ScriptableObject, ISpriteGetter
 	{
-		[LocalisationKey]
-		[SerializeField] string _displayName;
+		[SerializeField] LocalString _displayName;
 		[SpritePreview]
 		[SerializeField] Sprite _icon;
 		[Range(1,5)]
@@ -46,7 +45,5 @@ namespace Magic
 			index = Mathf.Min(index, _levels.Length - 1);
 			return _levels[index];
         }
-
-
     }
 }

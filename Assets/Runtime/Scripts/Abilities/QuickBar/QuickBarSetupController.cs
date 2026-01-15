@@ -1,3 +1,4 @@
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Abilities
@@ -9,6 +10,8 @@ namespace Abilities
 
         [SerializeField] UIScreen _quickBarSetupScreen;
         [SerializeField] QuickBarDataStorage _quickBarDataStorage;
+
+        [InjectField] Player _player;
 
         IAbilityContainer _selectedAbility;
 
@@ -47,11 +50,11 @@ namespace Abilities
 
         private void HandleMainSlotClick(int _)
         {
-            //TODO: Add condition if selected ability can be used as weapon
-            _quickBarDataStorage.SetMainAbility(_selectedAbility);
+            var abilityController = _player.GetComponent<AbilityController>();
+            //TODO: Add condition if selected ability can be used in main slot
+            _quickBarDataStorage.SetMainAbility(_selectedAbility, abilityController);
             _mainSlot.UpdateSlotGraphic(_selectedAbility);
             _quickBarSetupScreen.Close();
         }
-
     }
 }

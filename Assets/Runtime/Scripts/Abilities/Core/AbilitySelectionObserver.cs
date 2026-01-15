@@ -11,8 +11,10 @@ namespace Abilities
         [InjectField] ClickStateMachine _clickStateMachine;
         [InjectField] Player _player;
 
+        [SerializeField] LocalString _abilitySelectedText;
+        [SerializeField] QuickBarDataStorage _quickBarDataStorage;
         [SerializeField] CustomEvent _targetSelectedEvent;
-
+        
         public void Subscribe()
         {
             var abilityController = _player.GetComponent<AbilityController>();
@@ -22,6 +24,8 @@ namespace Abilities
         private void StartTargetSelection(IAbilityContainer ability)
         {
             if (!ability.canBeUsed) return;
+            if (_quickBarDataStorage.mainAbility == ability) return;
+            if (_quickBarDataStorage.movementAbility == ability) return;
             CreateAbilityTask(ability);
         }
 
@@ -30,7 +34,7 @@ namespace Abilities
             TaskData task = new()
             {
                 displayName = ability.displayName,
-                taskText = "Select ability Target",
+                taskText = _abilitySelectedText,
                 icon = ability.icon,
                 isDone = true,
             };

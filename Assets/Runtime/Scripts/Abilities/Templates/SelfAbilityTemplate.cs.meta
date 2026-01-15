@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - _icon: {instanceID: 0}
   - _abilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
+  - _effectsHandler: {fileID: 11400000, guid: de564d1d19f08fd40836b28598790948, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

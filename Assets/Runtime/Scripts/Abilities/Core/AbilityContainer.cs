@@ -18,6 +18,7 @@ namespace Abilities
 
         public void SelectBy(IAbilityUser user)
         {
+            ability.BindAbilityUser(user);
             ability.Select(this);
         }
 

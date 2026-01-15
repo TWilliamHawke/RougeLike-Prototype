@@ -19,6 +19,7 @@ MonoBehaviour:
     _locKey: item_name_healing_potion
   _value: 25
   _selfAbilityController: {fileID: 11400000, guid: 35195ab7b076e664dbf24c576a2a7ebb, type: 2}
+  _effectsHandler: {fileID: 11400000, guid: de564d1d19f08fd40836b28598790948, type: 2}
   _effects:
   - _effect: {fileID: 11400000, guid: 89d4095c55e6397409e15eaf62e8a612, type: 2}
     _magnitude:

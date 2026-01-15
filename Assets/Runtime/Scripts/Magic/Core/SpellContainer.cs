@@ -13,7 +13,6 @@ namespace Magic
         MagicConfig _magicConfig;
         StatsStorage _statsStorage;
         SpellDescriptionConstructor _descriptionConstructor;
-        IAbilityUser _user;
 
         public int spellCost => _magicConfig.GetSpellCost(_spellData, _statsStorage);
         public override bool canBeUsed => _manaStorage.currentValue >= spellCost;
@@ -24,7 +23,6 @@ namespace Magic
 
         public SpellContainer(KnownSpellData spellData, IAbilityUser user, MagicConfig magicConfig)
         {
-            _user = user;
             _spellData = spellData;
             _magicConfig = magicConfig;
             _statsStorage = user.GetEntityComponent<StatsStorage>();
@@ -36,8 +34,6 @@ namespace Magic
         {
             if (_manaStorage.TryReduceStat(spellCost))
             {
-                //HACK find proper place for this
-                ability.BindAbilityUser(_user);
                 ability.Use(target);
             }
         }
@@ -74,8 +70,6 @@ namespace Magic
 
         public override bool TileHasValidTarget(ITileClickData tile)
         {
-            //HACK find proper place for this (2)
-            ability.BindAbilityUser(_user);
             return ability.TileHasValidTarget(tile);
         }
     }
