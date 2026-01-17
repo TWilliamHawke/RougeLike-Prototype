@@ -20,6 +20,7 @@ namespace Map
 
         //getters
         public bool isWalkable => _template.isWalkable;
+        public bool blockVision => _template.blockVision;
         public IEnumerable<IObstacleEntity> entitiesOnTile => _entitiesInThisNode;
         public bool isEmpty => _entitiesInThisNode.Count == 0;
         public bool isWalkableAndEmpty => isWalkable && isEmpty;

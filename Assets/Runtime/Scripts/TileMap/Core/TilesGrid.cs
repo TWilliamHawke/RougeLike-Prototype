@@ -6,12 +6,12 @@ using Map.Helpers;
 
 namespace Map
 {
-
     public class TilesGrid : IObserver<Entity>, IMapNodeStorage
     {
         TileNode[,] _grid;
         PathFinder _pathFinder;
         Vector2Int _gridSize;
+        VisibilityChecker _visibilityChecker;
 
         public Vector2Int gridSize => _gridSize;
 
@@ -20,7 +20,8 @@ namespace Map
             _grid = new TileNode[mapData.width, mapData.height];
             _gridSize = new Vector2Int(mapData.width, mapData.height);
             FillGrid(mapData.tiles);
-            _pathFinder = new PathFinder(this);
+            _pathFinder = new(this);
+            _visibilityChecker = new(this);
         }
 
         public Stack<TileNode> FindPath(TileNode from, TileNode to)
@@ -28,12 +29,17 @@ namespace Map
             return _pathFinder.FindPath(from, to);
         }
 
+        public bool NodesHasVisibility(TileNode from, TileNode to)
+        {
+            return _visibilityChecker.HasVisibilityBetween(from, to);
+        }
+
         public Stack<TileNode> FindPath(Vector3Int posFrom, Vector3Int posTo)
         {
             bool foundFrom = TryGetNode(posFrom, out var from);
             bool foundTo = TryGetNode(posTo, out var to);
             if (!foundFrom || !foundTo) return new Stack<TileNode>();
-            return _pathFinder.FindPath(from, to);
+            return FindPath(from, to);
         }
 
         public bool TryGetNode(Vector3Int pos, out TileNode node)
