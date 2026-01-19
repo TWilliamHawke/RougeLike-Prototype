@@ -1,3 +1,4 @@
+using System;
 using Abilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +15,8 @@ namespace Core.Input
         [SerializeField] Injector _inputControllerInjector;
         [SerializeField] Injector _playerInjector;
         [SerializeField] Injector _stateMachineInjector;
-        [SerializeField] Injector _hoveredTileInjector;
+        [SerializeField] Injector _tileMapInjector;
+        [SerializeField] Injector _screenPositionReader;
 
         void OnDestroy()
         {
@@ -28,10 +30,12 @@ namespace Core.Input
 
             DefaultClickActions actionList = new(_quickBarDataStorage);
             _playerInjector.AddInjectionTarget(actionList);
+            _screenPositionReader.AddInjectionTarget(actionList);
 
             _clickStateMachine = new(actionList);
             _inputControllerInjector.AddInjectionTarget(_clickStateMachine);
-            _hoveredTileInjector.AddInjectionTarget(_clickStateMachine);
+            _tileMapInjector.AddInjectionTarget(_clickStateMachine);
+            _screenPositionReader.AddInjectionTarget(_clickStateMachine);
             _stateMachineInjector.SetDependency(_clickStateMachine);
         }
 

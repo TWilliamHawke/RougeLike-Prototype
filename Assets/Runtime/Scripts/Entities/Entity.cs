@@ -25,7 +25,7 @@ namespace Entities
         [SerializeField] StatList _statList;
 
         public event UnityAction<Entity> OnDeath;
-        public event UnityAction<IStatsController> OnStatsInit;
+        public event UnityAction<IStatStorage> OnStatsInit;
         public abstract event UnityAction<ITemplateWithBaseStats> OnTemplateApplied;
 
         public StateMachine stateMachine => GetComponent<StateMachine>();

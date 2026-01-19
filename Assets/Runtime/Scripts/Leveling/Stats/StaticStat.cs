@@ -13,11 +13,14 @@ namespace Entities.Stats
         [SerializeField] int _maxValue = int.MaxValue;
         [SerializeField] int _defaultValue = 0;
         [Range(0, 1f)]
+        [SerializeField] float _floatValueMod = 1f;
+        [Range(0, 1f)]
         [SerializeField] float _minReductionMod = .2f;
 
         public int defaultValue => _defaultValue;
         public int maxValue => _maxValue;
         public int minValue => _minValue;
+        public float floatValueMod => _floatValueMod;
         public float minReductionMod => _minReductionMod;
         public IBonusValuesOrder bonusesOrder => _bonusesOrder;
 

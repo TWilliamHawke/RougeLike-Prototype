@@ -12,10 +12,9 @@ namespace Entities.Stats
         [SerializeField] int _health;
         [SerializeField] int _mana;
         [Space()]
-        [SerializeField]
-        List<StatValue> _staticStats;
+        [SerializeField] List<StatValueData> _staticStats = new();
 
-        public void InitStats(IResourceStorage controller)
+        public void InitStats(IStatsController controller)
         {
             controller.InitStat(_statList.health, _health);
             controller.InitStat(_statList.mana, _mana);
@@ -24,9 +23,9 @@ namespace Entities.Stats
     }
 
     [System.Serializable]
-    public class StatValue
+    public class StatValueData
     {
-        public StoredResource stat;
+        public StaticStat stat;
         public int value;
     }
 }

@@ -8,6 +8,7 @@ namespace Core.Input
     public class DefaultClickActions : IClickActionList, IInjectionTarget
     {
         [InjectField] Player _player;
+        [InjectField] IScreenPositionReader _screenPositionReader;
 
         QuickBarDataStorage _quickBarDataStorage { get; init; }
         List<IClickAction> _clickActions = new();
@@ -39,7 +40,7 @@ namespace Core.Input
             _clickActions.Clear();
 
             //check ui click before tiles
-            _clickActions.Add(new ClickUI());
+            _clickActions.Add(new ClickUI(_screenPositionReader));
             _clickActions.Add(new ClickNextTileObject(_player));
             _clickActions.Add(new ClickPlayer(_player));
             _clickActions.Add(new ClickAbilityTarget(_quickBarDataStorage.mainAbility));

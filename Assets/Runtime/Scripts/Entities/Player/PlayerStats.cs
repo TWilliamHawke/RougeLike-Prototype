@@ -1,16 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Entities.Combat;
 using UnityEngine;
-using UnityEngine.Events;
-using Effects;
-using Core;
 using Entities.Stats;
-using Entities.Behavior;
 
 namespace Entities.PlayerScripts
 {
-    public class PlayerStats : ScriptableObject, IStatsController
+    public class PlayerStats : ScriptableObject, IStatStorage
     {
         [SerializeField] AudioClip[] _weaponSounds;
         [SerializeField] StatList _statList;

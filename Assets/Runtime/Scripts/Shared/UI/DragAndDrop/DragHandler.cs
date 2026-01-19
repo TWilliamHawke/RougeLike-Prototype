@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using Core.Input;
 
 namespace UI.DragAndDrop
 {
@@ -11,6 +12,7 @@ namespace UI.DragAndDrop
     public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IInjectionTarget
     {
         [InjectField] Canvas _dragCanvas;
+        [InjectField] IScreenPositionReader _reader;
         [SerializeField] Injector _dragCanvasInjector;
 
         [SerializeField] CustomEvent _onDragStart;
@@ -39,7 +41,7 @@ namespace UI.DragAndDrop
             if (!_dragDataSource.allowToDrag) return;
             _dragableElement = _dragDataSource.CreateElement();
             _dragableElement.SetParent(_dragCanvas);
-            var mousePos = Mouse.current.position.ReadValue();
+            var mousePos = _reader.ReadScreenPosition();
             var startPos = mousePos - _dragCanvas.renderingDisplaySize / 2;
 
             _dragableElement.SetDragStartPosition(startPos);

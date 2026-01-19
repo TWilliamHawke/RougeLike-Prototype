@@ -14,6 +14,7 @@ namespace Abilities
         [SerializeField] LocalString _abilitySelectedText;
         [SerializeField] QuickBarDataStorage _quickBarDataStorage;
         [SerializeField] CustomEvent _targetSelectedEvent;
+        [SerializeField] Injector _screenPositionReader;
         
         public void Subscribe()
         {
@@ -41,6 +42,7 @@ namespace Abilities
 
             _taskPanelController.ChangeTask(task);
             AbilityClickActions actions = new(ability, _targetSelectedEvent);
+            _screenPositionReader.AddInjectionTarget(actions);
             _clickStateMachine.ReplaceAcionList(actions);
         }
 

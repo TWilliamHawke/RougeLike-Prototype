@@ -40,7 +40,7 @@ namespace Entities
             _healthStorage.ChangeStat(value);
         }
 
-        private void ObserveHealth(IStatsController controller)
+        private void ObserveHealth(IStatStorage controller)
         {
             _healthStorage = controller.FindContainer(_health);
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,9 +9,9 @@ using UnityEngine.UI;
 public static class Raycasts
 {
     //raycast for ui elements
-    static public List<RaycastResult> UI()
+    static public List<RaycastResult> UI(IScreenPositionReader screenPositionReader)
     {
-        return UI(Mouse.current.position.ReadValue());
+        return UI(screenPositionReader.ReadScreenPosition());
     }
 
     static public List<RaycastResult> UI(Vector2 position)

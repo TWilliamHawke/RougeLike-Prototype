@@ -1,3 +1,4 @@
+using Core.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ namespace UI.DragAndDrop
     {
         RectTransform _transform;
 
+        [InjectField] IScreenPositionReader _reader;
+
         public void UpdatePosition(Vector2 position)
         {
             _transform.anchoredPosition += position;
@@ -29,7 +32,7 @@ namespace UI.DragAndDrop
         {
             //left top angle
             var shift = new Vector2(-_transform.sizeDelta.x / 2, _transform.sizeDelta.y / 2);
-            return Mouse.current.position.ReadValue() + shift;
+            return _reader.ReadScreenPosition() + shift;
         }
     }
 }

@@ -7,12 +7,13 @@ namespace Core.Input
     public class ClickStateMachine : IInjectionTarget
     {
         [InjectField] InputController _inputController;
-        [InjectField] HoveredTileObserver _hoveredTileObserver;
+        [InjectField] TilesGrid _tilemapController;
+        [InjectField] ScreenPositionReader _screenPositionReader;
 
         IClickActionList _defaultClickActions;
         IClickActionList _currentClickActions;
 
-        bool IInjectionTarget.waitForAllDependencies => false;
+        bool IInjectionTarget.waitForAllDependencies => true;
 
         public ClickStateMachine(IClickActionList defaultClickActions)
         {
@@ -32,25 +33,53 @@ namespace Core.Input
 
         public void Unsubscribe()
         {
-            _inputController.main.Click.started -= CheckTileObjects;
+            _inputController.main.Click.started -= ProcessMouseClick;
+            _inputController.main.Touch.started -= ProcessScreenTouch;
             _currentClickActions.CleanUp();
             _defaultClickActions.CleanUp();
         }
 
         void IInjectionTarget.FinalizeInjection()
         {
-            _inputController.main.Click.started += CheckTileObjects;
+            _inputController.main.Click.started += ProcessMouseClick;
+            _inputController.main.Touch.started += ProcessScreenTouch;
         }
 
-        void CheckTileObjects(InputAction.CallbackContext _)
+        void ProcessScreenTouch(InputAction.CallbackContext _)
         {
-            foreach (var state in _currentClickActions.GetActions())
+            _screenPositionReader.SwitchToTouchReader();
+            ProcessClick();
+        }
+
+        void ProcessMouseClick(InputAction.CallbackContext _)
+        {
+            _screenPositionReader.SwitchToMouseReader();
+            ProcessClick();
+        }
+
+        void ProcessClick()
+        {
+            var screenPosition = _screenPositionReader.ReadScreenPosition();
+            var worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+            var hit = Physics2D.Raycast(worldPosition, Vector2.zero);
+            if (!hit) return;
+            Vector3Int gridPos = hit.point.Toint().AddZ(0);
+
+            if (_tilemapController.TryGetNode(gridPos, out var tile))
             {
-                if (!state.CanBeUsedOnTile(_hoveredTileObserver.hoveredTile)) continue;
-                state.ProcessClick(_hoveredTileObserver.hoveredTile);
-                return;
+                ProcessClick(tile);
             }
         }
 
+        void ProcessClick(TileNode node)
+        {
+            foreach (var state in _currentClickActions.GetActions())
+            {
+                if (!state.CanBeUsedOnTile(node)) continue;
+                state.ProcessClick(node);
+                return;
+            }
+        }
     }
 }

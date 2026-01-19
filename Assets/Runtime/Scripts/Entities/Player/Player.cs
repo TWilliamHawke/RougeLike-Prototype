@@ -27,7 +27,7 @@ namespace Entities.PlayerScripts
         public AudioClip[] deathSounds => _deathSounds;
         public Vector3 position => transform.position;
 
-        public event UnityAction<IStatsController> OnStatsInit;
+        public event UnityAction<IStatStorage> OnStatsInit;
 
         private void Awake()
         {

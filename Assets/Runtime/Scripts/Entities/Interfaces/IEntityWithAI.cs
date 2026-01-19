@@ -13,7 +13,7 @@ namespace Entities
     public interface IEntityWithComponents
     {
         public U GetEntityComponent<U>() where U : IEntityComponent;
-        event UnityAction<IStatsController> OnStatsInit;
+        event UnityAction<IStatStorage> OnStatsInit;
     }
 
     public interface IEntityComponent

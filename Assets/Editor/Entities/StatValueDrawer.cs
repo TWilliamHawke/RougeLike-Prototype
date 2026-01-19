@@ -7,7 +7,7 @@ using Entities.Stats;
 
 namespace CustomEditors
 {
-    [CustomPropertyDrawer(typeof(StatValue))]
+    [CustomPropertyDrawer(typeof(StatValueData))]
     public class StatValueDrawer : SimplePropertyDrawer
     {
     }

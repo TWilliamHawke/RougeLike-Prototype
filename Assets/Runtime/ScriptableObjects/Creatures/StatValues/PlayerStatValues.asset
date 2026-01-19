@@ -15,4 +15,6 @@ MonoBehaviour:
   _statList: {fileID: 11400000, guid: 8b54609446ac8f547b196f2e1705cdde, type: 2}
   _health: 200
   _mana: 100
-  _staticStats: []
+  _staticStats:
+  - stat: {fileID: 11400000, guid: ea09b3b6b13613a46b0f7573a9d10dc0, type: 2}
+    value: 45

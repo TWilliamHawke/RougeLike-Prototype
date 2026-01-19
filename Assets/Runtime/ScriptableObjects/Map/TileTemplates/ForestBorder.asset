@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ForestBorder
   m_EditorClassIdentifier: Project::Map.TileTemplate
   _tile: {fileID: 11400000, guid: 5bb81cbfa73fba947acb6209d9dc0b06, type: 2}
-  _isWalkable: 0
+  _walkability: 1
+  _vision: 1
   _stepSounds: []

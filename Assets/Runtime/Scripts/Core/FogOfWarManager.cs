@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Entities.PlayerScripts;
+using Entities.Stats;
 using Map;
 using UnityEngine;
 
@@ -8,9 +9,10 @@ namespace Core
 {
     public class FogOfWarManager : MonoBehaviour
     {
-        [SerializeField] float _visionRadius = 10f;
         [SerializeField] int _fowPosZ = -2;
         [SerializeField] MeshRenderer _fowPlane;
+        [SerializeField] StaticStat _lineOfSightStat;
+        [SerializeField] PlayerStats _playerStats;
 
         [InjectField] Player _player;
         [InjectField] TilesGrid _tilesGrid;
@@ -21,6 +23,9 @@ namespace Core
         Color32[] _pixels;
         FowStates[,] _fowData;
         int _radiusTex;
+        float _lineOfSightRadius;
+        float _squaredLineOfSightRadius;
+
         Dictionary<FowStates, Color> _fowStateToColor = new()
         {
             { FowStates.Hidden, Color.black },
@@ -34,12 +39,19 @@ namespace Core
             UpdateFow();
         }
 
+        void OnDestroy()
+        {
+            var lineOfSightContainer = _playerStats.FindContainer(_lineOfSightStat);
+            lineOfSightContainer.OnFloatValueChanged -= UpdateLineOfSightRadius;
+        }
+
+        //Used in Unity Editor
         public void CreateTexture()
         {
             if (_player is null || _tilesGrid is null) return;
             _mapSize = Math.Max(_tilesGrid.gridSize.x, _tilesGrid.gridSize.y);
             _textureResolution = _mapSize;
-            _radiusTex = Mathf.CeilToInt(_visionRadius / _mapSize * _textureResolution);
+            _radiusTex = Mathf.CeilToInt(_lineOfSightRadius / _mapSize * _textureResolution);
             _fowTexture = new(_textureResolution, _textureResolution);
             _fowData = new FowStates[_textureResolution, _textureResolution];
             _pixels = new Color32[_textureResolution * _textureResolution];
@@ -56,6 +68,21 @@ namespace Core
             _fowPlane.transform.position = new Vector3(xPos, yPos, _fowPosZ);
             _fowPlane.transform.localScale = new Vector3(_mapSize, _mapSize, 1f);
             _fowPlane.material.mainTexture = _fowTexture;
+        }
+
+        //Used in Unity Editor
+        public void SetLineOfSightRadius()
+        {
+            var _lineOfSightContainer = _playerStats.FindContainer(_lineOfSightStat);
+            UpdateLineOfSightRadius(_lineOfSightContainer.floatValue);
+            _lineOfSightContainer.OnFloatValueChanged += UpdateLineOfSightRadius;
+        }
+
+        private void UpdateLineOfSightRadius(float newValue)
+        {
+            _lineOfSightRadius = newValue - 1f;
+            _squaredLineOfSightRadius = _lineOfSightRadius * _lineOfSightRadius;
+            _radiusTex = Mathf.CeilToInt(_lineOfSightRadius / _mapSize * _textureResolution);
         }
 
         private void UpdateFow()
@@ -86,14 +113,14 @@ namespace Core
             {
                 for (int x = -_radiusTex; x <= _radiusTex; x++)
                 {
-                    int fx = cx + x;
-                    int fy = cy + y;
+                    int fowX = cx + x;
+                    int fowY = cy + y;
 
-                    if (!_fowData.IndexIsInsideBounds(fx, fy)) continue;
+                    if (!_fowData.IndexIsInsideBounds(fowX, fowY)) continue;
 
-                    if (x * x + y * y < _visionRadius * _visionRadius)
+                    if (x * x + y * y < _squaredLineOfSightRadius)
                     {
-                        _fowData[fx, fy] = FowStates.Visible;
+                        _fowData[fowX, fowY] = FowStates.Visible;
                     }
                 }
             }

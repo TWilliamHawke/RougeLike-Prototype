@@ -1,5 +1,6 @@
 using Effects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Entities.Stats
 {
@@ -7,8 +8,13 @@ namespace Entities.Stats
     {
         StaticStat _stat;
 
+        public event UnityAction<float> OnFloatValueChanged;
+
+        public float floatValue => currentValue * _stat.floatValueMod;
+
         public StatContainer(StaticStat stat) : base(stat.minValue, stat.maxValue, stat.defaultValue, stat.bonusesOrder)
         {
+            OnValueChange += TriggerFloatValueEvent;
             _stat = stat;
         }
 
@@ -46,6 +52,11 @@ namespace Entities.Stats
             }
 
             return GetFinalValue();
+        }
+
+        private void TriggerFloatValueEvent(int value)
+        {
+            OnFloatValueChanged?.Invoke(value * _stat.floatValueMod);
         }
 
     }
