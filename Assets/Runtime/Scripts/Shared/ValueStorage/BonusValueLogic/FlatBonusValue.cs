@@ -4,14 +4,14 @@ public class FlatBonusValue : IBonusValueLogic
 
     float _bonusValue = BASE_VALUE;
 
-    public void AddBonusValue(float value)
-    {
-        _bonusValue += value;
-    }
-
     public float ApplyBonus(float value)
     {
         return value + _bonusValue;
+    }
+
+    public void AddBonusValue(float value)
+    {
+        _bonusValue += value;
     }
 
     public void RemoveBonusValue(float value)

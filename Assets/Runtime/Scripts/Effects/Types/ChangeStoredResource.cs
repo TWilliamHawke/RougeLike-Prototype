@@ -28,22 +28,13 @@ namespace Effects
             return Mathf.FloorToInt(updatedValue);
         }
 
-        public override void ApplyEffect(EffectsStorage storage, IEffectSource source, SourceEffectData effectData)
+        public override void ApplyEffect(EffectsStorage storage, IEffectSource source, IStaticEffectData effectData)
         {
-
-            if (effectData.duration > 0)
-            {
-                var updatedEffect = effectData.Clone();
-                storage.AddTemporaryEffect(updatedEffect);
-            }
-            else
-            {
-                var statsStorage = storage.GetComponent<StatsStorage>();
-                int newValue = AdjustValue(storage, statsStorage, effectData.magnitude);
-                if (newValue == 0) return;
-                var container = statsStorage.FindContainer(_targetStat);
-                container.ChangeStat(newValue);
-            }
+            var statsStorage = storage.GetComponent<StatsStorage>();
+            int newValue = AdjustValue(storage, statsStorage, effectData.magnitude);
+            if (newValue == 0) return;
+            var container = statsStorage.FindContainer(_targetStat);
+            container.ChangeStat(newValue);
         }
     }
 }

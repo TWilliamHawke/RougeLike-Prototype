@@ -18,22 +18,16 @@ namespace Effects
         public bool isPositiveValueGood => _isPositiveValueGood;
 
         public virtual IEffectSignature effectType => this;
+        public virtual BonusValueType bonusType => BonusValueType.none;
 
         public virtual bool CanApply(IEffectSource source, IAbilityTarget target)
         {
             return true;
         }
 
-        public virtual void ApplyEffect(EffectsStorage storage, IEffectSource source, SourceEffectData effectData)
+        public virtual void ApplyEffect(EffectsStorage storage, IEffectSource source, IStaticEffectData effectData)
         { 
-            if (effectData.duration > 0)
-            {
-                storage.AddTemporaryEffect(effectData);
-            }
-            else
-            {
-                storage.AddStaticEffect(source, effectData);
-            }
+            storage.AddStaticEffect(source, effectData);
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Abilities;
 using UnityEngine;
 
@@ -10,17 +9,7 @@ namespace Effects
         string description { get; }
         Sprite icon { get; }
         bool isPositiveValueGood { get; }
-        bool CanApply(IEffectSource source, IAbilityTarget target);
-    }
-
-    public interface IEffectWithBonusValue
-    {
         BonusValueType bonusType { get; }
-    }
-
-    public interface IEffectsIterator
-    {
-        IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type);
-        IEnumerable<IStaticEffectData> GetEffects();
+        bool CanApply(IEffectSource source, IAbilityTarget target);
     }
 }

@@ -7,7 +7,7 @@ namespace Magic
     public class ActiveStrings : IEffectsIterator
     {
         StringSlotData[] _activeStrings = new StringSlotData[6];
-        EffectContainer _effectContainer = new();
+        StaticEffectsStorage _effectContainer = new();
 
         public bool StringSlotIsEmpty(int idx)
         {

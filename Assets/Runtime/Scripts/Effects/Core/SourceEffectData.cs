@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text;
 using Abilities;
 
 namespace Effects
@@ -23,7 +22,7 @@ namespace Effects
 
         public IEffectSignature effectType => _effect.effectType;
 
-        public BonusValueType bonusType => _effect is IEffectWithBonusValue e ? e.bonusType : BonusValueType.none;
+        public BonusValueType bonusType => _effect.bonusType;
 
         public SourceEffectData(Effect effect, int power, int duration = 0)
         {
@@ -44,7 +43,20 @@ namespace Effects
 
         public void ApplyEffect(EffectsStorage storage, IEffectSource effectSource)
         {
-            _effect.ApplyEffect(storage, effectSource, this);
+            if (_duration > 0)
+            {
+                var updatedEffect = this.Clone();
+                storage.AddTemporaryEffect(effectSource, updatedEffect);
+            }
+            else if (_duration == 0)
+            {
+                _effect.ApplyEffect(storage, effectSource, this);
+            }
+            else
+            {
+                var updatedEffect = this.Clone();
+                storage.AddStaticEffect(effectSource, updatedEffect);
+            }
         }
 
         public string GetDescription(AbilityModifiers abilityModifiers)

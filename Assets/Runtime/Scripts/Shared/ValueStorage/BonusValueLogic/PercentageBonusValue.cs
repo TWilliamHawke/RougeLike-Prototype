@@ -7,19 +7,19 @@ public class PercentageBonusValue : IBonusValueLogic
 
     float _bonusValue = BASE_VALUE;
 
-    public void AddBonusValue(float value)
-    {
-        _bonusValue = NormalizeValue(_bonusValue + value);
-    }
-
     public float ApplyBonus(float value)
     {
-        return value * (1f + (_bonusValue / 100f));
+        return value * (1f + (NormalizeValue(_bonusValue) / 100f));
+    }
+
+    public void AddBonusValue(float value)
+    {
+        _bonusValue = _bonusValue + value;
     }
 
     public void RemoveBonusValue(float value)
     {
-        _bonusValue = NormalizeValue(_bonusValue - value);
+        _bonusValue = _bonusValue - value;
     }
 
     public void ResetValue()

@@ -10,42 +10,45 @@ namespace Effects
     {
         public event UnityAction OnEffectsUpdate;
 
-        EffectContainer _mainContainer = new();
+        StaticEffectsStorage _staticEffectsStorage = new();
+        TemporaryEffectsStorage _temporaryEffectsStorage = new();
 
-        Dictionary<IEffect, TemporaryEffectData> _temporaryEffects = new();
-        List<TemporaryEffectData> _temporaryEffectsList = new();
+        public IEnumerable<TemporaryEffectData> temporaryEffects => _temporaryEffectsStorage.effectsList;
 
-        public IEnumerable<TemporaryEffectData> temporaryEffects => _temporaryEffectsList;
-
-        public void AddTemporaryEffect(SourceEffectData sourceEffectData)
+        public void AddTemporaryEffect(IEffectSource source, SourceEffectData effectData)
         {
-            if (_temporaryEffects.TryGetValue(sourceEffectData.effect, out var effectData))
-            {
-                effectData.UpdateEffectData(sourceEffectData);
-            }
-            else
-            {
-                var newEffectData = new TemporaryEffectData(sourceEffectData);
-                _temporaryEffects[sourceEffectData.effect] = newEffectData;
-                _temporaryEffectsList.Add(newEffectData);
-            }
-
+            _temporaryEffectsStorage.AddEffect(source, effectData);
             OnEffectsUpdate?.Invoke();
         }
 
-        public void AddStaticEffect(IEffectSource effectSource, SourceEffectData sourceEffectData)
+        public void AddStaticEffect(IEffectSource source, IStaticEffectData effectData)
         {
-            _mainContainer.AddEffect(effectSource, sourceEffectData);
+            _staticEffectsStorage.AddEffect(source, effectData);
+            OnEffectsUpdate?.Invoke();
         }
 
         public IEnumerable<IStaticEffectData> GetEffects(IEffectSignature type)
         {
-            return _mainContainer.GetEffects(type);
+            foreach (var effect in _staticEffectsStorage.GetEffects(type))
+            {
+                yield return effect;
+            }
+            foreach (var effect in _temporaryEffectsStorage.GetEffects(type))
+            {
+                yield return effect;
+            }
         }
 
         public IEnumerable<IStaticEffectData> GetEffects()
         {
-            return _mainContainer.GetEffects();
+            foreach (var effect in _staticEffectsStorage.GetEffects())
+            {
+                yield return effect;
+            }
+            foreach (var effect in _temporaryEffectsStorage.GetEffects())
+            {
+                yield return effect;
+            }
         }
     }
 }

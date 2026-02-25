@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Effects
 {
-	public class TemporaryEffectData
+	public class TemporaryEffectData : IStaticEffectData
 	{
 	    public IEffect effect { get; private set; }
 		public int magnitude { get; private set; }
 		public int remainingDuration { get; private set; }
 
-		public TemporaryEffectData(SourceEffectData sourceEffectData)
+        public IEffectSignature effectType => effect.effectType;
+        public BonusValueType bonusType => effect.bonusType;
+
+        public TemporaryEffectData(SourceEffectData sourceEffectData)
 		{
 			UpdateEffectData(sourceEffectData);
 		}

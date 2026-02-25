@@ -29,7 +29,9 @@ namespace Map.UI
         //used in editor
         public void OpenActionScreen()
         {
-            if (_currentZone is null || _currentZone.actionList.count == 0) return;
+            if (_currentZone is null) return;
+            if (_currentZone.actionList.count == 0) return;
+            if (!_currentZone.currentTask.isDone) return;
             UpdateScreen();
 
             _actionsScreen.Open();
